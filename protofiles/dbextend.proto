@@ -1,19 +1,19 @@
-//option optimize_for = LITE_RUNTIME;			// �Ż��ٶ�
+//option optimize_for = LITE_RUNTIME;			// 优化速度
 
-import "google/protobuf/descriptor.proto";		// ��չ����
+import "google/protobuf/descriptor.proto";		// 扩展数据
 
 package dbextend;
 
 //extend google.protobuf.MessageOptions {
-//  optional bool		update = 60000;			// ���µ����ݿ�
+//  optional bool		update = 60000;			// 更新到数据库
 //}
-// �ֶ���չ��Ϣ
+// 字段扩展信息
 extend google.protobuf.FieldOptions {
-  optional bool		ignore = 80000;				// ���ֶβ��洢�����ݿ�?
-  optional bool		 dirty = 80001;				// �Ƿ����޸�?  
-  optional bool		  date = 80010;				// �Ƿ�������
-  optional bool		  time = 80011;				// �Ƿ���ʱ��
-  optional bool	  datetime = 80013;				// �Ƿ�������ʱ��ֵ?��Ҫ����FROM_UNIXTIME��UNIX_TIMESTAMPת��
-  optional bool	      blob = 80020;				// �Զ�������ʽ�����ݿ��ȡ�ͱ���
-  optional bool	    string = 80030;				// ���ַ�����Ϣ�����ݿ��ȡ�ͱ���(��,�ŷָ�����,;�ŷָ�����)
+  optional bool		ignore = 80000;				// 该字段不存储到数据库?
+  optional bool		 dirty = 80001;				// 是否已修改?
+  optional bool		  date = 80010;				// 是否是日期
+  optional bool		  time = 80011;				// 是否是时间
+  optional bool	  datetime = 80013;				// 是否是日期时间值?需要调用FROM_UNIXTIME和UNIX_TIMESTAMP转换
+  optional bool	      blob = 80020;				// 以二进制形式从数据库读取和保存
+  optional bool	    string = 80030;				// 以字符串信息从数据库读取和保存(用,号分隔数据,;号分隔对象)
 }
