@@ -323,28 +323,22 @@ message device_info{
   optional string		  ip = 40;					// 玩家登陆ip(在服务器上获取)
 }
 
-// 快速登陆请求
-message packet_fast_login_req{
-  optional string			  pay = 1;				// 支付类型
-  required string		  channel = 2;				// 渠道
-  optional bool			reconnect = 3;				// 重连服务器(设备在登陆后恢复重连的话，服务器不发送详细玩家数据给设备)
-  required uint32		  user_id = 4;				// 用户id
-  required string		   ticket = 5;				// 通行证
-
-  optional device_info 	devinfo = 6; 				// 设备信息
-
-
-
-  optional uint32       gdatacrc = 20;				// 客户端游戏数据crc,用于优化数据发送(当客户端md5为0,或者不和服务器上相匹配时才发送)
-  optional uint32       pdatacrc = 21;				// 客户端玩家数据crc,用于优化数据发送(当客户端md5为0,或者不和服务器上相匹配时才发送)
-
-  optional uint32		request_id = 200;			// 请求登陆id
-}
 
 // 自建房回合房卡消耗值
 message round_cost{
 	required uint32			round = 1;
 	required uint32			 card = 2;
+}
+
+//游戏对应房卡消耗
+message game_round_cost{
+	required uint32        casino_id = 1; //游戏Id
+	repeated round_cost       rcosts = 3;// 房卡消耗
+}
+
+message game_room_base{
+	required uint32        casino_id = 1; //游戏Id
+	repeated float		   roombases = 2;	//自建房抵住
 }
 
 // 游戏配置
@@ -366,8 +360,8 @@ message game_config{
   optional uint32	guild_friend_cost = 13[default = 5];	// 公会成员从好友转换房卡消耗
   optional uint32	 guild_close_cost = 14[default = 5];	// 公会关闭房卡消耗
 
-  repeated round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
-  repeated float		roombases = 101;				// 自建房底注
+  repeated game_round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
+  repeated game_room_base   groombases = 101;				//自建房抵住
 
   optional uint32       gdy_endcard = 1000[default = 4];//
   optional uint32       gdy_gangcard = 1001[default = 5];//
@@ -375,7 +369,6 @@ message game_config{
   optional bool		disable_event = 10000[default = false];		// 是否禁用活动
   optional bool		lang_gb = 10001[default = true];			// 是否简体版本
 }
-
 // 公告结构
 message bulletin{
 	required uint32				  id = 1;
@@ -478,6 +471,24 @@ message lottery_data{
 	repeated lottery_log     selflogs = 10;				// 自己的抽取日志
 }
 
+// 快速登陆请求
+message packet_fast_login_req{
+  optional string			  pay = 1;				// 支付类型
+  required string		  channel = 2;				// 渠道
+  optional bool			reconnect = 3;				// 重连服务器(设备在登陆后恢复重连的话，服务器不发送详细玩家数据给设备)
+  required uint32		  user_id = 4;				// 用户id
+  required string		   ticket = 5;				// 通行证
+
+  optional device_info 	devinfo = 6; 				// 设备信息
+
+
+
+  optional uint32       gdatacrc = 20;				// 客户端游戏数据crc,用于优化数据发送(当客户端md5为0,或者不和服务器上相匹配时才发送)
+  optional uint32       pdatacrc = 21;				// 客户端玩家数据crc,用于优化数据发送(当客户端md5为0,或者不和服务器上相匹配时才发送)
+
+  optional uint32		request_id = 200;			// 请求登陆id
+}
+
 // 账号登陆应答
 message packet_fast_login_ack{
 	required uint32				 ret = 1;		// 返回值
@@ -489,7 +500,7 @@ message packet_fast_login_ack{
 
 	optional uint32		   casino_id = 9;		// 游戏id
 	optional string			 unionid = 10;		// 绑定分享标识
-	optional bool		  bind_robot = 11;		// 是否绑定机器人
+	optional bool		  bind_robot = 11[default = false];		// 是否绑定机器人
 
 	optional bytes		       gdata = 20;		// 游戏数据
 	optional game_config	  config = 21;		// 信息配置

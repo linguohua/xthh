@@ -4920,6 +4920,36 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     ]
                 },
                 {
+                    "name": "guild_permission_config",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "disable",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "param",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "desc",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
                     "name": "guild_room",
                     "syntax": "proto2",
                     "fields": [
@@ -5760,6 +5790,12 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "rule": "optional",
                             "type": "uint32",
+                            "name": "mode",
+                            "id": 18
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
                             "name": "cost_type",
                             "id": 30
                         },
@@ -5780,6 +5816,24 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "type": "uint32",
                             "name": "items",
                             "id": 40
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "uint32",
+                            "name": "integral",
+                            "id": 41
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "uint32",
+                            "name": "award",
+                            "id": 46
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "rank_count",
+                            "id": 47
                         },
                         {
                             "rule": "optional",
@@ -5822,6 +5876,15 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "type": "match_open_time",
                             "name": "open_time",
                             "id": 102
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "view_time",
+                            "id": 103,
+                            "options": {
+                                "(dbextend.datetime)": true
+                            }
                         }
                     ]
                 },
@@ -5900,6 +5963,12 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         },
                         {
                             "rule": "repeated",
+                            "type": "uint32",
+                            "name": "modes",
+                            "id": 100
+                        },
+                        {
+                            "rule": "repeated",
                             "type": "match_item",
                             "name": "items",
                             "id": 1000
@@ -5915,6 +5984,12 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "type": "match_status",
                             "name": "status",
                             "id": 1002
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "rank_score_item",
+                            "name": "ranks",
+                            "id": 1005
                         }
                     ]
                 },
@@ -6287,6 +6362,108 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "type": "string",
                             "name": "desc",
                             "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "rank_score_item",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "disable",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "award_type",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "start_award",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "end_award",
+                            "id": 11
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "rank_award_item",
+                            "name": "items",
+                            "id": 20
+                        }
+                    ]
+                },
+                {
+                    "name": "rank_award_item",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "disable",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "type",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "goods",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "goods_count",
+                            "id": 15
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "convert_day",
+                            "id": 17
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "goods_res",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "rank_res",
+                            "id": 25
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "desc",
+                            "id": 30
                         }
                     ]
                 },
@@ -8712,66 +8889,6 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     ]
                 },
                 {
-                    "name": "packet_fast_login_req",
-                    "syntax": "proto2",
-                    "fields": [
-                        {
-                            "rule": "optional",
-                            "type": "string",
-                            "name": "pay",
-                            "id": 1
-                        },
-                        {
-                            "rule": "required",
-                            "type": "string",
-                            "name": "channel",
-                            "id": 2
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "bool",
-                            "name": "reconnect",
-                            "id": 3
-                        },
-                        {
-                            "rule": "required",
-                            "type": "uint32",
-                            "name": "user_id",
-                            "id": 4
-                        },
-                        {
-                            "rule": "required",
-                            "type": "string",
-                            "name": "ticket",
-                            "id": 5
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "device_info",
-                            "name": "devinfo",
-                            "id": 6
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "uint32",
-                            "name": "gdatacrc",
-                            "id": 20
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "uint32",
-                            "name": "pdatacrc",
-                            "id": 21
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "uint32",
-                            "name": "request_id",
-                            "id": 200
-                        }
-                    ]
-                },
-                {
                     "name": "round_cost",
                     "syntax": "proto2",
                     "fields": [
@@ -8785,6 +8902,42 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "rule": "required",
                             "type": "uint32",
                             "name": "card",
+                            "id": 2
+                        }
+                    ]
+                },
+                {
+                    "name": "game_round_cost",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "casino_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "round_cost",
+                            "name": "rcosts",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "game_room_base",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "casino_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "float",
+                            "name": "roombases",
                             "id": 2
                         }
                     ]
@@ -8903,14 +9056,14 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         },
                         {
                             "rule": "repeated",
-                            "type": "round_cost",
+                            "type": "game_round_cost",
                             "name": "roundcosts",
                             "id": 100
                         },
                         {
                             "rule": "repeated",
-                            "type": "float",
-                            "name": "roombases",
+                            "type": "game_room_base",
+                            "name": "groombases",
                             "id": 101
                         },
                         {
@@ -9405,6 +9558,66 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     ]
                 },
                 {
+                    "name": "packet_fast_login_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "pay",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "string",
+                            "name": "channel",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "reconnect",
+                            "id": 3
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "user_id",
+                            "id": 4
+                        },
+                        {
+                            "rule": "required",
+                            "type": "string",
+                            "name": "ticket",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "device_info",
+                            "name": "devinfo",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "gdatacrc",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "pdatacrc",
+                            "id": 21
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "request_id",
+                            "id": 200
+                        }
+                    ]
+                },
+                {
                     "name": "packet_fast_login_ack",
                     "syntax": "proto2",
                     "fields": [
@@ -9460,7 +9673,10 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "rule": "optional",
                             "type": "bool",
                             "name": "bind_robot",
-                            "id": 11
+                            "id": 11,
+                            "options": {
+                                "default": false
+                            }
                         },
                         {
                             "rule": "optional",
@@ -10265,6 +10481,10 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 123
                         },
                         {
+                            "name": "TYPE_PLAYER_AWARDS",
+                            "id": 124
+                        },
+                        {
                             "name": "TYPE_PLAYER_MJ",
                             "id": 130
                         },
@@ -10303,6 +10523,10 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "name": "TYPE_PLAYER_TCMJ",
                             "id": 162
+                        },
+                        {
+                            "name": "TYPE_GUILD_PERMIT",
+                            "id": 163
                         },
                         {
                             "name": "TYPE_LEVEL_PLAYER",
@@ -10369,6 +10593,42 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "name": "RESOURCE_CARD",
                             "id": 10
+                        },
+                        {
+                            "name": "RESOURCE_RANK_SCORE",
+                            "id": 12
+                        },
+                        {
+                            "name": "RESOURCE_TECKET",
+                            "id": 13
+                        }
+                    ]
+                },
+                {
+                    "name": "eMATCHMODE",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "MATCHMODE_RED",
+                            "id": 1
+                        },
+                        {
+                            "name": "MATCHMODE_SCORE",
+                            "id": 2
+                        },
+                        {
+                            "name": "MATCHMODE_ENTITY",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "eGUILDPERMISSION",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "GUILDPERMISSION_OUTTIME",
+                            "id": 1
                         }
                     ]
                 },

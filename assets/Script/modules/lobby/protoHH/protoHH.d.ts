@@ -353,6 +353,7 @@ export namespace proto {
 			TYPE_PLAYER_HELPER = 121,
 			TYPE_PLAYER_LOTTERY = 122,
 			TYPE_PLAYER_ENERGY = 123,
+			TYPE_PLAYER_AWARDS = 124,
 			TYPE_PLAYER_MJ = 130,
 			TYPE_PLAYER_GDY = 150,
 			TYPE_PLAYER_TMHH = 151,
@@ -363,6 +364,7 @@ export namespace proto {
 			TYPE_PLAYER_SSHH = 159,
 			TYPE_PLAYER_MJTL = 160,
 			TYPE_PLAYER_TCMJ = 162,
+			TYPE_GUILD_PERMIT = 163,
 			TYPE_LEVEL_PLAYER = 200,
 			TYPE_LEVEL_VIP = 209,
 			TYPE_RANK_RICH = 610,
@@ -381,6 +383,18 @@ export namespace proto {
 			RESOURCE_RED = 8,
 			RESOURCE_BEANS = 9,
 			RESOURCE_CARD = 10,
+			RESOURCE_RANK_SCORE = 12,
+			RESOURCE_TECKET = 13,
+		}
+
+		enum eMATCHMODE {
+			MATCHMODE_RED = 1,
+			MATCHMODE_SCORE = 2,
+			MATCHMODE_ENTITY = 3,
+		}
+
+		enum eGUILDPERMISSION {
+			GUILDPERMISSION_OUTTIME = 1,
 		}
 
 		enum eDISBAND {
@@ -2309,6 +2323,23 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): guild_request;
 		}
 
+		interface Iguild_permission_config {
+			id?: number;
+			disable?: number;
+			param?: number;
+			desc?: string;
+		}
+
+		class guild_permission_config implements Iguild_permission_config {
+			public id: number;
+			public disable: number;
+			public param: number;
+			public desc: string;
+			constructor(properties?: casino.Iguild_permission_config);
+			public static encode(message: guild_permission_config): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): guild_permission_config;
+		}
+
 		interface Iguild_room {
 			id?: number;
 			guild_id?: number;
@@ -2629,16 +2660,21 @@ export namespace proto {
 			flag?: number;
 			level?: number;
 			promotion?: number;
+			mode?: number;
 			cost_type?: number;
 			cost_param?: number;
 			week_loop?: number[];
 			items?: number[];
+			integral?: number[];
+			award?: number[];
+			rank_count?: number;
 			same_max?: number;
 			day_max?: number;
 			task_id?: number;
 			start_time?: Long;
 			end_time?: Long;
 			open_time?: casino.Imatch_open_time[];
+			view_time?: Long;
 		}
 
 		class match_room implements Imatch_room {
@@ -2654,16 +2690,21 @@ export namespace proto {
 			public flag: number;
 			public level: number;
 			public promotion: number;
+			public mode: number;
 			public cost_type: number;
 			public cost_param: number;
 			public week_loop: number[];
 			public items: number[];
+			public integral: number[];
+			public award: number[];
+			public rank_count: number;
 			public same_max: number;
 			public day_max: number;
 			public task_id: number;
 			public start_time: Long;
 			public end_time: Long;
 			public open_time: casino.Imatch_open_time[];
+			public view_time: Long;
 			constructor(properties?: casino.Imatch_room);
 			public static encode(message: match_room): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): match_room;
@@ -2694,9 +2735,11 @@ export namespace proto {
 			match_channel?: string;
 			match_share?: number;
 			match_bot_time?: number;
+			modes?: number[];
 			items?: casino.Imatch_item[];
 			rooms?: casino.Imatch_room[];
 			status?: casino.Imatch_status[];
+			ranks?: casino.Irank_score_item[];
 		}
 
 		class match_data implements Imatch_data {
@@ -2705,9 +2748,11 @@ export namespace proto {
 			public match_channel: string;
 			public match_share: number;
 			public match_bot_time: number;
+			public modes: number[];
 			public items: casino.Imatch_item[];
 			public rooms: casino.Imatch_room[];
 			public status: casino.Imatch_status[];
+			public ranks: casino.Irank_score_item[];
 			constructor(properties?: casino.Imatch_data);
 			public static encode(message: match_data): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): match_data;
@@ -2877,6 +2922,54 @@ export namespace proto {
 			constructor(properties?: casino.Ienergy_turnable_item);
 			public static encode(message: energy_turnable_item): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): energy_turnable_item;
+		}
+
+		interface Irank_score_item {
+			id?: number;
+			disable?: number;
+			award_type?: number;
+			start_award?: number;
+			end_award?: number;
+			items?: casino.Irank_award_item[];
+		}
+
+		class rank_score_item implements Irank_score_item {
+			public id: number;
+			public disable: number;
+			public award_type: number;
+			public start_award: number;
+			public end_award: number;
+			public items: casino.Irank_award_item[];
+			constructor(properties?: casino.Irank_score_item);
+			public static encode(message: rank_score_item): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): rank_score_item;
+		}
+
+		interface Irank_award_item {
+			id?: number;
+			disable?: number;
+			type?: number;
+			goods?: string;
+			goods_count?: number;
+			convert_day?: number;
+			goods_res?: string;
+			rank_res?: string;
+			desc?: string;
+		}
+
+		class rank_award_item implements Irank_award_item {
+			public id: number;
+			public disable: number;
+			public type: number;
+			public goods: string;
+			public goods_count: number;
+			public convert_day: number;
+			public goods_res: string;
+			public rank_res: string;
+			public desc: string;
+			constructor(properties?: casino.Irank_award_item);
+			public static encode(message: rank_award_item): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): rank_award_item;
 		}
 
 		interface Iplayer_pay {
@@ -3830,33 +3923,6 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): device_info;
 		}
 
-		interface Ipacket_fast_login_req {
-			pay?: string;
-			channel: string;
-			reconnect?: boolean;
-			user_id: number;
-			ticket: string;
-			devinfo?: casino.Idevice_info;
-			gdatacrc?: number;
-			pdatacrc?: number;
-			request_id?: number;
-		}
-
-		class packet_fast_login_req implements Ipacket_fast_login_req {
-			public pay: string;
-			public channel: string;
-			public reconnect: boolean;
-			public user_id: number;
-			public ticket: string;
-			public devinfo: casino.Idevice_info;
-			public gdatacrc: number;
-			public pdatacrc: number;
-			public request_id: number;
-			constructor(properties?: casino.Ipacket_fast_login_req);
-			public static encode(message: packet_fast_login_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_fast_login_req;
-		}
-
 		interface Iround_cost {
 			round: number;
 			card: number;
@@ -3868,6 +3934,32 @@ export namespace proto {
 			constructor(properties?: casino.Iround_cost);
 			public static encode(message: round_cost): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): round_cost;
+		}
+
+		interface Igame_round_cost {
+			casino_id: number;
+			rcosts?: casino.Iround_cost[];
+		}
+
+		class game_round_cost implements Igame_round_cost {
+			public casino_id: number;
+			public rcosts: casino.Iround_cost[];
+			constructor(properties?: casino.Igame_round_cost);
+			public static encode(message: game_round_cost): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): game_round_cost;
+		}
+
+		interface Igame_room_base {
+			casino_id: number;
+			roombases?: number[];
+		}
+
+		class game_room_base implements Igame_room_base {
+			public casino_id: number;
+			public roombases: number[];
+			constructor(properties?: casino.Igame_room_base);
+			public static encode(message: game_room_base): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): game_room_base;
 		}
 
 		interface Igame_config {
@@ -3883,8 +3975,8 @@ export namespace proto {
 			guild_viplevel?: number;
 			guild_friend_cost?: number;
 			guild_close_cost?: number;
-			roundcosts?: casino.Iround_cost[];
-			roombases?: number[];
+			roundcosts?: casino.Igame_round_cost[];
+			groombases?: casino.Igame_room_base[];
 			gdy_endcard?: number;
 			gdy_gangcard?: number;
 			disable_event?: boolean;
@@ -3904,8 +3996,8 @@ export namespace proto {
 			public guild_viplevel: number;
 			public guild_friend_cost: number;
 			public guild_close_cost: number;
-			public roundcosts: casino.Iround_cost[];
-			public roombases: number[];
+			public roundcosts: casino.Igame_round_cost[];
+			public groombases: casino.Igame_room_base[];
 			public gdy_endcard: number;
 			public gdy_gangcard: number;
 			public disable_event: boolean;
@@ -4139,6 +4231,33 @@ export namespace proto {
 			constructor(properties?: casino.Ilottery_data);
 			public static encode(message: lottery_data): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): lottery_data;
+		}
+
+		interface Ipacket_fast_login_req {
+			pay?: string;
+			channel: string;
+			reconnect?: boolean;
+			user_id: number;
+			ticket: string;
+			devinfo?: casino.Idevice_info;
+			gdatacrc?: number;
+			pdatacrc?: number;
+			request_id?: number;
+		}
+
+		class packet_fast_login_req implements Ipacket_fast_login_req {
+			public pay: string;
+			public channel: string;
+			public reconnect: boolean;
+			public user_id: number;
+			public ticket: string;
+			public devinfo: casino.Idevice_info;
+			public gdatacrc: number;
+			public pdatacrc: number;
+			public request_id: number;
+			constructor(properties?: casino.Ipacket_fast_login_req);
+			public static encode(message: packet_fast_login_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_fast_login_req;
 		}
 
 		interface Ipacket_fast_login_ack {

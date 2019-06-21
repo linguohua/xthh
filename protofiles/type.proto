@@ -49,6 +49,7 @@ enum eTYPE{
 	TYPE_PLAYER_HELPER			= 121;	// 玩家低保
 	TYPE_PLAYER_LOTTERY			= 122;	// 玩家抽取
 	TYPE_PLAYER_ENERGY			= 123;	// 玩家能量转盘
+	TYPE_PLAYER_AWARDS			= 124;	//玩家奖品兑换
 	TYPE_PLAYER_MJ				= 130;	// 玩家麻将游戏数据
 	TYPE_PLAYER_GDY				= 150;	// 干瞪眼数据
 	TYPE_PLAYER_TMHH			= 151;	// 天门晃晃数据
@@ -59,6 +60,7 @@ enum eTYPE{
 	TYPE_PLAYER_SSHH			= 159;	// 石首晃晃数据
 	TYPE_PLAYER_MJTL			= 160;	// 铜陵游戏数据
 	TYPE_PLAYER_TCMJ			= 162;	// 通城麻将数据
+	TYPE_GUILD_PERMIT           = 163;	//工会权限
 	TYPE_LEVEL_PLAYER			= 200;	// 玩家等级
 	TYPE_LEVEL_VIP				= 209;	// VIP等级
 
@@ -97,6 +99,21 @@ enum eRESOURCE{
 	RESOURCE_RED					= 8;	// 微信红包(单位:分)	
 	RESOURCE_BEANS					= 9;	// 欢乐豆
 	RESOURCE_CARD					= 10;	// 房卡
+	RESOURCE_RANK_SCORE				= 12;	// 排名积分
+	RESOURCE_TECKET					= 13;	//兑换券
+}
+
+//比赛场模式
+enum eMATCHMODE{
+	MATCHMODE_RED				=1; //红包模式
+	MATCHMODE_SCORE				=2; //积分模式
+	MATCHMODE_ENTITY			=3;	//实物模式
+}
+
+//工会权限
+
+enum eGUILDPERMISSION{
+	GUILDPERMISSION_OUTTIME    = 1; //超时某时间可以解散
 }
 
 // 资源
@@ -1115,6 +1132,13 @@ message guild_request{
 	optional uint64	      request_time = 100;		// 请求时间
 }
 
+message guild_permission_config {
+	optional uint32                id  = 1;        // 唯一ID 
+	optional uint32            disable = 2;        //权限开启 0 关闭 1
+	optional uint32				param  = 5;		  // 权限参数
+	optional string				 desc  = 10;	  // 权限描述	
+}
+
 message guild_room{
 	optional uint32		  			id = 1;			// 房间配置id
 	optional uint32			  guild_id = 2;			// 公会id
@@ -1290,7 +1314,7 @@ message match_room{
 	optional uint32		  			id = 1;			// 房间配置id
 	optional uint32			   disable = 2;			// 是否禁用
 	optional string				  name = 3;
-	optional string				  desc = 4;
+	optional string				  desc = 4;			//冠名商名称
 	optional string				   res = 5;
 
 	optional uint32			 casino_id = 10;		// 游戏id
@@ -1301,6 +1325,7 @@ message match_room{
 	optional uint32				  flag = 15;		// 标记
 	optional uint32			     level = 16;		// 比赛场关数
 	optional uint32			 promotion = 17;		// 比赛场单关晋级人数
+	optional uint32				  mode = 18;		//比赛场模式区分 红包：1  积分：2  实物：3
 
 	optional uint32			 cost_type = 30;		// 报名扣除资源类型
 	optional uint32			cost_param = 31;		// 报名扣除资源数量
@@ -1308,6 +1333,9 @@ message match_room{
 	repeated uint32			 week_loop = 32;		// 周期循环，只能按照周循环
 
 	repeated uint32				 items = 40;		// 奖励对象信息(0:为失败玩家奖励,1为1个人奖励,2为2个人奖励,3为3个人奖励,4为4个人奖励,5为5个人奖励)
+	repeated uint32			  integral = 41;		// 积分奖励对象 (0:为失败玩家奖励,1为1个人奖励,2为2个人奖励,3为3个人奖励,4为4个人奖励)
+	repeated uint32				 award = 46;		//积分赛奖励配置
+	optional uint32			rank_count = 47;		//排行版数量
 	optional uint32			  same_max = 50;		// 同时开启最大数
 	optional uint32			   day_max = 51;		// 每人每日参加最大次数(0:为无限制)
 	optional uint32			   task_id = 52;		// 绑定的任务ID
@@ -1315,6 +1343,7 @@ message match_room{
 	optional uint64		    start_time = 100[(dbextend.datetime) = true];	// 创建时间
 	optional uint64		      end_time = 101[(dbextend.datetime) = true];	// 结束时间
 	repeated match_open_time open_time = 102;		// 比赛场开放时间段
+	optional uint64          view_time = 103[(dbextend.datetime) = true];	//排行榜显示
 }
 
 message match_item{
@@ -1332,9 +1361,11 @@ message match_data{
 	optional string		   match_channel = 3;			// 参赛渠道
 	optional uint32			 match_share = 4[default = 1];			// 分享方式(1为分享好友，2为分享朋友圈)
 	optional uint32		  match_bot_time = 5;			// 比赛场加入机器人的等待时间
+	repeated uint32				  modes  = 100;         //记录所有的模式数据
     repeated match_item			  items  = 1000;		// 掉落对象
 	repeated match_room			  rooms  = 1001;		// 比赛房间
 	repeated match_status		  status = 1002;		// 
+	repeated rank_score_item       ranks = 1005;		//排名配置
 }
 
 message card_test{
@@ -1410,3 +1441,25 @@ message energy_turnable_item {
 	optional string		res_path = 9;	// 物品资源路径
 	optional string		desc = 10;		// 物品描述
 }
+
+message rank_score_item {
+	optional uint32             id = 1;          //唯一ID
+	optional uint32        disable = 2;          // 状态	1:关闭 0:开启
+	optional uint32     award_type = 5;          //奖励类型 1:排名 2:积分
+	optional uint32    start_award = 10;         //奖励开始
+	optional uint32      end_award = 11;         //奖励结束
+	repeated rank_award_item items = 20;         //奖励物品
+}
+
+message rank_award_item {
+	optional uint32            id = 1;         //唯一ID
+	optional uint32       disable = 2;          // 状态	1:关闭 0:开启
+	optional uint32          type = 5;          //物品类型
+	optional string         goods = 10;         // 物品名称
+	optional uint32   goods_count = 15;			//奖励数量
+	optional uint32   convert_day = 17;			//有效期天数
+	optional string		goods_res = 20;			//物品资源
+	optional string      rank_res = 25;			//排行资源
+	optional string          desc = 30;			//物品描述
+}
+
