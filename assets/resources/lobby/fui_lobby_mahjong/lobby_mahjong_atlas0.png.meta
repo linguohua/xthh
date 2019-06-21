@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.0",
+  "uuid": "30d20107-efc9-4d26-92dc-bdca79f7e770",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "lobby_mahjong_atlas0": {
+      "ver": "1.0.4",
+      "uuid": "5aeced27-797e-4546-a2fa-cabfecc706d0",
+      "rawTextureUuid": "30d20107-efc9-4d26-92dc-bdca79f7e770",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -151,
+      "offsetY": 8,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 722,
+      "height": 496,
+      "rawWidth": 1024,
+      "rawHeight": 512,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

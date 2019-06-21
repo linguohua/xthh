@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.0",
+  "uuid": "acaa4f62-ab3f-4558-8031-dec079d6621c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "lobby_game_record_atlas0": {
+      "ver": "1.0.4",
+      "uuid": "f64d05b6-206c-448a-88e3-92cd76d87b6a",
+      "rawTextureUuid": "acaa4f62-ab3f-4558-8031-dec079d6621c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -9.5,
+      "offsetY": 2,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 493,
+      "height": 252,
+      "rawWidth": 512,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

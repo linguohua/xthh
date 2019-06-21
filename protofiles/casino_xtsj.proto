@@ -1,0 +1,183 @@
+//option optimize_for = LITE_RUNTIME;				// 优化速度
+//option optimize_for = SPEED;
+option optimize_for = CODE_SIZE;					// 优化大小
+package casino_xtsj;
+
+// 仙桃三只脚游戏状态
+enum eXTSJ_STATUS{
+	XTSJ_STATUS_STOP					= 0;	// 停止游戏状态
+	XTSJ_STATUS_DEAL					= 1;	// 发牌状态
+	XTSJ_STATUS_OUTCARD				= 2;	// 玩家出牌阶段
+	XTSJ_STATUS_OP					= 3;	// 玩家操作阶段
+	XTSJ_STATUS_HUPAI				= 4;	// 玩家胡牌阶段
+	XTSJ_STATUS_ENDCARD				= 5;	// 最后4张牌朝天
+	XTSJ_STATUS_SCORE				= 10;	// 积分状态
+}
+
+enum eXTSJ_MSG_TYPE{
+	XTSJ_MSG_SC_STARTPLAY			= 13202;	// 开始游戏	
+	XTSJ_MSG_SC_SCORE				= 13210;	// 积分状态	
+	XTSJ_MSG_SC_DRAWCARD			= 13211;	// 玩家摸牌(服务器发往客户端)
+	XTSJ_MSG_SC_ENDCARD				= 13215;	// 朝天
+	XTSJ_MSG_CS_OUTCARD_REQ			= 13220; // 玩家发送出牌命令	
+	XTSJ_MSG_SC_OUTCARD_ACK			= 13221;	// 玩家出牌应答
+
+	XTSJ_MSG_SC_OP					= 13230;	// 服务器询问玩家操作
+	XTSJ_MSG_CS_OP_REQ				= 13231;	// 玩家操作应答
+	XTSJ_MSG_SC_OP_ACK				= 13232;	// 玩家操作结果
+
+	XTSJ_MSG_CS_CANCELCARD_REQ		= 13235;	// 玩家不杠某张牌请求
+
+
+	XTSJ_MSG_SC_RECONNECT			= 13250;	// 玩家重连后发送等待操作
+}
+
+enum eXTSJ_OP_TYPE{
+	XTSJ_OP_TYPE_DIANXIAO			= 1;	// 点笑	
+	XTSJ_OP_TYPE_HUITOUXIAO			= 2;	// 回头笑	
+	XTSJ_OP_TYPE_MENGXIAO			= 3;	// 闷笑		
+
+	XTSJ_OP_TYPE_FANGXIAO			= 9;	// 放笑
+	XTSJ_OP_TYPE_PIAOLAIZI			= 10;	// 飘癞子
+
+	XTSJ_OP_TYPE_ZHUOCHONG			= 20;	// 捉铳(无赖子)
+	XTSJ_OP_TYPE_QIANGXIAO			= 21;	// 抢笑
+	XTSJ_OP_TYPE_XIAOHOUCHONG		= 22;	// 笑后铳
+	XTSJ_OP_TYPE_BEIQIANGXIAO		= 23;	// 被抢笑(只做统计)
+
+	XTSJ_OP_TYPE_FANGCHONG			= 30;	// 放铳
+	XTSJ_OP_TYPE_RECHONG				= 31;	// 热铳
+
+	XTSJ_OP_TYPE_HEIMO				= 40;	// 黑摸
+	XTSJ_OP_TYPE_RUANMO				= 41;	// 软摸
+
+	XTSJ_OP_TYPE_HEIMOX2				= 50;	// 黑摸x2
+	XTSJ_OP_TYPE_RUANMOX2			= 51;	// 软摸x2
+
+	XTSJ_OP_TYPE_FANGCHAOTIAN		= 100;	// 放朝天
+	XTSJ_OP_TYPE_XIAOCHAOTIAN		= 101;	// 小朝天(点笑) (XTSJ_OP_TYPE_FANGCHAOTIAN)
+	XTSJ_OP_TYPE_DACHAOTIAN			= 102;	// 大朝天(闷笑)
+
+}
+// 玩家骰子
+message player_dice{
+	required uint32			player_id = 1;
+	repeated int32				dices = 10;
+}
+
+// 开始玩(发牌)
+message packet_sc_start_play{
+	required uint32				 time = 1;		// 动画播放时间(10秒,所有没加分玩家同时使用改时间)
+	optional uint32		   	  player_id = 2;	// 玩家id(接受玩家id)
+	optional int32			   fanpai = 4;		// 翻牌
+	optional int32			    laizi = 5;		// 癞子牌
+	optional uint64		 table_id = 6;				// 桌子id
+	required int32		      lord_id = 10;		// 庄家id
+	repeated int32		        cards = 20;		// 卡牌
+	repeated player_dice	    dices = 100;	// 玩家摇出的筛子
+}
+
+// 玩家摸牌打牌
+message packet_sc_drawcard{
+	required uint32				   time = 1;	// 时间(10秒)
+	required uint32		   	  player_id = 2;	// 玩家id
+
+	optional int32				   card = 3;	// 摸到的牌（别人摸到的牌永远是-1,0标示）
+}
+
+// 玩家朝天打牌
+message packet_sc_endcard{
+	required uint32				   time = 1;	// 时间(3秒)
+	required uint32		   	  player_id = 2;	// 玩家id
+	optional int32				   card = 3;	// 摸到的牌（别人摸到的牌永远是-1,0标示）
+	optional uint64			   table_id = 6;				// 桌子id
+	optional bool				  hupai = 10;	// 是否胡牌
+}
+
+message player_score{
+	required uint32			  player_id = 1;	
+	optional uint64			    table_id = 6;				// 桌子id
+	optional float			   score_add = 10;
+	optional float			   score_cur = 11;
+	optional float			 score_total = 12;
+}
+
+// 玩家打牌获得积分
+message packet_sc_score{
+	required uint32			 player_id = 2;		// 玩家id
+	optional int32				  type = 5;		// 类型
+	optional uint64			  table_id = 6;				// 桌子id
+	repeated player_score		scores = 10;	// 牌组
+}
+
+// 玩家出牌
+message packet_cs_outcard_req{
+	optional uint32		    player_id = 2;		// 玩家id
+	optional int32				 card = 3;		// 打出的牌
+} 
+
+message packet_sc_outcard_ack{	
+	required uint32		   	player_id = 2;		// 玩家id
+	optional int32				 card = 3;		// 打出的牌
+	optional uint64			 table_id = 6;				// 桌子id
+} 
+
+// 玩家操作询问(杠，碰，胡?)
+message packet_sc_op{
+	required uint32				 time = 1;		// 持续时间
+	required uint32		   	player_id = 2;		// 玩家id
+	optional uint32			target_id = 5;		// 操作对象玩家
+	optional uint64		     table_id = 6;				// 桌子id
+	optional int32				 card = 10;		// 要操作的牌
+} 
+
+// 玩家操作反馈
+message packet_cs_op_req{
+	optional uint32		    player_id = 2;		// 玩家id
+	optional int32				   op = 3;		// 操作
+	optional int32		  cancel_type = 7[default = -1];	// 取消类型
+} 
+
+message packet_sc_op_ack{	
+	required uint32		   	player_id = 2;		// 玩家出牌
+	optional int32				   op = 3;		// 操作
+	optional int32				 type = 4;		// 操作子类型
+	optional uint32			target_id = 5;		// 操作对象玩家
+	optional uint64			 table_id = 6;		// 桌子id
+	optional int32		  cancel_type = 7[default = -1];	// 取消类型
+	repeated int32			    cards = 10;		// 打出的卡牌
+} 
+
+// 玩家取消牌杠
+message packet_cs_cancelcard_req{
+	required int32				 card = 2;		// 要取消杠的牌
+	optional uint32		    player_id = 3;		// 玩家id
+	optional uint32				 type = 4;		// 取消类型0:取消杠牌,1取消碰牌，2碰杠都取消
+}
+
+
+// 玩家重连后发送等待操作
+message packet_sc_reconnect{
+	required uint32				status = 1;		// 当前状态
+	required uint32				  time = 2;		// 时间(重新开始时间)
+	required uint32		     player_id = 3;		// 玩家id
+	optional uint32			 target_id = 5;		// 操作对象玩家
+	optional int32				  card = 10;	// 摸到的牌（别人摸到的牌永远是-1,0标示）
+	optional bool			  pailaizi = 20;	// 是否飘过赖子
+	optional uint32					op = 30;	// 之前的老操作
+}
+
+message xtsj_gang_score{
+	required uint32		     player_id = 1;		// 玩家id
+	optional float			     score = 10;	// 积分
+}
+
+message xtsj_gang_group{
+	repeated xtsj_gang_score		scores = 1;
+}
+
+message xtsj_gang{
+	required uint32		       gang_id = 1;
+	repeated xtsj_gang_group		groups = 2;
+}
+

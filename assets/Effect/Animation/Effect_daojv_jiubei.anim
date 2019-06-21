@@ -1,0 +1,267 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Effect_daojv_jiubei",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2.066666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "bei": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": -1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.25,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": -2,
+                "y": 2
+              }
+            },
+            {
+              "frame": 0.4166666666666667,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": -1.2,
+                "y": 1.2
+              }
+            },
+            {
+              "frame": 0.7666666666666667,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": -1.2,
+                "y": 1.2
+              }
+            },
+            {
+              "frame": 0.85,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": -1,
+                "y": 1
+              }
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                -40,
+                0
+              ]
+            },
+            {
+              "frame": 0.6,
+              "value": [
+                -50,
+                0
+              ]
+            },
+            {
+              "frame": 0.7666666666666667,
+              "value": [
+                -18,
+                0
+              ]
+            },
+            {
+              "frame": 0.85,
+              "value": [
+                -35,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.5166666666666666,
+              "value": 255
+            },
+            {
+              "frame": 2.066666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "bei1": {
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            },
+            {
+              "frame": 0.25,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 2,
+                "y": 2
+              }
+            },
+            {
+              "frame": 0.4166666666666667,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1.2,
+                "y": 1.2
+              }
+            },
+            {
+              "frame": 0.7666666666666667,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1.2,
+                "y": 1.2
+              }
+            },
+            {
+              "frame": 0.85,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 1,
+                "y": 1
+              }
+            }
+          ],
+          "position": [
+            {
+              "frame": 0,
+              "value": [
+                40,
+                0
+              ]
+            },
+            {
+              "frame": 0.6,
+              "value": [
+                50,
+                0
+              ]
+            },
+            {
+              "frame": 0.7666666666666667,
+              "value": [
+                18,
+                0
+              ]
+            },
+            {
+              "frame": 0.85,
+              "value": [
+                35,
+                0
+              ]
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.5166666666666666,
+              "value": 255
+            },
+            {
+              "frame": 2.066666666666667,
+              "value": 0
+            }
+          ]
+        }
+      },
+      "qipao": {
+        "props": {
+          "active": [
+            {
+              "frame": 0.75,
+              "value": false
+            },
+            {
+              "frame": 0.7666666666666667,
+              "value": true
+            }
+          ]
+        }
+      },
+      "qipaol": {
+        "props": {
+          "active": [
+            {
+              "frame": 1.1333333333333333,
+              "value": false
+            },
+            {
+              "frame": 1.15,
+              "value": true
+            }
+          ]
+        }
+      },
+      "qipaoll": {
+        "props": {
+          "active": [
+            {
+              "frame": 1.1333333333333333,
+              "value": false
+            },
+            {
+              "frame": 1.15,
+              "value": true
+            }
+          ]
+        }
+      },
+      "pao": {
+        "props": {
+          "active": [
+            {
+              "frame": 0.75,
+              "value": false
+            },
+            {
+              "frame": 0.7666666666666667,
+              "value": true
+            }
+          ]
+        }
+      },
+      "xingxing": {
+        "props": {
+          "active": [
+            {
+              "frame": 0.48333333333333334,
+              "value": false
+            },
+            {
+              "frame": 0.5,
+              "value": true
+            }
+          ],
+          "opacity": [
+            {
+              "frame": 1.4,
+              "value": 255
+            },
+            {
+              "frame": 1.85,
+              "value": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

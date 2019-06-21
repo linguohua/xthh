@@ -1,0 +1,549 @@
+//option optimize_for = LITE_RUNTIME;				// 优化速度
+//option optimize_for = SPEED;
+option optimize_for = CODE_SIZE;					// 优化大小
+package casino;
+
+import "dbextend.proto";							// 扩展数据
+import "type.proto";
+
+
+// 玩家充值
+message player_pay{
+	required uint64				 id = 1; 		// 唯一id
+
+	optional uint32			 pay_id = 3; 		// 充值id
+
+	optional uint64		    timeout = 4[(dbextend.datetime) = true];	// 到期时间`
+	optional uint32			    tag = 5; 		// 标识(统计)
+
+	optional uint32		order_total = 10;		// 订单请求总数
+	optional uint32		order_today = 11;		// 今日订单请求总数
+	optional uint32		 order_week = 12;		// 本周订单请求总数
+	optional uint32		order_month = 13;		// 本月订单请求总数
+	optional uint64	     order_time = 19[(dbextend.datetime) = true];	// 订单时间
+
+	optional uint32		  pay_total = 20;		// 充值总次数
+	optional uint32		  pay_today = 21;		// 今日充值次数
+	optional uint32		   pay_week = 22;		// 本周充值次数
+	optional uint32		  pay_month = 23;		// 本月充值次数
+	optional uint64	       pay_time = 29[(dbextend.datetime) = true];	// 充值时间
+
+	optional float		 cash_total = 30;		// 充值总金额
+	optional float		 cash_today = 31;		// 今日充值金额
+	optional float		  cash_week = 32;		// 本周充值金额
+	optional float		 cash_month = 33;		// 本月充值金额
+
+	optional uint64	    create_time = 100[(dbextend.datetime) = true];	// 创建时间
+}
+
+message player_min {
+	optional uint32				 id  = 1;							 // 玩家id
+	optional string			nickname = 2;							 // 玩家昵称
+	optional string			   phone = 3;							 // 电话
+	optional string				face = 4;							 // 图片
+	optional uint32				 sex = 5;							 // 性别
+	optional uint32			  avatar = 6;							 // 头像
+	optional uint32			guild_id = 8;							 // 公会id
+	optional bool				 bot = 9;							 // 是否机器人
+	optional bool			  online = 10;							 // 是否在线
+	optional uint64			table_id = 20;							 // 桌子
+	optional uint32	     leave_guild = 21;							 // 离开工会的次数，包括被会长踢出的次数
+
+	optional uint64			login_time = 100[(dbextend.datetime) = true];// 最后登录时间
+
+	optional player_mj		 data_mj = 150;							// 麻将游戏数据
+
+	optional player_gdy		 data_gdy = 200;						   // 干瞪眼数据
+	optional player_tmhh	 data_tmhh = 201;						   // 干门晃晃数据
+	optional player_qjhh	 data_qjhh = 202;						   // 潜江晃晃数据
+	optional player_tmyh	 data_tmyh = 205;						   // 干门硬晃数据
+	optional player_hhyx	 data_hhyx = 206;						   // 洪湖游戏数据
+	optional player_hcyx	 data_hcyx = 208;						   // 汉川游戏数据
+	optional player_sshh	 data_sshh = 209;						   // 石首晃晃数据
+	optional player_mjtl	 data_mjtl = 210;						   // 铜陵游戏数据
+
+	optional string		        channel_head = 500;		// 渠道头像地址(如果没有使用默认avatar头像)
+	optional string		    channel_nickname = 501;		// 渠道昵称
+	optional string		        channel = 510;			// 渠道
+	optional coordinate		coord = 2001;				// 坐标
+}
+
+// 玩家排名
+message player_rank {
+
+  required uint32				id  = 1;				// 唯一id
+  optional string		   nickname = 2; 				// 昵称
+  optional uint32			   rank = 5; 				// 排名
+  optional uint64			  param = 10; 				// 参数
+
+  optional string	   channel_head = 500;				// 渠道头像地址(如果没有使用默认avatar头像)
+  optional string  channel_nickname = 501;				// 渠道昵称
+}
+
+// 玩家
+message player {
+
+  required uint32				id  = 1;				// 唯一id
+  optional string		   nickname = 2; 				// 昵称
+  optional string	   device_token = 3;				//
+  optional string			  phone = 4;				// 电话
+  optional uint32				sex = 5;				// 性别
+  optional string		invite_code	= 6;				// 好友邀请码(创建玩家时生成)
+  optional uint32			 avatar = 7;				// 头像
+  required uint64		    user_id = 8; 				// 帐号id
+  required uint32		  server_id = 9; 				// 服务器id
+
+  optional uint32			  level = 10 [default = 0];	// 等级
+  optional uint32				exp = 11;				// 经验
+
+  optional uint32		  vip_level = 15 [default = 0];	// vip等级
+  optional uint32			vip_exp = 16;				// vip经验
+
+  optional uint32				vip = 17;               // VIP充值VIP登记
+
+  optional bool					bot = 30;				// 机器人?
+
+  optional uint32		 quit_total = 35;				// 退出次数
+  optional uint32		  quit_time = 36;				// 退出时间(秒)
+
+  optional uint32		leave_guild = 37;			    // 离开工会次数
+
+  optional string			channel = 50;				// 渠道
+
+  optional uint32		  total_day = 190;				// 累计登录天数
+  optional uint32		   cont_day = 191;				// 连续登陆天数
+
+  optional uint32		 total_time = 200;				// 累计游戏时间(秒)
+  optional uint32		 today_time = 201;				// 今天游戏时间(秒)
+
+  optional uint64		create_time = 210[(dbextend.datetime) = true]; // 创建时间
+  optional string		  create_ip = 211;
+  optional string	     create_mac = 212;
+  optional string	    create_idfv = 213;
+  optional string	    create_idfa = 214;
+  optional string	create_openudid = 215;
+
+  optional uint64	   connect_time = 220[(dbextend.datetime) = true]; // 最后连接时间
+  optional string	     connect_ip = 221;
+  optional string	    connect_mac = 222;
+  optional string	   connect_idfv = 223;
+  optional string	   connect_idfa = 224;
+  optional string  connect_openudid = 225;
+
+  optional uint64	disconnect_time = 229[(dbextend.datetime) = true]; // 断开连接时间
+
+  optional uint32	 connect_total	= 230;
+  optional uint32	 connect_today	= 231;
+  optional uint32	 connect_week	= 232;
+  optional uint32	 connect_month	= 233;
+
+  optional uint64		   ban_time = 500[(dbextend.datetime) = true]; // 玩家屏蔽到期时间
+
+}
+
+// 玩家道具(商城出售，或者任务奖励)
+message player_item {
+	required uint64			id  = 1; 			    // 唯一id
+	required uint32	   item_id  = 2; 			    // 道具id
+
+	optional uint32		 amount = 10;				// 数量
+
+	optional uint32	 gain_total = 31; 								// 获得总数
+	optional uint32	 gain_today = 32; 								// 今日获得总数
+	optional uint64	 gain_time  = 39[(dbextend.datetime) = true]; 	// 最后获得时间
+
+	optional uint32	  use_total = 41; 								// 使用总数
+	optional uint32	  use_today = 42; 								// 今日使用数
+	optional uint64	  use_time  = 49[(dbextend.datetime) = true]; 	// 最后使用时间
+
+	optional uint32	  buy_total = 51; 								// 购买总数
+	optional uint32	  buy_today = 52; 								// 今日购买数
+	optional uint64	  buy_time  = 59[(dbextend.datetime) = true]; 	// 最后购买时间
+}
+
+// 邮件
+message mail {
+  optional uint32		   id  = 1; // 唯一id
+  optional bool		   notify = 2;  // 是否是通知邮件
+  optional string	    title = 10;	// 标题
+  optional string	   sender = 15;	// 发件人名称
+
+  optional string	  content = 20;	// 内容
+
+  optional uint32		param = 25;	// 辅助参数
+
+  repeated object		gains = 30;	// 获得对象
+
+  optional uint64  update_time = 100[(dbextend.datetime) = true]; // 更新时间
+  optional uint64	start_time = 109[(dbextend.datetime) = true]; // 开始时间
+  optional uint64	  end_time = 110[(dbextend.datetime) = true]; // 结束时间
+}
+
+// 玩家邮件
+message player_mail {
+	required uint64			id  = 1; 			    // 唯一id
+	required uint32	   mail_id  = 2; 			    // 邮件id
+
+	required mail		   data = 10;				// 邮件数据
+	repeated string	     params = 70;				// 参数列表
+
+	optional uint64	 create_time = 100[(dbextend.datetime) = true];// 获得时间
+	optional uint64	   view_time = 105[(dbextend.datetime) = true];// 浏览时间
+	optional uint64	 remove_time = 110[(dbextend.datetime) = true];// 删除时间
+
+}
+
+// 玩家资源
+message player_resource{
+  required uint64			 id = 1; 			    // 唯一id
+
+  required uint32		   type = 5; 				// 类型
+
+  optional int64		   curr = 10;				// 当前
+  optional int64		   peak = 20;				// 峰值
+  optional uint64	  peak_time = 29[(dbextend.datetime) = true];	// 峰值时间
+  optional uint64		   gain = 30;				// 累计获得
+  optional uint64	  gain_time = 39[(dbextend.datetime) = true];	// 最后获得时间
+  optional uint64		   cost = 40;				// 累计消耗
+  optional uint64	  cost_time = 49[(dbextend.datetime) = true];	// 最后花费时间
+
+  optional uint64   create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}
+
+// 玩家游戏数据
+message player_casino {
+	required uint64			    id = 1; 							// 唯一id
+	optional uint32		 casino_id = 5; 							// 游戏id
+	optional uint32		play_total = 10; 							// 总游戏数
+	optional uint32	    play_today = 11; 							// 今日游戏数
+	optional uint64	     play_time = 19[(dbextend.datetime) = true]; // 最后游戏时间(开局时更新)
+
+	optional uint32		 win_total = 20; 							// 总赢场数
+	optional uint32	     win_today = 21; 							// 今日赢场数
+	optional uint64	win_gold_total = 22; 							// 赢钱总数
+	optional uint64	win_gold_today = 23; 							// 今日赢钱数
+
+	optional uint32	      win_rank = 28[(dbextend.ignore) = true]; 	// 赢场排名
+	optional uint64	      win_time = 29[(dbextend.datetime) = true]; // 最后赢场时间
+
+	optional uint32		lost_total = 30; 							// 总输场数
+	optional uint32		lost_today = 31; 							// 今日输场数
+	optional uint64  lost_gold_total = 32; 							// 输钱总数
+	optional uint64  lost_gold_today = 33; 							// 今日输钱数
+
+	optional uint32	     lost_rank = 38[(dbextend.ignore) = true]; 	// 输场排名
+	optional uint64	     lost_time = 39[(dbextend.datetime) = true]; // 最后输场时间
+
+	optional uint32		draw_total = 40; 							// 总输场数
+	optional uint32		draw_today = 41; 							// 今日输场数
+	optional uint64	    draw_time = 42[(dbextend.datetime) = true]; // 最后平局时间
+
+	optional uint64   create_time = 100[(dbextend.datetime) = true];// 创建时间
+}
+
+// 好友状态
+enum eFRIEND_STATUS{
+	FRIEND_STATUS_REQUEST			= 0;			// 请求加为好友
+	FRIEND_STATUS_SUCCEEDED			= 1;			// 加为好友成功
+	FRIEND_STATUS_REMOVE			= 2;			// 删除好友
+}
+
+// 玩家好友数据
+message player_friend {
+	required uint64			   id = 1; 							// 唯一id
+	optional uint32		friend_id = 2; 							// 好友id
+	optional uint32		   status = 5;							// 好友状态(0:请求加为好友,1:加为好友,2)
+	optional string			alias = 10;							// 玩家别名
+
+
+	optional player_min		 data = 20;							// 玩家数据
+
+	optional uint32		gift_card = 50;							// 增卡次数
+	optional uint64   create_time = 100[(dbextend.datetime) = true];// 创建时间
+}
+
+// 消息类型
+enum eMESSAGE_TYPE{
+	MESSAGE_TYPE_FRIEND			   = 1;							// 好友请求
+	MESSAGE_TYPE_CHAT			   = 2;							// 好友聊天
+	MESSAGE_TYPE_GIFT_CARD		   = 10;						// 获得卡牌赠送
+}
+
+// 玩家消息
+message player_message{
+	required uint64			   id = 1; 							// 唯一id
+	optional uint32			 type = 5;							// 类型
+	optional uint32		friend_id = 10;							// 好友id
+	optional string		 nickname = 11;							// 昵称
+	optional uint32			param = 20;							// 辅助数据
+	optional string			 data = 50;							// 数据
+	optional uint64   create_time = 100[(dbextend.datetime) = true];// 创建时间
+}
+
+// 玩家任务
+message player_task{
+	required uint64				  id = 1; 			    // 唯一id
+	optional uint32		        type = 3; 			    // 类型
+	optional uint32		       group = 4; 			    // 组id
+	optional uint32		     task_id = 5; 			    // 任务id
+
+	optional uint32	  condition_type = 7;				// 完成条件
+	optional uint32		       param = 10;				// 任务变量
+
+	optional uint32			   total = 20;				// 完成总次数
+	optional uint32			   today = 21;				// 今日完成次数
+	optional uint32				week = 22;				// 本周完成次数
+	optional uint32			   month = 23;				// 本月完成次数
+
+	optional uint64		 update_time = 30[(dbextend.datetime) = true]; 		// 创建时间
+	optional uint64	   complete_time = 31[(dbextend.datetime) = true]; 		// 完成时间
+}
+
+// 玩家活动
+message player_act{
+	required uint64				  id = 1; 			    // 唯一id
+
+	required uint32				type = 5; 				// 活动类型
+	optional uint32			  act_id = 6; 			    // 活动子id
+
+	optional uint32		       param = 10;				// 活动变量
+	optional uint32		        mask = 11;				// 活动掩码
+
+	optional uint32				total = 20;				// 活动总次数
+	optional uint32				today = 21;				// 今日活动次数
+	optional uint32				 week = 22;				// 本周总次数
+	optional uint32			    month = 23;				// 本月总次数
+
+	optional uint64		    act_time = 30[(dbextend.datetime) = true]; 		// 最后时间
+	optional uint64	   complete_time = 40[(dbextend.datetime) = true]; 		// 完成时间
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}
+
+// 玩家抽取
+message player_lucky{
+	optional uint64				  id = 1; 			    // 唯一id
+
+	optional uint32			   total = 20;				// 活动总次数
+	optional uint32			   today = 21;				// 今日活动次数
+	optional uint32			    week = 22;				// 本周总次数
+	optional uint32			   month = 23;				// 本月总次数
+
+	optional uint64	      lucky_time = 50[(dbextend.datetime) = true];				// 最后抽取时间
+
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}
+
+// 玩家低保
+message player_helper{
+	optional uint64				  id = 1; 			    // 唯一id
+	optional uint32			   param = 10;				// 当前低保索引(服务器从0开始)
+	optional uint32			   total = 20;				// 领取总次数
+	optional uint32			   today = 21;				// 今日领取次数
+	optional uint32			    week = 22;				// 本周总次数
+	optional uint32			   month = 23;				// 本月总次数
+
+	optional uint64		trigger_time = 40[(dbextend.datetime) = true];		// 低保触发时间(0为没有触发)
+
+	optional uint64	     helper_time = 50[(dbextend.datetime) = true];		// 最后低保领取时间
+
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}
+
+// 玩家奖励抽奖
+message player_lottery{
+	optional uint64				  id = 1; 			    // 唯一id
+
+	optional uint32			group_id = 10;				// 抽取组id
+
+	optional uint32			   total = 20;				// 抽取总次数
+	optional uint32			   today = 21;				// 今日抽取次数
+	optional uint32			    week = 22;				// 本周抽取次数
+	optional uint32			   month = 23;				// 本月抽取次数
+
+	optional uint64	     lottery_time = 50[(dbextend.datetime) = true];		// 最后抽取时间
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}
+
+// 玩家公会信息
+message player_guild{
+	optional uint64				  id = 1; 			    // 唯一id
+	optional uint32			guild_id = 10;				// 公会id
+
+	optional uint64	       join_time = 101[(dbextend.datetime) = true]; 	// 加入公会时间
+}
+
+// 玩家红包提现信息
+message player_red {
+	optional uint64			  id = 1; 			    // 唯一id
+
+	optional uint32	   cash_total = 10;				// 累计提现金额(单位:分)
+	optional uint32	   cash_today = 11;				// 今日提现金额(单位:分)
+
+	optional uint32	    num_total = 20;				// 累计提现次数
+	optional uint32	    num_today = 21;				// 今日提现次数
+
+	optional uint64	 create_time = 100[(dbextend.datetime) = true];// 获得时间
+	optional uint64	   cash_time = 105[(dbextend.datetime) = true];// 最后提现时间
+}
+
+// 玩家绑定信息
+message player_bind {
+	optional uint32					id = 1;			// 自己玩家id
+
+	optional uint64		     bind_time = 5[(dbextend.datetime) = true]; 	// 最后绑定时间
+	optional uint32			   bind_id = 10;		// 绑定玩家id
+
+
+//	optional string		  channel_head = 11;		// 渠道头像地址(如果没有使用默认avatar头像)
+	optional string			  nickname = 12;		// 渠道昵称
+
+	optional uint32			play_total = 20;		// 绑定后私人房游戏总局数
+	optional uint32			play_today = 21;		// 绑定后私人房游戏今日局数
+	optional uint32			 play_week = 22;		// 绑定后私人房游戏本周局数
+	optional uint32		    play_month = 23;		// 绑定后私人房游戏本月局数
+	optional uint64		     play_time = 29[(dbextend.datetime) = true]; 	// 最后绑定后游戏时间
+
+	optional float				devote = 30;		// 房卡点贡献值
+	optional uint64		   devote_time = 32[(dbextend.datetime) = true]; 	// 最后房卡点贡献时间
+
+	optional uint32		 exchange_total = 40;		// 兑换房卡总次数
+	optional uint32		 exchange_today = 41;		// 兑换房卡总次数今日
+	optional uint32		  exchange_week = 42;		// 兑换房卡总次数本周
+	optional uint32		 exchange_month = 43;		// 兑换房卡总次数本月
+
+	optional uint32		     card_total = 45;		// 兑换房卡总数
+	optional uint32			 card_today = 46;		// 兑换房卡总数今日
+	optional uint32			  card_week = 47;		// 兑换房卡总数本周
+	optional uint32			 card_month = 48;		// 兑换房卡总数本月
+
+	optional uint64		  exchange_time = 49[(dbextend.datetime) = true]; 	// 最后兑换房卡时间
+
+
+	optional uint64		   create_time = 100[(dbextend.datetime) = true];// 绑定时间
+}
+
+
+// 玩家比赛
+message player_match{
+	required uint64				  id = 1; 			    // 唯一id
+
+	optional uint32			match_id = 6; 			    // 比赛子id
+
+	optional uint32				 win = 10;				// 胜利次数
+	optional uint32				lost = 11;				// 失败次数
+
+	optional uint32			   total = 20;				// 比赛总次数
+	optional uint32			   today = 21;				// 今日比赛次数
+	optional uint32			    week = 22;				// 本周比赛总次数
+	optional uint32			   month = 23;				// 本月比赛总次数
+
+	optional uint64	      match_time = 30[(dbextend.datetime) = true]; 		// 最后比赛时间
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}
+
+// 玩家比赛场报名信息
+message player_match_apply{
+	optional uint32 plyer_id	=	1;		// 参赛玩家ID
+	optional uint32	match_id	=	2;		// 赛场ID
+	optional uint32 match_level =	3;		// 当前赛场的晋级等级
+	optional uint32 apply_time	=	4;		// 当前赛场报名时间
+}
+
+// 用户能量值抽象信息
+message player_energy {
+	optional uint32 id = 1;
+	optional uint32 player_id = 2;
+
+	optional uint32 curr_energy = 20;
+	optional uint32 use_energy = 21;
+	optional uint32 gain_energy = 22;
+
+	optional uint32 total = 40;
+	optional uint32 day = 41;
+	optional uint32 week = 42;
+	optional uint32 month = 43;
+
+	optional uint64 create_time = 100[(dbextend.datetime) = true];
+	optional uint64 draw_time = 101[(dbextend.datetime) = true];
+	optional uint64 energy_time = 102[(dbextend.datetime) = true];
+}
+
+// 玩家总数据(登陆时发送)
+message player_data {
+	required player					data = 1;			// 玩家数据
+
+
+	repeated player_pay				pays = 10;			// 玩家充值
+	repeated player_resource   resources = 101;			// 玩家资源
+	repeated player_casino		 casinos = 102;			// 玩家游戏
+	repeated player_task		   tasks = 103;			// 玩家任务
+	repeated player_act			    acts = 105;			// 玩家活动
+
+	repeated player_item		   items = 110;			// 玩家道具
+	repeated player_friend		 friends = 111;			// 玩家好友
+	repeated player_message		messages = 112;			// 玩家消息
+	repeated player_mail		   mails = 117;			// 玩家邮件
+	repeated player_match		  matchs = 118;			// 玩家比赛场信息
+
+
+	optional player_lucky		   lucky = 120;			// 玩家轮盘
+	optional player_helper		  helper = 121;			// 玩家低保
+	optional player_lottery		 lottery = 122;			// 玩家抽取
+	optional player_red				 red = 125;			// 玩家红包数据
+	optional player_bind			bind = 126;			// 玩家绑定信息
+	optional player_energy		  energy = 127;			// 玩家能量转盘数据
+
+	optional uint64				table_id = 200;			// 玩家当前房间id
+	optional uint32				 room_id = 201;			// 玩家当前room id
+
+	optional player_match_apply match_apply = 202;		// 玩家当前的比赛报名信息
+
+	optional player_mj			 data_mj = 250;			// 麻将游戏数据
+
+	optional player_gdy		    data_gdy = 300;			// 干瞪眼数据
+	optional player_tmhh  	   data_tmhh = 301;			// 天门晃晃数据
+	optional player_qjhh  	   data_qjhh = 302;			// 潜江晃晃数据
+	optional player_tmyh  	   data_tmyh = 305;			// 天门晃晃数据
+	optional player_hhyx	   data_hhyx = 306;			// 洪湖游戏数据
+	optional player_hcyx	   data_hcyx = 308;			// 汉川游戏数据
+	optional player_sshh	   data_sshh = 309;			// 石首游戏数据
+	optional player_mjtl	   data_mjtl = 310;			// 铜陵游戏
+	optional player_tcmj	   data_tcmj = 311;			// 通城麻将
+
+	optional string		        channel_head = 500;		// 渠道头像地址(如果没有使用默认avatar头像)
+	optional string		    channel_nickname = 501;		// 渠道昵称
+	optional uint32				    guild_id = 1001;	// 公会id
+	optional uint32		    guild_request_id = 1002;	// 公会加入请求id
+
+	repeated uint32				   guild_ids = 1011;	// 公会加入id列表
+	repeated uint32		   guild_request_ids = 1012;	// 公会加入请求列表
+
+	optional uint32				 leave_guild = 1013;	// 离开工会的次数
+
+	optional string				    im_accid = 2000;	// 易信语音id
+	optional coordinate			       coord = 2001;	// 坐标
+
+}
+
+// 机器人
+message bot {
+
+  required uint32				id  = 1;				// 唯一id
+  optional string		   nickname = 2; 				// 昵称
+  optional uint32			  level = 3;				// 等级
+  optional uint32				sex = 5;				// 性别
+
+
+  optional int64		gold_curr = 10;				// 当前
+  optional int64		gold_min  = 11;				// 最低值(小于改值时补钱)
+  optional int64		gold_peak = 20;				// 峰值
+  optional uint64	   	gold_gain = 30;				// 累计获得
+  optional uint64		gold_cost = 40;				// 累计消耗
+}
+
+// 桌子积分
+message table_score{
+	required uint64				  id = 1;				// 唯一id
+
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; 	// 创建时间
+}

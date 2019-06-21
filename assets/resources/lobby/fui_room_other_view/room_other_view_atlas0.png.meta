@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.0",
+  "uuid": "941999db-6111-473b-a6c4-caf8fd3a0d61",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "room_other_view_atlas0": {
+      "ver": "1.0.4",
+      "uuid": "78bc4d96-b5a1-4eb4-8945-bd88a9e7a9e3",
+      "rawTextureUuid": "941999db-6111-473b-a6c4-caf8fd3a0d61",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -267.5,
+      "offsetY": 138.5,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1513,
+      "height": 747,
+      "rawWidth": 2048,
+      "rawHeight": 1024,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

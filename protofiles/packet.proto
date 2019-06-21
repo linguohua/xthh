@@ -1,0 +1,646 @@
+package casino;
+
+import "dbextend.proto";							// 扩展数据
+import "player.proto";
+import "type.proto";
+
+enum ProxyMessageCode{
+	OPPing = 100; 			// ping
+	OPPong = 101; 			// pong
+}
+
+message ProxyMessage {
+    required int32 Ops = 1;
+    optional bytes Data = 2;
+}
+
+enum eMSG_TYPE{
+	MSG_BULLETIN			= 1;		// 公告 ( S -> C )
+	MSG_PING				= 2;		// ping ( S -> C )
+	MSG_PONG				= 3;		// pong ( C -> S )
+	MSG_DBUPDATE			= 5;		// 服务器数据库操作 ( S -> C )
+
+	MSG_COORDINATE			= 6;		// 坐标更新			( C -> S)
+
+	MSG_BROADCAST			= 7;		// 广播 (S -> C)
+	MSG_BROADCAST_SYNC		= 8;		// 广播同步 (C -> S)
+
+
+	MSG_DATA_REQ			= 10;		// 数据请求操作		( C -> S )
+	MSG_DATA_ACK			= 11;		// 数据应答操作		( S -> C )
+
+	MSG_USER_LOGIN_REQ		= 101;		// 用户登陆请求		( C -> S )
+	MSG_USER_LOGIN_ACK		= 102;		// 用户登陆应答		( S -> C )
+
+	MSG_FAST_LOGIN_REQ		= 103;		// 快速登陆请求		( C -> S )
+	MSG_FAST_LOGIN_ACK		= 104;		// 快速登陆应答		( S -> C )
+
+	MSG_USER_REG_REQ		= 105;		// 用户注册请求		( C -> S 使用设备MAC地址注册)
+	MSG_USER_REG_ACK		= 106;		// 用户注册应答		( S -> C 使用设备MAC地址注册)
+
+
+	MSG_USER_LOGOUT			= 110;		// 用户登出
+
+	MSG_STRING_REQ			= 115;		// 玩家字符串请求	( C -> S )
+	MSG_STRING_ACK			= 116;		// 玩家字符串应答	( S -> C )
+
+	MSG_MODIFY_REQ			= 117;		// 玩家修改请求		( C -> S )
+	MSG_MODIFY_ACK			= 118;		// 玩家修改应答		( S -> C )
+
+	MSG_HELPER_REQ			= 120;		// 玩家低保请求		( C -> S )
+	MSG_HELPER_ACK			= 121;		// 玩家低保应答		( S -> C )
+	MSG_HELPER				= 125;		// 玩家低保活动更新
+
+	MSG_GUIDE_REQ			= 130;		// 记录引导步骤请求	( C -> S )
+	MSG_GUIDE_ACK			= 131;		// 记录引导步骤应答	( C -> S )
+
+	MSG_SEARCH_REQ			= 135;		// 玩家搜索请求		( C -> S )
+	MSG_SEARCH_ACK			= 136;		// 玩家搜索应答		( S -> C )
+
+	MSG_EVENT_REQ			= 140;		// 活动请求			( C -> S )
+	MSG_EVENT_ACK			= 141;		// 活动应答			( C -> S )
+
+	MSG_PAY_REQ				= 145;		// 充值请求			( C -> S )
+	MSG_PAY_ACK				= 146;		// 充值应答			( C -> S )
+
+	MSG_TABLE_JOIN_REQ		= 150;		// 加入桌子请求		( C -> S )
+	MSG_TABLE_JOIN_ACK		= 151;		// 加入桌子应答		( S -> C )
+
+	MSG_TABLE_CREATE_REQ	= 152;		// 创建桌子请求		( C -> S )
+	MSG_TABLE_CREATE_ACK	= 153;		// 创建桌子应答		( S -> C )
+
+	MSG_TABLE_ENTRY			= 154;		// 玩家进入桌子		( S -> C )
+	MSG_TABLE_LEAVE			= 155;		// 玩家离开桌子		( C -> S )
+	MSG_TABLE_READY			= 156;		// 玩家准备桌子		( C -> S )
+	MSG_TABLE_PAUSE			= 157;		// 桌子暂停			( S -> C )
+	MSG_TABLE_SCORE			= 158;		// 玩家桌子积分		( S -> C )
+	MSG_TABLE_UPDATE		= 159;		// 桌子更新
+	MSG_TABLE_MANAGED		= 160;		// 玩家进入托管状态	( S -> C )
+
+	MSG_TABLE_TIMEOUT		= 161;		// 玩家超时			( S -> C)
+
+	MSG_TABLE_CHAT			= 162;		// 桌子				( C -> S S -> C)
+
+	MSG_TABLE_DISBAND		= 165;		// 通知所有玩家房间解散 ( S -> C)
+	MSG_TABLE_DISBAND_REQ	= 166;		// 玩家请求解散		( C -> C )
+	MSG_TABLE_DISBAND_ACK	= 167;		// 玩家解散应答		( C -> C )
+
+	MSG_TABLE_CONTINUE_REQ	= 168;		// 房主是否续房		( C -> S )
+	MSG_TABLE_CONTINUE_ACK	= 169;		// 房主续房应答		( S -> C )
+
+	MSG_CASINO_JOIN_REQ		= 170;		// 加入游戏请求		( C -> S )
+	MSG_CASINO_JOIN_ACK		= 171;		// 加入游戏应答		( S -> C )
+
+	MSG_TABLE_KILL			= 178;		// 强制杀掉房间		( C -> S )
+
+
+	MSG_MAIL_REQ			= 180;		// 邮件请求			( C -> S )
+	MSG_MAIL_ACK			= 181;		// 邮件应答			( S -> C )
+
+	MSG_AWARD_REQ			= 190;		// 奖励请求			( C -> S )
+	MSG_AWARD_ACK			= 191;		// 奖励应答			( C -> S )
+
+	MSG_LOTTERY_REQ			= 200;		// 抽取请求			( C -> S )
+	MSG_LOTTERY_ACK			= 201;		// 抽取返回			( S -> C )
+	MSG_LOTTERY_LOG_REQ		= 202;		// 抽取日志请求		( C -> S )
+	MSG_LOTTERY_LOG_ACK		= 203;		// 抽取日志返回		( S -> C )
+	MSG_LOTTERY				= 205;		// 抽取
+
+	MSG_PLAYER_JOIN_REQ		= 210;		// 玩家加入游戏		( C -> S )
+	MSG_PLAYER_JOIN_ACK		= 211;		// 玩家加入游戏		( S -> C )
+
+	MSG_PLAYER_ENTRY		= 214;		// 玩家进入游戏		( S -> C )
+	MSG_PLAYER_LEAVE		= 215;		// 玩家离开游戏		( S -> C )
+
+	MSG_PLAYER_RENAME_REQ	= 220;		// 玩家修改昵称		( C -> S )
+	MSG_PLAYER_RENAME_ACK	= 221;		// 玩家修改昵称返回	( S -> C )
+
+	MSG_PLAYER_LEVEL_UP		= 250;		// 玩家升级			( S -> C )
+
+	MSG_LUCKY_REQ			= 260;		// 轮盘抽取请求		( C -> S )
+	MSG_LUCKY_ACK			= 261;		// 轮盘抽取返回		( S -> C )
+	MSG_LUCKY				= 265;		// 轮盘数据更新		( S -> C )
+
+	MSG_TASK_REQ			= 270;		// 任务请求			( C -> S )
+	MSG_TASK_ACK			= 271;		// 任务返回			( S -> C )
+
+	MSG_CHAT_REQ			= 280;		// 聊天信息请求		( C -> S )
+	MSG_CHAT_ACK			= 281;		// 聊天信息返回		( S -> C )
+
+	MSG_FRIEND_REQ			= 290;		// 玩家好友请求		( C -> S )
+	MSG_FRIEND_ACK			= 291;		// 玩家好友返回		( S -> C )
+
+	MSG_ACT_REQ				= 300;		// 活动请求			( C -> S )
+	MSG_ACT_ACK				= 301;		// 活动返回			( S -> C )
+	MSG_ACT					= 305;		// 活动数据更新		( S -> C )
+
+	MSG_SHARE_REQ			= 310;		// 分享请求			( C -> S )
+	MSG_SHARE_ACK			= 311;		// 分享返回			( S -> C )
+
+	MSG_AUTH_REQ			= 320;		// 验证请求			( C -> S )
+	MSG_AUTH_ACK			= 321;		// 验证返回			( S -> C )
+
+	MSG_USE_REQ				= 330;		// 使用请求			( C -> S )
+	MSG_USE_ACK				= 331;		// 使用应答			( S -> C )
+
+	MSG_SCORE_REQ			= 340;		// 积分查询请求		( C -> S )
+	MSG_SCORE_ACK			= 341;		// 积分查询应答		( S -> C )
+
+	MSG_SCORE_TIME_REQ		= 342;		// 积分查询请求		( C -> S )
+	MSG_SCORE_TIME_ACK		= 343;		// 积分查询应答		( S -> C )
+
+	MSG_CARD_REQ			= 350;		// 房卡查询请求		( C -> S )
+	MSG_CARD_ACK			= 351;		// 房卡查询应答		( S -> C )
+
+	MSG_CARD_OP				= 355;		// 房卡变更
+
+	MSG_GIFT_REQ			= 360;		// 话费赠送查询请求	( C -> S )
+	MSG_GIFT_ACK			= 361;		// 话费赠送查询应答	( S -> C )
+
+	MSG_MATCH_LOG_REQ		= 380;		// 比赛场积分查询	( C -> S )
+	MSG_MATCH_LOG_ACK		= 381;		// 比赛场积分查询	( S -> C )
+
+	MSG_MATCH_UPDATE_REQ	= 370;		// 比赛场更新		( S -> S )
+	MSG_MATCH_UPDATE_ACK	= 371;		// 比赛场更新		( S -> C )
+
+	MSG_MATCH_APPLY_REQ		= 372;		// 比赛场报名请求 ( C -> S)
+	MSG_MATCH_APPLY_ACK		= 373;		// 比赛场报名应答 ( S -> C)
+
+	MSG_MATCH_CANCEL_REQ	= 374;		// 取消参赛请求 (C -> S)
+	MSG_MATCH_CANCEL_ACK	= 375;		// 取消参赛应答 (S -> C)
+
+	MSG_QUERY_MATCH_INFO_REQ = 376;		// 查询比赛场报名信息请求
+	MSG_QUERY_MATCH_INFO_ACK = 378;		// 查询比赛场报名信息应答
+
+	MSG_RESOURCE_COST		= 400;		// 扣除资源请求		( S -> S )
+	MSG_RESOURCE_GAIN		= 401;		// 添加资源请求		( S -> S )
+
+	MSG_GUILD_REQ			= 410;		// 公会数据请求		( C -> S )
+	MSG_GUILD_ACK			= 411;		// 公会数据应答		( S -> C )
+
+	MSG_GUILD_CLOSE_REQ		= 412;		// 公会关闭请求		( C -> S )
+	MSG_GUILD_CLOSE_ACK		= 413;		// 公会关闭应答		( S -> C )
+
+	MSG_GUILD_JOIN_REQ		= 414;		// 公会加入添加请求	( C -> S )
+	MSG_GUILD_JOIN_ACK		= 415;		// 公会加入添加应答	( S -> C )
+
+	MSG_GUILD_REMOVE_REQ	= 416;		// 公会删除成员请求	( C -> S )
+	MSG_GUILD_REMOVE_ACK	= 417;		// 公会删除成员应答	( S -> C )
+
+	MSG_GUILD_QUIT_REQ		= 418;		// 公会退出成员请求	( C -> S )
+	MSG_GUILD_QUIT_ACK		= 419;		// 公会退出成员应答	( S -> C )
+
+	MSG_GUILD_ACCEPT_REQ	= 420;		// 公会同意成员请求	( C -> S )
+	MSG_GUILD_ACCEPT_ACK	= 421;		// 公会同意成员应答	( S -> C )
+
+	MSG_GUILD_FRIEND_REQ	= 422;		// 公会好友转换请求	( C -> S )
+	MSG_GUILD_FRIEND_ACK	= 423;		// 公会好友转换应答	( S -> C )
+
+	MSG_GUILD_KICK_REQ		= 425;		// 公会踢人请求	( C -> S )
+	MSG_GUILD_KICK_ACK		= 426;		// 公会踢人应答	( S -> C )
+
+	MSG_GUILD_NAME_REQ		= 427;		// 公会改名请求	( C -> S )
+	MSG_GUILD_NAME_ACK		= 428;		// 公会改名应答	( S -> C )
+
+	MSG_GUILD_UPDATE		= 429;		// 公会更新	( S -> C )
+
+	MSG_GUILD_POWER_REQ		= 430;		// 公会成员权限修改请求	( C -> S )
+	MSG_GUILD_POWER_ACK		= 431;		// 公会成员权限修改应答	( S -> C )
+
+	MSG_GUILD_LOG_REQ		= 432;		// 公会日志成员请求	( C -> S )
+	MSG_GUILD_LOG_ACK		= 433;		// 公会成员应答	( S -> C )
+
+	MSG_GUILD_NOTICE_REQ	= 434;		// 获取公告请求 (C -> S)
+	MSG_GUILD_NOTICE_ACK	= 435;		// 获取公告响应 (S -> C)
+
+	MSG_GUILD_RANK_REQ		= 436;		// 获取工会战绩排行榜信息请求 (C -> S)
+	MSG_GUILD_RANK_ACK		= 437;		// 获取工会战绩排行榜信息响应 (S -> C)
+
+	MSG_GUILD_ROOM_CREATE_REQ	= 450;	// 公会房间创建请求	( C -> S )
+	MSG_GUILD_ROOM_CREATE_ACK	= 451;	// 公会房间创建应答	( S -> C )
+
+	MSG_GUILD_ROOM_REMOVE_REQ	= 452;	// 公会房间删除请求	( C -> S )
+	MSG_GUILD_ROOM_REMOVE_ACK	= 453;	// 公会房间删除应答	( S -> C )
+
+	MSG_GUILD_ROOM_CARD_REQ		= 454;	// 公会房间补卡请求	( C -> S )
+	MSG_GUILD_ROOM_CARD_ACK		= 455;	// 公会房间补卡应答	( S -> C )
+
+	MSG_GUILD_ROOM_LOG_REQ		= 456;	// 公会房间日志查询请求	( C -> S )
+	MSG_GUILD_ROOM_LOG_ACK		= 457;	// 公会房间日志查询应答	( S -> C )
+
+	MSG_GUILD_ROOM_UPDATE		= 460;	// 公会房间数据刷新			( S -> C )
+	MSG_GUILD_ROOM_CARD			= 461;	// 公会房间房卡添加或删除	( S -> S )
+
+	MSG_GUILD_TABLE_CREATE		= 490;	// 公会桌子创建		( S -> C )
+	MSG_GUILD_TABLE_REMOVE		= 491;	// 公会桌子删除		( S -> C )
+	MSG_GUILD_TABLE_UPDATE		= 492;	// 公会桌子更新		( S -> C )
+
+	MSG_GUILD_TABLE_LOG			= 495;	// 公会桌子日志添加	( S -> C )
+	MSG_GUILD_MASTER_CHANGE		= 499;	// 公会会长变更		( S -> C )
+
+	MSG_BIND_CARD_REQ		= 500;		// 绑定房卡兑换请求	( C -> S )
+	MSG_BIND_CARD_ACK		= 501;		// 绑定房卡兑换应答	( S -> C )
+
+	MSG_BIND_PLAYER_REQ		= 510;		// 绑定玩家查询请求	( C -> S )
+	MSG_BIND_PLAYER_ACK		= 511;		// 绑定玩家查询应答	( S -> C )
+
+	MSG_BIND_INFO_REQ		= 520;		// 绑定玩家查询请求	( C -> S )
+	MSG_BIND_INFO_ACK		= 521;		// 绑定玩家查询应答	( S -> C )
+
+	MSG_BIND_UPDATE			= 549;		// 绑定玩家update	( S -> C )
+
+	MSG_RANK_REQ			= 550;		// 排行榜请求		( C -> S )
+	MSG_RANK_ACK			= 551;		// 排行榜应答		( S -> C )
+
+	MSG_REPLAY_REQ			= 560;		// 回放请求			( C -> S )
+	MSG_REPLAY_ACK			= 561;		// 回放应答			( S -> C )
+
+	MSG_RED_CASH_REQ		= 570;		// 红包提取请求		( C -> S )
+	MSG_RED_CASH_ACK		= 571;		// 红包提取应答		( S -> C )
+
+	MSG_RED_STORE_REQ		= 580;		// 红包购买请求		( C -> S )
+	MSG_RED_STORE_ACK		= 581;		// 红包购买应答		( S -> C )
+
+	MSG_ENERGY_TURNABLE		= 590;		// 能量转盘 (S -> C)
+	MSG_ET_DRAW_REQ			= 591;		// 能量转盘抽奖请求 (C -> S)
+	MSG_ET_DRAW_RES			= 592;		// 能量转盘抽奖应答 (S -> C)
+
+	MSG_ADD					= 600;		// 对象添加			( S -> C )
+	MSG_REMOVE				= 601;		// 对象删除			( S -> C )
+	MSG_UPDATE				= 602;		// 对象更新			( S -> C )
+
+	MSG_BIND_PHONE_REQ		= 610;		// 绑定手机号请求		(C -> S)
+	MSG_BIND_PHONE_ACK		= 611;		// 绑定手机号响应		(S -> C)
+
+	MSG_BIND_XIANLIAO_ROBOT_REQ	= 620;		// 绑定闲聊机器人		(C -> S)
+	MSG_BIND_XIANLIAO_ROBOT_ACK	= 621;		// 绑定闲聊机器人		(S -> C)
+
+	MSG_CARD_UPDATE			= 700;		// 测试牌组更新		( S -> S )
+
+	MSG_RESOURCE_GIFT_REQ	= 900;		// 请求数据包		( C -> S )
+	MSG_RESOURCE_GIFT_ACK	= 901;		// 应答数据包		( S -> C )
+
+	MSG_SERVER_REQ			= 1000;		// 请求数据包		( C -> S )
+	MSG_SERVER_ACK			= 1001;		// 应答数据包		( S -> C )
+
+}
+
+message packet_ping{
+	optional uint64 			now = 1; 			// 服务器当前时间
+}
+
+message packet_pong{
+	optional uint64 			now = 1; 			// 客户端当前时间
+}
+
+// 设备信息
+message device_info{
+  optional string 	   package = 1; 				// 游戏包信息
+  optional string  	  platform = 2;					// 手机平台信息
+  optional string	  language = 3;					// 手机语言信息
+  optional string 	   version = 4; 				// 游戏版本号
+  optional string 	     build = 5; 				// 编译版本号
+
+  optional string 		  idfa = 6; 				// 广告标识
+  optional string 		  idfv = 7; 				// Vindor标识符
+  optional string		  udid = 8;					// 设备信息
+  optional string	  openudid = 9;					// openudid
+  optional string 		   mac = 10; 				// mac地址
+
+  optional string		device = 15;				// 设备信息
+  optional string device_version = 16; 				// 设备版本号
+  optional string		 system = 17;				// 系统
+  optional string system_version = 18; 				// 系统版本号
+  optional bool		 jailbreak = 19;				// 是否越狱
+
+  optional string		phone = 20;					// 手机号码
+  optional string		  sim = 21;					// 手机sim
+  optional string		 imei = 22;					// 手机imei
+  optional string		 imsi = 23;					// 手机imsi
+
+  optional string device_token = 30;				// 设备通知标识
+
+  optional string		  ip = 40;					// 玩家登陆ip(在服务器上获取)
+}
+
+// 快速登陆请求
+message packet_fast_login_req{
+  optional string			  pay = 1;				// 支付类型
+  required string		  channel = 2;				// 渠道
+  optional bool			reconnect = 3;				// 重连服务器(设备在登陆后恢复重连的话，服务器不发送详细玩家数据给设备)
+  required uint32		  user_id = 4;				// 用户id
+  required string		   ticket = 5;				// 通行证
+
+  optional device_info 	devinfo = 6; 				// 设备信息
+
+
+
+  optional uint32       gdatacrc = 20;				// 客户端游戏数据crc,用于优化数据发送(当客户端md5为0,或者不和服务器上相匹配时才发送)
+  optional uint32       pdatacrc = 21;				// 客户端玩家数据crc,用于优化数据发送(当客户端md5为0,或者不和服务器上相匹配时才发送)
+
+  optional uint32		request_id = 200;			// 请求登陆id
+}
+
+// 自建房回合房卡消耗值
+message round_cost{
+	required uint32			round = 1;
+	required uint32			 card = 2;
+}
+
+// 游戏配置
+message game_config{
+
+  optional uint32		   user_min = 2[default = 4];	// 用户名最小字符数
+  optional uint32	       user_max = 3[default = 64];	// 用户名最大字符数
+  optional uint32		   pass_min = 4[default = 4];	// 密码最小字符数
+  optional uint32	       pass_max = 5[default = 16];	// 密码最大字符数
+
+  optional uint32	   nickname_min = 6[default = 2];	// 昵称最小字符数
+  optional uint32	   nickname_max = 7[default = 12];	// 昵称最大字符数
+
+  optional uint32		   chat_max = 8[default = 128];	// 聊天文字最大字符
+  optional uint32	 viplevel_giftcard = 10[default = 5];	// 可赠送房卡VIP等级
+  optional uint32	table_disband_time = 11[default = 30];	// 桌子屏蔽时间(秒)
+
+  optional uint32	guild_viplevel = 12[default = 5];		// 公会创建最低VIP等级
+  optional uint32	guild_friend_cost = 13[default = 5];	// 公会成员从好友转换房卡消耗
+  optional uint32	 guild_close_cost = 14[default = 5];	// 公会关闭房卡消耗
+
+  repeated round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
+  repeated float		roombases = 101;				// 自建房底注
+
+  optional uint32       gdy_endcard = 1000[default = 4];//
+  optional uint32       gdy_gangcard = 1001[default = 5];//
+
+  optional bool		disable_event = 10000[default = false];		// 是否禁用活动
+  optional bool		lang_gb = 10001[default = true];			// 是否简体版本
+}
+
+// 公告结构
+message bulletin{
+	required uint32				  id = 1;
+	optional string				info = 2;			// 显示文字
+	optional uint32			   param = 3;			//
+	optional uint32			 counter = 5;			// 累计显示次数
+	optional uint64	      start_time = 10[(dbextend.datetime) = true];	// 开始时间
+	optional uint64	        end_time = 11[(dbextend.datetime) = true];	// 开始时间
+}
+
+message bulletin_data{
+	repeated bulletin			datas = 1;
+}
+
+// 轮盘结构
+message lucky{
+	required uint32				  id = 1;			// 唯一编号
+	optional string				name = 2;			// 显示文字
+	optional uint32			    type = 3;			// 类型eTYPE ,实物填0,资源填10
+	optional uint32			 type_id = 4;			// 类型id
+	optional uint32			   param = 5;			// 参数
+	optional uint32			    rate = 10;			// 概率
+	optional uint32			    rank = 11;			// 物品等级
+	optional string			res_path = 100;			// 资源路径
+	optional string			    desc = 101;			// 奖品说明
+}
+
+// 玩家抽取记录
+message lucky_log{
+	optional uint64				  id = 1; 			    // 唯一id
+	optional uint32		   player_id = 2; 				// 玩家id
+	optional string			nickname = 3; 				// 玩家昵称
+	optional uint32			lucky_id = 5; 				// 抽取到的id
+	optional string	      lucky_name = 6;				// 抽取到的物品名称
+	optional string		 lucky_state = 10; 				// 实物处理状态
+	optional uint64	       send_time = 11[(dbextend.datetime) = true]; // 实物发送时间
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; // 创建时间
+}
+
+message lucky_data{
+	optional bool			  disable = 1;				// 是否禁用
+	optional uint32			      day = 2[default = 1];	// 每日抽取次数
+	optional uint32			    share = 3[default = 1];	// 每日分享后抽取次数
+	repeated lucky				datas = 5;				// 轮盘数据
+	repeated lucky_log	     selflogs = 10;				// 自己的抽取日志
+	repeated lucky_log		 lastlogs = 11;				// 最近的所有玩家抽取记录
+}
+
+// 低保
+message helper{
+	optional uint32				 wait = 1;				// 低保等待时间
+	optional uint32				 gold = 2;				// 低保获得游戏币数量
+	optional uint32				param = 3;				// 辅助参数(可选)
+}
+
+message helper_data{
+	optional uint32			 gold_min = 1[default = 499];// 触发低保值
+	optional bool			  disable = 2;				 // 是否禁用
+	repeated helper		      helpers = 10;				 // 低保数据
+}
+
+message lottery_item{
+	optional uint32			      id = 1; 				// lottery_item id
+	optional string			    name = 2; 				// 名称
+	optional uint32			    type = 5;				// 类型
+	optional uint32			   param = 6;				// 参数
+	optional string			     res = 10; 				// 通知名称
+}
+
+message lottery{
+	required uint32			 item_id = 1; 				// lottery_item id
+	optional uint32			    rate = 10; 				// 概率(0为无法抽中)
+}
+
+// 抽取
+message lottery_group{
+	required uint32				  id = 1;				// 资源类型(实物为0)
+	repeated  int32			 casinos = 3;				// 游戏id列表
+	repeated lottery		lotterys = 10;				// 抽取对象
+}
+
+// 玩家抽取记录
+message lottery_log{
+	optional uint64				  id = 1; 			    // 唯一id
+	optional uint32		   player_id = 2; 				// 玩家id
+	optional uint32			group_id = 4;				// 抽取组id
+	optional uint32		  lottery_id = 5; 				// 抽取到的id
+	optional string	    lottery_name = 6;				// 抽取到的物品名称
+	optional string	   lottery_state = 10; 				// 实物处理状态
+	optional uint64	       send_time = 11[(dbextend.datetime) = true]; // 实物发送时间
+	optional uint64	     create_time = 100[(dbextend.datetime) = true]; // 创建时间
+}
+
+// 抽取信息
+message lottery_data{
+	repeated lottery_item		items = 1;				// 掉落对象信息
+	repeated lottery_group	   groups = 2;				// 掉落组信息
+	repeated lottery_group		 reds = 3;				// 红包掉落组信息
+	repeated lottery_group	   matchs = 4;				// 比赛场掉落组信息
+	repeated lottery_log     selflogs = 10;				// 自己的抽取日志
+}
+
+// 账号登陆应答
+message packet_fast_login_ack{
+	required uint32				 ret = 1;		// 返回值
+	required string			 channel = 2;		// 渠道
+	optional bool		   reconnect = 3;		// 重连服务器(设备在登陆后恢复重连的话，服
+	optional uint32			 user_id = 4; 		// 账号id
+	optional uint32		   player_id = 5; 		// 玩家id
+	optional uint32		   server_id = 6; 		// 服务器id
+
+	optional uint32		   casino_id = 9;		// 游戏id
+	optional string			 unionid = 10;		// 绑定分享标识
+	optional bool		  bind_robot = 11;		// 是否绑定机器人
+
+	optional bytes		       gdata = 20;		// 游戏数据
+	optional game_config	  config = 21;		// 信息配置
+	optional player_data       pdata = 30;		// 玩家数据
+	optional pay_data		 paydata = 50;		// 充值数据
+	optional red_data		 reddata = 51;		// 红包数据
+	optional bind_data	    binddata = 52;		// 绑定数据
+	optional guild_data	   guilddata = 53;		// 红包数据
+	optional match_data	   matchdata = 54;		// 比赛数据
+
+	repeated room			   rooms = 60;		// 游戏房间数据
+	optional bulletin_data	 bulletindata = 110;	// 公告信息
+	optional lucky_data			luckydata = 111;	// 轮盘信息
+	optional helper_data	   helperdata = 112;	// 低保信息
+	optional lottery_data	  lotterydata = 113;	// 抽取信息
+	repeated vip_config		      vipdata = 114;	// 充值VIP配置数据
+	repeated energy_turnable	  et_data = 115;	// 能量转盘信息
+
+	optional uint32		request_id = 200;			// 请求登陆id
+}
+
+// 创建桌子请求
+message packet_table_create_req{
+	required uint32		 casino_id = 2;			// 游戏id
+	optional uint32	  	   room_id = 1;			// 房间id
+	optional uint32		      base = 10;		// 底注
+	optional uint32		     round = 3;			// 房间回合数
+	optional uint32			  join = 4;			// 房间允许加入模式
+	optional uint32		 player_id = 5;
+	optional uint32		  guild_id = 6;			// 创建工会房间
+	optional uint32			  flag = 7;			// 创建附加标记
+}
+
+// 创建桌子应答
+message packet_table_create_ack{
+   required uint32			  ret = 1;			// 返回值
+   optional uint32		 player_id = 5;
+   optional table		    tdata = 10;			// 桌子详细数据
+   optional uint32		  guild_id = 6;			// 创建工会房间
+}
+
+// 加入桌子请求
+message packet_table_join_req{
+	optional uint32		 player_id = 1;			// 玩家id
+	optional uint32		 casino_id = 2;			// 游戏id(可选)
+	optional uint32		   room_id = 3;			// 房间id(可选)
+	optional uint64		  table_id = 4;			// 桌子id(可选)
+	optional bool			 ready = 5;			// 自动准备(可选)
+	optional uint32		  match_id = 6;			// 比赛场id(可选)
+	optional uint32			   tag = 10;		// 加入指定tag的房间(可选)
+	optional uint32			  type = 11;		//快速进入金币、欢乐区分
+}
+
+// 加入桌子应答
+message packet_table_join_ack{
+   required uint32			  ret = 1;			// 返回值
+   optional uint32		 player_id = 3;				// 玩家id
+   optional table		    tdata = 10;		// 桌子详细数据
+   optional bool		reconnect = 20;			// 是否是重连
+}
+
+// 玩家加入请求
+message packet_player_join_req{
+	optional uint32		  player_id = 3;		// 玩家id
+	optional uint32		 request_id = 200;			// 请求登陆id
+}
+
+// 玩家加入应答
+message packet_player_join_ack{
+	required uint32				ret = 1;		// 返回值
+	optional uint64 			now = 2; 		// 服务器当前时间
+	optional uint32		  player_id = 3;		// 玩家id
+	optional uint32		 request_id = 200;		// 请求登陆id
+}
+
+// 玩家进入桌子
+message packet_table_entry{
+	required int32			   idx = 1;				// 位置索引
+	required table_player	 pdata = 10;			// 玩家数据
+	optional uint64		  table_id = 6;			// 桌子id
+}
+
+// 玩家离开桌子
+message packet_table_leave{
+	required int32			   idx = 1;				// 位置索引
+	optional bool			manage = 2;				// 是否托管
+	optional uint32		 player_id = 3;				// 玩家id
+	optional uint64		  table_id = 6;				// 桌子id
+}
+
+// 玩家准备桌子
+message packet_table_ready{
+	required int32			   idx = 1;				// 位置索引
+	optional uint32		 player_id = 3;				// 玩家id
+	optional uint64		  table_id = 6;				// 桌子id
+}
+
+// 桌子状态暂停
+message packet_table_pause{
+	required uint32		player_id = 1;				// 等待玩家id
+	optional uint64	    quit_time = 2;				// 超时房间退出时间
+	optional uint64		 table_id = 6;				// 桌子id
+	optional uint32		   reason = 10;				// 类型
+}
+
+// 桌子成员托管状态切换
+message packet_table_managed{
+	optional int32			 idx = 1;				// 新状态
+	optional bool		  managed = 2;				// 成员托管状态
+	optional uint32		 player_id = 3;				// 玩家id
+	optional uint64		 table_id = 6;			// 桌子id
+	optional uint64		quit_time = 10;				// 超时房间退出时间
+}
+
+// 桌子更新
+message packet_table_update{
+	required table		     tdata = 10;			// 桌子详细数据
+}
+
+message player_score{
+	optional player_min			   data = 1;
+	optional float				  score = 10;	// 获得或者扣除的积分
+	optional float		    score_total = 11;	// 总积分
+	optional float				  level = 12;	// 比赛场当前晋级关数
+	optional int32				  money = 15;	// 获得或者扣除的资金
+	repeated int32		          cards = 20;	// 胡牌的卡牌
+	repeated int32			   selcards = 21;	// 摊开的牌
+	repeated int32			   curcards = 22;	// 当前的牌
+	repeated int32			   huacards = 23;	// 花牌
+	repeated op_score		   opscores = 50;	// 操作积分
+	optional int32			 hupai_card = 100;	// 最后胡牌
+	optional int32			  last_card = 101;	// 最后牌
+	optional int32			  lost_card = 102;	///输掉牌
+	optional uint32		     quit_total = 200;	// 游戏时退出次数
+	optional uint32		  timeout_total = 201;	// 游戏时超时次数
+	optional uint32		  lottery_group = 300;	// 抽取组id
+	optional uint32		  lottery_item	= 301;	// 抽取到的对象id
+}
+
+// 积分
+message packet_table_score{
+	optional uint32			  casino_id = 1;	// 游戏id
+	optional uint32			    room_id = 2;	// 房间id
+	optional uint32				   time = 5;	// 时间(3秒)
+	optional uint32			     win_id = 6;	// 胜利玩家id
+	optional uint32			      cb_id = 7;	// 承包玩家id
+	optional int32					 op = 8;	// 操作op
+	optional int32			   nextcard = 9;	// 下一张能摸的牌
+	repeated player_score		 scores = 10;	// 积分
+	optional int64			 start_time = 11;   // 开局时间
+	optional table				  tdata = 20;	// 重新发送桌子信息
+	optional uint32			  replay_id = 39;	// 重播id(需要其他线程)
+	optional string				   info = 100;
+}

@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.0",
+  "uuid": "97cf7ee0-18b9-4847-a564-efb99c865a4e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "lobby_poker_atlas0": {
+      "ver": "1.0.4",
+      "uuid": "dffdde34-0f00-4d4b-ab5c-f668a4ab096a",
+      "rawTextureUuid": "97cf7ee0-18b9-4847-a564-efb99c865a4e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -3,
+      "offsetY": 2,
+      "trimX": 9,
+      "trimY": 0,
+      "width": 1000,
+      "height": 508,
+      "rawWidth": 1024,
+      "rawHeight": 512,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
