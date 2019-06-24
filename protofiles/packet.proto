@@ -655,3 +655,18 @@ message packet_table_score{
 	optional uint32			  replay_id = 39;	// 重播id(需要其他线程)
 	optional string				   info = 100;
 }
+
+// 玩家请求解散桌子
+message packet_table_disband_req{
+	optional uint32		player_id = 1;			// 玩家请求解散房间
+	optional uint64	 disband_time = 10;			// 请求解散开始时间
+}
+
+// 玩家解散桌子
+message packet_table_disband_ack{
+	optional uint32		player_id = 1;			// 玩家解散应答
+	optional bool		  disband = 2;			// 是否解散
+	optional uint32			  ret = 3;			// 返回值
+	optional uint64		 table_id = 6;			// 桌子id
+
+}

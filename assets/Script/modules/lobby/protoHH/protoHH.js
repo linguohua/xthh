@@ -10333,6 +10333,54 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 100
                         }
                     ]
+                },
+                {
+                    "name": "packet_table_disband_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "disband_time",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_table_disband_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "disband",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        }
+                    ]
                 }
             ],
             "enums": [

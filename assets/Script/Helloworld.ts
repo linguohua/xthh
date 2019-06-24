@@ -26,6 +26,8 @@ export class Helloworld extends cc.Component {
 
     private msgCenter: LMsgCenter;
 
+    private myPlayerID: number;
+
     @property(cc.Node)
     private button: cc.Node = null;
 
@@ -35,6 +37,8 @@ export class Helloworld extends cc.Component {
     private buttonB: cc.Node = null;
     @property(cc.Node)
     private buttonC: cc.Node = null;
+    @property(cc.Node)
+    private buttonDisabnd: cc.Node = null;
 
     public returnFromGame(): void {
         // nothing
@@ -78,6 +82,8 @@ export class Helloworld extends cc.Component {
             this.buttonA.on("click", this.testCreateRoom, this);
             this.buttonB.on("click", this.testJoinGame, this);
             this.buttonC.on("click", this.testSendReady, this);
+
+            this.buttonDisabnd.on("click", this.testDisband, this);
         });
     }
 
@@ -110,8 +116,9 @@ export class Helloworld extends cc.Component {
                 if (err !== null) {
                     console.log(err);
                 } else {
-                    const reply = <{servers: ServerCfg[]}>JSON.parse(xhr.responseText);
+                    const reply = <{servers: ServerCfg[]; player_id: number}>JSON.parse(xhr.responseText);
                     console.log(reply);
+                    this.myPlayerID = reply.player_id;
                     this.testFastLogin(reply.servers[0]).catch((reason) => {
                         console.log(reason);
                     });
@@ -149,6 +156,8 @@ export class Helloworld extends cc.Component {
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OUTCARD_ACK, this.onOnOutCardwAck, this); // 出牌服务器回复
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP_ACK, this.onOnOpAck, this); // 玩家操作结果
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_SCORE, this.onSCScore, this); // 积分状态
+
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onDisbandAck, this); // 积分状态
 
         await this.msgCenter.start();
     }
@@ -195,6 +204,18 @@ export class Helloworld extends cc.Component {
         const req2 = new proto.casino.packet_table_ready({ idx: -1 });
         const buf = proto.casino.packet_table_ready.encode(req2);
         this.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_READY);
+    }
+
+    private testDisband(): void {
+        const req2 = new proto.casino.packet_table_disband_req({ player_id: this.myPlayerID });
+        const buf = proto.casino.packet_table_disband_req.encode(req2);
+        this.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
+    }
+
+    private onDisbandAck(msg: ByteBuffer): void {
+        console.log("onDisbandAck");
+        const reply = proto.casino.packet_table_disband_ack.decode(msg);
+        console.log(reply);
     }
 
     private onTableReady(msg: ByteBuffer): void {

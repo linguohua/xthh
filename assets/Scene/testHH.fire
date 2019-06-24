@@ -26,9 +26,6 @@
         "__id__": 21
       },
       {
-        "__id__": 35
-      },
-      {
         "__id__": 42
       },
       {
@@ -41,10 +38,13 @@
         "__id__": 63
       },
       {
+        "__id__": 70
+      },
+      {
         "__id__": 28
       },
       {
-        "__id__": 70
+        "__id__": 35
       }
     ],
     "_active": true,
@@ -285,6 +285,9 @@
     },
     "buttonC": {
       "__id__": 28
+    },
+    "buttonDisabnd": {
+      "__id__": 35
     },
     "_id": "6313vbun9FqYGmI7YIAkjQ"
   },
@@ -1710,7 +1713,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "discard",
+    "_name": "disband",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1748,8 +1751,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 600.113,
-      "y": 476,
+      "x": 818,
+      "y": 486,
       "z": 0
     },
     "_scale": {
@@ -1771,7 +1774,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "dfyCK+IN5MobjseupjJsaa"
+    "_id": "b7YYuReEJDULwrNbUtaJql"
   },
   {
     "__type__": "cc.Node",
@@ -1839,7 +1842,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "d2WVCntAFIg5nGWdBsIHSf"
+    "_id": "60TI8gwuNFEZiOSTcOaBcl"
   },
   {
     "__type__": "cc.Node",
@@ -1900,7 +1903,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "8a2rsTNBBCr6cWlJ/Hrd4j"
+    "_id": "2aLgeP1qhGQK/vE9GX5Ipl"
   },
   {
     "__type__": "cc.Label",
@@ -1912,8 +1915,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "打牌",
-    "_N$string": "打牌",
+    "_string": "强制解散",
+    "_N$string": "强制解散",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -1926,7 +1929,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "35SHQB1+tHR5XA7mbO6MWe"
+    "_id": "0ccvyQMEFOg7gRKFZEVzWx"
   },
   {
     "__type__": "cc.Sprite",
@@ -1954,7 +1957,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "27+nLokcFLZ6a3jzgJJ8GT"
+    "_id": "a1WBYM2zRINpsqiN3fRjPb"
   },
   {
     "__type__": "cc.Widget",
@@ -1981,7 +1984,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "0eErR0j3RBMqgR/ij+zYfZ"
+    "_id": "fdeCBsHVlKYL3CboyFhfKh"
   },
   {
     "__type__": "cc.Button",
@@ -2061,11 +2064,11 @@
     "_N$target": {
       "__id__": 36
     },
-    "_id": "e7i66dqDtNlr7/5HYL1hxd"
+    "_id": "a3LTL8SNJDGL0A7KNoRCoA"
   },
   {
     "__type__": "cc.Node",
-    "_name": "pong",
+    "_name": "discard",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -2104,7 +2107,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 600.113,
-      "y": 344,
+      "y": 476,
       "z": 0
     },
     "_scale": {
@@ -2126,7 +2129,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "20m7PTY9FMHJe0FyZNRom4"
+    "_id": "dfyCK+IN5MobjseupjJsaa"
   },
   {
     "__type__": "cc.Node",
@@ -2194,7 +2197,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "9aS82XNulP2apM58H+IUpM"
+    "_id": "d2WVCntAFIg5nGWdBsIHSf"
   },
   {
     "__type__": "cc.Node",
@@ -2255,7 +2258,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "acNI6Bc1tDOpv8VLT/fSzx"
+    "_id": "8a2rsTNBBCr6cWlJ/Hrd4j"
   },
   {
     "__type__": "cc.Label",
@@ -2267,8 +2270,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "碰",
-    "_N$string": "碰",
+    "_string": "打牌",
+    "_N$string": "打牌",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -2281,7 +2284,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "ac2E1vKElHGqCaSH5IR5dB"
+    "_id": "35SHQB1+tHR5XA7mbO6MWe"
   },
   {
     "__type__": "cc.Sprite",
@@ -2309,7 +2312,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "4eaTChdJxOmqGTeMvm4BX7"
+    "_id": "27+nLokcFLZ6a3jzgJJ8GT"
   },
   {
     "__type__": "cc.Widget",
@@ -2336,7 +2339,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "a5vqa/UDVGWZHT+Z0t4FBH"
+    "_id": "0eErR0j3RBMqgR/ij+zYfZ"
   },
   {
     "__type__": "cc.Button",
@@ -2416,11 +2419,11 @@
     "_N$target": {
       "__id__": 43
     },
-    "_id": "b37dTY4kVHaZ5lsFYfGzbU"
+    "_id": "e7i66dqDtNlr7/5HYL1hxd"
   },
   {
     "__type__": "cc.Node",
-    "_name": "kong",
+    "_name": "pong",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -2459,7 +2462,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 600.113,
-      "y": 242,
+      "y": 344,
       "z": 0
     },
     "_scale": {
@@ -2481,7 +2484,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "3alOlMEcRO8ayKMxTbYIQC"
+    "_id": "20m7PTY9FMHJe0FyZNRom4"
   },
   {
     "__type__": "cc.Node",
@@ -2549,7 +2552,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "ffOmqH8v9EzowExJP4xAiO"
+    "_id": "9aS82XNulP2apM58H+IUpM"
   },
   {
     "__type__": "cc.Node",
@@ -2610,7 +2613,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "eb6k76GZNCF4NUdTjEKdYR"
+    "_id": "acNI6Bc1tDOpv8VLT/fSzx"
   },
   {
     "__type__": "cc.Label",
@@ -2622,8 +2625,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "杠",
-    "_N$string": "杠",
+    "_string": "碰",
+    "_N$string": "碰",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -2636,7 +2639,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "aajaVZS9hAkYbSiuz590D/"
+    "_id": "ac2E1vKElHGqCaSH5IR5dB"
   },
   {
     "__type__": "cc.Sprite",
@@ -2664,7 +2667,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "41h57ivCFNYbvtFpZibWIB"
+    "_id": "4eaTChdJxOmqGTeMvm4BX7"
   },
   {
     "__type__": "cc.Widget",
@@ -2691,7 +2694,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "1buJnQMwdG34Ehlcj38m8I"
+    "_id": "a5vqa/UDVGWZHT+Z0t4FBH"
   },
   {
     "__type__": "cc.Button",
@@ -2771,11 +2774,11 @@
     "_N$target": {
       "__id__": 50
     },
-    "_id": "2b3Cx8madFJrljVbbHYk8p"
+    "_id": "b37dTY4kVHaZ5lsFYfGzbU"
   },
   {
     "__type__": "cc.Node",
-    "_name": "win",
+    "_name": "kong",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -2814,7 +2817,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 600.113,
-      "y": 132,
+      "y": 242,
       "z": 0
     },
     "_scale": {
@@ -2836,7 +2839,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "18rImyIdZFI4jlGM2iMe3O"
+    "_id": "3alOlMEcRO8ayKMxTbYIQC"
   },
   {
     "__type__": "cc.Node",
@@ -2904,7 +2907,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "delyII9bNGDrhgVgoCedXp"
+    "_id": "ffOmqH8v9EzowExJP4xAiO"
   },
   {
     "__type__": "cc.Node",
@@ -2965,7 +2968,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "0dNB8yY0BBWKorn3OxqLqs"
+    "_id": "eb6k76GZNCF4NUdTjEKdYR"
   },
   {
     "__type__": "cc.Label",
@@ -2977,8 +2980,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "胡",
-    "_N$string": "胡",
+    "_string": "杠",
+    "_N$string": "杠",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -2991,7 +2994,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "ecCVYRa8NA0aQNw2tZztfZ"
+    "_id": "aajaVZS9hAkYbSiuz590D/"
   },
   {
     "__type__": "cc.Sprite",
@@ -3019,7 +3022,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "5b9CpLBPZEt7ZSNJ49nXxO"
+    "_id": "41h57ivCFNYbvtFpZibWIB"
   },
   {
     "__type__": "cc.Widget",
@@ -3046,7 +3049,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "7eL24hMvdAdI5raJrfo367"
+    "_id": "1buJnQMwdG34Ehlcj38m8I"
   },
   {
     "__type__": "cc.Button",
@@ -3126,11 +3129,11 @@
     "_N$target": {
       "__id__": 57
     },
-    "_id": "96cXAwk05PO72TZQL6ZaD8"
+    "_id": "2b3Cx8madFJrljVbbHYk8p"
   },
   {
     "__type__": "cc.Node",
-    "_name": "chow",
+    "_name": "win",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -3168,8 +3171,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 813.862,
-      "y": 130.838,
+      "x": 600.113,
+      "y": 132,
       "z": 0
     },
     "_scale": {
@@ -3191,7 +3194,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "e0Q6suqitCuIr+qIGV+tP5"
+    "_id": "18rImyIdZFI4jlGM2iMe3O"
   },
   {
     "__type__": "cc.Node",
@@ -3259,7 +3262,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "f9fNUkumlBIpkNjeE1Iq8u"
+    "_id": "delyII9bNGDrhgVgoCedXp"
   },
   {
     "__type__": "cc.Node",
@@ -3320,7 +3323,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "8dBziZB5RM8KG+qX9ZI+nH"
+    "_id": "0dNB8yY0BBWKorn3OxqLqs"
   },
   {
     "__type__": "cc.Label",
@@ -3332,8 +3335,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "吃",
-    "_N$string": "吃",
+    "_string": "胡",
+    "_N$string": "胡",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -3346,7 +3349,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "139LxBU2xO47aIFvETIKtz"
+    "_id": "ecCVYRa8NA0aQNw2tZztfZ"
   },
   {
     "__type__": "cc.Sprite",
@@ -3374,7 +3377,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "bcodp8NHJP/bsrm3W5cW6R"
+    "_id": "5b9CpLBPZEt7ZSNJ49nXxO"
   },
   {
     "__type__": "cc.Widget",
@@ -3401,7 +3404,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "6fN6jOtTNMOoeCizO6J+CA"
+    "_id": "7eL24hMvdAdI5raJrfo367"
   },
   {
     "__type__": "cc.Button",
@@ -3481,11 +3484,11 @@
     "_N$target": {
       "__id__": 64
     },
-    "_id": "8f97fd7ZtPIZZPO/+cuUii"
+    "_id": "96cXAwk05PO72TZQL6ZaD8"
   },
   {
     "__type__": "cc.Node",
-    "_name": "disband",
+    "_name": "chow",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -3523,8 +3526,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 818,
-      "y": 486,
+      "x": 813.862,
+      "y": 130.838,
       "z": 0
     },
     "_scale": {
@@ -3546,7 +3549,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "b7YYuReEJDULwrNbUtaJql"
+    "_id": "e0Q6suqitCuIr+qIGV+tP5"
   },
   {
     "__type__": "cc.Node",
@@ -3614,7 +3617,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "60TI8gwuNFEZiOSTcOaBcl"
+    "_id": "f9fNUkumlBIpkNjeE1Iq8u"
   },
   {
     "__type__": "cc.Node",
@@ -3675,7 +3678,7 @@
     "groupIndex": 0,
     "_rotationX": 0,
     "_rotationY": 0,
-    "_id": "2aLgeP1qhGQK/vE9GX5Ipl"
+    "_id": "8dBziZB5RM8KG+qX9ZI+nH"
   },
   {
     "__type__": "cc.Label",
@@ -3687,8 +3690,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "强制解散",
-    "_N$string": "强制解散",
+    "_string": "吃",
+    "_N$string": "吃",
     "_fontSize": 20,
     "_lineHeight": 40,
     "_enableWrapText": false,
@@ -3701,7 +3704,7 @@
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
     "_N$cacheMode": 0,
-    "_id": "0ccvyQMEFOg7gRKFZEVzWx"
+    "_id": "139LxBU2xO47aIFvETIKtz"
   },
   {
     "__type__": "cc.Sprite",
@@ -3729,7 +3732,7 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_atlas": null,
-    "_id": "a1WBYM2zRINpsqiN3fRjPb"
+    "_id": "bcodp8NHJP/bsrm3W5cW6R"
   },
   {
     "__type__": "cc.Widget",
@@ -3756,7 +3759,7 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
     "_originalHeight": 40,
-    "_id": "fdeCBsHVlKYL3CboyFhfKh"
+    "_id": "6fN6jOtTNMOoeCizO6J+CA"
   },
   {
     "__type__": "cc.Button",
@@ -3836,6 +3839,6 @@
     "_N$target": {
       "__id__": 71
     },
-    "_id": "a3LTL8SNJDGL0A7KNoRCoA"
+    "_id": "8f97fd7ZtPIZZPO/+cuUii"
   }
 ]

@@ -4603,5 +4603,35 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_table_score;
 		}
 
+		interface Ipacket_table_disband_req {
+			player_id?: number;
+			disband_time?: Long;
+		}
+
+		class packet_table_disband_req implements Ipacket_table_disband_req {
+			public player_id: number;
+			public disband_time: Long;
+			constructor(properties?: casino.Ipacket_table_disband_req);
+			public static encode(message: packet_table_disband_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_table_disband_req;
+		}
+
+		interface Ipacket_table_disband_ack {
+			player_id?: number;
+			disband?: boolean;
+			ret?: number;
+			table_id?: Long;
+		}
+
+		class packet_table_disband_ack implements Ipacket_table_disband_ack {
+			public player_id: number;
+			public disband: boolean;
+			public ret: number;
+			public table_id: Long;
+			constructor(properties?: casino.Ipacket_table_disband_ack);
+			public static encode(message: packet_table_disband_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_table_disband_ack;
+		}
+
 	}
 }
