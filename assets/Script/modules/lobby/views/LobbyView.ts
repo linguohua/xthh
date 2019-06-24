@@ -1,15 +1,14 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, Dialog, GameModuleLaunchArgs, LEnv, LobbyModuleInterface, Logger, NewRoomViewPath
+    DataStore, Dialog, GameModuleLaunchArgs, LobbyModuleInterface, Logger
 } from "../lcore/LCoreExports";
-import { LMsgCenter } from "../LMsgCenter";
-import { proto } from "../proto/protoLobby";
+
+import { proto } from "../protoHH/protoHH";
 import { ClubView } from "./club/ClubView";
 import { EmailView } from "./EmailView";
 import { GameRecordView } from "./GameRecordView";
 import { JoinRoom } from "./JoinRoom";
-import { NewRoomView } from "./NewRoomView";
 import { UserInfoView } from "./UserInfoView";
 const { ccclass } = cc._decorator;
 
@@ -22,17 +21,17 @@ export class LobbyView extends cc.Component {
     private diamondText: fgui.GObject;
     private lm: LobbyModuleInterface;
 
-    private msgCenter: LMsgCenter;
+    // private msgCenter: LMsgCenter;
 
-    private onMessageFunc: Function;
+    // private onMessageFunc: Function;
     private wxShowCallBackFunction: (res: showRes) => void;
 
-    public onMessage(data: ByteBuffer): void {
-        Logger.debug("LobbyView.onMessage");
-        const diamondBody = proto.lobby.MsgUpdateUserDiamond.decode(data);
-        const diamond = diamondBody.diamond;
-        this.updateDiamond(diamond);
-    }
+    // public onMessage(data: ByteBuffer): void {
+    //     Logger.debug("LobbyView.onMessage");
+    //     const diamondBody = proto.lobby.MsgUpdateUserDiamond.decode(data);
+    //     const diamond = diamondBody.diamond;
+    //     this.updateDiamond(diamond);
+    // }
 
     protected start(): void {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -72,31 +71,30 @@ export class LobbyView extends cc.Component {
 
         this.initView();
 
-        await this.startWebSocket();
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onCreateRoomAck, this); // 创建房间
+        // await this.startWebSocket();
     }
 
     protected onDestroy(): void {
-        this.lm.eventTarget.off(`${proto.lobby.MessageCode.OPUpdateDiamond}`, this.onMessageFunc);
-        this.lm.eventTarget.off(`${proto.lobby.MessageCode.OPMail}`, this.updateEmailRedPoint);
-        this.lm.eventTarget.off("checkRoomInfo", this.checkRoomInfo);
 
-        this.msgCenter.destory();
+        // this.msgCenter.destory();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
         }
     }
 
-    private updateEmailRedPoint(): void {
-        //
-        const emailBtn = this.view.getChild("n9").asCom;
-        const redPoint = emailBtn.getChild("redPoint");
-        redPoint.visible = true;
-    }
+    // private updateEmailRedPoint(): void {
+    //     //
+    //     const emailBtn = this.view.getChild("n9").asCom;
+    //     const redPoint = emailBtn.getChild("redPoint");
+    //     redPoint.visible = true;
+    // }
 
-    private updateDiamond(diamond: Long): void {
-        this.diamondText.text = `${diamond}`;
-    }
+    // private updateDiamond(diamond: Long): void {
+    //     this.diamondText.text = `${diamond}`;
+    // }
 
     private wxShowCallBack(res: showRes): void {
         const rKey = "roomNumber";
@@ -142,23 +140,19 @@ export class LobbyView extends cc.Component {
         const x = (cc.winSize.height * 1136 / 640 / 2) - cc.winSize.width / 2;
         bg.setPosition(x, y);
 
-        this.onMessageFunc = this.lm.eventTarget.on(`${proto.lobby.MessageCode.OPUpdateDiamond}`, this.onMessage, this);
-
-        this.lm.eventTarget.on(`${proto.lobby.MessageCode.OPMail}`, this.updateEmailRedPoint, this);
-
         this.lm.eventTarget.on(`checkRoomInfo`, this.checkRoomInfo, this);
 
         this.checkRoomInfo();
 
     }
 
-    private async startWebSocket(): Promise<void> {
-        const tk = DataStore.getString("token", "");
-        const webSocketURL = `${LEnv.lobbyWebsocket}?&tk=${tk}`;
+    // private async startWebSocket(): Promise<void> {
+    //     const tk = DataStore.getString("token", "");
+    //     const webSocketURL = `${LEnv.lobbyWebsocket}?&tk=${tk}`;
 
-        this.msgCenter = new LMsgCenter(webSocketURL, this, this.lm);
-        await this.msgCenter.start();
-    }
+    //     this.msgCenter = new LMsgCenter(webSocketURL, this, this.lm);
+    //     await this.msgCenter.start();
+    // }
     private onFriendClick(): void {
         this.addComponent(ClubView);
 
@@ -219,8 +213,62 @@ export class LobbyView extends cc.Component {
     }
 
     private onCreateRoom(): void {
-        const newRoomView = this.addComponent(NewRoomView);
-        newRoomView.showView(NewRoomViewPath.Normal);
+        // const newRoomView = this.addComponent(NewRoomView);
+        // newRoomView.showView(NewRoomViewPath.Normal);
+
+        const req2 = new proto.casino.packet_player_join_req({});
+        const buf = proto.casino.packet_player_join_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
+    }
+
+    private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
+        console.log("onJoinGameAck");
+        const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
+        console.log(reply);
+
+        this.testCreateRoom();
+    }
+
+    private testCreateRoom(): void {
+        const req = {
+            casino_id: 16,
+            room_id: 2103,
+            base: 1,
+            round: 1,
+            join: 0
+        };
+
+        const req2 = new proto.casino.packet_table_create_req(req);
+        const buf = proto.casino.packet_table_create_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_REQ);
+    }
+
+    private onCreateRoomAck(msg: proto.casino.ProxyMessage): void {
+        const reply = proto.casino.packet_table_create_ack.decode(msg.Data);
+        Logger.debug("onCreateRoomAck:", reply);
+
+        const myUser = { userID: "6" };
+        const roomConfigObj = {
+            roomType: 21
+        };
+
+        const roomInfo = {
+            roomID: "monkey-room",
+            roomNumber: "monkey-room",
+            config: JSON.stringify(roomConfigObj),
+            gameServerID: "uuid"
+        };
+
+        const params: GameModuleLaunchArgs = {
+            jsonString: "",
+            userInfo: myUser,
+            roomInfo: roomInfo,
+            record: null
+        };
+
+        //this.enterGame(roomInfo);
+
+        this.lm.switchToGame(params, "gameb");
     }
 
     private onReturnGameBtnClick(): void {

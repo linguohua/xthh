@@ -8,7 +8,7 @@ import { Dialog } from "./lcore/Dialog";
 import { DataStore, HTTP, LEnv } from "./lcore/LCoreExports";
 import { GameModuleInterface, GameModuleLaunchArgs, LobbyModuleInterface } from "./lcore/LDataType";
 import { Logger } from "./lcore/Logger";
-import { LMsgCenter } from "./LMsgCenter";
+import { GameMsgHandler, LMsgCenter } from "./LMsgCenter";
 import { proto } from "./proto/protoLobby";
 import { LobbyError } from "./views/LobbyError";
 import { LoginView } from "./views/LoginView";
@@ -193,6 +193,22 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                 Dialog.updateProgress(progress);
             }
         );
+    }
+
+    public setGameMsgHandler(code: number, h: Function, target: object): void {
+        if (this.msgCenter !== null && this.msgCenter !== undefined) {
+            this.msgCenter.setGameMsgHandler(code, <GameMsgHandler>h, target);
+        } else {
+            Logger.error("setGameMsgHandler, this.msgCenter is null");
+        }
+    }
+
+    public sendGameMsg(buf: ByteBuffer, code: number): void {
+        if (this.msgCenter !== null && this.msgCenter !== undefined) {
+            this.msgCenter.sendGameMsg(buf, code);
+        } else {
+            Logger.error("setGameMsgHandler, this.msgCenter is null");
+        }
     }
 
     protected start(): void {

@@ -125,45 +125,6 @@ export class LoginView extends cc.Component {
         }
     }
 
-    public quicklyLogin(): void {
-        // 快速登录
-        const account = DataStore.getString("account", "");
-        const quicklyLoginURL = `${LEnv.rootURL}${LEnv.quicklyLogin}?&account=${account}`;
-
-        Logger.trace("quicklyLogin, quicklyLoginURL:", quicklyLoginURL);
-
-        HTTP.hGet(this.eventTarget, quicklyLoginURL, (xhr: XMLHttpRequest, err: string) => {
-            let errMsg = null;
-            if (err !== null) {
-                errMsg = `登录错误，错误码:${err}`;
-            } else {
-                errMsg = HTTP.hError(xhr);
-                if (errMsg === null) {
-                    const data = <Uint8Array>xhr.response;
-                    // proto 解码登录结果
-                    const quicklyLoginReply = proto.lobby.MsgQuicklyLoginReply.decode(data);
-                    if (quicklyLoginReply.result === 0) {
-                        Logger.debug("quickly login ok, switch to lobbyview");
-                        this.saveQuicklyLoginReply(quicklyLoginReply);
-                        this.showLobbyView();
-                    } else {
-                        // TODO: show error msg
-                        Logger.debug("quickly login error, errCode:", quicklyLoginReply.result);
-                        this.showLoginErrMsg(quicklyLoginReply.result);
-                    }
-                }
-            }
-
-            if (errMsg !== null) {
-                Logger.debug("quickly login failed:", errMsg);
-                // 显示错误对话框
-                Dialog.showDialog(errMsg, () => {
-                    //
-                });
-            }
-        });
-    }
-
     public saveWxLoginReply(wxLoginReply: proto.lobby.MsgLoginReply): void {
 
         DataStore.setItem("token", wxLoginReply.token);
@@ -231,33 +192,33 @@ export class LoginView extends cc.Component {
         this.addComponent(LobbyView);
     }
 
-    public showLoginErrMsg(errCode: number): void {
-        const lobby = proto.lobby;
-        const errMsgMap: { [key: string]: string } = {
+    // public showLoginErrMsg(errCode: number): void {
+    //     const lobby = proto.lobby;
+    //     const errMsgMap: { [key: string]: string } = {
 
-            [lobby.LoginError.ErrLoginSuccess]: "成功",
-            [lobby.LoginError.ErrParamDecode]: "解码参数失败",
-            [lobby.LoginError.ErrDecodeUserInfoFailed]: "解码用户信息失败",
+    //         [lobby.LoginError.ErrLoginSuccess]: "成功",
+    //         [lobby.LoginError.ErrParamDecode]: "解码参数失败",
+    //         [lobby.LoginError.ErrDecodeUserInfoFailed]: "解码用户信息失败",
 
-            [lobby.LoginError.ErrParamInvalidCode]: "不合法的微信code",
-            [lobby.LoginError.ErrParamInvalidEncrypteddata]: "不合法的微信encrypteddata",
-            [lobby.LoginError.ErrParamInvalidIv]: "不合法的微信iv",
-            [lobby.LoginError.ErrWxAuthFailed]: "微信认证失败",
+    //         [lobby.LoginError.ErrParamInvalidCode]: "不合法的微信code",
+    //         [lobby.LoginError.ErrParamInvalidEncrypteddata]: "不合法的微信encrypteddata",
+    //         [lobby.LoginError.ErrParamInvalidIv]: "不合法的微信iv",
+    //         [lobby.LoginError.ErrWxAuthFailed]: "微信认证失败",
 
-            [lobby.LoginError.ErrParamAccountIsEmpty]: "输入账号不能为空",
-            [lobby.LoginError.ErrParamPasswordIsEmpty]: "输入密码不能为空",
-            [lobby.LoginError.ErrAccountNotExist]: "输入账号不存在",
-            [lobby.LoginError.ErrAccountNotSetPassword]: "账号没有设置密码，不能登录",
-            [lobby.LoginError.ErrPasswordNotMatch]: "密码不匹配，不能登录"
-        };
+    //         [lobby.LoginError.ErrParamAccountIsEmpty]: "输入账号不能为空",
+    //         [lobby.LoginError.ErrParamPasswordIsEmpty]: "输入密码不能为空",
+    //         [lobby.LoginError.ErrAccountNotExist]: "输入账号不存在",
+    //         [lobby.LoginError.ErrAccountNotSetPassword]: "账号没有设置密码，不能登录",
+    //         [lobby.LoginError.ErrPasswordNotMatch]: "密码不匹配，不能登录"
+    //     };
 
-        let errMsg = errMsgMap[errCode];
-        if (errMsg !== undefined) {
-            errMsg = "登录失败";
-        }
+    //     let errMsg = errMsgMap[errCode];
+    //     if (errMsg !== undefined) {
+    //         errMsg = "登录失败";
+    //     }
 
-        Dialog.showDialog(errMsg);
-    }
+    //     Dialog.showDialog(errMsg);
+    // }
 
     protected start(): void {
         this.showLoginView();
@@ -291,7 +252,7 @@ export class LoginView extends cc.Component {
 
         HTTP.hPost(
             this.eventTarget,
-            "https://dfh5-develop.qianz.com/t9user/Login",
+            "http://localhost:3001/t9user/Login",
             (xhr: XMLHttpRequest) => {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
@@ -310,7 +271,8 @@ export class LoginView extends cc.Component {
 
     private async testFastLogin(serverCfg: ServerCfg): Promise<void> {
         Logger.debug(serverCfg);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        const lmComponent = this.getComponent("LobbyModule");
+        const lm = <LobbyModuleInterface>lmComponent;
 
         if (lm.msgCenter !== undefined) {
             return;
@@ -320,10 +282,13 @@ export class LoginView extends cc.Component {
         lm.eventTarget.on("onFastLoginComplete", this.onFastLoginComplete, this);
 
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
-        const url = `wss://dfh5-develop.qianz.com/game/uuid/ws/play?web=1&target=${uriComp}`;
+        const url = `ws://localhost:3001/game/uuid/ws/play?web=1&target=${uriComp}`;
         Logger.debug(url);
-        lm.msgCenter = new LMsgCenter(url, this, lm);
-        await lm.msgCenter.start();
+        // LmsgCenter 绑定到LobbyModule
+        const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, lm);
+        lm.msgCenter = msgCenter;
+
+        await msgCenter.start();
     }
 
     private onFastLoginComplete(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {
@@ -407,7 +372,7 @@ export class LoginView extends cc.Component {
                             } else {
                                 // TODO: show error msg
                                 Logger.debug("wx login error, errCode:", wxLoginReply.result);
-                                this.showLoginErrMsg(wxLoginReply.result);
+                                // this.showLoginErrMsg(wxLoginReply.result);
                             }
                         }
                     }

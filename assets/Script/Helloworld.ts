@@ -144,7 +144,7 @@ export class Helloworld extends cc.Component {
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
         const url = `ws://localhost:3001/game/uuid/ws/play?web=1&target=${uriComp}`;
         console.log(url);
-        this.msgCenter = new LMsgCenter(url, this, this);
+        this.msgCenter = new LMsgCenter(url, this);
 
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_ACK, this.onFastLoginACK, this); // 快速登录服务器回复
 
@@ -173,8 +173,8 @@ export class Helloworld extends cc.Component {
         await this.msgCenter.start();
     }
 
-    private onFastLoginACK(data: ByteBuffer): void {
-        const fastLoginReply = proto.casino.packet_fast_login_ack.decode(data);
+    private onFastLoginACK(msg: proto.casino.ProxyMessage): void {
+        const fastLoginReply = proto.casino.packet_fast_login_ack.decode(msg.Data);
         console.log(fastLoginReply);
 
         this.myPlayerID = fastLoginReply.player_id;
@@ -195,9 +195,9 @@ export class Helloworld extends cc.Component {
         this.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_REQ);
     }
 
-    private onCreateRoomAck(msg: ByteBuffer): void {
+    private onCreateRoomAck(msg: proto.casino.ProxyMessage): void {
         console.log("onCreateRoomAck");
-        const reply = proto.casino.packet_table_create_ack.decode(msg);
+        const reply = proto.casino.packet_table_create_ack.decode(msg.Data);
         console.log(reply);
     }
 
@@ -213,9 +213,9 @@ export class Helloworld extends cc.Component {
         this.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
     }
 
-    private onJoinGameAck(msg: ByteBuffer): void {
+    private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
         console.log("onJoinGameAck");
-        const reply = proto.casino.packet_player_join_ack.decode(msg);
+        const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
         console.log(reply);
     }
 
@@ -231,57 +231,57 @@ export class Helloworld extends cc.Component {
         this.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
     }
 
-    private onDisbandAck(msg: ByteBuffer): void {
+    private onDisbandAck(msg: proto.casino.ProxyMessage): void {
         console.log("onDisbandAck");
-        const reply = proto.casino.packet_table_disband_ack.decode(msg);
+        const reply = proto.casino.packet_table_disband_ack.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTableReady(msg: ByteBuffer): void {
+    private onTableReady(msg: proto.casino.ProxyMessage): void {
         console.log("onTableReady");
-        const reply = proto.casino.packet_table_ready.decode(msg);
+        const reply = proto.casino.packet_table_ready.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTableEnter(msg: ByteBuffer): void {
+    private onTableEnter(msg: proto.casino.ProxyMessage): void {
         console.log("onTableEnter");
-        const reply = proto.casino.packet_table_entry.decode(msg);
+        const reply = proto.casino.packet_table_entry.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTableLeave(msg: ByteBuffer): void {
+    private onTableLeave(msg: proto.casino.ProxyMessage): void {
         console.log("onTableLeave");
-        const reply = proto.casino.packet_table_leave.decode(msg);
+        const reply = proto.casino.packet_table_leave.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTableUpdate(msg: ByteBuffer): void {
+    private onTableUpdate(msg: proto.casino.ProxyMessage): void {
         console.log("onTableUpdate");
-        const reply = proto.casino.packet_table_update.decode(msg);
+        const reply = proto.casino.packet_table_update.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTableScore(msg: ByteBuffer): void {
+    private onTableScore(msg: proto.casino.ProxyMessage): void {
         console.log("onTableScore");
-        const reply = proto.casino.packet_table_score.decode(msg);
+        const reply = proto.casino.packet_table_score.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTableManaged(msg: ByteBuffer): void {
+    private onTableManaged(msg: proto.casino.ProxyMessage): void {
         console.log("onTableManaged");
-        const reply = proto.casino.packet_table_managed.decode(msg);
+        const reply = proto.casino.packet_table_managed.decode(msg.Data);
         console.log(reply);
     }
 
-    private onTablePause(msg: ByteBuffer): void {
+    private onTablePause(msg: proto.casino.ProxyMessage): void {
         console.log("onTablePause");
-        const reply = proto.casino.packet_table_pause.decode(msg);
+        const reply = proto.casino.packet_table_pause.decode(msg.Data);
         console.log(reply);
     }
 
-    private onStartPlay(msg: ByteBuffer): void {
+    private onStartPlay(msg: proto.casino.ProxyMessage): void {
         console.log("onStartPlay");
-        const reply = proto.casino_xtsj.packet_sc_start_play.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_start_play.decode(msg.Data);
         console.log(reply);
 
         // 保存自己的13张牌
@@ -290,9 +290,9 @@ export class Helloworld extends cc.Component {
         });
     }
 
-    private onOnDraw(msg: ByteBuffer): void {
+    private onOnDraw(msg: proto.casino.ProxyMessage): void {
         console.log("onOnDraw");
-        const reply = proto.casino_xtsj.packet_sc_drawcard.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_drawcard.decode(msg.Data);
         console.log(reply);
 
         // 保存我的抽牌
@@ -303,27 +303,27 @@ export class Helloworld extends cc.Component {
         }
     }
 
-    private onOnOutCardwAck(msg: ByteBuffer): void {
+    private onOnOutCardwAck(msg: proto.casino.ProxyMessage): void {
         console.log("onOnDrawAck");
-        const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msg.Data);
         console.log(reply);
     }
 
-    private onOnOpAck(msg: ByteBuffer): void {
+    private onOnOpAck(msg: proto.casino.ProxyMessage): void {
         console.log("onOnOpAck");
-        const reply = proto.casino_xtsj.packet_sc_op_ack.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_op_ack.decode(msg.Data);
         console.log(reply);
     }
 
-    private onSCScore(msg: ByteBuffer): void {
+    private onSCScore(msg: proto.casino.ProxyMessage): void {
         console.log("onSCScore");
-        const reply = proto.casino_xtsj.packet_sc_score.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_score.decode(msg.Data);
         console.log(reply);
     }
 
-    private onSCOP(msg: ByteBuffer): void {
+    private onSCOP(msg: proto.casino.ProxyMessage): void {
         console.log("onSCOP");
-        const reply = proto.casino_xtsj.packet_sc_op.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_op.decode(msg.Data);
         console.log(reply);
     }
 
@@ -342,9 +342,9 @@ export class Helloworld extends cc.Component {
         this.buttonDiscard.active = false;
     }
 
-    private onOutCardAck(msg: ByteBuffer): void {
+    private onOutCardAck(msg: proto.casino.ProxyMessage): void {
         console.log("onOutCardAck");
-        const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msg);
+        const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msg.Data);
         console.log(reply);
     }
 }

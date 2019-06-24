@@ -13,6 +13,6 @@ export interface RoomHost {
     user: UserInfo;
     component: cc.Component;
     loader: GResLoader;
-    sendBinary(buf: ByteBuffer): void;
+    sendBinary(buf: ByteBuffer, code: number): void;
     getLobbyModuleLoader(): GResLoader;
 }

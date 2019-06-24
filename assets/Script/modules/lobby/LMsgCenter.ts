@@ -1,7 +1,7 @@
 import { LobbyModuleInterface, Logger, MsgQueue, MsgType, WS } from "./lcore/LCoreExports";
 import { proto } from "./protoHH/protoHH";
 
-type GameMsgHandler = (msg: ByteBuffer) => void;
+export type GameMsgHandler = (msg: proto.casino.ProxyMessage) => void;
 interface GameMsgHandlerHolder {
     target: object;
     handler: GameMsgHandler;
@@ -93,6 +93,13 @@ export class LMsgCenter {
         }
 
         this.gmsgHandlers[code] = u;
+    }
+
+    public removeGameMsgHandler(code: number): void {
+        const u = this.gmsgHandlers[code];
+        if (u !== undefined) {
+            this.gmsgHandlers[code] = undefined;
+        }
     }
 
     private async connectServer(): Promise<void> {
@@ -198,7 +205,7 @@ export class LMsgCenter {
             return;
         }
 
-        u.handler.call(u.target, msg.Data);
+        u.handler.call(u.target, msg);
     }
 
     private doFastLogin(): void {
@@ -239,15 +246,22 @@ export class LMsgCenter {
         const buf = proto.casino.packet_fast_login_req.encode(req2);
         this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_REQ);
 
+        this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_ACK, this.onFastLoginACK, this);
+    }
+
+    private onFastLoginACK(msg: proto.casino.ProxyMessage): void {
+        const fastLoginReply = proto.casino.packet_fast_login_ack.decode(msg.Data);
+        console.log(fastLoginReply);
+
         this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PING, this.onServerPing, this);
 
-        if (this.lobbyModule !== null || this.lobbyModule !== undefined) {
+        if (this.lobbyModule !== null && this.lobbyModule !== undefined && this.lobbyModule.eventTarget !== undefined) {
             this.lobbyModule.eventTarget.emit("onFastLoginComplete", fastLoginReply);
         }
     }
 
-    private onServerPing(data: ByteBuffer): void {
-        const pingPacket = proto.casino.packet_ping.decode(data);
+    private onServerPing(msg: proto.casino.ProxyMessage): void {
+        const pingPacket = proto.casino.packet_ping.decode(msg.Data);
         const pongProp = {
             now: pingPacket.now
         };

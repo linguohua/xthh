@@ -1,5 +1,5 @@
 import { proto } from "../proto/protoLobby";
-import { LMsgCenter } from "../LMsgCenter";
+import { proto as protoHH} from "../protoHH/protoHH";
 
 /**
  * 一些公用数据类型
@@ -41,14 +41,18 @@ export interface GResLoader {
     loadPrefab(prefabName: string, onCompleted: (error: Error, res: cc.Prefab) => void): void;
 }
 
+// type GameMsgHandler = (msg: protoHH.casino.ProxyMessage) => void;
+export interface MsgCenter {
+    sendGameMsg(buf: ByteBuffer, code: number): void;
+    setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
+}
 /**
  * 大厅模块
  */
 export interface LobbyModuleInterface {
     loader: GResLoader;
     eventTarget: cc.EventTarget;
-
-    msgCenter: LMsgCenter;
+    msgCenter: MsgCenter;
     returnFromGame(): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(roomInfo: proto.lobby.IRoomInfo): void;

@@ -1,6 +1,7 @@
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { Logger, RoomInfo, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
+import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { GameOverResultView } from "./GameOverResultView";
@@ -92,7 +93,7 @@ export class Room {
         return this.host;
     }
 
-    public async dispatchWebsocketMsg(msg: proto.mahjong.GameMessage): Promise<void> {
+    public async dispatchWebsocketMsg(msg: protoHH.casino.ProxyMessage): Promise<void> {
         Logger.debug("Room.dispatchWebsocketMsg, ops:", msg.Ops);
         const handler = msgHandlers[msg.Ops];
         if (handler !== undefined) {
@@ -168,10 +169,10 @@ export class Room {
     }
 
     public onReadyButtonClick(): void {
-        const gm = new proto.mahjong.GameMessage();
-        gm.Ops = proto.mahjong.MessageCode.OPPlayerReady;
-        const buf = proto.mahjong.GameMessage.encode(gm);
-        this.host.sendBinary(buf);
+        // const gm = new proto.mahjong.GameMessage();
+        // gm.Ops = proto.mahjong.MessageCode.OPPlayerReady;
+        // const buf = proto.mahjong.GameMessage.encode(gm);
+        // this.host.sendBinary(buf);
     }
 
     public onInviteButtonClick(): void {
@@ -212,14 +213,8 @@ export class Room {
         if (host == null) {
             return;
         }
-        const gm = new proto.mahjong.GameMessage();
-        gm.Ops = opCode;
 
-        if (msg != null) {
-            gm.Data = msg;
-        }
-        const buf = proto.mahjong.GameMessage.encode(gm);
-        host.sendBinary(buf);
+        host.sendBinary(msg, opCode);
     }
 
     //重置房间，以便开始新一手游戏
