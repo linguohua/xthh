@@ -117,13 +117,13 @@ export class Helloworld extends cc.Component {
 
         HTTP.hPost(
             this.eventTarget,
-            "http://localhost:3001/t9user/Login",
+            "https://dfh5-develop.qianz.com/t9user/Login",
             (xhr: XMLHttpRequest) => {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
                     console.log(err);
                 } else {
-                    const reply = <{servers: ServerCfg[]; player_id: number}>JSON.parse(xhr.responseText);
+                    const reply = <{ servers: ServerCfg[]; player_id: number }>JSON.parse(xhr.responseText);
                     console.log(reply);
                     this.testFastLogin(reply.servers[0]).catch((reason) => {
                         console.log(reason);
@@ -142,7 +142,7 @@ export class Helloworld extends cc.Component {
         }
 
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
-        const url = `ws://localhost:3001/game/uuid/ws/play?web=1&target=${uriComp}`;
+        const url = `wss://dfh5-develop.qianz.com/game/uuid/ws/play?web=1&target=${uriComp}`;
         console.log(url);
         this.msgCenter = new LMsgCenter(url, this);
 
