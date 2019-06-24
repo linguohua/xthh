@@ -25,8 +25,9 @@ export class Helloworld extends cc.Component {
     public loader: GResLoader;
 
     private msgCenter: LMsgCenter;
-
+    private myUserID: number;
     private myPlayerID: number;
+    private myCards: number[] = [];
 
     @property(cc.Node)
     private button: cc.Node = null;
@@ -39,6 +40,9 @@ export class Helloworld extends cc.Component {
     private buttonC: cc.Node = null;
     @property(cc.Node)
     private buttonDisabnd: cc.Node = null;
+
+    @property(cc.Node)
+    private buttonDiscard: cc.Node = null;
 
     public returnFromGame(): void {
         // nothing
@@ -84,6 +88,9 @@ export class Helloworld extends cc.Component {
             this.buttonC.on("click", this.testSendReady, this);
 
             this.buttonDisabnd.on("click", this.testDisband, this);
+            this.buttonDiscard.on("click", this.testDiscard, this);
+
+            this.buttonDiscard.active = false;
         });
     }
 
@@ -118,7 +125,6 @@ export class Helloworld extends cc.Component {
                 } else {
                     const reply = <{servers: ServerCfg[]; player_id: number}>JSON.parse(xhr.responseText);
                     console.log(reply);
-                    this.myPlayerID = reply.player_id;
                     this.testFastLogin(reply.servers[0]).catch((reason) => {
                         console.log(reason);
                     });
@@ -140,6 +146,8 @@ export class Helloworld extends cc.Component {
         console.log(url);
         this.msgCenter = new LMsgCenter(url, this, this);
 
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_ACK, this.onFastLoginACK, this); // 快速登录服务器回复
+
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onCreateRoomAck, this); // 创建房间
 
@@ -158,8 +166,19 @@ export class Helloworld extends cc.Component {
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_SCORE, this.onSCScore, this); // 积分状态
 
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onDisbandAck, this); // 积分状态
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OUTCARD_ACK, this.onOutCardAck, this); // 打牌响应
+
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP, this.onSCOP, this); // 服务器询问玩家操作
 
         await this.msgCenter.start();
+    }
+
+    private onFastLoginACK(data: ByteBuffer): void {
+        const fastLoginReply = proto.casino.packet_fast_login_ack.decode(data);
+        console.log(fastLoginReply);
+
+        this.myPlayerID = fastLoginReply.player_id;
+        this.myUserID = fastLoginReply.user_id;
     }
 
     private testCreateRoom(): void {
@@ -264,12 +283,24 @@ export class Helloworld extends cc.Component {
         console.log("onStartPlay");
         const reply = proto.casino_xtsj.packet_sc_start_play.decode(msg);
         console.log(reply);
+
+        // 保存自己的13张牌
+        reply.cards.forEach((card) => {
+            this.myCards.push(card);
+        });
     }
 
     private onOnDraw(msg: ByteBuffer): void {
         console.log("onOnDraw");
         const reply = proto.casino_xtsj.packet_sc_drawcard.decode(msg);
         console.log(reply);
+
+        // 保存我的抽牌
+        if (reply.player_id === this.myPlayerID) {
+            this.myCards.push(reply.card);
+
+            this.buttonDiscard.active = true;
+        }
     }
 
     private onOnOutCardwAck(msg: ByteBuffer): void {
@@ -287,6 +318,33 @@ export class Helloworld extends cc.Component {
     private onSCScore(msg: ByteBuffer): void {
         console.log("onSCScore");
         const reply = proto.casino_xtsj.packet_sc_score.decode(msg);
+        console.log(reply);
+    }
+
+    private onSCOP(msg: ByteBuffer): void {
+        console.log("onSCOP");
+        const reply = proto.casino_xtsj.packet_sc_op.decode(msg);
+        console.log(reply);
+    }
+
+    private testDiscard(): void {
+        if (this.myCards.length < 1) {
+            return;
+        }
+
+        const outCard = this.myCards.shift();
+
+        // packet_cs_outcard_req
+        const req2 = new proto.casino_xtsj.packet_cs_outcard_req({ player_id: this.myPlayerID, card: outCard });
+        const buf = proto.casino_xtsj.packet_cs_outcard_req.encode(req2);
+        this.msgCenter.sendGameMsg(buf, proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OUTCARD_REQ);
+
+        this.buttonDiscard.active = false;
+    }
+
+    private onOutCardAck(msg: ByteBuffer): void {
+        console.log("onOutCardAck");
+        const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msg);
         console.log(reply);
     }
 }

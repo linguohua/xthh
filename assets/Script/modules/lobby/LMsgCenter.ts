@@ -236,13 +236,6 @@ export class LMsgCenter {
         const buf = proto.casino.packet_fast_login_req.encode(req2);
         this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_REQ);
 
-        this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_ACK, this.onFastLoginACK, this);
-    }
-
-    private onFastLoginACK(data: ByteBuffer): void {
-        const fastLoginReply = proto.casino.packet_fast_login_ack.decode(data);
-        console.log(fastLoginReply);
-
         this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PING, this.onServerPing, this);
     }
 
