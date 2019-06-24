@@ -133,16 +133,22 @@ export class Helloworld extends cc.Component {
         console.log(url);
         this.msgCenter = new LMsgCenter(url, this, this);
 
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onCreateRoomAck, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_READY, this.onTableReady, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_ENTRY, this.onTableEnter, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_LEAVE, this.onTableLeave, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_PAUSE, this.onTablePause, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_UPDATE, this.onTableUpdate, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_SCORE, this.onTableScore, this);
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_MANAGED, this.onTableManaged, this);
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onCreateRoomAck, this); // 创建房间
+
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_READY, this.onTableReady, this); // 玩家准备
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_ENTRY, this.onTableEnter, this);  // 玩家进入桌子
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_LEAVE, this.onTableLeave, this);  // 玩家离开桌子
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_PAUSE, this.onTablePause, this);  // 桌子操作暂停（就是等待某人动作啥的）
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_UPDATE, this.onTableUpdate, this);  // 桌子更新
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_SCORE, this.onTableScore, this);  // 桌子结算
+        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_MANAGED, this.onTableManaged, this); // 桌子进入托管
+
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_STARTPLAY, this.onStartPlay, this); // 发牌
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_DRAWCARD, this.onOnDraw, this); // 抽牌
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OUTCARD_ACK, this.onOnOutCardwAck, this); // 出牌服务器回复
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP_ACK, this.onOnOpAck, this); // 玩家操作结果
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_SCORE, this.onSCScore, this); // 积分状态
 
         await this.msgCenter.start();
     }
@@ -236,6 +242,30 @@ export class Helloworld extends cc.Component {
     private onStartPlay(msg: ByteBuffer): void {
         console.log("onStartPlay");
         const reply = proto.casino_xtsj.packet_sc_start_play.decode(msg);
+        console.log(reply);
+    }
+
+    private onOnDraw(msg: ByteBuffer): void {
+        console.log("onOnDraw");
+        const reply = proto.casino_xtsj.packet_sc_drawcard.decode(msg);
+        console.log(reply);
+    }
+
+    private onOnOutCardwAck(msg: ByteBuffer): void {
+        console.log("onOnDrawAck");
+        const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msg);
+        console.log(reply);
+    }
+
+    private onOnOpAck(msg: ByteBuffer): void {
+        console.log("onOnOpAck");
+        const reply = proto.casino_xtsj.packet_sc_op_ack.decode(msg);
+        console.log(reply);
+    }
+
+    private onSCScore(msg: ByteBuffer): void {
+        console.log("onSCScore");
+        const reply = proto.casino_xtsj.packet_sc_score.decode(msg);
         console.log(reply);
     }
 }
