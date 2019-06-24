@@ -1,9 +1,17 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import { DataStore, Dialog, HTTP, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { LMsgCenter } from "../LMsgCenter";
 import { proto } from "../proto/protoLobby";
+import { proto as protoHH } from "../protoHH/protoHH";
+import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
 
 const { ccclass } = cc._decorator;
+interface ServerCfg {
+    host: string;
+    port: number;
+    id: number;
+}
 
 /**
  * LoginView 登录界面
@@ -107,7 +115,8 @@ export class LoginView extends cc.Component {
         if (this.button !== null) {
             this.button.hide();
         }
-        this.quicklyLogin();
+        // this.quicklyLogin();
+        this.testHTTPLogin();
     }
 
     public onWeixinBtnClick(): void {
@@ -261,6 +270,66 @@ export class LoginView extends cc.Component {
     protected onLoad(): void {
         // 构建一个event target用于发出destroy事件
         this.eventTarget = new cc.EventTarget();
+    }
+
+    protected testHTTPLogin(): void {
+        const req = {
+            app: "casino",
+            channel: "mac",
+            openudid: "f5854e70d954a14fc5fae475121db4bd58af1f51",
+            nickname: "abc",
+            ticket: 0,
+            sign: ""
+        };
+
+        req.ticket = Math.ceil(Date.now() / 1000);
+        const cat = `xthh${req.openudid}${req.ticket}`;
+        req.sign = md5(cat);
+
+        const reqString = JSON.stringify(req);
+        Logger.debug(reqString);
+
+        HTTP.hPost(
+            this.eventTarget,
+            "https://dfh5-develop.qianz.com/t9user/Login",
+            (xhr: XMLHttpRequest) => {
+                const err = HTTP.hError(xhr);
+                if (err !== null) {
+                    Logger.debug(err);
+                } else {
+                    const reply = <{servers: ServerCfg[]}>JSON.parse(xhr.responseText);
+                    Logger.debug(reply);
+                    this.testFastLogin(reply.servers[0]).catch((reason) => {
+                        Logger.debug(reason);
+                    });
+                }
+            },
+            "text",
+            reqString);
+    }
+
+    private async testFastLogin(serverCfg: ServerCfg): Promise<void> {
+        Logger.debug(serverCfg);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        if (lm.msgCenter !== undefined) {
+            return;
+        }
+
+        // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
+        lm.eventTarget.on("onFastLoginComplete", this.onFastLoginComplete, this);
+
+        const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
+        const url = `wss://dfh5-develop.qianz.com/game/uuid/ws/play?web=1&target=${uriComp}`;
+        Logger.debug(url);
+        lm.msgCenter = new LMsgCenter(url, this, lm);
+        await lm.msgCenter.start();
+    }
+
+    private onFastLoginComplete(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {
+        Logger.debug("fastLoginReply:", fastLoginAck);
+
+        this.showLobbyView();
     }
 
     private createWxBtn(): void {

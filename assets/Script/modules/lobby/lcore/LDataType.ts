@@ -1,4 +1,5 @@
 import { proto } from "../proto/protoLobby";
+import { LMsgCenter } from "../LMsgCenter";
 
 /**
  * 一些公用数据类型
@@ -46,6 +47,8 @@ export interface GResLoader {
 export interface LobbyModuleInterface {
     loader: GResLoader;
     eventTarget: cc.EventTarget;
+
+    msgCenter: LMsgCenter;
     returnFromGame(): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(roomInfo: proto.lobby.IRoomInfo): void;

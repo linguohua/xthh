@@ -8,6 +8,7 @@ import { Dialog } from "./lcore/Dialog";
 import { DataStore, HTTP, LEnv } from "./lcore/LCoreExports";
 import { GameModuleInterface, GameModuleLaunchArgs, LobbyModuleInterface } from "./lcore/LDataType";
 import { Logger } from "./lcore/Logger";
+import { LMsgCenter } from "./LMsgCenter";
 import { proto } from "./proto/protoLobby";
 import { LobbyError } from "./views/LobbyError";
 import { LoginView } from "./views/LoginView";
@@ -19,6 +20,8 @@ import { LoginView } from "./views/LoginView";
 export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public loader: GResLoaderImpl;
     public eventTarget: cc.EventTarget;
+
+    public msgCenter: LMsgCenter;
     // 用于挂载子游戏模块的节点，在离开子游戏模块并回到大厅后销毁
     private gameNode: cc.Node;
     private gameLoader: GResLoaderImpl;

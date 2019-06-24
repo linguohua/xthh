@@ -25,9 +25,12 @@ export class LMsgCenter {
 
     private gmsgHandlers: { [key: number]: GameMsgHandlerHolder } = {};
 
+    private lobbyModule: LobbyModuleInterface;
+
     public constructor(url: string, component: cc.Component, lobbyModule?: LobbyModuleInterface) {
         this.url = url;
         this.component = component;
+        this.lobbyModule = lobbyModule;
 
         this.eventTarget = new cc.EventTarget();
     }
@@ -237,6 +240,10 @@ export class LMsgCenter {
         this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_REQ);
 
         this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PING, this.onServerPing, this);
+
+        if (this.lobbyModule !== null || this.lobbyModule !== undefined) {
+            this.lobbyModule.eventTarget.emit("onFastLoginComplete", fastLoginReply);
+        }
     }
 
     private onServerPing(data: ByteBuffer): void {
