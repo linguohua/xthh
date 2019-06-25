@@ -5,22 +5,23 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { GameOverResultView } from "./GameOverResultView";
-import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
-import { HandlerMsg2Lobby } from "./handlers/HandlerMsg2Lobby";
-import { HandlerMsgActionAllowed } from "./handlers/HandlerMsgActionAllowed";
-import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
-import { HandlerMsgDeleted } from "./handlers/HandlerMsgDeleted";
-import { HandlerMsgDisbandNotify } from "./handlers/HandlerMsgDisbandNotify";
-import { HandlerMsgDonate } from "./handlers/HandlerMsgDonate";
-import { HandlerMsgGameOver } from "./handlers/HandlerMsgGameOver";
-import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
-import { HandlerMsgKickout } from "./handlers/HandlerMsgKickout";
-import { HandlerMsgReActionAllowed } from "./handlers/HandlerMsgReActionAllowed";
-import { HandlerMsgRestore } from "./handlers/HandlerMsgRestore";
-import { HandlerMsgRoomUpdate } from "./handlers/HandlerMsgRoomUpdate";
-import { HandlerMsgShowTips } from "./handlers/HandlerMsgShowTips";
-import { HandlerMsgUpdateLocation } from "./handlers/HandlerMsgUpdateLocation";
-import { HandlerMsgUpdatePropCfg } from "./handlers/HandlerMsgUpdatePropCfg";
+// import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
+// import { HandlerMsg2Lobby } from "./handlers/HandlerMsg2Lobby";
+// import { HandlerMsgActionAllowed } from "./handlers/HandlerMsgActionAllowed";
+// import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
+// import { HandlerMsgDeleted } from "./handlers/HandlerMsgDeleted";
+// import { HandlerMsgDisbandNotify } from "./handlers/HandlerMsgDisbandNotify";
+// import { HandlerMsgDonate } from "./handlers/HandlerMsgDonate";
+// import { HandlerMsgGameOver } from "./handlers/HandlerMsgGameOver";
+// import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
+// import { HandlerMsgKickout } from "./handlers/HandlerMsgKickout";
+// import { HandlerMsgReActionAllowed } from "./handlers/HandlerMsgReActionAllowed";
+// import { HandlerMsgRestore } from "./handlers/HandlerMsgRestore";
+// import { HandlerMsgRoomUpdate } from "./handlers/HandlerMsgRoomUpdate";
+// import { HandlerMsgShowTips } from "./handlers/HandlerMsgShowTips";
+// import { HandlerMsgUpdateLocation } from "./handlers/HandlerMsgUpdateLocation";
+// import { HandlerMsgUpdatePropCfg } from "./handlers/HandlerMsgUpdatePropCfg";
+import { HandlerMsgTableEntry } from "./handlers/HandlerMsgTableEntry";
 import { HandResultView } from "./HandResultView";
 import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
@@ -33,24 +34,25 @@ type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
  * 定义一个接口 关联Game 到room
  */
-const msgCodeEnum = proto.mahjong.MessageCode;
+const msgCodeEnum = protoHH.casino.eMSG_TYPE;
 const msgHandlers: { [key: number]: msgHandler } = {
-    [msgCodeEnum.OPActionAllowed]: HandlerMsgActionAllowed.onMsg,
-    [msgCodeEnum.OPReActionAllowed]: HandlerMsgReActionAllowed.onMsg,
-    [msgCodeEnum.OPActionResultNotify]: HandlerActionResultNotify.onMsg,
-    [msgCodeEnum.OPDeal]: HandlerMsgDeal.onMsg,
-    [msgCodeEnum.OPHandOver]: HandlerMsgHandOver.onMsg,
-    [msgCodeEnum.OPRoomUpdate]: HandlerMsgRoomUpdate.onMsg,
-    [msgCodeEnum.OPRestore]: HandlerMsgRestore.onMsg,
-    [msgCodeEnum.OPRoomDeleted]: HandlerMsgDeleted.onMsg,
-    [msgCodeEnum.OPRoomShowTips]: HandlerMsgShowTips.onMsg,
-    [msgCodeEnum.OPGameOver]: HandlerMsgGameOver.onMsg,
-    [msgCodeEnum.OPDisbandNotify]: HandlerMsgDisbandNotify.onMsg,
-    [msgCodeEnum.OPKickout]: HandlerMsgKickout.onMsg,
-    [msgCodeEnum.OPDonate]: HandlerMsgDonate.onMsg,
-    [msgCodeEnum.OPUpdateLocation]: HandlerMsgUpdateLocation.onMsg,
-    [msgCodeEnum.OP2Lobby]: HandlerMsg2Lobby.onMsg,
-    [msgCodeEnum.OPUpdatePropCfg]: HandlerMsgUpdatePropCfg.onMsg
+    // [msgCodeEnum.OPActionAllowed]: HandlerMsgActionAllowed.onMsg,
+    // [msgCodeEnum.OPReActionAllowed]: HandlerMsgReActionAllowed.onMsg,
+    // [msgCodeEnum.OPActionResultNotify]: HandlerActionResultNotify.onMsg,
+    // [msgCodeEnum.OPDeal]: HandlerMsgDeal.onMsg,
+    // [msgCodeEnum.OPHandOver]: HandlerMsgHandOver.onMsg,
+    // [msgCodeEnum.OPRoomUpdate]: HandlerMsgRoomUpdate.onMsg,
+    // [msgCodeEnum.OPRestore]: HandlerMsgRestore.onMsg,
+    // [msgCodeEnum.OPRoomDeleted]: HandlerMsgDeleted.onMsg,
+    // [msgCodeEnum.OPRoomShowTips]: HandlerMsgShowTips.onMsg,
+    // [msgCodeEnum.OPGameOver]: HandlerMsgGameOver.onMsg,
+    // [msgCodeEnum.OPDisbandNotify]: HandlerMsgDisbandNotify.onMsg,
+    // [msgCodeEnum.OPKickout]: HandlerMsgKickout.onMsg,
+    // [msgCodeEnum.OPDonate]: HandlerMsgDonate.onMsg,
+    // [msgCodeEnum.OPUpdateLocation]: HandlerMsgUpdateLocation.onMsg,
+    // [msgCodeEnum.OP2Lobby]: HandlerMsg2Lobby.onMsg,
+    // [msgCodeEnum.OPUpdatePropCfg]: HandlerMsgUpdatePropCfg.onMsg
+    [msgCodeEnum.MSG_TABLE_ENTRY]: HandlerMsgTableEntry.onMsg
 };
 
 /**
@@ -173,6 +175,10 @@ export class Room {
         // gm.Ops = proto.mahjong.MessageCode.OPPlayerReady;
         // const buf = proto.mahjong.GameMessage.encode(gm);
         // this.host.sendBinary(buf);
+
+        const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
+        const buf = protoHH.casino.packet_table_ready.encode(req2);
+        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_READY);
     }
 
     public onInviteButtonClick(): void {

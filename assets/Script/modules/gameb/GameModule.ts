@@ -12,7 +12,7 @@ import { Room } from "./Room";
 //     [mc.OPDisbandRequest]: 1, [mc.OPDisbandNotify]: 1, [mc.OPDisbandAnswer]: 1
 // };
 // 添加需要优先级管理的消息码
-const priorityMap: { [key: number]: number } = {};
+const priorityMap: { [key: number]: number } = {[proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK]: 1};
 
 /**
  * 子游戏入口
@@ -136,29 +136,66 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private async doEnterRoom(
         myUser: UserInfo,
         roomInfo: RoomInfo): Promise<void> {
-        //
-        Logger.debug("doEnterRoom enter---");
-        // 每次进入本函数时都重置retry为false
-
-        // this.room可能不为null，因为如果断线重入，room以及roomview就可能已经加载
-        if (this.mRoom === null || this.mRoom === undefined) {
-            this.createRoom(myUser, roomInfo);
-        }
-
-        // 显示登录房间等待进度框
-        // 显示于界面的等待信息
-        // const showProgressTips = "正在进入房间";
-
         const mq = new MsgQueue(priorityMap);
         this.mq = mq;
 
         // 1. 订阅消息
         this.subMsg();
 
-        // 2. 等待房间消息
+        this.blockNormal();
+        // 2. 请求创建房间
+        this.testCreateRoom();
 
+        const createRoomAck = await this.waitCreateRoomAck();
+        if (createRoomAck.ret !== 0) {
+            Logger.error("createRoom error, ret:", createRoomAck.ret);
+
+            return;
+        }
+
+        Logger.debug("doEnterRoom :", createRoomAck.tdata);
+
+        // 3. 创建房间View
+        if (this.mRoom === null || this.mRoom === undefined) {
+            this.createRoom(myUser, roomInfo);
+        }
+
+        this.unblockNormal();
         await this.pumpMsg();
+
         Logger.debug("doEnterRoom leave---");
+    }
+
+    private testCreateRoom(): void {
+        const req = {
+            casino_id: 16,
+            room_id: 2103,
+            base: 1,
+            round: 1,
+            join: 0
+        };
+
+        const req2 = new proto.casino.packet_table_create_req(req);
+        const buf = proto.casino.packet_table_create_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_REQ);
+    }
+
+    private async waitCreateRoomAck(): Promise<proto.casino.packet_table_create_ack> {
+        const msg = await this.mq.waitMsg();
+        if (msg.mt === MsgType.wsData) {
+            const pmsg = <proto.casino.ProxyMessage>msg.data;
+
+            if (pmsg.Ops === proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK) {
+
+                return proto.casino.packet_table_create_ack.decode(pmsg.Data);
+            } else {
+              Logger.error("Wait msg not create room ack");
+            }
+        } else {
+            Logger.error("expected normal websocket msg, but got:", msg);
+        }
+
+        return null;
     }
 
     private createRoom(
@@ -179,7 +216,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     private subMsg(): void {
         // this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onMsg, this); // 加入游戏
-        // this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onMsg, this); // 创建房间
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onMsg, this); // 创建房间
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_READY, this.onMsg, this); // 玩家准备
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_ENTRY, this.onMsg, this);  // 玩家进入桌子
@@ -197,6 +234,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private onMsg(pmsg: proto.casino.ProxyMessage): void {
+        Logger.debug("GameModule.onMsg");
         const msg = new Message(MsgType.wsData, pmsg);
         this.mq.pushMessage(msg);
     }

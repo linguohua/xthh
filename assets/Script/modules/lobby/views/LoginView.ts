@@ -237,7 +237,7 @@ export class LoginView extends cc.Component {
         const req = {
             app: "casino",
             channel: "mac",
-            openudid: "f5854e70d954a14fc5fae475121db4bd58af1f51",
+            openudid: "00000000-3ff8-9c77-ce04-7c1b00000000",
             nickname: "abc",
             ticket: 0,
             sign: ""

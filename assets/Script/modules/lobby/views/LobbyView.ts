@@ -72,7 +72,6 @@ export class LobbyView extends cc.Component {
         this.initView();
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onCreateRoomAck, this); // 创建房间
         // await this.startWebSocket();
     }
 
@@ -226,28 +225,7 @@ export class LobbyView extends cc.Component {
         const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
         console.log(reply);
 
-        this.testCreateRoom();
-    }
-
-    private testCreateRoom(): void {
-        const req = {
-            casino_id: 16,
-            room_id: 2103,
-            base: 1,
-            round: 1,
-            join: 0
-        };
-
-        const req2 = new proto.casino.packet_table_create_req(req);
-        const buf = proto.casino.packet_table_create_req.encode(req2);
-        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_REQ);
-    }
-
-    private onCreateRoomAck(msg: proto.casino.ProxyMessage): void {
-        const reply = proto.casino.packet_table_create_ack.decode(msg.Data);
-        Logger.debug("onCreateRoomAck:", reply);
-
-        const myUser = { userID: "6" };
+        const myUser = { userID: `${reply.player_id}` };
         const roomConfigObj = {
             roomType: 21
         };

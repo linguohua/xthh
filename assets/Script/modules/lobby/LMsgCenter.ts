@@ -205,6 +205,7 @@ export class LMsgCenter {
             return;
         }
 
+        msg.Ops = opsGame;
         u.handler.call(u.target, msg);
     }
 
@@ -218,7 +219,7 @@ export class LMsgCenter {
             idfa: "",
             idfv: "",
             udid: "",
-            openudid: "0cf8703e88895da32f5affc6fe631127cccf72e1",
+            openudid: "00000000-3ff8-9c77-ce04-7c1b00000000",
             mac: "00:00:00:00:00:00",
             device: "iPhone",
             device_version: "",
