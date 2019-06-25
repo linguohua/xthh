@@ -102,7 +102,7 @@ export class Helloworld extends cc.Component {
         const req = {
             app: "casino",
             channel: "mac",
-            openudid: "f5854e70d954a14fc5fae475121db4bd58af1f51",
+            openudid: "00000000-3ff8-9c77-ce04-7c1b00000000",
             nickname: "abc",
             ticket: 0,
             sign: ""
@@ -146,7 +146,7 @@ export class Helloworld extends cc.Component {
         console.log(url);
         this.msgCenter = new LMsgCenter(url, this);
 
-        this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_ACK, this.onFastLoginACK, this); // 快速登录服务器回复
+        this.msgCenter.eventTarget.once("onFastLoginComplete", this.onFastLoginACK, this); // 快速登录服务器回复
 
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onCreateRoomAck, this); // 创建房间
@@ -173,10 +173,7 @@ export class Helloworld extends cc.Component {
         await this.msgCenter.start();
     }
 
-    private onFastLoginACK(msg: proto.casino.ProxyMessage): void {
-        const fastLoginReply = proto.casino.packet_fast_login_ack.decode(msg.Data);
-        console.log(fastLoginReply);
-
+    private onFastLoginACK(fastLoginReply: proto.casino.packet_fast_login_ack): void {
         this.myPlayerID = fastLoginReply.player_id;
         this.myUserID = fastLoginReply.user_id;
     }
