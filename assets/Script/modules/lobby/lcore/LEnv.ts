@@ -18,7 +18,7 @@ export namespace LEnv {
     export const wxShareInfo = '/lobby/uuid/getShareInfo';
     export const register = "/lobby/uuid/register";
     export const chat = "/lobby/uuid/chat";
-    export const lobbyWebsocket = "wss://dfh5-develop.qianz.com/lobby/uuid/ws";
+    export const lobbyWebsocket = "wss://dfh5-develop.qianz.com";
 
     // -- 创建房间
     export const createRoom = "/lobby/uuid/createRoom";

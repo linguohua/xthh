@@ -252,13 +252,13 @@ export class LoginView extends cc.Component {
 
         HTTP.hPost(
             this.eventTarget,
-            "http://localhost:3001/t9user/Login",
+            `${LEnv.rootURL}/t9user/Login`,
             (xhr: XMLHttpRequest) => {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
                     Logger.debug(err);
                 } else {
-                    const reply = <{servers: ServerCfg[]}>JSON.parse(xhr.responseText);
+                    const reply = <{ servers: ServerCfg[] }>JSON.parse(xhr.responseText);
                     Logger.debug(reply);
                     this.testFastLogin(reply.servers[0]).catch((reason) => {
                         Logger.debug(reason);
@@ -282,7 +282,7 @@ export class LoginView extends cc.Component {
         lm.eventTarget.on("onFastLoginComplete", this.onFastLoginComplete, this);
 
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
-        const url = `ws://localhost:3001/game/uuid/ws/play?web=1&target=${uriComp}`;
+        const url = `${LEnv.lobbyWebsocket}/game/uuid/ws/play?web=1&target=${uriComp}`;
         Logger.debug(url);
         // LmsgCenter 绑定到LobbyModule
         const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, lm);
