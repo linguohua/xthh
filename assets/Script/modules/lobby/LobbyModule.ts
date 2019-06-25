@@ -6,10 +6,10 @@ import { GameModule } from "../gameb/GamebExports";
 import { GResLoaderImpl } from "./GResLoaderImpl";
 import { Dialog } from "./lcore/Dialog";
 import { DataStore, HTTP, LEnv } from "./lcore/LCoreExports";
-import { GameModuleInterface, GameModuleLaunchArgs, LobbyModuleInterface } from "./lcore/LDataType";
+import { GameModuleInterface, GameModuleLaunchArgs, LobbyModuleInterface, MsgCenter } from "./lcore/LDataType";
 import { Logger } from "./lcore/Logger";
-import { GameMsgHandler, LMsgCenter } from "./LMsgCenter";
 import { proto } from "./proto/protoLobby";
+import { proto as protoHH } from "./protoHH/protoHH";
 import { LobbyError } from "./views/LobbyError";
 import { LoginView } from "./views/LoginView";
 
@@ -21,7 +21,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public loader: GResLoaderImpl;
     public eventTarget: cc.EventTarget;
 
-    public msgCenter: LMsgCenter;
+    public msgCenter: MsgCenter;
     // 用于挂载子游戏模块的节点，在离开子游戏模块并回到大厅后销毁
     private gameNode: cc.Node;
     private gameLoader: GResLoaderImpl;
@@ -195,9 +195,9 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         );
     }
 
-    public setGameMsgHandler(code: number, h: Function, target: object): void {
+    public setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void {
         if (this.msgCenter !== null && this.msgCenter !== undefined) {
-            this.msgCenter.setGameMsgHandler(code, <GameMsgHandler>h, target);
+            this.msgCenter.setGameMsgHandler(code, h, target);
         } else {
             Logger.error("setGameMsgHandler, this.msgCenter is null");
         }
