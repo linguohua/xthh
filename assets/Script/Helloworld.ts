@@ -316,7 +316,7 @@ export class Helloworld extends cc.Component {
     }
 
     private onSCScore(msg: proto.casino.ProxyMessage): void {
-        console.log("onSCScorexx");
+        console.log("onSCScore001");
         const reply = proto.casino_xtsj.packet_sc_score.decode(msg.Data);
         console.log(reply);
     }
