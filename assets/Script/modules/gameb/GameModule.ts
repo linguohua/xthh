@@ -142,7 +142,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // 1. 订阅消息
         this.subMsg();
 
-        this.blockNormal();
         // 2. 请求创建房间
         this.testCreateRoom();
 
@@ -160,7 +159,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             this.createRoom(myUser, roomInfo);
         }
 
-        this.unblockNormal();
         await this.pumpMsg();
 
         Logger.debug("doEnterRoom leave---");
@@ -181,7 +179,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private async waitCreateRoomAck(): Promise<proto.casino.packet_table_create_ack> {
+        this.blockNormal();
         const msg = await this.mq.waitMsg();
+        this.unblockNormal();
         if (msg.mt === MsgType.wsData) {
             const pmsg = <proto.casino.ProxyMessage>msg.data;
 

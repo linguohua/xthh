@@ -279,13 +279,14 @@ export class LoginView extends cc.Component {
         }
 
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
-        lm.eventTarget.on("onFastLoginComplete", this.onFastLoginComplete, this);
 
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
         const url = `${LEnv.lobbyWebsocket}/game/uuid/ws/play?web=1&target=${uriComp}`;
         Logger.debug(url);
         // LmsgCenter 绑定到LobbyModule
         const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, lm);
+        msgCenter.eventTarget.once("onFastLoginComplete", this.onFastLoginComplete, this);
+
         lm.msgCenter = msgCenter;
 
         await msgCenter.start();
