@@ -72,7 +72,7 @@ export class RoomView {
      */
     public showOrHideReadyButton(isShow: boolean): void {
         this.readyButton.visible = isShow;
-        this.returnLobbyBtn.visible = isShow;
+        // this.returnLobbyBtn.visible = isShow;
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.inviteButton.visible = isShow;
         }
@@ -374,7 +374,7 @@ export class RoomView {
 
         this.readyButton = this.unityViewNode.getChild("ready").asButton;
         this.readyButton.visible = false;
-        this.readyButton.onClick(this.onReadyButtonClick, this.room);
+        this.readyButton.onClick(this.onReadyButtonClick, this);
 
         this.inviteButton = this.unityViewNode.getChild("invite").asButton;
         this.inviteButton.visible = false;

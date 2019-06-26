@@ -219,7 +219,7 @@ export class LMsgCenter {
             idfa: "",
             idfv: "",
             udid: "",
-            openudid: "00000000-3ff8-9c77-ce04-7c1b00000000",
+            openudid: "ffffffff-865c-c946-941f-ecd10033c587",
             mac: "00:00:00:00:00:00",
             device: "iPhone",
             device_version: "",
