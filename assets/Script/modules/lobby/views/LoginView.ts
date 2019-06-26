@@ -290,14 +290,24 @@ export class LoginView extends cc.Component {
         lm.msgCenter = msgCenter;
 
         await msgCenter.start();
+
+        // 退出
+        lm.msgCenter = null;
     }
 
     private onFastLoginComplete(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {
         Logger.debug("fastLoginReply:", fastLoginAck);
-
+        this.saveFastLoginReply(fastLoginAck);
         this.showLobbyView();
     }
 
+    private saveFastLoginReply(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {
+        DataStore.setItem("userID", fastLoginAck.user_id);
+        DataStore.setItem("nickName", fastLoginAck.pdata.data.nickname);
+        DataStore.setItem("gender", fastLoginAck.pdata.data.sex);
+        DataStore.setItem("playerID", fastLoginAck.player_id);
+        DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
+    }
     private createWxBtn(): void {
         const btnSize = cc.size(this.weixinButton.width, this.weixinButton.height);
         const frameSize = cc.view.getFrameSize();
