@@ -70,8 +70,6 @@ export class LobbyView extends cc.Component {
         this.view = view;
 
         this.initView();
-
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
         // await this.startWebSocket();
     }
 
@@ -153,8 +151,31 @@ export class LobbyView extends cc.Component {
     //     await this.msgCenter.start();
     // }
     private onFriendClick(): void {
-        this.addComponent(ClubView);
+        // this.addComponent(ClubView);
 
+        // this.testDisband();
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.testDisband, this); // 加入游戏
+
+        const req2 = new proto.casino.packet_player_join_req({});
+        const buf = proto.casino.packet_player_join_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
+    }
+
+    private testDisband(): void {
+        const playerID = DataStore.getString("playerID");
+        const playerIDInt = parseInt(playerID, 10);
+        Logger.debug("playerIDInt:", playerIDInt);
+
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onDisbandAck, this);
+        const req2 = new proto.casino.packet_table_disband_req({ player_id: playerIDInt});
+        const buf = proto.casino.packet_table_disband_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
+    }
+
+    private onDisbandAck(msg: proto.casino.ProxyMessage): void {
+        console.log("onDisbandAck");
+        const reply = proto.casino.packet_table_disband_ack.decode(msg.Data);
+        console.log(reply);
     }
 
     private onCreateClick(): void {
@@ -214,6 +235,7 @@ export class LobbyView extends cc.Component {
     private onCreateRoom(): void {
         // const newRoomView = this.addComponent(NewRoomView);
         // newRoomView.showView(NewRoomViewPath.Normal);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
 
         const req2 = new proto.casino.packet_player_join_req({});
         const buf = proto.casino.packet_player_join_req.encode(req2);
