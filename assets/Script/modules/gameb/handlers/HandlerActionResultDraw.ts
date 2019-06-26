@@ -1,7 +1,7 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
-import { RoomInterface } from "../RoomInterface";
 import { Player } from "../Player";
+import { RoomInterface } from "../RoomInterface";
 
 /**
  * 响应服务器抽牌通知

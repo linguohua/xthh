@@ -5,10 +5,18 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { GameOverResultView } from "./GameOverResultView";
+import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
+import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
+import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
+import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
+import { HandlerMsgActionOutcardAck } from "./handlers/HandlerMsgActionOutcardAck";
 // import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
 // import { HandlerMsg2Lobby } from "./handlers/HandlerMsg2Lobby";
 // import { HandlerMsgActionAllowed } from "./handlers/HandlerMsgActionAllowed";
 import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
+import { HandlerMsgTableDisband } from "./handlers/HandlerMsgTableDisband";
+import { HandlerMsgTableDisbandAck } from "./handlers/HandlerMsgTableDisbandAck";
+import { HandlerMsgTableDisbandReq } from "./handlers/HandlerMsgTableDisbandReq";
 // import { HandlerMsgDeleted } from "./handlers/HandlerMsgDeleted";
 // import { HandlerMsgDisbandNotify } from "./handlers/HandlerMsgDisbandNotify";
 // import { HandlerMsgDonate } from "./handlers/HandlerMsgDonate";
@@ -22,6 +30,12 @@ import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
 // import { HandlerMsgUpdateLocation } from "./handlers/HandlerMsgUpdateLocation";
 // import { HandlerMsgUpdatePropCfg } from "./handlers/HandlerMsgUpdatePropCfg";
 import { HandlerMsgTableEntry } from "./handlers/HandlerMsgTableEntry";
+import { HandlerMsgTableLeave } from "./handlers/HandlerMsgTableLeave";
+import { HandlerMsgTableManaged } from "./handlers/HandlerMsgTableManaged";
+import { HandlerMsgTablePause } from "./handlers/HandlerMsgTablePause";
+import { HandlerMsgTableReady } from "./handlers/HandlerMsgTableReady";
+import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
+import { HandlerMsgTableUpdate } from "./handlers/HandlerMsgTableUpdate";
 import { HandResultView } from "./HandResultView";
 import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
@@ -29,20 +43,6 @@ import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
-import { HandlerMsgTableReady } from "./handlers/HandlerMsgTableReady";
-import { HandlerMsgTableLeave } from "./handlers/HandlerMsgTableLeave";
-import { HandlerMsgTablePause } from "./handlers/HandlerMsgTablePause";
-import { HandlerMsgTableUpdate } from "./handlers/HandlerMsgTableUpdate";
-import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
-import { HandlerMsgTableManaged } from "./handlers/HandlerMsgTableManaged";
-import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
-import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
-import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
-import { HandlerMsgActionOutcardAck } from "./handlers/HandlerMsgActionOutcardAck";
-import { HandlerMsgTableDisbandAck } from "./handlers/HandlerMsgTableDisbandAck";
-import { HandlerMsgTableDisbandReq } from "./handlers/HandlerMsgTableDisbandReq";
-import { HandlerMsgTableDisband } from "./handlers/HandlerMsgTableDisband";
-import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
@@ -474,14 +474,7 @@ export class Room {
     }
     //往服务器发送action消息
     public sendActionMsg(msgAction: ByteBuffer, opCode: number): void {
-        this.sendMsg(proto.mahjong.MessageCode.OPAction, msgAction);
-
-        const host = this.host;
-        if (host == null) {
-            return;
-        }
-
-        host.sendBinary(msgAction, opCode);
+        this.host.sendBinary(msgAction, opCode);
     }
     public quit(): void {
         this.stopBgSound();
