@@ -307,6 +307,13 @@ export class LoginView extends cc.Component {
         DataStore.setItem("gender", fastLoginAck.pdata.data.sex);
         DataStore.setItem("playerID", fastLoginAck.player_id);
         DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
+
+        if (fastLoginAck.pdata.resources.length >= 3) {
+            const diamond = fastLoginAck.pdata.resources[2];
+            DataStore.setItem("diamond", diamond.curr);
+        } else {
+            DataStore.setItem("diamond", 0);
+        }
     }
     private createWxBtn(): void {
         const btnSize = cc.size(this.weixinButton.width, this.weixinButton.height);
