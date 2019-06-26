@@ -127,7 +127,6 @@ export class Room {
     }
 
     public async dispatchWebsocketMsg(msg: protoHH.casino.ProxyMessage): Promise<void> {
-        Logger.debug("Room.dispatchWebsocketMsg, ops:", msg.Ops);
         const handler = msgHandlers[msg.Ops];
         if (handler !== undefined) {
             await handler(msg.Data, this);

@@ -248,7 +248,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private onMsg(pmsg: proto.casino.ProxyMessage): void {
-        Logger.debug("GameModule.onMsg");
         const msg = new Message(MsgType.wsData, pmsg);
         this.mq.pushMessage(msg);
     }
