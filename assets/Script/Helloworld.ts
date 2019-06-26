@@ -102,7 +102,7 @@ export class Helloworld extends cc.Component {
         const req = {
             app: "casino",
             channel: "mac",
-            openudid: "00000000-3ff8-9c77-ce04-7c1b00000000",
+            openudid: "0ab91c8f03a25ca506839662245f16967d6af2f5",
             nickname: "abc",
             ticket: 0,
             sign: ""
@@ -166,7 +166,7 @@ export class Helloworld extends cc.Component {
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_SCORE, this.onSCScore, this); // 积分状态
 
         this.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onDisbandAck, this); // 积分状态
-        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OUTCARD_ACK, this.onOutCardAck, this); // 打牌响应
+        this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP_ACK, this.onOutCardAck, this); // 打牌响应
 
         this.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP, this.onSCOP, this); // 服务器询问玩家操作
 

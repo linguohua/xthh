@@ -12,7 +12,7 @@ import { Room } from "./Room";
 //     [mc.OPDisbandRequest]: 1, [mc.OPDisbandNotify]: 1, [mc.OPDisbandAnswer]: 1
 // };
 // 添加需要优先级管理的消息码
-const priorityMap: { [key: number]: number } = {[proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK]: 1};
+const priorityMap: { [key: number]: number } = { [proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK]: 1 };
 
 /**
  * 子游戏入口
@@ -158,6 +158,15 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, roomInfo);
         }
+        //TODO 临时 (创建玩家视图 显示准备按钮)
+        this.mRoom.createMyPlayer(createRoomAck.tdata.players[0]);
+        for (let i = 1; i < createRoomAck.tdata.players.length; i++) {
+            const p = createRoomAck.tdata.players[i];
+            if (p !== undefined && p !== null && p.id !== null) {
+                this.mRoom.createPlayerByInfo(p, i);
+            }
+        }
+        this.mRoom.showOrHideReadyButton(true);
 
         await this.pumpMsg();
 
@@ -189,7 +198,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
                 return proto.casino.packet_table_create_ack.decode(pmsg.Data);
             } else {
-              Logger.error("Wait msg not create room ack");
+                Logger.error("Wait msg not create room ack");
             }
         } else {
             Logger.error("expected normal websocket msg, but got:", msg);
@@ -230,7 +239,12 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.lm.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_DRAWCARD, this.onMsg, this); // 抽牌
         this.lm.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OUTCARD_ACK, this.onMsg, this); // 出牌服务器回复
         this.lm.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP_ACK, this.onMsg, this); // 玩家操作结果
+        this.lm.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP, this.onMsg, this); // 等待玩家操作
         this.lm.msgCenter.setGameMsgHandler(proto.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_SCORE, this.onMsg, this); // 积分状态
+
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onMsg, this); // 解散吧
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND, this.onMsg, this); // 解散吧
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ, this.onMsg, this); // 解散吧
     }
 
     private onMsg(pmsg: proto.casino.ProxyMessage): void {

@@ -125,14 +125,14 @@ export class RoomView {
         // animation.coplay("animations/Effects_jiemian_duijukaishi.prefab", this.unityViewNode, x, y);
     }
 
-    public startDiscardCountdown(): void {
+    public startDiscardCountdown(time: number): void {
         if (this.leftTimerCB === undefined) {
             this.leftTimerCB = <Function>this.countDownCallBack.bind(this);
         }
 
         //清理定时器
         this.component.unschedule(this.leftTimerCB);
-        this.leftTime = 1;
+        this.leftTime = time;
         //起定时器
         this.component.schedule(
             this.leftTimerCB,
@@ -142,9 +142,9 @@ export class RoomView {
     }
 
     public countDownCallBack(): void {
-        this.leftTime += 1;
+        this.leftTime -= 1;
         this.countDownText.text = `${this.leftTime}`;
-        if (this.leftTime >= 999) {
+        if (this.leftTime <= 0) {
             this.component.unschedule(this.leftTimerCB);
         }
     }
@@ -156,8 +156,8 @@ export class RoomView {
     }
 
     //设置当前房间所等待的操作玩家
-    public setWaitingPlayer(playerView: PlayerView): void {
-        this.startDiscardCountdown();
+    public setWaitingPlayer(playerView: PlayerView, time: number): void {
+        this.startDiscardCountdown(time);
         this.clearWaitingPlayer();
         const viewChairID = playerView.viewChairID;
         this.roundMarks[viewChairID].visible = true;
@@ -289,7 +289,7 @@ export class RoomView {
         const playersInfo: DisBandPlayerInfo[] = [];
         Object.keys(players).forEach((key: string) => {
             const p = <Player>players[key];
-            const playInfo = new DisBandPlayerInfo(p.userID, p.chairID, p.playerInfo.nick);
+            const playInfo = new DisBandPlayerInfo(p.userID.toString(), p.chairID, p.playerInfo.nick);
             playersInfo.push(playInfo);
 
         });
@@ -374,7 +374,7 @@ export class RoomView {
 
         this.readyButton = this.unityViewNode.getChild("ready").asButton;
         this.readyButton.visible = false;
-        this.readyButton.onClick(this.room.onReadyButtonClick, this.room);
+        this.readyButton.onClick(this.onReadyButtonClick, this.room);
 
         this.inviteButton = this.unityViewNode.getChild("invite").asButton;
         this.inviteButton.visible = false;
@@ -391,6 +391,10 @@ export class RoomView {
         //     infoBtn.setPosition(infoBtn.x, infoBtn.y + 60);
         // }
 
+    }
+    private onReadyButtonClick(): void {
+        this.readyButton.visible = false;
+        this.room.onReadyButtonClick();
     }
 
     private initOtherView(): void {
@@ -534,7 +538,7 @@ export class RoomView {
         }
 
         const actionMsgBuf = proto.mahjong.MsgPlayerAction.encode(actionMsg);
-        this.room.sendActionMsg(actionMsgBuf);
+        // this.room.sendActionMsg(actionMsgBuf);
         this.playerViews[1].hideOperationButtons();
         this.meldOpsPanel.visible = false;
     }

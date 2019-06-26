@@ -1,4 +1,5 @@
 import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
 import { AgariIndex } from "./AgariIndex";
@@ -428,9 +429,9 @@ export class Player {
         }
     }
 
-    public updateByPlayerInfo(playerInfo: proto.mahjong.IMsgPlayerInfo): void {
-        this.state = playerInfo.state;
-        this.playerInfo = new PlayerInfo(playerInfo);
+    public updateByPlayerInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void {
+        this.state = playerInfo.status;
+        this.playerInfo = new PlayerInfo(playerInfo, chairID);
     }
 
     public discardOutTileID(tileID: number): void {
@@ -759,29 +760,34 @@ export class Player {
 
     public onPlayerDiscardTile(tileID: number): boolean {
         //const host = this.host
-        if (this.allowedActionMsg != null) {
-            this.discardToDeskOfMe(tileID);
-            const actionMsg = new proto.mahjong.MsgPlayerAction();
-            actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
-            actionMsg.action = mjproto.ActionType.enumActionType_DISCARD;
-            actionMsg.tile = tileID;
-            if (this.flagsTing) {
-                actionMsg.flags = 1;
-                this.flagsTing = false;
-            }
-            this.sendActionMsg(actionMsg);
-            //修改：出牌后立即放大打出的牌，一直等待服务器的回复
-            this.myDiscardAction(tileID);
+        // if (this.allowedActionMsg != null) {
+        //     this.discardToDeskOfMe(tileID);
+        //     const actionMsg = new proto.mahjong.MsgPlayerAction();
+        //     actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
+        //     actionMsg.action = mjproto.ActionType.enumActionType_DISCARD;
+        //     actionMsg.tile = tileID;
+        //     if (this.flagsTing) {
+        //         actionMsg.flags = 1;
+        //         this.flagsTing = false;
+        //     }
+        //     this.sendActionMsg(actionMsg);
+        //     //修改：出牌后立即放大打出的牌，一直等待服务器的回复
+        //     this.myDiscardAction(tileID);
 
-            const tipsForAction = this.allowedActionMsg.tipsForAction;
-            for (const t of tipsForAction) {
-                if (t.targetTile === tileID) {
-                    const readyHandList = t.readyHandList;
-                    this.updateReadyHandList(readyHandList);
-                    break;
-                }
-            }
-        }
+        //     const tipsForAction = this.allowedActionMsg.tipsForAction;
+        //     for (const t of tipsForAction) {
+        //         if (t.targetTile === tileID) {
+        //             const readyHandList = t.readyHandList;
+        //             this.updateReadyHandList(readyHandList);
+        //             break;
+        //         }
+        //     }
+        // }
+        this.discardToDeskOfMe(tileID);
+        this.myDiscardAction(tileID);
+        const req2 = new protoHH.casino_xtsj.packet_cs_outcard_req({ player_id: +this.userID, card: tileID });
+        const buf = protoHH.casino_xtsj.packet_cs_outcard_req.encode(req2);
+        this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OUTCARD_REQ);
 
         return true;
     }
@@ -865,6 +871,6 @@ export class Player {
 
     private sendActionMsg(actionMsg: proto.mahjong.MsgPlayerAction): void {
         const actionMsgBuf = proto.mahjong.MsgPlayerAction.encode(actionMsg);
-        this.host.sendActionMsg(actionMsgBuf);
+        // this.host.sendActionMsg(actionMsgBuf);
     }
 }

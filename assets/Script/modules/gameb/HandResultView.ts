@@ -159,7 +159,7 @@ export class HandResultView extends cc.Component {
         let name = player.playerInfo.nick;
         const userID = player.userID;
         if (name == null || name === "") {
-            name = userID;
+            name = `${userID}`;
         }
         c.textName.text = name;
         c.textId.text = `ID:${userID}`;

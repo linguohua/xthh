@@ -8,7 +8,7 @@ import { GameOverResultView } from "./GameOverResultView";
 // import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
 // import { HandlerMsg2Lobby } from "./handlers/HandlerMsg2Lobby";
 // import { HandlerMsgActionAllowed } from "./handlers/HandlerMsgActionAllowed";
-// import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
+import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
 // import { HandlerMsgDeleted } from "./handlers/HandlerMsgDeleted";
 // import { HandlerMsgDisbandNotify } from "./handlers/HandlerMsgDisbandNotify";
 // import { HandlerMsgDonate } from "./handlers/HandlerMsgDonate";
@@ -29,12 +29,27 @@ import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
+import { HandlerMsgTableReady } from "./handlers/HandlerMsgTableReady";
+import { HandlerMsgTableLeave } from "./handlers/HandlerMsgTableLeave";
+import { HandlerMsgTablePause } from "./handlers/HandlerMsgTablePause";
+import { HandlerMsgTableUpdate } from "./handlers/HandlerMsgTableUpdate";
+import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
+import { HandlerMsgTableManaged } from "./handlers/HandlerMsgTableManaged";
+import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
+import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
+import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
+import { HandlerMsgActionOutcardAck } from "./handlers/HandlerMsgActionOutcardAck";
+import { HandlerMsgTableDisbandAck } from "./handlers/HandlerMsgTableDisbandAck";
+import { HandlerMsgTableDisbandReq } from "./handlers/HandlerMsgTableDisbandReq";
+import { HandlerMsgTableDisband } from "./handlers/HandlerMsgTableDisband";
+import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
  * 定义一个接口 关联Game 到room
  */
 const msgCodeEnum = protoHH.casino.eMSG_TYPE;
+const msgCodeXTHH = protoHH.casino_xtsj.eXTSJ_MSG_TYPE;
 const msgHandlers: { [key: number]: msgHandler } = {
     // [msgCodeEnum.OPActionAllowed]: HandlerMsgActionAllowed.onMsg,
     // [msgCodeEnum.OPReActionAllowed]: HandlerMsgReActionAllowed.onMsg,
@@ -52,7 +67,23 @@ const msgHandlers: { [key: number]: msgHandler } = {
     // [msgCodeEnum.OPUpdateLocation]: HandlerMsgUpdateLocation.onMsg,
     // [msgCodeEnum.OP2Lobby]: HandlerMsg2Lobby.onMsg,
     // [msgCodeEnum.OPUpdatePropCfg]: HandlerMsgUpdatePropCfg.onMsg
-    [msgCodeEnum.MSG_TABLE_ENTRY]: HandlerMsgTableEntry.onMsg
+    [msgCodeEnum.MSG_TABLE_ENTRY]: HandlerMsgTableEntry.onMsg, //玩家进入
+    [msgCodeEnum.MSG_TABLE_READY]: HandlerMsgTableReady.onMsg, //准备
+    [msgCodeEnum.MSG_TABLE_LEAVE]: HandlerMsgTableLeave.onMsg, //玩家离开
+    [msgCodeEnum.MSG_TABLE_PAUSE]: HandlerMsgTablePause.onMsg, //等待玩家操作
+    [msgCodeEnum.MSG_TABLE_UPDATE]: HandlerMsgTableUpdate.onMsg, //桌子更新
+    [msgCodeEnum.MSG_TABLE_SCORE]: HandlerMsgTableScore.onMsg, //桌子结算
+    [msgCodeEnum.MSG_TABLE_MANAGED]: HandlerMsgTableManaged.onMsg, //桌子进入托管
+
+    [msgCodeEnum.MSG_TABLE_DISBAND_ACK]: HandlerMsgTableDisbandAck.onMsg, //解散
+    [msgCodeEnum.MSG_TABLE_DISBAND_REQ]: HandlerMsgTableDisbandReq.onMsg, //解散
+    [msgCodeEnum.MSG_TABLE_DISBAND]: HandlerMsgTableDisband.onMsg, //解散
+    //晃晃专用
+    [msgCodeXTHH.XTSJ_MSG_SC_STARTPLAY]: HandlerMsgDeal.onMsg, //发牌
+    [msgCodeXTHH.XTSJ_MSG_SC_OP]: HandlerMsgActionOP.onMsg, //服务器询问玩家操作
+    [msgCodeXTHH.XTSJ_MSG_SC_OUTCARD_ACK]: HandlerActionResultDiscarded.onMsg, //出牌服务器回复
+    [msgCodeXTHH.XTSJ_MSG_SC_OP_ACK]: HandlerMsgActionOPAck.onMsg, //操作服务器回复
+    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg //抽牌
 };
 
 /**
@@ -146,21 +177,21 @@ export class Room {
     }
 
     // 创建玩家对象    // 并绑定playerView
-    public createPlayerByInfo(playerInfo: proto.mahjong.IMsgPlayerInfo): void {
-        const player = new Player(playerInfo.userID, playerInfo.chairID, this);
-        player.updateByPlayerInfo(playerInfo);
+    public createPlayerByInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void {
+        const player = new Player(`${playerInfo.id}`, chairID, this);
+        player.updateByPlayerInfo(playerInfo, chairID);
 
-        const playerView = this.roomView.getPlayerViewByChairID(playerInfo.chairID, this.myPlayer.chairID);
+        const playerView = this.roomView.getPlayerViewByChairID(chairID, this.myPlayer.chairID);
         player.bindView(playerView);
 
         this.players[player.userID] = player;
     }
 
     // 创建自身的玩家对象    // 并绑定playerView
-    public createMyPlayer(playerInfo: proto.mahjong.IMsgPlayerInfo): void {
-        const player = new Player(playerInfo.userID, playerInfo.chairID, this);
+    public createMyPlayer(playerInfo: protoHH.casino.Itable_player): void {
+        const player = new Player(`${playerInfo.id}`, 0, this);
 
-        player.updateByPlayerInfo(playerInfo);
+        player.updateByPlayerInfo(playerInfo, 0);
 
         const playerView = this.roomView.playerViews[1];
         player.bindView(playerView);
@@ -249,7 +280,10 @@ export class Room {
 
     //处理玩家申请解散请求
     public onDissolveClicked(): void {
-        this.sendMsg(proto.mahjong.MessageCode.OPDisbandRequest);
+        // this.sendMsg(proto.mahjong.MessageCode.OPDisbandRequest);
+        const req2 = new protoHH.casino.packet_table_disband_req({ player_id: +this.myUser.userID });
+        const buf = protoHH.casino.packet_table_disband_req.encode(req2);
+        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
     }
 
     //更新解散处理界面
@@ -440,8 +474,15 @@ export class Room {
         return this.bankerChairID;
     }
     //往服务器发送action消息
-    public sendActionMsg(msgAction: ByteBuffer): void {
+    public sendActionMsg(msgAction: ByteBuffer, opCode: number): void {
         this.sendMsg(proto.mahjong.MessageCode.OPAction, msgAction);
+
+        const host = this.host;
+        if (host == null) {
+            return;
+        }
+
+        host.sendBinary(msgAction, opCode);
     }
     public quit(): void {
         this.stopBgSound();
@@ -475,9 +516,9 @@ export class Room {
     }
 
     //设置当前房间所等待的操作玩家
-    public setWaitingPlayer(chairID: number): void {
+    public setWaitingPlayer(chairID: number, time: number = 15): void {
         const player = this.getPlayerByChairID(chairID);
-        this.roomView.setWaitingPlayer(player.playerView);
+        this.roomView.setWaitingPlayer(player.playerView, time);
     }
     public getPlayers(): { [key: string]: PlayerInterface } {
         return this.players;

@@ -3,12 +3,11 @@ import { proto } from "../../lobby/protoHH/protoHH";
 import { RoomInterface } from "../RoomInterface";
 
 /**
- * 玩家进入
+ * 结算
  */
-export namespace HandlerMsgTableEntry {
+export namespace HandlerMsgTableScore {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
-        const d = proto.casino.packet_table_entry.decode(msgData);
-        Logger.debug("HandlerMsgTableEntry----------------------- ", d);
-        room.createPlayerByInfo(d.pdata, d.idx);
+        const reply = proto.casino.packet_table_score.decode(msgData);
+        Logger.debug("HandlerMsgTableScore----------------------- ", reply);
     };
 }
