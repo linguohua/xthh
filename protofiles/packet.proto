@@ -285,6 +285,138 @@ enum eMSG_TYPE{
 
 }
 
+
+enum eRETURN_TYPE{
+	RETURN_SUCCEEDED			= 0;		// 成功
+	RETURN_FAILED				= 1;		// 失败
+	RETURN_DISABLE				= 2;		// 被禁止
+	RETURN_ONLINE				= 3;		// 已在线
+	RETURN_OFFLINE				= 4;		// 已离线
+	RETURN_WAIT					= 5;		// 发送太快
+	RETURN_UNIMPLEMENTED		= 6;		// 未实现
+	RETURN_EXIST				= 7;		// 已存在
+	RETURN_INTERRUPT			= 10;		// 中断
+	RETURN_BAN					= 11;		// 禁止登录
+	RETURN_USED					= 12;		// 已使用
+	RETURN_GAIN					= 13;		// 已领取
+	RETURN_LEN					= 14;		// 参数长度错误
+	RETURN_INVALID				= 15;		// 无效
+	RETURN_DATETIME				= 16;		// 无效时间
+	RETURN_PERMISSION			= 17;		// 权限不足
+	RETURN_MAC					= 18;		// 无效mac地址
+	RETURN_TIMEOUT				= 22;		// 超时
+	RETURN_COST					= 23;		// 花费错误
+	RETURN_CHANNEL				= 24;		// 错误渠道
+	RETURN_GUILD				= 25;		// 错误公会
+	RETURN_SAME					= 26;		// 参数相同
+
+	RETURN_NICKNAME_SHORT		= 100;		// 昵称太短
+	RETURN_NICKNAME_LONG		= 101;		// 昵称太长
+	RETURN_NICKNAME_EXIST		= 102;		// 昵称已存在
+	RETURN_NICKNAME_ERROR		= 103;		// 昵称含有非法文字
+
+	RETURN_MAX_LEVEL			= 910;		// 等级已满
+	RETURN_MAX_PLUS				= 911;		// 强化已满
+
+	RETURN_NO_PLAYER			= 1000;		// 没有玩家
+	RETURN_NO_ITEM				= 1001;		// 没有道具
+
+
+	RETURN_EXIST_NICKNAME		= 2001;		// 玩家昵称已存在
+	RETURN_EXIST_USER			= 2002;		// 账号已存在
+
+	RETURN_NOTENOUGH_VIPLEVEL	= 2999;		// 玩家VIP等级不足
+	RETURN_NOTENOUGH_LEVEL		= 3000;		// 玩家等级不足
+	RETURN_NOTENOUGH_GOLD		= 3001;		// 游戏币不足
+	RETURN_NOTENOUGH_MONEY		= 3002;		// 充值币不足
+	RETURN_NOTENOUGH_CARD		= 3003;		// 房卡不足
+	RETURN_NOTENOUGH_RED		= 3004;		// 红包不足
+	RETURN_NOTENOUGH_BEAN		= 3005;		//欢乐豆不足
+
+	RETURN_FULL					= 3100;		// 等级已满
+	RETURN_FULL_GOLD			= 3101;		// 游戏币已满
+	RETURN_FULL_MONEY			= 3102;		// 充值币已满
+
+
+	RETURN_INVITE_EXIST			= 3200;		// 已被邀请
+	RETURN_INVITE_NOTFOUND		= 3201;		// 邀请没有找到
+	RETURN_INVITE_FULL			= 3202;		// 邀请已满
+	RETURN_INVITE_LEVEL			= 3203;		// 邀请等级超过
+	RETURN_INVITE_REQUESTFULL	= 3204;		// 请求已满
+	RETURN_INVITE_VIPLEVEL		= 3205;		// VIP等级无效，无法使用该功能
+
+	RETURN_RED_DISABLE			= 3300;
+	RETURN_RED_MIN				= 3301;
+	RETURN_RED_MAX				= 3302;
+	RETURN_RED_CASH				= 3303;
+	RETURN_RED_NUM				= 3304;
+	RETURN_RED_LIMIT			= 3305;		// 达到今日购买上限
+	RETURN_RED_NOTENOUGH		= 3310;
+
+	RETURN_GUILD_MASTER			= 3400;		// 不是会长无法操作
+	RETURN_GUILD_ROOM_DISABLE	= 3410;		// 当前禁止创建房间
+	RETURN_GUILD_ROOM_MAX		= 3411;		// 当前房间已创建满
+	RETURN_GUILD_ROOM_CREATE	= 3412;		// 公会房间创建失败
+	RETURN_GUILD_ROOM_NOTFOUND	= 3413;		// 公会房间没有找到
+	RETURN_GUILD_ROOM_CARD_NOTENOUGH = 3420;// 压卡数不足
+	RETURN_GUILD_ROOM_CARD_MIN = 3421;		// 压卡数低于下限
+	RETURN_GUILD_ROOM_CARD_MAX = 3422;		// 压卡数超过上限
+	RETURN_GUILD_ROOM_CARD_DAY	= 3423;		// 超过每日创建上限
+
+	RETURN_GUILD_JOIN_NOTFOUND  = 3450;		// 公会没有找到
+	RETURN_GUILD_JOIN_EXIST		= 3451;		// 已在公会中
+	RETURN_GUILD_JOIN_REQUEST	= 3452;		// 已向公会发出加入请求
+	RETURN_GUILD_JOIN_MAX		= 3453;		// 加入的公会已达上限
+	RETURN_GUILD_JOIN_FULL		= 3454;		// 对方公会成员已满
+
+	RETURN_GUILD_DISABAND_NO_OUTTIME = 3455;// 工会解散未超过设置超时时间
+
+	RETURN_GUILD_LOG_TIME		= 3460;		// 查询日志太快
+	RETURN_GUILD_LOG_DISABLE	= 3461;		// 查询日志禁用
+	RETURN_GUILD_LOG_OUT		= 3462;		// 超出范围
+
+	RETURN_GUILD_RANK_CLOSE		= 3464;		// 排行榜信息查询关闭
+	RETURN_GUILD_REQUEST_TIME	= 3465;		// 公会数据请求太快
+
+	RETURN_GUILD_NOTICE_UPDATE		  = 3466;		// 工会公告已更新
+	RETURN_GUILD_NOTICE_PUBLISH_OFTEN = 3467;		// 工会公告发布太频繁
+
+	RETURN_BIND_EXIST			= 3500;		// 绑定已存在
+	RETURN_BIND_NOTFOUND		= 3501;		// 邀请码不存在
+	RETURN_BIND_CARD_DISABLE	= 3502;		// 房卡当前禁止兑换
+	RETURN_BIND_CARD_NO			= 3503;		//
+	RETURN_BIND_CARD_NUM		= 3504;		// 房卡兑换次数超过上限
+	RETURN_BIND_CARD_MIN		= 3505;		// 低于房卡兑换最小值
+	RETURN_BIND_CARD_MAX		= 3506;		// 高于房卡兑换最大值
+	RETURN_BIND_CARD_LIMIT		= 3507;		// 房卡兑换总量超过上限
+
+	RETURN_MATCH_DISABLE		= 3600;		// 比赛已禁用
+	RETURN_MATCH_LOG_TIME		= 3601;		// 查询比赛日志太快
+	RETURN_MATCH_FULL			= 3602;		// 比赛房间已满
+	RETURN_MATCH_DAY_MAX		= 3603;		// 已超过今天参加最大次数
+	RETURN_MATCH_CARD_NOTENOUGH	= 3604;		// 房卡不足
+	RETURN_MATCH_CHANNEL		= 3605;		// 参赛渠道不正确
+	RETURN_MATCH_HAS_APPLY		= 3606;		// 当前玩家已经报名参赛
+	RETURN_MATCH_ID_NOT_EXSIT	= 3607;		// 当前赛场ID不存在
+	RETURN_MATCH_IS_START		= 3608;		// 比赛已开始
+	RETURN_MATCH_GIVE_UP		= 3609;		// 放弃比赛
+
+	RETURN_BIND_PHONE_SUCCESS	= 3700;		// 绑定手机成功
+	RETURN_HAS_BINDED			= 3701;		// 账号已绑定过手机
+	RETURN_CODE_EXPIRE			= 3702;		// 验证码过期
+
+	RETURN_ENERGY_NOT_ENOUGH	= 3750;		// 能力值不足
+
+	RETURN_TABLE_WAIT_TIMEOUT	= 3751;		// 桌子匹配超时
+
+	RETURN_DAYLIMIT				= 4000;		// 已超过每日限制
+	RETURN_COLDDOWN				= 4001;		// 还在时间内无法抽取
+	RETURN_LOCKCARD				= 4002;		// 房卡已锁定
+	RETURN_LOCKGOLD				= 4003;		// 房卡已锁定
+	RETURN_REFRESH				= 4004;		// 请刷新当前页面
+	RETURN_HELPER_RECEIVE_ALL   = 4005;		//福利金已领完
+}
+
 message packet_ping{
 	optional uint64 			now = 1; 			// 服务器当前时间
 }

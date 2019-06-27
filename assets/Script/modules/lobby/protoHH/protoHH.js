@@ -11685,6 +11685,436 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 1001
                         }
                     ]
+                },
+                {
+                    "name": "eRETURN_TYPE",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "RETURN_SUCCEEDED",
+                            "id": 0
+                        },
+                        {
+                            "name": "RETURN_FAILED",
+                            "id": 1
+                        },
+                        {
+                            "name": "RETURN_DISABLE",
+                            "id": 2
+                        },
+                        {
+                            "name": "RETURN_ONLINE",
+                            "id": 3
+                        },
+                        {
+                            "name": "RETURN_OFFLINE",
+                            "id": 4
+                        },
+                        {
+                            "name": "RETURN_WAIT",
+                            "id": 5
+                        },
+                        {
+                            "name": "RETURN_UNIMPLEMENTED",
+                            "id": 6
+                        },
+                        {
+                            "name": "RETURN_EXIST",
+                            "id": 7
+                        },
+                        {
+                            "name": "RETURN_INTERRUPT",
+                            "id": 10
+                        },
+                        {
+                            "name": "RETURN_BAN",
+                            "id": 11
+                        },
+                        {
+                            "name": "RETURN_USED",
+                            "id": 12
+                        },
+                        {
+                            "name": "RETURN_GAIN",
+                            "id": 13
+                        },
+                        {
+                            "name": "RETURN_LEN",
+                            "id": 14
+                        },
+                        {
+                            "name": "RETURN_INVALID",
+                            "id": 15
+                        },
+                        {
+                            "name": "RETURN_DATETIME",
+                            "id": 16
+                        },
+                        {
+                            "name": "RETURN_PERMISSION",
+                            "id": 17
+                        },
+                        {
+                            "name": "RETURN_MAC",
+                            "id": 18
+                        },
+                        {
+                            "name": "RETURN_TIMEOUT",
+                            "id": 22
+                        },
+                        {
+                            "name": "RETURN_COST",
+                            "id": 23
+                        },
+                        {
+                            "name": "RETURN_CHANNEL",
+                            "id": 24
+                        },
+                        {
+                            "name": "RETURN_GUILD",
+                            "id": 25
+                        },
+                        {
+                            "name": "RETURN_SAME",
+                            "id": 26
+                        },
+                        {
+                            "name": "RETURN_NICKNAME_SHORT",
+                            "id": 100
+                        },
+                        {
+                            "name": "RETURN_NICKNAME_LONG",
+                            "id": 101
+                        },
+                        {
+                            "name": "RETURN_NICKNAME_EXIST",
+                            "id": 102
+                        },
+                        {
+                            "name": "RETURN_NICKNAME_ERROR",
+                            "id": 103
+                        },
+                        {
+                            "name": "RETURN_MAX_LEVEL",
+                            "id": 910
+                        },
+                        {
+                            "name": "RETURN_MAX_PLUS",
+                            "id": 911
+                        },
+                        {
+                            "name": "RETURN_NO_PLAYER",
+                            "id": 1000
+                        },
+                        {
+                            "name": "RETURN_NO_ITEM",
+                            "id": 1001
+                        },
+                        {
+                            "name": "RETURN_EXIST_NICKNAME",
+                            "id": 2001
+                        },
+                        {
+                            "name": "RETURN_EXIST_USER",
+                            "id": 2002
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_VIPLEVEL",
+                            "id": 2999
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_LEVEL",
+                            "id": 3000
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_GOLD",
+                            "id": 3001
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_MONEY",
+                            "id": 3002
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_CARD",
+                            "id": 3003
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_RED",
+                            "id": 3004
+                        },
+                        {
+                            "name": "RETURN_NOTENOUGH_BEAN",
+                            "id": 3005
+                        },
+                        {
+                            "name": "RETURN_FULL",
+                            "id": 3100
+                        },
+                        {
+                            "name": "RETURN_FULL_GOLD",
+                            "id": 3101
+                        },
+                        {
+                            "name": "RETURN_FULL_MONEY",
+                            "id": 3102
+                        },
+                        {
+                            "name": "RETURN_INVITE_EXIST",
+                            "id": 3200
+                        },
+                        {
+                            "name": "RETURN_INVITE_NOTFOUND",
+                            "id": 3201
+                        },
+                        {
+                            "name": "RETURN_INVITE_FULL",
+                            "id": 3202
+                        },
+                        {
+                            "name": "RETURN_INVITE_LEVEL",
+                            "id": 3203
+                        },
+                        {
+                            "name": "RETURN_INVITE_REQUESTFULL",
+                            "id": 3204
+                        },
+                        {
+                            "name": "RETURN_INVITE_VIPLEVEL",
+                            "id": 3205
+                        },
+                        {
+                            "name": "RETURN_RED_DISABLE",
+                            "id": 3300
+                        },
+                        {
+                            "name": "RETURN_RED_MIN",
+                            "id": 3301
+                        },
+                        {
+                            "name": "RETURN_RED_MAX",
+                            "id": 3302
+                        },
+                        {
+                            "name": "RETURN_RED_CASH",
+                            "id": 3303
+                        },
+                        {
+                            "name": "RETURN_RED_NUM",
+                            "id": 3304
+                        },
+                        {
+                            "name": "RETURN_RED_LIMIT",
+                            "id": 3305
+                        },
+                        {
+                            "name": "RETURN_RED_NOTENOUGH",
+                            "id": 3310
+                        },
+                        {
+                            "name": "RETURN_GUILD_MASTER",
+                            "id": 3400
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_DISABLE",
+                            "id": 3410
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_MAX",
+                            "id": 3411
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_CREATE",
+                            "id": 3412
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_NOTFOUND",
+                            "id": 3413
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_CARD_NOTENOUGH",
+                            "id": 3420
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_CARD_MIN",
+                            "id": 3421
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_CARD_MAX",
+                            "id": 3422
+                        },
+                        {
+                            "name": "RETURN_GUILD_ROOM_CARD_DAY",
+                            "id": 3423
+                        },
+                        {
+                            "name": "RETURN_GUILD_JOIN_NOTFOUND",
+                            "id": 3450
+                        },
+                        {
+                            "name": "RETURN_GUILD_JOIN_EXIST",
+                            "id": 3451
+                        },
+                        {
+                            "name": "RETURN_GUILD_JOIN_REQUEST",
+                            "id": 3452
+                        },
+                        {
+                            "name": "RETURN_GUILD_JOIN_MAX",
+                            "id": 3453
+                        },
+                        {
+                            "name": "RETURN_GUILD_JOIN_FULL",
+                            "id": 3454
+                        },
+                        {
+                            "name": "RETURN_GUILD_DISABAND_NO_OUTTIME",
+                            "id": 3455
+                        },
+                        {
+                            "name": "RETURN_GUILD_LOG_TIME",
+                            "id": 3460
+                        },
+                        {
+                            "name": "RETURN_GUILD_LOG_DISABLE",
+                            "id": 3461
+                        },
+                        {
+                            "name": "RETURN_GUILD_LOG_OUT",
+                            "id": 3462
+                        },
+                        {
+                            "name": "RETURN_GUILD_RANK_CLOSE",
+                            "id": 3464
+                        },
+                        {
+                            "name": "RETURN_GUILD_REQUEST_TIME",
+                            "id": 3465
+                        },
+                        {
+                            "name": "RETURN_GUILD_NOTICE_UPDATE",
+                            "id": 3466
+                        },
+                        {
+                            "name": "RETURN_GUILD_NOTICE_PUBLISH_OFTEN",
+                            "id": 3467
+                        },
+                        {
+                            "name": "RETURN_BIND_EXIST",
+                            "id": 3500
+                        },
+                        {
+                            "name": "RETURN_BIND_NOTFOUND",
+                            "id": 3501
+                        },
+                        {
+                            "name": "RETURN_BIND_CARD_DISABLE",
+                            "id": 3502
+                        },
+                        {
+                            "name": "RETURN_BIND_CARD_NO",
+                            "id": 3503
+                        },
+                        {
+                            "name": "RETURN_BIND_CARD_NUM",
+                            "id": 3504
+                        },
+                        {
+                            "name": "RETURN_BIND_CARD_MIN",
+                            "id": 3505
+                        },
+                        {
+                            "name": "RETURN_BIND_CARD_MAX",
+                            "id": 3506
+                        },
+                        {
+                            "name": "RETURN_BIND_CARD_LIMIT",
+                            "id": 3507
+                        },
+                        {
+                            "name": "RETURN_MATCH_DISABLE",
+                            "id": 3600
+                        },
+                        {
+                            "name": "RETURN_MATCH_LOG_TIME",
+                            "id": 3601
+                        },
+                        {
+                            "name": "RETURN_MATCH_FULL",
+                            "id": 3602
+                        },
+                        {
+                            "name": "RETURN_MATCH_DAY_MAX",
+                            "id": 3603
+                        },
+                        {
+                            "name": "RETURN_MATCH_CARD_NOTENOUGH",
+                            "id": 3604
+                        },
+                        {
+                            "name": "RETURN_MATCH_CHANNEL",
+                            "id": 3605
+                        },
+                        {
+                            "name": "RETURN_MATCH_HAS_APPLY",
+                            "id": 3606
+                        },
+                        {
+                            "name": "RETURN_MATCH_ID_NOT_EXSIT",
+                            "id": 3607
+                        },
+                        {
+                            "name": "RETURN_MATCH_IS_START",
+                            "id": 3608
+                        },
+                        {
+                            "name": "RETURN_MATCH_GIVE_UP",
+                            "id": 3609
+                        },
+                        {
+                            "name": "RETURN_BIND_PHONE_SUCCESS",
+                            "id": 3700
+                        },
+                        {
+                            "name": "RETURN_HAS_BINDED",
+                            "id": 3701
+                        },
+                        {
+                            "name": "RETURN_CODE_EXPIRE",
+                            "id": 3702
+                        },
+                        {
+                            "name": "RETURN_ENERGY_NOT_ENOUGH",
+                            "id": 3750
+                        },
+                        {
+                            "name": "RETURN_TABLE_WAIT_TIMEOUT",
+                            "id": 3751
+                        },
+                        {
+                            "name": "RETURN_DAYLIMIT",
+                            "id": 4000
+                        },
+                        {
+                            "name": "RETURN_COLDDOWN",
+                            "id": 4001
+                        },
+                        {
+                            "name": "RETURN_LOCKCARD",
+                            "id": 4002
+                        },
+                        {
+                            "name": "RETURN_LOCKGOLD",
+                            "id": 4003
+                        },
+                        {
+                            "name": "RETURN_REFRESH",
+                            "id": 4004
+                        },
+                        {
+                            "name": "RETURN_HELPER_RECEIVE_ALL",
+                            "id": 4005
+                        }
+                    ]
                 }
             ],
             "isNamespace": true
