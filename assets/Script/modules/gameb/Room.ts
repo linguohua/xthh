@@ -338,7 +338,7 @@ export class Room {
         });
     }
 
-    public loadHandResultView(msgHandOver: proto.mahjong.IMsgHandOver): void {
+    public loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void {
         const view = this.host.component.addComponent(HandResultView);
         view.showView(this, msgHandOver);
     }

@@ -9,5 +9,8 @@ export namespace HandlerMsgTableScore {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const reply = proto.casino.packet_table_score.decode(msgData);
         Logger.debug("HandlerMsgTableScore----------------------- ", reply);
+
+        // 显示手牌输赢结果
+        room.loadHandResultView(reply);
     };
 }

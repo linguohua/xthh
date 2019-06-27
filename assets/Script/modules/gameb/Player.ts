@@ -38,7 +38,7 @@ export class Player {
     public readonly userID: string;
     public readonly chairID: number;
     public readonly host: RoomInterface;
-    public playerScore: proto.mahjong.IMsgPlayerScore;
+    public playerScore: number;
     public lastTile: number;
     public tilesDiscarded: number[];
     public melds: protoHH.casino_xtsj.packet_sc_op_ack[];

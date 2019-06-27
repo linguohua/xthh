@@ -115,7 +115,7 @@ export interface RoomInterface {
     showOrHideReadyButton(isShow: boolean): void;
     onUpdateStatus(state: number): void;
 
-    loadHandResultView(msgHandOver: proto.mahjong.IMsgHandOver): void;
+    loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void;
     loadGameOverResultView(msgGameOver: proto.mahjong.IMsgGameOver): void;
 
     switchBg(index: number): void;

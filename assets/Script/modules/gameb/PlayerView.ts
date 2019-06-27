@@ -396,8 +396,10 @@ export class PlayerView {
     //如果是别人的暗杠，则全部暗牌显示
     public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): void {
         const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
-        const viewChairID = this.room.getPlayerViewChairIDByChairID(pp.chairID);
-
+        let viewChairID = this.viewChairID;
+        if (pp.chairID !== undefined && pp.chairID !== null) {
+            viewChairID = this.room.getPlayerViewChairIDByChairID(pp.chairID);
+        }
         const t1 = meldView.getChild("n1").asCom;
         const t2 = meldView.getChild("n2").asCom;
         const t3 = meldView.getChild("n3").asCom;
