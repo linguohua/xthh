@@ -307,6 +307,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem("gender", fastLoginAck.pdata.data.sex);
         DataStore.setItem("playerID", fastLoginAck.player_id);
         DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
+        DataStore.setItem("tableID", fastLoginAck.pdata.table_id);
 
         // 获取房卡资源
         let cardResource = null;

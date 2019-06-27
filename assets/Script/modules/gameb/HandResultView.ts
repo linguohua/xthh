@@ -1,3 +1,4 @@
+import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { GameRules } from "./GameRules";
 import { Player } from "./Player";
@@ -5,8 +6,6 @@ import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-import { proto } from "../lobby/protoHH/protoHH";
-
 
 //面子牌组资源 后缀
 const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
@@ -221,7 +220,7 @@ export class HandResultView extends cc.Component {
         }
         //手牌
         let n = -1;
-        let last = false;
+        const last = false;
         const meldCount = meldDatas.length;
         const tileCountInHand = tilesHand.length;
         const isHu = (meldCount * 3 + tileCountInHand) > 13;

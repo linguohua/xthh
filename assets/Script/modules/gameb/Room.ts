@@ -83,7 +83,7 @@ const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeXTHH.XTSJ_MSG_SC_OP]: HandlerMsgActionOP.onMsg, //服务器询问玩家操作
     [msgCodeXTHH.XTSJ_MSG_SC_OUTCARD_ACK]: HandlerActionResultDiscarded.onMsg, //出牌服务器回复
     [msgCodeXTHH.XTSJ_MSG_SC_OP_ACK]: HandlerMsgActionOPAck.onMsg, //操作服务器回复
-    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg, //抽牌
+    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg //抽牌
     // [msgCodeXTHH.XTSJ_MSG_SC_SCORE]: HandlerMsgTableScore.onMsg //结算
 };
 
@@ -186,6 +186,17 @@ export class Room {
         player.bindView(playerView);
 
         this.players[player.userID] = player;
+
+        if (playerInfo.curcards.length > 0) {
+            player.tileCountInHand = playerInfo.curcards.length;
+            player.hand2UI(false);
+        }
+
+        if (playerInfo.outcards.length > 0) {
+            player.addDiscardedTiles(playerInfo.outcards);
+            player.discarded2UI(true, false);
+        }
+
     }
 
     // 创建自身的玩家对象    // 并绑定playerView
@@ -200,6 +211,18 @@ export class Room {
         this.players[player.userID] = player;
 
         this.myPlayer = player;
+
+        if (playerInfo.curcards.length > 0) {
+            player.addHandTiles(playerInfo.curcards);
+            player.sortHands(false);
+            player.hand2UI(false);
+        }
+
+        if (playerInfo.outcards.length > 0) {
+            player.addDiscardedTiles(playerInfo.outcards);
+            player.discarded2UI(true, false);
+        }
+
     }
 
     public onReadyButtonClick(): void {
@@ -336,6 +359,23 @@ export class Room {
             const v = this.players[key];
             v.playerView.head.onUpdateBankerFlag(v.chairID === this.bankerChairID, this.isContinuousBanker);
         });
+    }
+
+    public setDiscardAble(chairID: number): void {
+        const player = this.getPlayerByChairID(chairID);
+        if (!player.isMe()) {
+            return;
+        }
+        const playerView = player.playerView;
+        const handsClickCtrls = playerView.handsClickCtrls;
+        for (let i = 0; i < 14; i++) {
+            const handsClickCtrl = handsClickCtrls[i];
+            const tileID = handsClickCtrl.tileID;
+            if (tileID !== null) {
+                handsClickCtrl.isDiscardable = true;
+            }
+        }
+
     }
 
     public loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void {

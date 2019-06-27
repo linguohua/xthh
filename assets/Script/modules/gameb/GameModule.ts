@@ -1,8 +1,10 @@
 import {
-    AnimationMgr, GameModuleInterface,
-    GameModuleLaunchArgs, GResLoader,
-    LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, RoomInfo, UserInfo
+    AnimationMgr, DataStore,
+    GameModuleInterface, GameModuleLaunchArgs,
+    GResLoader, LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, RoomInfo, UserInfo
 } from "../lobby/lcore/LCoreExports";
+// tslint:disable-next-line:no-require-imports
+import long = require("../lobby/protobufjs/long");
 import { proto } from "../lobby/protoHH/protoHH";
 import { Replay } from "./Replay";
 import { Room } from "./Room";
@@ -12,7 +14,8 @@ import { Room } from "./Room";
 //     [mc.OPDisbandRequest]: 1, [mc.OPDisbandNotify]: 1, [mc.OPDisbandAnswer]: 1
 // };
 // 添加需要优先级管理的消息码
-const priorityMap: { [key: number]: number } = { [proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK]: 1 };
+const mc = proto.casino.eMSG_TYPE;
+const priorityMap: { [key: number]: number } = { [mc.MSG_TABLE_CREATE_ACK]: 1, [mc.MSG_TABLE_JOIN_ACK]: 1 };
 
 /**
  * 子游戏入口
@@ -139,40 +142,70 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         const mq = new MsgQueue(priorityMap);
         this.mq = mq;
 
-        // 1. 订阅消息
+        // 订阅消息
         this.subMsg();
 
-        // 2. 请求创建房间
-        this.testCreateRoom();
+        const tableID = DataStore.getString("tableID", "0");
+        const tableIDLong = long.fromString(tableID, true);
+        Logger.debug("tableIDLong:", tableIDLong);
+        let reconnect = false;
+        let table: proto.casino.Itable = null;
+        if (tableIDLong.equals(0)) {
+            // 不存在房间，则创建
+            const createRoomAck = await this.waitCreateRoom();
+            if (createRoomAck.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                table = createRoomAck.tdata;
+                Logger.debug("create new room");
+            } else {
+                Logger.error("doEnterRoom, creat room, ret:", createRoomAck.ret);
+            }
+        } else {
+            // 存在房间，则加入
+            const joinRoomAck = await this.waitJoinRoom(tableIDLong);
+            if (joinRoomAck.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                table = joinRoomAck.tdata;
+                reconnect = true;
+                DataStore.setItem("tableID", "");
 
-        const createRoomAck = await this.waitCreateRoomAck();
-        if (createRoomAck.ret !== 0) {
-            Logger.error("createRoom error, ret:", createRoomAck.ret);
+                Logger.debug("re-enter room");
+            } else {
+                Logger.error("doEnterRoom, join room, ret:", joinRoomAck.ret);
+            }
+        }
+
+        if (table === null) {
+            Logger.error("doEnterRoom failed");
 
             return;
         }
 
-        Logger.debug("doEnterRoom :", createRoomAck.tdata);
+        Logger.debug("doEnterRoom :", table);
 
-        // 3. 创建房间View
+        // 创建房间View
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, roomInfo);
         }
         //TODO 临时 (创建玩家视图 显示准备按钮)
-        this.mRoom.createMyPlayer(createRoomAck.tdata.players[0]);
-        for (let i = 1; i < createRoomAck.tdata.players.length; i++) {
-            const p = createRoomAck.tdata.players[i];
+        this.mRoom.createMyPlayer(table.players[0]);
+        for (let i = 1; i < table.players.length; i++) {
+            const p = table.players[i];
             if (p !== undefined && p !== null && p.id !== null) {
                 this.mRoom.createPlayerByInfo(p, i);
             }
         }
-        this.mRoom.showOrHideReadyButton(true);
+        this.mRoom.showOrHideReadyButton(!reconnect);
+
+        if (reconnect) {
+            this.mRoom.setWaitingPlayer(table.cur_idx);
+            this.mRoom.setDiscardAble(table.cur_idx);
+        }
 
         await this.pumpMsg();
 
         Logger.debug("doEnterRoom leave---");
     }
 
+    // 请求创建房间
     private testCreateRoom(): void {
         const req = {
             casino_id: 16,
@@ -187,7 +220,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_REQ);
     }
 
-    private async waitCreateRoomAck(): Promise<proto.casino.packet_table_create_ack> {
+    private async waitCreateRoom(): Promise<proto.casino.packet_table_create_ack> {
+        this.testCreateRoom();
+
         this.blockNormal();
         const msg = await this.mq.waitMsg();
         this.unblockNormal();
@@ -199,6 +234,44 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                 return proto.casino.packet_table_create_ack.decode(pmsg.Data);
             } else {
                 Logger.error("Wait msg not create room ack");
+            }
+        } else {
+            Logger.error("expected normal websocket msg, but got:", msg);
+        }
+
+        return null;
+    }
+
+    // 请求加入房间
+    private testJoinRoom(tableID: Long): void {
+        const playerID = DataStore.getString("playerID");
+        const req = {
+            player_id: +playerID,
+            casino_id: 16,
+            room_id: 2103,
+            table_id: tableID
+        };
+
+        Logger.debug("testJoinRoom:", req);
+        const req2 = new proto.casino.packet_table_join_req(req);
+        const buf = proto.casino.packet_table_join_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+    }
+
+    private async waitJoinRoom(tableID: Long): Promise<proto.casino.packet_table_join_ack> {
+        this.testJoinRoom(tableID);
+
+        this.blockNormal();
+        const msg = await this.mq.waitMsg();
+        this.unblockNormal();
+        if (msg.mt === MsgType.wsData) {
+            const pmsg = <proto.casino.ProxyMessage>msg.data;
+
+            if (pmsg.Ops === proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK) {
+
+                return proto.casino.packet_table_join_ack.decode(pmsg.Data);
+            } else {
+                Logger.error("Wait msg not join room ack");
             }
         } else {
             Logger.error("expected normal websocket msg, but got:", msg);
@@ -226,6 +299,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private subMsg(): void {
         // this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onMsg, this); // 加入游戏
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onMsg, this); // 创建房间
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onMsg, this); // 加入房间
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_READY, this.onMsg, this); // 玩家准备
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_ENTRY, this.onMsg, this);  // 玩家进入桌子
