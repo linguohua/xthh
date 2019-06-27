@@ -1,4 +1,4 @@
-import { proto } from "./proto/protoGame";
+import { proto } from "../lobby/protoHH/protoHH";
 
 /**
  * 手牌辅助类
@@ -22,16 +22,27 @@ export enum ButtonDef {
     Hu = "Effect_zi_ts_hu",
     Zhua = "Effect_zi_ts_zhua"
 }
+export enum TypeOfOP {
+    Chow = 0,
+    Pong = 1, //碰
+    Kong = 2, //杠
+    Hu = 3, //胡
+    ZiMo = 4, //自摸
+    CHAOTIAN = 5,
+    BUZHUOCHONG = 6, //不捉铳
+    QIANGXIAO = 7
+}
 /**
  * player 接口
  */
 export interface PlayerInterface {
+    readonly chairID: number;
     readyHandList: number[];
     waitSkip: boolean;
     tilesHand: number[];
     tilesFlower: number[];
     tilesDiscarded: number[];
-    melds: proto.mahjong.IMsgMeldTile[];
+    melds: proto.casino_xtsj.packet_sc_op_ack[];
     isRichi: boolean;
     waitDiscardReAction: boolean;
     onChowBtnClick: Function;

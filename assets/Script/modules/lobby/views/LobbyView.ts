@@ -167,7 +167,7 @@ export class LobbyView extends cc.Component {
         Logger.debug("playerIDInt:", playerIDInt);
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onDisbandAck, this);
-        const req2 = new proto.casino.packet_table_disband_req({ player_id: playerIDInt});
+        const req2 = new proto.casino.packet_table_disband_req({ player_id: playerIDInt });
         const buf = proto.casino.packet_table_disband_req.encode(req2);
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
     }

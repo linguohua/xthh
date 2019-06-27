@@ -14,12 +14,12 @@ type ActionHandler = (actionResultMsg: proto.mahjong.MsgActionResultNotify, room
 const actionType = proto.mahjong.ActionType;
 const actionHandlers: { [key: number]: ActionHandler } = {
     [actionType.enumActionType_CHOW]: HandlerActionResultChow.onMsg,
-    [actionType.enumActionType_DRAW]: HandlerActionResultDraw.onMsg,
+    // [actionType.enumActionType_DRAW]: HandlerActionResultDraw.onMsg,
     [actionType.enumActionType_KONG_Concealed]: HandlerActionResultKongConcealed.onMsg,
     [actionType.enumActionType_KONG_Exposed]: HandlerActionResultKongExposed.onMsg,
     [actionType.enumActionType_PONG]: HandlerActionResultPong.onMsg,
     [actionType.enumActionType_KONG_Triplet2]: HandlerActionResultTriplet2Kong.onMsg,
-    [actionType.enumActionType_DISCARD]: HandlerActionResultDiscarded.onMsg,
+    // [actionType.enumActionType_DISCARD]: HandlerActionResultDiscarded.onMsg,
     [actionType.enumActionType_FirstReadyHand]: HandlerActionResultReadyHand.onMsg
 };
 

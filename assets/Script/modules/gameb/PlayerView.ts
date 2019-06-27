@@ -1,7 +1,8 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameRules } from "./GameRules";
-import { ButtonDef, ClickCtrl, PlayerInterface } from "./PlayerInterface";
+import { ButtonDef, ClickCtrl, PlayerInterface, TypeOfOP } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { TileImageMounter } from "./TileImageMounter";
@@ -49,11 +50,13 @@ const MELD_COMPONENT_PREFIX: string[] = [
 
 //面子牌组资源 后缀
 const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
-    [mjproto.MeldType.enumMeldTypeTriplet2Kong]: "gang1",
-    [mjproto.MeldType.enumMeldTypeExposedKong]: "gang1",
-    [mjproto.MeldType.enumMeldTypeConcealedKong]: "gang2",
-    [mjproto.MeldType.enumMeldTypeSequence]: "chipeng",
-    [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
+    [TypeOfOP.Kong]: "gang1",
+    [TypeOfOP.Pong]: "chipeng"
+    // [mjproto.MeldType.enumMeldTypeTriplet2Kong]: "gang1",
+    // [mjproto.MeldType.enumMeldTypeExposedKong]: "gang1",
+    // [mjproto.MeldType.enumMeldTypeConcealedKong]: "gang2",
+    // [mjproto.MeldType.enumMeldTypeSequence]: "chipeng",
+    // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 };
 
 /**
@@ -379,7 +382,7 @@ export class PlayerView {
             }
             //根据面子牌挂载牌的图片
             const meldData = ms[i];
-            const resName = rm + MELD_COMPONENT_SUFFIX[meldData.meldType];
+            const resName = rm + MELD_COMPONENT_SUFFIX[meldData.op];
             const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
             meldView.setPosition(mv.x, mv.y);
             meldView.name = `myMeld${i}`;
@@ -391,50 +394,51 @@ export class PlayerView {
     //显示面子牌组，暗杠需要特殊处理，如果是自己的暗杠，
     //则明牌显示前3张，第4张暗牌显示（以便和明杠区分）
     //如果是别人的暗杠，则全部暗牌显示
-    public mountMeldImage(meldView: fgui.GComponent, msgMeld: proto.mahjong.IMsgMeldTile): void {
-        const viewChairID = this.room.getPlayerViewChairIDByChairID(msgMeld.contributor);
+    public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): void {
+        const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
+        const viewChairID = this.room.getPlayerViewChairIDByChairID(pp.chairID);
 
         const t1 = meldView.getChild("n1").asCom;
         const t2 = meldView.getChild("n2").asCom;
         const t3 = meldView.getChild("n3").asCom;
-        const meldType = msgMeld.meldType;
-        const mtProto = mjproto.MeldType;
-        if (meldType === mtProto.enumMeldTypeSequence) {
-            let chowTile = t1;
-            if (msgMeld.tile1 === msgMeld.chowTile) {
-                chowTile = t1;
-            } else if ((msgMeld.tile1 + 1) === msgMeld.chowTile) {
-                chowTile = t2;
-            } else if ((msgMeld.tile1 + 2) === msgMeld.chowTile) {
-                chowTile = t3;
-            }
-            TileImageMounter.mountMeldEnableImage(t1, msgMeld.tile1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, msgMeld.tile1 + 1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1 + 2, this.viewChairID);
-            this.setMeldTileDirection(true, chowTile, viewChairID, this.viewChairID);
-        } else if (meldType === mtProto.enumMeldTypeTriplet) {
-            TileImageMounter.mountMeldEnableImage(t1, msgMeld.tile1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, msgMeld.tile1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1, this.viewChairID);
+        const meldType = msgMeld.op;
+        // const mtProto = mjproto.MeldType;
+        // if (meldType === mtProto.enumMeldTypeSequence) {
+        // let chowTile = t1;
+        // if (msgMeld.tile1 === msgMeld.chowTile) {
+        //     chowTile = t1;
+        // } else if ((msgMeld.tile1 + 1) === msgMeld.chowTile) {
+        //     chowTile = t2;
+        // } else if ((msgMeld.tile1 + 2) === msgMeld.chowTile) {
+        //     chowTile = t3;
+        // }
+        // TileImageMounter.mountMeldEnableImage(t1, msgMeld.tile1, this.viewChairID);
+        // TileImageMounter.mountMeldEnableImage(t2, msgMeld.tile1 + 1, this.viewChairID);
+        // TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1 + 2, this.viewChairID);
+        // this.setMeldTileDirection(true, chowTile, viewChairID, this.viewChairID);
+        if (meldType === TypeOfOP.Pong) {
+            TileImageMounter.mountMeldEnableImage(t1, msgMeld.cards[0], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t2, msgMeld.cards[1], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t3, msgMeld.cards[2], this.viewChairID);
             this.setMeldTileDirection(false, t2, viewChairID, this.viewChairID);
-        } else if (meldType === mtProto.enumMeldTypeExposedKong || meldType === mtProto.enumMeldTypeTriplet2Kong) {
+        } else if (meldType === TypeOfOP.Kong) {
             const t4 = meldView.getChild("n4").asCom;
-            TileImageMounter.mountMeldEnableImage(t1, msgMeld.tile1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, msgMeld.tile1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t4, msgMeld.tile1, this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t1, msgMeld.cards[0], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t2, msgMeld.cards[1], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t3, msgMeld.cards[2], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t4, msgMeld.cards[3], this.viewChairID);
             this.setMeldTileDirection(false, t4, viewChairID, this.viewChairID);
-        } else if (meldType === mtProto.enumMeldTypeConcealedKong) {
-            const t4 = meldView.getChild("n4").asCom; //这个是暗牌显示 用于别的玩家暗杠
-            const t0 = meldView.getChild("n0").asCom; //这个是明牌显示 自己暗杠 或者 回播的时候用的
-            if (msgMeld.tile1 === undefined || msgMeld.tile1 >= mjproto.TileID.enumTid_MAX) {
-                t4.visible = true;
-                t0.visible = false;
-            } else {
-                t4.visible = false;
-                t0.visible = true;
-                TileImageMounter.mountMeldEnableImage(t0, msgMeld.tile1, this.viewChairID);
-            }
+            //} else if (meldType === mtProto.enumMeldTypeConcealedKong) {
+            // const t4 = meldView.getChild("n4").asCom; //这个是暗牌显示 用于别的玩家暗杠
+            // const t0 = meldView.getChild("n0").asCom; //这个是明牌显示 自己暗杠 或者 回播的时候用的
+            // if (msgMeld.tile1 === undefined || msgMeld.tile1 >= mjproto.TileID.enumTid_MAX) {
+            //     t4.visible = true;
+            //     t0.visible = false;
+            // } else {
+            //     t4.visible = false;
+            //     t0.visible = true;
+            //     TileImageMounter.mountMeldEnableImage(t0, msgMeld.tile1, this.viewChairID);
+            // }
         }
     }
 

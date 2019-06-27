@@ -83,7 +83,8 @@ const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeXTHH.XTSJ_MSG_SC_OP]: HandlerMsgActionOP.onMsg, //服务器询问玩家操作
     [msgCodeXTHH.XTSJ_MSG_SC_OUTCARD_ACK]: HandlerActionResultDiscarded.onMsg, //出牌服务器回复
     [msgCodeXTHH.XTSJ_MSG_SC_OP_ACK]: HandlerMsgActionOPAck.onMsg, //操作服务器回复
-    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg //抽牌
+    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg, //抽牌
+    // [msgCodeXTHH.XTSJ_MSG_SC_SCORE]: HandlerMsgTableScore.onMsg //结算
 };
 
 /**
@@ -111,6 +112,7 @@ export class Room {
     public handNum: number;
     public readonly roomType: number;
     public constructor(myUser: UserInfo, roomInfo: RoomInfo, host: RoomHost, rePlay?: Replay) {
+        Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
         this.host = host;
         this.replay = rePlay;
