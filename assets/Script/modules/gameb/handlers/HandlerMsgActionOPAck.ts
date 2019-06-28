@@ -11,8 +11,8 @@ export namespace HandlerMsgActionOPAck {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const reply = proto.casino_xtsj.packet_sc_op_ack.decode(msgData);
         Logger.debug("HandlerMsgActionOPAck----------------------- ", reply);
+        const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
         if (reply.op === TypeOfOP.Pong || reply.op === TypeOfOP.Kong) {
-            const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
             //清理吃牌界面
             room.cleanUI();
             //从手牌移除
@@ -31,6 +31,10 @@ export namespace HandlerMsgActionOPAck {
             //隐藏箭头
             room.setArrowByParent(null);
             room.hideDiscardedTips();
+        } else {
+
         }
+        //播放动画
+        await player.exposedResultAnimation(reply.op);
     };
 }

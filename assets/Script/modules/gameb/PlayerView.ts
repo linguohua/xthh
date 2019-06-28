@@ -397,7 +397,7 @@ export class PlayerView {
     public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): void {
         const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
         let viewChairID = this.viewChairID;
-        if (pp.chairID !== undefined && pp.chairID !== null) {
+        if (pp !== undefined && pp.chairID !== undefined && pp.chairID !== null) {
             viewChairID = this.room.getPlayerViewChairIDByChairID(pp.chairID);
         }
         const t1 = meldView.getChild("n1").asCom;
@@ -663,6 +663,9 @@ export class PlayerView {
     }
 
     public async playerOperationEffect(effectName: string, isWait?: boolean): Promise<void> {
+        if (effectName === undefined || effectName === null) {
+            return;
+        }
         if (isWait) {
             await this.roomHost.animationMgr.coPlay(`lobby/prefabs/mahjong/${effectName}`, this.aniPos.node);
         } else {

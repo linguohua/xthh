@@ -9,25 +9,25 @@ import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
 // const playerInfoView = require "lobby/scripts/playerInfo/playerInfoView"
 const mjproto = proto.mahjong;
-const enum SoundDef {
-    Chow = "chi",
-    Pong = "peng",
-    Kong = "gang",
-    Ting = "ting",
-    WinChuck = "hu", //被点炮
-    WinDraw = "zimo" //自摸
+const SoundDef: { [key: number]: string } = {
+    // Chow = "chi",
+    // Ting = "ting",
+    [TypeOfOP.Pong]: "peng",
+    [TypeOfOP.Kong]: "gang",
+    [TypeOfOP.CHAOTIAN]: "hu", //被点炮
+    [TypeOfOP.Hu]: "zimo" //自摸
     // Common = "effect_common"
 }
 
 //特效文件定义
-const enum EffectsDef {
-    Chow = "Effect_zi_chi",
-    Pong = "Effect_zi_peng",
-    Kong = "Effect_zi_gang",
-    Ting = "ting",
-    WinChuck = "Effect_zi_dianpao", //被点炮
-    WinDraw = "Effect_zi_zimo", //自摸
-    DrawCard = "Effect_zi_zhua"
+const EffectsDef: { [key: number]: string } = {
+    [TypeOfOP.Pong]: "Effect_zi_peng",
+    [TypeOfOP.Kong]: "Effect_zi_gang",
+    [TypeOfOP.CHAOTIAN]: "Effect_zi_dianpao", //被点炮
+    [TypeOfOP.Hu]: "Effect_zi_zimo" //自摸
+    // Chow = "Effect_zi_chi",
+    // Ting = "ting",
+    // DrawCard = "Effect_zi_zhua"
 }
 
 /**
@@ -281,8 +281,8 @@ export class Player {
         const playerView = this.playerView;
         playerView.head.ting.visible = showOrHide;
     }
-    //播放吃牌动画
-    public async chowResultAnimation(): Promise<void> {
+    //播放动画
+    public async exposedResultAnimation(t: number): Promise<void> {
         if (this.isMe()) {
             //隐藏牌组
             this.playerView.hideHands();
@@ -290,106 +290,8 @@ export class Player {
         }
 
         //播放对应音效
-        this.playSound("gameb/operate", SoundDef.Chow);
-        await this.playerView.playerOperationEffect(EffectsDef.Chow);
-    }
-
-    //播放碰牌动画
-    public async pongResultAnimation(): Promise<void> {
-        if (this.isMe()) {
-            //隐藏牌组
-            this.playerView.hideHands();
-            this.playerView.showHandsForMe(true);
-        }
-
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.Pong);
-        await this.playerView.playerOperationEffect(EffectsDef.Pong);
-    }
-
-    //播放明杠动画
-    public async exposedKongResultAnimation(): Promise<void> {
-        if (this.isMe()) {
-            //隐藏牌组
-            this.playerView.hideHands();
-            this.playerView.showHandsForMe(true);
-        }
-
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.Kong);
-        await this.playerView.playerOperationEffect(EffectsDef.Kong);
-    }
-
-    //播放暗杠动画
-    public async concealedKongResultAnimation(): Promise<void> {
-        if (this.isMe()) {
-            //隐藏牌组
-            this.playerView.hideHands();
-            this.playerView.showHandsForMe(true);
-        }
-
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.Kong);
-        await this.playerView.playerOperationEffect(EffectsDef.Kong);
-    }
-
-    //播放加杠动画
-    public async triplet2KongResultAnimation(): Promise<void> {
-        if (this.isMe()) {
-            //隐藏牌组
-            this.playerView.hideHands();
-            this.playerView.showHandsForMe(true);
-        }
-
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.Kong);
-        await this.playerView.playerOperationEffect(EffectsDef.Kong);
-    }
-
-    //播放抓牌
-    public async playZhuaPaiAnimation(): Promise<void> {
-        if (this.isMe()) {
-            //隐藏牌组
-            this.playerView.hideHands();
-            this.playerView.showHandsForMe(true);
-        }
-        //播放对应音效
-        // this.playSound("gameb/operate",SoundDef.DrawCard)
-        await this.playerView.playerOperationEffect(EffectsDef.DrawCard);
-    }
-
-    //播放自摸
-    public async playZiMoAnimation(): Promise<void> {
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.WinDraw);
-        //自摸, 1, 3 位置的玩家播放zimo1, 2, 4位置的玩家播放zimo2
-        //const effect = dfConfig.EFF_DEFINE.SUB_ZI_ZIMO.. "1"
-        // if this.playerView.viewChairID == 2 or this.playerView.viewChairID == 4 {
-        //effect = dfConfig.EFF_DEFINE.SUB_ZI_ZIMO.. "2"
-        //}
-        await this.playerView.playerOperationEffect(EffectsDef.WinDraw);
-    }
-
-    //播放点炮
-    public async playDianPaoAnimation(): Promise<void> {
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.WinChuck);
-        await this.playerView.playerOperationEffect(EffectsDef.WinChuck);
-    }
-
-    //播放吃铳
-    public async playChiChongAnimation(): Promise<void> {
-        //播放对应音效
-        this.playSound("gameb/operate", SoundDef.WinChuck);
-        await this.playerView.playerOperationEffect(EffectsDef.WinChuck);
-    }
-
-    //播放起手听牌特效
-    public readyHandEffect(): void {
-        //播放对应音效
-        //TODO. 没有这个音效，暂时注销 by陈日光
-        this.playSound("gameb/operate", SoundDef.Ting);
-        this.playerView.playReadyHandEffect();
+        this.playSound("gameb/operate", SoundDef[t]);
+        await this.playerView.playerOperationEffect(EffectsDef[t]);
     }
 
     //播放读牌音效
@@ -848,6 +750,9 @@ export class Player {
         playerInfoView.showUserInfoView(roomHost.getLobbyModuleLoader(), this.host, this.playerInfo, pos, this.isMe() === false);
     }
     private playSound(directory: string, effectName: string): void {
+        if (effectName === undefined || effectName === null) {
+            return;
+        }
         let soundName = "";
         if (this.playerInfo.gender === 1) {
             soundName = `${directory}/boy/${effectName}`;
