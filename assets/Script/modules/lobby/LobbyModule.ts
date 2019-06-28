@@ -5,12 +5,11 @@ const { ccclass } = cc._decorator;
 import { GameModule } from "../gameb/GamebExports";
 import { GResLoaderImpl } from "./GResLoaderImpl";
 import { Dialog } from "./lcore/Dialog";
-import { DataStore, HTTP, LEnv } from "./lcore/LCoreExports";
-import { GameModuleInterface, GameModuleLaunchArgs, LobbyModuleInterface, MsgCenter } from "./lcore/LDataType";
+import { DataStore} from "./lcore/LCoreExports";
+import { CreateRoomParams, GameModuleInterface, GameModuleLaunchArgs, JoinRoomParams,
+        LobbyModuleInterface, MsgCenter } from "./lcore/LDataType";
 import { Logger } from "./lcore/Logger";
-import { proto } from "./proto/protoLobby";
 import { proto as protoHH } from "./protoHH/protoHH";
-import { LobbyError } from "./views/LobbyError";
 import { LoginView } from "./views/LoginView";
 
 /**
@@ -65,40 +64,15 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     }
 
     public requetJoinRoom(roomNumber: string): void {
-        const tk = DataStore.getString("token", "");
-        const joinRoomURL = `${LEnv.rootURL}${LEnv.requestRoomInfo}?&tk=${tk}&roomNumber=${roomNumber}`;
+        const joinRoomParams = {
+            tableID: "",
+            roomNumber: roomNumber
+        };
 
-        Logger.trace("joinRoomURL, joinRoomURL:", joinRoomURL);
-
-        HTTP.hGet(this.eventTarget, joinRoomURL, (xhr: XMLHttpRequest, err: string) => {
-            let errMsg = null;
-            if (err !== null) {
-                errMsg = `加入房间错误，错误码:${err}`;
-            } else {
-                errMsg = HTTP.hError(xhr);
-                if (errMsg === null) {
-                    const data = <Uint8Array>xhr.response;
-                    // proto 解码登录结果
-                    const requestRoomInfoRsp = proto.lobby.MsgRequestRoomInfoRsp.decode(data);
-                    if (requestRoomInfoRsp.result === proto.lobby.MsgError.ErrSuccess) {
-                        this.enterGame(requestRoomInfoRsp.roomInfo);
-                    } else {
-                        const errorString = LobbyError.getErrorString(requestRoomInfoRsp.result);
-                        Dialog.showDialog(errorString);
-                    }
-                }
-            }
-
-            if (errMsg !== null) {
-                Logger.debug("quickly login failed:", errMsg);
-                // 显示错误对话框
-                Dialog.showDialog(errMsg, () => {
-                    //
-                });
-            }
-        });
+       // tslint:disable-next-line:align
+       this.enterGame(joinRoomParams);
     }
-    public enterGame(roomInfo: proto.lobby.IRoomInfo): void {
+    public enterGame(joinRoomParams?: JoinRoomParams, creatRoomParams?: CreateRoomParams): void {
 
         Dialog.hidePrompt();
 
@@ -107,21 +81,13 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
         const myUserID = DataStore.getString("userID", "");
         const myUser = { userID: myUserID };
-        const myRoomInfo = {
-            roomID: roomInfo.roomID,
-            roomNumber: roomInfo.roomNumber,
-            config: roomInfo.config,
-            gameServerID: roomInfo.gameServerID
-        };
-
-        const roomConfig = roomInfo.config;
-        const roomConfigJSON = <{ [key: string]: boolean | number | string }>JSON.parse(roomConfig);
-        const modName = <string>roomConfigJSON[`modName`];
+        const modName = "gameb";
 
         const params: GameModuleLaunchArgs = {
             jsonString: "",
             userInfo: myUser,
-            roomInfo: myRoomInfo,
+            joinRoomParams: joinRoomParams,
+            createRoomParams: creatRoomParams,
             record: null
         };
 

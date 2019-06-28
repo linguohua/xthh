@@ -1,6 +1,6 @@
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { Logger, RoomInfo, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
+import { Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -9,7 +9,6 @@ import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDisc
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
 import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
 import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
-import { HandlerMsgActionOutcardAck } from "./handlers/HandlerMsgActionOutcardAck";
 // import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
 // import { HandlerMsg2Lobby } from "./handlers/HandlerMsg2Lobby";
 // import { HandlerMsgActionAllowed } from "./handlers/HandlerMsgActionAllowed";
@@ -92,7 +91,7 @@ const msgHandlers: { [key: number]: msgHandler } = {
  */
 export class Room {
     public readonly myUser: UserInfo;
-    public readonly roomInfo: RoomInfo;
+    public readonly roomInfo: protoHH.casino.Itable;
     public readonly host: RoomHost;
     public scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
     public state: number;
@@ -111,17 +110,17 @@ export class Room {
     public msgDisbandNotify: proto.mahjong.MsgDisbandNotify;
     public handNum: number;
     public readonly roomType: number;
-    public constructor(myUser: UserInfo, roomInfo: RoomInfo, host: RoomHost, rePlay?: Replay) {
+    public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
         this.host = host;
         this.replay = rePlay;
         this.roomInfo = roomInfo;
 
-        const roomConfigJSON = <{ [key: string]: boolean | number | string }>JSON.parse(roomInfo.config);
+        // const roomConfigJSON = <{ [key: string]: boolean | number | string }>JSON.parse(roomInfo.config);
         // Logger.debug("roomConfigJSON ---------------------------------------------", roomConfigJSON);
-        this.roomType = <number>roomConfigJSON[`roomType`];
-        this.handNum = <number>roomConfigJSON[`handNum`];
+        this.roomType = roomInfo.room_id;
+        this.handNum = roomInfo.round;
     }
 
     public getRoomHost(): RoomHost {
@@ -265,7 +264,7 @@ export class Room {
             Share.ShareSrcType.GameShare,
             Share.ShareMediaType.Image,
             Share.ShareDestType.Friend,
-            `roomNumber=${this.roomInfo.roomNumber}`);
+            `roomNumber=${this.roomInfo.tag}`);
     }
     public onReturnLobbyBtnClick(): void {
 

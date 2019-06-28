@@ -177,7 +177,7 @@ export class RoomView {
         const room = this.room;
         const num = `${this.room.handStartted}/${this.room.handNum}`;
         const s = `     `;
-        const str = `${GameRules.gameName(this.room.roomType)}${s}房号:${room.roomInfo.roomNumber}${s}局数:${num}`;
+        const str = `${GameRules.gameName(this.room.roomType)}${s}房号:${room.roomInfo.tag}${s}局数:${num}`;
         this.roomInfoText.text = str;
 
     }
@@ -323,7 +323,8 @@ export class RoomView {
         if (roomRuleView === undefined || roomRuleView == null) {
             roomRuleView = this.component.addComponent(RoomRuleView);
         }
-        roomRuleView.updateView(this.room.roomInfo.config);
+        // roomRuleView.updateView(this.room.roomInfo.config);
+        // TODO: 显示游戏规则
     }
 
     private onSettingBtnClick(): void {

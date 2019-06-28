@@ -70,7 +70,11 @@ export class LobbyView extends cc.Component {
         this.view = view;
 
         this.initView();
+
+        this.testJoinGame();
         // await this.startWebSocket();
+
+        // TODO: 如果已经在房间，则拉进房间
     }
 
     protected onDestroy(): void {
@@ -151,10 +155,11 @@ export class LobbyView extends cc.Component {
     //     await this.msgCenter.start();
     // }
     private onFriendClick(): void {
-        // this.addComponent(ClubView);
+        this.addComponent(ClubView);
+    }
 
-        // this.testDisband();
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.testDisband, this); // 加入游戏
+    private testJoinGame(): void {
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
 
         const req2 = new proto.casino.packet_player_join_req({});
         const buf = proto.casino.packet_player_join_req.encode(req2);
@@ -180,28 +185,7 @@ export class LobbyView extends cc.Component {
 
     private onCreateClick(): void {
         // TODO:
-        const myUser = { userID: "6" };
-        const roomConfigObj = {
-            roomType: 21
-        };
-
-        const roomInfo = {
-            roomID: "monkey-room",
-            roomNumber: "monkey-room",
-            config: JSON.stringify(roomConfigObj),
-            gameServerID: "uuid"
-        };
-
-        const params: GameModuleLaunchArgs = {
-            jsonString: "",
-            userInfo: myUser,
-            roomInfo: roomInfo,
-            record: null
-        };
-
-        //this.enterGame(roomInfo);
-
-        this.lm.switchToGame(params, "gameb");
+        this.testDisband();
     }
 
     private onCoinClick(): void {
@@ -233,13 +217,24 @@ export class LobbyView extends cc.Component {
     }
 
     private onCreateRoom(): void {
-        // const newRoomView = this.addComponent(NewRoomView);
-        // newRoomView.showView(NewRoomViewPath.Normal);
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
 
-        const req2 = new proto.casino.packet_player_join_req({});
-        const buf = proto.casino.packet_player_join_req.encode(req2);
-        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
+        const createRoomParams = {
+            roomID: 2103,
+            bet: 1,
+            round: 10
+        };
+
+        const params: GameModuleLaunchArgs = {
+            jsonString: "",
+            userInfo: myUser,
+            joinRoomParams: null,
+            createRoomParams: createRoomParams,
+            record: null
+        };
+
+        this.lm.switchToGame(params, "gameb");
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
@@ -247,26 +242,26 @@ export class LobbyView extends cc.Component {
         const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
         console.log(reply);
 
-        const myUser = { userID: `${reply.player_id}` };
-        const roomConfigObj = {
-            roomType: 21
-        };
+        const tableID = DataStore.getString("tableID", "0");
+        if (tableID === "0") {
+            return;
+        }
 
-        const roomInfo = {
-            roomID: "monkey-room",
-            roomNumber: "monkey-room",
-            config: JSON.stringify(roomConfigObj),
-            gameServerID: "uuid"
+        // Dialog.showDialog("已经在房间, 正在进入房间");
+
+        const myUser = { userID: `${reply.player_id}` };
+
+        const joinRoomParams = {
+            tableID: tableID
         };
 
         const params: GameModuleLaunchArgs = {
             jsonString: "",
             userInfo: myUser,
-            roomInfo: roomInfo,
+            joinRoomParams: joinRoomParams,
+            createRoomParams: null,
             record: null
         };
-
-        //this.enterGame(roomInfo);
 
         this.lm.switchToGame(params, "gameb");
     }
@@ -276,15 +271,15 @@ export class LobbyView extends cc.Component {
         Logger.debug("jsonStr:", jsonStr);
         if (jsonStr !== "") {
             try {
-                const config = <{ [key: string]: string }>JSON.parse(jsonStr);
-                const myRoomInfo = {
-                    roomID: config.roomID,
-                    roomNumber: config.roomNumber,
-                    config: config.config,
-                    gameServerID: config.gameServerID
-                };
+                // const config = <{ [key: string]: string }>JSON.parse(jsonStr);
+                // const myRoomInfo = {
+                //     roomID: config.roomID,
+                //     roomNumber: config.roomNumber,
+                //     config: config.config,
+                //     gameServerID: config.gameServerID
+                // };
 
-                this.lm.enterGame(myRoomInfo);
+                // this.lm.enterGame(myRoomInfo);
             } catch (e) {
                 Logger.error("parse config error:", e);
                 // 如果解析不了，则清理数据

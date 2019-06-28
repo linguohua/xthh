@@ -1,4 +1,3 @@
-import { proto } from "../proto/protoLobby";
 import { proto as protoHH} from "../protoHH/protoHH";
 
 /**
@@ -55,8 +54,19 @@ export interface LobbyModuleInterface {
     msgCenter: MsgCenter;
     returnFromGame(): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
-    enterGame(roomInfo: proto.lobby.IRoomInfo): void;
+    enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;
     requetJoinRoom(roomNumber: string): void;
+}
+
+export interface CreateRoomParams {
+    roomID: number;
+    bet: number;
+    round: number;
+}
+
+export interface JoinRoomParams {
+    tableID?: string;
+    roomNumber?: string;
 }
 
 /**
@@ -64,7 +74,8 @@ export interface LobbyModuleInterface {
  */
 export interface GameModuleLaunchArgs {
     userInfo: UserInfo;
-    roomInfo: RoomInfo;
+    joinRoomParams: JoinRoomParams;
+    createRoomParams: CreateRoomParams;
     jsonString: string;
     loader?: GResLoader;
     lm?: LobbyModuleInterface;

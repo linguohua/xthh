@@ -135,9 +135,9 @@ export class HandResultView extends cc.Component {
             return;
         }
 
-        let roomNumber = this.room.roomInfo.roomNumber;
+        let roomNumber = this.room.roomInfo.tag;
         if (roomNumber == null) {
-            roomNumber = "";
+            roomNumber = 0;
         }
         this.textRoomNumber.text = `房号:${roomNumber}`;
     }
@@ -391,7 +391,8 @@ export class HandResultView extends cc.Component {
         if (roomRuleView === undefined || roomRuleView == null) {
             roomRuleView = this.addComponent(RoomRuleView);
         }
-        roomRuleView.updateView(this.room.roomInfo.config);
+        // roomRuleView.updateView(this.room.roomInfo.config);
+        // TODO: 显示游戏规则
     }
     // 玩家点击“继续”按钮，注意如果牌局结束，此按钮是“大结算”
     private onAgainButtonClick(): void {

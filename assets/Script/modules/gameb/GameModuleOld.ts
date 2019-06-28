@@ -79,7 +79,7 @@ export class GameModuleOld extends cc.Component implements GameModuleInterface {
             const chairID = 0;
             await this.tryEnterReplayRoom(args.userInfo.userID, args.record, chairID);
         } else {
-            await this.tryEnterRoom(args.userInfo, args.roomInfo);
+            await this.tryEnterRoom(args.userInfo, null);
         }
     }
 
@@ -279,7 +279,7 @@ export class GameModuleOld extends cc.Component implements GameModuleInterface {
         roomInfo: RoomInfo,
         rePlay?: Replay): void {
         //
-        this.mRoom = new Room(myUser, roomInfo, this, rePlay);
+        this.mRoom = new Room(myUser, null, this, rePlay);
         this.mRoom.loadRoomView(this.view);
     }
 
