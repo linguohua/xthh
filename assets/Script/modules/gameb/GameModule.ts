@@ -1,11 +1,13 @@
 import {
     AnimationMgr, CreateRoomParams,
-    DataStore, GameModuleInterface,
-    GameModuleLaunchArgs, GResLoader, JoinRoomParams, LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
+    DataStore, Dialog,
+    GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams, LobbyModuleInterface,
+    Logger, Message, MsgQueue, MsgType, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { GameError } from "./GameError";
 import { Replay } from "./Replay";
 import { Room } from "./Room";
 
@@ -147,34 +149,35 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         let reconnect = false;
         let table: protoHH.casino.Itable = null;
-        if (createRoomParams !== null) {
+        if (createRoomParams !== undefined && createRoomParams !== null) {
             // 不存在房间，则创建
-            const createRoomAck = await this.waitCreateRoom();
+            const createRoomAck = await this.waitCreateRoom(createRoomParams);
             if (createRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = createRoomAck.tdata;
                 Logger.debug("create new room");
             } else {
-                Logger.error("doEnterRoom, creat room, ret:", createRoomAck.ret);
+                Logger.error("doEnterRoom, creat room failed:", createRoomAck);
+
+                await this.showEnterRoomError(createRoomAck.ret);
             }
-        } else if (joinRoomParams !== null) {
+        } else if (joinRoomParams !== undefined && joinRoomParams !== null) {
             // 存在房间，则加入
-            const tableIDLong = long.fromString(joinRoomParams.tableID, true);
-            Logger.debug("tableIDLong:", tableIDLong);
-            const joinRoomAck = await this.waitJoinRoom(tableIDLong);
+            const joinRoomAck = await this.waitJoinRoom(joinRoomParams);
             if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = joinRoomAck.tdata;
-                reconnect = true;
+                reconnect = joinRoomAck.reconnect;
+
                 DataStore.setItem("tableID", "");
 
                 Logger.debug("re-enter room");
             } else {
-                Logger.error("doEnterRoom, join room, ret:", joinRoomAck.ret);
+                Logger.error("doEnterRoom, join room failed:", joinRoomAck);
+
+                await this.showEnterRoomError(joinRoomAck.ret);
             }
         }
 
         if (table === null) {
-            Logger.error("doEnterRoom failed");
-
             return;
         }
 
@@ -218,25 +221,28 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         await this.pumpMsg();
 
         Logger.debug("doEnterRoom leave---");
+
+        this.backToLobby();
     }
 
     // 请求创建房间
-    private testCreateRoom(): void {
+    private testCreateRoom(createRoomParams: CreateRoomParams): void {
         const req = {
             casino_id: 16,
-            room_id: 2103,
-            base: 1,
-            round: 1,
-            join: 0
+            room_id: createRoomParams.roomID,
+            base: createRoomParams.base,
+            round: createRoomParams.round,
+            join: createRoomParams.allowJoin
         };
 
+        Logger.debug("testCreateRoom, req:", req);
         const req2 = new protoHH.casino.packet_table_create_req(req);
         const buf = protoHH.casino.packet_table_create_req.encode(req2);
         this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_CREATE_REQ);
     }
 
-    private async waitCreateRoom(): Promise<protoHH.casino.packet_table_create_ack> {
-        this.testCreateRoom();
+    private async waitCreateRoom(createRoomParams: CreateRoomParams): Promise<protoHH.casino.packet_table_create_ack> {
+        this.testCreateRoom(createRoomParams);
 
         this.blockNormal();
         const msg = await this.mq.waitMsg();
@@ -258,23 +264,33 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    private testJoinRoom(tableID: Long): void {
+    private testJoinRoom(joinRoomParams: JoinRoomParams): void {
+        let tableID = long.ZERO;
+        if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
+            tableID = long.fromString(joinRoomParams.tableID, true);
+        }
+
+        let roomNumberInt: number = 0;
+        if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
+            roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
+        }
+
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
             casino_id: 16,
             room_id: 2103,
-            table_id: tableID
+            table_id: tableID,
+            tag: roomNumberInt
         };
 
-        Logger.debug("testJoinRoom:", req);
         const req2 = new protoHH.casino.packet_table_join_req(req);
         const buf = protoHH.casino.packet_table_join_req.encode(req2);
         this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
     }
 
-    private async waitJoinRoom(tableID: Long): Promise<protoHH.casino.packet_table_join_ack> {
-        this.testJoinRoom(tableID);
+    private async waitJoinRoom(joinRoomParams: JoinRoomParams): Promise<protoHH.casino.packet_table_join_ack> {
+        this.testJoinRoom(joinRoomParams);
 
         this.blockNormal();
         const msg = await this.mq.waitMsg();
@@ -341,34 +357,20 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.mq.pushMessage(msg);
     }
 
-    // private async showEnterRoomError(code: number): Promise<void> {
-    //     const msg = this.getEnterRoomErrorCode(code);
-    //     Logger.warn("enter mRoom failed, server return error：", msg);
-    //     await Dialog.coShowDialog(msg, true, false);
-    // }
+    private async showEnterRoomError(code: number): Promise<void> {
+        const msg = GameError.getErrorString(code);
+        Logger.warn("enter mRoom failed, server return error：", msg);
 
-    // private getEnterRoomErrorCode(code: number): string {
-    //     const mahjong = proto.mahjong.EnterRoomStatus;
-    //     const enterRoomErrorMap: { [key: number]: string } = {
-    //         [mahjong.RoomNotExist]: "房间不存在",
-    //         [mahjong.RoomIsFulled]: "你输入的房间已满，无法加入",
-    //         [mahjong.RoomPlaying]: "房间正在游戏中",
-    //         [mahjong.InAnotherRoom]: "您已经再另一个房间",
-    //         [mahjong.MonkeyRoomUserIDNotMatch]: "测试房间userID不匹配",
-    //         [mahjong.MonkeyRoomUserLoginSeqNotMatch]: "测试房间进入顺序不匹配",
-    //         [mahjong.AppModuleNeedUpgrade]: "您的APP版本过老，请升级到最新版本",
-    //         [mahjong.InRoomBlackList]: "您被房主踢出房间，10分钟内无法再次加入此房间",
-    //         [mahjong.TakeoffDiamondFailedNotEnough]: "您的钻石不足，不能进入房间，请充值",
-    //         [mahjong.TakeoffDiamondFailedIO]: "抱歉，系统扣除钻石失败，不能进入房间",
-    //         [mahjong.RoomInApplicateDisband]: "房间正在解散"
-    //     };
+        return new Promise<void>((resolve, _) => {
+            const myYesCB = () => {
+                this.backToLobby();
 
-    //     return enterRoomErrorMap[code] !== undefined ? enterRoomErrorMap[code] : "未知错误";
-    // }
+                resolve();
+            };
 
-    // private subMsg(): void {
-
-    // }
+            Dialog.showDialog(msg, myYesCB);
+        });
+    }
 
     private async pumpMsg(): Promise<void> {
         let loop = true;

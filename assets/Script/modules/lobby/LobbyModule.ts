@@ -65,7 +65,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
     public requetJoinRoom(roomNumber: string): void {
         const joinRoomParams = {
-            tableID: "",
             roomNumber: roomNumber
         };
 

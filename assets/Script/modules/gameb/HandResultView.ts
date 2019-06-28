@@ -1,3 +1,4 @@
+import { Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { GameRules } from "./GameRules";
@@ -6,7 +7,6 @@ import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-import { Logger } from "../lobby/lcore/Logger";
 
 //面子牌组资源 后缀
 const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {

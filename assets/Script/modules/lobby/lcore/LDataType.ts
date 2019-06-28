@@ -59,9 +59,14 @@ export interface LobbyModuleInterface {
 }
 
 export interface CreateRoomParams {
+    // 对应packet_table_create_req中的room_id
     roomID: number;
-    bet: number;
+    // 对应packet_table_create_req中的base
+    base: number;
+    // 对应packet_table_create_req中的round
     round: number;
+    // 对应packet_table_create_req中的join
+    allowJoin: number;
 }
 
 export interface JoinRoomParams {
