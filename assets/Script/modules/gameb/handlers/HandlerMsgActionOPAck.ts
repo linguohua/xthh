@@ -27,11 +27,11 @@ export namespace HandlerMsgActionOPAck {
             } else {
                 player.addMeld(reply);
             }
-            //从贡献者（出牌者）的打出牌列表中移除最后一张牌
-            const contributorPlayer = <Player>room.getPlayerByUserID(`${reply.target_id}`);
             //手牌列表更新UI
             player.hand2UI(true);
 
+            //从贡献者（出牌者）的打出牌列表中移除最后一张牌
+            const contributorPlayer = <Player>room.getPlayerByUserID(`${reply.target_id}`);
             //更新贡献者的打出牌列表到UI
             contributorPlayer.removeLatestDiscarded(reply.cards[0]);
             contributorPlayer.discarded2UI(false, false);
