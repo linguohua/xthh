@@ -382,6 +382,7 @@ export class PlayerView {
             }
             //根据面子牌挂载牌的图片
             const meldData = ms[i];
+            Logger.debug("根据面子牌挂载牌的图片 : ", meldData);
             const resName = rm + MELD_COMPONENT_SUFFIX[meldData.op];
             const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
             meldView.setPosition(mv.x, mv.y);

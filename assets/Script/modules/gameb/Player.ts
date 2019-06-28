@@ -194,6 +194,27 @@ export class Player {
         }
         this.melds.push(meld);
     }
+    public addMeldOfCards(cards: number[]): void {
+        //插入到队列尾部
+        if (cards === undefined || cards === null || cards.length === 0) {
+            return;
+        }
+        let meldCard = cards[0];
+        let opAck = new protoHH.casino_xtsj.packet_sc_op_ack();
+        opAck.cards = [];
+        for (const card of cards) {
+            if (card === meldCard) {
+                opAck.cards.push(meldCard);
+            } else {
+                if (opAck.cards.length === 3) {
+                    opAck.op = TypeOfOP.Pong;
+                } else if (opAck.cards.length === 4) {
+                    opAck.op = TypeOfOP.Kong;
+                }
+            }
+        }
+        // this.melds.push(meld);
+    }
 
     //利用服务器发下来的暗杠牌组的id列表（明牌）
     //更新本地的暗杠牌组列表
@@ -591,52 +612,59 @@ export class Player {
     //当上下文是allowedActionMsg时，表示不起手听牌
     //当上下文是allowedReActionMsg时，表示不吃椪杠胡
     public onSkipBtnClick(): void {
-        //const playerView = this.playerView
-        if (this.isGuoHuTips) {
-            //dfCompatibleAPI. showTip("可胡牌时，需要点击2次过才可过牌。")
-            //提示完成，设置开关为true
-            this.isGuoHuTips = false;
-        } else {
-            let discardAble = false;
-            if (this.allowedActionMsg != null) {
-                const allowedActions = this.allowedActionMsg.allowedActions;
-                discardAble = true;
-                if ((allowedActions & mjproto.ActionType.enumActionType_FirstReadyHand) !== 0) {
-                    if (this.host.getBankerChairID() !== this.chairID) {
-                        const actionMsg = new proto.mahjong.MsgPlayerAction();
-                        actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
-                        //这里action换成enumActionType_FirstReadyHand而不是skip
-                        actionMsg.action = mjproto.ActionType.enumActionType_FirstReadyHand;
-                        actionMsg.flags = 0; //0表示不起手听牌
+        // if (this.isGuoHuTips) {
+        //     //dfCompatibleAPI. showTip("可胡牌时，需要点击2次过才可过牌。")
+        //     this.isGuoHuTips = false;
+        // } else {
+        //     let discardAble = false;
+        //     if (this.allowedActionMsg != null) {
+        //         const allowedActions = this.allowedActionMsg.allowedActions;
+        //         discardAble = true;
+        //         if ((allowedActions & mjproto.ActionType.enumActionType_FirstReadyHand) !== 0) {
+        //             if (this.host.getBankerChairID() !== this.chairID) {
+        //                 const actionMsg = new proto.mahjong.MsgPlayerAction();
+        //                 actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
+        //                 //这里action换成enumActionType_FirstReadyHand而不是skip
+        //                 actionMsg.action = mjproto.ActionType.enumActionType_FirstReadyHand;
+        //                 actionMsg.flags = 0; //0表示不起手听牌
 
-                        this.sendActionMsg(actionMsg);
-                        discardAble = false;
-                    }
-                } else if ((allowedActions & mjproto.ActionType.enumActionType_SKIP) !== 0) {
-                    if ((allowedActions & mjproto.ActionType.enumActionType_DISCARD) === 0) {
-                        const actionMsg = new proto.mahjong.MsgPlayerAction();
-                        actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
-                        actionMsg.action = mjproto.ActionType.enumActionType_SKIP;
+        //                 this.sendActionMsg(actionMsg);
+        //                 discardAble = false;
+        //             }
+        //         } else if ((allowedActions & mjproto.ActionType.enumActionType_SKIP) !== 0) {
+        //             if ((allowedActions & mjproto.ActionType.enumActionType_DISCARD) === 0) {
+        //                 const actionMsg = new proto.mahjong.MsgPlayerAction();
+        //                 actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
+        //                 actionMsg.action = mjproto.ActionType.enumActionType_SKIP;
 
-                        this.sendActionMsg(actionMsg);
+        //                 this.sendActionMsg(actionMsg);
 
-                        discardAble = false;
-                    }
-                }
-            } else if (this.allowedReActionMsg != null) {
-                const actionMsg = new proto.mahjong.MsgPlayerAction();
-                actionMsg.qaIndex = this.allowedReActionMsg.qaIndex;
-                actionMsg.action = mjproto.ActionType.enumActionType_SKIP;
+        //                 discardAble = false;
+        //             }
+        //         }
+        //     } else if (this.allowedReActionMsg != null) {
+        //         const actionMsg = new proto.mahjong.MsgPlayerAction();
+        //         actionMsg.qaIndex = this.allowedReActionMsg.qaIndex;
+        //         actionMsg.action = mjproto.ActionType.enumActionType_SKIP;
 
-                this.sendActionMsg(actionMsg);
-            }
+        //         this.sendActionMsg(actionMsg);
+        //     }
 
-            this.playerView.clearAllowedActionsView(discardAble);
-            //重置手牌位置
-            this.playerView.restoreHandsPositionAndClickCount(-1);
-            //设置一个标志，表示已经点击了动作按钮（吃碰杠胡过）
-            this.waitSkip = false;
-        }
+        //     this.playerView.clearAllowedActionsView(discardAble);
+        //     //重置手牌位置
+        //     this.playerView.restoreHandsPositionAndClickCount(-1);
+        //     //设置一个标志，表示已经点击了动作按钮（吃碰杠胡过）
+        //     this.waitSkip = false;
+        const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
+        req2.cancel_type = -1;
+        req2.op = TypeOfOP.Kong;
+        const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+
+        this.playerView.clearAllowedActionsView(false);
+        //重置手牌位置
+        this.playerView.restoreHandsPositionAndClickCount(-1);
+
     }
 
     //执行自动打牌操作

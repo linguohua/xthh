@@ -194,7 +194,19 @@ export class Room {
 
         if (playerInfo.outcards.length > 0) {
             player.addDiscardedTiles(playerInfo.outcards);
-            player.discarded2UI(true, false);
+            player.discarded2UI(false, false);
+        }
+
+        if (playerInfo.groups.length > 0) {
+            for (const g of playerInfo.groups) {
+                const m = new protoHH.casino_xtsj.packet_sc_op_ack();
+                m.cards = g.cards;
+                m.op = g.op;
+                m.target_id = g.target_id;
+                m.type = g.type;
+                player.addMeld(m);
+            }
+            player.hand2UI(false);
         }
 
     }
@@ -220,9 +232,20 @@ export class Room {
 
         if (playerInfo.outcards.length > 0) {
             player.addDiscardedTiles(playerInfo.outcards);
-            player.discarded2UI(true, false);
+            player.discarded2UI(false, false);
         }
 
+        if (playerInfo.groups.length > 0) {
+            for (const g of playerInfo.groups) {
+                const m = new protoHH.casino_xtsj.packet_sc_op_ack();
+                m.cards = g.cards;
+                m.op = g.op;
+                m.target_id = g.target_id;
+                m.type = g.type;
+                player.addMeld(m);
+            }
+            player.hand2UI(false);
+        }
     }
 
     public onReadyButtonClick(): void {

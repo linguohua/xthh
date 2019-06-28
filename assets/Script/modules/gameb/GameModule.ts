@@ -179,7 +179,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             return;
         }
 
-        Logger.debug("doEnterRoom :", table);
+        Logger.debug("doEnterRoom ------------:", table);
 
         // 创建房间View
         if (this.mRoom === null || this.mRoom === undefined) {
@@ -197,7 +197,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (reconnect) {
             this.mRoom.setWaitingPlayer(table.cur_idx);
-            this.mRoom.setDiscardAble(table.cur_idx);
+            // this.mRoom.setDiscardAble(table.cur_idx);
         }
 
         await this.pumpMsg();

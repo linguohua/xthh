@@ -4,6 +4,15 @@ import { Player } from "../Player";
 import { ButtonDef } from "../PlayerInterface";
 import { RoomInterface } from "../RoomInterface";
 
+const enum opNumType {
+    Chow = 1,
+    Pong = 2,
+    Kong = 3,
+    Ting = 4,
+    Skip = 5,
+    Hu = 6,
+    Zhua = 7
+}
 /**
  * 服务器询问玩家操作
  */
@@ -31,11 +40,11 @@ export namespace HandlerMsgActionOP {
         const gpNum = haveGangOrPong(reply.card, player);
         const buttonMap: string[] = [];
         switch (gpNum) {
-            case 2:
+            case opNumType.Pong:
                 //碰
                 buttonMap.push(ButtonDef.Pong);
                 break;
-            case 3:
+            case opNumType.Kong:
                 //杠
                 buttonMap.push(ButtonDef.Kong);
                 break;
@@ -43,7 +52,7 @@ export namespace HandlerMsgActionOP {
             //没得操作
         }
         if (buttonMap.length > 0) {
-            buttonMap.push(ButtonDef.Skip);
+            // buttonMap.push(ButtonDef.Skip);
             player.playerView.showButton(buttonMap);
             player.lastOutTile = reply.card;
         }

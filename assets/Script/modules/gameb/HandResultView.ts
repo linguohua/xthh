@@ -6,6 +6,7 @@ import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
+import { Logger } from "../lobby/lcore/Logger";
 
 //面子牌组资源 后缀
 const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
@@ -170,33 +171,10 @@ export class HandResultView extends cc.Component {
     }
     //更新牌数据
     private updatePlayerTileData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
+        Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
-        const meldDatas: proto.casino_xtsj.packet_sc_op_ack[] = []; //落地牌组
-        if (playerScore.selcards.length > 0) {
-            let m11 = playerScore.selcards[0];
-            let m22 = 1;
-            for (let i = 1; i < playerScore.selcards.length; i++) {
-                if (playerScore.selcards[i] === m11) {
-                    m22++;
-                } else {
-                    const req2 = new proto.casino_xtsj.packet_sc_op_ack();
-                    req2.cancel_type = -1;
-                    if (m22 === 3) {
-                        req2.op = TypeOfOP.Pong;
-                    } else if (m22 === 4) {
-                        req2.op = TypeOfOP.Kong;
-                    }
-                    req2.cards[0] = m11;
-                    meldDatas.push(req2);
-
-                    if (i + 1 < playerScore.selcards.length) {
-                        m22 = 1;
-                        m11 = playerScore.selcards[i + 1];
-                    }
-                }
-            }
-        }
+        const meldDatas = player.melds;
         const tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
         // const lastTile = player.lastTile; //玩家最后一张牌
         //吃碰杠牌

@@ -19,7 +19,14 @@ export namespace HandlerMsgActionOPAck {
             for (const card of reply.cards) {
                 player.removeTileFromHand(card);
             }
-            player.addMeld(reply);
+            const meld = player.getMeld(reply.cards[0], TypeOfOP.Pong);
+            if (meld !== null) {
+                //说明是加杠
+                meld.op = TypeOfOP.Kong; // 改成杠
+                meld.cards.push(reply.cards[0]);
+            } else {
+                player.addMeld(reply);
+            }
             //从贡献者（出牌者）的打出牌列表中移除最后一张牌
             const contributorPlayer = <Player>room.getPlayerByUserID(`${reply.target_id}`);
             //手牌列表更新UI
@@ -32,7 +39,7 @@ export namespace HandlerMsgActionOPAck {
             room.setArrowByParent(null);
             room.hideDiscardedTips();
         } else {
-
+            //胡 等其他情况
         }
         //播放动画
         await player.exposedResultAnimation(reply.op);
