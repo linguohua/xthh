@@ -196,7 +196,23 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (reconnect) {
             this.mRoom.setWaitingPlayer(table.cur_idx);
-            // this.mRoom.setDiscardAble(table.cur_idx);
+            this.mRoom.setDiscardAble(table.cur_idx); // 如果是轮到我出牌 要让牌可以点击
+            //如果到我操作 要显示操作按钮
+            if (table.op_id === table.players[0].id) {
+                const m = new protoHH.casino_xtsj.packet_sc_op();
+                m.card = table.outcard;
+                m.player_id = table.op_id;
+                m.target_id = table.target_id;
+                m.time = table.time;
+                m.table_id = table.id;
+                const reply = protoHH.casino_xtsj.packet_sc_op.encode(m);
+
+                const msg = new protoHH.casino.ProxyMessage();
+                msg.Ops = protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP;
+                msg.Data = reply;
+
+                this.onMsg(msg);
+            }
         }
 
         await this.pumpMsg();
