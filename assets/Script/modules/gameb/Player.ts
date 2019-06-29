@@ -9,7 +9,7 @@ import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
 // const playerInfoView = require "lobby/scripts/playerInfo/playerInfoView"
 const mjproto = proto.mahjong;
-const SoundDef: { [key: number]: string } = {
+const soundDef: { [key: number]: string } = {
     // Chow = "chi",
     // Ting = "ting",
     [TypeOfOP.Pong]: "peng",
@@ -17,10 +17,10 @@ const SoundDef: { [key: number]: string } = {
     [TypeOfOP.CHAOTIAN]: "hu", //被点炮
     [TypeOfOP.Hu]: "zimo" //自摸
     // Common = "effect_common"
-}
+};
 
 //特效文件定义
-const EffectsDef: { [key: number]: string } = {
+const effectsDef: { [key: number]: string } = {
     [TypeOfOP.Pong]: "Effect_zi_peng",
     [TypeOfOP.Kong]: "Effect_zi_gang",
     [TypeOfOP.CHAOTIAN]: "Effect_zi_dianpao", //被点炮
@@ -28,7 +28,7 @@ const EffectsDef: { [key: number]: string } = {
     // Chow = "Effect_zi_chi",
     // Ting = "ting",
     // DrawCard = "Effect_zi_zhua"
-}
+};
 
 /**
  * Player表示一个玩家，只有进入房间才会新建Player
@@ -199,8 +199,8 @@ export class Player {
         if (cards === undefined || cards === null || cards.length === 0) {
             return;
         }
-        let meldCard = cards[0];
-        let opAck = new protoHH.casino_xtsj.packet_sc_op_ack();
+        const meldCard = cards[0];
+        const opAck = new protoHH.casino_xtsj.packet_sc_op_ack();
         opAck.cards = [];
         for (const card of cards) {
             if (card === meldCard) {
@@ -311,8 +311,8 @@ export class Player {
         }
 
         //播放对应音效
-        this.playSound("gameb/operate", SoundDef[t]);
-        await this.playerView.playerOperationEffect(EffectsDef[t]);
+        this.playSound("gameb/operate", soundDef[t]);
+        await this.playerView.playerOperationEffect(effectsDef[t]);
     }
 
     //播放读牌音效
