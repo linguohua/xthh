@@ -186,27 +186,7 @@ export class Room {
 
         this.players[player.userID] = player;
 
-        if (playerInfo.curcards.length > 0) {
-            player.tileCountInHand = playerInfo.curcards.length;
-            player.hand2UI(false);
-        }
-
-        if (playerInfo.outcards.length > 0) {
-            player.addDiscardedTiles(playerInfo.outcards);
-            player.discarded2UI(false, false);
-        }
-
-        if (playerInfo.groups.length > 0) {
-            for (const g of playerInfo.groups) {
-                const m = new protoHH.casino_xtsj.packet_sc_op_ack();
-                m.cards = g.cards;
-                m.op = g.op;
-                m.target_id = g.target_id;
-                m.type = g.type;
-                player.addMeld(m);
-            }
-            player.hand2UI(false);
-        }
+        this.initCards(playerInfo, player);
 
     }
 
@@ -223,28 +203,7 @@ export class Room {
 
         this.myPlayer = player;
 
-        if (playerInfo.curcards.length > 0) {
-            player.addHandTiles(playerInfo.curcards);
-            player.sortHands(false);
-            player.hand2UI(false);
-        }
-
-        if (playerInfo.outcards.length > 0) {
-            player.addDiscardedTiles(playerInfo.outcards);
-            player.discarded2UI(false, false);
-        }
-
-        if (playerInfo.groups.length > 0) {
-            for (const g of playerInfo.groups) {
-                const m = new protoHH.casino_xtsj.packet_sc_op_ack();
-                m.cards = g.cards;
-                m.op = g.op;
-                m.target_id = g.target_id;
-                m.type = g.type;
-                player.addMeld(m);
-            }
-            player.hand2UI(false);
-        }
+        this.initCards(playerInfo, player);
     }
 
     public onReadyButtonClick(): void {
@@ -622,5 +581,36 @@ export class Room {
     }
     private stopBgSound(): void {
         SoundMgr.stopMusic();
+    }
+    //重连 初始化 牌组
+    private initCards(playerInfo: protoHH.casino.Itable_player, player: Player): void {
+        if (playerInfo.curcards.length > 0) {
+            player.addHandTiles(playerInfo.curcards);
+            player.sortHands(false);
+            player.hand2UI(false);
+        }
+
+        if (playerInfo.outcards.length > 0) {
+            player.addDiscardedTiles(playerInfo.outcards);
+            player.discarded2UI(false, false);
+        }
+
+        if (playerInfo.groups.length > 0) {
+            const melds: { [key: string]: protoHH.casino_xtsj.packet_sc_op_ack } = {};
+            for (const g of playerInfo.groups) {
+                const m = new protoHH.casino_xtsj.packet_sc_op_ack();
+                m.cards = g.cards;
+                m.op = g.op;
+                m.target_id = g.target_id;
+                m.type = g.type;
+                melds[g.cards[0].toString()] = m;
+            }
+            const keys = Object.keys(melds);
+            for (const k of keys) {
+                const m = melds[k];
+                player.addMeld(m);
+            }
+            player.hand2UI(false);
+        }
     }
 }
