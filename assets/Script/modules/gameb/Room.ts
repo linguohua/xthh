@@ -109,6 +109,7 @@ export class Room {
     public myPlayer: Player;
     public msgDisbandNotify: proto.mahjong.MsgDisbandNotify;
     public handNum: number;
+    public isDisband: boolean = false;
     public readonly roomType: number;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
@@ -364,7 +365,7 @@ export class Room {
         view.showView(this, msgHandOver);
     }
 
-    public loadGameOverResultView(msgGameOver: proto.mahjong.IMsgGameOver): void {
+    public loadGameOverResultView(msgGameOver: protoHH.casino.packet_table_score): void {
         const view = this.host.component.addComponent(GameOverResultView);
         view.showView(this, msgGameOver);
     }

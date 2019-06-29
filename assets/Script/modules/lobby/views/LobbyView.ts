@@ -223,7 +223,7 @@ export class LobbyView extends cc.Component {
         const createRoomParams = {
             roomID: 2103,
             base: 1,
-            round: 1,
+            round: 2,
             allowJoin: 0
         };
 

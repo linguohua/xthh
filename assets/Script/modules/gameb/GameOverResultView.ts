@@ -1,7 +1,7 @@
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { Player } from "./Player";
-import { proto } from "./proto/protoGame";
 import { RoomInterface } from "./RoomInterface";
+import { proto } from "../lobby/protoHH/protoHH";
 
 /**
  * palyer ui
@@ -28,7 +28,7 @@ export class GameOverResultView extends cc.Component {
     private room: RoomInterface;
     private unityViewNode: fgui.GComponent = null;
     private win: fgui.Window;
-    private msgGameOver: proto.mahjong.IMsgGameOver;
+    private msgGameOver: proto.casino.packet_table_score;
     private textRoomNumber: fgui.GObject;
     private maxScore: number = 0;
     private maxScoreIndexs: ViewGroup[];
@@ -37,7 +37,7 @@ export class GameOverResultView extends cc.Component {
     private contentGroup: ViewGroup[];
     private aniPos: fgui.GObject;
 
-    public showView(room: RoomInterface, msgGameOver: proto.mahjong.IMsgGameOver): void {
+    public showView(room: RoomInterface, msgGameOver: proto.casino.packet_table_score): void {
         this.eventTarget = new cc.EventTarget();
         // -- 提高消息队列的优先级为1
         if (!room.isReplayMode()) {
@@ -79,23 +79,23 @@ export class GameOverResultView extends cc.Component {
         // const date = os.date("%Y-%m-%d %H:%M:%S")
         // this.textTime.text = date
         //房间信息
-        const roomNumber = this.room.roomInfo.roomNumber;
+        const roomNumber = this.room.roomInfo.room_id;
         this.textRoomNumber.text = `房号:${roomNumber}`;
     }
     //更新玩家基本信息
-    private updatePlayerInfoData(player: Player, c: ViewGroup): void {
+    private updatePlayerInfoData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
         //名字
-        let name = player.playerInfo.nick;
-        const userID = player.userID;
+        let name = playerScore.data.nickname;
+        const userID = playerScore.data.id;
         if (name == null || name === "") {
             name = userID.toString();
         }
         c.textName.text = name;
         c.textId.text = `ID:${userID}`;
         //房主
-        c.imageRoom.visible = player.isMe();
+        // c.imageRoom.visible = playerScore.isMe();
         //庄家
-        c.zhuang.visible = this.room.bankerChairID === player.chairID;
+        // c.zhuang.visible = this.room.bankerChairID === playerScore.chairID;
         //头像
     }
     //设置大赢家标志
@@ -106,9 +106,9 @@ export class GameOverResultView extends cc.Component {
         }
     }
     //更新玩家分数信息
-    private updatePlayerScoreData(playerStat: proto.mahjong.IMsgGameOverPlayerStat, c: ViewGroup): void {
-        const score = playerStat.score;
-        const chucker = playerStat.chuckerCounter;
+    private updatePlayerScoreData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
+        const score = playerScore.score_total;
+        // const chucker = playerScore.chuckerCounter;
         if (score > this.maxScore) {
             this.maxScoreIndexs = [];
             this.maxScoreIndexs.push(c);
@@ -140,17 +140,17 @@ export class GameOverResultView extends cc.Component {
         //胡牌次数
         // c.textWin.text = tostring(playerStat.winSelfDrawnCounter + playerStat.winChuckCounter)
         //接炮次数
-        c.textJiepao.text = `接炮次数: ${playerStat.winChuckCounter}`;
+        // c.textJiepao.text = `接炮次数: ${playerScore.winChuckCounter}`;
         //放炮次数
-        c.textFangpao.text = `放炮次数: ${chucker}`;
+        // c.textFangpao.text = `放炮次数: ${chucker}`;
         //自摸次数
-        c.textZimo.text = `自摸次数: ${playerStat.winSelfDrawnCounter}`;
+        // c.textZimo.text = `自摸次数: ${playerScore.winSelfDrawnCounter}`;
     }
     //更新显示数据
     private updateAllData(): void {
         //整个房间数据
         this.updateRoomData();
-        const room = this.room;
+        // const room = this.room;
 
         //暂时保存上一个大赢家数据
         this.maxScore = 0;
@@ -159,23 +159,23 @@ export class GameOverResultView extends cc.Component {
         this.maxChucker = 0;
         this.maxChuckerIndexs = [];
         if (this.msgGameOver !== null) {
-            const playerStats = this.msgGameOver.playerStats;
-            if (playerStats !== undefined) {
-                playerStats.sort((x: proto.mahjong.IMsgGameOverPlayerStat, y: proto.mahjong.IMsgGameOverPlayerStat) => {
-                    const a = room.getPlayerViewChairIDByChairID(x.chairID);
-                    const b = room.getPlayerViewChairIDByChairID(y.chairID);
+            const playerStats = this.msgGameOver.scores;
+            // if (playerStats !== undefined) {
+            //     playerStats.sort((x: proto.mahjong.IMsgGameOverPlayerStat, y: proto.mahjong.IMsgGameOverPlayerStat) => {
+            //         const a = room.getPlayerViewChairIDByChairID(x.chairID);
+            //         const b = room.getPlayerViewChairIDByChairID(y.chairID);
 
-                    return b - a;
-                });
-            }
+            //         return b - a;
+            //     });
+            // }
             for (let i = 0; i < playerStats.length; i++) {
                 const playerStat = playerStats[i];
                 if (playerStat !== undefined && playerStat !== null) {
                     const c = this.contentGroup[i];
                     c.group.visible = true;
-                    const player = <Player>this.room.getPlayerByChairID(playerStat.chairID);
+                    // const player = <Player>this.room.getPlayerByChairID(playerStat.chairID);
                     //玩家基本信息
-                    this.updatePlayerInfoData(player, c);
+                    this.updatePlayerInfoData(playerStat, c);
                     //玩家分数信息
                     this.updatePlayerScoreData(playerStat, c);
                 }

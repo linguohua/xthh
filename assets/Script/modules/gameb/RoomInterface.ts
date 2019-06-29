@@ -64,6 +64,7 @@ export interface RoomInterface {
     readonly roomInfo: protoHH.casino.Itable;
     readonly roomView: RoomViewInterface;
     readonly handNum: number;
+    isDisband: boolean;
     scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
     state: number;
     ownerID: string;
@@ -115,7 +116,7 @@ export interface RoomInterface {
     onUpdateStatus(state: number): void;
 
     loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void;
-    loadGameOverResultView(msgGameOver: proto.mahjong.IMsgGameOver): void;
+    loadGameOverResultView(msgGameOver: protoHH.casino.packet_table_score): void;
 
     switchBg(index: number): void;
 
