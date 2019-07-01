@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="shrzm3rc" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="ik110" name="personalRoomView.xml" path="/" exported="true"/>
+    <image id="ik111" name="srf_anjian.png" path="/resource/"/>
+    <image id="ik112" name="srf_anjian1.png" path="/resource/"/>
+    <image id="ik113" name="srf_cjfj_bt.png" path="/resource/" scale="9grid" scale9grid="88,11,39,22"/>
+    <image id="ik114" name="srf_cjfj_di1.png" path="/resource/" scale="9grid" scale9grid="12,8,5,16"/>
+    <image id="ik115" name="srf_cjfj_dian.png" path="/resource/"/>
+    <image id="ik116" name="srf_cjfj_xzdi.png" path="/resource/" scale="9grid" scale9grid="9,12,18,24"/>
+    <image id="ik117" name="srf_cjfj_zi_jrfj.png" path="/resource/"/>
+    <image id="ik118" name="srf_cjfj_zi_wyjf.png" path="/resource/"/>
+    <image id="ik119" name="srf_di1.png" path="/resource/"/>
+    <image id="ik11a" name="srf_di2.png" path="/resource/" scale="9grid" scale9grid="13,8,5,16"/>
+    <image id="ik11b" name="srf_srk.png" path="/resource/"/>
+    <image id="ik11c" name="srf_zjtj_yq1.png" path="/resource/"/>
+    <image id="ik11d" name="srf_zjtj_yq2.png" path="/resource/"/>
+    <image id="ik11e" name="s_私人_加入房间.jpg" path="/design/"/>
+    <image id="ik11f" name="s_私人_加入房间标注.jpg" path="/design/"/>
+    <image id="ik11g" name="s_私人房-创建房间UI.jpg" path="/design/"/>
+    <image id="ik11h" name="s_私人房-创建房间UI标注.jpg" path="/design/"/>
+    <image id="ik11i" name="s_私人房-宝箱记录.jpg" path="/design/"/>
+    <image id="ik11j" name="s_私人房-宝箱记录标注.jpg" path="/design/"/>
+    <image id="ik11k" name="s_私人房-战绩统计.jpg" path="/design/"/>
+    <image id="ik11l" name="s_私人房-战绩统计标注.jpg" path="/design/"/>
+    <image id="ik11m" name="s_私人房-房卡记录.jpg" path="/design/"/>
+    <image id="ik11n" name="s_私人房-房卡记录标注.jpg" path="/design/"/>
+    <component id="b75to" name="accessBtn.xml" path="/btn/"/>
+    <component id="b75tp" name="createRoomBtn.xml" path="/btn/"/>
+    <component id="b75tq" name="radioBtn.xml" path="/btn/"/>
+    <image id="b75tr" name="ty_icon_fk.png" path="/resource/"/>
+    <component id="b75ts" name="srfCom.xml" path="/com/"/>
+    <component id="b75tt" name="tabBtn.xml" path="/btn/"/>
+  </resources>
+  <publish name="lobby_personal_room"/>
+</packageDescription>

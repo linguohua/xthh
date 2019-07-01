@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="131,47" extention="Button" designImage="ui://shrzm3rcik11g" designImageOffsetX="-500" designImageOffsetY="-189" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down" selected="1"/>
+  <displayList>
+    <image id="n0_b75t" name="n0" src="ik116" fileName="resource/srf_cjfj_xzdi.png" xy="0,0" size="131,47">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_b75t" name="n1" src="ik115" fileName="resource/srf_cjfj_dian.png" xy="7,11">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n3_b75t" name="text" xy="33,10" size="94,29" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://shrzm3rcik11g" designImageAlpha="100">
+  <controller name="tap" pages="0,boxRecord,1,fkRecord,2,gameRecord,3,personalRoom" selected="3">
+    <remark page="0" value="宝箱记录"/>
+    <remark page="1" value="房卡记录"/>
+    <remark page="2" value="战绩统计"/>
+    <remark page="3" value="私人房"/>
+  </controller>
+  <displayList>
+    <image id="n1_ik11" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="104,60" size="929,556"/>
+    <component id="n6_ik11" name="srfCom" src="b75ts" fileName="com/srfCom.xml" xy="136,132">
+      <gearDisplay controller="tap" pages="3"/>
+    </component>
+    <component id="n57_b75t" name="boxRecordBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="248,64">
+      <Button controller="tap" page="0"/>
+    </component>
+    <component id="n58_b75t" name="fkRecordBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="418,64">
+      <Button controller="tap" page="1"/>
+    </component>
+    <component id="n59_b75t" name="gameRecordBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="587,64">
+      <Button controller="tap" page="2"/>
+    </component>
+    <component id="n60_b75t" name="personalRoomBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="757,64">
+      <Button checked="true" controller="tap" page="3"/>
+    </component>
+    <component id="n0_ik11" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="89,54"/>
+  </displayList>
+</component>

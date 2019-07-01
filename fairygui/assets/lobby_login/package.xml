@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="svm739nz" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="vpcu0" name="LoginView.xml" path="/" exported="true"/>
+    <image id="vpcu1" name="dl_btn_sjhdl.png" path="/resource/"/>
+    <image id="vpcu2" name="dl_btn_wxdl.png" path="/resource/"/>
+    <image id="vpcu3" name="dl_btn_ykdl.png" path="/resource/"/>
+    <image id="vpcu4" name="dl_zi_qphyqqp.png" path="/resource/"/>
+    <image id="vpcu5" name="dl_zi_xthh.png" path="/resource/"/>
+    <image id="vpcu6" name="dl_zz.png" path="/resource/" scale="9grid" scale9grid="8,8,16,16"/>
+    <image id="vpcu7" name="d_dlbj.jpg" path="/resource/"/>
+    <image id="vpcu8" name="d_登录.jpg" path="/design/"/>
+    <image id="vpcu9" name="d_登录标注.jpg" path="/design/"/>
+    <component id="vpcua" name="phoneNumLoginBtn.xml" path="/btn/"/>
+    <component id="vpcub" name="wechatLoginBtn.xml" path="/btn/"/>
+    <component id="vpcuc" name="visitorLoginBtn.xml" path="/btn/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>
