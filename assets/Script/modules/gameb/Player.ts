@@ -7,6 +7,7 @@ import { TypeOfOP } from "./PlayerInterface";
 import { PlayerView } from "./PlayerView";
 import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
+import { Algorithm } from "./Algorithm";
 // const playerInfoView = require "lobby/scripts/playerInfo/playerInfoView"
 const mjproto = proto.mahjong;
 const soundDef: { [key: number]: string } = {
@@ -59,16 +60,15 @@ export class Player {
     public allowedReActionMsg: proto.mahjong.MsgAllowPlayerReAction;
     public allowedActionMsg: proto.mahjong.MsgAllowPlayerAction;
     public isGuoHuTips: boolean;
-
     public lastOutTile: number; //别人最后打出的牌(可用来 碰杠胡)
     private flagsTing: boolean;
+    private mAlgorithm: Algorithm;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
         this.host = host;
-
+        this.mAlgorithm = new Algorithm();
         this.resetForNewHand();
-
     }
 
     // public isMyUserId(userID: string): boolean {
@@ -181,8 +181,12 @@ export class Player {
     }
     //增加多个手牌
     public addHandTiles(tiles: number[]): void {
-        for (const tile of tiles) {
-            this.tilesHand.push(tile);
+        for (const tileID of tiles) {
+            if (this.tilesHand != null) {
+                this.tilesHand.push(tileID);
+            } else {
+                this.tileCountInHand = this.tileCountInHand + 1;
+            }
         }
     }
 
