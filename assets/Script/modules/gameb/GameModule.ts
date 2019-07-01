@@ -9,7 +9,7 @@ import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameError } from "./GameError";
 import { Replay } from "./Replay";
-import { Room } from "./Room";
+import { msgHandlers, Room } from "./Room";
 
 // const mc = proto.mahjong.MessageCode;
 // const priorityMap: { [key: number]: number } = {
@@ -122,6 +122,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     protected onDestroy(): void {
+        this.unsubMsg();
+
         this.eventTarget.emit("destroy");
 
         fgui.GRoot.inst.removeChild(this.view);
@@ -144,24 +146,22 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         const mq = new MsgQueue(priorityMap);
         this.mq = mq;
 
-        // 订阅消息
         this.subMsg();
 
         let reconnect = false;
         let table: protoHH.casino.Itable = null;
         if (createRoomParams !== undefined && createRoomParams !== null) {
-            // 不存在房间，则创建
+            // 创建房间
             const createRoomAck = await this.waitCreateRoom(createRoomParams);
             if (createRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = createRoomAck.tdata;
                 Logger.debug("create new room");
             } else {
                 Logger.error("doEnterRoom, creat room failed:", createRoomAck);
-
                 await this.showEnterRoomError(createRoomAck.ret);
             }
         } else if (joinRoomParams !== undefined && joinRoomParams !== null) {
-            // 存在房间，则加入
+            // 加入房间
             const joinRoomAck = await this.waitJoinRoom(joinRoomParams);
             if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = joinRoomAck.tdata;
@@ -328,28 +328,27 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     // }
 
     private subMsg(): void {
-        // this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onMsg, this); // 加入游戏
+        // 只有gameModule用到
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onMsg, this); // 创建房间
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onMsg, this); // 加入房间
 
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_READY, this.onMsg, this); // 玩家准备
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_ENTRY, this.onMsg, this);  // 玩家进入桌子
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_LEAVE, this.onMsg, this);  // 玩家离开桌子
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_PAUSE, this.onMsg, this);  // 桌子操作暂停（就是等待某人动作啥的）
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_UPDATE, this.onMsg, this);  // 桌子更新
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_SCORE, this.onMsg, this);  // 桌子结算
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_MANAGED, this.onMsg, this); // 桌子进入托管
+        // room 用到
+        const keys = Object.keys(msgHandlers);
+        for (const key of keys) {
+            this.lm.msgCenter.setGameMsgHandler(+key, this.onMsg, this); // 玩家准备
+        }
+    }
 
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_STARTPLAY, this.onMsg, this); // 发牌
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_DRAWCARD, this.onMsg, this); // 抽牌
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OUTCARD_ACK, this.onMsg, this); // 出牌服务器回复
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP_ACK, this.onMsg, this); // 玩家操作结果
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP, this.onMsg, this); // 等待玩家操作
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_SCORE, this.onMsg, this); // 积分状态
+    private unsubMsg(): void {
+        // 只有gameModule用到
+        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK); // 创建房间
+        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK); // 加入房间
 
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onMsg, this); // 解散吧
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND, this.onMsg, this); // 解散吧
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ, this.onMsg, this); // 解散吧
+        // room 用到的
+        const keys = Object.keys(msgHandlers);
+        for (const key of keys) {
+            this.lm.msgCenter.removeGameMsgHandler(+key); // 玩家准备
+        }
     }
 
     private onMsg(pmsg: protoHH.casino.ProxyMessage): void {

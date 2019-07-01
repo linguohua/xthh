@@ -44,6 +44,8 @@ export interface GResLoader {
 export interface MsgCenter {
     sendGameMsg(buf: ByteBuffer, code: number): void;
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
+
+    removeGameMsgHandler(code: number): void;
 }
 /**
  * 大厅模块

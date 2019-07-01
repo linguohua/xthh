@@ -49,7 +49,7 @@ type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
  */
 const msgCodeEnum = protoHH.casino.eMSG_TYPE;
 const msgCodeXTHH = protoHH.casino_xtsj.eXTSJ_MSG_TYPE;
-const msgHandlers: { [key: number]: msgHandler } = {
+export const msgHandlers: { [key: number]: msgHandler } = {
     // [msgCodeEnum.OPActionAllowed]: HandlerMsgActionAllowed.onMsg,
     // [msgCodeEnum.OPReActionAllowed]: HandlerMsgReActionAllowed.onMsg,
     // [msgCodeEnum.OPActionResultNotify]: HandlerActionResultNotify.onMsg,
