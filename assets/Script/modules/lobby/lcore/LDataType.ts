@@ -59,6 +59,8 @@ export interface LobbyModuleInterface {
 }
 
 export interface CreateRoomParams {
+    // 对应packet_table_create_req中casino_id
+    casinoID: number;
     // 对应packet_table_create_req中的room_id
     roomID: number;
     // 对应packet_table_create_req中的base

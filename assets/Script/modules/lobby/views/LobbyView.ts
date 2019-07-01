@@ -221,6 +221,7 @@ export class LobbyView extends cc.Component {
         const myUser = { userID: playerID };
 
         const createRoomParams = {
+            casinoID: 16,
             roomID: 2103,
             base: 1,
             round: 2,

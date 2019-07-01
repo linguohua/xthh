@@ -228,7 +228,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     // 请求创建房间
     private testCreateRoom(createRoomParams: CreateRoomParams): void {
         const req = {
-            casino_id: 16,
+            casino_id: createRoomParams.casinoID,
             room_id: createRoomParams.roomID,
             base: createRoomParams.base,
             round: createRoomParams.round,
