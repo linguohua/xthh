@@ -4,6 +4,7 @@ import { Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
+import { Algorithm } from "./Algorithm";
 import { GameOverResultView } from "./GameOverResultView";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
@@ -42,7 +43,6 @@ import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
-import { Algorithm } from "./Algorithm";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
@@ -578,6 +578,51 @@ export class Room {
         });
     }
 
+    /**
+     * 创建玩家
+     */
+    public createPlayers(): void {
+        if (this.roomInfo === undefined || this.roomInfo == null) {
+            Logger.error("this.roomInfo == undefined || this.roomInfo == null");
+
+            return;
+        }
+
+        this.createMyPlayer(this.roomInfo.players[0]);
+        for (let i = 1; i < this.roomInfo.players.length; i++) {
+            const p = this.roomInfo.players[i];
+            if (p !== undefined && p !== null && p.id !== null) {
+                this.createPlayerByInfo(p, i);
+            }
+        }
+    }
+
+    /**
+     * 断线重连恢复用户的操作
+     */
+    public restrorePlayerOperation(): void {
+        this.setWaitingPlayer(this.roomInfo.cur_idx);
+        this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
+        //如果到我操作 要显示操作按钮
+        if (this.roomInfo.op_id === this.roomInfo.players[0].id) {
+            const m = new protoHH.casino_xtsj.packet_sc_op();
+            m.card = this.roomInfo.outcard;
+            m.player_id = this.roomInfo.op_id;
+            m.target_id = this.roomInfo.target_id;
+            m.time = this.roomInfo.time;
+            m.table_id = this.roomInfo.id;
+            const reply = protoHH.casino_xtsj.packet_sc_op.encode(m);
+
+            const msg = new protoHH.casino.ProxyMessage();
+            msg.Ops = protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP;
+            msg.Data = reply;
+
+            // 构造一个类似的消息，恢复用户的操作
+            const handler = msgHandlers[protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP];
+            handler(reply, this);
+        }
+    }
+
     //播放背景音乐
     private playBgSound(): void {
         SoundMgr.playMusicAudio("gameb/game_matchBg", true);
@@ -616,4 +661,5 @@ export class Room {
             player.hand2UI(false);
         }
     }
+
 }
