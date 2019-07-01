@@ -42,6 +42,7 @@ import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
+import { Algorithm } from "./Algorithm";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
@@ -111,13 +112,14 @@ export class Room {
     public handNum: number;
     public isDisband: boolean = false;
     public readonly roomType: number;
+    public mAlgorithm: Algorithm;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
         this.host = host;
         this.replay = rePlay;
         this.roomInfo = roomInfo;
-
+        this.mAlgorithm = new Algorithm();
         // const roomConfigJSON = <{ [key: string]: boolean | number | string }>JSON.parse(roomInfo.config);
         // Logger.debug("roomConfigJSON ---------------------------------------------", roomConfigJSON);
         this.roomType = roomInfo.room_id;

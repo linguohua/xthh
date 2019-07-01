@@ -2,6 +2,7 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
+import { Algorithm } from "./Algorithm";
 import { PlayerInterface } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
 
@@ -64,6 +65,7 @@ export interface RoomInterface {
     readonly roomInfo: protoHH.casino.Itable;
     readonly roomView: RoomViewInterface;
     readonly handNum: number;
+    mAlgorithm: Algorithm;
     isDisband: boolean;
     scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
     state: number;

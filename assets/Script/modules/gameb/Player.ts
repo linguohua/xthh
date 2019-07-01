@@ -3,11 +3,11 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
 import { AgariIndex } from "./AgariIndex";
+import { Algorithm } from "./Algorithm";
 import { TypeOfOP } from "./PlayerInterface";
 import { PlayerView } from "./PlayerView";
 import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
-import { Algorithm } from "./Algorithm";
 // const playerInfoView = require "lobby/scripts/playerInfo/playerInfoView"
 const mjproto = proto.mahjong;
 const soundDef: { [key: number]: string } = {
@@ -62,12 +62,12 @@ export class Player {
     public isGuoHuTips: boolean;
     public lastOutTile: number; //别人最后打出的牌(可用来 碰杠胡)
     private flagsTing: boolean;
-    private mAlgorithm: Algorithm;
+    private m_bNotCatch: boolean;
+    private m_sForgoPeng: number[] = []; //放弃的碰牌
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
         this.host = host;
-        this.mAlgorithm = new Algorithm();
         this.resetForNewHand();
     }
 
@@ -501,20 +501,6 @@ export class Player {
 
     //玩家选择了碰牌    //上下文必然是allowedReActionMsg
     public onPongBtnClick(): void {
-        // if (this.allowedReActionMsg != null) {
-        //     const actionMsg = new proto.mahjong.MsgPlayerAction();
-        //     actionMsg.qaIndex = this.allowedReActionMsg.qaIndex;
-        //     actionMsg.action = mjproto.ActionType.enumActionType_PONG;
-
-        //     //必然只有一个可以碰的面子牌组
-        //     const ss = this.allowedReActionMsg.meldsForAction;
-        //     const pongMelds = this.selectMeldFromMeldsForAction(ss, mjproto.MeldType.enumMeldTypeTriplet);
-        //     actionMsg.tile = this.allowedReActionMsg.victimTileID;
-        //     actionMsg.meldType = pongMelds[0].meldType;
-        //     actionMsg.meldTile1 = pongMelds[0].tile1;
-
-        //     this.sendActionMsg(actionMsg);
-        // }
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Pong;
@@ -528,57 +514,6 @@ export class Player {
     //当上下文是allowedActionMsg时，表示加杠或者暗杠
     //当上下文是allowedReActionMsg时，表示明杠
     public onKongBtnClick(): void {
-        //const host = this.host
-
-        // if (this.allowedActionMsg != null) {
-        //     const actionMsg = new proto.mahjong.MsgPlayerAction();
-        //     //确定是加杠还是暗杠
-        //     // if proto.actionsHasAction(this.allowedActionMsg.allowedActions, mjproto.enumActionType_KONG_Concealed) {
-        //     //action = mjproto.enumActionType_KONG_Concealed
-        //     //}
-        //     actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
-        //     const ss = this.allowedActionMsg.meldsForAction;
-        //     const kConcealed = this.selectMeldFromMeldsForAction(ss, mjproto.MeldType.enumMeldTypeConcealedKong);
-        //     const kongTriplet2 = this.selectMeldFromMeldsForAction(ss, mjproto.MeldType.enumMeldTypeTriplet2Kong);
-        //     const kongs = [];
-        //     let action = mjproto.ActionType.enumActionType_KONG_Triplet2;
-        //     if (kConcealed.length > 0) {
-        //         action = mjproto.ActionType.enumActionType_KONG_Concealed;
-        //         for (const v of kConcealed) {
-        //             kongs.push(v);
-        //         }
-        //     }
-        //     if (kongTriplet2.length > 0) {
-        //         for (const v of kongTriplet2) {
-        //             kongs.push(v);
-        //         }
-        //     }
-
-        //     if (kongs.length > 1) {
-        //         this.host.showOrHideMeldsOpsPanel(kongs, actionMsg);
-        //     } else {
-        //         actionMsg.action = action;
-        //         //无论是加杠，或者暗杠，肯定只有一个面子牌组
-        //         actionMsg.tile = kongs[0].tile1;
-        //         actionMsg.meldType = kongs[0].meldType;
-        //         actionMsg.meldTile1 = kongs[0].tile1;
-        //         this.sendActionMsg(actionMsg);
-        //     }
-        // } else if (this.allowedReActionMsg != null) {
-        //     const actionMsg = new proto.mahjong.MsgPlayerAction();
-        //     actionMsg.qaIndex = this.allowedReActionMsg.qaIndex;
-        //     actionMsg.action = mjproto.ActionType.enumActionType_KONG_Exposed;
-
-        //     //必然只有一个可以明杠的牌组
-        //     const ss = this.allowedReActionMsg.meldsForAction;
-        //     const kMelds = this.selectMeldFromMeldsForAction(ss, mjproto.MeldType.enumMeldTypeExposedKong);
-        //     actionMsg.tile = this.allowedReActionMsg.victimTileID;
-        //     actionMsg.meldType = kMelds[0].meldType;
-        //     actionMsg.meldTile1 = kMelds[0].tile1;
-
-        //     this.sendActionMsg(actionMsg);
-        // }
-
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Kong;
@@ -592,22 +527,14 @@ export class Player {
     //当上下文是allowedActionMsg时，表示自摸胡牌
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
-        //const host = this.host
-
-        if (this.allowedActionMsg != null) {
-            const actionMsg = new proto.mahjong.MsgPlayerAction();
-            actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
-            actionMsg.action = mjproto.ActionType.enumActionType_WIN_SelfDrawn;
-
-            this.sendActionMsg(actionMsg);
-        } else if (this.allowedReActionMsg != null) {
-            const actionMsg = new proto.mahjong.MsgPlayerAction();
-            actionMsg.qaIndex = this.allowedReActionMsg.qaIndex;
-            actionMsg.action = mjproto.ActionType.enumActionType_WIN_Chuck;
-            actionMsg.tile = this.allowedReActionMsg.victimTileID;
-
-            this.sendActionMsg(actionMsg);
+        const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
+        if (this.lastOutTile !== undefined && this.lastOutTile !== null && this.lastOutTile > 0) {
+            req2.op = TypeOfOP.Hu;
+        } else {
+            req2.op = TypeOfOP.ZiMo;
         }
+        const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
     }
@@ -781,6 +708,91 @@ export class Player {
 
         playerInfoView.showUserInfoView(roomHost.getLobbyModuleLoader(), this.host, this.playerInfo, pos, this.isMe() === false);
     }
+
+    /**
+     * ------------------------------------------
+     * 新增函数
+     */
+    //根据他人的牌判断能否胡牌
+    public canHu_WithOther(mahjong_xtsj: Algorithm, mahjong: number): number[] {
+        if (this.tilesHand === undefined || this.tilesHand === null || this.tilesHand.length === 0) {
+            return [];
+        }
+        //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
+        if (!mahjong_xtsj.getFlagPiao() && !this.getNotCatch()) {
+            const v = mahjong_xtsj.canHuPai_WithOther(this.tilesHand, mahjong);
+            if (v.bHuPai) {
+                if (mahjong_xtsj.checkHuPai_WithOther(v.sVecHuPai, mahjong)) {
+                    return v.sVecHuPai;
+                }
+            }
+        }
+
+        return [];
+    }
+    //根据他人的牌判断能否杠牌
+    public canGang_WithOther(mahjong_xtsj: Algorithm, mahjong: number): number[] {
+        if (this.tilesHand === undefined || this.tilesHand === null || this.tilesHand.length === 0) {
+            return [];
+        }
+        const array: number[] = [];
+        //遍历有效牌准备检索是否构成杠和碰
+        for (const tile of this.tilesHand) {
+            if (tile === mahjong && mahjong !== mahjong_xtsj.getMahjongLaiZi()) {
+                array.push(tile);
+            }
+        }
+        if (mahjong_xtsj.getMahjongFan() === mahjong) {
+            if (array.length === 2) {
+                //翻牌三张就可以杠
+                return array;
+            } else if (array.length === 3) {
+                // 普通杠
+                return array;
+            }
+        }
+
+        return [];
+    }
+    //根据他人的牌判断能否碰牌
+    public canPeng_WithOther(mahjong_xtsj: Algorithm, mahjong: number): number[] {
+        if (this.tilesHand === undefined || this.tilesHand === null
+            || this.tilesHand.length === 0 || mahjong === mahjong_xtsj.getMahjongFan()) {
+            return [];
+        }
+        const array: number[] = [];
+        for (const tile of this.tilesHand) {
+            if (tile === mahjong) {
+                array.push(tile);
+                if (array.length > 1 && !this.isInForgoPeng(mahjong)) {
+
+                    return array;
+                }
+            }
+        }
+
+        return [];
+    }
+    //判断指定牌是否在于放弃碰牌中
+    private isInForgoPeng(mahjong: number): boolean {
+        for (const tile of this.m_sForgoPeng) {
+            if (tile === mahjong) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    //设置获取不课捉铳标记
+    private setNotCatch(bTrue: boolean) {
+        this.m_bNotCatch = bTrue;
+    }
+    private getNotCatch(): boolean {
+        return this.m_bNotCatch;
+    }
+    /**
+     * 新增函数 end
+     */
     private playSound(directory: string, effectName: string): void {
         if (effectName === undefined || effectName === null) {
             return;
