@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="svm739nz" jpegQuality="80" compressPNG="true">
   <resources>
-    <component id="vpcu0" name="LoginView.xml" path="/" exported="true"/>
+    <component id="vpcu0" name="login.xml" path="/" exported="true"/>
     <image id="vpcu1" name="dl_btn_sjhdl.png" path="/resource/"/>
     <image id="vpcu2" name="dl_btn_wxdl.png" path="/resource/"/>
     <image id="vpcu3" name="dl_btn_ykdl.png" path="/resource/"/>
@@ -15,5 +15,5 @@
     <component id="vpcub" name="wechatLoginBtn.xml" path="/btn/"/>
     <component id="vpcuc" name="visitorLoginBtn.xml" path="/btn/"/>
   </resources>
-  <publish name=""/>
+  <publish name="lobby_login"/>
 </packageDescription>

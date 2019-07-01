@@ -21,5 +21,5 @@
     <image id="b75th" name="ty_btn_hd.png" path="/resource/" exported="true" scale="9grid" scale9grid="37,18,10,36"/>
     <image id="b75ti" name="ty_btn_lvd.png" path="/resource/" exported="true" scale="9grid" scale9grid="41,18,4,36"/>
   </resources>
-  <publish name="common_bg"/>
+  <publish name="lobby_bg_package"/>
 </packageDescription>
