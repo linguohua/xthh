@@ -1,5 +1,5 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
-import { DataStore, Dialog, HTTP, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
 import { proto } from "../proto/protoLobby";
 import { proto as protoHH } from "../protoHH/protoHH";
@@ -39,8 +39,21 @@ export class LoginView extends cc.Component {
         loader.fguiAddPackage("launch/fui_login/lobby_login");
         const view = fgui.UIPackage.createObject("lobby_login", "login").asCom;
 
-        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        view.setPosition(x, view.y);
+        let x = CommonFunction.setBaseViewInCenter(view);
+
+        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        if (newIPhone === "1") {
+            // i phone x 的黑边为 CommonFunction.IOS_ADAPTER_WIDTH
+            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
+        }
+        const bg = view.getChild('bg');
+        bg.setPosition(-x, 0);
+        CommonFunction.setBgFullScreen(bg);
+
+        // 兼容底部背景
+        const diBg = view.getChild('diBg');
+        diBg.width = bg.width;
+        diBg.setPosition(-x, diBg.y);
 
         const win = new fgui.Window();
         win.contentPane = view;
@@ -71,31 +84,11 @@ export class LoginView extends cc.Component {
 
     public initView(): void {
         // buttons
-        this.weixinButton = this.viewNode.getChild("n2");
-        this.loginBtn = this.viewNode.getChild("n3");
-        this.phoneLoginBtn = this.viewNode.getChild("n1");
-        this.progressBar = this.viewNode.getChild("n9").asProgress;
-
+        this.weixinButton = this.viewNode.getChild("wechatLoginBtn");
+        this.loginBtn = this.viewNode.getChild("visitorLoginBtn");
+        this.phoneLoginBtn = this.viewNode.getChild("phoneNumLoginBtn");
+        this.progressBar = this.viewNode.getChild("progress").asProgress;
         this.progressText = this.viewNode.getChild("progressText").asTextField;
-
-        // const gameAdviceText = this.viewNode.getChild("gameAdvice");
-        // const text1 = this.viewNode.getChild("text1");
-        // const text2 = this.viewNode.getChild("text2");
-        // const text3 = this.viewNode.getChild("text3");
-        // const text4 = this.viewNode.getChild("text4");
-        // const text5 = this.viewNode.getChild("text5");
-        // const text6 = this.viewNode.getChild("text6");
-
-        // const versionName = this.viewNode.getChild("versionName");
-        // versionName.text = LEnv.VER_STR;
-
-        // gameAdviceText.text = "抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。";
-        // text1.text = "出版单位：深圳市xxx科技有限公司";
-        // text2.text = "审批文号：xxxxxxxxxxxx";
-        // text3.text = "网络游戏出版物号：123456789";
-        // text4.text = "游戏著作权人：深圳市xxx科技有限公司";
-        // text5.text = "增值电信业务：46546546546";
-        // text6.text = "粤网文：深圳市xxx科技有限公司";
 
         this.loginBtn.visible = false;
         this.weixinButton.visible = false;
@@ -103,18 +96,8 @@ export class LoginView extends cc.Component {
         this.progressBar.value = 0;
 
         this.loginBtn.onClick(this.onLoginClick, this);
-
         this.weixinButton.onClick(this.onWeixinBtnClick, this);
 
-        const bg = this.viewNode.getChild('bg');
-        bg.setSize(cc.winSize.width, cc.winSize.width * 640 / 1136);
-        const y = -(cc.winSize.width * 640 / 1136 - cc.winSize.height) / 2;
-        const x = (cc.winSize.height * 1136 / 640 / 2) - cc.winSize.width / 2;
-        bg.setPosition(x, y);
-
-        // local progress = progressView.new(this)
-        // progressView: updateView(this)
-        // this.updateCompleted();
     }
 
     public updateCompleted(): void {
@@ -130,7 +113,6 @@ export class LoginView extends cc.Component {
         if (this.button !== null) {
             this.button.hide();
         }
-        // this.quicklyLogin();
         this.testHTTPLogin();
     }
 
@@ -209,34 +191,6 @@ export class LoginView extends cc.Component {
 
         this.addComponent(LobbyView);
     }
-
-    // public showLoginErrMsg(errCode: number): void {
-    //     const lobby = proto.lobby;
-    //     const errMsgMap: { [key: string]: string } = {
-
-    //         [lobby.LoginError.ErrLoginSuccess]: "成功",
-    //         [lobby.LoginError.ErrParamDecode]: "解码参数失败",
-    //         [lobby.LoginError.ErrDecodeUserInfoFailed]: "解码用户信息失败",
-
-    //         [lobby.LoginError.ErrParamInvalidCode]: "不合法的微信code",
-    //         [lobby.LoginError.ErrParamInvalidEncrypteddata]: "不合法的微信encrypteddata",
-    //         [lobby.LoginError.ErrParamInvalidIv]: "不合法的微信iv",
-    //         [lobby.LoginError.ErrWxAuthFailed]: "微信认证失败",
-
-    //         [lobby.LoginError.ErrParamAccountIsEmpty]: "输入账号不能为空",
-    //         [lobby.LoginError.ErrParamPasswordIsEmpty]: "输入密码不能为空",
-    //         [lobby.LoginError.ErrAccountNotExist]: "输入账号不存在",
-    //         [lobby.LoginError.ErrAccountNotSetPassword]: "账号没有设置密码，不能登录",
-    //         [lobby.LoginError.ErrPasswordNotMatch]: "密码不匹配，不能登录"
-    //     };
-
-    //     let errMsg = errMsgMap[errCode];
-    //     if (errMsg !== undefined) {
-    //         errMsg = "登录失败";
-    //     }
-
-    //     Dialog.showDialog(errMsg);
-    // }
 
     protected start(): void {
         this.showLoginView();

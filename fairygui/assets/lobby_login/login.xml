@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://svm739nzb9xzd" designImageAlpha="100">
   <displayList>
-    <image id="n0_vpcu" name="bg" src="vpcu7" fileName="resource/d_dlbj.jpg" xy="0,0" pivot="0.5,0.5" size="1136,640"/>
-    <component id="n1_vpcu" name="n1" src="vpcua" fileName="btn/phoneNumLoginBtn.xml" xy="772,461"/>
-    <component id="n2_vpcu" name="n2" src="vpcub" fileName="btn/wechatLoginBtn.xml" xy="433,461"/>
-    <component id="n3_vpcu" name="n3" src="vpcuc" fileName="btn/visitorLoginBtn.xml" xy="73,461"/>
-    <image id="n4_vpcu" name="n4" src="vpcu4" fileName="resource/dl_zi_qphyqqp.png" xy="452,11"/>
-    <image id="n5_vpcu" name="n5" src="vpcu5" fileName="resource/dl_zi_xthh.png" xy="509,47"/>
-    <image id="n6_vpcu" name="n6" src="vpcu6" fileName="resource/dl_zz.png" xy="0,593" size="1136,47" alpha="0.55"/>
+    <image id="n0_vpcu" name="bg" src="vpcu7" fileName="resource/d_dlbj.jpg" xy="0,0" size="1136,640"/>
+    <image id="n6_vpcu" name="diBg" src="vpcu6" fileName="resource/dl_zz.png" xy="0,593" size="1136,47" alpha="0.55"/>
+    <image id="n4_vpcu" name="gameIcon" src="vpcu4" fileName="resource/dl_zi_qphyqqp.png" xy="452,11"/>
+    <image id="n5_vpcu" name="gameName" src="vpcu5" fileName="resource/dl_zi_xthh.png" xy="509,47"/>
+    <component id="n1_vpcu" name="phoneNumLoginBtn" src="vpcua" fileName="btn/phoneNumLoginBtn.xml" xy="772,461"/>
+    <component id="n2_vpcu" name="wechatLoginBtn" src="vpcub" fileName="btn/wechatLoginBtn.xml" xy="433,461"/>
+    <component id="n3_vpcu" name="visitorLoginBtn" src="vpcuc" fileName="btn/visitorLoginBtn.xml" xy="73,461"/>
     <text id="n7_vpcu" name="advice" xy="103,592" size="930,30" alpha="0.55" fontSize="14" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="抵制不良游戏, 拒绝盗版游戏. 注意自我保护, 谨防受骗上当. 适度游戏益脑, 沉迷游戏伤身. 合理安排时间，享受健康生活."/>
     <text id="n8_vpcu" name="infomation" xy="103,615" size="930,30" alpha="0.55" fontSize="14" color="#ffffff" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="粤网文 [2019] 5856-1386号 [许可证 [粤B2-20190210] 新广初审[2017] 9751号] ISBN 978-7-7979-4213-3 北京科海电子出版社"/>
-    <component id="n9_b9xz" name="n9" src="b9xzf" fileName="downloadProgress.xml" xy="147,554" size="845,30">
+    <component id="n9_b9xz" name="progress" src="b9xzf" fileName="downloadProgress.xml" xy="147,554" size="845,30">
       <ProgressBar value="100" max="100"/>
     </component>
     <text id="n10_b9xz" name="progressText" xy="454,519" size="228,38" fontSize="22" color="#234d25" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="正在加载中……80%"/>

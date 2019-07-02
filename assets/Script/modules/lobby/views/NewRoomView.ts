@@ -1,4 +1,4 @@
-import { DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath } from "../lcore/LCoreExports";
 import { proto } from "../proto/protoLobby";
 import { proto as protoHH } from "../protoHH/protoHH";
 
@@ -76,6 +76,8 @@ export class NewRoomView extends cc.Component {
         const loader = lm.loader;
         loader.fguiAddPackage("lobby/fui_create_room/lobby_personal_room");
         const view = fgui.UIPackage.createObject("lobby_personal_room", "personalRoomView").asCom;
+        CommonFunction.setViewInCenter(view);
+
         this.view = view;
 
         const win = new fgui.Window();

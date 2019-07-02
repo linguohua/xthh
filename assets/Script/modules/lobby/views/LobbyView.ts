@@ -1,7 +1,7 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, Dialog, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath
+    DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, NewRoomViewPath
 } from "../lcore/LCoreExports";
 
 import { proto } from "../protoHH/protoHH";
@@ -58,20 +58,32 @@ export class LobbyView extends cc.Component {
         const loader = lm.loader;
 
         loader.fguiAddPackage("lobby/fui/lobby_main");
-
         // 加载共用背景包
         loader.fguiAddPackage("lobby/fui_bg/lobby_bg_package");
 
         const view = fgui.UIPackage.createObject("lobby_main", "Main").asCom;
 
         fgui.GRoot.inst.addChild(view);
-        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        view.setPosition(x, view.y);
 
+        let x = CommonFunction.setBaseViewInCenter(view);
         this.view = view;
 
-        this.initView();
+        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        if (newIPhone === "1") {
+            // i phone x 的黑边为 CommonFunction.IOS_ADAPTER_WIDTH
+            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
+        }
+        const bg = this.view.getChild('bg');
+        bg.setPosition(-x, 0);
+        CommonFunction.setBgFullScreen(bg);
 
+        // 兼容底部背景
+        const diBg = view.getChild('bg1');
+        diBg.width = bg.width;
+        diBg.setPosition(-x, diBg.y);
+
+        this.view = view;
+        this.initView();
         this.testJoinGame();
         // await this.startWebSocket();
 

@@ -5,9 +5,11 @@ const { ccclass } = cc._decorator;
 import { GameModule } from "../gameb/GamebExports";
 import { GResLoaderImpl } from "./GResLoaderImpl";
 import { Dialog } from "./lcore/Dialog";
-import { DataStore} from "./lcore/LCoreExports";
-import { CreateRoomParams, GameModuleInterface, GameModuleLaunchArgs, JoinRoomParams,
-        LobbyModuleInterface, MsgCenter } from "./lcore/LDataType";
+import { DataStore, KeyConstants } from "./lcore/LCoreExports";
+import {
+    CreateRoomParams, GameModuleInterface, GameModuleLaunchArgs, JoinRoomParams,
+    LobbyModuleInterface, MsgCenter
+} from "./lcore/LDataType";
 import { Logger } from "./lcore/Logger";
 import { proto as protoHH } from "./protoHH/protoHH";
 import { LoginView } from "./views/LoginView";
@@ -26,6 +28,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     private view: fgui.GObject;
 
     private loginView: LoginView;
+
+    private readonly adaptivePhones: string[] = ["iPhone X", "iPhone XS", "iPhone XR", "iPhone XS Max"];
 
     public cleanupGRoot(): void {
         const children = fgui.GRoot.inst._children;
@@ -67,8 +71,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
             roomNumber: roomNumber
         };
 
-       // tslint:disable-next-line:align
-       this.enterGame(joinRoomParams);
+        // tslint:disable-next-line:align
+        this.enterGame(joinRoomParams);
     }
     public enterGame(joinRoomParams?: JoinRoomParams, creatRoomParams?: CreateRoomParams): void {
 
@@ -173,6 +177,24 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         } else {
             Logger.error("setGameMsgHandler, this.msgCenter is null");
         }
+    }
+
+    protected onLoad(): void {
+
+        // 默认值
+        DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "0");
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.getSystemInfo({
+                success: (res) => {
+                    Logger.debug("wx.getSystemInfo res = ", res);
+                    const model = res.model;
+                    if (this.adaptivePhones.indexOf(model) !== -1) {
+                        DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+                    }
+                }
+            });
+        }
+
     }
 
     protected start(): void {
