@@ -17,6 +17,13 @@ interface QuicklyCreateViewInterface {
     saveConfig: Function;
 }
 
+interface DefaultConfig {
+    gameTypeRadioBtnIndex: number;
+    anteRadioBtnIndex: number;
+    roundRadioBtnIndex: number;
+    joinRadioBtnIndex: number;
+}
+
 interface MyGame {
     casinoID: number;
     roomID: number;
@@ -45,8 +52,6 @@ export class NewRoomView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
 
-    private eventTarget: cc.EventTarget;
-
     private ruleViews: { [key: string]: RuleView } = {};
 
     private path: NewRoomViewPath = NewRoomViewPath.Normal;
@@ -59,12 +64,7 @@ export class NewRoomView extends cc.Component {
 
     private gameConfig: protoHH.casino.game_config;
 
-    // private quicklyCreateView: QuicklyCreateViewInterface;
-
-    // private boxRecordBtn: fgui.GButton;
-    // private fkRecordBtn: fgui.GButton;
-    // private gameRecordBtn: fgui.GButton;
-    // private personalRoomBtn: fgui.GButton;
+    private defaultConfig: DefaultConfig;
 
     public getView(): fgui.GComponent {
         return this.view;
@@ -88,7 +88,6 @@ export class NewRoomView extends cc.Component {
 
     protected onLoad(): void {
         // 加载大厅界面
-        this.eventTarget = new cc.EventTarget();
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = lm.loader;
         loader.fguiAddPackage("lobby/fui_create_room/lobby_personal_room");
@@ -105,15 +104,20 @@ export class NewRoomView extends cc.Component {
 
         const gameConfigStr = DataStore.getString("gameConfig");
         this.gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
+
+        const defaultConfig = DataStore.getString("createRoomParams", "");
+        if (defaultConfig !== "") {
+            this.defaultConfig = <DefaultConfig>JSON.parse(defaultConfig);
+        } else {
+            this.defaultConfig = {gameTypeRadioBtnIndex: 0, anteRadioBtnIndex: 0, roundRadioBtnIndex: 0, joinRadioBtnIndex: 0};
+        }
+
+        Logger.debug("onLoad defaultConfig:", defaultConfig);
     }
 
     protected onDestroy(): void {
-        Object.keys(this.ruleViews).forEach((k) => {
-            const rv = this.ruleViews[k];
-            rv.destroy();
-        });
-
-        this.eventTarget.emit("destroy");
+        Logger.debug("onDestroy");
+        this.saveConfig();
         this.win.hide();
         this.win.dispose();
     }
@@ -185,7 +189,6 @@ export class NewRoomView extends cc.Component {
             this.roundRadioBtns[i].data = i;
 
             this.joinRadioBtns[i] = personalRoomView.getChild(`permission${i}`).asButton;
-            this.joinRadioBtns[i].onClick(this.onJoinRadioBtnClick, this);
             this.joinRadioBtns[i].data = i;
             this.joinRadioBtns[i].getChild("text").text = joinTypes[i];
 
@@ -193,7 +196,9 @@ export class NewRoomView extends cc.Component {
             this.playerRequireRadioBtns[i].getChild("text").text = `${playerRequires[i]}`;
         }
 
-        const gameTypeRadioBtnSelectIndex = this.getGameTypeRadioBtnSelectIndex();
+        const gameTypeRadioBtnSelectIndex = this.defaultConfig.gameTypeRadioBtnIndex;
+        this.gameTypeRadioBtns[gameTypeRadioBtnSelectIndex].selected = true;
+
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
         // 根据游戏类型，显示底注和局数
         const roomBase = this.getRoomBaseByCasinoID(myGame.casinoID);
@@ -214,13 +219,19 @@ export class NewRoomView extends cc.Component {
             this.anteRadioBtns[i].getChild("text").text = `${roomBase.roombases[i]}`;
             this.roundRadioBtns[i].getChild("text").text = `${roundcost.rcosts[i].round}`;
         }
+
+        const anteRadioBtnIndex = this.defaultConfig.anteRadioBtnIndex;
+        const roundRadioBtnIndex = this.defaultConfig.roundRadioBtnIndex;
+        const joinRadioBtnIndex = this.defaultConfig.joinRadioBtnIndex;
+
+        this.anteRadioBtns[anteRadioBtnIndex].selected = true;
+        this.roundRadioBtns[roundRadioBtnIndex].selected = true;
+        this.joinRadioBtns[joinRadioBtnIndex].selected = true;
     }
 
     private getRoomBaseByCasinoID(casinoID: number): protoHH.casino.Igame_room_base {
         for (const roomBase of this.gameConfig.groombases) {
             if (roomBase.casino_id === casinoID) {
-                // repeated game_round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
-                // repeated game_room_base   groombases = 101;
                 return roomBase;
             }
         }
@@ -299,37 +310,38 @@ export class NewRoomView extends cc.Component {
 
     private onGameTypeRadioBtnClick(ev: fgui.Event): void {
         Logger.debug("onGameTypeRadioBtnClick:",  <string>ev.initiator.data);
+        const gameTypeRadioBtnSelectIndex = this.getGameTypeRadioBtnSelectIndex();
+        const myGame = myGames[gameTypeRadioBtnSelectIndex];
+        // 根据游戏类型，显示底注和局数
+        const roomBase = this.getRoomBaseByCasinoID(myGame.casinoID);
+        if (roomBase == null) {
+            Logger.debug("initPersonalRoom error, no roombase found for ", myGame.casinoID);
+
+            return;
+        }
+
+        const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
+        if (roundcost == null) {
+            Logger.debug("initPersonalRoom error, no roundCost found for ", myGame.casinoID);
+
+            return;
+        }
+
+        for (let i = 0; i < 3; i++) {
+            this.anteRadioBtns[i].getChild("text").text = `${roomBase.roombases[i]}`;
+            this.roundRadioBtns[i].getChild("text").text = `${roundcost.rcosts[i].round}`;
+        }
     }
 
     private onAnteRadioBtnClick(ev: fgui.Event): void {
         Logger.debug("onAnteRadioBtnClick:",  <string>ev.initiator.data);
+        // TODO: 计算消耗的房卡
     }
 
     private onRoundRadioBtnClick(ev: fgui.Event): void {
         Logger.debug("onRoundRadioBtnClick:",  <string>ev.initiator.data);
+        // TODO: 计算消耗的房卡
     }
-
-    private onJoinRadioBtnClick(ev: fgui.Event): void {
-        Logger.debug("onJoinRadioBtnClick:",  <string>ev.initiator.data);
-    }
-
-    // private onListItemClicked(item: fgui.GObject, evt: fgui.Event): void {
-    //     const name = item.packageItem.name;
-    //     this.selectItem(name);
-    // }
-
-    // private onSaveConfigBtnClick(): void {
-    //     //
-    //     const list = this.view.getChild("gamelist").asList;
-    //     const index = list.selectedIndex;
-    //     const item = list.getChildAt(index);
-    //     const name = item.packageItem.name;
-    //     const ruleView = this.ruleViews[name];
-    //     if (ruleView !== undefined) {
-    //         const rules: string = <string>ruleView.getRules();
-    //         this.goSave(rules);
-    //     }
-    // }
 
     private onCreateRoomBtnClick(): void {
         const playerID = DataStore.getString("playerID");
@@ -369,112 +381,21 @@ export class NewRoomView extends cc.Component {
 
     }
 
-    // private goSave(ruleJson: string): void {
-    //     //
-    //     this.quicklyCreateView.saveConfig(ruleJson);
-    //     this.destroy();
-    // }
+    private saveConfig(): void {
+        const defaultConfig = {
+            gameTypeRadioBtnIndex: this.getGameTypeRadioBtnSelectIndex(),
+            anteRadioBtnIndex: this.getAnteRadioBtnSelectIndex(),
+            roundRadioBtnIndex: this.getRoundRadioBtnSelectIndex(),
+            joinRadioBtnIndex: this.getJoinRadioBtnSelectIndex()
+        };
 
-    // private selectItem(name: string): void {
-    //     let ruleView = this.ruleViews[name];
-    //     Object.keys(this.ruleViews).forEach((k) => {
-    //         const rv = this.ruleViews[k];
-    //         rv.hide();
-    //     });
-
-    //     if (this.path === NewRoomViewPath.Form_Club_Setting) {
-    //         this.forReview = true;
-
-    //         if (this.club.createRoomOptions !== null) {
-    //             const roomConfigJSON = <{ [key: string]: boolean | number }>JSON.parse(this.club.createRoomOptions);
-    //             this.itemsJSON = roomConfigJSON;
-    //         }
-
-    //     }
-
-    //     if (ruleView === undefined) {
-    //         switch (name) {
-    //             case "btnZJMJ":
-    //                 const rv1 = new ZJMJRuleView();
-    //                 rv1.bindView(this);
-    //                 ruleView = rv1;
-    //                 break;
-    //             case "btnDFMJ":
-    //                 const rv2 = new DFRuleView();
-    //                 rv2.bindView(this);
-    //                 ruleView = rv2;
-    //                 break;
-    //             case "btnGZ":
-    //                 const rv3 = new RunFastRuleView();
-    //                 rv3.bindView(this);
-    //                 ruleView = rv3;
-    //                 break;
-    //             case "btnDDZ":
-    //                 break;
-    //             default:
-    //         }
-
-    //         if (ruleView === undefined) {
-    //             return;
-    //         }
-
-    //         this.ruleViews[name] = ruleView;
-    //         if (this.priceCfgs !== undefined) {
-    //             ruleView.updatePriceCfg(this.priceCfgs);
-    //         }
-    //     }
-
-    //     ruleView.show();
-    // }
+        const configJson = JSON.stringify(defaultConfig);
+        Logger.debug("configJson:", configJson);
+        DataStore.setItem("createRoomParams", configJson);
+    }
 
     private onCloseClick(): void {
         this.destroy();
     }
 
-    // private enterGame(roomInfo: proto.lobby.IRoomInfo): void {
-
-    //     this.win.hide();
-    //     this.destroy();
-    //     const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-    //     // lm.enterGame(roomInfo);
-
-    // }
-
-    // private reEnterGame(roomInfo: proto.lobby.IRoomInfo): void {
-    //     this.enterGame(roomInfo);
-    // }
-
-    // private loadRoomPrice(): void {
-    //     const tk = DataStore.getString("token", "");
-    //     const loadRoomPriceCfgsURL = `${LEnv.rootURL}${LEnv.loadRoomPriceCfgs}?&tk=${tk}`;
-    //     HTTP.hGet(
-    //         this.eventTarget,
-    //         loadRoomPriceCfgsURL,
-    //         (xhr: XMLHttpRequest, err: string) => {
-    //             let errMsg = null;
-    //             if (err !== null) {
-    //                 errMsg = `拉取价格配置错误，错误码:${err}`;
-    //             } else {
-    //                 errMsg = HTTP.hError(xhr);
-    //                 if (errMsg === null) {
-    //                     const dataString = <string>String.fromCharCode.apply(null, new Uint8Array(<ArrayBuffer>xhr.response));
-    //                     const priceCfgs = <{ [key: string]: object }>JSON.parse(dataString);
-    //                     this.priceCfgs = priceCfgs;
-
-    //                     Object.keys(this.ruleViews).forEach((k) => {
-    //                         const rv = this.ruleViews[k];
-    //                         rv.updatePriceCfg(priceCfgs);
-    //                     });
-    //                 }
-    //             }
-
-    //             if (errMsg !== null) {
-    //                 Logger.debug("NewRoomView.createRoom failed:", errMsg);
-    //                 // 显示错误对话框
-    //                 Dialog.showDialog(errMsg, () => {
-    //                     //
-    //                 });
-    //             }
-    //         });
-    // }
 }
