@@ -281,6 +281,9 @@ export class LoginView extends cc.Component {
         DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
         DataStore.setItem("tableID", fastLoginAck.pdata.table_id);
 
+        const gameConfigStr = JSON.stringify(fastLoginAck.config);
+        DataStore.setItem("gameConfig", gameConfigStr);
+
         // 获取房卡资源
         let cardResource = null;
         for (const resource of fastLoginAck.pdata.resources) {

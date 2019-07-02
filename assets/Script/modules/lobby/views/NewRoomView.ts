@@ -17,7 +17,18 @@ interface QuicklyCreateViewInterface {
     saveConfig: Function;
 }
 
-const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
+interface MyGame {
+    casinoID: number;
+    roomID: number;
+
+    name: string;
+
+}
+
+const myGames: MyGame[] = [{casinoID: 16, roomID: 2100, name: "仙桃晃晃"},
+{casinoID: 16, roomID: 2103, name: "三人两门"}, {casinoID: 16, roomID: 2102, name: "两人两门"}];
+
+// const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
 
 const joinTypes: string[] = ["所有", "微信", "工会"];
 
@@ -45,6 +56,8 @@ export class NewRoomView extends cc.Component {
     private roundRadioBtns: fgui.GButton[] = [];
     private joinRadioBtns: fgui.GButton[] = [];
     private playerRequireRadioBtns: fgui.GButton[] = [];
+
+    private gameConfig: protoHH.casino.game_config;
 
     // private quicklyCreateView: QuicklyCreateViewInterface;
 
@@ -89,6 +102,9 @@ export class NewRoomView extends cc.Component {
         win.modal = true;
 
         this.win = win;
+
+        const gameConfigStr = DataStore.getString("gameConfig");
+        this.gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
     }
 
     protected onDestroy(): void {
@@ -148,11 +164,17 @@ export class NewRoomView extends cc.Component {
     }
     private initPersonalRoom(): void {
         const personalRoomView = this.view.getChild("srfCom").asCom;
+        const createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
+        createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
+
+        const accessBtn = personalRoomView.getChild("accessBtn").asButton;
+        accessBtn.onClick(this.onEnterBtnClick, this);
+
         for (let i = 0; i < 3; i++) {
             this.gameTypeRadioBtns[i] = personalRoomView.getChild(`type${i}`).asButton;
             this.gameTypeRadioBtns[i].onClick(this.onGameTypeRadioBtnClick, this);
             this.gameTypeRadioBtns[i].data = i;
-            this.gameTypeRadioBtns[i].getChild("text").text = gameNames[i];
+            this.gameTypeRadioBtns[i].getChild("text").text = myGames[i].name;
 
             this.anteRadioBtns[i] = personalRoomView.getChild(`baseScore${i}`).asButton;
             this.anteRadioBtns[i].onClick(this.onAnteRadioBtnClick, this);
@@ -171,15 +193,89 @@ export class NewRoomView extends cc.Component {
             this.playerRequireRadioBtns[i].getChild("text").text = `${playerRequires[i]}`;
         }
 
-        // const gameConfigString = DataStore.getString("gameConfig");
-        // const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigString);
+        const gameTypeRadioBtnSelectIndex = this.getGameTypeRadioBtnSelectIndex();
+        const myGame = myGames[gameTypeRadioBtnSelectIndex];
+        // 根据游戏类型，显示底注和局数
+        const roomBase = this.getRoomBaseByCasinoID(myGame.casinoID);
+        if (roomBase == null) {
+            Logger.debug("initPersonalRoom error, no roombase found for ", myGame.casinoID);
 
-        const createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
-        createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
+            return;
+        }
 
-        const accessBtn = personalRoomView.getChild("accessBtn").asButton;
-        accessBtn.onClick(this.onEnterBtnClick, this);
-        // const gameType = personalRoomView.getChild()
+        const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
+        if (roundcost == null) {
+            Logger.debug("initPersonalRoom error, no roundCost found for ", myGame.casinoID);
+
+            return;
+        }
+
+        for (let i = 0; i < 3; i++) {
+            this.anteRadioBtns[i].getChild("text").text = `${roomBase.roombases[i]}`;
+            this.roundRadioBtns[i].getChild("text").text = `${roundcost.rcosts[i].round}`;
+        }
+    }
+
+    private getRoomBaseByCasinoID(casinoID: number): protoHH.casino.Igame_room_base {
+        for (const roomBase of this.gameConfig.groombases) {
+            if (roomBase.casino_id === casinoID) {
+                // repeated game_round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
+                // repeated game_room_base   groombases = 101;
+                return roomBase;
+            }
+        }
+
+        return null;
+    }
+
+    private getRoundCostByCasinoID(casinoID: number): protoHH.casino.Igame_round_cost {
+        for (const roundCost of this.gameConfig.roundcosts) {
+            if (roundCost.casino_id === casinoID) {
+                return roundCost;
+            }
+        }
+
+        return null;
+    }
+
+    private getGameTypeRadioBtnSelectIndex(): number {
+        for (let i = 0; i < 3; i++) {
+            if (this.gameTypeRadioBtns[i].selected) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private getAnteRadioBtnSelectIndex(): number {
+        for (let i = 0; i < 3; i++) {
+            if (this.anteRadioBtns[i].selected) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private getRoundRadioBtnSelectIndex(): number {
+        for (let i = 0; i < 3; i++) {
+            if (this.roundRadioBtns[i].selected) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private getJoinRadioBtnSelectIndex(): number {
+        for (let i = 0; i < 3; i++) {
+            if (this.joinRadioBtns[i].selected) {
+                return i;
+            }
+        }
+
+        return 0;
     }
     private onBoxRecordBtnClick(): void {
         this.initBoxRecord();
@@ -239,13 +335,22 @@ export class NewRoomView extends cc.Component {
         const playerID = DataStore.getString("playerID");
         const myUser = { userID: playerID };
 
+        const gameTypeRadioBtnIndex = this.getGameTypeRadioBtnSelectIndex();
+        const anteRadioBtnIndex = this.getAnteRadioBtnSelectIndex();
+        const roundRadioBtnIndex = this.getRoundRadioBtnSelectIndex();
+        const joinRadioBtnIndex = this.getJoinRadioBtnSelectIndex();
+
+        const myGame = myGames[gameTypeRadioBtnIndex];
+
         const createRoomParams = {
-            casinoID: 16,
-            roomID: 2103,
-            base: 1,
-            round: 2,
-            allowJoin: 0
+            casinoID: myGame.casinoID,
+            roomID: myGame.roomID,
+            base: anteRadioBtnIndex,
+            round: roundRadioBtnIndex,
+            allowJoin: joinRadioBtnIndex
         };
+
+        Logger.debug("createRoomParams:", createRoomParams);
 
         const params: GameModuleLaunchArgs = {
             jsonString: "",
