@@ -34,8 +34,11 @@ export namespace HandlerMsgActionOP {
         Logger.debug("HandlerMsgActionOP----------------------- ", reply);
         const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
         if (!player.isMe()) {
+            room.m_bOPSelf = false;
+
             return;
         }
+        room.m_bOPSelf = true;
         const buttonMap: string[] = [];
         player.m_bSaveZCHFlag = false;
         player.m_bSaveOPGFlag = false;

@@ -103,7 +103,7 @@ export namespace HandlerActionResultDraw {
         // const targetChairID = actionResultMsg.targetChairID;
         const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
 
-        player.m_bOPSelf = false;
+        room.m_bOPSelf = false;
         if (player.isMe()) {
             player.setNotCatch(false);
         }

@@ -113,6 +113,7 @@ export class Room {
     public isDisband: boolean = false;
     public readonly roomType: number;
     public mAlgorithm: Algorithm;
+    public m_bOPSelf = false;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -611,6 +612,8 @@ export class Room {
             m.target_id = this.roomInfo.target_id;
             m.time = this.roomInfo.time;
             m.table_id = this.roomInfo.id;
+
+            this.m_bOPSelf = true;
             const reply = protoHH.casino_xtsj.packet_sc_op.encode(m);
 
             const msg = new protoHH.casino.ProxyMessage();

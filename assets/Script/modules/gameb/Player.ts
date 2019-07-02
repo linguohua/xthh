@@ -66,7 +66,6 @@ export class Player {
     public m_nSaveOPGMahjong = 0;
     public m_bSaveOPPFlag = false;
     public m_nSaveOPPMahjong = 0;
-    public m_bOPSelf = false;
     public m_bCanOutMahjong = false;
     public m_sForgoPeng: number[] = []; //放弃的碰牌
     public m_sForgoGang: number[] = []; //放弃的杠牌
@@ -528,21 +527,21 @@ export class Player {
             //假如之前是杠牌并且有杠牌，并且之前也有碰并且也有碰牌
             curCancelType = 2;
             curCancelCard = this.m_nSaveOPGMahjong;
-            if (!this.m_bOPSelf) {
+            if (!this.host.m_bOPSelf) {
                 this.myMahjong_addForgo(2, this.m_nSaveOPGMahjong, true);
             }
         } else if (this.m_bSaveOPGFlag && this.m_nSaveOPGMahjong > 0) {
             //否则之前是杠且有杠牌
             curCancelType = 0;
             curCancelCard = this.m_nSaveOPGMahjong;
-            if (!this.m_bOPSelf) {
+            if (!this.host.m_bOPSelf) {
                 this.myMahjong_addForgo(0, this.m_nSaveOPGMahjong, true);
             }
         } else if (this.m_bSaveOPPFlag && this.m_nSaveOPPMahjong > 0) {
             //否则之前是碰且有碰牌
             curCancelType = 0;
             curCancelCard = this.m_nSaveOPPMahjong;
-            if (!this.m_bOPSelf) {
+            if (!this.host.m_bOPSelf) {
                 this.myMahjong_addForgo(1, this.m_nSaveOPPMahjong, true);
             }
         }
@@ -556,7 +555,7 @@ export class Player {
             req2.op = TypeOfOP.BUZHUOCHONG;
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-        } else if (this.m_bOPSelf) {
+        } else if (this.host.m_bOPSelf) {
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
         } else {
