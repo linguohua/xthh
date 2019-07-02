@@ -23,8 +23,8 @@ export namespace HandlerActionResultDiscarded {
             player.discardOutTileID(discardTileId);
         }
         if (isMe && !isReplayMode) {
-            player.setNotCatch(false);
-            player.delAllForgoPeng();
+            room.m_bNotCatch = false;
+            room.delAllForgoPeng();
 
             return;
         }

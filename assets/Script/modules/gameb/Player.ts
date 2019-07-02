@@ -60,19 +60,7 @@ export class Player {
     public allowedReActionMsg: proto.mahjong.MsgAllowPlayerReAction;
     public allowedActionMsg: proto.mahjong.MsgAllowPlayerAction;
     public isGuoHuTips: boolean;
-    public lastOutTile: number; //别人最后打出的牌(可用来 碰杠胡)
-    public m_bSaveZCHFlag = false;
-    public m_bSaveOPGFlag = false;
-    public m_nSaveOPGMahjong = 0;
-    public m_bSaveOPPFlag = false;
-    public m_nSaveOPPMahjong = 0;
-    public m_bCanOutMahjong = false;
-    public m_sForgoPeng: number[] = []; //放弃的碰牌
-    public m_sForgoGang: number[] = []; //放弃的杠牌
-    public canAutoPutCard: boolean = false; //是否海底捞月
     private flagsTing: boolean;
-    private m_bNotCatch: boolean;
-
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
@@ -476,12 +464,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Pong;
-        req2.card = this.lastOutTile;
+        req2.card = this.host.m_nLastOutMahjong;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.lastOutTile = 0;
+        this.host.m_nLastOutMahjong = 0;
     }
 
     //玩家选择了杠牌
@@ -491,12 +479,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Kong;
-        req2.card = this.lastOutTile;
+        req2.card = this.host.m_nLastOutMahjong;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.lastOutTile = 0;
+        this.host.m_nLastOutMahjong = 0;
     }
 
     //玩家选择了胡牌
@@ -504,7 +492,8 @@ export class Player {
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
-        if (this.lastOutTile !== undefined && this.lastOutTile !== null && this.lastOutTile > 0) {
+        if (this.host.m_nLastOutMahjong !== undefined && this.host.m_nLastOutMahjong !== null
+            && this.host.m_nLastOutMahjong > 0) {
             req2.op = TypeOfOP.Hu;
         } else {
             req2.op = TypeOfOP.ZiMo;
@@ -513,7 +502,7 @@ export class Player {
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.lastOutTile = 0;
+        this.host.m_nLastOutMahjong = 0;
     }
 
     //玩家选择了过
@@ -522,27 +511,27 @@ export class Player {
     public onSkipBtnClick(): void {
         let curCancelType = -1;
         let curCancelCard = 0;
-        if (this.m_bSaveOPGFlag && this.m_nSaveOPGMahjong > 0
-            && this.m_bSaveOPPFlag && this.m_nSaveOPPMahjong > 0) {
+        if (this.host.m_bSaveOPGFlag && this.host.m_nSaveOPGMahjong > 0
+            && this.host.m_bSaveOPPFlag && this.host.m_nSaveOPPMahjong > 0) {
             //假如之前是杠牌并且有杠牌，并且之前也有碰并且也有碰牌
             curCancelType = 2;
-            curCancelCard = this.m_nSaveOPGMahjong;
+            curCancelCard = this.host.m_nSaveOPGMahjong;
             if (!this.host.m_bOPSelf) {
-                this.myMahjong_addForgo(2, this.m_nSaveOPGMahjong, true);
+                this.host.myMahjong_addForgo(2, this.host.m_nSaveOPGMahjong, true);
             }
-        } else if (this.m_bSaveOPGFlag && this.m_nSaveOPGMahjong > 0) {
+        } else if (this.host.m_bSaveOPGFlag && this.host.m_nSaveOPGMahjong > 0) {
             //否则之前是杠且有杠牌
             curCancelType = 0;
-            curCancelCard = this.m_nSaveOPGMahjong;
+            curCancelCard = this.host.m_nSaveOPGMahjong;
             if (!this.host.m_bOPSelf) {
-                this.myMahjong_addForgo(0, this.m_nSaveOPGMahjong, true);
+                this.host.myMahjong_addForgo(0, this.host.m_nSaveOPGMahjong, true);
             }
-        } else if (this.m_bSaveOPPFlag && this.m_nSaveOPPMahjong > 0) {
+        } else if (this.host.m_bSaveOPPFlag && this.host.m_nSaveOPPMahjong > 0) {
             //否则之前是碰且有碰牌
             curCancelType = 0;
-            curCancelCard = this.m_nSaveOPPMahjong;
+            curCancelCard = this.host.m_nSaveOPPMahjong;
             if (!this.host.m_bOPSelf) {
-                this.myMahjong_addForgo(1, this.m_nSaveOPPMahjong, true);
+                this.host.myMahjong_addForgo(1, this.host.m_nSaveOPPMahjong, true);
             }
         }
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
@@ -550,8 +539,8 @@ export class Player {
         req2.cancel_type = curCancelType;
         req2.card = curCancelCard;
         //假如之前OP是捉铳
-        if (this.m_bSaveZCHFlag) {
-            this.m_bSaveZCHFlag = false;
+        if (this.host.m_bSaveZCHFlag) {
+            this.host.m_bSaveZCHFlag = false;
             req2.op = TypeOfOP.BUZHUOCHONG;
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
@@ -569,7 +558,7 @@ export class Player {
         //重置手牌位置
         this.playerView.restoreHandsPositionAndClickCount(-1);
 
-        this.lastOutTile = 0;
+        this.host.m_nLastOutMahjong = 0;
 
         //放弃后提示自己打牌
         // if (!this.m_bOPSelf && this.m_nOrderType === 0){
@@ -698,7 +687,7 @@ export class Player {
             return [];
         }
         //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
-        if (!mahjong_xtsj.getFlagPiao() && !this.getNotCatch()) {
+        if (!mahjong_xtsj.getFlagPiao() && !this.host.getNotCatch()) {
             const v = mahjong_xtsj.canHuPai_WithOther(this.tilesHand, mahjong);
             if (v.bHuPai) {
                 if (mahjong_xtsj.checkHuPai_WithOther(v.sVecHuPai, mahjong)) {
@@ -743,7 +732,7 @@ export class Player {
         for (const tile of this.tilesHand) {
             if (tile === mahjong) {
                 array.push(tile);
-                if (array.length > 1 && !this.isInForgoPeng(mahjong)) {
+                if (array.length > 1 && !this.host.isInForgoPeng(mahjong)) {
 
                     return array;
                 }
@@ -751,84 +740,6 @@ export class Player {
         }
 
         return [];
-    }
-    //设置获取不课捉铳标记
-    public setNotCatch(bTrue: boolean) {
-        this.m_bNotCatch = bTrue;
-    }
-    //判断指定牌是否在于放弃杠牌中
-    public isInForgoGang(mahjong: number): boolean {
-        for (const tile of this.m_sForgoGang) {
-            if (tile === mahjong) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    public delAllForgoPeng(): void {
-        this.m_sForgoPeng = [];
-    }
-    //判断指定牌是否在于放弃碰牌中
-    private isInForgoPeng(mahjong: number): boolean {
-        for (const tile of this.m_sForgoPeng) {
-            if (tile === mahjong) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    private getNotCatch(): boolean {
-        return this.m_bNotCatch;
-    }
-    //添加放弃的操作并且显示提示  type 0杠，1碰，2杠＋碰, mahjong牌, clear是否要清空储存值
-    private myMahjong_addForgo(t: number, mahjong: number, clear: boolean): void {
-        if (t === 0) {
-            //弃杠
-            this.addForgoGang(mahjong);
-            if (clear) {
-                this.m_bSaveOPGFlag = false;
-                this.m_nSaveOPGMahjong = 0;
-            }
-        } else if (t === 1) {
-            //弃碰
-            this.addForgoPeng(mahjong);
-            if (clear) {
-                this.m_bSaveOPPFlag = false;
-                this.m_nSaveOPPMahjong = 0;
-            }
-        } else if (t === 2) {
-            //弃杠、碰
-            this.addForgoGang(mahjong);
-            if (clear) {
-                this.m_bSaveOPGFlag = false;
-                this.m_nSaveOPGMahjong = 0;
-            }
-            this.addForgoPeng(mahjong);
-            if (clear) {
-                this.m_bSaveOPPFlag = false;
-                this.m_nSaveOPPMahjong = 0;
-            }
-        }
-    }
-    //添加获取放弃杠的牌
-    private addForgoGang(mahjong: number): void {
-        for (const g of this.m_sForgoGang) {
-            if (g === mahjong) {
-                return;
-            }
-        }
-        this.m_sForgoGang.push(mahjong);
-    }
-    //添加放弃的碰牌组
-    private addForgoPeng(mahjong: number): void {
-        for (const g of this.m_sForgoPeng) {
-            if (g === mahjong) {
-                return;
-            }
-        }
-        this.m_sForgoPeng.push(mahjong);
     }
 
     /**
