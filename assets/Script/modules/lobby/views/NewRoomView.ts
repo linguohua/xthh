@@ -18,6 +18,10 @@ interface QuicklyCreateViewInterface {
 }
 
 const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
+
+const joinTypes: string[] = ["所有", "微信", "工会"];
+
+const playerRequires: number[] = [2, 3, 4];
 /**
  * NewRoomView 创建房间界面
  */
@@ -161,8 +165,10 @@ export class NewRoomView extends cc.Component {
             this.joinRadioBtns[i] = personalRoomView.getChild(`permission${i}`).asButton;
             this.joinRadioBtns[i].onClick(this.onJoinRadioBtnClick, this);
             this.joinRadioBtns[i].data = i;
+            this.joinRadioBtns[i].getChild("text").text = joinTypes[i];
 
             this.playerRequireRadioBtns[i] = personalRoomView.getChild(`playerNumber${i}`).asButton;
+            this.playerRequireRadioBtns[i].getChild("text").text = `${playerRequires[i]}`;
         }
 
         // const gameConfigString = DataStore.getString("gameConfig");
