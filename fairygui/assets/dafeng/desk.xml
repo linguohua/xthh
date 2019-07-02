@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://397phochjmxyct" designImageAlpha="0" designImageLayer="1">
+  <controller name="bgController" pages="0,经典,1,普蓝" selected="1"/>
+  <displayList>
+    <image id="n29_qhzt" name="blueBg" src="jmxya4" fileName="大丰麻将美术改版/2 游戏内/切图/bg2.jpg" xy="0,0" size="1136,640">
+      <gearDisplay controller="bgController" pages="1"/>
+    </image>
+    <image id="n35_jrlz" name="classBg" src="jmxya3" fileName="大丰麻将美术改版/2 游戏内/切图/bg1.jpg" xy="0,0" size="1136,640">
+      <gearDisplay controller="bgController" pages="0"/>
+    </image>
+    <text id="n6_fxwe" name="time" xy="15,10" size="10,25" fontSize="18" color="#219289" bold="true" text=""/>
+    <image id="n7_fxwe" name="wifi" src="jmxyaq" fileName="大丰麻将美术改版/2 游戏内/切图/wifi.png" xy="70,10" visible="false"/>
+    <image id="n8_fxwe" name="dianliang" src="jmxyae" fileName="大丰麻将美术改版/2 游戏内/切图/dian.png" xy="98,11" visible="false"/>
+    <component id="n10_fxwe" name="chatBtn" src="jmxy28" fileName="desk/chat_button.xml" xy="1031,293">
+      <relation target="n29_qhzt" sidePair="right-right"/>
+    </component>
+    <component id="n24_fxwe" name="roundMask" src="jmxy2u" fileName="desk/round_mask.xml" xy="514,249"/>
+    <text id="n28_rh8w" name="tilesInWall" xy="177,14" size="93,27" visible="false" fontSize="20" color="#93ebf1" autoSize="none" text=""/>
+    <component id="n26_rh8w" name="checkReadyHandBtn" src="jmxy33" fileName="desk/check_ting_button.xml" xy="45,294" visible="false" blend="screen">
+      <relation target="n29_qhzt" sidePair="left-left"/>
+    </component>
+    <component id="n17_fxwe" name="player4" src="jmxy16" fileName="desk/left/desk_view_left.xml" xy="0,0">
+      <relation target="n29_qhzt" sidePair="left-left"/>
+    </component>
+    <component id="n16_fxwe" name="player3" src="jmxyk" fileName="desk/dui/desk_view_dui.xml" xy="0,0">
+      <relation target="n29_qhzt" sidePair="top-top"/>
+    </component>
+    <component id="n15_fxwe" name="player2" src="jmxy1u" fileName="desk/right/desk_view_right.xml" xy="0,0">
+      <relation target="n29_qhzt" sidePair="right-right"/>
+    </component>
+    <component id="n14_fxwe" name="player1" src="jmxy1k" fileName="desk/mine/desk_view_mine.xml" xy="0,0">
+      <relation target="n29_qhzt" sidePair="left-left"/>
+    </component>
+    <component id="n20_fxwe" name="meldOpsPanel" src="jmxy2e" fileName="desk/meld_multi_ops.xml" xy="0,0" visible="false"/>
+    <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="-1,378"/>
+    <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" visible="false"/>
+    <loader id="n27_rh8w" name="donate" xy="72,439" pivot="0.5,0.5" anchor="true" size="105,97" visible="false"/>
+    <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="71,21" group="n32_jrlz"/>
+    <component id="n12_fxwe" name="guizeBtn" src="jmxy26" fileName="desk/guize_button.xml" xy="22,25" group="n32_jrlz"/>
+    <group id="n32_jrlz" name="ruleAndSetting" xy="22,21" size="99,54" advanced="true" collapsed="true">
+      <relation target="n29_qhzt" sidePair="left-left,top-top"/>
+    </group>
+    <image id="n2_fxwe" name="n2" src="jmxya5" fileName="大丰麻将美术改版/2 游戏内/切图/bgUp.png" xy="280,1" size="554,36" group="n33_jrlz"/>
+    <image id="n4_fxwe" name="n4" src="jmxyaj" fileName="大丰麻将美术改版/2 游戏内/切图/fgxian.png" xy="482,7" group="n33_jrlz" visible="false"/>
+    <image id="n5_fxwe" name="n5" src="jmxyaj" fileName="大丰麻将美术改版/2 游戏内/切图/fgxian.png" xy="636,7" group="n33_jrlz" visible="false"/>
+    <text id="n9_fxwe" name="roomInfo" xy="321,2" size="469,25" group="n33_jrlz" fontSize="20" color="#c07f25" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#280000" strokeSize="2" text=""/>
+    <group id="n33_jrlz" name="roomInfo" xy="280,1" size="554,36" advanced="true" collapsed="true">
+      <relation target="n29_qhzt" sidePair="top-top"/>
+    </group>
+    <component id="n30_x2fz" name="return2LobbyBtn" src="jmxy35" fileName="desk/return_lobby_btn.xml" xy="196,427" group="n34_jrlz"/>
+    <component id="n31_qly1" name="invite" src="jmxy37" fileName="desk/invite_button.xml" xy="480,427" group="n34_jrlz"/>
+    <component id="n19_fxwe" name="ready" src="jmxy2c" fileName="desk/ready_button.xml" xy="760,427" group="n34_jrlz"/>
+    <group id="n34_jrlz" name="btn" xy="196,427" size="794,79" advanced="true" collapsed="true">
+      <relation target="n29_qhzt" sidePair="bottom-bottom"/>
+    </group>
+    <image id="n3_fxwe" name="n3" src="jmxyai" fileName="大丰麻将美术改版/2 游戏内/切图/fenquanbg.png" xy="1034,44" group="n37_gw75"/>
+    <component id="n21_fxwe" name="fengquan" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="1052,55" group="n37_gw75" scale="0.4,0.4"/>
+    <group id="n37_gw75" name="fengquan" xy="1034,44" size="98,131" advanced="true" collapsed="true">
+      <relation target="n29_qhzt" sidePair="right-right"/>
+    </group>
+  </displayList>
+</component>

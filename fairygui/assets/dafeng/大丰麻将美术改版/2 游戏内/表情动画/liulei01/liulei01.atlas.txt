@@ -1,0 +1,111 @@
+
+liulei01.png
+size: 213,213
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 2, 128
+  size: 97, 83
+  orig: 97, 83
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 101, 114
+  size: 69, 26
+  orig: 69, 26
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 101, 142
+  size: 88, 69
+  orig: 88, 69
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 2, 57
+  size: 93, 69
+  orig: 93, 69
+  offset: 0, 0
+  index: -1
+005
+  rotate: true
+  xy: 161, 48
+  size: 64, 11
+  orig: 64, 11
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 97, 53
+  size: 62, 59
+  orig: 62, 59
+  offset: 0, 0
+  index: -1
+007
+  rotate: false
+  xy: 2, 25
+  size: 71, 30
+  orig: 71, 30
+  offset: 0, 0
+  index: -1
+008
+  rotate: true
+  xy: 174, 60
+  size: 52, 16
+  orig: 52, 16
+  offset: 0, 0
+  index: -1
+009
+  rotate: false
+  xy: 144, 19
+  size: 30, 27
+  orig: 30, 27
+  offset: 0, 0
+  index: -1
+010
+  rotate: false
+  xy: 172, 114
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+011
+  rotate: true
+  xy: 191, 142
+  size: 69, 16
+  orig: 69, 16
+  offset: 0, 0
+  index: -1
+012
+  rotate: false
+  xy: 75, 35
+  size: 67, 16
+  orig: 67, 16
+  offset: 0, 0
+  index: -1
+013
+  rotate: false
+  xy: 74, 2
+  size: 62, 15
+  orig: 62, 15
+  offset: 0, 0
+  index: -1
+014
+  rotate: false
+  xy: 2, 9
+  size: 70, 14
+  orig: 70, 14
+  offset: 0, 0
+  index: -1
+015
+  rotate: false
+  xy: 75, 19
+  size: 67, 14
+  orig: 67, 14
+  offset: 0, 0
+  index: -1

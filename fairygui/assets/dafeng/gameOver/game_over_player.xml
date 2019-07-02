@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="285,512" designImage="ui://397phochjmxy3z" designImageOffsetX="-5" designImageOffsetY="-90" designImageLayer="1">
+  <displayList>
+    <image id="n0_rhc4" name="n0" src="jmxy3a" fileName="大丰麻将美术改版/2 游戏内/切图/j_结算/zjsbg.png" xy="2,0" size="281,459"/>
+    <component id="n1_rhc4" name="head" src="jmxy0" fileName="common/head_button.xml" xy="148,73" scale="0.7,0.7"/>
+    <image id="n2_rhc4" name="roomOwner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="94,38"/>
+    <text id="n3_rhc4" name="name" xy="46,104" size="200,28" fontSize="20" color="#8aceed" align="center" vAlign="middle" autoSize="none" bold="true" text=""/>
+    <text id="n4_rhc4" name="id" xy="46,129" size="200,22" fontSize="16" color="#8aceed" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n7_rhc4" name="num_jiepao" xy="52,185" size="190,34" fontSize="26" color="#813826" vAlign="middle" autoSize="none" bold="true" text="&#xA;&#xA;&#xA;"/>
+    <text id="n13_fxwe" name="num_fangpao" xy="53,217" size="190,34" fontSize="26" color="#813826" vAlign="middle" autoSize="none" bold="true" text="&#xA;&#xA;&#xA;"/>
+    <text id="n12_fxwe" name="num_zimo" xy="53,249" size="190,34" fontSize="26" color="#813826" vAlign="middle" autoSize="none" bold="true" text="&#xA;&#xA;&#xA;"/>
+    <text id="n8_rhc4" name="text_win" xy="30,320" size="222,60" font="ui://397phochjmxy3b" fontSize="22" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="&#xA;"/>
+    <text id="n9_rhc4" name="text_lose" xy="32,322" size="222,60" font="ui://397phochjmxy3n" fontSize="22" color="#ffffff" align="center" vAlign="middle" autoSize="none" text=""/>
+    <graph id="n10_e27g" name="aniPos" xy="239,45" size="0,0"/>
+    <image id="n11_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="165,80"/>
+  </displayList>
+</component>

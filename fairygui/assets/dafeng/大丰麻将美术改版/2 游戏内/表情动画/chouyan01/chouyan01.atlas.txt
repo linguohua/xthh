@@ -1,0 +1,125 @@
+
+chouyan01.png
+size: 415,415
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 262, 7
+  size: 58, 25
+  orig: 58, 25
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 262, 70
+  size: 95, 83
+  orig: 95, 83
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 2, 3
+  size: 72, 20
+  orig: 72, 20
+  offset: 0, 0
+  index: -1
+004
+  rotate: true
+  xy: 322, 2
+  size: 30, 10
+  orig: 30, 10
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 359, 30
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+006
+  rotate: false
+  xy: 262, 34
+  size: 95, 34
+  orig: 95, 34
+  offset: 0, 0
+  index: -1
+007
+  rotate: true
+  xy: 359, 66
+  size: 87, 24
+  orig: 87, 24
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 76, 3
+  size: 25, 20
+  orig: 25, 20
+  offset: 0, 0
+  index: -1
+009
+  rotate: true
+  xy: 392, 388
+  size: 25, 20
+  orig: 25, 20
+  offset: 0, 0
+  index: -1
+yan_00002
+  rotate: false
+  xy: 2, 285
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00006
+  rotate: false
+  xy: 2, 155
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00010
+  rotate: false
+  xy: 132, 285
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00014
+  rotate: false
+  xy: 2, 25
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00018
+  rotate: false
+  xy: 132, 155
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00022
+  rotate: false
+  xy: 262, 285
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00026
+  rotate: false
+  xy: 132, 25
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+yan_00030
+  rotate: false
+  xy: 262, 155
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

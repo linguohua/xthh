@@ -1,0 +1,132 @@
+
+dabomei.png
+size: 584,584
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 2, 236
+  size: 228, 288
+  orig: 228, 288
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 2, 8
+  size: 226, 277
+  orig: 226, 277
+  offset: 0, 0
+  index: -1
+03
+  rotate: false
+  xy: 281, 55
+  size: 83, 179
+  orig: 83, 179
+  offset: 0, 0
+  index: -1
+04
+  rotate: true
+  xy: 292, 437
+  size: 27, 70
+  orig: 27, 70
+  offset: 0, 0
+  index: -1
+05
+  rotate: false
+  xy: 292, 276
+  size: 43, 83
+  orig: 43, 83
+  offset: 0, 0
+  index: -1
+06
+  rotate: false
+  xy: 364, 384
+  size: 206, 198
+  orig: 206, 198
+  offset: 0, 0
+  index: -1
+07
+  rotate: true
+  xy: 292, 361
+  size: 25, 56
+  orig: 25, 56
+  offset: 0, 0
+  index: -1
+08
+  rotate: true
+  xy: 409, 119
+  size: 118, 152
+  orig: 118, 152
+  offset: 0, 0
+  index: -1
+09
+  rotate: true
+  xy: 469, 267
+  size: 115, 98
+  orig: 115, 98
+  offset: 0, 0
+  index: -1
+10
+  rotate: true
+  xy: 292, 388
+  size: 47, 57
+  orig: 47, 57
+  offset: 0, 0
+  index: -1
+11
+  rotate: true
+  xy: 409, 75
+  size: 42, 28
+  orig: 42, 28
+  offset: 0, 0
+  index: -1
+12
+  rotate: true
+  xy: 292, 243
+  size: 31, 19
+  orig: 31, 19
+  offset: 0, 0
+  index: -1
+13
+  rotate: true
+  xy: 569, 342
+  size: 40, 13
+  orig: 40, 13
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 313, 261
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+15
+  rotate: false
+  xy: 366, 58
+  size: 41, 179
+  orig: 41, 179
+  offset: 0, 0
+  index: -1
+16
+  rotate: true
+  xy: 281, 2
+  size: 51, 149
+  orig: 51, 149
+  offset: 0, 0
+  index: -1
+17
+  rotate: false
+  xy: 350, 239
+  size: 117, 143
+  orig: 117, 143
+  offset: 0, 0
+  index: -1
+20
+  rotate: false
+  xy: 2, 466
+  size: 360, 116
+  orig: 360, 116
+  offset: 0, 0
+  index: -1

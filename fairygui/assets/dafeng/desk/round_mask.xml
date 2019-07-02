@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="105,105" designImageOffsetX="-512" designImageOffsetY="-248" designImageLayer="1">
+  <displayList>
+    <image id="n0_fxwe" name="bg" src="jmxy2v" fileName="大丰麻将美术改版/2 游戏内/切图/f_方位/f_kon.png" xy="0,7"/>
+    <image id="n1_fxwe" name="n3" src="jmxy2w" fileName="大丰麻将美术改版/2 游戏内/切图/f_方位/f_lan.png" xy="0,6" visible="false"/>
+    <image id="n2_fxwe" name="n2" src="jmxy2x" fileName="大丰麻将美术改版/2 游戏内/切图/f_方位/f_huang.png" xy="0,7" visible="false"/>
+    <image id="n3_fxwe" name="n1" src="jmxy2y" fileName="大丰麻将美术改版/2 游戏内/切图/f_方位/f_hon.png" xy="0,7" visible="false"/>
+    <image id="n4_fxwe" name="n4" src="jmxy2z" fileName="大丰麻将美术改版/2 游戏内/切图/f_方位/f_lv.png" xy="0,7" visible="false"/>
+    <text id="n5_fxwe" name="num" xy="31,47" size="49,35" font="ui://397phochjmxy2j" fontSize="0" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

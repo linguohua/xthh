@@ -26,7 +26,8 @@ export class LoginView extends cc.Component {
 
     private phoneLoginBtn: fgui.GObject;
 
-    // private progressBar: fgui.GProgressBar;
+    private progressBar: fgui.GProgressBar;
+    private progressText: fgui.GTextField;
 
     private eventTarget: cc.EventTarget;
 
@@ -60,7 +61,12 @@ export class LoginView extends cc.Component {
     }
 
     public updateProgressBar(progress: number): void {
-        // this.progressBar.value = progress * 100;
+        this.progressBar.value = progress * 100;
+        if (this.progressText !== undefined && this.progressText !== null) {
+
+            const text = progress * 100;
+            this.progressText.text = `正在加载${text.toFixed(0)}%`;
+        }
     }
 
     public initView(): void {
@@ -68,7 +74,9 @@ export class LoginView extends cc.Component {
         this.weixinButton = this.viewNode.getChild("n2");
         this.loginBtn = this.viewNode.getChild("n3");
         this.phoneLoginBtn = this.viewNode.getChild("n1");
-        // this.progressBar = this.viewNode.getChild("n4").asProgress;
+        this.progressBar = this.viewNode.getChild("n9").asProgress;
+
+        this.progressText = this.viewNode.getChild("progressText").asTextField;
 
         // const gameAdviceText = this.viewNode.getChild("gameAdvice");
         // const text1 = this.viewNode.getChild("text1");
@@ -92,7 +100,7 @@ export class LoginView extends cc.Component {
         this.loginBtn.visible = false;
         this.weixinButton.visible = false;
         this.phoneLoginBtn.visible = false;
-        // this.progressBar.value = 0;
+        this.progressBar.value = 0;
 
         this.loginBtn.onClick(this.onLoginClick, this);
 
@@ -110,7 +118,8 @@ export class LoginView extends cc.Component {
     }
 
     public updateCompleted(): void {
-        // this.progressBar.visible = false;
+        this.progressBar.visible = false;
+        this.progressText.visible = false;
         this.weixinButton.visible = true;
         this.loginBtn.visible = true;
         this.phoneLoginBtn.visible = true;

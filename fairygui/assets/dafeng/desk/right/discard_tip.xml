@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="124,165">
+  <displayList>
+    <image id="n0_g0pr" name="n0" src="jmxy1h" fileName="大丰麻将美术改版/2 游戏内/切图/chupai2.png" xy="2,9"/>
+    <component id="n1_g0pr" name="card" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="26,28"/>
+  </displayList>
+</component>

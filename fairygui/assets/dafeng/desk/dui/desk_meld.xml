@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,150" opaque="false" designImage="ui://397phochjmxyr">
+  <displayList>
+    <graph id="n44_fxwe" name="meld1" xy="696,48" size="100,100" scale="0,0"/>
+    <graph id="n45_fxwe" name="meld2" xy="577,48" size="100,100" scale="0,0"/>
+    <graph id="n46_fxwe" name="meld3" xy="458,48" size="100,100" scale="0,0"/>
+    <graph id="n47_fxwe" name="meld4" xy="339,48" size="100,100" scale="0,0"/>
+  </displayList>
+</component>

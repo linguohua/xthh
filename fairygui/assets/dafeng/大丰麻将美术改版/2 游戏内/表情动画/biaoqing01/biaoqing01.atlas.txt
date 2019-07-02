@@ -1,0 +1,76 @@
+
+biaoqing01.png
+size: 172,172
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 2, 82
+  size: 88, 88
+  orig: 88, 88
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 138, 61
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+003
+  rotate: true
+  xy: 96, 31
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+004
+  rotate: false
+  xy: 49, 6
+  size: 45, 34
+  orig: 45, 34
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 2, 5
+  size: 45, 35
+  orig: 45, 35
+  offset: 0, 0
+  index: -1
+006
+  rotate: true
+  xy: 155, 131
+  size: 39, 14
+  orig: 39, 14
+  offset: 0, 0
+  index: -1
+007
+  rotate: false
+  xy: 92, 106
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 2, 42
+  size: 84, 38
+  orig: 84, 38
+  offset: 0, 0
+  index: -1
+009
+  rotate: true
+  xy: 92, 65
+  size: 39, 44
+  orig: 39, 44
+  offset: 0, 0
+  index: -1
+yinying
+  rotate: true
+  xy: 142, 103
+  size: 67, 11
+  orig: 67, 11
+  offset: 0, 0
+  index: -1

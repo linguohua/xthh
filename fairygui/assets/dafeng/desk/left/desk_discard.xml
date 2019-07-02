@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,330" opaque="false" designImage="ui://397phochjmxyr" designImageOffsetX="-255" designImageOffsetY="-145" designImageLayer="1">
+  <displayList>
+    <component id="n96_fxwe" name="n1" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,6" size="51,46" visible="false"/>
+    <component id="n97_fxwe" name="n2" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,36" size="51,46" visible="false"/>
+    <component id="n98_fxwe" name="n3" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,66" size="51,46" visible="false"/>
+    <component id="n99_fxwe" name="n4" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,96" size="51,46" visible="false"/>
+    <component id="n100_fxwe" name="n5" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,126" size="51,46" visible="false"/>
+    <component id="n101_fxwe" name="n6" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,156" size="51,46" visible="false"/>
+    <component id="n102_fxwe" name="n7" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,186" size="51,46" visible="false"/>
+    <component id="n103_fxwe" name="n8" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,216" size="51,46" visible="false"/>
+    <component id="n104_fxwe" name="n9" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,246" size="51,46" visible="false"/>
+    <component id="n105_fxwe" name="n10" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="46,276" size="51,46" visible="false"/>
+    <component id="n106_fxwe" name="n11" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,6" size="51,46" visible="false"/>
+    <component id="n107_fxwe" name="n12" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,36" size="51,46" visible="false"/>
+    <component id="n108_fxwe" name="n13" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,66" size="51,46" visible="false"/>
+    <component id="n109_fxwe" name="n14" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,96" size="51,46" visible="false"/>
+    <component id="n110_fxwe" name="n15" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,126" size="51,46" visible="false"/>
+    <component id="n111_fxwe" name="n16" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,156" size="51,46" visible="false"/>
+    <component id="n112_fxwe" name="n17" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,186" size="51,46" visible="false"/>
+    <component id="n113_fxwe" name="n18" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,216" size="51,46" visible="false"/>
+    <component id="n114_fxwe" name="n19" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,246" size="51,46" visible="false"/>
+    <component id="n115_fxwe" name="n20" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="-1,276" size="51,46" visible="false"/>
+  </displayList>
+</component>

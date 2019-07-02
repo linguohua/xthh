@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" opaque="false" designImage="ui://397phochjmxyr">
+  <displayList>
+    <component id="n0_fxwe" name="head" src="jmxy0" fileName="common/head_button.xml" xy="72,441"/>
+    <text id="n17_sskg" name="nameText" xy="17,480" size="103,25" fontSize="18" color="#fbb41d" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <image id="n1_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="7,401"/>
+    <image id="n2_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="37,359"/>
+    <text id="n15_rh8w" name="huaText" xy="72,364" size="40,20" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
+    <image id="n3_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="85,398"/>
+    <image id="n4_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="97,466"/>
+    <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="96,441"/>
+    <component id="n6_fxwe" name="discards" src="jmxy1l" fileName="desk/mine/desk_discard.xml" xy="370,364" touchable="false"/>
+    <component id="n9_fxwe" name="melds" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="0,502" touchable="false"/>
+    <component id="n10_fxwe" name="flowers" src="jmxy1n" fileName="desk/mine/desk_flower.xml" xy="255,467" touchable="false"/>
+    <component id="n7_fxwe" name="hands" src="jmxy1o" fileName="desk/mine/desk_hand.xml" xy="0,502"/>
+    <component id="n11_fxwe" name="lights" src="jmxy1s" fileName="desk/mine/desk_light.xml" xy="0,502" touchable="false"/>
+    <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="143,400"/>
+    <graph id="n12_fxwe" name="aniPos" xy="567,405" pivot="0.5,0.5" size="0,0"/>
+    <component id="n13_g0pr" name="discardTip" src="jmxy1t" fileName="desk/mine/discard_tip.xml" xy="509,349" visible="false"/>
+    <graph id="n14_rh8w" name="userInfoPos" xy="28,140" size="20,26"/>
+    <component id="n18_ooqz" name="qipao" src="jmxy1i" fileName="qipao1.xml" xy="157,393" visible="false"/>
+  </displayList>
+</component>

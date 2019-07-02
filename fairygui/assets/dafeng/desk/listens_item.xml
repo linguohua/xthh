@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="70,110" designImage="ui://397phochjmxy32" designImageOffsetX="-500" designImageOffsetY="-190">
+  <displayList>
+    <component id="n1_fxwe" name="n1" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="6,3" scale="0.7,0.7"/>
+    <text id="n2_fxwe" name="num" xy="17,85" size="40,30" fontSize="22" color="#e9bf89" bold="true" strokeColor="#280000" text="3张"/>
+  </displayList>
+</component>

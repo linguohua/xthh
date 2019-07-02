@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="397phoch" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="jmxy0" name="head_button.xml" path="/common/"/>
+    <image id="jmxy1" name="girl_img.png" path="/头像/" exported="true"/>
+    <image id="jmxy2" name="txk_wx80.png" path="/头像/" exported="true"/>
+    <component id="jmxy3" name="chi_button.xml" path="/desk/button/" exported="true"/>
+    <component id="jmxy4" name="peng_button.xml" path="/desk/button/" exported="true"/>
+    <image id="jmxy5" name="di_cpg.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <image id="jmxy6" name="pen.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <component id="jmxy7" name="gang_button.xml" path="/desk/button/" exported="true"/>
+    <image id="jmxy8" name="gang.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <component id="jmxy9" name="hu_button.xml" path="/desk/button/" exported="true"/>
+    <image id="jmxya" name="di_hu.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <image id="jmxyb" name="hu.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <component id="jmxyc" name="ting_button.xml" path="/desk/button/" exported="true"/>
+    <image id="jmxyd" name="di_ting.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <image id="jmxye" name="tin.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <component id="jmxyf" name="guo_button.xml" path="/desk/button/" exported="true"/>
+    <image id="jmxyg" name="di_guo.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <image id="jmxyh" name="guo.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <component id="jmxyi" name="zhua_button.xml" path="/desk/button/" exported="true"/>
+    <image id="jmxyj" name="zhua.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <component id="jmxyk" name="desk_view_dui.xml" path="/desk/dui/"/>
+    <image id="jmxyl" name="bq_fanzhu.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxym" name="huabg.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyn" name="tb_ting.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyo" name="tb_zhuang.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyp" name="tb_lianzhuang.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxyq" name="desk_meld.xml" path="/desk/dui/"/>
+    <image id="jmxyr" name="打牌界面.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <component id="jmxys" name="desk_hand.xml" path="/desk/dui/"/>
+    <component id="jmxyt" name="mahjong_dui_shu.xml" path="/mahjong_dui/" exported="true"/>
+    <image id="jmxyu" name="dui_shu.png" path="/image_bg/"/>
+    <component id="jmxyv" name="desk_flower.xml" path="/desk/dui/"/>
+    <component id="jmxyw" name="mahjong_dui_luo.xml" path="/mahjong_dui/" exported="true"/>
+    <image id="jmxyx" name="wo.png" path="/image_bg/"/>
+    <component id="jmxyy" name="desk_light.xml" path="/desk/dui/"/>
+    <component id="jmxyz" name="desk_discard.xml" path="/desk/dui/"/>
+    <image id="jmxy10" name="ok.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <component id="jmxy11" name="discard_tip.xml" path="/desk/dui/"/>
+    <image id="jmxy12" name="chupai.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy13" name="mahjong_mine_luo.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="jmxy14" name="qipao2.xml" path="/" exported="true"/>
+    <image id="jmxy15" name="ltqp_qp_sj.png" path="/大丰麻将美术改版/2 游戏内/切图/" scale="9grid" scale9grid="27,30,5,6" gridTile="16"/>
+    <component id="jmxy16" name="desk_view_left.xml" path="/desk/left/"/>
+    <component id="jmxy17" name="desk_meld.xml" path="/desk/left/"/>
+    <component id="jmxy18" name="desk_hand.xml" path="/desk/left/"/>
+    <component id="jmxy19" name="mahjong_left_shu.xml" path="/mahjong_left/" exported="true"/>
+    <image id="jmxy1a" name="zuo.png" path="/image_bg/"/>
+    <component id="jmxy1b" name="desk_discard.xml" path="/desk/left/"/>
+    <component id="jmxy1c" name="mahjong_left_luo.xml" path="/mahjong_left/" exported="true"/>
+    <image id="jmxy1d" name="heng_zheng.png" path="/image_bg/"/>
+    <component id="jmxy1e" name="desk_flower.xml" path="/desk/left/"/>
+    <component id="jmxy1f" name="desk_light.xml" path="/desk/left/"/>
+    <component id="jmxy1g" name="discard_tip.xml" path="/desk/left/"/>
+    <image id="jmxy1h" name="chupai2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy1i" name="qipao1.xml" path="/" exported="true"/>
+    <image id="jmxy1j" name="ltqp_qp01.png" path="/大丰麻将美术改版/2 游戏内/切图/" scale="9grid" scale9grid="32,33,9,3" gridTile="16"/>
+    <component id="jmxy1k" name="desk_view_mine.xml" path="/desk/mine/"/>
+    <component id="jmxy1l" name="desk_discard.xml" path="/desk/mine/"/>
+    <component id="jmxy1m" name="desk_meld.xml" path="/desk/mine/"/>
+    <component id="jmxy1n" name="desk_flower.xml" path="/desk/mine/"/>
+    <component id="jmxy1o" name="desk_hand.xml" path="/desk/mine/"/>
+    <component id="jmxy1p" name="mahjong_mine_shu.xml" path="/mahjong_mine/" exported="true"/>
+    <image id="jmxy1q" name="wo_shou.png" path="/image_bg/"/>
+    <image id="jmxy1r" name="jbting.png" path="/image_bg/"/>
+    <component id="jmxy1s" name="desk_light.xml" path="/desk/mine/"/>
+    <component id="jmxy1t" name="discard_tip.xml" path="/desk/mine/"/>
+    <component id="jmxy1u" name="desk_view_right.xml" path="/desk/right/"/>
+    <component id="jmxy1v" name="desk_discard.xml" path="/desk/right/"/>
+    <component id="jmxy1w" name="mahjong_right_luo.xml" path="/mahjong_right/" exported="true"/>
+    <component id="jmxy1x" name="desk_hand.xml" path="/desk/right/"/>
+    <component id="jmxy1y" name="mahjong_right_shu.xml" path="/mahjong_right/" exported="true"/>
+    <image id="jmxy1z" name="you.png" path="/image_bg/"/>
+    <component id="jmxy20" name="desk_meld.xml" path="/desk/right/"/>
+    <component id="jmxy21" name="desk_light.xml" path="/desk/right/"/>
+    <component id="jmxy22" name="desk_flower.xml" path="/desk/right/"/>
+    <component id="jmxy23" name="discard_tip.xml" path="/desk/right/"/>
+    <component id="jmxy24" name="setting_button.xml" path="/desk/"/>
+    <image id="jmxy25" name="an_gengduo.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy26" name="guize_button.xml" path="/desk/"/>
+    <image id="jmxy27" name="guize.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy28" name="chat_button.xml" path="/desk/"/>
+    <image id="jmxy29" name="an_dazi.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy2a" name="operation_panel.xml" path="/desk/"/>
+    <image id="jmxy2b" name="cpbg_9gong.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/" scale="9grid" scale9grid="46,29,92,58"/>
+    <component id="jmxy2c" name="ready_button.xml" path="/desk/"/>
+    <image id="jmxy2d" name="zhunbei.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <component id="jmxy2e" name="meld_multi_ops.xml" path="/desk/"/>
+    <image id="jmxy2f" name="hukk.png" path="/大丰麻将美术改版/2 游戏内/切图/" scale="9grid" scale9grid="46,42,92,84" gridTile="16"/>
+    <component id="jmxy2g" name="mahjong_mine_meld_gang1.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="jmxy2h" name="meld_cancel_button.xml" path="/desk/"/>
+    <image id="jmxy2i" name="cpqx.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <font id="jmxy2j" name="countDown.fnt" path="/desk/" exported="true"/>
+    <image id="jmxy2k" name="djs0.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2l" name="djs1.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2m" name="djs2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2n" name="djs3.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2o" name="djs4.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2p" name="djs5.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2q" name="djs6.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2r" name="djs7.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2s" name="djs8.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxy2t" name="djs9.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy2u" name="round_mask.xml" path="/desk/"/>
+    <image id="jmxy2v" name="f_kon.png" path="/大丰麻将美术改版/2 游戏内/切图/f_方位/"/>
+    <image id="jmxy2w" name="f_lan.png" path="/大丰麻将美术改版/2 游戏内/切图/f_方位/"/>
+    <image id="jmxy2x" name="f_huang.png" path="/大丰麻将美术改版/2 游戏内/切图/f_方位/"/>
+    <image id="jmxy2y" name="f_hon.png" path="/大丰麻将美术改版/2 游戏内/切图/f_方位/"/>
+    <image id="jmxy2z" name="f_lv.png" path="/大丰麻将美术改版/2 游戏内/切图/f_方位/"/>
+    <component id="jmxy30" name="listens_panel.xml" path="/desk/"/>
+    <component id="jmxy31" name="listens_item.xml" path="/desk/"/>
+    <image id="jmxy32" name="吃胡提示框标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <component id="jmxy33" name="check_ting_button.xml" path="/desk/"/>
+    <image id="jmxy34" name="an_chatin.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <component id="jmxy35" name="return_lobby_btn.xml" path="/desk/"/>
+    <image id="jmxy36" name="fhdt.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <component id="jmxy37" name="invite_button.xml" path="/desk/"/>
+    <image id="jmxy38" name="yaoqin.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <component id="jmxy39" name="game_over_player.xml" path="/gameOver/"/>
+    <image id="jmxy3a" name="zjsbg.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <font id="jmxy3b" name="win.fnt" path="/handResult/" exported="true"/>
+    <image id="jmxy3c" name="z0.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3d" name="z1.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3e" name="z2.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3f" name="z3.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3g" name="z4.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3h" name="z5.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3i" name="z6.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3j" name="z7.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3k" name="z8.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3l" name="z9.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3m" name="zjia.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <font id="jmxy3n" name="lose.fnt" path="/handResult/" exported="true"/>
+    <image id="jmxy3o" name="f0.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3p" name="f1.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3q" name="f2.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3r" name="f3.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3s" name="f4.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3t" name="f5.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3u" name="f6.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3v" name="f7.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3w" name="f8.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3x" name="f9.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3y" name="fjian.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy3z" name="结算-总结算标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <component id="jmxy40" name="back_hall_button.xml" path="/gameOver/"/>
+    <image id="jmxy41" name="an_fh.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <component id="jmxy42" name="hand_result_player.xml" path="/handResult/"/>
+    <image id="jmxy43" name="hu.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy44" name="结算-胜利标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <component id="jmxy45" name="again_button.xml" path="/handResult/"/>
+    <image id="jmxy46" name="an_jxyx.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <component id="jmxy47" name="share_button.xml" path="/handResult/"/>
+    <image id="jmxy48" name="an_wxfx.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy49" name="cjfj_di_f.png" path="/roomRule/resource/"/>
+    <image id="jmxy4a" name="cjfj_di_y.png" path="/roomRule/resource/"/>
+    <image id="jmxy4b" name="cjfj_di_y1.png" path="/roomRule/resource/"/>
+    <image id="jmxy4c" name="cjfj_gou.png" path="/roomRule/resource/"/>
+    <component id="jmxy4d" name="closeBtn.xml" path="/roomRule/resource/"/>
+    <image id="jmxy4e" name="ty_btnClose.png" path="/roomRule/resource/"/>
+    <image id="jmxy4f" name="ty_tanchuang2.png" path="/roomRule/resource/" scale="9grid" scale9grid="240,238,22,37" gridTile="16"/>
+    <image id="jmxy4g" name="游戏内游戏规则.jpg" path="/roomRule/resource/"/>
+    <component id="jmxy4h" name="checkBox.xml" path="/roomRule/"/>
+    <component id="jmxy4i" name="radioButton.xml" path="/roomRule/"/>
+    <component id="jmxy4j" name="room_rule_view.xml" path="/roomRule/" exported="true"/>
+    <component id="jmxy4k" name="back.xml" path="/"/>
+    <image id="jmxy4l" name="pjhf_fanhui.png" path="/"/>
+    <component id="jmxy4m" name="spaceBtn.xml" path="/roomRule/" exported="true"/>
+    <image id="jmxy4n" name="dajia_da.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4o" name="dui_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4p" name="dui_dachu.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4q" name="dui_gang.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4r" name="dui_hua.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4s" name="dui_shu.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4t" name="fengquan.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4u" name="shang_shu.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4v" name="skin1_mjback_6.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4w" name="skin1_mjback_7.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4x" name="sx_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4y" name="sx_dachu.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy4z" name="sx_gang.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy50" name="sx_huapai.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy51" name="wo_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy52" name="wo_dachu.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy53" name="wo_gang.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy54" name="wo_huapai.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy55" name="wo_shou.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy56" name="xia_shu.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
+    <image id="jmxy57" name="dajia_da.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy58" name="dui_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy59" name="dui_dachu.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5a" name="dui_gang.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5b" name="dui_hua.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5c" name="dui_shu.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5d" name="fengquan.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5e" name="shang_shu.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5f" name="skin1_mjback_6.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5g" name="skin1_mjback_7.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5h" name="sx_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5i" name="sx_dachu.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5j" name="sx_gang.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5k" name="sx_huapai.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5l" name="wo_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5m" name="wo_dachu.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5n" name="wo_gang.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5o" name="wo_huapai.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5p" name="wo_shou.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5q" name="xia_shu.png" path="/大丰麻将美术改版/2 游戏内/切图/2pai/"/>
+    <image id="jmxy5r" name="0.png" path="/大丰麻将美术改版/2 游戏内/切图/4g/"/>
+    <image id="jmxy5s" name="1.png" path="/大丰麻将美术改版/2 游戏内/切图/4g/"/>
+    <image id="jmxy5t" name="2.png" path="/大丰麻将美术改版/2 游戏内/切图/4g/"/>
+    <image id="jmxy5u" name="3.png" path="/大丰麻将美术改版/2 游戏内/切图/4g/"/>
+    <image id="jmxy5v" name="bk_guoqin.png" path="/大丰麻将美术改版/2 游戏内/切图/bk_特色边框/"/>
+    <image id="jmxy5w" name="bk_shequ.png" path="/大丰麻将美术改版/2 游戏内/切图/bk_特色边框/"/>
+    <image id="jmxy5x" name="bk_xiongmao.png" path="/大丰麻将美术改版/2 游戏内/切图/bk_特色边框/"/>
+    <image id="jmxy5y" name="bk_zhonqiu.png" path="/大丰麻将美术改版/2 游戏内/切图/bk_特色边框/"/>
+    <image id="jmxy5z" name="dian.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy60" name="dl.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy61" name="dw_dian.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy62" name="dw_dian_h.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy63" name="dw_qian.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy64" name="dw_qian_h.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy65" name="dw_wan.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy66" name="dw_wan_h.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy67" name="dw_yi.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy68" name="dw_yi_h.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy69" name="dyj.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6a" name="dzhh.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6b" name="fgx.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6c" name="fpao.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6d" name="guang.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6e" name="h.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6f" name="hupai.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6g" name="hz.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6h" name="l.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6i" name="pd.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6j" name="pdhui.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6k" name="s.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6l" name="shi.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6m" name="shibai.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6n" name="shudban.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6o" name="shufen.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6p" name="shuye.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6q" name="sldban.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6r" name="zimo.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6s" name="zjie.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6t" name="zjps.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6u" name="zjsbg.jpg" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6v" name="zon.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6w" name="zsuan.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
+    <image id="jmxy6x" name="bq.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy6y" name="bq_1.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy6z" name="dyu.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy70" name="dyu_1.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy71" name="fgx.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy72" name="fs.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy73" name="jlu.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy74" name="jlu_1.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy75" name="ltbg.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy76" name="paopao_qt.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy77" name="paopao_zji.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy78" name="txk_qt.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy79" name="txk_zji.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy7a" name="you.png" path="/大丰麻将美术改版/2 游戏内/切图/l_聊天/"/>
+    <image id="jmxy7b" name="beiban.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7c" name="fengge.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7d" name="guanbi.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7e" name="gze.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7f" name="jds.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7g" name="jds_hui.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7h" name="jdtkon.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7i" name="jdtman.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7j" name="kgps.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7k" name="pls.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7l" name="pls_hui.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7m" name="shuipinx.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7n" name="sqjs.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7o" name="syin.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7p" name="szgb.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7q" name="tcfj.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7r" name="yxgze.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7s" name="yyue.png" path="/大丰麻将美术改版/2 游戏内/切图/s_设置/"/>
+    <image id="jmxy7t" name="suit1.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy7u" name="suit11.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy7v" name="suit12.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy7w" name="suit13.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy7x" name="suit14.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy7y" name="suit15.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy7z" name="suit16.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy80" name="suit17.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy81" name="suit18.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy82" name="suit19.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy83" name="suit2.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy84" name="suit21.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy85" name="suit22.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy86" name="suit23.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy87" name="suit24.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy88" name="suit25.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy89" name="suit26.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8a" name="suit27.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8b" name="suit28.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8c" name="suit29.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8d" name="suit3.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8e" name="suit31.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8f" name="suit32.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8g" name="suit33.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8h" name="suit34.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8i" name="suit4.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8j" name="suit41.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8k" name="suit42.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8l" name="suit43.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8m" name="suit5.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8n" name="suit51.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8o" name="suit52.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8p" name="suit53.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8q" name="suit54.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8r" name="suit55.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8s" name="suit56.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8t" name="suit57.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8u" name="suit58.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8v" name="suit6.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8w" name="suit7.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8x" name="suit8.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8y" name="suit9.png" path="/大丰麻将美术改版/2 游戏内/切图/tiles/"/>
+    <image id="jmxy8z" name="butongyi.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy90" name="gou.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy91" name="jsfj.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy92" name="tongyi.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy93" name="wenhao.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy94" name="x.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy95" name="yxgz.png" path="/大丰麻将美术改版/2 游戏内/切图/t_弹窗/"/>
+    <image id="jmxy96" name="dj_bb.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy97" name="dj_ganbei.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy98" name="dj_hj.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy99" name="dj_hongqi.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9a" name="dj_jd.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9b" name="dj_meigui.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9c" name="dj_mmd.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9d" name="dj_qj.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9e" name="dj_tuoxie.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9f" name="dj_xin.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9g" name="dj_zuqiu.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9h" name="fgx.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9i" name="gouhao.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9j" name="gouk.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9k" name="gps.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9l" name="y_djk.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9m" name="y_mlz.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9n" name="y_nan.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9o" name="y_nk.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9p" name="y_nv.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9q" name="y_sz.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9r" name="y_tcfj.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9s" name="y_txk.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9t" name="y_wk.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9u" name="y_xxk.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9v" name="y_zs.png" path="/大丰麻将美术改版/2 游戏内/切图/y_用户信息/"/>
+    <image id="jmxy9w" name="dwtb.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <image id="jmxy9x" name="hon.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <image id="jmxy9y" name="lv.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <image id="jmxy9z" name="shouzhi.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <image id="jmxya0" name="tcxxk.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
+    <image id="jmxya1" name="chi.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
+    <image id="jmxya2" name="an_yuyin.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxya3" name="bg1.jpg" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxya4" name="bg2.jpg" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxya5" name="bgUp.png" path="/大丰麻将美术改版/2 游戏内/切图/" scale="9grid" scale9grid="170,9,16,6" gridTile="16"/>
+    <image id="jmxya6" name="bgyc_yc1.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxya7" name="bgyc_yc2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxya8" name="bgyxm_df1.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxya9" name="bgyxm_df2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyaa" name="bgyxm_dt1.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyab" name="bgyxm_dt2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyac" name="dfppl_1.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyad" name="dfppl_2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyae" name="dian.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyaf" name="dian2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyag" name="dian3.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyah" name="fanhui.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyai" name="fenquanbg.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyaj" name="fgxian.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyak" name="hufgx.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyal" name="jiantou.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyam" name="jttouyin.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyan" name="shouzhi.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyao" name="tcxxk.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyap" name="ts_dui.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyaq" name="wifi.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyar" name="wifi2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyas" name="zhouye.jpg" path="/大丰麻将美术改版/2 游戏内/切图/"/>
+    <image id="jmxyat" name="di1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyau" name="di11.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyav" name="dian.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyaw" name="di_l.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyax" name="di_l1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyay" name="di_r.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyaz" name="di_r1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb0" name="dl.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb1" name="dyj.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb2" name="guang.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb3" name="guang1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb4" name="h.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb5" name="hz.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb6" name="Js_zjf.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb7" name="Js_zjf1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb8" name="l.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyb9" name="s.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxyba" name="shi.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxybb" name="shibai.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxybc" name="shufen.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxybd" name="shuye.png" path="/大丰麻将美术改版/2 游戏内/切图0301/j_结算/"/>
+    <image id="jmxybe" name="di_hu.png" path="/大丰麻将美术改版/2 游戏内/切图0301/出牌按钮/"/>
+    <image id="jmxybf" name="hu.png" path="/大丰麻将美术改版/2 游戏内/切图0301/出牌按钮/"/>
+    <image id="jmxybg" name="an_chatin.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybh" name="an_gengduo.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybi" name="bg1.jpg" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybj" name="bg2.jpg" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybk" name="fpao.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybl" name="huabg.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybm" name="huabg1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybn" name="hupai.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybo" name="jiantou.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybp" name="jttouyin.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybq" name="sldban.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybr" name="sldban1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybs" name="tb_ting.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybt" name="tb_ting1.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybu" name="ts_chi.png" path="/大丰麻将美术改版/2 游戏内/切图0301/" exported="true"/>
+    <image id="jmxybv" name="ts_dui.png" path="/大丰麻将美术改版/2 游戏内/切图0301/" exported="true"/>
+    <image id="jmxybw" name="ts_shang.png" path="/大丰麻将美术改版/2 游戏内/切图0301/" exported="true"/>
+    <image id="jmxybx" name="ts_xia.png" path="/大丰麻将美术改版/2 游戏内/切图0301/" exported="true"/>
+    <image id="jmxyby" name="zimo.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxybz" name="zjsbg.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxyc0" name="zjsbg_di.png" path="/大丰麻将美术改版/2 游戏内/切图0301/"/>
+    <image id="jmxyc1" name="chi.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc2" name="cpbg_9gong.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc3" name="di_cpg.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc4" name="di_guo.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc5" name="di_hu.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc6" name="di_ting.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc7" name="gang.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc8" name="guo.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyc9" name="hu.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxyca" name="pen.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <image id="jmxycb" name="tin.png" path="/大丰麻将美术改版/2 游戏内/动效/出牌按钮/"/>
+    <misc id="jmxycc" name="Effects_zi_tishi_zhua.unitypackage" path="/大丰麻将美术改版/2 游戏内/动效/"/>
+    <misc id="jmxycd" name="Effects_zi_zhua.unitypackage" path="/大丰麻将美术改版/2 游戏内/动效/"/>
+    <image id="jmxyce" name="打牌界面1.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxycf" name="打牌界面标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxycg" name="结算-失败0228.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxych" name="结算-总结算0228.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxyci" name="结算-总结算0228标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxycj" name="结算-胜利0228.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxyck" name="结算-胜利0228标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxycl" name="结算-荒庄0228.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/效果图0301/"/>
+    <image id="jmxycm" name="gps.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycn" name="gps标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyco" name="j_解散房间.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycp" name="j_解散房间_提示.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycq" name="j_解散房间_提示标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycr" name="j_解散房间标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycs" name="j_金币场-结算.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyct" name="全摆牌.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycu" name="全摆牌标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycv" name="出牌.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycw" name="吃牌加取消.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycx" name="吃胡提示框.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycy" name="大按钮.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxycz" name="录像按钮增加手图.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd0" name="标志改效果图.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd1" name="游戏内游戏规则.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd2" name="点击查看游戏规则.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd3" name="牌墙标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd4" name="用户信息-0326.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd5" name="用户信息-0326标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd6" name="用户信息-别人.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd7" name="用户信息-本人.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd8" name="用户信息-标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyd9" name="结算-失败.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyda" name="结算-失败标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydb" name="结算-总结算.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydc" name="结算-总结算0326.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydd" name="结算-总结算2人.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxyde" name="结算-总结算2人标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydf" name="结算-胜利.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydg" name="结算-胜利0326.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydh" name="结算-荒庄.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydi" name="结算-荒庄标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydj" name="聊天短语.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydk" name="聊天短语标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydl" name="聊天表情.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydm" name="聊天表情标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydn" name="聊天记录.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydo" name="聊天记录标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydp" name="行牌箭头.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydq" name="设置.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <image id="jmxydr" name="设置标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
+    <misc id="jmxyds" name="biaoqing01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/biaoqing01/"/>
+    <misc id="jmxydt" name="biaoqing01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/biaoqing01/"/>
+    <image id="jmxydu" name="biaoqing01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/biaoqing01/"/>
+    <misc id="jmxydv" name="chouyan01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/chouyan01/"/>
+    <misc id="jmxydw" name="chouyan01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/chouyan01/"/>
+    <image id="jmxydx" name="chouyan01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/chouyan01/"/>
+    <misc id="jmxydy" name="dabomei.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/dabomei/"/>
+    <misc id="jmxydz" name="dabomei.json" path="/大丰麻将美术改版/2 游戏内/表情动画/dabomei/"/>
+    <image id="jmxye0" name="dabomei.png" path="/大丰麻将美术改版/2 游戏内/表情动画/dabomei/"/>
+    <misc id="jmxye1" name="daxiao01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/daxiao01/"/>
+    <misc id="jmxye2" name="daxiao01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/daxiao01/"/>
+    <image id="jmxye3" name="daxiao01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/daxiao01/"/>
+    <misc id="jmxye4" name="fahuo01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/fahuo01/"/>
+    <misc id="jmxye5" name="fahuo01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/fahuo01/"/>
+    <image id="jmxye6" name="fahuo01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/fahuo01/"/>
+    <misc id="jmxye7" name="jingya01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/jingya01/"/>
+    <misc id="jmxye8" name="jingya01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/jingya01/"/>
+    <image id="jmxye9" name="jingya01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/jingya01/"/>
+    <misc id="jmxyea" name="koubishi01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/koubishi01/"/>
+    <misc id="jmxyeb" name="koubishi01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/koubishi01/"/>
+    <image id="jmxyec" name="koubishi01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/koubishi01/"/>
+    <misc id="jmxyed" name="lingbiyi01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/lingbiyi01/"/>
+    <misc id="jmxyee" name="lingbiyi01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/lingbiyi01/"/>
+    <image id="jmxyef" name="lingbiyi01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/lingbiyi01/"/>
+    <misc id="jmxyeg" name="liubixue01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/liubixie01/"/>
+    <misc id="jmxyeh" name="liubixue01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/liubixie01/"/>
+    <image id="jmxyei" name="liubixue01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/liubixie01/"/>
+    <misc id="jmxyej" name="liuhan01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/liuhan01/"/>
+    <misc id="jmxyek" name="liuhan01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/liuhan01/"/>
+    <image id="jmxyel" name="liuhan01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/liuhan01/"/>
+    <misc id="jmxyem" name="liulei01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/liulei01/"/>
+    <misc id="jmxyen" name="liulei01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/liulei01/"/>
+    <image id="jmxyeo" name="liulei01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/liulei01/"/>
+    <misc id="jmxyep" name="qinqin01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/qinqin01/"/>
+    <misc id="jmxyeq" name="qinqin01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/qinqin01/"/>
+    <image id="jmxyer" name="qinqin01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/qinqin01/"/>
+    <misc id="jmxyes" name="shaoxiang01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/shaoxiang01/"/>
+    <misc id="jmxyet" name="shaoxiang01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/shaoxiang01/"/>
+    <image id="jmxyeu" name="shaoxiang01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/shaoxiang01/"/>
+    <misc id="jmxyev" name="yinxiao01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/yingxiao01/"/>
+    <misc id="jmxyew" name="yinxiao01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/yingxiao01/"/>
+    <image id="jmxyex" name="yinxiao01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/yingxiao01/"/>
+    <misc id="jmxyey" name="zan01.atlas.txt" path="/大丰麻将美术改版/2 游戏内/表情动画/zan01/"/>
+    <misc id="jmxyez" name="zan01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/zan01/"/>
+    <image id="jmxyf0" name="zan01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/zan01/"/>
+    <component id="jmxyf1" name="desk.xml" path="/" exported="true"/>
+    <component id="jmxyf2" name="peng_button.xml" path="/"/>
+    <image id="jmxyf3" name="bg.png" path="/"/>
+    <component id="jmxyf4" name="game_over.xml" path="/" exported="true"/>
+    <component id="jmxyf5" name="hand_result.xml" path="/" exported="true"/>
+    <component id="jmxyf6" name="Component1.xml" path="/"/>
+  </resources>
+  <publish name="dafeng"/>
+</packageDescription>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" opaque="false" designImageLayer="1">
+  <displayList>
+    <image id="n11_fxwe" name="bg" src="jmxy2f" fileName="大丰麻将美术改版/2 游戏内/切图/hukk.png" xy="574,145" pivot="0.5,0" anchor="true" size="124,165">
+      <relation target="n15_fxwe" sidePair="height-height,width-width"/>
+    </image>
+    <list id="n15_fxwe" name="list" xy="537,196" pivot="0.5,0" size="69,108" layout="flow_hz" overflow="scroll" lineItemCount="4" defaultItem="ui://397phochjmxy31" align="center" autoClearItems="true">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <text id="n16_fxwe" name="num" xy="517,154" size="105,34" fontSize="26" color="#fcdfbb" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#833330" strokeSize="2" text="5张"/>
+  </displayList>
+</component>

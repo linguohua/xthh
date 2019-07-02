@@ -20,6 +20,9 @@
     <image id="b75tg" name="ty_btn_cd.png" path="/resource/" exported="true"/>
     <image id="b75th" name="ty_btn_hd.png" path="/resource/" exported="true" scale="9grid" scale9grid="37,18,10,36"/>
     <image id="b75ti" name="ty_btn_lvd.png" path="/resource/" exported="true" scale="9grid" scale9grid="41,18,4,36"/>
+    <image id="jmxyj" name="boy_img.png" path="/resource/" exported="true"/>
+    <image id="jmxyk" name="girl_img.png" path="/resource/" exported="true"/>
+    <image id="jmxyl" name="txk_wx80.png" path="/resource/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

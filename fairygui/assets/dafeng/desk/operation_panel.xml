@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,130" opaque="false" scroll="horizontal" designImageOffsetY="-380">
+  <displayList>
+    <image id="n11_fxwe" name="n11" src="jmxy2b" fileName="大丰麻将美术改版/2 游戏内/切图/出牌按钮/cpbg_9gong.png" xy="966,7" size="33,113">
+      <relation target="n3_fxwe" sidePair="width-width,left-left"/>
+    </image>
+    <list id="n3_fxwe" name="buttonList" xy="966,-2" pivot="1,0" size="29,136" layout="row" overflow="scroll" scroll="horizontal" defaultItem="ui://397phochjmxy3" align="right" vAlign="middle"/>
+  </displayList>
+</component>

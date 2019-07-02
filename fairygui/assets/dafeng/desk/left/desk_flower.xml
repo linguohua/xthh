@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="40,300" opaque="false" designImage="ui://397phochjmxyr" designImageOffsetX="-180" designImageOffsetY="-160" designImageLayer="1">
+  <displayList>
+    <component id="n96_fxwe" name="n1" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,0" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n97_fxwe" name="n2" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,24" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n98_fxwe" name="n3" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,48" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n99_fxwe" name="n4" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,72" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n100_fxwe" name="n5" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,96" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n101_fxwe" name="n6" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,120" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n102_fxwe" name="n7" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,144" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n103_fxwe" name="n8" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,168" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n104_fxwe" name="n9" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,192" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n105_fxwe" name="n10" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,216" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n106_fxwe" name="n11" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,240" size="51,46" scale="0.7,0.7" visible="false"/>
+    <component id="n107_fxwe" name="n12" src="jmxy1c" fileName="mahjong_left/mahjong_left_luo.xml" xy="5,264" size="51,46" scale="0.7,0.7" visible="false"/>
+  </displayList>
+</component>

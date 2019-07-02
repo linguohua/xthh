@@ -107,44 +107,44 @@ export class LobbyView extends cc.Component {
         }
     }
     private initView(): void {
-        const friendBtn = this.view.getChild("n1");
-        friendBtn.onClick(this.onFriendClick, this);
+        const personalRoomBtn = this.view.getChild("personalRoomBtn");
+        personalRoomBtn.onClick(this.onCreateRoom, this);
 
-        const createBtn = this.view.getChild("n4");
-        createBtn.onClick(this.onCreateClick, this);
+        // const createBtn = this.view.getChild("n4");
+        // createBtn.onClick(this.onCreateClick, this);
 
-        const coinBtn = this.view.getChild("n5");
-        coinBtn.onClick(this.onCoinClick, this);
+        // const coinBtn = this.view.getChild("n5");
+        // coinBtn.onClick(this.onCoinClick, this);
 
-        //--const listView = this.view.getChild("n29")
-        const dfTestBtn = this.view.getChild("n8");
-        dfTestBtn.onClick(this.openRecordView, this);
+        // //--const listView = this.view.getChild("n29")
+        // const dfTestBtn = this.view.getChild("n8");
+        // dfTestBtn.onClick(this.openRecordView, this);
 
-        const emailBtn = this.view.getChild("n9");
-        emailBtn.onClick(this.openEmailView, this);
+        // const emailBtn = this.view.getChild("n9");
+        // emailBtn.onClick(this.openEmailView, this);
 
-        const joinRoomBtn = this.view.getChild("n12");
-        joinRoomBtn.onClick(this.onJoinRoom, this);
+        // const joinRoomBtn = this.view.getChild("n12");
+        // joinRoomBtn.onClick(this.onJoinRoom, this);
 
-        const createRoom = this.view.getChild("createRoom");
-        createRoom.onClick(this.onCreateRoom, this);
+        // const createRoom = this.view.getChild("createRoom");
+        // createRoom.onClick(this.onCreateRoom, this);
 
-        const returnGameBtn = this.view.getChild("returnGameBtn");
-        returnGameBtn.onClick(this.onReturnGameBtnClick, this);
+        // const returnGameBtn = this.view.getChild("returnGameBtn");
+        // returnGameBtn.onClick(this.onReturnGameBtnClick, this);
 
-        const userInfo = this.view.getChild("userInfo").asCom;
-        this.initInfoView(userInfo);
-        userInfo.onClick(this.openUserInfoView, this);
+        // const userInfo = this.view.getChild("userInfo").asCom;
+        // this.initInfoView(userInfo);
+        // userInfo.onClick(this.openUserInfoView, this);
 
-        const bg = this.view.getChild('n21');
-        bg.setSize(cc.winSize.width, cc.winSize.width * 640 / 1136);
-        const y = -(cc.winSize.width * 640 / 1136 - cc.winSize.height) / 2;
-        const x = (cc.winSize.height * 1136 / 640 / 2) - cc.winSize.width / 2;
-        bg.setPosition(x, y);
+        // const bg = this.view.getChild('n21');
+        // bg.setSize(cc.winSize.width, cc.winSize.width * 640 / 1136);
+        // const y = -(cc.winSize.width * 640 / 1136 - cc.winSize.height) / 2;
+        // const x = (cc.winSize.height * 1136 / 640 / 2) - cc.winSize.width / 2;
+        // bg.setPosition(x, y);
 
-        this.lm.eventTarget.on(`checkRoomInfo`, this.checkRoomInfo, this);
+        // this.lm.eventTarget.on(`checkRoomInfo`, this.checkRoomInfo, this);
 
-        this.checkRoomInfo();
+        // this.checkRoomInfo();
 
     }
 

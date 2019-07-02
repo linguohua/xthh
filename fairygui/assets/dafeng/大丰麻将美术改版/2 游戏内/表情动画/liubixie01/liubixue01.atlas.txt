@@ -1,0 +1,83 @@
+
+liubixue01.png
+size: 157,157
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 2, 72
+  size: 97, 83
+  orig: 97, 83
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 2, 29
+  size: 84, 41
+  orig: 84, 41
+  offset: 0, 0
+  index: -1
+003
+  rotate: false
+  xy: 2, 2
+  size: 55, 25
+  orig: 55, 25
+  offset: 0, 0
+  index: -1
+004
+  rotate: true
+  xy: 88, 15
+  size: 55, 19
+  orig: 55, 19
+  offset: 0, 0
+  index: -1
+005
+  rotate: true
+  xy: 109, 23
+  size: 55, 24
+  orig: 55, 24
+  offset: 0, 0
+  index: -1
+006
+  rotate: true
+  xy: 135, 23
+  size: 55, 20
+  orig: 55, 20
+  offset: 0, 0
+  index: -1
+007
+  rotate: false
+  xy: 101, 80
+  size: 43, 34
+  orig: 43, 34
+  offset: 0, 0
+  index: -1
+008
+  rotate: false
+  xy: 101, 116
+  size: 45, 39
+  orig: 45, 39
+  offset: 0, 0
+  index: -1
+009
+  rotate: false
+  xy: 59, 4
+  size: 19, 23
+  orig: 19, 23
+  offset: 0, 0
+  index: -1
+010
+  rotate: false
+  xy: 109, 6
+  size: 19, 15
+  orig: 19, 15
+  offset: 0, 0
+  index: -1
+011
+  rotate: true
+  xy: 148, 136
+  size: 19, 7
+  orig: 19, 7
+  offset: 0, 0
+  index: -1

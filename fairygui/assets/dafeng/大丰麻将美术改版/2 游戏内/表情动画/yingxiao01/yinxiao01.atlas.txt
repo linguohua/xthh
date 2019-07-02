@@ -1,0 +1,55 @@
+
+yinxiao01.png
+size: 124,124
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+001
+  rotate: false
+  xy: 2, 39
+  size: 97, 83
+  orig: 97, 83
+  offset: 0, 0
+  index: -1
+002
+  rotate: false
+  xy: 2, 14
+  size: 74, 23
+  orig: 74, 23
+  offset: 0, 0
+  index: -1
+003
+  rotate: true
+  xy: 57, 2
+  size: 10, 13
+  orig: 10, 13
+  offset: 0, 0
+  index: -1
+004
+  rotate: true
+  xy: 101, 47
+  size: 75, 18
+  orig: 75, 18
+  offset: 0, 0
+  index: -1
+005
+  rotate: false
+  xy: 2, 6
+  size: 53, 6
+  orig: 53, 6
+  offset: 0, 0
+  index: -1
+006
+  rotate: true
+  xy: 78, 12
+  size: 25, 15
+  orig: 25, 15
+  offset: 0, 0
+  index: -1
+007
+  rotate: true
+  xy: 95, 8
+  size: 29, 14
+  orig: 29, 14
+  offset: 0, 0
+  index: -1

@@ -21,7 +21,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public eventTarget: cc.EventTarget;
 
     public msgCenter: MsgCenter;
-    // 用于挂载子游戏模块的节点，在离开子游戏模块并回到大厅后销毁
     private gameNode: cc.Node;
     private gameLoader: GResLoaderImpl;
     private view: fgui.GObject;
