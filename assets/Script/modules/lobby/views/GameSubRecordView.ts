@@ -220,7 +220,8 @@ export class GameSubRecordView extends cc.Component {
         const params: GameModuleLaunchArgs = {
             jsonString: "replay",
             userInfo: myUser,
-            roomInfo: null,
+            createRoomParams: null,
+            joinRoomParams: null,
             record: record
         };
 

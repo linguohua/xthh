@@ -1,5 +1,6 @@
 import { DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath } from "../lcore/LCoreExports";
 import { proto } from "../proto/protoLobby";
+import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
 
@@ -16,6 +17,7 @@ interface QuicklyCreateViewInterface {
     saveConfig: Function;
 }
 
+const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
 /**
  * NewRoomView 创建房间界面
  */
@@ -33,6 +35,12 @@ export class NewRoomView extends cc.Component {
     private ruleViews: { [key: string]: RuleView } = {};
 
     private path: NewRoomViewPath = NewRoomViewPath.Normal;
+
+    private gameTypeRadioBtns: fgui.GButton[] = [];
+    private anteRadioBtns: fgui.GButton[] = [];
+    private roundRadioBtns: fgui.GButton[] = [];
+    private joinRadioBtns: fgui.GButton[] = [];
+    private playerRequireRadioBtns: fgui.GButton[] = [];
 
     // private quicklyCreateView: QuicklyCreateViewInterface;
 
@@ -134,6 +142,29 @@ export class NewRoomView extends cc.Component {
     }
     private initPersonalRoom(): void {
         const personalRoomView = this.view.getChild("srfCom").asCom;
+        for (let i = 0; i < 3; i++) {
+            this.gameTypeRadioBtns[i] = personalRoomView.getChild(`type${i}`).asButton;
+            this.gameTypeRadioBtns[i].onClick(this.onGameTypeRadioBtnClick, this);
+            this.gameTypeRadioBtns[i].data = i;
+            this.gameTypeRadioBtns[i].getChild("text").text = gameNames[i];
+
+            this.anteRadioBtns[i] = personalRoomView.getChild(`baseScore${i}`).asButton;
+            this.anteRadioBtns[i].onClick(this.onAnteRadioBtnClick, this);
+            this.anteRadioBtns[i].data = i;
+
+            this.roundRadioBtns[i] = personalRoomView.getChild(`round${i}`).asButton;
+            this.roundRadioBtns[i].onClick(this.onRoundRadioBtnClick, this);
+            this.roundRadioBtns[i].data = i;
+
+            this.joinRadioBtns[i] = personalRoomView.getChild(`permission${i}`).asButton;
+            this.joinRadioBtns[i].onClick(this.onJoinRadioBtnClick, this);
+            this.joinRadioBtns[i].data = i;
+
+            this.playerRequireRadioBtns[i] = personalRoomView.getChild(`playerNumber${i}`).asButton;
+        }
+
+        // const gameConfigString = DataStore.getString("gameConfig");
+        // const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigString);
 
         const createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
         createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
@@ -160,6 +191,22 @@ export class NewRoomView extends cc.Component {
     private onEnterBtnClick(): void {
         Logger.debug("onEnterBtnClick");
 
+    }
+
+    private onGameTypeRadioBtnClick(ev: fgui.Event): void {
+        Logger.debug("onGameTypeRadioBtnClick:",  <string>ev.initiator.data);
+    }
+
+    private onAnteRadioBtnClick(ev: fgui.Event): void {
+        Logger.debug("onAnteRadioBtnClick:",  <string>ev.initiator.data);
+    }
+
+    private onRoundRadioBtnClick(ev: fgui.Event): void {
+        Logger.debug("onRoundRadioBtnClick:",  <string>ev.initiator.data);
+    }
+
+    private onJoinRadioBtnClick(ev: fgui.Event): void {
+        Logger.debug("onJoinRadioBtnClick:",  <string>ev.initiator.data);
     }
 
     // private onListItemClicked(item: fgui.GObject, evt: fgui.Event): void {
