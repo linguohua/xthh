@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="600,30" extention="ProgressBar" bgColor="#330000">
+  <displayList>
+    <image id="n0_kdqv" name="n0" src="b9xz7" fileName="resource/dl_jdt_di.png" xy="0,0" size="600,30">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_kdqv" name="bar" src="b9xz6" fileName="resource/dl_jdt.png" xy="0,2" size="600,25"/>
+    <text id="n2_kdqv" name="title" xy="0,2" size="600,30" fontSize="25" color="#000033" align="center" vAlign="middle" autoSize="none" text="50%">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+  </displayList>
+  <ProgressBar/>
+</component>

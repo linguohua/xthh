@@ -14,6 +14,11 @@
     <component id="vpcua" name="phoneNumLoginBtn.xml" path="/btn/"/>
     <component id="vpcub" name="wechatLoginBtn.xml" path="/btn/"/>
     <component id="vpcuc" name="visitorLoginBtn.xml" path="/btn/"/>
+    <image id="b9xzd" name="d_登录1.jpg" path="/design/"/>
+    <image id="b9xze" name="d_登录1标注.jpg" path="/design/"/>
+    <component id="b9xzf" name="downloadProgress.xml" path="/"/>
+    <image id="b9xzg" name="dl_jdt_di.png" path="/resource/" scale="9grid" scale9grid="9,7,15,10"/>
+    <image id="b9xzh" name="dl_jdt.png" path="/resource/" scale="9grid" scale9grid="15,8,4,9"/>
   </resources>
   <publish name="lobby_login"/>
 </packageDescription>

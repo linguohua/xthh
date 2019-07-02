@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" bgColor="#000000">
+  <displayList>
+    <component id="n0_kq45" name="n0" src="b9xz3" fileName="downloadProgress.xml" xy="268,259">
+      <ProgressBar value="50" max="100"/>
+    </component>
+  </displayList>
+</component>

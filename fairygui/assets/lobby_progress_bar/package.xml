@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="3qt5rlyj" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="b9xz2" name="progressBar.xml" path="/" exported="true"/>
+    <component id="b9xz3" name="downloadProgress.xml" path="/" exported="true"/>
+    <component id="b9xz4" name="rolling.xml" path="/" exported="true"/>
+    <image id="b9xz5" name="rolling.png" path="/"/>
+    <image id="b9xz6" name="dl_jdt.png" path="/resource/" scale="9grid" scale9grid="15,8,4,9"/>
+    <image id="b9xz7" name="dl_jdt_di.png" path="/resource/" scale="9grid" scale9grid="9,7,15,10"/>
+    <image id="b9xz8" name="ty_loading.png" path="/resource/"/>
+  </resources>
+  <publish name="lobby_progress_bar"/>
+</packageDescription>

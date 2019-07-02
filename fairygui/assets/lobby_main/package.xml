@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="s52nz8zt" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="9f1e0" name="Main.xml" path="/" exported="true"/>
+    <image id="9f1e1" name="dt_bj.jpg" path="/resource/"/>
+    <image id="9f1e2" name="dt_btn_fx.png" path="/resource/"/>
+    <image id="9f1e3" name="dt_btn_gg.png" path="/resource/"/>
+    <image id="9f1e4" name="dt_btn_gh.png" path="/resource/"/>
+    <image id="9f1e5" name="dt_btn_hb.png" path="/resource/"/>
+    <image id="9f1e6" name="dt_btn_hy.png" path="/resource/"/>
+    <image id="9f1e7" name="dt_btn_jwh.png" path="/resource/"/>
+    <image id="9f1e8" name="dt_btn_qd.png" path="/resource/"/>
+    <image id="9f1e9" name="dt_btn_rw.png" path="/resource/"/>
+    <image id="9f1ea" name="dt_btn_sc.png" path="/resource/"/>
+    <image id="9f1eb" name="dt_btn_sz.png" path="/resource/"/>
+    <image id="9f1ec" name="dt_btn_wx.png" path="/resource/"/>
+    <image id="9f1ed" name="dt_btn_yj.png" path="/resource/"/>
+    <image id="9f1ee" name="dt_btn_zs.png" path="/resource/"/>
+    <image id="9f1ef" name="dt_ggdi.png" path="/resource/" scale="9grid" scale9grid="6,11,8,22"/>
+    <image id="9f1eg" name="dt_qp.png" path="/resource/" scale="9grid" scale9grid="64,6,5,33"/>
+    <image id="9f1eh" name="dt_rkdi1.png" path="/resource/" scale="9grid" scale9grid="22,15,11,17"/>
+    <image id="9f1ei" name="dt_rk_hbcgs.png" path="/resource/"/>
+    <image id="9f1ej" name="dt_rk_hlc.png" path="/resource/"/>
+    <image id="9f1ek" name="dt_rk_srf.png" path="/resource/"/>
+    <image id="9f1el" name="dt_zydi.png" path="/resource/" scale="9grid" scale9grid="16,9,4,18"/>
+    <image id="9f1em" name="dt_zz_d1.png" path="/resource/" scale="9grid" scale9grid="6,6,6,63"/>
+    <image id="9f1en" name="d_大厅界面.jpg" path="/design/"/>
+    <image id="9f1eo" name="d_大厅界面标注.jpg" path="/design/"/>
+    <component id="9f1ep" name="shareBtn.xml" path="/btn/"/>
+    <component id="9f1eq" name="announcementBtn.xml" path="/btn/"/>
+    <component id="9f1er" name="guildBtn.xml" path="/btn/"/>
+    <component id="9f1es" name="redEnvelopeBtn.xml" path="/btn/"/>
+    <component id="9f1et" name="friendBtn.xml" path="/btn/"/>
+    <component id="9f1eu" name="committeeBtn.xml" path="/btn/"/>
+    <component id="9f1ev" name="signBtn.xml" path="/btn/"/>
+    <component id="9f1ew" name="questBtn.xml" path="/btn/"/>
+    <component id="9f1ex" name="shopBtn.xml" path="/btn/"/>
+    <component id="9f1ey" name="settingBtn.xml" path="/btn/"/>
+    <component id="9f1ez" name="emailBtn.xml" path="/btn/"/>
+    <component id="9f1e10" name="applyAgentBtn.xml" path="/btn/"/>
+    <component id="9f1e11" name="huanlechangBtn.xml" path="/btn/"/>
+    <component id="9f1e12" name="chsBtn.xml" path="/btn/"/>
+    <component id="9f1e13" name="personalRoomBtn.xml" path="/btn/"/>
+    <component id="u4cz14" name="tipTextCom.xml" path="/"/>
+    <image id="u4cz15" name="ty_hd.png" path="/resource/"/>
+    <image id="u4cz16" name="ty_icon_fk.png" path="/resource/"/>
+    <image id="u4cz17" name="ty_icon_hld.png" path="/resource/"/>
+    <image id="u4cz18" name="dt_btn_zyjia.png" path="/resource/"/>
+    <image id="u4cz19" name="dt_zz_d2.png" path="/resource/" scale="9grid" scale9grid="6,19,12,38"/>
+    <component id="u4cz1a" name="addBtn.xml" path="/btn/"/>
+  </resources>
+  <publish name="lobby_main"/>
+</packageDescription>

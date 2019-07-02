@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://s52nz8zt9f1en" designImageAlpha="100">
+  <displayList>
+    <image id="n0_9f1e" name="bg" src="9f1e1" fileName="resource/dt_bj.jpg" xy="-124,-63" hideByEditor="true"/>
+    <image id="n25_u4cz" name="bg1" src="u4cz19" fileName="resource/dt_zz_d2.png" xy="0,570" size="1136,70"/>
+    <image id="n21_u4cz" name="bg2" src="9f1eh" fileName="resource/dt_rkdi1.png" xy="574,157" size="358,382"/>
+    <image id="n22_u4cz" name="bg3" src="9f1ef" fileName="resource/dt_ggdi.png" xy="0,78" size="1136,41"/>
+    <image id="n27_u4cz" name="bg4" src="9f1el" fileName="resource/dt_zydi.png" xy="460,23" size="150,34"/>
+    <image id="n28_u4cz" name="bg5" src="9f1el" fileName="resource/dt_zydi.png" xy="260,23" size="161,34"/>
+    <image id="n26_u4cz" name="bg6" src="9f1el" fileName="resource/dt_zydi.png" xy="49,23" size="188,34"/>
+    <image id="n23_u4cz" name="douImg" src="u4cz17" fileName="resource/ty_icon_hld.png" xy="243,17"/>
+    <image id="n24_u4cz" name="fkImg" src="u4cz16" fileName="resource/ty_icon_fk.png" xy="437,17"/>
+    <image id="n13_9f1e" name="wxImg" src="9f1ec" fileName="resource/dt_btn_wx.png" xy="195,24"/>
+    <component id="n1_9f1e" name="shareBtn" src="9f1ep" fileName="btn/shareBtn.xml" xy="783,9"/>
+    <component id="n3_9f1e" name="announcementBtn" src="9f1eq" fileName="btn/announcementBtn.xml" xy="990,408"/>
+    <component id="n5_9f1e" name="guildBtn" src="9f1er" fileName="btn/guildBtn.xml" xy="980,537"/>
+    <component id="n6_9f1e" name="redEnvelopeBtn" src="9f1es" fileName="btn/redEnvelopeBtn.xml" xy="55,349"/>
+    <component id="n7_9f1e" name="friendBtn" src="9f1et" fileName="btn/friendBtn.xml" xy="521,580"/>
+    <component id="n8_9f1e" name="committeeBtn" src="9f1eu" fileName="btn/committeeBtn.xml" xy="820,580"/>
+    <component id="n9_9f1e" name="signBtn" src="9f1ev" fileName="btn/signBtn.xml" xy="217,581"/>
+    <component id="n10_9f1e" name="questBtn" src="9f1ew" fileName="btn/questBtn.xml" xy="674,581"/>
+    <component id="n11_9f1e" name="shopBtn" src="9f1ex" fileName="btn/shopBtn.xml" xy="61,537"/>
+    <component id="n12_9f1e" name="settingBtn" src="9f1ey" fileName="btn/settingBtn.xml" xy="860,10"/>
+    <component id="n14_9f1e" name="emailBtn" src="9f1ez" fileName="btn/emailBtn.xml" xy="367,580"/>
+    <component id="n15_9f1e" name="applyAgentBtn" src="9f1e10" fileName="btn/applyAgentBtn.xml" xy="55,214"/>
+    <component id="n16_9f1e" name="huanlechangBtn" src="9f1e11" fileName="btn/huanlechangBtn.xml" xy="587,326"/>
+    <component id="n17_9f1e" name="chsBtn" src="9f1e12" fileName="btn/chsBtn.xml" xy="587,143"/>
+    <component id="n18_9f1e" name="personalRoomBtn" src="9f1e13" fileName="btn/personalRoomBtn.xml" xy="196,115"/>
+    <component id="n35_u4cz" name="addBtn1" src="u4cz1a" fileName="btn/addBtn.xml" xy="380,15"/>
+    <component id="n36_u4cz" name="addBtn2" src="u4cz1a" fileName="btn/addBtn.xml" xy="577,15"/>
+    <component id="n20_u4cz" name="tipTextCom" src="u4cz14" fileName="tipTextCom.xml" xy="10,496"/>
+    <loader id="n29_u4cz" name="iconLoader" xy="8,8" size="60,60" url="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83er5prllVA37yiac4Vv8ZAXwbg0Zicibn6ZjsgJ4ha0hmFBY8MUTRMnRTmSlvzPd8XJZzd0icuyGoiakj4A/132" align="center" vAlign="middle" fill="scale"/>
+    <text id="n30_u4cz" name="nameText" xy="69,28" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学"/>
+    <text id="n31_u4cz" name="douText" xy="285,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
+    <text id="n32_u4cz" name="fkText" xy="480,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
+    <text id="n33_u4cz" name="announcementText" xy="0,78" size="1136,41" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" autoSize="none" singleLine="true" text="公告内容内容内容公告内容内容内容公告内容内容内容"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="XY" target="n20_u4cz" value="11,496"/>
+    <item time="1" type="XY" target="n20_u4cz" value="11,495"/>
+    <item time="2" type="XY" target="n20_u4cz" value="11,494"/>
+    <item time="3" type="XY" target="n20_u4cz" value="11,493"/>
+    <item time="4" type="XY" target="n20_u4cz" value="11,492"/>
+    <item time="5" type="XY" target="n20_u4cz" value="11,491"/>
+    <item time="6" type="XY" target="n20_u4cz" value="11,490"/>
+    <item time="7" type="XY" target="n20_u4cz" value="11,489"/>
+    <item time="8" type="XY" target="n20_u4cz" value="11,488"/>
+    <item time="9" type="XY" target="n20_u4cz" value="11,487"/>
+    <item time="10" type="XY" target="n20_u4cz" value="11,486"/>
+    <item time="11" type="XY" target="n20_u4cz" value="11,485"/>
+    <item time="12" type="XY" target="n20_u4cz" value="11,486"/>
+    <item time="13" type="XY" target="n20_u4cz" value="11,487"/>
+    <item time="14" type="XY" target="n20_u4cz" value="11,488"/>
+    <item time="15" type="XY" target="n20_u4cz" value="11,489"/>
+    <item time="16" type="XY" target="n20_u4cz" value="11,490"/>
+    <item time="17" type="XY" target="n20_u4cz" value="11,491"/>
+    <item time="18" type="XY" target="n20_u4cz" value="11,492"/>
+    <item time="19" type="XY" target="n20_u4cz" value="11,493"/>
+    <item time="20" type="XY" target="n20_u4cz" value="11,494"/>
+    <item time="21" type="XY" target="n20_u4cz" value="11,495"/>
+    <item time="22" type="XY" target="n20_u4cz" value="11,496"/>
+    <item time="23" type="XY" target="n20_u4cz" value="11,496"/>
+  </transition>
+</component>
