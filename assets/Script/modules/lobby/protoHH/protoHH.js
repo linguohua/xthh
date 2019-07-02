@@ -305,6 +305,18 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "rule": "optional",
                             "type": "int32",
+                            "name": "type",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
                             "name": "cancel_type",
                             "id": 7,
                             "options": {

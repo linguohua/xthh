@@ -23,7 +23,7 @@ export enum ButtonDef {
     Zhua = "Effect_zi_ts_zhua"
 }
 export enum TypeOfOP {
-    Chow = 0,
+    Guo = 0,
     Pong = 1, //碰
     Kong = 2, //杠
     Hu = 3, //胡
@@ -45,13 +45,11 @@ export interface PlayerInterface {
     melds: proto.casino_xtsj.packet_sc_op_ack[];
     isRichi: boolean;
     waitDiscardReAction: boolean;
-    onChowBtnClick: Function;
     onKongBtnClick: Function;
     onSkipBtnClick: Function;
     onWinBtnClick: Function;
     onPongBtnClick: Function;
     onReadyHandBtnClick: Function;
-    onFinalDrawBtnClick: Function;
     onPlayerInfoClick: Function;
     isMe(): boolean;
     onPlayerDiscardTile(tileID: number): void;

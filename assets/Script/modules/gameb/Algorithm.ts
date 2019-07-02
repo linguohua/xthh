@@ -1,3 +1,5 @@
+import { proto } from "../lobby/protoHH/protoHH";
+
 /* tslint:disable */
 // 先把tslint关闭，等待完全修改好之后再打开
 /**
@@ -24,7 +26,7 @@ const DEF_XTSJ_ZIMO = 4;
 const DEF_XTSJ_CHAOTIAN = 5;
 const DEF_XTSJ_BUZHUOCHONG = 6;           // 不捉铳
 const DEF_XTSJ_QIANGXIAO = 7;
-const DEF_WITH_CARDS = [];
+const DEF_WITH_CARDS: number[] = [];
 
 export class Algorithm {
     private m_sMahjongs: number[] = []; // 麻将牌组(这里只有万、条、筒)
@@ -447,9 +449,9 @@ export class Algorithm {
         } else {
             //将牌没有的情况下先找将牌
             if (!bJiang && sVecPai.length >= 2 && sVecPai[1] === sVecPai[2]) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 2);
                 this.push_back(vecNextPai, sVecPai, 3, sVecPai.length);
@@ -463,10 +465,10 @@ export class Algorithm {
             }
             //三张牌组成刻子
             if (sVecPai.length >= 3 && sVecPai[1] === sVecPai[2] && sVecPai[1] === sVecPai[3]) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 3);
                 this.push_back(vecNextPai, sVecPai, 4, sVecPai.length);
@@ -480,9 +482,9 @@ export class Algorithm {
             }
             //三张组组成顺子
             if (sVecPai.length >= 3 && this.isFind(sVecPai, sVecPai[1] + 1) && this.isFind(sVecPai, sVecPai[1] + 2)) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
 
                 vecDelePai[1] = sVecPai[1];
                 vecDelePai[2] = sVecPai[1] + 1;
@@ -502,10 +504,10 @@ export class Algorithm {
 
             // 一张牌和一个赖子组成将牌
             if (!bJiang && sVecPai.length >= 1 && sVecLai.length >= 1) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 1);
                 this.push_back(vecDeleLai, sVecLai, 1, 1);
@@ -523,10 +525,10 @@ export class Algorithm {
             }
             //两张牌和一个赖子组成刻子
             if (sVecPai.length >= 2 && sVecLai.length >= 1 && sVecPai[1] === sVecPai[2]) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 2);
                 this.push_back(vecDeleLai, sVecLai, 1, 1);
@@ -548,10 +550,10 @@ export class Algorithm {
                 (((sVecPai[1] % 10 < 9) && this.isFind(sVecPai, sVecPai[1] + 1)) ||
                     ((sVecPai[1] % 10 < 8) && this.isFind(sVecPai, sVecPai[1] + 2)))) {
 
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 1);
                 this.push_back(vecDeleLai, sVecLai, 1, 1);
@@ -584,10 +586,10 @@ export class Algorithm {
             }
             //一张牌和两个赖子组成的牌
             if (sVecPai.length >= 1 && sVecLai.length >= 2) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDelePai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDelePai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 1);
                 this.push_back(vecDeleLai, sVecLai, 1, 2);
@@ -606,9 +608,9 @@ export class Algorithm {
             }
             //三张赖子组成的牌
             if (sVecLai.length >= 3) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDeleLai, sVecLai, 1, 3);
 
@@ -624,9 +626,9 @@ export class Algorithm {
             }
             //两张赖子组成将牌
             if (!bJiang && sVecLai.length >= 2) {
-                const vecNextPai = [];
-                const vecNextLai = [];
-                const vecDeleLai = [];
+                const vecNextPai: number[] = [];
+                const vecNextLai: number[] = [];
+                const vecDeleLai: number[] = [];
 
                 this.push_back(vecDeleLai, sVecLai, 1, 2);
 
@@ -645,14 +647,11 @@ export class Algorithm {
         }
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(牌结构(mahjong,index))
-    public canHuPai(v_mahjongs: number[]): ArrayClass_c {
+    public canHuPai(v_mahjongs: number[]): number[] {
         const sVecHuPai: number[] = [];
         const array = this.getArray_Pai_Lai(v_mahjongs);
-        const a = new ArrayClass_c();
-        a.bHuPai = false;
-        a.sVecHuPai = sVecHuPai;
         if (array.sVecLai.length > 1) {
-            return a;
+            return sVecHuPai;
         }
 
         const sVecJiang: number[] = [];
@@ -660,10 +659,8 @@ export class Algorithm {
         if (bHuPai) {
             this.push_back(sVecHuPai, sVecJiang, 1, 2);
         }
-        a.bHuPai = bHuPai;
-        a.sVecHuPai = sVecHuPai;
 
-        return a;
+        return sVecHuPai;
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(mahjong))
     public canHuPai_def(mahjongs: Mahjong[]): ArrayClass_c {
@@ -741,16 +738,16 @@ export class Algorithm {
                 gang_pai[i] = d.array[1];
             }
             // 先去除杠牌中的三张作为分开使用
-            let temp_pai = [];
+            let temp_pai: number[] = [];
             this.push_back(temp_pai, a.sVecPai, 1, a.sVecPai.length);
             this.pop_array(temp_pai, gang_pai)
 
-            let temp_lai = [];
+            let temp_lai: number[] = [];
             this.push_back(temp_lai, a.sVecLai, 1, a.sVecLai.length);
 
             bHuPai = this.checkHuPai(temp_pai, temp_lai, false, sVecHuPaisss, sVecJiangsss);
             if (bHuPai) {
-                const hu_pai = [];
+                const hu_pai: number[] = [];
                 this.push_back(hu_pai, gang_pai, 1, gang_pai.length);
                 this.push_back(hu_pai, sVecHuPaisss, 1, sVecHuPaisss.length);
                 this.push_back(hu_pai, sVecJiangsss, 1, 2)
@@ -768,12 +765,12 @@ export class Algorithm {
 
             temp_lai = [];
             this.push_back(temp_lai, a.sVecLai, 1, a.sVecLai.length);
-            let sVecHuPai = [];
-            const sVecJiang = [];
+            let sVecHuPai: number[] = [];
+            const sVecJiang: number[] = [];
 
             bHuPai = this.checkHuPai(temp_pai, temp_lai, false, sVecHuPai, sVecJiang)
             if (bHuPai) {
-                const hu_pai = [];
+                const hu_pai: number[] = [];
                 this.push_back(hu_pai, gang_pai, 1, gang_pai.length);
                 this.push_back(hu_pai, sVecHuPai, 1, sVecHuPai.length);
                 this.push_back(hu_pai, sVecJiang, 1, 2)
@@ -835,10 +832,10 @@ export class Algorithm {
             return true;
         } else {
             if (sVecPai.length >= 3) {
-                const vecDelePai = [];
+                const vecDelePai: number[] = [];
                 this.push_back(vecDelePai, sVecPai, 1, 3);
 
-                const vecNextPai = [];
+                const vecNextPai: number[] = [];
                 this.push_back(vecNextPai, sVecPai, 4, sVecPai.length);
 
                 let bFindLai = false;
@@ -897,9 +894,9 @@ export class Algorithm {
         }
         const size = a.sVecPai.length;
         let bTing = false;
-        const sVecPaiNext = [];
-        const sVecSavePai = [];
-        const sVecSaveJiang = [];
+        const sVecPaiNext: number[] = [];
+        const sVecSavePai: number[] = [];
+        const sVecSaveJiang: number[] = [];
 
         this.push_back(sVecPaiNext, a.sVecPai, 1, a.sVecPai.length);
         if (mahjong !== this.getMahjongLaiZi()) {
@@ -936,9 +933,9 @@ export class Algorithm {
         const size = sVecPai.length;
 
         let bTing = false;
-        const sVecPaiNext = [];
-        const sVecSavePai = [];
-        const sVecSaveJiang = [];
+        const sVecPaiNext: number[] = [];
+        const sVecSavePai: number[] = [];
+        const sVecSaveJiang: number[] = [];
 
         this.push_back(sVecPaiNext, sVecPai, 1, sVecPai.length);
         const d: ArrayClass_d = this.canGangPai_withAllEX(sVecPaiNext);
@@ -953,18 +950,17 @@ export class Algorithm {
     }
     //判断是否杠牌(遍历所有牌)
     // 参数: 有效牌组, 摊开的牌组 (牌结构(mahjong,index)), 以前放弃杠的牌
-    public canGangPai_withAll(v_mahjongs: Mahjong[], s_mahjongs: Mahjong[], f_mahjongs: number[]): ArrayClass_d {
-        const dd = new ArrayClass_d();
+    public canGangPai_withAll(v_mahjongs: number[], s_mahjongs: proto.casino_xtsj.packet_sc_op_ack[], f_mahjongs: number[]): number[] {
         let v_size = v_mahjongs.length;
         const s_size = s_mahjongs.length;
         const v_array = [];
         for (let i = 0; i < v_size; i++) {
-            v_array[i] = v_mahjongs[i].mahjong;
+            v_array[i] = v_mahjongs[i];
         }
 
-        const s_array = {}
+        const s_array: number[] = [];
         for (let i = 0; i < s_size; i++) {
-            s_array[i] = s_mahjongs[i].mahjong;
+            s_array[i] = s_mahjongs[i].cards[0];
         }
 
         if (f_mahjongs !== undefined) {
@@ -990,9 +986,9 @@ export class Algorithm {
                         array[index] = mahjong
                         index = index + 1
                         if (index >= gang_size) {
-                            dd.gang = true;
-                            dd.array = array;
-                            return dd;
+                            // dd.gang = true;
+                            // dd.array = array;
+                            return array;
                         }
                         else {
                             break
@@ -1003,17 +999,17 @@ export class Algorithm {
                         if (s_array[j] == mahjong) {
                             index = index + 1
                             if (index >= gang_size) {
-                                dd.gang = true;
-                                dd.array = array;
-                                return dd;
+                                // dd.gang = true;
+                                // dd.array = array;
+                                return array;
                             }
                         }
                     }
                 }
             }
-            dd.gang = false;
-            dd.array = array;
-            return dd;
+            // dd.gang = false;
+            // dd.array = array;
+            return [];
         }
     }
     public canGangPai_withAllEX(mahjongs: number[]): ArrayClass_d {

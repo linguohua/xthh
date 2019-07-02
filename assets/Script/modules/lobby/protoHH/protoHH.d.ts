@@ -203,12 +203,16 @@ export namespace proto {
 		interface Ipacket_cs_op_req {
 			player_id?: number;
 			op?: number;
+			type?: number;
+			card?: number;
 			cancel_type?: number;
 		}
 
 		class packet_cs_op_req implements Ipacket_cs_op_req {
 			public player_id: number;
 			public op: number;
+			public type: number;
+			public card: number;
 			public cancel_type: number;
 			constructor(properties?: casino_xtsj.Ipacket_cs_op_req);
 			public static encode(message: packet_cs_op_req): ByteBuffer;

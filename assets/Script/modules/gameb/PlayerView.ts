@@ -1146,9 +1146,6 @@ export class PlayerView {
         if (this.btnHanders === undefined) {
             this.btnHanders = {};
             const btnHanders = this.btnHanders;
-            btnHanders[ButtonDef.Chow] = () => {
-                this.player.onChowBtnClick();
-            };
             btnHanders[ButtonDef.Kong] = () => {
                 this.player.onKongBtnClick();
             };
@@ -1163,9 +1160,6 @@ export class PlayerView {
             };
             btnHanders[ButtonDef.Hu] = () => {
                 this.player.onWinBtnClick();
-            };
-            btnHanders[ButtonDef.Zhua] = () => {
-                this.player.onFinalDrawBtnClick();
             };
         }
 

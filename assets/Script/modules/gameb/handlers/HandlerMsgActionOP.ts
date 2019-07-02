@@ -37,21 +37,14 @@ export namespace HandlerMsgActionOP {
             return;
         }
         const buttonMap: string[] = [];
-        // const gpNum = haveGangOrPong(reply.card, player);
-        // switch (gpNum) {
-        //     case opNumType.Pong:
-        //         //碰
-        //         buttonMap.push(ButtonDef.Pong);
-        //         break;
-        //     case opNumType.Kong:
-        //         //杠
-        //         buttonMap.push(ButtonDef.Kong);
-        //         break;
-        //     default:
-        //     //没得操作
-        // }
+        player.m_bSaveZCHFlag = false;
+        player.m_bSaveOPGFlag = false;
+        player.m_nSaveOPGMahjong = 0;
+        player.m_bSaveOPPFlag = false;
+        player.m_nSaveOPPMahjong = 0;
         const hu = player.canHu_WithOther(room.mAlgorithm, reply.card);
         if (hu.length > 0) {
+            player.m_bSaveZCHFlag = true;
             buttonMap.push(ButtonDef.Hu);
         }
         const gang = player.canGang_WithOther(room.mAlgorithm, reply.card);
@@ -62,11 +55,15 @@ export namespace HandlerMsgActionOP {
             }
             if (room.mAlgorithm.mahjongTotal_get() > curNeedCards) {
                 buttonMap.push(ButtonDef.Kong);
+                player.m_bSaveOPGFlag = true;
+                player.m_nSaveOPGMahjong = gang[0];
             }
         }
         const peng = player.canPeng_WithOther(room.mAlgorithm, reply.card);
         if (peng.length > 0) {
             buttonMap.push(ButtonDef.Pong);
+            player.m_bSaveOPPFlag = true;
+            player.m_nSaveOPPMahjong = gang[0];
         }
         if (buttonMap.length > 0) {
             buttonMap.push(ButtonDef.Skip);

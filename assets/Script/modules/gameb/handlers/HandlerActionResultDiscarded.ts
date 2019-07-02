@@ -23,8 +23,14 @@ export namespace HandlerActionResultDiscarded {
             player.discardOutTileID(discardTileId);
         }
         if (isMe && !isReplayMode) {
+            player.setNotCatch(false);
+            player.delAllForgoPeng();
 
             return;
+        }
+        //有人飘赖子
+        if (room.mAlgorithm.getMahjongLaiZi() === reply.card) {
+            room.mAlgorithm.setFlagPiao(true);
         }
         //清理吃牌界面
         room.cleanUI();
@@ -32,26 +38,5 @@ export namespace HandlerActionResultDiscarded {
         player.addDicardedTile(discardTileId);
         player.discarded2UI(true, false);
 
-        // if (isMe) {
-
-        //     return;
-        // }
-        //如果打出去的牌是在本人的听牌列表中，要做一个减法
-        // const readyHandList = me.readyHandList;
-        // if (readyHandList !== undefined && readyHandList !== null && readyHandList.length > 0) {
-        //     for (let i = 0; i < me.readyHandList.length; i += 2) {
-        //         if (readyHandList[i] === discardTileId) {
-        //             if (readyHandList[i + 1] > 1) {
-        //                 readyHandList[i + 1] = readyHandList[i + 1] - 1;
-        //             } else {
-        //                 readyHandList.splice(i, 2);
-        //                 // table.remove(readyHandList, i + 1);
-        //                 // table.remove(readyHandList, i);
-        //             }
-        //             me.readyHandList = readyHandList;
-        //             break;
-        //         }
-        //     }
-        // }
     };
 }
