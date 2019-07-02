@@ -17,7 +17,7 @@ export class RoomSettingView extends cc.Component {
     private musicSlider: fgui.GSlider;
     private soundSlider: fgui.GSlider;
 
-    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean): void {
+    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, width: number): void {
         this.room = room;
         if (this.view === undefined || this.view === null) {
             // this.room = room;
@@ -27,9 +27,9 @@ export class RoomSettingView extends cc.Component {
         }
         fgui.GRoot.inst.showPopup(this.view);
 
-        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2) + (1136 - 480);
+        const x = width - 480;
         this.view.setPosition(x, 0);
-        // this.view.setPosition(0, 0);
+
     }
 
     protected onLoad(): void {

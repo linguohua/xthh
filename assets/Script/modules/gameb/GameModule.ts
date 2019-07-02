@@ -1,8 +1,8 @@
 import {
-    AnimationMgr, CreateRoomParams,
-    DataStore, Dialog,
-    GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams, LobbyModuleInterface,
-    Logger, Message, MsgQueue, MsgType, UserInfo
+    AnimationMgr, CommonFunction,
+    CreateRoomParams, DataStore,
+    Dialog, GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams,
+    KeyConstants, LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
@@ -74,8 +74,20 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         const view = fgui.UIPackage.createObject("dafeng", "desk").asCom;
         fgui.GRoot.inst.addChild(view);
-        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        view.setPosition(x, view.y);
+
+        let x = CommonFunction.setBaseViewInCenter(view);
+        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        if (newIPhone === "1") {
+            // i phone x 的黑边为  CommonFunction.IOS_ADAPTER_WIDTH
+            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
+        }
+        let bg = view.getChild("blueBg");
+        bg.setPosition(-x, 0);
+        CommonFunction.setBgFullScreen(bg);
+        bg = view.getChild("classBg");
+        bg.setPosition(-x, 0);
+        CommonFunction.setBgFullScreen(bg);
+
         this.view = view;
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
