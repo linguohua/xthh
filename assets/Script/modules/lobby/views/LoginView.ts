@@ -23,7 +23,10 @@ export class LoginView extends cc.Component {
 
     private loginBtn: fgui.GObject;
     private weixinButton: fgui.GObject;
-    private progressBar: fgui.GProgressBar;
+
+    private phoneLoginBtn: fgui.GObject;
+
+    // private progressBar: fgui.GProgressBar;
 
     private eventTarget: cc.EventTarget;
 
@@ -57,43 +60,45 @@ export class LoginView extends cc.Component {
     }
 
     public updateProgressBar(progress: number): void {
-        this.progressBar.value = progress * 100;
+        // this.progressBar.value = progress * 100;
     }
 
     public initView(): void {
         // buttons
-        this.loginBtn = this.viewNode.getChild("n2");
-        this.weixinButton = this.viewNode.getChild("n3");
-        this.progressBar = this.viewNode.getChild("n4").asProgress;
+        this.weixinButton = this.viewNode.getChild("n2");
+        this.loginBtn = this.viewNode.getChild("n3");
+        this.phoneLoginBtn = this.viewNode.getChild("n1");
+        // this.progressBar = this.viewNode.getChild("n4").asProgress;
 
-        const gameAdviceText = this.viewNode.getChild("gameAdvice");
-        const text1 = this.viewNode.getChild("text1");
-        const text2 = this.viewNode.getChild("text2");
-        const text3 = this.viewNode.getChild("text3");
-        const text4 = this.viewNode.getChild("text4");
-        const text5 = this.viewNode.getChild("text5");
-        const text6 = this.viewNode.getChild("text6");
+        // const gameAdviceText = this.viewNode.getChild("gameAdvice");
+        // const text1 = this.viewNode.getChild("text1");
+        // const text2 = this.viewNode.getChild("text2");
+        // const text3 = this.viewNode.getChild("text3");
+        // const text4 = this.viewNode.getChild("text4");
+        // const text5 = this.viewNode.getChild("text5");
+        // const text6 = this.viewNode.getChild("text6");
 
-        const versionName = this.viewNode.getChild("versionName");
-        versionName.text = LEnv.VER_STR;
+        // const versionName = this.viewNode.getChild("versionName");
+        // versionName.text = LEnv.VER_STR;
 
-        gameAdviceText.text = "抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。";
-        text1.text = "出版单位：深圳市xxx科技有限公司";
-        text2.text = "审批文号：xxxxxxxxxxxx";
-        text3.text = "网络游戏出版物号：123456789";
-        text4.text = "游戏著作权人：深圳市xxx科技有限公司";
-        text5.text = "增值电信业务：46546546546";
-        text6.text = "粤网文：深圳市xxx科技有限公司";
+        // gameAdviceText.text = "抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防受骗上当。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。";
+        // text1.text = "出版单位：深圳市xxx科技有限公司";
+        // text2.text = "审批文号：xxxxxxxxxxxx";
+        // text3.text = "网络游戏出版物号：123456789";
+        // text4.text = "游戏著作权人：深圳市xxx科技有限公司";
+        // text5.text = "增值电信业务：46546546546";
+        // text6.text = "粤网文：深圳市xxx科技有限公司";
 
         this.loginBtn.visible = false;
         this.weixinButton.visible = false;
-        this.progressBar.value = 0;
+        this.phoneLoginBtn.visible = false;
+        // this.progressBar.value = 0;
 
         this.loginBtn.onClick(this.onLoginClick, this);
 
         this.weixinButton.onClick(this.onWeixinBtnClick, this);
 
-        const bg = this.viewNode.getChild('n1');
+        const bg = this.viewNode.getChild('bg');
         bg.setSize(cc.winSize.width, cc.winSize.width * 640 / 1136);
         const y = -(cc.winSize.width * 640 / 1136 - cc.winSize.height) / 2;
         const x = (cc.winSize.height * 1136 / 640 / 2) - cc.winSize.width / 2;
@@ -105,9 +110,10 @@ export class LoginView extends cc.Component {
     }
 
     public updateCompleted(): void {
-        this.progressBar.visible = false;
+        // this.progressBar.visible = false;
         this.weixinButton.visible = true;
         this.loginBtn.visible = true;
+        this.phoneLoginBtn.visible = true;
     }
 
     public onLoginClick(): void {
@@ -125,6 +131,9 @@ export class LoginView extends cc.Component {
         }
     }
 
+    public onPhoneLoginBtnClick(): void {
+        Logger.debug("onPhoneLoginBtnClick");
+    }
     public saveWxLoginReply(wxLoginReply: proto.lobby.MsgLoginReply): void {
 
         DataStore.setItem("token", wxLoginReply.token);

@@ -1,7 +1,5 @@
-import { DataStore, Dialog, HTTP, LEnv, LobbyModuleInterface, Logger, NewRoomViewPath } from "../lcore/LCoreExports";
+import { DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath } from "../lcore/LCoreExports";
 import { proto } from "../proto/protoLobby";
-import { DFRuleView, RunFastRuleView, ZJMJRuleView } from "../ruleviews/RuleViewsExports";
-import { LobbyError } from "./LobbyError";
 
 const { ccclass } = cc._decorator;
 
@@ -33,13 +31,15 @@ export class NewRoomView extends cc.Component {
     private eventTarget: cc.EventTarget;
 
     private ruleViews: { [key: string]: RuleView } = {};
-    private priceCfgs: { [key: string]: object };
-
-    private club: proto.club.IMsgClubInfo;
 
     private path: NewRoomViewPath = NewRoomViewPath.Normal;
 
-    private quicklyCreateView: QuicklyCreateViewInterface;
+    // private quicklyCreateView: QuicklyCreateViewInterface;
+
+    // private boxRecordBtn: fgui.GButton;
+    // private fkRecordBtn: fgui.GButton;
+    // private gameRecordBtn: fgui.GButton;
+    // private personalRoomBtn: fgui.GButton;
 
     public getView(): fgui.GComponent {
         return this.view;
@@ -47,8 +47,8 @@ export class NewRoomView extends cc.Component {
 
     public showView(path: NewRoomViewPath, club?: proto.club.IMsgClubInfo, quicklyCreateView?: QuicklyCreateViewInterface): void {
         this.path = path;
-        this.club = club;
-        this.quicklyCreateView = quicklyCreateView;
+        // this.club = club;
+        // this.quicklyCreateView = quicklyCreateView;
         this.initView();
         this.win.show();
     }
@@ -66,8 +66,8 @@ export class NewRoomView extends cc.Component {
         this.eventTarget = new cc.EventTarget();
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = lm.loader;
-        loader.fguiAddPackage("lobby/fui_create_room/lobby_create_room");
-        const view = fgui.UIPackage.createObject("lobby_create_room", "createRoom").asCom;
+        loader.fguiAddPackage("lobby/fui_create_room/lobby_personal_room");
+        const view = fgui.UIPackage.createObject("lobby_personal_room", "personalRoomView").asCom;
         this.view = view;
 
         const win = new fgui.Window();
@@ -92,236 +92,229 @@ export class NewRoomView extends cc.Component {
 
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
-        const backBtn = this.view.getChild("back");
-        if (backBtn !== null) {
-            backBtn.onClick(this.onCloseClick, this);
-        }
 
-        const list = this.view.getChild("gamelist").asList;
-        list.on(fgui.Event.CLICK_ITEM, this.onListItemClicked, this);
+        const boxRecordBtn = this.view.getChild("boxRecordBtn").asButton;
+        boxRecordBtn.onClick(this.onBoxRecordBtnClick, this);
 
-        const createRoomBtn = this.view.getChild("createRoomButton");
+        const boxRecordText = boxRecordBtn.getChild("n2");
+        boxRecordText.text = "宝箱记录";
+
+        const fkRecordBtn = this.view.getChild("fkRecordBtn").asButton;
+        fkRecordBtn.onClick(this.onFKRecordBtn, this);
+
+        const fkRecordText = fkRecordBtn.getChild("n2");
+        fkRecordText.text = "房卡记录";
+
+        const gameRecordBtn = this.view.getChild("gameRecordBtn").asButton;
+        gameRecordBtn.onClick(this.onGameRecordBtn, this);
+
+        const gameRecordText = gameRecordBtn.getChild("n2");
+        gameRecordText.text = "战绩统计";
+
+        const personalRoomBtn = this.view.getChild("personalRoomBtn").asButton;
+        personalRoomBtn.onClick(this.onPersonalRoomBtn, this);
+        personalRoomBtn.selected = true;
+
+        const personalRoomTextx = personalRoomBtn.getChild("n2");
+        personalRoomTextx.text = "私人房";
+
+        this.initPersonalRoom();
+    }
+
+    private initBoxRecord(): void {
+        // TODO:
+    }
+
+    private initFKRecord(): void {
+        // TODO:
+    }
+
+    private initGameRecord(): void {
+        // TODO:
+    }
+    private initPersonalRoom(): void {
+        const personalRoomView = this.view.getChild("srfCom").asCom;
+
+        const createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
         createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
 
-        const saveConfigBtn = this.view.getChild("saveConfigBtn");
-        saveConfigBtn.onClick(this.onSaveConfigBtnClick, this);
-
-        const funcController = this.view.getController("func");
-
-        switch (this.path) {
-            case NewRoomViewPath.Normal:
-            case NewRoomViewPath.Form_Club:
-                funcController.selectedIndex = 0;
-                break;
-
-            case NewRoomViewPath.Form_Club_Setting:
-                funcController.selectedIndex = 1;
-                break;
-
-            default:
-
-        }
-
-        this.selectItem("btnZJMJ");
-        this.loadRoomPrice();
+        const accessBtn = personalRoomView.getChild("accessBtn").asButton;
+        accessBtn.onClick(this.onEnterBtnClick, this);
+        // const gameType = personalRoomView.getChild()
+    }
+    private onBoxRecordBtnClick(): void {
+        this.initBoxRecord();
     }
 
-    private onListItemClicked(item: fgui.GObject, evt: fgui.Event): void {
-        const name = item.packageItem.name;
-        this.selectItem(name);
+    private onFKRecordBtn(): void {
+        this.initFKRecord();
+    }
+    private onGameRecordBtn(): void {
+        this.initGameRecord();
     }
 
-    private onSaveConfigBtnClick(): void {
-        //
-        const list = this.view.getChild("gamelist").asList;
-        const index = list.selectedIndex;
-        const item = list.getChildAt(index);
-        const name = item.packageItem.name;
-        const ruleView = this.ruleViews[name];
-        if (ruleView !== undefined) {
-            const rules: string = <string>ruleView.getRules();
-            this.goSave(rules);
-        }
+    private onPersonalRoomBtn(): void {
+        this.initPersonalRoom();
     }
+
+    private onEnterBtnClick(): void {
+        Logger.debug("onEnterBtnClick");
+
+    }
+
+    // private onListItemClicked(item: fgui.GObject, evt: fgui.Event): void {
+    //     const name = item.packageItem.name;
+    //     this.selectItem(name);
+    // }
+
+    // private onSaveConfigBtnClick(): void {
+    //     //
+    //     const list = this.view.getChild("gamelist").asList;
+    //     const index = list.selectedIndex;
+    //     const item = list.getChildAt(index);
+    //     const name = item.packageItem.name;
+    //     const ruleView = this.ruleViews[name];
+    //     if (ruleView !== undefined) {
+    //         const rules: string = <string>ruleView.getRules();
+    //         this.goSave(rules);
+    //     }
+    // }
 
     private onCreateRoomBtnClick(): void {
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
 
-        const list = this.view.getChild("gamelist").asList;
-        const index = list.selectedIndex;
-        const item = list.getChildAt(index);
-        const name = item.packageItem.name;
-        const ruleView = this.ruleViews[name];
-        if (ruleView !== undefined) {
-            const rules: string = <string>ruleView.getRules();
-            this.createRoom(rules);
-        }
+        const createRoomParams = {
+            casinoID: 16,
+            roomID: 2103,
+            base: 1,
+            round: 2,
+            allowJoin: 0
+        };
 
-    }
+        const params: GameModuleLaunchArgs = {
+            jsonString: "",
+            userInfo: myUser,
+            joinRoomParams: null,
+            createRoomParams: createRoomParams,
+            record: null
+        };
 
-    private goSave(ruleJson: string): void {
-        //
-        this.quicklyCreateView.saveConfig(ruleJson);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        this.win.hide();
         this.destroy();
+
+        lm.switchToGame(params, "gameb");
+
     }
 
-    private createRoom(ruleJson: string): void {
-        Logger.debug("NewRoomView.createRoom, ruleJson:", ruleJson);
-        const tk = DataStore.getString("token", "");
-        let createRoomURL: string = "";
+    // private goSave(ruleJson: string): void {
+    //     //
+    //     this.quicklyCreateView.saveConfig(ruleJson);
+    //     this.destroy();
+    // }
 
-        if (this.club !== undefined && this.club !== null && this.club !== "") {
-            createRoomURL = `${LEnv.rootURL}${LEnv.createClubRoom}?&tk=${tk}&clubID=${this.club.baseInfo.clubID}`;
-        } else {
-            createRoomURL = `${LEnv.rootURL}${LEnv.createRoom}?&tk=${tk}`;
-        }
+    // private selectItem(name: string): void {
+    //     let ruleView = this.ruleViews[name];
+    //     Object.keys(this.ruleViews).forEach((k) => {
+    //         const rv = this.ruleViews[k];
+    //         rv.hide();
+    //     });
 
-        Logger.trace("createRoom, createRoomURL:", createRoomURL);
-        const createRoomReq = new proto.lobby.MsgCreateRoomReq();
-        createRoomReq.config = ruleJson;
+    //     if (this.path === NewRoomViewPath.Form_Club_Setting) {
+    //         this.forReview = true;
 
-        const body = proto.lobby.MsgCreateRoomReq.encode(createRoomReq).toArrayBuffer();
+    //         if (this.club.createRoomOptions !== null) {
+    //             const roomConfigJSON = <{ [key: string]: boolean | number }>JSON.parse(this.club.createRoomOptions);
+    //             this.itemsJSON = roomConfigJSON;
+    //         }
 
-        HTTP.hPost(
-            this.eventTarget,
-            createRoomURL,
-            (xhr: XMLHttpRequest, err: string) => {
-                let errMsg = null;
-                if (err !== null) {
-                    errMsg = `创建房间错误，错误码:${err}`;
-                } else {
-                    errMsg = HTTP.hError(xhr);
-                    if (errMsg === null) {
-                        const data = <Uint8Array>xhr.response;
-                        // proto 解码登录结果
-                        const msgCreateRoomRsp = proto.lobby.MsgCreateRoomRsp.decode(data);
+    //     }
 
-                        Logger.debug("msgCreateRoomRsp:", msgCreateRoomRsp);
-                        if (msgCreateRoomRsp.result === proto.lobby.MsgError.ErrSuccess) {
-                            this.enterGame(msgCreateRoomRsp.roomInfo);
-                        } else if (msgCreateRoomRsp.result === proto.lobby.MsgError.ErrUserInOtherRoom) {
-                            this.reEnterGame(msgCreateRoomRsp.roomInfo);
-                        } else {
-                            Logger.error("Create room error:, code:", msgCreateRoomRsp.result);
+    //     if (ruleView === undefined) {
+    //         switch (name) {
+    //             case "btnZJMJ":
+    //                 const rv1 = new ZJMJRuleView();
+    //                 rv1.bindView(this);
+    //                 ruleView = rv1;
+    //                 break;
+    //             case "btnDFMJ":
+    //                 const rv2 = new DFRuleView();
+    //                 rv2.bindView(this);
+    //                 ruleView = rv2;
+    //                 break;
+    //             case "btnGZ":
+    //                 const rv3 = new RunFastRuleView();
+    //                 rv3.bindView(this);
+    //                 ruleView = rv3;
+    //                 break;
+    //             case "btnDDZ":
+    //                 break;
+    //             default:
+    //         }
 
-                            const errorString = LobbyError.getErrorString(msgCreateRoomRsp.result);
-                            Dialog.showDialog(errorString);
+    //         if (ruleView === undefined) {
+    //             return;
+    //         }
 
-                        }
-                    }
-                }
+    //         this.ruleViews[name] = ruleView;
+    //         if (this.priceCfgs !== undefined) {
+    //             ruleView.updatePriceCfg(this.priceCfgs);
+    //         }
+    //     }
 
-                if (errMsg !== null) {
-                    Logger.debug("NewRoomView.createRoom failed:", errMsg);
-                    // 显示错误对话框
-                    Dialog.showDialog(errMsg, () => {
-                        //
-                    });
-                }
-            },
-            "arraybuffer",
-            body);
-    }
-
-    private selectItem(name: string): void {
-        let ruleView = this.ruleViews[name];
-        Object.keys(this.ruleViews).forEach((k) => {
-            const rv = this.ruleViews[k];
-            rv.hide();
-        });
-
-        if (this.path === NewRoomViewPath.Form_Club_Setting) {
-            this.forReview = true;
-
-            if (this.club.createRoomOptions !== null) {
-                const roomConfigJSON = <{ [key: string]: boolean | number }>JSON.parse(this.club.createRoomOptions);
-                this.itemsJSON = roomConfigJSON;
-            }
-
-        }
-
-        if (ruleView === undefined) {
-            switch (name) {
-                case "btnZJMJ":
-                    const rv1 = new ZJMJRuleView();
-                    rv1.bindView(this);
-                    ruleView = rv1;
-                    break;
-                case "btnDFMJ":
-                    const rv2 = new DFRuleView();
-                    rv2.bindView(this);
-                    ruleView = rv2;
-                    break;
-                case "btnGZ":
-                    const rv3 = new RunFastRuleView();
-                    rv3.bindView(this);
-                    ruleView = rv3;
-                    break;
-                case "btnDDZ":
-                    break;
-                default:
-            }
-
-            if (ruleView === undefined) {
-                return;
-            }
-
-            this.ruleViews[name] = ruleView;
-            if (this.priceCfgs !== undefined) {
-                ruleView.updatePriceCfg(this.priceCfgs);
-            }
-        }
-
-        ruleView.show();
-    }
+    //     ruleView.show();
+    // }
 
     private onCloseClick(): void {
         this.destroy();
     }
 
-    private enterGame(roomInfo: proto.lobby.IRoomInfo): void {
+    // private enterGame(roomInfo: proto.lobby.IRoomInfo): void {
 
-        this.win.hide();
-        this.destroy();
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.enterGame(roomInfo);
+    //     this.win.hide();
+    //     this.destroy();
+    //     const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+    //     // lm.enterGame(roomInfo);
 
-    }
+    // }
 
-    private reEnterGame(roomInfo: proto.lobby.IRoomInfo): void {
-        this.enterGame(roomInfo);
-    }
+    // private reEnterGame(roomInfo: proto.lobby.IRoomInfo): void {
+    //     this.enterGame(roomInfo);
+    // }
 
-    private loadRoomPrice(): void {
-        const tk = DataStore.getString("token", "");
-        const loadRoomPriceCfgsURL = `${LEnv.rootURL}${LEnv.loadRoomPriceCfgs}?&tk=${tk}`;
-        HTTP.hGet(
-            this.eventTarget,
-            loadRoomPriceCfgsURL,
-            (xhr: XMLHttpRequest, err: string) => {
-                let errMsg = null;
-                if (err !== null) {
-                    errMsg = `拉取价格配置错误，错误码:${err}`;
-                } else {
-                    errMsg = HTTP.hError(xhr);
-                    if (errMsg === null) {
-                        const dataString = <string>String.fromCharCode.apply(null, new Uint8Array(<ArrayBuffer>xhr.response));
-                        const priceCfgs = <{ [key: string]: object }>JSON.parse(dataString);
-                        this.priceCfgs = priceCfgs;
+    // private loadRoomPrice(): void {
+    //     const tk = DataStore.getString("token", "");
+    //     const loadRoomPriceCfgsURL = `${LEnv.rootURL}${LEnv.loadRoomPriceCfgs}?&tk=${tk}`;
+    //     HTTP.hGet(
+    //         this.eventTarget,
+    //         loadRoomPriceCfgsURL,
+    //         (xhr: XMLHttpRequest, err: string) => {
+    //             let errMsg = null;
+    //             if (err !== null) {
+    //                 errMsg = `拉取价格配置错误，错误码:${err}`;
+    //             } else {
+    //                 errMsg = HTTP.hError(xhr);
+    //                 if (errMsg === null) {
+    //                     const dataString = <string>String.fromCharCode.apply(null, new Uint8Array(<ArrayBuffer>xhr.response));
+    //                     const priceCfgs = <{ [key: string]: object }>JSON.parse(dataString);
+    //                     this.priceCfgs = priceCfgs;
 
-                        Object.keys(this.ruleViews).forEach((k) => {
-                            const rv = this.ruleViews[k];
-                            rv.updatePriceCfg(priceCfgs);
-                        });
-                    }
-                }
+    //                     Object.keys(this.ruleViews).forEach((k) => {
+    //                         const rv = this.ruleViews[k];
+    //                         rv.updatePriceCfg(priceCfgs);
+    //                     });
+    //                 }
+    //             }
 
-                if (errMsg !== null) {
-                    Logger.debug("NewRoomView.createRoom failed:", errMsg);
-                    // 显示错误对话框
-                    Dialog.showDialog(errMsg, () => {
-                        //
-                    });
-                }
-            });
-    }
+    //             if (errMsg !== null) {
+    //                 Logger.debug("NewRoomView.createRoom failed:", errMsg);
+    //                 // 显示错误对话框
+    //                 Dialog.showDialog(errMsg, () => {
+    //                     //
+    //                 });
+    //             }
+    //         });
+    // }
 }

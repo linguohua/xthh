@@ -1,7 +1,7 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, Dialog, GameModuleLaunchArgs, LobbyModuleInterface, Logger
+    DataStore, Dialog, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath
 } from "../lcore/LCoreExports";
 
 import { proto } from "../protoHH/protoHH";
@@ -9,6 +9,7 @@ import { ClubView } from "./club/ClubView";
 import { EmailView } from "./EmailView";
 import { GameRecordView } from "./GameRecordView";
 import { JoinRoom } from "./JoinRoom";
+import { NewRoomView } from "./NewRoomView";
 import { UserInfoView } from "./UserInfoView";
 const { ccclass } = cc._decorator;
 
@@ -217,26 +218,28 @@ export class LobbyView extends cc.Component {
     }
 
     private onCreateRoom(): void {
-        const playerID = DataStore.getString("playerID");
-        const myUser = { userID: playerID };
+        const newRoomView = this.addComponent(NewRoomView);
+        newRoomView.showView(NewRoomViewPath.Normal);
+        // const playerID = DataStore.getString("playerID");
+        // const myUser = { userID: playerID };
 
-        const createRoomParams = {
-            casinoID: 16,
-            roomID: 2103,
-            base: 1,
-            round: 2,
-            allowJoin: 0
-        };
+        // const createRoomParams = {
+        //     casinoID: 16,
+        //     roomID: 2103,
+        //     base: 1,
+        //     round: 2,
+        //     allowJoin: 0
+        // };
 
-        const params: GameModuleLaunchArgs = {
-            jsonString: "",
-            userInfo: myUser,
-            joinRoomParams: null,
-            createRoomParams: createRoomParams,
-            record: null
-        };
+        // const params: GameModuleLaunchArgs = {
+        //     jsonString: "",
+        //     userInfo: myUser,
+        //     joinRoomParams: null,
+        //     createRoomParams: createRoomParams,
+        //     record: null
+        // };
 
-        this.lm.switchToGame(params, "gameb");
+        // this.lm.switchToGame(params, "gameb");
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
