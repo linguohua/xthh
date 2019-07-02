@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://svm739nzb9xzd" designImageAlpha="100">
   <displayList>
-    <image id="n0_vpcu" name="bg" src="vpcu7" fileName="resource/d_dlbj.jpg" xy="-124,-94" pivot="0.5,0.5"/>
+    <image id="n0_vpcu" name="bg" src="vpcu7" fileName="resource/d_dlbj.jpg" xy="0,0" pivot="0.5,0.5" size="1136,640"/>
     <component id="n1_vpcu" name="n1" src="vpcua" fileName="btn/phoneNumLoginBtn.xml" xy="772,461"/>
     <component id="n2_vpcu" name="n2" src="vpcub" fileName="btn/wechatLoginBtn.xml" xy="433,461"/>
     <component id="n3_vpcu" name="n3" src="vpcuc" fileName="btn/visitorLoginBtn.xml" xy="73,461"/>
