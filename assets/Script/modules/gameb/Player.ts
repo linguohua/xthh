@@ -61,6 +61,7 @@ export class Player {
     public allowedActionMsg: proto.mahjong.MsgAllowPlayerAction;
     public isGuoHuTips: boolean;
     private flagsTing: boolean;
+    public m_bNotCatch: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
@@ -687,7 +688,7 @@ export class Player {
             return [];
         }
         //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
-        if (!mahjong_xtsj.getFlagPiao() && !this.host.getNotCatch()) {
+        if (!mahjong_xtsj.getFlagPiao() && !this.getNotCatch()) {
             const v = mahjong_xtsj.canHuPai_WithOther(this.tilesHand, mahjong);
             if (v.bHuPai) {
                 if (mahjong_xtsj.checkHuPai_WithOther(v.sVecHuPai, mahjong)) {
@@ -745,6 +746,22 @@ export class Player {
     /**
      * 新增函数 end
      */
+    public getMahjongCount_withV(mahjong: number): number {
+        let num = 0;
+        for (const tile of this.tilesHand) {
+            if (tile === mahjong) {
+                num++;
+            }
+        }
+
+        return num;
+    }
+    public getNotCatch(): boolean {
+        return this.m_bNotCatch;
+    }
+    public setNotCatch(b: boolean): void {
+        this.m_bNotCatch = b;
+    }
     private playSound(directory: string, effectName: string): void {
         if (effectName === undefined || effectName === null) {
             return;

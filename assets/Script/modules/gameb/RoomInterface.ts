@@ -76,7 +76,6 @@ export interface RoomInterface {
     m_sForgoPeng: number[]; //放弃的碰牌
     m_sForgoGang: number[]; //放弃的杠牌
     canAutoPutCard: boolean; //是否海底捞月
-    m_bNotCatch: boolean;
     mAlgorithm: Algorithm;
     isDisband: boolean;
     scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
@@ -152,7 +151,6 @@ export interface RoomInterface {
     addForgoPeng(mahjong: number): void;
     addForgoGang(mahjong: number): void;
     myMahjong_addForgo(t: number, mahjong: number, clear: boolean): void;
-    getNotCatch(): boolean;
     isInForgoPeng(mahjong: number): boolean;
     delAllForgoPeng(): void;
     isInForgoGang(mahjong: number): boolean;

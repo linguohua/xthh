@@ -30,7 +30,11 @@ export enum TypeOfOP {
     ZiMo = 4, //自摸
     CHAOTIAN = 5,
     BUZHUOCHONG = 6, //不捉铳
-    QIANGXIAO = 7
+    QIANGXIAO = 7,
+    DEF_XTSJ_OP_PENG = 1,                 // 碰
+    DEF_XTSJ_OP_GANG_M = 2,                // 明杠
+    DEF_XTSJ_OP_GANG_A = 3,                // 暗杠
+    DEF_XTSJ_OP_GANG_B = 4                   // 补杠
 }
 /**
  * player 接口

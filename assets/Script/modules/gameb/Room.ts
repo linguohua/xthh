@@ -125,7 +125,6 @@ export class Room {
     public m_sForgoPeng: number[] = []; //放弃的碰牌
     public m_sForgoGang: number[] = []; //放弃的杠牌
     public canAutoPutCard: boolean = false; //是否海底捞月
-    public m_bNotCatch: boolean;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -661,9 +660,6 @@ export class Room {
         }
 
         return false;
-    }
-    public getNotCatch(): boolean {
-        return this.m_bNotCatch;
     }
     //添加放弃的操作并且显示提示  type 0杠，1碰，2杠＋碰, mahjong牌, clear是否要清空储存值
     public myMahjong_addForgo(t: number, mahjong: number, clear: boolean): void {
