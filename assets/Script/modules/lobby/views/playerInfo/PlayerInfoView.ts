@@ -186,8 +186,8 @@ export class PlayerInfoView extends cc.Component {
 
     private onPropListItemClick(clickItem: fgui.GObject): void {
         Logger.debug(`clickItem.data.name:${clickItem.asCom.name}, num:${parseInt(clickItem.asCom.name, 10)}`);
-        this.room.sendDonate(parseInt(clickItem.asCom.name, 10), this.playerInfo.chairID);
-        fgui.GRoot.inst.hidePopup(this.view);
+        // this.room.sendDonate(parseInt(clickItem.asCom.name, 10), this.playerInfo.chairID);
+        // fgui.GRoot.inst.hidePopup(this.view);
         // this.room.sendDonate(onClickItem.data.name);
     }
 
