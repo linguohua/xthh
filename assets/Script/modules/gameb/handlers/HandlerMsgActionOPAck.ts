@@ -11,8 +11,8 @@ const OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 export namespace HandlerMsgActionOPAck {
     const pong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): void => {
         //从手牌移除
-        for (const card of pAck.cards) {
-            player.removeTileFromHand(card);
+        for (let i = 0; i < 2; i++) {
+            player.removeTileFromHand(pAck.cards[0]);
         }
         player.addMeld(pAck);
         player.hand2UI(true); //手牌列表更新UI
@@ -50,7 +50,7 @@ export namespace HandlerMsgActionOPAck {
             player.addMeld(pAck);
         }
         const contributorPlayer = <Player>room.getPlayerByUserID(`${pAck.target_id}`);
-        if (contributorPlayer !== undefined && contributorPlayer !== null && !contributorPlayer.isMe()) {
+        if (contributorPlayer !== undefined && contributorPlayer !== null) {
             contributorPlayer.removeLatestDiscarded(mahjong); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
             contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
         }
@@ -99,7 +99,7 @@ export namespace HandlerMsgActionOPAck {
             return;
         }
         const array: number[] = [];
-        for (let index = 0; index < s_count; index++) {
+        for (let index = 0; index < v_count; index++) {
             array.push(mahjong);
         }
         kong2(room, t, player, pAck, array);

@@ -11,7 +11,8 @@ export namespace HandlerMsgDeal {
         console.log("HandlerMsgDeal---------------- ", msgDeal);
         //清理
         room.resetForNewHand();
-
+        room.windFlowerID = msgDeal.laizi;
+        room.setRoundMask();
         const players = room.getPlayers();
         //保存每一个玩家的牌列表
         const playersKeyArr = Object.keys(players);
@@ -21,7 +22,7 @@ export namespace HandlerMsgDeal {
                 p.addHandTiles(msgDeal.cards);
                 p.sortHands(false);
                 //TODO:xxxxxxxxx
-                p.canAutoPutCard = true;
+                room.canAutoPutCard = true;
             } else {
                 p.tileCountInHand = 13;
             }

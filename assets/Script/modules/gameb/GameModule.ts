@@ -199,7 +199,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, table);
         }
-
         this.mRoom.createPlayers();
 
         this.mRoom.showOrHideReadyButton(!reconnect);

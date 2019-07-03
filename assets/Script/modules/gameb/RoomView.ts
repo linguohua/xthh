@@ -244,11 +244,11 @@ export class RoomView {
 
     //设置当前房间所使用的风圈
     public setRoundMask(): void {
-        if (GameRules.haveRoundMask(this.room.roomType)) {
-            this.wind.visible = true;
-            this.windTile.visible = true;
-            TileImageMounter.mountTileImage(this.windTile, this.room.windFlowerID);
-        }
+        // if (GameRules.haveRoundMask(this.room.roomType)) {
+        this.wind.visible = true;
+        this.windTile.visible = true;
+        TileImageMounter.mountTileImage(this.windTile, this.room.windFlowerID);
+        // }
     }
 
     // 根据玩家的chairID获得相应的playerView

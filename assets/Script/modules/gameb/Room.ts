@@ -613,6 +613,10 @@ export class Room {
      * 断线重连恢复用户的操作
      */
     public restrorePlayerOperation(): void {
+        //设置癞子
+        this.windFlowerID = this.roomInfo.laizi;
+        this.setRoundMask();
+
         this.setWaitingPlayer(this.roomInfo.cur_idx);
         this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
         //如果到我操作 要显示操作按钮
