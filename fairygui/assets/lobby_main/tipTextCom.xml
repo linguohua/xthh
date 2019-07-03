@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="189,51">
+<component size="189,51" designImage="ui://s52nz8zt9f1en" designImageOffsetX="-10" designImageOffsetY="-496">
   <displayList>
     <image id="n19_u4cz" name="n19" src="9f1eg" fileName="resource/dt_qp.png" xy="0,0" size="189,51"/>
-    <text id="n20_u4cz" name="text" xy="0,0" size="187,33" fontSize="18" color="#ff5400" align="center" vAlign="middle" autoSize="none" text="VIP享受最低购卡折扣"/>
+    <text id="n20_u4cz" name="text" xy="1,4" size="187,33" fontSize="18" color="#ff5400" align="center" vAlign="middle" autoSize="none" text="VIP享受最低购卡折扣"/>
   </displayList>
 </component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="167,52" extention="Button" designImage="ui://shrzm3rcik11g" designImageOffsetX="-587" designImageOffsetY="-64" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n0_b75t" name="n0" src="ik11e" fileName="resource/ty_yq2.png" pkg="snwj6cnx" xy="0,0" size="167,52">
+      <gearDisplay controller="button" pages="0,2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_b75t" name="n1" src="ik11d" fileName="resource/ty_yq1.png" pkg="snwj6cnx" xy="0,-3" size="167,67">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_b75t" name="n2" xy="18,10" size="131,39" scale="1,0.98" font="Microsoft YaHei" fontSize="30" color="#8a3021" align="center" vAlign="middle" autoSize="none" bold="true" text="战绩统计"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

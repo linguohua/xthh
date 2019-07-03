@@ -3,6 +3,11 @@
   <controller name="enough" pages="0,yes,1,no" selected="0"/>
   <displayList>
     <image id="n0_b75t" name="n0" src="b75th" fileName="resource/ty_btn_hd.png" pkg="snwj6cnx" xy="0,0" size="130,72">
+      <gearDisplay controller="enough" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_lqn3" name="n2" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="130,72">
+      <gearDisplay controller="enough" pages="0"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
     <text id="n1_b75t" name="n1" xy="25,17" size="96,39" fontSize="30" color="#f7fec0" align="center" vAlign="middle" letterSpacing="8" autoSize="none" bold="true" text="建房">

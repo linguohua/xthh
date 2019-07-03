@@ -28,7 +28,10 @@
     <component id="b75tq" name="radioBtn.xml" path="/btn/"/>
     <image id="b75tr" name="ty_icon_fk.png" path="/resource/"/>
     <component id="b75ts" name="srfCom.xml" path="/com/"/>
-    <component id="b75tt" name="tabBtn.xml" path="/btn/"/>
+    <component id="b75tt" name="personalRoomBtn.xml" path="/btn/"/>
+    <component id="lqn3u" name="boxRecordBtn.xml" path="/btn/"/>
+    <component id="lqn3v" name="fkRecordBtn.xml" path="/btn/"/>
+    <component id="lqn3w" name="gameRecordBtn.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_personal_room"/>
 </packageDescription>

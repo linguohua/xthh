@@ -13,6 +13,6 @@
     <component id="n9_b9xz" name="progress" src="b9xzf" fileName="downloadProgress.xml" xy="147,554" size="845,30">
       <ProgressBar value="100" max="100"/>
     </component>
-    <text id="n10_b9xz" name="progressText" xy="454,519" size="228,38" fontSize="22" color="#234d25" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="正在加载中……80%"/>
+    <text id="n10_b9xz" name="progressText" xy="454,519" size="228,38" font="Microsoft YaHei" fontSize="22" color="#234d25" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="正在加载中……80%"/>
   </displayList>
 </component>

@@ -5,7 +5,7 @@
     <image id="ik111" name="ty_btn_gb.png" path="/resource/" exported="true"/>
     <image id="ik112" name="ty_btn_h.png" path="/resource/" exported="true" scale="9grid" scale9grid="25,10,9,33"/>
     <image id="ik113" name="ty_btn_h1.png" path="/resource/" exported="true"/>
-    <image id="ik114" name="ty_btn_lv.png" path="/resource/" exported="true" scale="9grid" scale9grid="29,8,1,35"/>
+    <image id="ik114" name="ty_btn_lv.png" path="/resource/" exported="true" scale="9grid" scale9grid="25,20,6,5"/>
     <image id="ik115" name="ty_btn_lv1.png" path="/resource/" exported="true" scale="9grid" scale9grid="29,18,58,36"/>
     <image id="ik116" name="ty_di1.png" path="/resource/" exported="true" scale="9grid" scale9grid="8,8,16,16"/>
     <image id="ik117" name="ty_hd.png" path="/resource/" exported="true"/>

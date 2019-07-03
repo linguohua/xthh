@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="187,72" pivot="0.5,0.5" extention="Button">
+<component size="187,72" pivot="0.5,0.5" extention="Button" designImage="ui://shrzm3rcik11g" designImageOffsetX="-143" designImageOffsetY="-502" designImageAlpha="0">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <image id="n2_b75t" name="n2" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="187,72"/>
-    <text id="n3_b75t" name="n3" xy="48,17" size="96,39" fontSize="30" color="#f7fec0" align="center" vAlign="middle" letterSpacing="8" autoSize="none" bold="true" text="进入"/>
+    <text id="n3_b75t" name="n3" xy="49,16" size="96,39" fontSize="30" color="#f7fec0" align="center" vAlign="middle" letterSpacing="8" autoSize="none" bold="true" text="进入"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

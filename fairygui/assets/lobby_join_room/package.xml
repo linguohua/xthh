@@ -23,5 +23,5 @@
     <component id="pg4q1a" name="buttonQD.xml" path="/"/>
     <image id="pg4q1b" name="srf_srk.png" path="/resource/" scale="9grid" scale9grid="12,10,8,7"/>
   </resources>
-  <publish name=""/>
+  <publish name="lobby_join_room"/>
 </packageDescription>

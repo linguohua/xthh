@@ -8,21 +8,21 @@
   </controller>
   <displayList>
     <image id="n1_ik11" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="104,60" size="929,556"/>
-    <component id="n6_ik11" name="srfCom" src="b75ts" fileName="com/srfCom.xml" xy="136,132">
-      <gearDisplay controller="tap" pages="3"/>
-    </component>
-    <component id="n57_b75t" name="boxRecordBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="248,64">
+    <component id="n0_ik11" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="89,54"/>
+    <component id="n66_lqn3" name="boxRecordBtn" src="lqn3u" fileName="btn/boxRecordBtn.xml" xy="248,64">
       <Button controller="tap" page="0"/>
     </component>
-    <component id="n58_b75t" name="fkRecordBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="418,64">
+    <component id="n65_lqn3" name="fkRecordBtn" src="lqn3v" fileName="btn/fkRecordBtn.xml" xy="418,64">
       <Button controller="tap" page="1"/>
     </component>
-    <component id="n59_b75t" name="gameRecordBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="587,64">
+    <component id="n67_lqn3" name="gameRecordBtn" src="lqn3w" fileName="btn/gameRecordBtn.xml" xy="587,64">
       <Button controller="tap" page="2"/>
     </component>
-    <component id="n60_b75t" name="personalRoomBtn" src="b75tt" fileName="btn/tabBtn.xml" xy="757,64">
+    <component id="n64_lqn3" name="personalRoomBtn" src="b75tt" fileName="btn/personalRoomBtn.xml" xy="757,64">
       <Button checked="true" controller="tap" page="3"/>
     </component>
-    <component id="n0_ik11" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="89,54"/>
+    <component id="n6_ik11" name="srfCom" src="b75ts" fileName="com/srfCom.xml" xy="137,132">
+      <gearDisplay controller="tap" pages="3"/>
+    </component>
   </displayList>
 </component>
