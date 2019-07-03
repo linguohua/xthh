@@ -2,6 +2,9 @@
 import { LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 
+interface JoinRoomInterface {
+    joinRoom(roomNumber: string): void;
+}
 /**
  * 加入房间
  */
@@ -9,19 +12,21 @@ const { ccclass } = cc._decorator;
 export class JoinRoom extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
-    // private eventTarget: cc.EventTarget;
 
     private numbers: fgui.GTextField;
-
-    private hintText: fgui.GTextField;
-
-    // private roomNumber: string = "";
     private lm: LobbyModuleInterface;
 
     private okBtn: fgui.GButton;
 
+    private newRoomView: JoinRoomInterface;
+
+    public show(newRoomView: JoinRoomInterface): void {
+        this.newRoomView = newRoomView;
+
+        this.initView();
+        this.win.show();
+    }
     protected onLoad(): void {
-        // this.eventTarget = new cc.EventTarget();
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_join_room/lobby_join_room");
@@ -34,9 +39,9 @@ export class JoinRoom extends cc.Component {
 
         this.win = win;
 
-        this.initView();
+        // this.initView();
 
-        this.win.show();
+        // this.win.show();
     }
 
     protected onDestroy(): void {
@@ -57,6 +62,8 @@ export class JoinRoom extends cc.Component {
 
         this.okBtn = this.view.getChild("buttonQD").asButton;
         this.okBtn.onClick(this.onOkBtnClick, this);
+        this.okBtn.grayed = true;
+        this.okBtn._touchDisabled = true;
 
         for (let i = 0; i < 10; i++) {
             const button = this.view.getChild(`button${i}`);
@@ -64,9 +71,6 @@ export class JoinRoom extends cc.Component {
         }
 
         this.numbers = this.view.getChild("number").asTextField;
-
-        this.hintText = this.view.getChild("hintText").asTextField;
-
     }
     private onCloseBtnClick(): void {
         this.destroy();
@@ -75,8 +79,9 @@ export class JoinRoom extends cc.Component {
     private onResetBtnClick(): void {
         Logger.debug("onResetBtnClick");
         this.numbers.text = "";
-        // this.roomNumber = "";
-        this.hintText.visible = true;
+
+        this.okBtn.grayed = true;
+        this.okBtn._touchDisabled = true;
     }
 
     private onBackBtnClick(): void {
@@ -84,12 +89,8 @@ export class JoinRoom extends cc.Component {
         const len = this.numbers.text.length;
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
-        }
-
-        if (this.numbers.text === "") {
-            this.hintText.visible = true;
-        } else {
-            this.hintText.visible = false;
+            this.okBtn.grayed = true;
+            this.okBtn._touchDisabled = true;
         }
     }
 
@@ -99,25 +100,22 @@ export class JoinRoom extends cc.Component {
         if (numberLength < 6) {
             this.numbers.text = `${this.numbers.text}${input}`;
 
-            // this.roomNumber = `${this.roomNumber}${input}`;
-
-            if (this.numbers.text === "") {
-                this.hintText.visible = true;
-            } else {
-                this.hintText.visible = false;
-            }
         }
 
-        this.joinRoomCheck(this.numbers.text);
+        if (this.numbers.text.length < 6) {
+            this.okBtn.grayed = true;
+            this.okBtn._touchDisabled = true;
+        } else {
+            this.okBtn.grayed = false;
+            this.okBtn._touchDisabled = false;
+        }
     }
 
     private onOkBtnClick(): void {
+       this.win.hide();
+       this.destroy();
 
-    }
-    private joinRoomCheck(roomNumber: string): void {
-        if (roomNumber.length === 6) {
-
-        }
+       this.newRoomView.joinRoom(this.numbers.text);
     }
 
 }

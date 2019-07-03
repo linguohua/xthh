@@ -62,6 +62,33 @@ export class NewRoomView extends cc.Component {
         this.win.show();
     }
 
+    public joinRoom(roomNumber: string): void {
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
+
+        const joinRoomParams = {
+            roomNumber: roomNumber
+        };
+
+        Logger.debug("joinRoomParams:", joinRoomParams);
+
+        const params: GameModuleLaunchArgs = {
+            jsonString: "",
+            userInfo: myUser,
+            joinRoomParams: joinRoomParams,
+            createRoomParams: null,
+            record: null
+        };
+
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        this.win.hide();
+        this.destroy();
+
+        lm.switchToGame(params, "gameb");
+
+    }
+
     protected onLoad(): void {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -295,7 +322,8 @@ export class NewRoomView extends cc.Component {
     private onEnterBtnClick(): void {
         Logger.debug("onEnterBtnClick");
 
-        this.addComponent(JoinRoom);
+        const joiRoomView = this.addComponent(JoinRoom);
+        joiRoomView.show(this);
 
     }
 
