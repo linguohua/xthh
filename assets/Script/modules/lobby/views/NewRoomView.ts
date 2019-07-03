@@ -464,12 +464,17 @@ export class NewRoomView extends cc.Component {
         const anteRadioBtnIndex = this.getAnteRadioBtnSelectIndex();
         const roundRadioBtnIndex = this.getRoundRadioBtnSelectIndex();
         const joinRadioBtnIndex = this.getJoinRadioBtnSelectIndex();
-
+        const playerRequireRadioBtnIndex = this.getPlayerRequireRadioBtnSelectIndex();
         const myGame = myGames[gameTypeRadioBtnIndex];
+
+        let roomID = myGame.roomID;
+        if (gameTypeRadioBtnIndex === 0 && playerRequireRadioBtnIndex === 0) {
+            roomID = 2102;
+        }
 
         const createRoomParams = {
             casinoID: myGame.casinoID,
-            roomID: myGame.roomID,
+            roomID: roomID,
             base: anteRadioBtnIndex,
             round: roundRadioBtnIndex,
             allowJoin: joinRadioBtnIndex
