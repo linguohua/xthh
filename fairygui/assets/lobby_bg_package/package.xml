@@ -13,7 +13,7 @@
     <image id="ik119" name="ty_icon_hld.png" path="/resource/" exported="true"/>
     <image id="ik11a" name="ty_tc2.png" path="/resource/" exported="true" scale="9grid" scale9grid="28,76,56,14"/>
     <image id="ik11b" name="ty_tips1.png" path="/resource/" exported="true"/>
-    <image id="ik11c" name="ty_tips3.png" path="/resource/" exported="true"/>
+    <image id="ik11c" name="ty_tips3.png" path="/resource/" exported="true" scale="9grid" scale9grid="30,29,10,11"/>
     <image id="ik11d" name="ty_yq1.png" path="/resource/" exported="true" scale="9grid" scale9grid="17,17,7,34"/>
     <image id="ik11e" name="ty_yq2.png" path="/resource/" exported="true" scale="9grid" scale9grid="17,13,7,26"/>
     <component id="ik11f" name="closeBtn.xml" path="/commonBtn/" exported="true"/>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="3ayys8dn" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="pg4qg" name="joinRoom.xml" path="/" exported="true"/>
+    <component id="pg4qh" name="button0.xml" path="/"/>
+    <component id="pg4qt" name="btnClose.xml" path="/"/>
+    <image id="pg4qu" name="ty_btnClose.png" path="/bg/" exported="true"/>
+    <image id="pg4qv" name="s_私人_加入房间.jpg" path="/design/"/>
+    <image id="pg4qw" name="s_私人_加入房间标注.jpg" path="/design/"/>
+    <image id="pg4qx" name="srf_anjian.png" path="/resource/" scale="9grid" scale9grid="12,23,13,31"/>
+    <image id="pg4qy" name="srf_anjian1.png" path="/resource/"/>
+    <component id="pg4qz" name="button1.xml" path="/"/>
+    <component id="pg4q10" name="button2.xml" path="/"/>
+    <component id="pg4q11" name="button3.xml" path="/"/>
+    <component id="pg4q12" name="button4.xml" path="/"/>
+    <component id="pg4q13" name="button5.xml" path="/"/>
+    <component id="pg4q14" name="button6.xml" path="/"/>
+    <component id="pg4q15" name="button7.xml" path="/"/>
+    <component id="pg4q16" name="button8.xml" path="/"/>
+    <component id="pg4q17" name="button9.xml" path="/"/>
+    <component id="pg4q18" name="buttonCS.xml" path="/"/>
+    <component id="pg4q19" name="buttonSC.xml" path="/"/>
+    <component id="pg4q1a" name="buttonQD.xml" path="/"/>
+    <image id="pg4q1b" name="srf_srk.png" path="/resource/" scale="9grid" scale9grid="12,10,8,7"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>

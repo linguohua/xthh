@@ -2,12 +2,10 @@
 <packageDescription id="shrzm3rc" jpegQuality="80" compressPNG="true">
   <resources>
     <component id="ik110" name="personalRoomView.xml" path="/" exported="true"/>
-    <image id="ik111" name="srf_anjian.png" path="/resource/"/>
-    <image id="ik112" name="srf_anjian1.png" path="/resource/"/>
     <image id="ik113" name="srf_cjfj_bt.png" path="/resource/" scale="9grid" scale9grid="88,11,39,22"/>
     <image id="ik114" name="srf_cjfj_di1.png" path="/resource/" scale="9grid" scale9grid="12,8,5,16"/>
     <image id="ik115" name="srf_cjfj_dian.png" path="/resource/"/>
-    <image id="ik116" name="srf_cjfj_xzdi.png" path="/resource/" scale="9grid" scale9grid="9,12,18,24"/>
+    <image id="ik116" name="srf_cjfj_xzdi.png" path="/resource/" scale="9grid" scale9grid="11,12,15,20"/>
     <image id="ik117" name="srf_cjfj_zi_jrfj.png" path="/resource/"/>
     <image id="ik118" name="srf_cjfj_zi_wyjf.png" path="/resource/"/>
     <image id="ik119" name="srf_di1.png" path="/resource/"/>

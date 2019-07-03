@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://3ayys8dnpg4qv" designImageAlpha="100">
+  <displayList>
+    <image id="n44_h8zv" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="217,127" size="700,409"/>
+    <image id="n62_pg4q" name="bg1" src="pg4q1b" fileName="resource/srf_srk.png" xy="262,227" size="399,73"/>
+    <component id="n46_h8zv" name="closeBtn" src="pg4qt" fileName="btnClose.xml" xy="205,123"/>
+    <component id="n19_h8zv" name="button0" src="pg4qh" fileName="button0.xml" xy="677,418"/>
+    <component id="n50_pg4q" name="button1" src="pg4qz" fileName="button1.xml" xy="254,321"/>
+    <component id="n51_pg4q" name="button2" src="pg4q10" fileName="button2.xml" xy="360,321"/>
+    <component id="n52_pg4q" name="button3" src="pg4q11" fileName="button3.xml" xy="466,321"/>
+    <component id="n53_pg4q" name="button4" src="pg4q12" fileName="button4.xml" xy="570,321"/>
+    <component id="n54_pg4q" name="button5" src="pg4q13" fileName="button5.xml" xy="677,321"/>
+    <component id="n55_pg4q" name="button6" src="pg4q14" fileName="button6.xml" xy="254,418"/>
+    <component id="n56_pg4q" name="button7" src="pg4q15" fileName="button7.xml" xy="360,418"/>
+    <component id="n57_pg4q" name="button8" src="pg4q16" fileName="button8.xml" xy="466,418"/>
+    <component id="n58_pg4q" name="button9" src="pg4q17" fileName="button9.xml" xy="570,418"/>
+    <component id="n59_pg4q" name="buttonCS" src="pg4q18" fileName="buttonCS.xml" xy="783,226"/>
+    <component id="n60_pg4q" name="buttonQD" src="pg4q1a" fileName="buttonQD.xml" xy="784,321"/>
+    <component id="n61_pg4q" name="buttonSC" src="pg4q19" fileName="buttonSC.xml" xy="678,226"/>
+    <text id="n43_h8zv" name="number" xy="338,228" size="241,84" font="Microsoft YaHei" fontSize="60" color="#fcf3d7" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="123456"/>
+    <text id="n47_h8zv" name="hintText" xy="327,179" size="453,40" font="Microsoft YaHei" fontSize="28" color="#6e5840" align="center" vAlign="middle" text="请输入您要加入的6位数朋友房间号 !"/>
+  </displayList>
+</component>

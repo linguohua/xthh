@@ -5,9 +5,10 @@
   <controller name="round" alias="房间局数" pages="0,10,1,20,2,5" selected="0"/>
   <controller name="permission" alias="允许进入" pages="0,所有人,1,微信,2,工会" selected="0"/>
   <controller name="enough" alias="房卡是否足够" pages="0,yes,1,no" selected="0"/>
+  <controller name="playerNumber" alias="牌局人数" pages="0,2人,1,3人,2,4人" selected="0"/>
   <displayList>
     <image id="n6_ik11" name="bg1" src="ik116" fileName="resource/ty_di1.png" pkg="snwj6cnx" xy="0,16" size="203,434"/>
-    <image id="n16_108jp" name="bg2" src="ik116" fileName="resource/ty_di1.png" pkg="snwj6cnx" xy="221,16" size="642,434"/>
+    <image id="n16_108jp" name="bg2" src="ik116" fileName="resource/ty_di1.png" pkg="snwj6cnx" xy="221,20" size="642,430"/>
     <image id="n3_ik11" name="bg3" src="ik113" fileName="resource/srf_cjfj_bt.png" xy="0,0" size="204,43"/>
     <image id="n5_ik11" name="title1" src="ik117" fileName="resource/srf_cjfj_zi_jrfj.png" xy="32,3"/>
     <image id="n50_b75t" name="bg4" src="ik114" fileName="resource/srf_cjfj_di1.png" xy="233,376" size="553,64" alpha="0.4"/>
@@ -15,9 +16,9 @@
     <image id="n51_b75t" name="bg6" src="ik114" fileName="resource/srf_cjfj_di1.png" xy="451,392" size="240,32"/>
     <image id="n15_ik11" name="title2" src="ik118" fileName="resource/srf_cjfj_zi_wyjf.png" xy="459,2"/>
     <image id="n52_b75t" name="fk" src="b75tr" fileName="resource/ty_icon_fk.png" xy="455,388"/>
-    <text id="n13_ik11" name="text1" xy="36,163" size="127,58" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="加入到朋友&#xA;组织的牌局!"/>
+    <text id="n13_ik11" name="text1" xy="36,163" size="127,58" font="Microsoft YaHei" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="加入到朋友&#xA;组织的牌局!"/>
     <text id="n17_b75t" name="type" xy="235,65" size="121,34" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局类型 :"/>
-    <text id="n18_b75t" name="baseScore" xy="235,125" size="121,34" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="游戏底注 :"/>
+    <text id="n18_b75t" name="baseScore" xy="235,125" size="121,37" font="Microsoft YaHei" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="游戏底注 :"/>
     <text id="n19_b75t" name="round" xy="235,186" size="121,34" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="房间局数 :"/>
     <text id="n20_b75t" name="premission" xy="235,248" size="121,34" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="允许进入 :"/>
     <text id="n21_b75t" name="playerNumber" xy="235,308" size="121,34" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局人数 :"/>
@@ -27,7 +28,7 @@
     <component id="n27_b75t" name="accessBtn" src="b75to" fileName="btn/accessBtn.xml" xy="8,372" size="187,72"/>
     <component id="n29_b75t" name="createRoomBtn" src="b75tp" fileName="btn/createRoomBtn.xml" xy="722,371"/>
     <component id="n30_b75t" name="type0" src="b75tq" fileName="btn/radioBtn.xml" xy="364,57">
-      <Button controller="type" page="0"/>
+      <Button checked="true" controller="type" page="0"/>
     </component>
     <component id="n31_b75t" name="type1" src="b75tq" fileName="btn/radioBtn.xml" xy="536,57">
       <relation target="n30_b75t" sidePair="top-top,left-left"/>
@@ -38,7 +39,7 @@
       <Button controller="type" page="2"/>
     </component>
     <component id="n36_b75t" name="baseScore0" src="b75tq" fileName="btn/radioBtn.xml" xy="364,118">
-      <Button controller="baseScore" page="0"/>
+      <Button checked="true" controller="baseScore" page="0"/>
     </component>
     <component id="n37_b75t" name="baseScore1" src="b75tq" fileName="btn/radioBtn.xml" xy="535,118">
       <relation target="n36_b75t" sidePair="top-top,left-left"/>
@@ -49,7 +50,7 @@
       <Button controller="baseScore" page="2"/>
     </component>
     <component id="n39_b75t" name="round0" src="b75tq" fileName="btn/radioBtn.xml" xy="364,179">
-      <Button controller="round" page="0"/>
+      <Button checked="true" controller="round" page="0"/>
     </component>
     <component id="n40_b75t" name="round1" src="b75tq" fileName="btn/radioBtn.xml" xy="535,179">
       <relation target="n39_b75t" sidePair="top-top,left-left"/>
@@ -60,7 +61,7 @@
       <Button controller="round" page="2"/>
     </component>
     <component id="n42_b75t" name="permission0" src="b75tq" fileName="btn/radioBtn.xml" xy="364,240">
-      <Button controller="permission" page="0"/>
+      <Button checked="true" controller="permission" page="0"/>
     </component>
     <component id="n43_b75t" name="permission1" src="b75tq" fileName="btn/radioBtn.xml" xy="535,240">
       <relation target="n42_b75t" sidePair="top-top,left-left"/>
@@ -71,15 +72,15 @@
       <Button controller="permission" page="2"/>
     </component>
     <component id="n45_b75t" name="playerNumber0" src="b75tq" fileName="btn/radioBtn.xml" xy="364,300">
-      <Button controller="type" page="2"/>
+      <Button checked="true" controller="playerNumber" page="0"/>
     </component>
     <component id="n46_b75t" name="playerNumber1" src="b75tq" fileName="btn/radioBtn.xml" xy="535,300">
       <relation target="n45_b75t" sidePair="top-top,left-left"/>
-      <Button controller="type" page="1"/>
+      <Button controller="playerNumber" page="1"/>
     </component>
     <component id="n47_b75t" name="playerNumber2" src="b75tq" fileName="btn/radioBtn.xml" xy="703,300">
       <relation target="n45_b75t" sidePair="top-top,left-left"/>
-      <Button controller="type" page="0"/>
+      <Button controller="playerNumber" page="2"/>
     </component>
   </displayList>
 </component>

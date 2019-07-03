@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="131,47" extention="Button" designImage="ui://shrzm3rcik11g" designImageOffsetX="-500" designImageOffsetY="-189" designImageAlpha="100">
-  <controller name="button" pages="0,up,1,down" selected="1"/>
+<component size="131,47" extention="Button" designImage="ui://shrzm3rcik11g" designImageOffsetX="-500" designImageOffsetY="-187" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
-    <image id="n0_b75t" name="n0" src="ik116" fileName="resource/srf_cjfj_xzdi.png" xy="0,0" size="131,47">
+    <image id="n0_b75t" name="n0" src="ik116" fileName="resource/srf_cjfj_xzdi.png" xy="0,0" size="133,49">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
     <image id="n1_b75t" name="n1" src="ik115" fileName="resource/srf_cjfj_dian.png" xy="7,11">
