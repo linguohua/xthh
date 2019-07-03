@@ -293,9 +293,9 @@ export class LoginView extends cc.Component {
         }
 
         if (cardResource !== null) {
-            DataStore.setItem("diamond", cardResource.curr);
+            DataStore.setItem("card", cardResource.curr);
         } else {
-            DataStore.setItem("diamond", 0);
+            DataStore.setItem("card", 0);
         }
 
     }

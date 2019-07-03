@@ -32,8 +32,8 @@ interface MyGame {
 
 }
 
-const myGames: MyGame[] = [{casinoID: 16, roomID: 2100, name: "仙桃晃晃"},
-{casinoID: 16, roomID: 2103, name: "三人两门"}, {casinoID: 16, roomID: 2102, name: "两人两门"}];
+const myGames: MyGame[] = [{casinoID: 2, roomID: 2100, name: "仙桃晃晃"},
+{casinoID: 16, roomID: 2103, name: "三人两门"}, {casinoID: 16, roomID: 2112, name: "两人两门"}];
 
 // const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
 
@@ -52,8 +52,6 @@ export class NewRoomView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
 
-    private ruleViews: { [key: string]: RuleView } = {};
-
     private path: NewRoomViewPath = NewRoomViewPath.Normal;
 
     private gameTypeRadioBtns: fgui.GButton[] = [];
@@ -66,6 +64,8 @@ export class NewRoomView extends cc.Component {
 
     private defaultConfig: DefaultConfig;
 
+    private fkText: fgui.GTextField;
+    private noEnoughFkText: fgui.GTextField;
     public getView(): fgui.GComponent {
         return this.view;
     }
@@ -76,14 +76,6 @@ export class NewRoomView extends cc.Component {
         // this.quicklyCreateView = quicklyCreateView;
         this.initView();
         this.win.show();
-    }
-
-    public updatePrice(price: number): void {
-        //
-        Logger.debug("updatePrice = ", price);
-        const consumeText = this.view.getChild("consumeText");
-        consumeText.text = `${price}`;
-
     }
 
     protected onLoad(): void {
@@ -111,12 +103,9 @@ export class NewRoomView extends cc.Component {
         } else {
             this.defaultConfig = {gameTypeRadioBtnIndex: 0, anteRadioBtnIndex: 0, roundRadioBtnIndex: 0, joinRadioBtnIndex: 0};
         }
-
-        Logger.debug("onLoad defaultConfig:", defaultConfig);
     }
 
     protected onDestroy(): void {
-        Logger.debug("onDestroy");
         this.saveConfig();
         this.win.hide();
         this.win.dispose();
@@ -168,6 +157,7 @@ export class NewRoomView extends cc.Component {
     }
     private initPersonalRoom(): void {
         const personalRoomView = this.view.getChild("srfCom").asCom;
+
         const createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
         createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
 
@@ -181,7 +171,6 @@ export class NewRoomView extends cc.Component {
             this.gameTypeRadioBtns[i].getChild("text").text = myGames[i].name;
 
             this.anteRadioBtns[i] = personalRoomView.getChild(`baseScore${i}`).asButton;
-            this.anteRadioBtns[i].onClick(this.onAnteRadioBtnClick, this);
             this.anteRadioBtns[i].data = i;
 
             this.roundRadioBtns[i] = personalRoomView.getChild(`round${i}`).asButton;
@@ -227,6 +216,22 @@ export class NewRoomView extends cc.Component {
         this.anteRadioBtns[anteRadioBtnIndex].selected = true;
         this.roundRadioBtns[roundRadioBtnIndex].selected = true;
         this.joinRadioBtns[joinRadioBtnIndex].selected = true;
+
+        // 计算房卡消耗
+        const needCard = roundcost.rcosts[roundRadioBtnIndex].card;
+        const myCard = DataStore.getString("card");
+        const myCardInt: number = parseInt(myCard, 10);
+
+        this.fkText =  personalRoomView.getChild("fkText").asTextField;
+        this.fkText.text = `${needCard}/${myCard}`;
+
+        this.noEnoughFkText =  personalRoomView.getChild("noEnoughFk").asTextField;
+        if (myCardInt > +needCard) {
+            this.noEnoughFkText.visible = false;
+        } else {
+            this.noEnoughFkText.visible = true;
+        }
+
     }
 
     private getRoomBaseByCasinoID(casinoID: number): protoHH.casino.Igame_room_base {
@@ -333,14 +338,29 @@ export class NewRoomView extends cc.Component {
         }
     }
 
-    private onAnteRadioBtnClick(ev: fgui.Event): void {
-        Logger.debug("onAnteRadioBtnClick:",  <string>ev.initiator.data);
-        // TODO: 计算消耗的房卡
-    }
-
     private onRoundRadioBtnClick(ev: fgui.Event): void {
-        Logger.debug("onRoundRadioBtnClick:",  <string>ev.initiator.data);
-        // TODO: 计算消耗的房卡
+        const gameTypeRadioBtnSelectIndex = this.getGameTypeRadioBtnSelectIndex();
+        const myGame = myGames[gameTypeRadioBtnSelectIndex];
+
+        const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
+        if (roundcost == null) {
+            Logger.debug("initPersonalRoom error, no roundCost found for ", myGame.casinoID);
+
+            return;
+        }
+
+        const roundRadioBtnIndex = this.getRoundRadioBtnSelectIndex();
+        const needCard = roundcost.rcosts[roundRadioBtnIndex].card;
+        const myCard = DataStore.getString("card");
+        const myCardInt: number = parseInt(myCard, 10);
+
+        this.fkText.text = `${needCard}/${myCard}`;
+
+        if (myCardInt > +needCard) {
+            this.noEnoughFkText.visible = false;
+        } else {
+            this.noEnoughFkText.visible = true;
+        }
     }
 
     private onCreateRoomBtnClick(): void {
@@ -390,7 +410,6 @@ export class NewRoomView extends cc.Component {
         };
 
         const configJson = JSON.stringify(defaultConfig);
-        Logger.debug("configJson:", configJson);
         DataStore.setItem("createRoomParams", configJson);
     }
 
