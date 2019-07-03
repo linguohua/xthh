@@ -326,7 +326,7 @@ export class Algorithm {
         if (sVector.length < nEnd) {
             return;
         }
-        for (let i = nBegin; i <= nEnd; i++) {
+        for (let i = nBegin - 1; i < nEnd; i++) {
             sArray.push(sVector[i]);
         }
     }

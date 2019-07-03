@@ -51,11 +51,11 @@ export namespace HandlerActionResultDraw {
                 } else {
                     // self:setSameMahjongWithMyMahjongs( array[1])
                     room.m_bSaveOPGFlag = true;
-                    room.m_nSaveOPGMahjong = array[1];
+                    room.m_nSaveOPGMahjong = array[0];
                     // player.m_pBut_Type[DEF_XTSJ_BUT_TYPE_GANG]:setGrey( false)
                     // self.m_pBut_Text[DEF_XTSJ_BUT_TYPE_GANG]:setGrey( false)
 
-                    const buttonMap: string[] = [ButtonDef.Pong, ButtonDef.Skip];
+                    const buttonMap: string[] = [ButtonDef.Kong, ButtonDef.Skip];
                     player.playerView.showButton(buttonMap);
                 }
             }
@@ -94,6 +94,9 @@ export namespace HandlerActionResultDraw {
                 }
             }
         }
+        if (buttonMap.length > 0) {
+            buttonMap.push(ButtonDef.Skip);
+        }
         player.playerView.showButton(buttonMap);
     };
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
@@ -105,7 +108,7 @@ export namespace HandlerActionResultDraw {
 
         room.m_bOPSelf = false;
         if (player.isMe()) {
-            room.m_bNotCatch = false;
+            player.m_bNotCatch = false;
         }
         room.setWaitingPlayer(player.chairID, reply.time);
         room.m_bCanOutMahjong = false;

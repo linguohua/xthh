@@ -616,7 +616,13 @@ export class Room {
         //设置癞子
         this.windFlowerID = this.roomInfo.laizi;
         this.setRoundMask();
-
+        // if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
+        //     if (this.roomInfo.cur_idx.toString() === this.myUser.userID) {
+        //         if (this.roomInfo.op)
+        //     }
+        // }
+        this.mAlgorithm.setMahjongLaiZi(this.roomInfo.laizi);
+        this.mAlgorithm.setMahjongFan(this.roomInfo.fanpai);
         this.setWaitingPlayer(this.roomInfo.cur_idx);
         this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
         //如果到我操作 要显示操作按钮

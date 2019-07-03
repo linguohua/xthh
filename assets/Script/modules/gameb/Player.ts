@@ -465,12 +465,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Pong;
-        req2.card = this.host.m_nLastOutMahjong;
+        req2.card = this.host.m_nSaveOPPMahjong;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.m_nLastOutMahjong = 0;
+        this.host.m_nSaveOPPMahjong = 0;
     }
 
     //玩家选择了杠牌
@@ -480,12 +480,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Kong;
-        req2.card = this.host.m_nLastOutMahjong;
+        req2.card = this.host.m_nSaveOPGMahjong;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.m_nLastOutMahjong = 0;
+        this.host.m_nSaveOPGMahjong = 0;
     }
 
     //玩家选择了胡牌
@@ -493,17 +493,15 @@ export class Player {
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
-        if (this.host.m_nLastOutMahjong !== undefined && this.host.m_nLastOutMahjong !== null
-            && this.host.m_nLastOutMahjong > 0) {
-            req2.op = TypeOfOP.Hu;
-        } else {
+        if (this.host.m_bCanOutMahjong) {
             req2.op = TypeOfOP.ZiMo;
+        } else {
+            req2.op = TypeOfOP.Hu;
         }
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.m_nLastOutMahjong = 0;
     }
 
     //玩家选择了过
