@@ -189,6 +189,8 @@ export class Room {
         this.roomView = roomView;
 
         this.playBgSound();
+
+        this.showRoomNumber();
     }
 
     // 创建玩家对象    // 并绑定playerView
