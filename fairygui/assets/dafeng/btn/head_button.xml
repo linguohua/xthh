@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="83,112" pivot="0.5,0.5" anchor="true" extention="Button" designImage="ui://397phochlqn3fs" designImageOffsetX="-850" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_fxwe" name="n0" src="lqn3ge" fileName="resource/z_桌面打牌/zm_di1.png" xy="0,0" size="83,112">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n1_fxwe" name="n1" xy="4,6" size="74,76" url="ui://397phochjmxy1" align="center" vAlign="middle" fill="scale"/>
+    <graph id="n2_fxwe" name="pos" xy="45,44" pivot="0.5,0.5" anchor="true" size="8,9"/>
+    <text id="n3_jel2" name="role" xy="20,0" size="41,21" fontSize="16" color="#cc0033" align="center" vAlign="middle" autoSize="none" text="游客"/>
+    <image id="n4_jel2" name="zhuang" src="lqn3gv" fileName="resource/z_桌面打牌/zm_icon_zhuang.png" xy="43,47" visible="false"/>
+    <text id="n6_jel2" name="nameText" xy="0,88" size="83,28" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
+  </displayList>
+  <Button/>
+</component>

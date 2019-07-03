@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="211,116" pivot="0.5,0.5" extention="Button" designImage="ui://397phochlqn3fx" designImageOffsetX="-876" designImageOffsetY="-435" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_jel2" name="n0" src="ik113" fileName="resource/ty_btn_h1.png" pkg="snwj6cnx" xy="0,0" size="211,116">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_jel2" name="n1" src="lqn3g9" fileName="resource/z_桌面打牌/zm_btn_zi_fxfh.png" xy="35,64"/>
+    <text id="n2_jel2" name="roomNumber" xy="17,12" size="181,62" fontSize="45" color="#ffff99" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="999999"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="1.10"/>
+</component>

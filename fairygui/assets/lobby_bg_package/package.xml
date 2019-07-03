@@ -4,7 +4,7 @@
     <image id="ik110" name="ty_btn_c.png" path="/resource/" exported="true"/>
     <image id="ik111" name="ty_btn_gb.png" path="/resource/" exported="true"/>
     <image id="ik112" name="ty_btn_h.png" path="/resource/" exported="true" scale="9grid" scale9grid="25,10,9,33"/>
-    <image id="ik113" name="ty_btn_h1.png" path="/resource/" exported="true"/>
+    <image id="ik113" name="ty_btn_h1.png" path="/resource/" exported="true" scale="9grid" scale9grid="29,30,52,6"/>
     <image id="ik114" name="ty_btn_lv.png" path="/resource/" exported="true" scale="9grid" scale9grid="25,20,6,5"/>
     <image id="ik115" name="ty_btn_lv1.png" path="/resource/" exported="true" scale="9grid" scale9grid="29,18,58,36"/>
     <image id="ik116" name="ty_di1.png" path="/resource/" exported="true" scale="9grid" scale9grid="8,8,16,16"/>
@@ -12,7 +12,7 @@
     <image id="ik118" name="ty_icon_fk.png" path="/resource/" exported="true"/>
     <image id="ik119" name="ty_icon_hld.png" path="/resource/" exported="true"/>
     <image id="ik11a" name="ty_tc2.png" path="/resource/" exported="true" scale="9grid" scale9grid="28,76,56,14"/>
-    <image id="ik11b" name="ty_tips1.png" path="/resource/" exported="true"/>
+    <image id="ik11b" name="ty_tips1.png" path="/resource/" exported="true" scale="9grid" scale9grid="27,25,8,9"/>
     <image id="ik11c" name="ty_tips3.png" path="/resource/" exported="true" scale="9grid" scale9grid="30,29,10,11"/>
     <image id="ik11d" name="ty_yq1.png" path="/resource/" exported="true" scale="9grid" scale9grid="17,17,7,34"/>
     <image id="ik11e" name="ty_yq2.png" path="/resource/" exported="true" scale="9grid" scale9grid="17,13,7,26"/>
