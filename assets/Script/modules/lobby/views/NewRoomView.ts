@@ -9,6 +9,7 @@ interface DefaultConfig {
     anteRadioBtnIndex: number;
     roundRadioBtnIndex: number;
     joinRadioBtnIndex: number;
+    playerRequireRadioBtnIndex: number;
 }
 
 interface MyGame {
@@ -51,6 +52,7 @@ export class NewRoomView extends cc.Component {
 
     private fkText: fgui.GTextField;
     private noEnoughFkText: fgui.GTextField;
+    private createRoomBtn: fgui.GButton;
     public getView(): fgui.GComponent {
         return this.view;
     }
@@ -112,7 +114,8 @@ export class NewRoomView extends cc.Component {
         if (defaultConfig !== "") {
             this.defaultConfig = <DefaultConfig>JSON.parse(defaultConfig);
         } else {
-            this.defaultConfig = {gameTypeRadioBtnIndex: 0, anteRadioBtnIndex: 0, roundRadioBtnIndex: 0, joinRadioBtnIndex: 0};
+            this.defaultConfig = {gameTypeRadioBtnIndex: 0, anteRadioBtnIndex: 0, roundRadioBtnIndex: 0,
+                 joinRadioBtnIndex: 0, playerRequireRadioBtnIndex: 0};
         }
     }
 
@@ -169,8 +172,8 @@ export class NewRoomView extends cc.Component {
     private initPersonalRoom(): void {
         const personalRoomView = this.view.getChild("srfCom").asCom;
 
-        const createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
-        createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
+        this.createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
+        this.createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
 
         const accessBtn = personalRoomView.getChild("accessBtn").asButton;
         accessBtn.onClick(this.onEnterBtnClick, this);
@@ -193,6 +196,9 @@ export class NewRoomView extends cc.Component {
             this.joinRadioBtns[i].getChild("text").text = joinTypes[i];
 
             this.playerRequireRadioBtns[i] = personalRoomView.getChild(`playerNumber${i}`).asButton;
+            this.playerRequireRadioBtns[i].onClick(this.onPlayerRequireBtnClick, this);
+            this.playerRequireRadioBtns[i].data = i;
+
             this.playerRequireRadioBtns[i].getChild("text").text = `${playerRequires[i]}`;
         }
 
@@ -223,10 +229,20 @@ export class NewRoomView extends cc.Component {
         const anteRadioBtnIndex = this.defaultConfig.anteRadioBtnIndex;
         const roundRadioBtnIndex = this.defaultConfig.roundRadioBtnIndex;
         const joinRadioBtnIndex = this.defaultConfig.joinRadioBtnIndex;
+        const playerRequireRadioBtnIndex = this.defaultConfig.playerRequireRadioBtnIndex;
 
         this.anteRadioBtns[anteRadioBtnIndex].selected = true;
         this.roundRadioBtns[roundRadioBtnIndex].selected = true;
         this.joinRadioBtns[joinRadioBtnIndex].selected = true;
+
+        // 注意：这里特殊处理仙桃晃晃, 仙桃晃晃可以是2人、4人
+        if (myGame.casinoID === 2) {
+            if (playerRequireRadioBtnIndex === 0 || playerRequireRadioBtnIndex === 2) {
+                this.playerRequireRadioBtns[playerRequireRadioBtnIndex].selected = true;
+            } else {
+                this.playerRequireRadioBtns[0].selected = true;
+            }
+        }
 
         // 计算房卡消耗
         const needCard = roundcost.rcosts[roundRadioBtnIndex].card;
@@ -239,10 +255,13 @@ export class NewRoomView extends cc.Component {
         this.noEnoughFkText =  personalRoomView.getChild("noEnoughFk").asTextField;
         if (myCardInt > +needCard) {
             this.noEnoughFkText.visible = false;
+            this.createRoomBtn.grayed = false;
+            this.createRoomBtn._touchDisabled = false;
         } else {
             this.noEnoughFkText.visible = true;
+            this.createRoomBtn.grayed = true;
+            this.createRoomBtn._touchDisabled = true;
         }
-
     }
 
     private getRoomBaseByCasinoID(casinoID: number): protoHH.casino.Igame_room_base {
@@ -304,6 +323,17 @@ export class NewRoomView extends cc.Component {
 
         return 0;
     }
+
+    private getPlayerRequireRadioBtnSelectIndex(): number {
+        for (let i = 0; i < 3; i++) {
+            if (this.playerRequireRadioBtns[i].selected) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     private onBoxRecordBtnClick(): void {
         this.initBoxRecord();
     }
@@ -329,7 +359,7 @@ export class NewRoomView extends cc.Component {
 
     private onGameTypeRadioBtnClick(ev: fgui.Event): void {
         Logger.debug("onGameTypeRadioBtnClick:",  <string>ev.initiator.data);
-        const gameTypeRadioBtnSelectIndex = this.getGameTypeRadioBtnSelectIndex();
+        const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
         // 根据游戏类型，显示底注和局数
         const roomBase = this.getRoomBaseByCasinoID(myGame.casinoID);
@@ -350,10 +380,31 @@ export class NewRoomView extends cc.Component {
             this.anteRadioBtns[i].getChild("text").text = `${roomBase.roombases[i]}`;
             this.roundRadioBtns[i].getChild("text").text = `${roundcost.rcosts[i].round}`;
         }
+
+        // 注意：这里特殊处理仙桃晃晃, 仙桃晃晃可以是2人、4人
+        if (myGame.roomID === 2100) {
+            if (this.getPlayerRequireRadioBtnSelectIndex() === 1) {
+                this.playerRequireRadioBtns[2].selected = true;
+            }
+
+            Logger.debug("myGame.roomID === 2100, this.getPlayerRequireRadioBtnSelectIndex():", this.getPlayerRequireRadioBtnSelectIndex());
+        }
+
+        // 三人两门是3人
+        if (myGame.roomID === 2103) {
+            this.playerRequireRadioBtns[1].selected = true;
+        }
+
+        // 两人两门是2人
+        if (myGame.roomID === 2112) {
+            this.playerRequireRadioBtns[0].selected = true;
+        }
+
+        Logger.debug("myGame.roomID:", myGame.roomID);
     }
 
     private onRoundRadioBtnClick(ev: fgui.Event): void {
-        const gameTypeRadioBtnSelectIndex = this.getGameTypeRadioBtnSelectIndex();
+        const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
 
         const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
@@ -374,6 +425,34 @@ export class NewRoomView extends cc.Component {
             this.noEnoughFkText.visible = false;
         } else {
             this.noEnoughFkText.visible = true;
+        }
+    }
+
+    private onPlayerRequireBtnClick(ev: fgui.Event): void {
+        const playerRequireRadioBtnSelectIndex = <number>ev.initiator.data;
+        const gameTypeRadiBtnIndex = this.getGameTypeRadioBtnSelectIndex();
+        if (playerRequireRadioBtnSelectIndex === 0) {
+            if (gameTypeRadiBtnIndex === 1) {
+                ev.initiator.data = 0;
+                this.gameTypeRadioBtns[ev.initiator.data].selected = true;
+                this.onGameTypeRadioBtnClick(ev);
+            }
+        }
+
+        if (playerRequireRadioBtnSelectIndex === 1) {
+            if (gameTypeRadiBtnIndex !== 1) {
+                ev.initiator.data = 1;
+                this.gameTypeRadioBtns[ev.initiator.data].selected = true;
+                this.onGameTypeRadioBtnClick(ev);
+            }
+        }
+
+        if (playerRequireRadioBtnSelectIndex === 2) {
+            if (gameTypeRadiBtnIndex !== 0) {
+                ev.initiator.data = 0;
+                this.gameTypeRadioBtns[ev.initiator.data].selected = true;
+                this.onGameTypeRadioBtnClick(ev);
+            }
         }
     }
 
@@ -420,7 +499,8 @@ export class NewRoomView extends cc.Component {
             gameTypeRadioBtnIndex: this.getGameTypeRadioBtnSelectIndex(),
             anteRadioBtnIndex: this.getAnteRadioBtnSelectIndex(),
             roundRadioBtnIndex: this.getRoundRadioBtnSelectIndex(),
-            joinRadioBtnIndex: this.getJoinRadioBtnSelectIndex()
+            joinRadioBtnIndex: this.getJoinRadioBtnSelectIndex(),
+            playerRequireRadioBtnIndex: this.getPlayerRequireRadioBtnSelectIndex()
         };
 
         const configJson = JSON.stringify(defaultConfig);
