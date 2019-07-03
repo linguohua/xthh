@@ -65,17 +65,7 @@ export interface RoomInterface {
     readonly roomInfo: protoHH.casino.Itable;
     readonly roomView: RoomViewInterface;
     readonly handNum: number;
-    m_bOPSelf: boolean;
-    m_nLastOutMahjong: number; //别人最后打出的牌(可用来 碰杠胡)
-    m_bSaveZCHFlag: boolean;
-    m_bSaveOPGFlag: boolean;
-    m_nSaveOPGMahjong: number;
-    m_bSaveOPPFlag: boolean;
-    m_nSaveOPPMahjong: number;
-    m_bCanOutMahjong: boolean;
-    m_sForgoPeng: number[]; //放弃的碰牌
-    m_sForgoGang: number[]; //放弃的杠牌
-    canAutoPutCard: boolean; //是否海底捞月
+    lastDisCardTile: number;
     mAlgorithm: Algorithm;
     isDisband: boolean;
     scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
@@ -148,10 +138,4 @@ export interface RoomInterface {
 
     onReturnLobbyBtnClick(): void;
     showMsg(chatData: ChatData): void;
-    addForgoPeng(mahjong: number): void;
-    addForgoGang(mahjong: number): void;
-    myMahjong_addForgo(t: number, mahjong: number, clear: boolean): void;
-    isInForgoPeng(mahjong: number): boolean;
-    delAllForgoPeng(): void;
-    isInForgoGang(mahjong: number): boolean;
 }

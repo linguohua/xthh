@@ -21,8 +21,6 @@ export namespace HandlerMsgDeal {
             if (p.isMe()) {
                 p.addHandTiles(msgDeal.cards);
                 p.sortHands(false);
-                //TODO:xxxxxxxxx
-                room.canAutoPutCard = true;
             } else {
                 p.tileCountInHand = 13;
             }

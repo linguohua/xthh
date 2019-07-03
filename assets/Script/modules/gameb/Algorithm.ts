@@ -1060,6 +1060,67 @@ export class Algorithm {
         }
         return arr;
     }
+
+    //根据他人的牌判断能否胡牌
+    public canHu_WithOther(tilesHand: number[], mahjong: number): number[] {
+        if (tilesHand === undefined || tilesHand === null || tilesHand.length === 0) {
+            return [];
+        }
+        //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
+        if (!this.getFlagPiao()) {
+            const v = this.canHuPai_WithOther(tilesHand, mahjong);
+            if (v.bHuPai) {
+                if (this.checkHuPai_WithOther(v.sVecHuPai, mahjong)) {
+                    return v.sVecHuPai;
+                }
+            }
+        }
+
+        return [];
+    }
+    //根据他人的牌判断能否杠牌
+    public canGang_WithOther(tilesHand: number[], mahjong: number): number[] {
+        if (tilesHand === undefined || tilesHand === null || tilesHand.length === 0) {
+            return [];
+        }
+        const array: number[] = [];
+        //遍历有效牌准备检索是否构成杠和碰
+        for (const tile of tilesHand) {
+            if (tile === mahjong && mahjong !== this.getMahjongLaiZi()) {
+                array.push(tile);
+            }
+        }
+        if (this.getMahjongFan() === mahjong) {
+            if (array.length === 2) {
+                //翻牌三张就可以杠
+                return array;
+            } else if (array.length === 3) {
+                // 普通杠
+                return array;
+            }
+        }
+
+        return [];
+    }
+    //根据他人的牌判断能否碰牌
+    public canPeng_WithOther(tilesHand: number[], mahjong: number): number[] {
+        if (tilesHand === undefined || tilesHand === null
+            || tilesHand.length === 0 || mahjong === this.getMahjongFan()) {
+            return [];
+        }
+        const array: number[] = [];
+        for (const tile of tilesHand) {
+            if (tile === mahjong) {
+                array.push(tile);
+                if (array.length > 1) {
+
+                    return array;
+                }
+            }
+        }
+
+        return [];
+    }
 }
 /**
  * 自己补充的东西

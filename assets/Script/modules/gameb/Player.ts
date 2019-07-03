@@ -51,17 +51,14 @@ export class Player {
     public playerView: PlayerView;
     //设置一个标志，表示已经点击了动作按钮（吃碰杠胡过）
     public waitSkip: boolean;
-
     public state: number;
     public playerInfo: PlayerInfo;
     public waitDiscardReAction: boolean;
     public readyHandList: number[];
-
     public allowedReActionMsg: proto.mahjong.MsgAllowPlayerReAction;
     public allowedActionMsg: proto.mahjong.MsgAllowPlayerAction;
     public isGuoHuTips: boolean;
     private flagsTing: boolean;
-    public m_bNotCatch: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
@@ -465,12 +462,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Pong;
-        req2.card = this.host.m_nSaveOPPMahjong;
+        req2.card = this.host.lastDisCardTile;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.m_nSaveOPPMahjong = 0;
+        this.host.lastDisCardTile = 0;
     }
 
     //玩家选择了杠牌
@@ -480,12 +477,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Kong;
-        req2.card = this.host.m_nSaveOPGMahjong;
+        req2.card = this.host.lastDisCardTile;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.m_nSaveOPGMahjong = 0;
+        this.host.lastDisCardTile = 0;
     }
 
     //玩家选择了胡牌
@@ -493,10 +490,10 @@ export class Player {
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
-        if (this.host.m_bCanOutMahjong) {
-            req2.op = TypeOfOP.ZiMo;
-        } else {
+        if (this.host.lastDisCardTile !== 0) {
             req2.op = TypeOfOP.Hu;
+        } else {
+            req2.op = TypeOfOP.ZiMo;
         }
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
@@ -508,56 +505,35 @@ export class Player {
     //当上下文是allowedActionMsg时，表示不起手听牌
     //当上下文是allowedReActionMsg时，表示不吃椪杠胡
     public onSkipBtnClick(): void {
-        let curCancelType = -1;
-        let curCancelCard = 0;
-        if (this.host.m_bSaveOPGFlag && this.host.m_nSaveOPGMahjong > 0
-            && this.host.m_bSaveOPPFlag && this.host.m_nSaveOPPMahjong > 0) {
-            //假如之前是杠牌并且有杠牌，并且之前也有碰并且也有碰牌
-            curCancelType = 2;
-            curCancelCard = this.host.m_nSaveOPGMahjong;
-            if (!this.host.m_bOPSelf) {
-                this.host.myMahjong_addForgo(2, this.host.m_nSaveOPGMahjong, true);
-            }
-        } else if (this.host.m_bSaveOPGFlag && this.host.m_nSaveOPGMahjong > 0) {
-            //否则之前是杠且有杠牌
-            curCancelType = 0;
-            curCancelCard = this.host.m_nSaveOPGMahjong;
-            if (!this.host.m_bOPSelf) {
-                this.host.myMahjong_addForgo(0, this.host.m_nSaveOPGMahjong, true);
-            }
-        } else if (this.host.m_bSaveOPPFlag && this.host.m_nSaveOPPMahjong > 0) {
-            //否则之前是碰且有碰牌
-            curCancelType = 0;
-            curCancelCard = this.host.m_nSaveOPPMahjong;
-            if (!this.host.m_bOPSelf) {
-                this.host.myMahjong_addForgo(1, this.host.m_nSaveOPPMahjong, true);
-            }
-        }
+        const curCancelType = -1;
+        const curCancelCard = 0;
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.op = TypeOfOP.Guo;
         req2.cancel_type = curCancelType;
         req2.card = curCancelCard;
         //假如之前OP是捉铳
-        if (this.host.m_bSaveZCHFlag) {
-            this.host.m_bSaveZCHFlag = false;
-            req2.op = TypeOfOP.BUZHUOCHONG;
-            const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-            this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-        } else if (this.host.m_bOPSelf) {
-            const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-            this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-        } else {
-            if (curCancelType !== -1 && curCancelType !== 0) {
-                const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-                this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-            }
-        }
+        // if (this.host.m_bSaveZCHFlag) {
+        //     this.host.m_bSaveZCHFlag = false;
+        //     req2.op = TypeOfOP.BUZHUOCHONG;
+        //     const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        //     this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+        // } else if (this.host.m_bOPSelf) {
+        //     const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        //     this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+        // } else {
+        //     if (curCancelType !== -1 && curCancelType !== 0) {
+        //         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        //         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+        //     }
+        // }
+        const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
         //重置手牌位置
         this.playerView.restoreHandsPositionAndClickCount(-1);
 
-        this.host.m_nLastOutMahjong = 0;
+        // this.host.m_nLastOutMahjong = 0;
 
         //放弃后提示自己打牌
         // if (!this.m_bOPSelf && this.m_nOrderType === 0){
@@ -677,71 +653,6 @@ export class Player {
     }
 
     /**
-     * ------------------------------------------
-     * 新增函数
-     */
-    //根据他人的牌判断能否胡牌
-    public canHu_WithOther(mahjong_xtsj: Algorithm, mahjong: number): number[] {
-        if (this.tilesHand === undefined || this.tilesHand === null || this.tilesHand.length === 0) {
-            return [];
-        }
-        //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
-        if (!mahjong_xtsj.getFlagPiao() && !this.getNotCatch()) {
-            const v = mahjong_xtsj.canHuPai_WithOther(this.tilesHand, mahjong);
-            if (v.bHuPai) {
-                if (mahjong_xtsj.checkHuPai_WithOther(v.sVecHuPai, mahjong)) {
-                    return v.sVecHuPai;
-                }
-            }
-        }
-
-        return [];
-    }
-    //根据他人的牌判断能否杠牌
-    public canGang_WithOther(mahjong_xtsj: Algorithm, mahjong: number): number[] {
-        if (this.tilesHand === undefined || this.tilesHand === null || this.tilesHand.length === 0) {
-            return [];
-        }
-        const array: number[] = [];
-        //遍历有效牌准备检索是否构成杠和碰
-        for (const tile of this.tilesHand) {
-            if (tile === mahjong && mahjong !== mahjong_xtsj.getMahjongLaiZi()) {
-                array.push(tile);
-            }
-        }
-        if (mahjong_xtsj.getMahjongFan() === mahjong) {
-            if (array.length === 2) {
-                //翻牌三张就可以杠
-                return array;
-            } else if (array.length === 3) {
-                // 普通杠
-                return array;
-            }
-        }
-
-        return [];
-    }
-    //根据他人的牌判断能否碰牌
-    public canPeng_WithOther(mahjong_xtsj: Algorithm, mahjong: number): number[] {
-        if (this.tilesHand === undefined || this.tilesHand === null
-            || this.tilesHand.length === 0 || mahjong === mahjong_xtsj.getMahjongFan()) {
-            return [];
-        }
-        const array: number[] = [];
-        for (const tile of this.tilesHand) {
-            if (tile === mahjong) {
-                array.push(tile);
-                if (array.length > 1 && !this.host.isInForgoPeng(mahjong)) {
-
-                    return array;
-                }
-            }
-        }
-
-        return [];
-    }
-
-    /**
      * 新增函数 end
      */
     public getMahjongCount_withV(mahjong: number): number {
@@ -753,12 +664,6 @@ export class Player {
         }
 
         return num;
-    }
-    public getNotCatch(): boolean {
-        return this.m_bNotCatch;
-    }
-    public setNotCatch(b: boolean): void {
-        this.m_bNotCatch = b;
     }
     private playSound(directory: string, effectName: string): void {
         if (effectName === undefined || effectName === null) {

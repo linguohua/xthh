@@ -113,18 +113,7 @@ export class Room {
     public isDisband: boolean = false;
     public readonly roomType: number;
     public mAlgorithm: Algorithm;
-    //新增的变量
-    public m_bOPSelf = false;
-    public m_nLastOutMahjong: number; //别人最后打出的牌(可用来 碰杠胡)
-    public m_bSaveZCHFlag = false;
-    public m_bSaveOPGFlag = false;
-    public m_nSaveOPGMahjong = 0;
-    public m_bSaveOPPFlag = false;
-    public m_nSaveOPPMahjong = 0;
-    public m_bCanOutMahjong = false;
-    public m_sForgoPeng: number[] = []; //放弃的碰牌
-    public m_sForgoGang: number[] = []; //放弃的杠牌
-    public canAutoPutCard: boolean = false; //是否海底捞月
+    public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -636,7 +625,6 @@ export class Room {
             m.time = this.roomInfo.time;
             m.table_id = this.roomInfo.id;
 
-            this.m_bOPSelf = true;
             const reply = protoHH.casino_xtsj.packet_sc_op.encode(m);
 
             const msg = new protoHH.casino.ProxyMessage();
@@ -647,79 +635,6 @@ export class Room {
             const handler = msgHandlers[protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP];
             handler(reply, this);
         }
-    }
-
-    //新增接口
-    //判断指定牌是否在于放弃杠牌中
-    public isInForgoGang(mahjong: number): boolean {
-        for (const tile of this.m_sForgoGang) {
-            if (tile === mahjong) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    public delAllForgoPeng(): void {
-        this.m_sForgoPeng = [];
-    }
-    //判断指定牌是否在于放弃碰牌中
-    public isInForgoPeng(mahjong: number): boolean {
-        for (const tile of this.m_sForgoPeng) {
-            if (tile === mahjong) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    //添加放弃的操作并且显示提示  type 0杠，1碰，2杠＋碰, mahjong牌, clear是否要清空储存值
-    public myMahjong_addForgo(t: number, mahjong: number, clear: boolean): void {
-        if (t === 0) {
-            //弃杠
-            this.addForgoGang(mahjong);
-            if (clear) {
-                this.m_bSaveOPGFlag = false;
-                this.m_nSaveOPGMahjong = 0;
-            }
-        } else if (t === 1) {
-            //弃碰
-            this.addForgoPeng(mahjong);
-            if (clear) {
-                this.m_bSaveOPPFlag = false;
-                this.m_nSaveOPPMahjong = 0;
-            }
-        } else if (t === 2) {
-            //弃杠、碰
-            this.addForgoGang(mahjong);
-            if (clear) {
-                this.m_bSaveOPGFlag = false;
-                this.m_nSaveOPGMahjong = 0;
-            }
-            this.addForgoPeng(mahjong);
-            if (clear) {
-                this.m_bSaveOPPFlag = false;
-                this.m_nSaveOPPMahjong = 0;
-            }
-        }
-    }
-    //添加获取放弃杠的牌
-    public addForgoGang(mahjong: number): void {
-        for (const g of this.m_sForgoGang) {
-            if (g === mahjong) {
-                return;
-            }
-        }
-        this.m_sForgoGang.push(mahjong);
-    }
-    //添加放弃的碰牌组
-    public addForgoPeng(mahjong: number): void {
-        for (const g of this.m_sForgoPeng) {
-            if (g === mahjong) {
-                return;
-            }
-        }
-        this.m_sForgoPeng.push(mahjong);
     }
 
     //播放背景音乐
