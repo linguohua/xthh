@@ -1,5 +1,6 @@
 import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
+import { JoinRoom } from "./JoinRoom";
 
 const { ccclass } = cc._decorator;
 
@@ -293,6 +294,8 @@ export class NewRoomView extends cc.Component {
 
     private onEnterBtnClick(): void {
         Logger.debug("onEnterBtnClick");
+
+        this.addComponent(JoinRoom);
 
     }
 

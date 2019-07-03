@@ -11,12 +11,14 @@ export class JoinRoom extends cc.Component {
     private win: fgui.Window;
     // private eventTarget: cc.EventTarget;
 
-    private numbers: fgui.GObject[];
+    private numbers: fgui.GTextField;
 
     private hintText: fgui.GTextField;
 
-    private roomNumber: string = "";
+    // private roomNumber: string = "";
     private lm: LobbyModuleInterface;
+
+    private okBtn: fgui.GButton;
 
     protected onLoad(): void {
         // this.eventTarget = new cc.EventTarget();
@@ -53,16 +55,15 @@ export class JoinRoom extends cc.Component {
         const backBtn = this.view.getChild("buttonSC");
         backBtn.onClick(this.onBackBtnClick, this);
 
+        this.okBtn = this.view.getChild("buttonQD").asButton;
+        this.okBtn.onClick(this.onOkBtnClick, this);
+
         for (let i = 0; i < 10; i++) {
             const button = this.view.getChild(`button${i}`);
             button.onClick(() => { this.onInputButton(i); }, this);
         }
 
-        this.numbers = [];
-        for (let i = 0; i < 6; i++) {
-            const num = this.view.getChild(`number${i + 1}`);
-            this.numbers.push(num);
-        }
+        this.numbers = this.view.getChild("number").asTextField;
 
         this.hintText = this.view.getChild("hintText").asTextField;
 
@@ -73,22 +74,19 @@ export class JoinRoom extends cc.Component {
 
     private onResetBtnClick(): void {
         Logger.debug("onResetBtnClick");
-        for (let i = 0; i < 6; i++) {
-            this.numbers[i].text = "";
-        }
-        this.roomNumber = "";
+        this.numbers.text = "";
+        // this.roomNumber = "";
         this.hintText.visible = true;
     }
 
     private onBackBtnClick(): void {
         Logger.debug("onBackBtnClick");
-        const len = this.roomNumber.length;
+        const len = this.numbers.text.length;
         if (len !== 0) {
-            this.numbers[len - 1].text = "";
+            this.numbers.text = this.numbers.text.substring(0, len - 1);
         }
 
-        this.roomNumber = this.roomNumber.substring(0, len - 1);
-        if (this.roomNumber === "") {
+        if (this.numbers.text === "") {
             this.hintText.visible = true;
         } else {
             this.hintText.visible = false;
@@ -97,81 +95,29 @@ export class JoinRoom extends cc.Component {
 
     private onInputButton(input: number): void {
         Logger.debug(`onInputButton, input:${input}`);
-        const numberLength = this.roomNumber.length;
+        const numberLength = this.numbers.text.length;
         if (numberLength < 6) {
-            const num = this.numbers[numberLength];
-            num.text = `${input}`;
+            this.numbers.text = `${this.numbers.text}${input}`;
 
-            this.roomNumber = `${this.roomNumber}${input}`;
+            // this.roomNumber = `${this.roomNumber}${input}`;
 
-            if (this.roomNumber === "") {
+            if (this.numbers.text === "") {
                 this.hintText.visible = true;
             } else {
                 this.hintText.visible = false;
             }
         }
 
-        this.joinRoomCheck(this.roomNumber);
+        this.joinRoomCheck(this.numbers.text);
     }
 
+    private onOkBtnClick(): void {
+
+    }
     private joinRoomCheck(roomNumber: string): void {
         if (roomNumber.length === 6) {
-            this.lm.requetJoinRoom(roomNumber);
-            this.win.hide();
-            this.win.dispose();
-            this.destroy();
+
         }
     }
-
-    // private requetJoinRoom(roomNumber: string): void {
-    //     const tk = DataStore.getString("token", "");
-    //     const joinRoomURL = `${LEnv.rootURL}${LEnv.requestRoomInfo}?&tk=${tk}&roomNumber=${roomNumber}`;
-
-    //     Logger.trace("joinRoomURL, joinRoomURL:", joinRoomURL);
-
-    //     HTTP.hGet(this.eventTarget, joinRoomURL, (xhr: XMLHttpRequest, err: string) => {
-    //         let errMsg = null;
-    //         if (err !== null) {
-    //             errMsg = `加入房间错误，错误码:${err}`;
-    //         } else {
-    //             errMsg = HTTP.hError(xhr);
-    //             if (errMsg === null) {
-    //                 const data = <Uint8Array>xhr.response;
-    //                 // proto 解码登录结果
-    //                 const requestRoomInfoRsp = proto.lobby.MsgRequestRoomInfoRsp.decode(data);
-    //                 if (requestRoomInfoRsp.result === proto.lobby.MsgError.ErrSuccess) {
-    //                     this.enterGame(requestRoomInfoRsp.roomInfo);
-    //                 } else {
-    //                     const errorString = LobbyError.getErrorString(requestRoomInfoRsp.result);
-    //                     Dialog.showDialog(errorString);
-    //                 }
-    //             }
-    //         }
-
-    //         if (errMsg !== null) {
-    //             Logger.debug("quickly login failed:", errMsg);
-    //             // 显示错误对话框
-    //             Dialog.showDialog(errMsg, () => {
-    //                 //
-    //             });
-    //         }
-    //     });
-    // }
-
-    // private enterGame(roomInfo: proto.lobby.IRoomInfo): void {
-    //     this.win.hide();
-    //     this.win.dispose();
-    //     this.destroy();
-
-    //     const myRoomInfo = {
-    //         roomID: roomInfo.roomID,
-    //         roomNumber: roomInfo.roomNumber,
-    //         config: roomInfo.config,
-    //         gameServerID: roomInfo.gameServerID
-    //     };
-    //     const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-    //     lm.enterGame(myRoomInfo);
-
-    // }
 
 }
