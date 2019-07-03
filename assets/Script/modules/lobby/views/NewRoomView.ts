@@ -1,21 +1,7 @@
-import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, NewRoomViewPath } from "../lcore/LCoreExports";
-import { proto } from "../proto/protoLobby";
+import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
-
-interface RuleView {
-    destroy: Function;
-    updatePriceCfg: Function;
-    show: Function;
-    hide: Function;
-
-    getRules: Function;
-}
-
-interface QuicklyCreateViewInterface {
-    saveConfig: Function;
-}
 
 interface DefaultConfig {
     gameTypeRadioBtnIndex: number;
@@ -52,8 +38,6 @@ export class NewRoomView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
 
-    private path: NewRoomViewPath = NewRoomViewPath.Normal;
-
     private gameTypeRadioBtns: fgui.GButton[] = [];
     private anteRadioBtns: fgui.GButton[] = [];
     private roundRadioBtns: fgui.GButton[] = [];
@@ -70,8 +54,7 @@ export class NewRoomView extends cc.Component {
         return this.view;
     }
 
-    public showView(path: NewRoomViewPath, club?: proto.club.IMsgClubInfo, quicklyCreateView?: QuicklyCreateViewInterface): void {
-        this.path = path;
+    public showView(): void {
         // this.club = club;
         // this.quicklyCreateView = quicklyCreateView;
         this.initView();

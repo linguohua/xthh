@@ -231,7 +231,7 @@ export class LobbyView extends cc.Component {
 
     private onCreateRoom(): void {
         const newRoomView = this.addComponent(NewRoomView);
-        newRoomView.showView(NewRoomViewPath.Normal);
+        newRoomView.showView();
         // const playerID = DataStore.getString("playerID");
         // const myUser = { userID: playerID };
 
