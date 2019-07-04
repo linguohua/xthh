@@ -253,7 +253,7 @@ export class NewRoomView extends cc.Component {
         this.fkText.text = `${needCard}/${myCard}`;
 
         this.noEnoughFkText =  personalRoomView.getChild("noEnoughFk").asTextField;
-        if (myCardInt > +needCard) {
+        if (myCardInt >= needCard) {
             this.noEnoughFkText.visible = false;
             this.createRoomBtn.grayed = false;
             this.createRoomBtn._touchDisabled = false;
@@ -421,7 +421,7 @@ export class NewRoomView extends cc.Component {
 
         this.fkText.text = `${needCard}/${myCard}`;
 
-        if (myCardInt > +needCard) {
+        if (myCardInt >= needCard) {
             this.noEnoughFkText.visible = false;
         } else {
             this.noEnoughFkText.visible = true;
