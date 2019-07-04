@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="l6hq6c41" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="tfg80" name="cz_bq_scsb.png" path="/resource/"/>
+    <image id="tfg81" name="cz_di1.png" path="/resource/"/>
+    <image id="tfg82" name="cz_di2.png" path="/resource/" scale="9grid" scale9grid="12,5,15,17"/>
+    <image id="tfg83" name="cz_di3.png" path="/resource/" scale="9grid" scale9grid="14,57,8,9"/>
+    <image id="tfg84" name="cz_diban.png" path="/resource/" scale="9grid" scale9grid="11,80,22,160"/>
+    <image id="tfg85" name="cz_fgx.png" path="/resource/" scale="9grid" scale9grid="6,1,12,2"/>
+    <image id="tfg86" name="cz_icon_fk1.png" path="/resource/"/>
+    <image id="tfg87" name="cz_icon_fk2.png" path="/resource/"/>
+    <image id="tfg88" name="cz_icon_fk3.png" path="/resource/"/>
+    <image id="tfg89" name="cz_icon_hld1.png" path="/resource/"/>
+    <image id="tfg8a" name="cz_icon_hld2.png" path="/resource/"/>
+    <image id="tfg8b" name="cz_icon_hld3.png" path="/resource/"/>
+    <image id="tfg8c" name="cz_icon_vip.png" path="/resource/"/>
+    <image id="tfg8d" name="cz_icon_vip1.png" path="/resource/"/>
+    <image id="tfg8e" name="cz_xsg.png" path="/resource/"/>
+    <image id="tfg8f" name="c_充值-欢乐豆.jpg" path="/design/"/>
+    <image id="tfg8g" name="c_充值-欢乐豆标注.jpg" path="/design/"/>
+    <image id="tfg8h" name="充值-欢乐豆-vip特权.jpg" path="/design/"/>
+    <image id="tfg8i" name="充值-欢乐豆-vip特权标注.jpg" path="/design/"/>
+    <component id="tfg8j" name="shopView.xml" path="/" exported="true"/>
+    <component id="tfg8k" name="fkBtn.xml" path="/btn/"/>
+    <component id="tfg8m" name="douBtn.xml" path="/btn/"/>
+    <component id="tfg8n" name="vipBtn.xml" path="/btn/"/>
+    <component id="tfg8o" name="buyBtn.xml" path="/btn/"/>
+    <component id="tfg8p" name="douCom.xml" path="/"/>
+    <component id="tfg8q" name="vipView.xml" path="/" exported="true"/>
+  </resources>
+  <publish name="lobby_shop"/>
+</packageDescription>
