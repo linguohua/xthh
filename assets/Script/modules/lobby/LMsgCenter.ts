@@ -1,4 +1,4 @@
-import { LobbyModuleInterface, Logger, MsgQueue, MsgType, WS } from "./lcore/LCoreExports";
+import { Logger, MsgQueue, MsgType, WS } from "./lcore/LCoreExports";
 import { proto } from "./protoHH/protoHH";
 
 export type GameMsgHandler = (msg: proto.casino.ProxyMessage) => void;
@@ -23,15 +23,16 @@ export class LMsgCenter {
 
     private component: cc.Component;
 
+    private fastLoginReq: proto.casino.packet_fast_login_req;
+
     private gmsgHandlers: { [key: number]: GameMsgHandlerHolder } = {};
 
     // private lobbyModule: LobbyModuleInterface;
 
-    public constructor(url: string, component: cc.Component, lobbyModule?: LobbyModuleInterface) {
+    public constructor(url: string, component: cc.Component, fastLoginReq: proto.casino.packet_fast_login_req) {
         this.url = url;
         this.component = component;
-        // this.lobbyModule = lobbyModule;
-
+        this.fastLoginReq = fastLoginReq;
         this.eventTarget = new cc.EventTarget();
     }
 
@@ -210,41 +211,14 @@ export class LMsgCenter {
     }
 
     private doFastLogin(): void {
-        const devInfo = {
-            package: "com.zhongyou.hubei.casino.as",
-            platform: "",
-            language: "",
-            version: "",
-            build: "",
-            idfa: "",
-            idfv: "",
-            udid: "",
-            openudid: "ffffffff-865c-c946-941f-ecd10033c587",
-            mac: "00:00:00:00:00:00",
-            device: "iPhone",
-            device_version: "",
-            system: "iOS",
-            system_version: "10.3.3",
-            jailbreak: false,
-            sim: "",
-            phone: "",
-            imei: "",
-            imsi: "",
-            device_token: "",
-            ip: ""
-        };
+        if (this.fastLoginReq === undefined) {
+            Logger.error("doFastLogin, this.fastLoginReq === undefined");
 
-        const req = {
-            channel: "mac",
-            ticket: "",
-            user_id: 1094151,
-            reconnect: false,
-            gdatacrc: 0xFFFFFFFF,
-            devinfo: devInfo
-        };
+            return;
+        }
 
-        const req2 = new proto.casino.packet_fast_login_req(req);
-        const buf = proto.casino.packet_fast_login_req.encode(req2);
+        // const req2 = new proto.casino.packet_fast_login_req(req);
+        const buf = proto.casino.packet_fast_login_req.encode(this.fastLoginReq);
         this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_REQ);
 
         this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_FAST_LOGIN_ACK, this.onFastLoginACK, this);

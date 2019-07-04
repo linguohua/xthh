@@ -22,6 +22,11 @@ export class LobbyView extends cc.Component {
     private diamondText: fgui.GObject;
     private lm: LobbyModuleInterface;
 
+    private nameText: fgui.GTextField;
+    private beansText: fgui.GTextField;
+
+    private fkText: fgui.GTextField;
+
     // private msgCenter: LMsgCenter;
 
     // private onMessageFunc: Function;
@@ -122,6 +127,13 @@ export class LobbyView extends cc.Component {
         const personalRoomBtn = this.view.getChild("personalRoomBtn");
         personalRoomBtn.onClick(this.onCreateRoom, this);
 
+        this.nameText = this.view.getChild("nameText").asTextField;
+        this.beansText = this.view.getChild("douText").asTextField;
+        this.fkText = this.view.getChild("fkText").asTextField;
+
+        this.nameText.text = DataStore.getString("playerID");
+        this.beansText.text = DataStore.getString("beans");
+        this.fkText.text = DataStore.getString("card");
         // const createBtn = this.view.getChild("n4");
         // createBtn.onClick(this.onCreateClick, this);
 
@@ -257,13 +269,13 @@ export class LobbyView extends cc.Component {
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
         console.log("onJoinGameAck");
         const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
-        console.log(reply);
 
-        const tableID = DataStore.getString("tableID", "0");
-        if (tableID === "0") {
+        const tableID = DataStore.getString("tableID", "");
+        if (tableID === "") {
             return;
         }
 
+        Logger.debug("Aready in room, tableID:", tableID);
         // Dialog.showDialog("已经在房间, 正在进入房间");
 
         const myUser = { userID: `${reply.player_id}` };

@@ -134,6 +134,43 @@ export class Helloworld extends cc.Component {
             reqString);
     }
 
+    private constructFastLoginReq(): proto.casino.packet_fast_login_req {
+        const devInfo = {
+            package: "com.zhongyou.hubei.casino.as",
+            platform: "",
+            language: "",
+            version: "",
+            build: "",
+            idfa: "",
+            idfv: "",
+            udid: "",
+            openudid: "fd2045050505ec8fdeb34422752764bac4c60a9e",
+            mac: "00:00:00:00:00:00",
+            device: "iPhone",
+            device_version: "",
+            system: "iOS",
+            system_version: "10.3.3",
+            jailbreak: false,
+            sim: "",
+            phone: "",
+            imei: "",
+            imsi: "",
+            device_token: "",
+            ip: ""
+        };
+
+        return {
+                channel: "mac",
+                ticket: "",
+                user_id: 1094151,
+                reconnect: false,
+                gdatacrc: 0xFFFFFFFF,
+                devinfo: devInfo,
+                pdatacrc: 0,
+                pay: "",
+                request_id : 0
+            };
+    }
     private async testFastLogin(serverCfg: ServerCfg): Promise<void> {
         console.log(serverCfg);
 
@@ -141,10 +178,11 @@ export class Helloworld extends cc.Component {
             return;
         }
 
+        const fastLoginReq = this.constructFastLoginReq();
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
         const url = `wss://dfh5-develop.qianz.com/game/uuid/ws/play?web=1&target=${uriComp}`;
         console.log(url);
-        this.msgCenter = new LMsgCenter(url, this);
+        this.msgCenter = new LMsgCenter(url, this, fastLoginReq);
 
         this.msgCenter.eventTarget.once("onFastLoginComplete", this.onFastLoginACK, this); // 快速登录服务器回复
 

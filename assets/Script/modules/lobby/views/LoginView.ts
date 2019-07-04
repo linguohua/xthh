@@ -2,6 +2,8 @@ import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
 import { proto } from "../proto/protoLobby";
+// tslint:disable-next-line:no-require-imports
+import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
 import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
@@ -204,7 +206,6 @@ export class LoginView extends cc.Component {
         // 构建一个event target用于发出destroy事件
         this.eventTarget = new cc.EventTarget();
     }
-
     protected testHTTPLogin(): void {
         const req = {
             app: "casino",
@@ -241,6 +242,53 @@ export class LoginView extends cc.Component {
             reqString);
     }
 
+    private constructFastLoginReq(): protoHH.casino.packet_fast_login_req {
+        let openudid = DataStore.getString("openudid", "");
+        if (openudid === "") {
+           const now = Date.now();
+           const random = Math.random() * 100000;
+           openudid =  md5(`${now}${random}`);
+
+           Logger.debug("constructFastLoginReq new openudid:", openudid);
+        }
+
+        const devInfo = {
+            package: "com.zhongyou.hubei.casino.as",
+            platform: "",
+            language: "",
+            version: "",
+            build: "",
+            idfa: "",
+            idfv: "",
+            udid: "",
+            openudid: openudid,
+            mac: "00:00:00:00:00:00",
+            device: "iPhone",
+            device_version: "",
+            system: "iOS",
+            system_version: "10.3.3",
+            jailbreak: false,
+            sim: "",
+            phone: "",
+            imei: "",
+            imsi: "",
+            device_token: "",
+            ip: ""
+        };
+
+        return {
+                channel: "mac",
+                ticket: "",
+                user_id: 1094151,
+                reconnect: false,
+                gdatacrc: 0xFFFFFFFF,
+                devinfo: devInfo,
+                pdatacrc: 0,
+                pay: "",
+                request_id : 0
+            };
+    }
+
     private async testFastLogin(serverCfg: ServerCfg): Promise<void> {
         Logger.debug(serverCfg);
         const lmComponent = this.getComponent("LobbyModule");
@@ -251,12 +299,12 @@ export class LoginView extends cc.Component {
         }
 
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
-
+        const fastLoginReq = this.constructFastLoginReq();
         const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
         const url = `${LEnv.lobbyWebsocket}/game/uuid/ws/play?web=1&target=${uriComp}`;
         Logger.debug(url);
         // LmsgCenter 绑定到LobbyModule
-        const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, lm);
+        const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, fastLoginReq);
         msgCenter.eventTarget.once("onFastLoginComplete", this.onFastLoginComplete, this);
 
         lm.msgCenter = msgCenter;
@@ -274,29 +322,37 @@ export class LoginView extends cc.Component {
     }
 
     private saveFastLoginReply(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {
+        // 桌子ID
+        let tableID: string = `${fastLoginAck.pdata.table_id}`;
+        if (tableID === "null" || tableID === "0") {
+            tableID = "";
+        }
+
+        // 获取房卡资源
+        let card: number = 0;
+        let beans: number = 0;
+        for (const resource of fastLoginAck.pdata.resources) {
+            if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_CARD) {
+                card = resource.curr.toNumber();
+            }
+
+            if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_BEANS) {
+                beans = resource.curr.toNumber();
+            }
+        }
+
+        const gameConfigStr = JSON.stringify(fastLoginAck.config);
+
         DataStore.setItem("userID", fastLoginAck.user_id);
         DataStore.setItem("nickName", fastLoginAck.pdata.data.nickname);
         DataStore.setItem("gender", fastLoginAck.pdata.data.sex);
         DataStore.setItem("playerID", fastLoginAck.player_id);
         DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
-        DataStore.setItem("tableID", fastLoginAck.pdata.table_id);
-
-        const gameConfigStr = JSON.stringify(fastLoginAck.config);
+        DataStore.setItem("openudid", fastLoginAck.pdata.data.create_openudid);
+        DataStore.setItem("tableID", tableID);
+        DataStore.setItem("card", card);
+        DataStore.setItem("beans", beans);
         DataStore.setItem("gameConfig", gameConfigStr);
-
-        // 获取房卡资源
-        let cardResource = null;
-        for (const resource of fastLoginAck.pdata.resources) {
-            if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_CARD) {
-                cardResource = resource;
-            }
-        }
-
-        if (cardResource !== null) {
-            DataStore.setItem("card", cardResource.curr);
-        } else {
-            DataStore.setItem("card", 0);
-        }
 
     }
     private createWxBtn(): void {
