@@ -21,21 +21,20 @@ export namespace HandlerMsgActionOP {
         if (hu.length > 0) {
             buttonMap.push(ButtonDef.Hu);
         }
-        const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
+        const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
         if (gang.length > 0) {
-            let curNeedCards = 3;
-            if (reply.card === room.mAlgorithm.getMahjongFan()) {
-                curNeedCards = curNeedCards - 1;
-            }
-            if (room.mAlgorithm.mahjongTotal_get() > curNeedCards) {
-                buttonMap.push(ButtonDef.Kong);
-            }
+            player.canKongs = gang;
+            buttonMap.push(ButtonDef.Kong);
         }
-        const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
-        if (peng.length > 0) {
-            buttonMap.push(ButtonDef.Pong);
+        if (player.notPong !== reply.card) {
+            const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
+            if (peng.length > 0) {
+                player.isCanPong = true;
+                buttonMap.push(ButtonDef.Pong);
+            }
         }
         if (buttonMap.length > 0) {
+            player.lastDisCardTile = reply.card;
             buttonMap.push(ButtonDef.Skip);
             player.playerView.showButton(buttonMap);
         }

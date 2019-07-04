@@ -113,7 +113,6 @@ export class Room {
     public isDisband: boolean = false;
     public readonly roomType: number;
     public mAlgorithm: Algorithm;
-    public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -604,20 +603,43 @@ export class Room {
      * 断线重连恢复用户的操作
      */
     public restrorePlayerOperation(): void {
-        //设置癞子
+        //显示癞子
         this.windFlowerID = this.roomInfo.laizi;
         this.setRoundMask();
-        // if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
-        //     if (this.roomInfo.cur_idx.toString() === this.myUser.userID) {
-        //         if (this.roomInfo.op)
-        //     }
-        // }
+        //设置癞子 赖根
         this.mAlgorithm.setMahjongLaiZi(this.roomInfo.laizi);
         this.mAlgorithm.setMahjongFan(this.roomInfo.fanpai);
-        this.setWaitingPlayer(this.roomInfo.cur_idx);
-        this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
-        //如果到我操作 要显示操作按钮
-        if (this.roomInfo.op_id === this.roomInfo.players[0].id) {
+        //设置弃杠弃碰
+        const myPlayerInfo = this.roomInfo.players[0];
+        const pl = myPlayerInfo.pengcards.length;
+        if (pl > 0) {
+            this.myPlayer.notPong = myPlayerInfo.pengcards[pl - 1];
+        }
+        const gl = myPlayerInfo.cancelcards.length;
+        if (gl > 0) {
+            this.myPlayer.notKongs = myPlayerInfo.cancelcards;
+        }
+
+        // this.setWaitingPlayer(this.roomInfo.cur_idx);
+        // this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
+        if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
+            const tile = this.myPlayer.tilesHand.pop();
+            const m = new protoHH.casino_xtsj.packet_sc_drawcard();
+            m.time = this.roomInfo.time;
+            m.card = tile;
+            m.player_id = myPlayerInfo.id;
+
+            const reply = protoHH.casino_xtsj.packet_sc_drawcard.encode(m);
+            const msg = new protoHH.casino.ProxyMessage();
+            msg.Ops = protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_DRAWCARD;
+            msg.Data = reply;
+
+            // 构造一个类似的消息，恢复用户的操作
+            const handler = msgHandlers[protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_DRAWCARD];
+            handler(reply, this);
+
+        } else if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OP) {
+            //如果到我操作 要显示操作按钮
             const m = new protoHH.casino_xtsj.packet_sc_op();
             m.card = this.roomInfo.outcard;
             m.player_id = this.roomInfo.op_id;
@@ -634,6 +656,14 @@ export class Room {
             // 构造一个类似的消息，恢复用户的操作
             const handler = msgHandlers[protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP];
             handler(reply, this);
+        } else {
+            const player = this.roomInfo.players[this.roomInfo.cur_idx];
+            if (player !== undefined && player !== null) {
+                const p = this.getPlayerByUserID(`${player.id}`);
+                if (p !== undefined) {
+                    this.setWaitingPlayer(p.chairID);
+                }
+            }
         }
     }
 

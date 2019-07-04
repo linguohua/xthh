@@ -1,4 +1,5 @@
 import { proto } from "../lobby/protoHH/protoHH";
+import { Logger } from "../lobby/lcore/Logger";
 
 /* tslint:disable */
 // 先把tslint关闭，等待完全修改好之后再打开
@@ -131,7 +132,7 @@ export class Algorithm {
         return this.m_nMahjongLaiZi;
     }
 
-    //TODO 不知道干嘛 先写上
+    //设置赖根
     public setMahjongFan(fan: number): void {
         this.m_nMahjongFan = fan;
     }
@@ -1078,34 +1079,85 @@ export class Algorithm {
 
         return [];
     }
-    //根据他人的牌判断能否杠牌
+    public haveGang_WithMe(tilesHand: number[], melds: proto.casino_xtsj.packet_sc_op_ack[], notKongs: number[], mahjong: number): number[] {
+        const array: { [key: number]: number } = {};
+        const canKongs: number[] = [];
+        for (const tile of tilesHand) {
+            const a = array[tile];
+            if (a === undefined || a === 0) {
+                array[tile] = 1;
+            } else {
+                array[tile] = a + 1;
+            }
+        }
+        // Logger.debug("array ------------------- ", array);
+        const arrayKeys = Object.keys(array);
+        //判断能否杠
+        for (const akey of arrayKeys) {
+            if (akey !== undefined) {
+                const tile = +akey;
+                if (tile !== 0 && tile !== this.getMahjongLaiZi()) {
+                    let can = true;
+                    for (const notKong of notKongs) {
+                        if (notKong === tile) {
+                            can = false;
+                            break;
+                        }
+                    }
+                    if (can) {
+                        let num = array[tile];
+                        if (mahjong !== undefined && mahjong === tile) {
+                            num++;
+                        }
+                        if (tile === this.getMahjongFan()) {
+                            if (num > 2) {
+                                canKongs.push(tile);
+                            }
+                        } else {
+                            if (num > 3) {
+                                canKongs.push(tile);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (const meld of melds) {
+            if (meld.cards[0] === mahjong) {
+                //补杠
+                canKongs.push(mahjong);
+            }
+        }
+
+        return canKongs;
+    }
+    //判断能否杠牌
     public canGang_WithOther(tilesHand: number[], mahjong: number): number[] {
-        if (tilesHand === undefined || tilesHand === null || tilesHand.length === 0) {
+        if (mahjong === this.getMahjongLaiZi()) {
             return [];
         }
         const array: number[] = [];
         //遍历有效牌准备检索是否构成杠和碰
         for (const tile of tilesHand) {
-            if (tile === mahjong && mahjong !== this.getMahjongLaiZi()) {
+            if (tile === mahjong) {
                 array.push(tile);
             }
         }
         if (this.getMahjongFan() === mahjong) {
-            if (array.length === 2) {
+            if (array.length > 1) {
                 //翻牌三张就可以杠
                 return array;
-            } else if (array.length === 3) {
-                // 普通杠
-                return array;
             }
+        }
+        if (array.length == 3) {
+            return array;
         }
 
         return [];
     }
     //根据他人的牌判断能否碰牌
     public canPeng_WithOther(tilesHand: number[], mahjong: number): number[] {
-        if (tilesHand === undefined || tilesHand === null
-            || tilesHand.length === 0 || mahjong === this.getMahjongFan()) {
+        if (mahjong === this.getMahjongLaiZi() || mahjong === this.getMahjongFan()) {
             return [];
         }
         const array: number[] = [];

@@ -35,6 +35,25 @@ export namespace HandlerActionResultDraw {
             }
         }
     };
+
+    const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
+        const buttonMap: string[] = [];
+        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
+        if (hu.length > 0) {
+            buttonMap.push(ButtonDef.Hu);
+        }
+        const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
+        if (gang.length > 0) {
+            player.canKongs = gang;
+            buttonMap.push(ButtonDef.Kong);
+        }
+        if (buttonMap.length > 0) {
+            player.lastDisCardTile = reply.card;
+            buttonMap.push(ButtonDef.Skip);
+            player.playerView.showButton(buttonMap);
+        }
+    };
+
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const reply = proto.casino_xtsj.packet_sc_drawcard.decode(msgData);
         Logger.debug("HandlerActionResultDraw----------------------- ", reply);
@@ -43,7 +62,9 @@ export namespace HandlerActionResultDraw {
         const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
 
         room.setWaitingPlayer(player.chairID, reply.time);
-
+        if (player.isMe()) {
+            checkButton(room, player, reply);
+        }
         //增加新抽到的牌到手牌列表
         if (reply.card === 0 && player.isMe()) {
             //朝天笑
@@ -53,6 +74,8 @@ export namespace HandlerActionResultDraw {
             player.addHandTile(reply.card);
             player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
             player.hand2UI(false);
+
+            player.notPong = 0; //重置弃碰
         }
 
         setTitleIsDiscard(player);

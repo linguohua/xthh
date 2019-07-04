@@ -58,6 +58,11 @@ export class Player {
     public allowedReActionMsg: proto.mahjong.MsgAllowPlayerReAction;
     public allowedActionMsg: proto.mahjong.MsgAllowPlayerAction;
     public isGuoHuTips: boolean;
+    public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
+    public notPong: number = 0; //弃碰 只会有一个 不需要列表
+    public notKongs: number[] = []; //弃杠 起手有多杠的时候才会用到
+    public canKongs: number[] = []; //可杠列表 起手有多杠的时候才会用到
+    public isCanPong: boolean = false; //可以碰
     private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
@@ -462,12 +467,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Pong;
-        req2.card = this.host.lastDisCardTile;
+        req2.card = this.lastDisCardTile;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.lastDisCardTile = 0;
+        this.lastDisCardTile = 0;
     }
 
     //玩家选择了杠牌
@@ -477,12 +482,11 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Kong;
-        req2.card = this.host.lastDisCardTile;
+        req2.card = this.canKongs[0];
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.host.lastDisCardTile = 0;
     }
 
     //玩家选择了胡牌
@@ -490,7 +494,7 @@ export class Player {
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
-        if (this.host.lastDisCardTile !== 0) {
+        if (this.lastDisCardTile !== 0) {
             req2.op = TypeOfOP.Hu;
         } else {
             req2.op = TypeOfOP.ZiMo;
@@ -533,12 +537,12 @@ export class Player {
         //重置手牌位置
         this.playerView.restoreHandsPositionAndClickCount(-1);
 
-        // this.host.m_nLastOutMahjong = 0;
-
-        //放弃后提示自己打牌
-        // if (!this.m_bOPSelf && this.m_nOrderType === 0){
-
-        // }
+        if (this.isCanPong) {
+            this.notPong = this.lastDisCardTile;
+        }
+        if (this.canKongs.length > 0) {
+            this.notKongs = this.canKongs;
+        }
     }
 
     //执行自动打牌操作

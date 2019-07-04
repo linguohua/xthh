@@ -175,6 +175,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         } else if (joinRoomParams !== undefined && joinRoomParams !== null) {
             // 加入房间
             const joinRoomAck = await this.waitJoinRoom(joinRoomParams);
+            //如果当前轮到别人出牌。。。joinRoomAck 先不写。。。 不知道怎么写
             if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = joinRoomAck.tdata;
                 reconnect = joinRoomAck.reconnect;

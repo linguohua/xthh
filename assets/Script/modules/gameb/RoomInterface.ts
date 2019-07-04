@@ -65,7 +65,6 @@ export interface RoomInterface {
     readonly roomInfo: protoHH.casino.Itable;
     readonly roomView: RoomViewInterface;
     readonly handNum: number;
-    lastDisCardTile: number;
     mAlgorithm: Algorithm;
     isDisband: boolean;
     scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
