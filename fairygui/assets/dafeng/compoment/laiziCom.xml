@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="114,106" designImage="ui://397phochlqn3fr" designImageOffsetX="-3" designImageOffsetY="-3" designImageAlpha="100">
+  <displayList>
+    <image id="n0_jel2" name="bg" src="lqn3h6" fileName="_resource/z_桌面打牌/zm_yyltdi.png" xy="0,0" size="113,105"/>
+    <text id="n1_jel2" name="laigen" xy="9,1" size="41,29" fontSize="19" color="#009900" align="center" vAlign="middle" autoSize="none" singleLine="true" text="赖根"/>
+    <text id="n3_jel2" name="laizi" xy="63,1" size="41,29" fontSize="19" color="#009900" align="center" vAlign="middle" autoSize="none" singleLine="true" text="赖子"/>
+    <image id="n7_jel2" name="laigenImg" src="lqn3k4" fileName="_resource/m_麻将牌/小/t_39.png" xy="3,27" size="59,84" scale="0.9,0.9"/>
+    <image id="n8_jel2" name="laiziImg" src="lqn3k4" fileName="_resource/m_麻将牌/小/t_39.png" xy="56,27" size="59,84" scale="0.9,0.9"/>
+  </displayList>
+</component>

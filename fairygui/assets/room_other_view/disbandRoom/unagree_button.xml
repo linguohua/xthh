@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="187,72" extention="Button" designImage="ui://ls4obr7jlqn3fm" designImageOffsetX="-605" designImageOffsetY="-469" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n3_rhc4" name="n3" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="187,72"/>
+    <text id="n4_93ta" name="n4" xy="32,17" size="127,41" fontSize="28" color="#f7fec0" align="center" vAlign="middle" letterSpacing="2" autoSize="none" bold="true" text="不同意"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="1.10"/>
+</component>

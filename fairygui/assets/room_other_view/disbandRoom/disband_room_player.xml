@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="285,91" designImage="ui://ls4obr7jlqn3fm" designImageOffsetX="-268" designImageOffsetY="-198" designImageAlpha="0">
+  <displayList>
+    <image id="n0_mjk8" name="n0" src="lqn3g5" fileName="resource/z_桌面解散房间/zm_jsfj_mzdi-.png" xy="0,0" size="285,91"/>
+    <image id="n1_mjk8" name="agree" src="lqn3g4" fileName="resource/z_桌面解散房间/zm_jsfj_dg.png" xy="224,25" visible="false"/>
+    <image id="n2_mjk8" name="unagree" src="lqn3g7" fileName="resource/z_桌面解散房间/zm_jsfj_xx.png" xy="224,25" visible="false"/>
+    <image id="n3_mjk8" name="wait" src="lqn3g6" fileName="resource/z_桌面解散房间/zm_jsfj_wh.png" xy="224,25" visible="false"/>
+    <text id="n4_mjk8" name="name" xy="25,28" size="203,37" fontSize="26" color="#88403c" vAlign="middle" letterSpacing="2" autoSize="none" singleLine="true" autoClearText="true" text="兔八哥猫咪啦"/>
+  </displayList>
+</component>

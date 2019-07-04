@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="ls4obr7j" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="tfg86" name="disband_room_player.xml" path="/disbandRoom/"/>
+    <image id="tfg8b" name="gze.png" path="/resource/s_设置/"/>
+    <image id="tfg8c" name="jdtman.png" path="/resource/s_设置/"/>
+    <image id="tfg8d" name="syin.png" path="/resource/s_设置/"/>
+    <image id="tfg8e" name="pls_hui.png" path="/resource/s_设置/"/>
+    <image id="tfg8f" name="pls.png" path="/resource/s_设置/"/>
+    <image id="tfg8g" name="jds_hui.png" path="/resource/s_设置/"/>
+    <image id="tfg8h" name="jds.png" path="/resource/s_设置/"/>
+    <image id="tfg8i" name="szgb.png" path="/resource/s_设置/"/>
+    <image id="tfg8j" name="sqjs.png" path="/resource/s_设置/"/>
+    <image id="tfg8k" name="beiban.png" path="/resource/s_设置/"/>
+    <image id="tfg8l" name="fengge.png" path="/resource/s_设置/"/>
+    <image id="tfg8m" name="shuipinx.png" path="/resource/s_设置/"/>
+    <image id="tfg8n" name="yxgze.png" path="/resource/s_设置/"/>
+    <image id="tfg8o" name="guanbi.png" path="/resource/s_设置/"/>
+    <image id="tfg8p" name="yyue.png" path="/resource/s_设置/"/>
+    <image id="tfg8q" name="tcfj.png" path="/resource/s_设置/"/>
+    <image id="tfg8r" name="ty_jdtBottom.png" path="/resource/s_设置/" scale="9grid" scale9grid="19,0,106,22"/>
+    <image id="tfg8s" name="ty_jdtColor.png" path="/resource/s_设置/" scale="9grid" scale9grid="13,0,114,22"/>
+    <component id="tfg8v" name="arrowBtn.xml" path="/settingRoom/"/>
+    <component id="tfg8w" name="bar.xml" path="/settingRoom/"/>
+    <component id="tfg8x" name="blueColorBtn.xml" path="/settingRoom/"/>
+    <component id="tfg8y" name="classColorBtn.xml" path="/settingRoom/"/>
+    <component id="tfg8z" name="closeBtn.xml" path="/settingRoom/"/>
+    <component id="tfg810" name="disbandBtn.xml" path="/settingRoom/"/>
+    <component id="tfg811" name="shutdownBtn.xml" path="/settingRoom/"/>
+    <component id="tfg812" name="exitBtn.xml" path="/settingRoom/"/>
+    <component id="tfg813" name="soundSlider_grip.xml" path="/settingRoom/"/>
+    <component id="tfg814" name="soundSlider.xml" path="/settingRoom/"/>
+    <component id="tfg815" name="musixSleder_grip.xml" path="/settingRoom/"/>
+    <component id="tfg816" name="musixSleder.xml" path="/settingRoom/"/>
+    <component id="tfg817" name="disband_room.xml" path="/" exported="true"/>
+    <component id="tfg818" name="setting.xml" path="/" exported="true"/>
+    <image id="lqn3fe" name="z_桌面-解散房间提示1.jpg" path="/design/"/>
+    <image id="lqn3fm" name="z_桌面——解散房间提示1.jpg" path="/design/"/>
+    <image id="lqn3fn" name="z_桌面——解散房间提示1标注.jpg" path="/design/"/>
+    <image id="lqn3fo" name="z_桌面——解散房间提示2.jpg" path="/design/"/>
+    <component id="tfg819" name="cancelBtn.xml" path="/"/>
+    <component id="tfg81b" name="agree_button.xml" path="/disbandRoom/"/>
+    <component id="tfg81d" name="unagree_button.xml" path="/disbandRoom/"/>
+    <image id="lqn3g4" name="zm_jsfj_dg.png" path="/resource/z_桌面解散房间/"/>
+    <image id="lqn3g5" name="zm_jsfj_mzdi-.png" path="/resource/z_桌面解散房间/" scale="9grid" scale9grid="9,15,3,30"/>
+    <image id="lqn3g6" name="zm_jsfj_wh.png" path="/resource/z_桌面解散房间/"/>
+    <image id="lqn3g7" name="zm_jsfj_xx.png" path="/resource/z_桌面解散房间/"/>
+  </resources>
+  <publish name="room_other_view"/>
+</packageDescription>

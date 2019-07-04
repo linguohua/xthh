@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="292,110" pivot="0.5,0.5" extention="Button">
+<component size="188,65" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_vpcu" name="n0" src="vpcu1" fileName="resource/dl_btn_sjhdl.png" xy="0,0">
+    <image id="n0_tjkx" name="n0" src="tfg8o" fileName="大丰麻将美术改版/2 游戏内/切图/s_设置/guanbi.png" xy="0,0">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
-  <Button downEffect="scale" downEffectValue="1.10"/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

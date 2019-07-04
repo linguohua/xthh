@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="lk0art2q" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="93ta5" name="dialog.xml" path="/" exported="true"/>
+    <component id="93ta6" name="cancelBtn.xml" path="/"/>
+    <component id="93ta8" name="prompt.xml" path="/" exported="true"/>
+    <image id="93ta9" name="z_桌面-解散房间提示1.jpg" path="/design/"/>
+    <component id="93taa" name="okBtn.xml" path="/"/>
+  </resources>
+  <publish name="lobby_dialog"/>
+</packageDescription>

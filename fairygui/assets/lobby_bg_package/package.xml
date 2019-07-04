@@ -17,7 +17,7 @@
     <image id="ik11d" name="ty_yq1.png" path="/resource/" exported="true" scale="9grid" scale9grid="17,17,7,34"/>
     <image id="ik11e" name="ty_yq2.png" path="/resource/" exported="true" scale="9grid" scale9grid="17,13,7,26"/>
     <component id="ik11f" name="closeBtn.xml" path="/commonBtn/" exported="true"/>
-    <image id="b75tg" name="ty_btn_cd.png" path="/resource/" exported="true"/>
+    <image id="b75tg" name="ty_btn_cd.png" path="/resource/" exported="true" scale="9grid" scale9grid="38,18,7,33"/>
     <image id="b75th" name="ty_btn_hd.png" path="/resource/" exported="true" scale="9grid" scale9grid="37,18,10,36"/>
     <image id="b75ti" name="ty_btn_lvd.png" path="/resource/" exported="true" scale="9grid" scale9grid="41,18,4,36"/>
     <image id="jmxyj" name="boy_img.png" path="/resource/" exported="true"/>

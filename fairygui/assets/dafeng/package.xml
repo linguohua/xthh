@@ -541,7 +541,6 @@
     <image id="lqn3fb" name="j_小结算-流局标注.jpg" path="/_design/"/>
     <image id="lqn3fc" name="j_小结算.jpg" path="/_design/"/>
     <image id="lqn3fd" name="z_桌面-4杠.jpg" path="/_design/"/>
-    <image id="lqn3fe" name="z_桌面-解散房间提示1.jpg" path="/_design/"/>
     <image id="lqn3ff" name="z_桌面-语音输入1.jpg" path="/_design/"/>
     <image id="lqn3fg" name="z_桌面-语音输入2.jpg" path="/_design/"/>
     <image id="lqn3fh" name="z_桌面-语音输入2标注.jpg" path="/_design/"/>
@@ -549,9 +548,6 @@
     <image id="lqn3fj" name="z_桌面-语音输入3标注.jpg" path="/_design/"/>
     <image id="lqn3fk" name="z_桌面gps定位.jpg" path="/_design/"/>
     <image id="lqn3fl" name="z_桌面gps定位标注.jpg" path="/_design/"/>
-    <image id="lqn3fm" name="z_桌面——解散房间提示1.jpg" path="/_design/"/>
-    <image id="lqn3fn" name="z_桌面——解散房间提示1标注.jpg" path="/_design/"/>
-    <image id="lqn3fo" name="z_桌面——解散房间提示2.jpg" path="/_design/"/>
     <image id="lqn3fp" name="z_桌面对局房间--4人-1.jpg" path="/_design/"/>
     <image id="lqn3fq" name="z_桌面对局房间--4人-1标注.jpg" path="/_design/"/>
     <image id="lqn3fr" name="z_桌面对局房间--4人-2.jpg" path="/_design/"/>
@@ -567,10 +563,6 @@
     <image id="lqn3g1" name="z_桌面牌局回放4人-1.jpg" path="/_design/"/>
     <image id="lqn3g2" name="z_桌面牌局回放4人-标注.jpg" path="/_design/"/>
     <image id="lqn3g3" name="z_桌面牌局回放4人.jpg" path="/_design/"/>
-    <image id="lqn3g4" name="zm_jsfj_dg.png" path="/_resource/z_桌面解散房间/"/>
-    <image id="lqn3g5" name="zm_jsfj_mzdi-.png" path="/_resource/z_桌面解散房间/"/>
-    <image id="lqn3g6" name="zm_jsfj_wh.png" path="/_resource/z_桌面解散房间/"/>
-    <image id="lqn3g7" name="zm_jsfj_xx.png" path="/_resource/z_桌面解散房间/"/>
     <image id="lqn3g8" name="zm_bj.jpg" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3g9" name="zm_btn_zi_fxfh.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3ga" name="zm_btn_zi_jsfj.png" path="/_resource/z_桌面打牌/"/>
@@ -605,7 +597,7 @@
     <image id="lqn3h3" name="zm_txkdi.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3h4" name="zm_xxdi.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="16,11,5,5"/>
     <image id="lqn3h5" name="zm_xxditiao.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="0,11,2,17"/>
-    <image id="lqn3h6" name="zm_yyltdi.png" path="/_resource/z_桌面打牌/"/>
+    <image id="lqn3h6" name="zm_yyltdi.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="9,8,12,14"/>
     <image id="lqn3h7" name="zm_yylt_fh.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3h8" name="zm_yylt_hdi.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3h9" name="zm_yylt_mkf.png" path="/_resource/z_桌面打牌/"/>
@@ -792,6 +784,7 @@
     <component id="jel2ma" name="shareRoomBtn.xml" path="/btn/"/>
     <component id="jel2mb" name="palyerBtn.xml" path="/btn/"/>
     <component id="jel2mc" name="chatBtn.xml" path="/btn/"/>
+    <component id="jel2md" name="laiziCom.xml" path="/compoment/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

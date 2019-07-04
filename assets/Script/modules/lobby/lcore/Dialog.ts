@@ -41,9 +41,10 @@ export class Dialog {
         }
 
         const p = fgui.UIPackage.createObject("lobby_dialog", "prompt").asCom;
+        CommonFunction.setViewInCenter(p);
         const label = p.getChild("text");
         label.text = msg;
-        p.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
+        //p.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
         const trans = p.getTransition("t1");
         trans.play(() => {
             p.dispose();
@@ -72,11 +73,10 @@ export class Dialog {
             }
 
             const view = fgui.UIPackage.createObject("lobby_dialog", "dialog").asCom;
+            CommonFunction.setViewInCenter(view);
             const win = new fgui.Window();
             win.modal = true;
             win.contentPane = view;
-
-            win.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
             Dialog.inst.dlgView = view;
             Dialog.inst.dlgWin = win;
         }
@@ -184,12 +184,13 @@ export class Dialog {
             Dialog.inst.loader.fguiAddPackage("lobby/fui_lobby_progress_bar/lobby_progress_bar");
 
             const view = fgui.UIPackage.createObject("lobby_progress_bar", "progressBar").asCom;
+            CommonFunction.setViewInCenter(view);
             const win = new fgui.Window();
             win.modal = true;
             win.contentPane = view;
 
             // win.setPosition(cc.winSize.width / 2, cc.winSize.height / 2);
-            CommonFunction.setViewInCenter(win);
+
             Dialog.inst.progressBarWin = win;
             Dialog.inst.progressBarView = view;
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://ls4obr7jlqn3fm" designImageAlpha="100">
+  <displayList>
+    <image id="n0_mjk8" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,59" size="815,518"/>
+    <image id="n12_tfg8" name="bg2" src="ik116" fileName="resource/ty_di1.png" pkg="snwj6cnx" xy="247,181" size="648,226"/>
+    <component id="n13_tfg8" name="player1" src="tfg86" fileName="disbandRoom/disband_room_player.xml" xy="269,198"/>
+    <component id="n14_tfg8" name="player2" src="tfg86" fileName="disbandRoom/disband_room_player.xml" xy="587,198"/>
+    <component id="n15_tfg8" name="player3" src="tfg86" fileName="disbandRoom/disband_room_player.xml" xy="268,301"/>
+    <component id="n16_tfg8" name="player4" src="tfg86" fileName="disbandRoom/disband_room_player.xml" xy="587,301"/>
+    <text id="n1_mjk8" name="title" xy="494,70" size="149,38" fontSize="34" color="#fdf3bd" align="center" vAlign="middle" letterSpacing="2" autoSize="none" bold="true" singleLine="true" text="解散房间"/>
+    <text id="n7_mjk8" name="text1" xy="268,139" size="422,39" fontSize="26" color="#856d57" autoSize="none" singleLine="true" text="玩家                       申请解散房间"/>
+    <text id="n9_mjk8" name="n9" xy="486,425" size="226,39" fontSize="26" color="#c57a35" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="秒后自动选择同意"/>
+    <text id="n8_mjk8" name="name" xy="328,139" size="164,35" fontSize="26" color="#fc5927" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n10_mjk8" name="time" xy="376,416" size="110,56" fontSize="40" color="#f13e15" align="right" vAlign="middle" letterSpacing="1" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="75&#xA;&#xA;"/>
+    <component id="n17_tfg8" name="agreeBtn" src="tfg81b" fileName="disbandRoom/agree_button.xml" xy="340,469"/>
+    <component id="n18_tfg8" name="unagreeBtn" src="tfg81d" fileName="disbandRoom/unagree_button.xml" xy="605,469"/>
+  </displayList>
+</component>
