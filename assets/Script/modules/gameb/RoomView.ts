@@ -30,8 +30,9 @@ export class RoomView {
     private roomInfoText: fgui.GObject;
     private roundMarkView: fgui.GComponent;
     private roundMarks: fgui.GObject[];
-    private wind: fgui.GObject;
-    private windTile: fgui.GComponent;
+    private laiziCom: fgui.GComponent;
+    private laiziTile: fgui.GComponent;
+    private laigenTile: fgui.GComponent;
     private countDownText: fgui.GObject;
     private listensObjList: fgui.GList;
     private listensObjNum: fgui.GObject;
@@ -245,9 +246,9 @@ export class RoomView {
     //设置当前房间所使用的风圈
     public setRoundMask(): void {
         // if (GameRules.haveRoundMask(this.room.roomType)) {
-        this.wind.visible = true;
-        this.windTile.visible = true;
-        TileImageMounter.mountTileImage(this.windTile, this.room.windFlowerID);
+        this.laiziCom.visible = true;
+        TileImageMounter.mountTileImage(this.laiziTile, this.room.laiziID);
+        TileImageMounter.mountTileImage(this.laigenTile, this.room.laigenID);
         // }
     }
 
@@ -428,10 +429,10 @@ export class RoomView {
             roundMarks[i] = roundMark;
         }
         this.roundMarks = roundMarks;
-        this.wind = this.unityViewNode.getChild("n3");
-        this.windTile = this.unityViewNode.getChild("fengquan").asCom;
-        this.wind.visible = false;
-        this.windTile.visible = false;
+        this.laiziCom = this.unityViewNode.getChild("laiziCom").asCom;
+        this.laigenTile = this.laiziCom.getChild("laigenCom").asCom;
+        this.laiziTile = this.laiziCom.getChild("laiziCom").asCom;
+        this.laiziCom.visible = false;
 
         //倒计时
         this.countDownText = this.roundMarkView.getChild("num");
@@ -445,8 +446,7 @@ export class RoomView {
     private initRoomStatus(): void {
         // 房间正在等待玩家准备
         const onWait = (): void => {
-            this.wind.visible = false;
-            this.windTile.visible = false;
+            this.laiziCom.visible = false;
             this.tilesInWall.visible = false;
 
             this.roundMarkView.visible = false;
@@ -465,8 +465,7 @@ export class RoomView {
             // roomView.invitButton.visible = false
             // roomView.returnHallBtn.visible = false
             this.tilesInWall.visible = true;
-            this.wind.visible = false; //发牌的时候，或者掉线恢复的时候会设置风圈因此此处不需要visible
-            this.windTile.visible = false;
+            this.laiziCom.visible = false; //发牌的时候，或者掉线恢复的时候会设置风圈因此此处不需要visible
 
             this.roundMarkView.visible = true;
             // this.clearWaitingPlayer();

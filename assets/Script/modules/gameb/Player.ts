@@ -3,13 +3,10 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
 import { AgariIndex } from "./AgariIndex";
-import { Algorithm } from "./Algorithm";
 import { TypeOfOP } from "./PlayerInterface";
 import { PlayerView } from "./PlayerView";
-import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
 // const playerInfoView = require "lobby/scripts/playerInfo/playerInfoView"
-const mjproto = proto.mahjong;
 const soundDef: { [key: number]: string } = {
     // Chow = "chi",
     // Ting = "ting",
@@ -55,8 +52,6 @@ export class Player {
     public playerInfo: PlayerInfo;
     public waitDiscardReAction: boolean;
     public readyHandList: number[];
-    public allowedReActionMsg: proto.mahjong.MsgAllowPlayerReAction;
-    public allowedActionMsg: proto.mahjong.MsgAllowPlayerAction;
     public isGuoHuTips: boolean;
     public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public notPong: number = 0; //弃碰 只会有一个 不需要列表
@@ -453,12 +448,12 @@ export class Player {
             this.waitSkip = false;
         } else {
             //玩家起手听
-            const actionMsg = new proto.mahjong.MsgPlayerAction();
-            actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
-            actionMsg.action = mjproto.ActionType.enumActionType_FirstReadyHand;
-            actionMsg.flags = 1; //0表示不起手听牌
+            // const actionMsg = new proto.mahjong.MsgPlayerAction();
+            // actionMsg.qaIndex = this.allowedActionMsg.qaIndex;
+            // actionMsg.action = mjproto.ActionType.enumActionType_FirstReadyHand;
+            // actionMsg.flags = 1; //0表示不起手听牌
 
-            this.sendActionMsg(actionMsg);
+            // this.sendActionMsg(actionMsg);
         }
     }
 
@@ -547,26 +542,26 @@ export class Player {
 
     //执行自动打牌操作
     public autoDiscard(): void {
-        if (this.allowedActionMsg != null) {
-            //自己摸牌的情况下
-            const actions = this.allowedActionMsg.allowedActions;
-            //如果可以自摸胡牌
-            //不再自动胡牌，考虑到如果可以胡，可以过，如果帮助用户选择胡可能不是最优选择
-            if ((actions & mjproto.ActionType.enumActionType_WIN_SelfDrawn) !== 0) {
-                //this. onWinBtnClick(this.playerView.winBtn)
-                //可以胡牌，得返回，让用户自己处理
-                return;
-            }
-            //如果不可以胡牌
-            const discarAbleTiles = this.allowedActionMsg.tipsForAction;
-            if (discarAbleTiles.length === 1) {
-                //当且仅当可出牌数为1的时候，才能执行自动打牌
-                const discarAbleTile = discarAbleTiles[1];
-                const tileID = discarAbleTile.targetTile;
-                this.onPlayerDiscardTile(tileID);
-                this.playerView.clearAllowedActionsView(false);
-            }
-        }
+        // if (this.allowedActionMsg != null) {
+        //     //自己摸牌的情况下
+        //     const actions = this.allowedActionMsg.allowedActions;
+        //     //如果可以自摸胡牌
+        //     //不再自动胡牌，考虑到如果可以胡，可以过，如果帮助用户选择胡可能不是最优选择
+        //     if ((actions & mjproto.ActionType.enumActionType_WIN_SelfDrawn) !== 0) {
+        //         //this. onWinBtnClick(this.playerView.winBtn)
+        //         //可以胡牌，得返回，让用户自己处理
+        //         return;
+        //     }
+        //     //如果不可以胡牌
+        //     const discarAbleTiles = this.allowedActionMsg.tipsForAction;
+        //     if (discarAbleTiles.length === 1) {
+        //         //当且仅当可出牌数为1的时候，才能执行自动打牌
+        //         const discarAbleTile = discarAbleTiles[1];
+        //         const tileID = discarAbleTile.targetTile;
+        //         this.onPlayerDiscardTile(tileID);
+        //         this.playerView.clearAllowedActionsView(false);
+        //     }
+        // }
 
         // if this.allowedReActionMsg != null {
         //当有可以吃碰杠胡的情况
@@ -686,16 +681,6 @@ export class Player {
         this.discardOutTileID(tileID);
         this.playerView.enlargeDiscarded(tileID, true);
     }
-    private selectMeldFromMeldsForAction(ms: proto.mahjong.IMsgMeldTile[], ty: number): proto.mahjong.IMsgMeldTile[] {
-        const r: proto.mahjong.IMsgMeldTile[] = [];
-        for (const m of ms) {
-            if (m.meldType === ty) {
-                r.push(m);
-            }
-        }
-
-        return r;
-    }
 
     private discardToDeskOfMe(discardTileId: number): void {
         //自己打出去的牌 先显示到桌面  服务器回复之后 就不再操作桌面了
@@ -704,10 +689,5 @@ export class Player {
         //加到打出牌列表
         this.addDicardedTile(discardTileId);
         this.discarded2UI(true, false);
-    }
-
-    private sendActionMsg(actionMsg: proto.mahjong.MsgPlayerAction): void {
-        const actionMsgBuf = proto.mahjong.MsgPlayerAction.encode(actionMsg);
-        // this.host.sendActionMsg(actionMsgBuf);
     }
 }

@@ -75,7 +75,8 @@ export interface RoomInterface {
     bankerChairID: number;
     isContinuousBanker: boolean;
     tilesInWall: number;
-    windFlowerID: number;
+    laiziID: number;
+    laigenID: number;
     isDestroy: boolean;
     quit: Function;
 

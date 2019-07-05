@@ -286,7 +286,7 @@ export class Replay {
         room.bankerChairID = this.msgHandRecord.bankerChairID;
         // 是否连庄
         room.isContinuousBanker = this.msgHandRecord.isContinuousBanker;
-        room.windFlowerID = this.msgHandRecord.windFlowerID;
+        room.laiziID = this.msgHandRecord.windFlowerID;
 
         // 所有玩家状态改为playing
         const players = room.getPlayers();

@@ -11,7 +11,8 @@ export namespace HandlerMsgDeal {
         console.log("HandlerMsgDeal---------------- ", msgDeal);
         //清理
         room.resetForNewHand();
-        room.windFlowerID = msgDeal.laizi;
+        room.laiziID = msgDeal.laizi;
+        room.laigenID = msgDeal.fanpai;
         room.setRoundMask();
         const players = room.getPlayers();
         //保存每一个玩家的牌列表

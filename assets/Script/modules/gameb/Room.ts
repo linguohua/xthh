@@ -98,7 +98,8 @@ export class Room {
     public state: number;
     public ownerID: string;
     public handStartted: number = 0;
-    public windFlowerID: number;
+    public laiziID: number;
+    public laigenID: number;
     public isDestroy: boolean = false;
     public bankerChairID: number = 0;
     public markup: number;
@@ -604,7 +605,8 @@ export class Room {
      */
     public restrorePlayerOperation(): void {
         //显示癞子
-        this.windFlowerID = this.roomInfo.laizi;
+        this.laiziID = this.roomInfo.laizi;
+        this.laigenID = this.roomInfo.fanpai;
         this.setRoundMask();
         //设置癞子 赖根
         this.mAlgorithm.setMahjongLaiZi(this.roomInfo.laizi);
