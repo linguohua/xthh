@@ -27,6 +27,7 @@
     <component id="tfg8o" name="buyBtn.xml" path="/btn/"/>
     <component id="tfg8p" name="douCom.xml" path="/"/>
     <component id="tfg8q" name="vipView.xml" path="/" exported="true"/>
+    <component id="nfh4r" name="douItem.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_shop"/>
 </packageDescription>

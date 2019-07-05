@@ -2,39 +2,13 @@
 <component size="763,383">
   <displayList>
     <component id="n7_tfg8" name="vipBtn" src="tfg8n" fileName="btn/vipBtn.xml" xy="639,0"/>
-    <image id="n9_tfg8" name="itemBg1" src="tfg84" fileName="resource/cz_diban.png" xy="0,66" size="248,317"/>
-    <image id="n44_tfg8" name="itemBg2" src="tfg84" fileName="resource/cz_diban.png" xy="257,66" size="248,317"/>
-    <image id="n55_tfg8" name="itemBg3" src="tfg84" fileName="resource/cz_diban.png" xy="513,66" size="248,317"/>
-    <image id="n12_tfg8" name="bgDing1" src="tfg82" fileName="resource/cz_di2.png" xy="35,65" size="181,35"/>
-    <image id="n45_tfg8" name="bgDing2" src="tfg82" fileName="resource/cz_di2.png" xy="292,65" size="181,35"/>
-    <image id="n56_tfg8" name="bgDing3" src="tfg82" fileName="resource/cz_di2.png" xy="548,65" size="181,35"/>
-    <image id="n10_tfg8" name="bgSC1" src="tfg80" fileName="resource/cz_bq_scsb.png" xy="9,61"/>
-    <image id="n46_tfg8" name="bgSC2" src="tfg80" fileName="resource/cz_bq_scsb.png" xy="266,61"/>
-    <image id="n57_tfg8" name="bgSC3" src="tfg80" fileName="resource/cz_bq_scsb.png" xy="522,61"/>
-    <image id="n18_tfg8" name="bgTime1" src="tfg8e" fileName="resource/cz_xsg.png" xy="45,270"/>
-    <image id="n51_tfg8" name="bgTime2" src="tfg8e" fileName="resource/cz_xsg.png" xy="302,270"/>
-    <image id="n62_tfg8" name="bgTime3" src="tfg8e" fileName="resource/cz_xsg.png" xy="558,270"/>
-    <component id="n21_tfg8" name="buyBtn1" src="tfg8o" fileName="btn/buyBtn.xml" xy="55,294"/>
-    <component id="n53_tfg8" name="buyBtn2" src="tfg8o" fileName="btn/buyBtn.xml" xy="312,294"/>
-    <component id="n64_tfg8" name="buyBtn3" src="tfg8o" fileName="btn/buyBtn.xml" xy="568,294"/>
     <loader id="n6_tfg8" name="vipLoader" xy="74,1" pivot="0.5,0" size="97,44" url="ui://l6hq6c41tfg8c" align="center" vAlign="middle" fill="scale" autoSize="true"/>
-    <text id="n13_tfg8" name="countText1" xy="46,68" size="157,34" fontSize="24" color="#fffac8" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="2.95万欢乐豆"/>
-    <text id="n47_tfg8" name="countText2" xy="303,68" size="157,34" fontSize="24" color="#fffac8" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="2.95万欢乐豆"/>
-    <text id="n58_tfg8" name="countText3" xy="559,68" size="157,34" fontSize="24" color="#fffac8" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="2.95万欢乐豆"/>
-    <text id="n14_tfg8" name="scText1" xy="12,71" size="21,80" fontSize="18" color="#fff449" align="center" leading="-3" letterSpacing="1" autoSize="none" text="首充双倍"/>
-    <text id="n48_tfg8" name="scText2" xy="269,71" size="21,80" fontSize="18" color="#fff449" align="center" leading="-3" letterSpacing="1" autoSize="none" text="首充双倍"/>
-    <text id="n59_tfg8" name="scText3" xy="525,71" size="21,80" fontSize="18" color="#fff449" align="center" leading="-3" letterSpacing="1" autoSize="none" text="首充双倍"/>
-    <text id="n15_tfg8" name="giveMore1" xy="46,105" size="157,34" fontSize="18" color="#eb5e00" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="多赠3万欢乐豆"/>
-    <text id="n49_tfg8" name="giveMore2" xy="303,105" size="157,34" fontSize="18" color="#eb5e00" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="多赠3万欢乐豆"/>
-    <text id="n60_tfg8" name="giveMore3" xy="559,105" size="157,34" fontSize="18" color="#eb5e00" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="多赠3万欢乐豆"/>
-    <loader id="n16_tfg8" name="loader1" xy="32,135" pivot="0.5,0" size="181,157" url="ui://l6hq6c41tfg89" align="center" vAlign="middle" fill="scale" autoSize="true"/>
-    <loader id="n50_tfg8" name="loader2" xy="289,135" pivot="0.5,0" size="181,157" url="ui://l6hq6c41tfg89" align="center" vAlign="middle" fill="scale" autoSize="true"/>
-    <loader id="n61_tfg8" name="loader3" xy="545,135" pivot="0.5,0" size="181,157" url="ui://l6hq6c41tfg89" align="center" vAlign="middle" fill="scale" autoSize="true"/>
-    <text id="n19_tfg8" name="time1" xy="70,268" size="137,28" fontSize="18" color="#ea0303" vAlign="middle" leading="0" autoSize="none" singleLine="true" autoClearText="true" text="限时购: 8:55:45&#xA;"/>
-    <text id="n63_tfg8" name="time3" xy="583,268" size="137,28" fontSize="18" color="#ea0303" vAlign="middle" leading="0" autoSize="none" singleLine="true" autoClearText="true" text="限时购: 8:55:45&#xA;"/>
-    <text id="n52_tfg8" name="time2" xy="327,268" size="137,28" fontSize="18" color="#ea0303" vAlign="middle" leading="0" autoSize="none" singleLine="true" autoClearText="true" text="限时购: 8:55:45&#xA;"/>
     <text id="n4_tfg8" name="text" xy="3,12" size="259,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="尊敬的                欢迎来到"/>
     <text id="n5_tfg8" name="text1" xy="265,12" size="156,34" fontSize="22" color="#9d3d09" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="钻石VIP商城"/>
-    <list id="n65_nfh4" name="n65" xy="2,62" size="759,317" hideByEditor="true" visible="false" overflow="scroll"/>
+    <list id="n65_nfh4" name="list" xy="2,62" size="759,317" layout="flow_hz" overflow="scroll" scroll="horizontal" colGap="7" defaultItem="ui://l6hq6c41nfh4r" vAlign="middle">
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>
