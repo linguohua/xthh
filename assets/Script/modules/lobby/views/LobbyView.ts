@@ -1,7 +1,7 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, NewRoomViewPath
+    DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
 } from "../lcore/LCoreExports";
 
 import { proto } from "../protoHH/protoHH";
@@ -10,6 +10,7 @@ import { EmailView } from "./EmailView";
 import { GameRecordView } from "./GameRecordView";
 import { JoinRoom } from "./JoinRoom";
 import { NewRoomView } from "./NewRoomView";
+import { ShopView } from "./ShopView";
 import { UserInfoView } from "./UserInfoView";
 const { ccclass } = cc._decorator;
 
@@ -127,6 +128,9 @@ export class LobbyView extends cc.Component {
         const personalRoomBtn = this.view.getChild("personalRoomBtn");
         personalRoomBtn.onClick(this.onCreateRoom, this);
 
+        const shopBtn = this.view.getChild("shopBtn");
+        shopBtn.onClick(this.onShopBtnClick, this);
+
         this.nameText = this.view.getChild("nameText").asTextField;
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
@@ -208,26 +212,26 @@ export class LobbyView extends cc.Component {
         console.log(reply);
     }
 
-    private onCreateClick(): void {
-        // TODO:
-        this.testDisband();
-    }
+    // private onCreateClick(): void {
+    //     // TODO:
+    //     this.testDisband();
+    // }
 
-    private onCoinClick(): void {
-        // TODO:
-        Dialog.showWaiting();
+    // private onCoinClick(): void {
+    //     // TODO:
+    //     Dialog.showWaiting();
 
-        this.scheduleOnce(
-            () => {
-                Dialog.hideWaiting();
-            },
-            5);
-    }
+    //     this.scheduleOnce(
+    //         () => {
+    //             Dialog.hideWaiting();
+    //         },
+    //         5);
+    // }
 
-    private openRecordView(): void {
-        // TODO:
-        this.addComponent(GameRecordView);
-    }
+    // private openRecordView(): void {
+    //     // TODO:
+    //     this.addComponent(GameRecordView);
+    // }
 
     private openEmailView(): void {
         const emailBtn = this.view.getChild("n9").asCom;
@@ -236,34 +240,14 @@ export class LobbyView extends cc.Component {
         this.addComponent(EmailView);
     }
 
-    private onJoinRoom(): void {
-        this.addComponent(JoinRoom);
-
-    }
-
     private onCreateRoom(): void {
         const newRoomView = this.addComponent(NewRoomView);
         newRoomView.showView();
-        // const playerID = DataStore.getString("playerID");
-        // const myUser = { userID: playerID };
+    }
 
-        // const createRoomParams = {
-        //     casinoID: 16,
-        //     roomID: 2103,
-        //     base: 1,
-        //     round: 2,
-        //     allowJoin: 0
-        // };
-
-        // const params: GameModuleLaunchArgs = {
-        //     jsonString: "",
-        //     userInfo: myUser,
-        //     joinRoomParams: null,
-        //     createRoomParams: createRoomParams,
-        //     record: null
-        // };
-
-        // this.lm.switchToGame(params, "gameb");
+    private onShopBtnClick(): void {
+        // TODO:
+        this.addComponent(ShopView);
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
@@ -362,14 +346,14 @@ export class LobbyView extends cc.Component {
         // TODO:
     }
 
-    private checkRoomInfo(): void {
-        //
-        const jsonStr = DataStore.getString("RoomInfoData");
-        Logger.debug("checkRoomInfo jsonStr:", jsonStr);
-        if (jsonStr !== "") {
-            this.view.getController("inRoom").selectedIndex = 1;
-        } else {
-            this.view.getController("inRoom").selectedIndex = 0;
-        }
-    }
+    // private checkRoomInfo(): void {
+    //     //
+    //     const jsonStr = DataStore.getString("RoomInfoData");
+    //     Logger.debug("checkRoomInfo jsonStr:", jsonStr);
+    //     if (jsonStr !== "") {
+    //         this.view.getController("inRoom").selectedIndex = 1;
+    //     } else {
+    //         this.view.getController("inRoom").selectedIndex = 0;
+    //     }
+    // }
 }

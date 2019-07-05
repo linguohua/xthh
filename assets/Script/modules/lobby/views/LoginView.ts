@@ -3,7 +3,6 @@ import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModul
 import { LMsgCenter } from "../LMsgCenter";
 import { proto } from "../proto/protoLobby";
 // tslint:disable-next-line:no-require-imports
-import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
 import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
