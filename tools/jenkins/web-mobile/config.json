@@ -1,5 +1,6 @@
 {
     "platform": "web-mobile",
+	"actualPlatform": "web-mobile",
     "debug": true,
     "autoCompile": true
 }
