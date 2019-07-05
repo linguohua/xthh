@@ -234,15 +234,16 @@ export class NewRoomView extends cc.Component {
         this.anteRadioBtns[anteRadioBtnIndex].selected = true;
         this.roundRadioBtns[roundRadioBtnIndex].selected = true;
         this.joinRadioBtns[joinRadioBtnIndex].selected = true;
+        this.playerRequireRadioBtns[playerRequireRadioBtnIndex].selected = true;
 
         // 注意：这里特殊处理仙桃晃晃, 仙桃晃晃可以是2人、4人
-        if (myGame.casinoID === 2) {
-            if (playerRequireRadioBtnIndex === 0 || playerRequireRadioBtnIndex === 2) {
-                this.playerRequireRadioBtns[playerRequireRadioBtnIndex].selected = true;
-            } else {
-                this.playerRequireRadioBtns[0].selected = true;
-            }
-        }
+        // if (myGame.casinoID === 2) {
+        //     if (playerRequireRadioBtnIndex === 0 || playerRequireRadioBtnIndex === 2) {
+        //         this.playerRequireRadioBtns[playerRequireRadioBtnIndex].selected = true;
+        //     } else {
+        //         this.playerRequireRadioBtns[1].selected = true;
+        //     }
+        // }
 
         // 计算房卡消耗
         const needCard = roundcost.rcosts[roundRadioBtnIndex].card;
@@ -357,10 +358,8 @@ export class NewRoomView extends cc.Component {
 
     }
 
-    private onGameTypeRadioBtnClick(ev: fgui.Event): void {
-        Logger.debug("onGameTypeRadioBtnClick:",  <string>ev.initiator.data);
-        const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
-        const myGame = myGames[gameTypeRadioBtnSelectIndex];
+    private onGameTypeSelect(index: number): void {
+        const myGame = myGames[index];
         // 根据游戏类型，显示底注和局数
         const roomBase = this.getRoomBaseByCasinoID(myGame.casinoID);
         if (roomBase == null) {
@@ -403,6 +402,13 @@ export class NewRoomView extends cc.Component {
         Logger.debug("myGame.roomID:", myGame.roomID);
     }
 
+    private onGameTypeRadioBtnClick(ev: fgui.Event): void {
+        Logger.debug("onGameTypeRadioBtnClick:",  <string>ev.initiator.data);
+        const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
+        this.onGameTypeSelect(gameTypeRadioBtnSelectIndex);
+
+    }
+
     private onRoundRadioBtnClick(ev: fgui.Event): void {
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
@@ -433,25 +439,25 @@ export class NewRoomView extends cc.Component {
         const gameTypeRadiBtnIndex = this.getGameTypeRadioBtnSelectIndex();
         if (playerRequireRadioBtnSelectIndex === 0) {
             if (gameTypeRadiBtnIndex === 1) {
-                ev.initiator.data = 0;
-                this.gameTypeRadioBtns[ev.initiator.data].selected = true;
-                this.onGameTypeRadioBtnClick(ev);
+                const index: number = 0;
+                this.gameTypeRadioBtns[index].selected = true;
+                this.onGameTypeSelect(index);
             }
         }
 
         if (playerRequireRadioBtnSelectIndex === 1) {
             if (gameTypeRadiBtnIndex !== 1) {
-                ev.initiator.data = 1;
-                this.gameTypeRadioBtns[ev.initiator.data].selected = true;
-                this.onGameTypeRadioBtnClick(ev);
+                const index: number = 1;
+                this.gameTypeRadioBtns[index].selected = true;
+                this.onGameTypeSelect(index);
             }
         }
 
         if (playerRequireRadioBtnSelectIndex === 2) {
             if (gameTypeRadiBtnIndex !== 0) {
-                ev.initiator.data = 0;
-                this.gameTypeRadioBtns[ev.initiator.data].selected = true;
-                this.onGameTypeRadioBtnClick(ev);
+                const index: number = 0;
+                this.gameTypeRadioBtns[index].selected = true;
+                this.onGameTypeSelect(index);
             }
         }
     }
@@ -509,6 +515,7 @@ export class NewRoomView extends cc.Component {
         };
 
         const configJson = JSON.stringify(defaultConfig);
+        Logger.debug("configJson:", configJson);
         DataStore.setItem("createRoomParams", configJson);
     }
 
