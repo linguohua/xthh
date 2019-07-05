@@ -39,12 +39,11 @@ cd /d {codedir}
 BAT_FIRST_CK = r'''
 mkdir {pubdir}
 cd /d {pubdir}
-git clone https://tapdUser:tapdUser@njhh-gitlab.qianz.com/l0_lfsrepository/publish.git .
-git config --user.name=tapdUser
-git config --user.email=tapdUser@vk51.com
+git clone https://packer4jenkins:Gggggg!222222@njhh-gitlab.qianz.com/l0_lfsrepository/publish.git .
+git config --user.name=packer4jenkins
+git config --user.email=packer4jenkins@vk51.com
 cd /d {codedir}
 '''
-
 #上传微信代码
 BAT_WX_UPLOAD_CODE = r'''
 cli -o {prodir}
