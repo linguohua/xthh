@@ -5,7 +5,7 @@
     <image id="n0_fxwe" name="n0" src="b75tg" fileName="resource/ty_btn_cd.png" pkg="snwj6cnx" xy="0,0" size="187,72">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n1_tfg8" name="n1" xy="35,19" size="119,38" fontSize="28" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="返回大厅"/>
+    <text id="n1_tfg8" name="n1" xy="35,18" size="119,38" fontSize="28" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="返回大厅"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="1.10"/>
 </component>

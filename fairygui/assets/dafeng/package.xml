@@ -533,7 +533,6 @@
     <image id="jmxyf3" name="bg.png" path="/"/>
     <component id="jmxyf4" name="game_over.xml" path="/" exported="true"/>
     <component id="jmxyf5" name="hand_result.xml" path="/" exported="true"/>
-    <component id="jmxyf6" name="Component1.xml" path="/"/>
     <image id="lqn3f7" name="j_大结算.jpg" path="/_design/"/>
     <image id="lqn3f8" name="j_大结算_两人.jpg" path="/_design/"/>
     <image id="lqn3f9" name="j_大结算标注.jpg" path="/_design/"/>

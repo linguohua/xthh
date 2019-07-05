@@ -1,13 +1,13 @@
 info creator=UIBuilder
-char id=48 img=tfg8mf xoffset=0 yoffset=0 xadvance=25
+char id=48 img=tfg8mf xoffset=0 yoffset=0 xadvance=37
 char id=49 img=tfg8mg xoffset=0 yoffset=0 xadvance=25
-char id=50 img=tfg8mh xoffset=0 yoffset=0 xadvance=25
-char id=51 img=tfg8mi xoffset=0 yoffset=0 xadvance=25
-char id=52 img=tfg8mj xoffset=0 yoffset=0 xadvance=25
-char id=53 img=tfg8mk xoffset=0 yoffset=0 xadvance=25
-char id=54 img=tfg8ml xoffset=0 yoffset=0 xadvance=25
-char id=55 img=tfg8mm xoffset=0 yoffset=0 xadvance=25
-char id=56 img=tfg8mn xoffset=0 yoffset=0 xadvance=25
-char id=57 img=tfg8mo xoffset=0 yoffset=0 xadvance=25
-char id=46 img=tfg8mp xoffset=0 yoffset=0 xadvance=25
-char id=43 img=tfg8mq xoffset=0 yoffset=0 xadvance=40
+char id=50 img=tfg8mh xoffset=0 yoffset=0 xadvance=37
+char id=51 img=tfg8mi xoffset=0 yoffset=0 xadvance=37
+char id=52 img=tfg8mj xoffset=0 yoffset=0 xadvance=37
+char id=53 img=tfg8mk xoffset=0 yoffset=0 xadvance=37
+char id=54 img=tfg8ml xoffset=0 yoffset=0 xadvance=37
+char id=55 img=tfg8mm xoffset=0 yoffset=0 xadvance=37
+char id=56 img=tfg8mn xoffset=0 yoffset=0 xadvance=37
+char id=57 img=tfg8mo xoffset=0 yoffset=0 xadvance=37
+char id=46 img=tfg8mp xoffset=0 yoffset=0 xadvance=17
+char id=43 img=tfg8mq xoffset=0 yoffset=0 xadvance=31

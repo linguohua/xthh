@@ -4,7 +4,7 @@
     <image id="n0_jel2" name="bg" src="lqn3h6" fileName="_resource/z_桌面打牌/zm_yyltdi.png" xy="1,0" size="113,105"/>
     <text id="n1_jel2" name="laigen" xy="9,1" size="41,29" fontSize="19" color="#009900" align="center" vAlign="middle" autoSize="none" singleLine="true" text="赖根"/>
     <text id="n3_jel2" name="laizi" xy="63,1" size="41,29" fontSize="19" color="#009900" align="center" vAlign="middle" autoSize="none" singleLine="true" text="赖子"/>
-    <component id="n13_tfg8" name="laigenCom" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="2,27" size="80,120" scale="0.65,0.6"/>
-    <component id="n14_tfg8" name="laiziCOm" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="56,27" size="80,120" scale="0.65,0.6"/>
+    <component id="n13_tfg8" name="laigenCom" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="3,27" scale="0.75,0.71"/>
+    <component id="n14_tfg8" name="laiziCOm" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="57,27" scale="0.75,0.71"/>
   </displayList>
 </component>
