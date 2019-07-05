@@ -767,7 +767,7 @@
     <image id="lqn3lt" name="js_fgx.png" path="/_resource/j_结算/"/>
     <image id="lqn3lu" name="js_jsdsj.png" path="/_resource/j_结算/"/>
     <image id="lqn3lv" name="js_jsdyj.png" path="/_resource/j_结算/"/>
-    <image id="lqn3lw" name="js_wbdi1.png" path="/_resource/j_结算/"/>
+    <image id="lqn3lw" name="js_wbdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="10,39,7,2"/>
     <image id="lqn3lx" name="js_wbdi2.png" path="/_resource/j_结算/"/>
     <image id="lqn3ly" name="js_xxdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="13,8,4,5"/>
     <image id="lqn3lz" name="js_zi_hu.png" path="/_resource/j_结算/"/>
@@ -811,6 +811,12 @@
     <image id="tfg8n1" name="sz_2_d.png" path="/_resource/s_数字/"/>
     <image id="tfg8n2" name="sz_2_j.png" path="/_resource/s_数字/"/>
     <font id="tfg8n3" name="loseFont.fnt" path="/font/" exported="true"/>
+    <component id="tfg8n4" name="copyRecordBtn.xml" path="/handResult/"/>
+    <component id="tfg8n5" name="game_over_playerNEW.xml" path="/gameOver/"/>
+    <component id="tfg8n6" name="game_overNew.xml" path="/" exported="true"/>
+    <component id="tfg8n7" name="back_hall_button(1).xml" path="/gameOver/"/>
+    <component id="tfg8n8" name="copyRecordBtn(1).xml" path="/handResult/"/>
+    <component id="tfg8n9" name="share_button(1).xml" path="/handResult/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

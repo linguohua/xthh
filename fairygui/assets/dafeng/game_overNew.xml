@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://397phochlqn3f7" designImageAlpha="100">
+  <displayList>
+    <image id="n0_rhc4" name="n0" src="jmxy6u" fileName="大丰麻将美术改版/2 游戏内/切图/j_结算/zjsbg.jpg" xy="2,0" size="1130,640" hideByEditor="true"/>
+    <image id="n13_tfg8" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="81,28" size="974,587" hideByEditor="true"/>
+    <text id="n1_rhc4" name="roomNumber" xy="317,533" size="315,34" fontSize="22" color="#7e7368" autoSize="none" singleLine="true" autoClearText="true" text="房号:123456"/>
+    <text id="n2_rhc4" name="date" xy="292,566" size="383,34" fontSize="20" color="#a49483" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2018-25-12 20:12:20&#xA;"/>
+    <graph id="n8_e27g" name="aniPos" xy="568,50" size="0,0"/>
+    <component id="n9_fxwe" name="player1" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="2,84" hideByEditor="true"/>
+    <component id="n10_fxwe" name="player2" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="286,84" hideByEditor="true"/>
+    <component id="n11_fxwe" name="player3" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="566,84" hideByEditor="true"/>
+    <component id="n12_fxwe" name="player4" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="848,84" hideByEditor="true"/>
+    <component id="n3_rhc4" name="shanreBtn" src="jmxy47" fileName="handResult/share_button.xml" xy="842,519"/>
+    <component id="n7_rhc4" name="backHallBtn" src="jmxy40" fileName="gameOver/back_hall_button.xml" xy="108,519"/>
+    <component id="n14_tfg8" name="n14" src="tfg8n4" fileName="handResult/copyRecordBtn.xml" xy="642,519"/>
+  </displayList>
+</component>

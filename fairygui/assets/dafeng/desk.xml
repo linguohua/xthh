@@ -26,7 +26,7 @@
     <component id="n15_fxwe" name="player2" src="jmxy1u" fileName="desk/right/desk_view_right.xml" xy="0,0">
       <relation target="n29_qhzt" sidePair="right-right"/>
     </component>
-    <component id="n14_fxwe" name="player1" src="jmxy1k" fileName="desk/mine/desk_view_mine.xml" xy="-1,1">
+    <component id="n14_fxwe" name="player1" src="jmxy1k" fileName="desk/mine/desk_view_mine.xml" xy="-2,0">
       <relation target="n29_qhzt" sidePair="left-left"/>
     </component>
     <component id="n20_fxwe" name="meldOpsPanel" src="jmxy2e" fileName="desk/meld_multi_ops.xml" xy="0,0" hideByEditor="true" visible="false"/>
