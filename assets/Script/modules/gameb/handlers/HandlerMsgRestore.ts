@@ -23,7 +23,7 @@ export namespace HandlerMsgRestore {
         const msgDeal = msgRestore.msgDeal;
         room.bankerChairID = msgDeal.bankerChairID;
         room.isContinuousBanker = msgDeal.isContinuousBanker;
-        room.windFlowerID = msgDeal.windFlowerID;
+        room.laiziID = msgDeal.windFlowerID;
         room.tilesInWall = msgDeal.tilesInWall;
         //大丰 1：就表示家家庄    // 盐城 >0 表示加价局计数
         room.markup = msgDeal.markup;

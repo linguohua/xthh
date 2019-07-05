@@ -38,7 +38,7 @@ export namespace HandlerActionResultDraw {
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
         const buttonMap: string[] = [];
-        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card, false);
+        const hu = room.mAlgorithm.canHuPai(player.tilesHand, reply.card);
         if (hu.length > 0) {
             buttonMap.push(ButtonDef.Hu);
         }
@@ -65,6 +65,7 @@ export namespace HandlerActionResultDraw {
         if (player.isMe()) {
             checkButton(room, player, reply);
         }
+
         //增加新抽到的牌到手牌列表
         if (reply.card === 0 && player.isMe()) {
             //朝天笑
@@ -77,7 +78,6 @@ export namespace HandlerActionResultDraw {
 
             player.notPong = 0; //重置弃碰
         }
-
         setTitleIsDiscard(player);
         // room.tilesInWall = actionResultMsg.tilesInWall;
         // room.updateTilesInWallUI();

@@ -17,7 +17,7 @@ export namespace HandlerMsgActionOP {
             return;
         }
         const buttonMap: string[] = [];
-        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card, true);
+        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
         if (hu.length > 0) {
             buttonMap.push(ButtonDef.Hu);
         }

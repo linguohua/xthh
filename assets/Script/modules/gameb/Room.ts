@@ -625,7 +625,9 @@ export class Room {
         // this.setWaitingPlayer(this.roomInfo.cur_idx);
         // this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
         if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
+            Logger.debug("this.myPlayer.tilesHan : ", this.myPlayer.tilesHand);
             const tile = this.myPlayer.tilesHand.pop();
+            Logger.debug("this.myPlayer.tilesHan2 : ", this.myPlayer.tilesHand);
             const m = new protoHH.casino_xtsj.packet_sc_drawcard();
             m.time = this.roomInfo.time;
             m.card = tile;

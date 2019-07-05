@@ -169,6 +169,20 @@ export class HandResultView extends cc.Component {
         // c.zhuang.visible = this.room.bankerChairID === player.chairID;
         //头像
     }
+    private sortHands(tilesHand: number[], excludeLast: boolean): void {
+        if (tilesHand != null) {
+            let last: number;
+            if (excludeLast) {
+                last = tilesHand.pop();
+            }
+            tilesHand.sort((x: number, y: number) => {
+                return y - x;
+            });
+            if (excludeLast) {
+                tilesHand.push(last);
+            }
+        }
+    }
     //更新牌数据
     private updatePlayerTileData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
         Logger.debug("playerScore ----------------------- ： ", playerScore);
@@ -176,6 +190,7 @@ export class HandResultView extends cc.Component {
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
         const meldDatas = player.melds;
         const tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
+        this.sortHands(tilesHand, false);
         // const lastTile = player.lastTile; //玩家最后一张牌
         //吃碰杠牌
         const rm = "mahjong_mine_meld_";

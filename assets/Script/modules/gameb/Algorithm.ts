@@ -648,9 +648,14 @@ export class Algorithm {
         }
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(牌结构(mahjong,index))
-    public canHuPai(v_mahjongs: number[]): number[] {
+    public canHuPai(v_mahjongs: number[], card: number): number[] {
         const sVecHuPai: number[] = [];
         const array = this.getArray_Pai_Lai(v_mahjongs);
+        if (card !== this.getMahjongLaiZi()) {
+            array.sVecPai.push(card);
+        } else {
+            array.sVecLai.push(card);
+        }
         if (array.sVecLai.length > 1) {
             return sVecHuPai;
         }
@@ -659,9 +664,9 @@ export class Algorithm {
         const bHuPai = this.checkHuPai(array.sVecPai, array.sVecLai, false, sVecHuPai, sVecJiang);
         if (bHuPai) {
             this.push_back(sVecHuPai, sVecJiang, 1, 2);
+        } else {
+            return [];
         }
-
-        return sVecHuPai;
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(mahjong))
     public canHuPai_def(mahjongs: Mahjong[]): ArrayClass_c {
@@ -816,9 +821,9 @@ export class Algorithm {
         const bHuPai = this.checkHuPai(a.sVecPai, a.sVecLai, false, sVecHuPai, sVecJiang);
         if (bHuPai) {
             this.push_back(sVecHuPai, sVecJiang, 1, 2);
+        } else {
+            return [];
         }
-
-        return sVecHuPai;
     }
 
     //检测牌组＋别人打出的牌所构成的胡是否有效(递归)
@@ -1059,15 +1064,15 @@ export class Algorithm {
     }
 
     //根据他人的牌判断能否胡牌
-    public canHu_WithOther(tilesHand: number[], mahjong: number, isWhitOther: boolean): number[] {
+    public canHu_WithOther(tilesHand: number[], mahjong: number): number[] {
         if (tilesHand === undefined || tilesHand === null || tilesHand.length === 0) {
             return [];
         }
         //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
-        if (this.getFlagPiao() && isWhitOther) {
+        if (this.getFlagPiao()) {
             return [];
         }
-        const v = this.canHuPai_WithOther(tilesHand, mahjong);
+        const v = this.canHuPai_WithOther(tilesHand, mahjong, true);
         if (v.length > 0) {
             if (this.checkHuPai_WithOther(v, mahjong)) {
                 return v;
@@ -1108,11 +1113,11 @@ export class Algorithm {
                             num++;
                         }
                         if (tile === this.getMahjongFan()) {
-                            if (num > 2) {
+                            if (num === 3) {
                                 canKongs.push(tile);
                             }
                         } else {
-                            if (num > 3) {
+                            if (num === 4) {
                                 canKongs.push(tile);
                             }
                         }

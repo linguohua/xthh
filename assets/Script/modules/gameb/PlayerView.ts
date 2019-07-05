@@ -419,17 +419,22 @@ export class PlayerView {
         // TileImageMounter.mountMeldEnableImage(t2, msgMeld.tile1 + 1, this.viewChairID);
         // TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1 + 2, this.viewChairID);
         // this.setMeldTileDirection(true, chowTile, viewChairID, this.viewChairID);
+        const tile = msgMeld.cards[0];
         if (meldType === TypeOfOP.Pong) {
-            TileImageMounter.mountMeldEnableImage(t1, msgMeld.cards[0], this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, msgMeld.cards[0], this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, msgMeld.cards[0], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
             this.setMeldTileDirection(false, t2, viewChairID, this.viewChairID);
         } else if (meldType === TypeOfOP.Kong) {
             const t4 = meldView.getChild("n4").asCom;
-            TileImageMounter.mountMeldEnableImage(t1, msgMeld.cards[0], this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, msgMeld.cards[0], this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, msgMeld.cards[0], this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t4, msgMeld.cards[0], this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
+            TileImageMounter.mountMeldEnableImage(t4, tile, this.viewChairID);
+            if (tile === this.room.mAlgorithm.getMahjongFan()) {
+                //赖根只有三张
+                t4.visible = false;
+            }
             this.setMeldTileDirection(false, t4, viewChairID, this.viewChairID);
             //} else if (meldType === mtProto.enumMeldTypeConcealedKong) {
             // const t4 = meldView.getChild("n4").asCom; //这个是暗牌显示 用于别的玩家暗杠
