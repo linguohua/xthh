@@ -1,4 +1,4 @@
-import { LobbyModuleInterface } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
 
 const { ccclass } = cc._decorator;
 /**
@@ -20,6 +20,7 @@ export class ShopView extends cc.Component {
         loader.fguiAddPackage("lobby/fui_lobby_shop/lobby_shop");
 
         const view = fgui.UIPackage.createObject("lobby_shop", "shopView").asCom;
+        CommonFunction.setViewInCenter(view);
         this.view = view;
 
         const win = new fgui.Window();

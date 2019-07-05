@@ -118,7 +118,6 @@
     <image id="jmxy36" name="fhdt.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
     <component id="jmxy37" name="invite_button.xml" path="/desk/"/>
     <image id="jmxy38" name="yaoqin.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
-    <component id="jmxy39" name="game_over_player.xml" path="/gameOver/"/>
     <image id="jmxy3a" name="zjsbg.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <font id="jmxy3b" name="win.fnt" path="/handResult/" exported="true"/>
     <image id="jmxy3c" name="z0.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
@@ -145,14 +144,12 @@
     <image id="jmxy3x" name="f9.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3y" name="fjian.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3z" name="结算-总结算标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
-    <component id="jmxy40" name="back_hall_button.xml" path="/gameOver/"/>
     <image id="jmxy41" name="an_fh.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <component id="jmxy42" name="hand_result_player.xml" path="/handResult/"/>
     <image id="jmxy43" name="hu.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy44" name="结算-胜利标注.jpg" path="/大丰麻将美术改版/2 游戏内/效果图和标注/"/>
     <component id="jmxy45" name="again_button.xml" path="/handResult/"/>
     <image id="jmxy46" name="an_jxyx.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
-    <component id="jmxy47" name="share_button.xml" path="/handResult/"/>
     <image id="jmxy48" name="an_wxfx.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy4n" name="dajia_da.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
     <image id="jmxy4o" name="dui_chi.png" path="/大丰麻将美术改版/2 游戏内/切图/1pai/"/>
@@ -531,7 +528,6 @@
     <component id="jmxyf1" name="desk.xml" path="/" exported="true"/>
     <component id="jmxyf2" name="peng_button.xml" path="/"/>
     <image id="jmxyf3" name="bg.png" path="/"/>
-    <component id="jmxyf4" name="game_over.xml" path="/" exported="true"/>
     <component id="jmxyf5" name="hand_result.xml" path="/" exported="true"/>
     <image id="lqn3f7" name="j_大结算.jpg" path="/_design/"/>
     <image id="lqn3f8" name="j_大结算_两人.jpg" path="/_design/"/>
@@ -763,11 +759,11 @@
     <image id="lqn3lq" name="mj_r_side.png" path="/_resource/m_麻将牌/new_背面/"/>
     <image id="lqn3lr" name="mj_s_back.png" path="/_resource/m_麻将牌/new_背面/"/>
     <image id="lqn3ls" name="mj_s_def.png" path="/_resource/m_麻将牌/new_背面/"/>
-    <image id="lqn3lt" name="js_fgx.png" path="/_resource/j_结算/"/>
+    <image id="lqn3lt" name="js_fgx.png" path="/_resource/j_结算/" scale="9grid" scale9grid="0,3,1,36"/>
     <image id="lqn3lu" name="js_jsdsj.png" path="/_resource/j_结算/"/>
     <image id="lqn3lv" name="js_jsdyj.png" path="/_resource/j_结算/"/>
-    <image id="lqn3lw" name="js_wbdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="10,39,7,2"/>
-    <image id="lqn3lx" name="js_wbdi2.png" path="/_resource/j_结算/"/>
+    <image id="lqn3lw" name="js_wbdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="8,38,6,5"/>
+    <image id="lqn3lx" name="js_wbdi2.png" path="/_resource/j_结算/" scale="9grid" scale9grid="11,10,7,7"/>
     <image id="lqn3ly" name="js_xxdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="13,8,4,5"/>
     <image id="lqn3lz" name="js_zi_hu.png" path="/_resource/j_结算/"/>
     <image id="lqn3m0" name="js_zi_lj.png" path="/_resource/j_结算/"/>
@@ -811,11 +807,11 @@
     <image id="tfg8n2" name="sz_2_j.png" path="/_resource/s_数字/"/>
     <font id="tfg8n3" name="loseFont.fnt" path="/font/" exported="true"/>
     <component id="tfg8n4" name="copyRecordBtn.xml" path="/handResult/"/>
-    <component id="tfg8n5" name="game_over_playerNEW.xml" path="/gameOver/"/>
-    <component id="tfg8n6" name="game_overNew.xml" path="/" exported="true"/>
-    <component id="tfg8n7" name="back_hall_button(1).xml" path="/gameOver/"/>
-    <component id="tfg8n8" name="copyRecordBtn(1).xml" path="/handResult/"/>
-    <component id="tfg8n9" name="share_button(1).xml" path="/handResult/"/>
+    <component id="tfg8n5" name="game_over_player.xml" path="/gameOver/"/>
+    <component id="tfg8n6" name="game_over.xml" path="/" exported="true"/>
+    <component id="tfg8n7" name="back_hall_button.xml" path="/gameOver/"/>
+    <component id="tfg8n9" name="share_button.xml" path="/handResult/"/>
+    <component id="nfh4na" name="head_Result.xml" path="/btn/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

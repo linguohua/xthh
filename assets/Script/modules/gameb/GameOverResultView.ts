@@ -1,7 +1,8 @@
+import { CommonFunction } from "../lobby/lcore/LCoreExports";
+import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { Player } from "./Player";
 import { RoomInterface } from "./RoomInterface";
-import { proto } from "../lobby/protoHH/protoHH";
 
 /**
  * palyer ui
@@ -46,6 +47,7 @@ export class GameOverResultView extends cc.Component {
         const loader = room.getRoomHost().loader;
         loader.fguiAddPackage("gameb/dafeng");
         const viewObj = fgui.UIPackage.createObject("dafeng", "game_over").asCom;
+        CommonFunction.setViewInCenter(viewObj);
         this.unityViewNode = viewObj;
         const win = new fgui.Window();
         win.contentPane = viewObj;

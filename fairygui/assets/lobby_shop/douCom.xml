@@ -35,5 +35,6 @@
     <text id="n52_tfg8" name="time2" xy="327,268" size="137,28" fontSize="18" color="#ea0303" vAlign="middle" leading="0" autoSize="none" singleLine="true" autoClearText="true" text="限时购: 8:55:45&#xA;"/>
     <text id="n4_tfg8" name="text" xy="3,12" size="259,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="尊敬的                欢迎来到"/>
     <text id="n5_tfg8" name="text1" xy="265,12" size="156,34" fontSize="22" color="#9d3d09" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="钻石VIP商城"/>
+    <list id="n65_nfh4" name="n65" xy="2,62" size="759,317" hideByEditor="true" visible="false" overflow="scroll"/>
   </displayList>
 </component>

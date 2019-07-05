@@ -1,4 +1,4 @@
-import { Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { GameRules } from "./GameRules";
@@ -61,10 +61,22 @@ export class HandResultView extends cc.Component {
         }
         const loader = room.getRoomHost().loader;
         loader.fguiAddPackage("gameb/dafeng");
-        const viewObj = fgui.UIPackage.createObject("dafeng", "hand_result").asCom;
-        this.unityViewNode = viewObj;
+        const view = fgui.UIPackage.createObject("dafeng", "hand_result").asCom;
+
+        let x = CommonFunction.setBaseViewInCenter(view);
+
+        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        if (newIPhone === "1") {
+            // i phone x 的黑边为 CommonFunction.IOS_ADAPTER_WIDTH
+            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
+        }
+        const bg = view.getChild('bg');
+        bg.setPosition(-x, 0);
+        CommonFunction.setBgFullScreen(bg);
+
+        this.unityViewNode = view;
         const win = new fgui.Window();
-        win.contentPane = viewObj;
+        win.contentPane = view;
         this.win = win;
         //初始化View
         this.initAllView();

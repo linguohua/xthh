@@ -2,10 +2,10 @@
 <component size="1136,640" designImage="ui://397phochlqn3fc" designImageAlpha="100">
   <displayList>
     <image id="n24_tfg8" name="bg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0" size="1136,640"/>
-    <text id="n1_rhc4" name="roomNumber" xy="234,606" size="134,31" hideByEditor="true" fontSize="20" color="#f1d15c" strokeColor="#734305" text="房号:1231456"/>
-    <text id="n2_rhc4" name="date" xy="45,605" size="153,28" fontSize="18" color="#6fe330" vAlign="middle" text="2019-05-20 09:15"/>
+    <text id="n1_rhc4" name="roomNumber" xy="234,606" size="114,28" hideByEditor="true" fontSize="18" color="#6fe330" text="房号:1231456"/>
+    <text id="n2_rhc4" name="date" xy="45,605" size="162,28" fontSize="18" color="#6fe330" vAlign="middle" text="2019-05-20 09:15"/>
     <component id="n3_rhc4" name="againBtn" src="jmxy45" fileName="handResult/again_button.xml" xy="922,559"/>
-    <component id="n4_rhc4" name="shanreBtn" src="jmxy47" fileName="handResult/share_button.xml" xy="925,713"/>
+    <component id="n4_rhc4" name="shanreBtn" src="tfg8n9" fileName="handResult/share_button.xml" xy="925,713"/>
     <graph id="n8_e27g" name="aniPos" xy="568,69" pivot="0.5,0.5" size="0,0"/>
     <component id="n9_fxwe" name="player1" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,106"/>
     <component id="n10_fxwe" name="player2" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,219"/>

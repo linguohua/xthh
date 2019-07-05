@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImageLayer="1">
+<component size="1136,640" designImage="ui://397phochlqn3f7" designImageAlpha="100">
   <displayList>
-    <image id="n0_rhc4" name="n0" src="jmxy6u" fileName="大丰麻将美术改版/2 游戏内/切图/j_结算/zjsbg.jpg" xy="2,0" size="1130,640"/>
-    <text id="n1_rhc4" name="roomNumber" xy="32,540" size="221,27" fontSize="20" color="#f1d15c" text="大丰关张    房号:123456"/>
-    <text id="n2_rhc4" name="date" xy="36,582" size="205,31" fontSize="22" color="#f1d15c" text="2018-25-12 20:12:20&#xA;"/>
-    <graph id="n8_e27g" name="aniPos" xy="568,50" size="0,0"/>
-    <component id="n9_fxwe" name="player1" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="2,84"/>
-    <component id="n10_fxwe" name="player2" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="286,84"/>
-    <component id="n11_fxwe" name="player3" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="566,84"/>
-    <component id="n12_fxwe" name="player4" src="jmxy39" fileName="gameOver/game_over_player.xml" xy="848,84"/>
-    <component id="n3_rhc4" name="shanreBtn" src="jmxy47" fileName="handResult/share_button.xml" xy="348,555"/>
-    <component id="n7_rhc4" name="backHallBtn" src="jmxy40" fileName="gameOver/back_hall_button.xml" xy="590,555"/>
+    <image id="n13_tfg8" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="81,28" size="974,587"/>
+    <image id="n19_nfh4" name="n19" src="lqn3lt" fileName="_resource/j_结算/js_fgx.png" xy="345,58" size="2,450"/>
+    <image id="n20_nfh4" name="n20" src="lqn3lt" fileName="_resource/j_结算/js_fgx.png" xy="564,58" size="2,450"/>
+    <image id="n21_nfh4" name="n21" src="lqn3lt" fileName="_resource/j_结算/js_fgx.png" xy="786,58" size="2,450"/>
+    <text id="n1_rhc4" name="roomNumber" xy="317,533" size="315,34" fontSize="22" color="#7e7368" autoSize="none" singleLine="true" autoClearText="true" text="房号:123456"/>
+    <text id="n2_rhc4" name="date" xy="292,566" size="383,34" fontSize="20" color="#a49483" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2018-25-12 20:12:20&#xA;"/>
+    <graph id="n8_e27g" name="aniPos" xy="569,-223" size="0,0" hideByEditor="true"/>
+    <component id="n9_fxwe" name="player1" src="tfg8n5" fileName="gameOver/game_over_player.xml" xy="126,50"/>
+    <component id="n10_fxwe" name="player2" src="tfg8n5" fileName="gameOver/game_over_player.xml" xy="344,50"/>
+    <component id="n11_fxwe" name="player3" src="tfg8n5" fileName="gameOver/game_over_player.xml" xy="566,50"/>
+    <component id="n12_fxwe" name="player4" src="tfg8n5" fileName="gameOver/game_over_player.xml" xy="788,50"/>
+    <component id="n3_rhc4" name="shanreBtn" src="tfg8n9" fileName="handResult/share_button.xml" xy="842,517"/>
+    <component id="n7_rhc4" name="backHallBtn" src="tfg8n7" fileName="gameOver/back_hall_button.xml" xy="108,519"/>
+    <component id="n14_tfg8" name="copyRecordBtn" src="tfg8n4" fileName="handResult/copyRecordBtn.xml" xy="642,517"/>
   </displayList>
 </component>

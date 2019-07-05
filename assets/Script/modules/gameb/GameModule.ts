@@ -88,6 +88,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         bg.setPosition(-x, 0);
         CommonFunction.setBgFullScreen(bg);
 
+        // 兼容底部背景
+        const diBg = view.getChild('diBg');
+        diBg.width = bg.width;
+        diBg.setPosition(-x, diBg.y);
+
         this.view = view;
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
