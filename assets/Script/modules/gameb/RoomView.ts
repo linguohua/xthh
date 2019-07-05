@@ -431,7 +431,7 @@ export class RoomView {
         this.roundMarks = roundMarks;
         this.laiziCom = this.unityViewNode.getChild("laiziCom").asCom;
         this.laigenTile = this.laiziCom.getChild("laigenCom").asCom;
-        this.laiziTile = this.laiziCom.getChild("laiziCom").asCom;
+        this.laiziTile = this.laiziCom.getChild("laiziCOm").asCom;
         this.laiziCom.visible = false;
 
         //倒计时
