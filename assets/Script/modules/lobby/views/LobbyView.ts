@@ -1,17 +1,12 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
+    DataStore, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
 } from "../lcore/LCoreExports";
 
 import { proto } from "../protoHH/protoHH";
-import { ClubView } from "./club/ClubView";
-import { EmailView } from "./EmailView";
-import { GameRecordView } from "./GameRecordView";
-import { JoinRoom } from "./JoinRoom";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView } from "./ShopView";
-import { UserInfoView } from "./UserInfoView";
 const { ccclass } = cc._decorator;
 
 /**
@@ -20,7 +15,6 @@ const { ccclass } = cc._decorator;
 @ccclass
 export class LobbyView extends cc.Component {
     private view: fgui.GComponent;
-    private diamondText: fgui.GObject;
     private lm: LobbyModuleInterface;
 
     private nameText: fgui.GTextField;
@@ -28,17 +22,7 @@ export class LobbyView extends cc.Component {
 
     private fkText: fgui.GTextField;
 
-    // private msgCenter: LMsgCenter;
-
-    // private onMessageFunc: Function;
     private wxShowCallBackFunction: (res: showRes) => void;
-
-    // public onMessage(data: ByteBuffer): void {
-    //     Logger.debug("LobbyView.onMessage");
-    //     const diamondBody = proto.lobby.MsgUpdateUserDiamond.decode(data);
-    //     const diamond = diamondBody.diamond;
-    //     this.updateDiamond(diamond);
-    // }
 
     protected start(): void {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -128,8 +112,23 @@ export class LobbyView extends cc.Component {
         const personalRoomBtn = this.view.getChild("personalRoomBtn");
         personalRoomBtn.onClick(this.onCreateRoom, this);
 
+        const signBtn = this.view.getChild("signBtn");
+        signBtn.onClick(this.onSignBtnClick, this);
+
         const shopBtn = this.view.getChild("shopBtn");
         shopBtn.onClick(this.onShopBtnClick, this);
+
+        const emailBtn = this.view.getChild("emailBtn");
+        emailBtn.onClick(this.openEmailClick, this);
+
+        const friendBtn = this.view.getChild("friendBtn");
+        friendBtn.onClick(this.onFriendClick, this);
+
+        const questBtn = this.view.getChild("questBtn");
+        questBtn.onClick(this.onQuestBtnClick, this);
+
+        const committeeBtn = this.view.getChild("committeeBtn");
+        committeeBtn.onClick(this.onCommitteeBtnClick, this);
 
         this.nameText = this.view.getChild("nameText").asTextField;
         this.beansText = this.view.getChild("douText").asTextField;
@@ -138,28 +137,6 @@ export class LobbyView extends cc.Component {
         this.nameText.text = DataStore.getString("playerID");
         this.beansText.text = DataStore.getString("beans");
         this.fkText.text = DataStore.getString("card");
-        // const createBtn = this.view.getChild("n4");
-        // createBtn.onClick(this.onCreateClick, this);
-
-        // const coinBtn = this.view.getChild("n5");
-        // coinBtn.onClick(this.onCoinClick, this);
-
-        // //--const listView = this.view.getChild("n29")
-        // const dfTestBtn = this.view.getChild("n8");
-        // dfTestBtn.onClick(this.openRecordView, this);
-
-        // const emailBtn = this.view.getChild("n9");
-        // emailBtn.onClick(this.openEmailView, this);
-
-        // const joinRoomBtn = this.view.getChild("n12");
-        // joinRoomBtn.onClick(this.onJoinRoom, this);
-
-        // const createRoom = this.view.getChild("createRoom");
-        // createRoom.onClick(this.onCreateRoom, this);
-
-        // const returnGameBtn = this.view.getChild("returnGameBtn");
-        // returnGameBtn.onClick(this.onReturnGameBtnClick, this);
-
         // const userInfo = this.view.getChild("userInfo").asCom;
         // this.initInfoView(userInfo);
         // userInfo.onClick(this.openUserInfoView, this);
@@ -176,17 +153,6 @@ export class LobbyView extends cc.Component {
 
     }
 
-    // private async startWebSocket(): Promise<void> {
-    //     const tk = DataStore.getString("token", "");
-    //     const webSocketURL = `${LEnv.lobbyWebsocket}?&tk=${tk}`;
-
-    //     this.msgCenter = new LMsgCenter(webSocketURL, this, this.lm);
-    //     await this.msgCenter.start();
-    // }
-    private onFriendClick(): void {
-        this.addComponent(ClubView);
-    }
-
     private testJoinGame(): void {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
 
@@ -195,49 +161,12 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
     }
 
-    private testDisband(): void {
-        const playerID = DataStore.getString("playerID");
-        const playerIDInt = parseInt(playerID, 10);
-        Logger.debug("playerIDInt:", playerIDInt);
-
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK, this.onDisbandAck, this);
-        const req2 = new proto.casino.packet_table_disband_req({ player_id: playerIDInt });
-        const buf = proto.casino.packet_table_disband_req.encode(req2);
-        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
+    private onFriendClick(): void {
+        // TODO: 显示好友界面
     }
 
-    private onDisbandAck(msg: proto.casino.ProxyMessage): void {
-        console.log("onDisbandAck");
-        const reply = proto.casino.packet_table_disband_ack.decode(msg.Data);
-        console.log(reply);
-    }
-
-    // private onCreateClick(): void {
-    //     // TODO:
-    //     this.testDisband();
-    // }
-
-    // private onCoinClick(): void {
-    //     // TODO:
-    //     Dialog.showWaiting();
-
-    //     this.scheduleOnce(
-    //         () => {
-    //             Dialog.hideWaiting();
-    //         },
-    //         5);
-    // }
-
-    // private openRecordView(): void {
-    //     // TODO:
-    //     this.addComponent(GameRecordView);
-    // }
-
-    private openEmailView(): void {
-        const emailBtn = this.view.getChild("n9").asCom;
-        const redPoint = emailBtn.getChild("redPoint");
-        redPoint.visible = false;
-        this.addComponent(EmailView);
+    private openEmailClick(): void {
+        // TODO: 显示邮件界面
     }
 
     private onCreateRoom(): void {
@@ -245,9 +174,20 @@ export class LobbyView extends cc.Component {
         newRoomView.showView();
     }
 
+    private onSignBtnClick(): void {
+        // TODO: 需要显示签到界面
+    }
+
     private onShopBtnClick(): void {
-        // TODO:
         this.addComponent(ShopView);
+    }
+
+    private onQuestBtnClick(): void {
+        // TODO: 显示任务界面
+    }
+
+    private onCommitteeBtnClick(): void {
+        // TODO: 显示居委会界面
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
@@ -278,82 +218,4 @@ export class LobbyView extends cc.Component {
 
         this.lm.switchToGame(params, "gameb");
     }
-
-    private onReturnGameBtnClick(): void {
-        const jsonStr = DataStore.getString("RoomInfoData");
-        Logger.debug("jsonStr:", jsonStr);
-        if (jsonStr !== "") {
-            try {
-                // const config = <{ [key: string]: string }>JSON.parse(jsonStr);
-                // const myRoomInfo = {
-                //     roomID: config.roomID,
-                //     roomNumber: config.roomNumber,
-                //     config: config.config,
-                //     gameServerID: config.gameServerID
-                // };
-
-                // this.lm.enterGame(myRoomInfo);
-            } catch (e) {
-                Logger.error("parse config error:", e);
-                // 如果解析不了，则清理数据
-                DataStore.setItem("RoomInfoData", "");
-            }
-        }
-    }
-
-    private openUserInfoView(): void {
-        // TODO:
-        this.addComponent(UserInfoView);
-    }
-
-    private initInfoView(userInfo: fgui.GComponent): void {
-        const nameLab = userInfo.getChild("name");
-        const idLab = userInfo.getChild("id");
-
-        if (DataStore.hasKey("nickName")) {
-            const name = DataStore.getString("nickName");
-
-            if (name.length < 1) {
-                nameLab.text = "默认用户名字";
-            } else {
-                nameLab.text = DataStore.getString("userID");
-            }
-
-        }
-
-        const gender = +DataStore.getString("sex");
-        const iconLoader = userInfo.getChild("loader").asLoader;
-        const headImgUrl = DataStore.getString("headImgUrl");
-        CommonFunction.setHead(iconLoader, headImgUrl, +gender);
-
-        idLab.text = `ID: ${DataStore.getString("userID")}`;
-        const diamondNode = this.view.getChild("diamondNode").asCom;
-        const diamondText = diamondNode.getChild("diamond");
-        this.diamondText = diamondText;
-        this.diamondText.text = DataStore.getString("diamond");
-
-        const addDiamond = diamondNode.getChild("addDiamond");
-        addDiamond.onClick(this.goShop, this);
-
-        this.registerDiamondChange();
-    }
-
-    private goShop(): void {
-        // TODO:
-    }
-
-    private registerDiamondChange(): void {
-        // TODO:
-    }
-
-    // private checkRoomInfo(): void {
-    //     //
-    //     const jsonStr = DataStore.getString("RoomInfoData");
-    //     Logger.debug("checkRoomInfo jsonStr:", jsonStr);
-    //     if (jsonStr !== "") {
-    //         this.view.getController("inRoom").selectedIndex = 1;
-    //     } else {
-    //         this.view.getController("inRoom").selectedIndex = 0;
-    //     }
-    // }
 }
