@@ -656,7 +656,8 @@ export class Room {
             // 构造一个类似的消息，恢复用户的操作
             const handler = msgHandlers[protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP];
             handler(reply, this);
-        } else {
+        }
+        if (this.roomInfo.cur_idx !== 0) {
             const player = this.roomInfo.players[this.roomInfo.cur_idx];
             if (player !== undefined && player !== null) {
                 const p = this.getPlayerByUserID(`${player.id}`);
@@ -675,7 +676,7 @@ export class Room {
         SoundMgr.stopMusic();
     }
     //重连 初始化 牌组
-    private initCards(playerInfo: protoHH.casino.Itable_player, player: Player): void {
+    private initCards(playerInfo: protoHH.casino.Itable_player, player: Player, isNewDiacard: boolean = false): void {
         if (playerInfo.curcards.length > 0) {
             player.addHandTiles(playerInfo.curcards);
             player.sortHands(false);
@@ -684,7 +685,13 @@ export class Room {
 
         if (playerInfo.outcards.length > 0) {
             player.addDiscardedTiles(playerInfo.outcards);
-            player.discarded2UI(false, false);
+            player.discarded2UI(isNewDiacard, false);
+
+            for (const outcard of playerInfo.outcards) {
+                if (outcard === this.mAlgorithm.getMahjongLaiZi()) {
+                    this.mAlgorithm.setFlagPiao(true);
+                }
+            }
         }
 
         if (playerInfo.groups.length > 0) {

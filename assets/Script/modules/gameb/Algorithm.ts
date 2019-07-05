@@ -799,20 +799,17 @@ export class Algorithm {
 
     // 判断是否胡牌根据自己的有效牌组＋别人打的一张牌
     // 参数: 有效牌组列表(牌结构(mahjong,index)), 别人打的牌, 是否可以用赖子(自己有赖子不能捉炮)
-    public canHuPai_WithOther(v_mahjongs: number[], mahjong: number, use_laizi: boolean = false): ArrayClass_c {
+    public canHuPai_WithOther(v_mahjongs: number[], mahjong: number, use_laizi: boolean = false): number[] {
         const sVecHuPai: number[] = [];
         const a = this.getArray_Pai_Lai(v_mahjongs);
-        const c = new ArrayClass_c();
-        c.bHuPai = false;
-        c.sVecHuPai = sVecHuPai;
         if (a.sVecLai.length > 1) {
-            return c;
+            return sVecHuPai;
         }
         a.sVecPai.push(mahjong);
         this.defMahjongSort_stb(a.sVecPai);
 
         if (a.sVecLai.length > 0 && !use_laizi) { // 有赖子就不能捉炮
-            return c;
+            return sVecHuPai;
         }
 
         const sVecJiang: number[] = [];
@@ -820,9 +817,8 @@ export class Algorithm {
         if (bHuPai) {
             this.push_back(sVecHuPai, sVecJiang, 1, 2);
         }
-        c.bHuPai = bHuPai;
-        c.sVecHuPai = sVecHuPai;
-        return c;
+
+        return sVecHuPai;
     }
 
     //检测牌组＋别人打出的牌所构成的胡是否有效(递归)
@@ -1063,19 +1059,21 @@ export class Algorithm {
     }
 
     //根据他人的牌判断能否胡牌
-    public canHu_WithOther(tilesHand: number[], mahjong: number): number[] {
+    public canHu_WithOther(tilesHand: number[], mahjong: number, isWhitOther: boolean): number[] {
         if (tilesHand === undefined || tilesHand === null || tilesHand.length === 0) {
             return [];
         }
         //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
-        if (!this.getFlagPiao()) {
-            const v = this.canHuPai_WithOther(tilesHand, mahjong);
-            if (v.bHuPai) {
-                if (this.checkHuPai_WithOther(v.sVecHuPai, mahjong)) {
-                    return v.sVecHuPai;
-                }
+        if (this.getFlagPiao() && isWhitOther) {
+            return [];
+        }
+        const v = this.canHuPai_WithOther(tilesHand, mahjong);
+        if (v.length > 0) {
+            if (this.checkHuPai_WithOther(v, mahjong)) {
+                return v;
             }
         }
+
 
         return [];
     }

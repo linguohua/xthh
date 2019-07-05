@@ -38,7 +38,7 @@ export namespace HandlerActionResultDraw {
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
         const buttonMap: string[] = [];
-        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
+        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card, false);
         if (hu.length > 0) {
             buttonMap.push(ButtonDef.Hu);
         }
