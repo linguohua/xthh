@@ -48,7 +48,7 @@ export namespace HandlerActionResultDraw {
             buttonMap.push(ButtonDef.Kong);
         }
         if (buttonMap.length > 0) {
-            player.lastDisCardTile = reply.card;
+            // player.lastDisCardTile = reply.card;
             buttonMap.push(ButtonDef.Skip);
             player.playerView.showButton(buttonMap);
         }
