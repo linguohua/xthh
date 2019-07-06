@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="763,383">
   <displayList>
-    <component id="n7_tfg8" name="vipBtn" src="tfg8n" fileName="btn/vipBtn.xml" xy="639,0"/>
+    <component id="n7_tfg8" name="vipBtn" src="tfg8n" fileName="btn/vipBtn.xml" xy="638,0"/>
     <loader id="n6_tfg8" name="vipLoader" xy="74,1" pivot="0.5,0" size="97,44" url="ui://l6hq6c41tfg8c" align="center" vAlign="middle" fill="scale" autoSize="true"/>
     <text id="n4_tfg8" name="text" xy="3,12" size="259,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="尊敬的                欢迎来到"/>
     <text id="n5_tfg8" name="text1" xy="265,12" size="156,34" fontSize="22" color="#9d3d09" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="钻石VIP商城"/>
-    <list id="n65_nfh4" name="list" xy="2,62" size="759,317" layout="flow_hz" overflow="scroll" scroll="horizontal" colGap="7" defaultItem="ui://l6hq6c41nfh4r" vAlign="middle">
+    <list id="n65_nfh4" name="list" xy="2,62" size="759,317" layout="row" overflow="scroll" scroll="horizontal" colGap="7" defaultItem="ui://l6hq6c41nfh4r" vAlign="middle" autoClearItems="true">
+      <item/>
+      <item/>
+      <item/>
       <item/>
       <item/>
       <item/>

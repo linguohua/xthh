@@ -341,6 +341,7 @@ export class LoginView extends cc.Component {
         }
 
         const gameConfigStr = JSON.stringify(fastLoginAck.config);
+        const payDataStr = JSON.stringify(fastLoginAck.paydata);
 
         DataStore.setItem("userID", fastLoginAck.user_id);
         DataStore.setItem("nickName", fastLoginAck.pdata.data.nickname);
@@ -352,6 +353,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem("card", card);
         DataStore.setItem("beans", beans);
         DataStore.setItem("gameConfig", gameConfigStr);
+        DataStore.setItem("payData", payDataStr);
 
     }
     private createWxBtn(): void {
