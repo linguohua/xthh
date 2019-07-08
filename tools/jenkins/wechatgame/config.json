@@ -3,7 +3,7 @@
 	"actualPlatform": "wechatgame",
 	"debug": true,
 	"wechatgame": {
-		"appid": "wx0bc3ae0579f432bf",
+		"appid": "wxb0038f16f41e5dd9",
 		"orientation": "portrait",
 		"REMOTE_SERVER_ROOT": "https://minigamet1.qianz.com/resources/",
 		"subContext": ""
