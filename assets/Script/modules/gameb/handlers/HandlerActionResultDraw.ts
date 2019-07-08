@@ -38,9 +38,11 @@ export namespace HandlerActionResultDraw {
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
         const buttonMap: string[] = [];
-        const hu = room.mAlgorithm.canHuPai(player.tilesHand, reply.card);
-        if (hu.length > 0) {
-            buttonMap.push(ButtonDef.Hu);
+        if (reply.card !== 0) {
+            const hu = room.mAlgorithm.canHuPai(player.tilesHand, reply.card);
+            if (hu.length > 0) {
+                buttonMap.push(ButtonDef.Hu);
+            }
         }
         const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
         if (gang.length > 0) {
@@ -65,7 +67,7 @@ export namespace HandlerActionResultDraw {
 
         //增加新抽到的牌到手牌列表
         if (reply.card === 0 && player.isMe()) {
-            //朝天笑
+            //朝天笑 碰完之后也会到这来
         } else if (reply.card !== 0) {
             room.mAlgorithm.mahjongTotal_lower();
 
@@ -76,6 +78,7 @@ export namespace HandlerActionResultDraw {
             player.notPong = 0; //重置弃碰
         }
         if (player.isMe()) {
+            player.lastDisCardTile = 0;
             checkButton(room, player, reply);
         }
         setTitleIsDiscard(player);

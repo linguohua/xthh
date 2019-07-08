@@ -260,6 +260,7 @@ export class RoomView {
         //获得chairID相对于本玩家的偏移
         const c = (chairID - myChairId + 4) % 4;
         //加1是由于lua table索引从1开始
+        // this.room.roomInfo.
 
         return playerViews[c + 1];
     }

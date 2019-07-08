@@ -139,7 +139,7 @@ export class Algorithm {
     public getMahjongFan(): number {
         return this.m_nMahjongFan;
     }
-    //TODO 不知道干嘛 先写上
+    //是否有人打过癞子
     public setFlagPiao(piao: boolean): void {
         this.m_bFlagPiao = piao;
     }
