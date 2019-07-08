@@ -38,10 +38,8 @@ export namespace HandlerActionResultDraw {
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
         const buttonMap: string[] = [];
-        Logger.debug("reply.card : ", reply.card);
         if (reply.card !== 0) {
             const hu = room.mAlgorithm.canHuPai(player.tilesHand, reply.card);
-            Logger.debug("hu------------- : ", hu);
             if (hu.length > 0) {
                 buttonMap.push(ButtonDef.Hu);
             }

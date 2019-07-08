@@ -19,7 +19,7 @@ const playerCound: number[][] = [
     [1, 2, 4],
     [1, 2, 3, 4]
 ];
-
+const aa = "07-08-18"; //假的版本号
 /**
  * 房间
  */
@@ -187,7 +187,7 @@ export class RoomView {
         const room = this.room;
         const num = `${this.room.handStartted}/${this.room.handNum}`;
         const s = `     `;
-        const str = `房号:${room.roomInfo.tag}${s}局数:${num}`;
+        const str = `房号:${room.roomInfo.tag}${s}局数:${num}${s}${aa}`;
         this.roomInfoText.text = str;
 
     }
