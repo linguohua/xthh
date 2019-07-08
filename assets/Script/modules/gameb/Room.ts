@@ -114,6 +114,7 @@ export class Room {
     public isDisband: boolean = false;
     public readonly roomType: number;
     public mAlgorithm: Algorithm;
+    public isMySelfDisCard: boolean = false;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -348,12 +349,11 @@ export class Room {
         });
     }
 
-    public setDiscardAble(chairID: number): void {
-        const player = this.getPlayerByChairID(chairID);
-        if (!player.isMe()) {
+    public setDiscardAble(): void {
+        if (!this.isMySelfDisCard) {
             return;
         }
-        const playerView = player.playerView;
+        const playerView = this.myPlayer.playerView;
         const handsClickCtrls = playerView.handsClickCtrls;
         for (let i = 0; i < 14; i++) {
             const handsClickCtrl = handsClickCtrls[i];

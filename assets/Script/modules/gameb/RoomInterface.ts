@@ -78,8 +78,8 @@ export interface RoomInterface {
     laiziID: number;
     laigenID: number;
     isDestroy: boolean;
+    isMySelfDisCard: boolean;
     quit: Function;
-
     // 获取RoomHost
     getRoomHost(): RoomHost;
     isMe(userID: string): boolean;
@@ -138,4 +138,5 @@ export interface RoomInterface {
 
     onReturnLobbyBtnClick(): void;
     showMsg(chatData: ChatData): void;
+    setDiscardAble(): void;
 }

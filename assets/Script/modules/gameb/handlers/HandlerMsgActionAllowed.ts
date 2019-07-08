@@ -18,8 +18,8 @@ export namespace HandlerMsgActionAllowed {
     const processMyAllowedActions =
         (msg: proto.mahjong.MsgAllowPlayerAction, p: Player): void => {
             const actions = msg.allowedActions;
-            p.allowedActionMsg = msg;
-            p.allowedReActionMsg = null;
+            // p.allowedActionMsg = msg;
+            // p.allowedReActionMsg = null;
             p.updateReadyHandList(null);
             const playerView = p.playerView;
             let needShowOperationButtons = false;

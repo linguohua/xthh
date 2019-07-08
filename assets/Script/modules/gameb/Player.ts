@@ -489,7 +489,7 @@ export class Player {
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
-        // Logger.debug(" 胡 ： ", this.lastDisCardTile);
+        Logger.debug(" 胡 ： ", this.lastDisCardTile);
         if (this.lastDisCardTile !== 0) {
             req2.op = TypeOfOP.Hu;
         } else {
@@ -608,6 +608,17 @@ export class Player {
         return true;
     }
 
+    public setDiscardAble(): void {
+        const playerView = this.playerView;
+        const handsClickCtrls = playerView.handsClickCtrls;
+        for (let i = 0; i < 14; i++) {
+            const handsClickCtrl = handsClickCtrls[i];
+            const tileID = handsClickCtrl.tileID;
+            if (tileID !== null) {
+                handsClickCtrl.isDiscardable = true;
+            }
+        }
+    }
     /**
      * name
      */

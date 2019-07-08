@@ -11,6 +11,15 @@ import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 const mjproto = proto.mahjong;
 
+//玩家位置偏移
+const playerCound: number[][] = [
+    [1],
+    [1],
+    [1, 3],
+    [1, 2, 4],
+    [1, 2, 3, 4]
+];
+
 /**
  * 房间
  */
@@ -260,9 +269,11 @@ export class RoomView {
         //获得chairID相对于本玩家的偏移
         const c = (chairID - myChairId + 4) % 4;
         //加1是由于lua table索引从1开始
-        // this.room.roomInfo.
+        const le = this.room.roomInfo.players.length;
+        const n = playerCound[le][c];
+        // return playerViews[c + 1];
 
-        return playerViews[c + 1];
+        return playerViews[n];
     }
 
     //根据房间的状态做一些开关变量切换
