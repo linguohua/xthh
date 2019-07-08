@@ -651,9 +651,10 @@ export class Algorithm {
     public canHuPai(v_mahjongs: number[], card: number): number[] {
         const sVecHuPai: number[] = [];
         const array = this.getArray_Pai_Lai(v_mahjongs);
+        this.defMahjongSort_stb(array.sVecPai);
         // if (card !== this.getMahjongLaiZi()) {
         //     array.sVecPai.push(card);
-        //     this.defMahjongSort_stb(array.sVecPai);
+        //
         // } else {
         //     array.sVecLai.push(card);
         // }
