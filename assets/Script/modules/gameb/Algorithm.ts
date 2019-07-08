@@ -651,15 +651,15 @@ export class Algorithm {
     public canHuPai(v_mahjongs: number[], card: number): number[] {
         const sVecHuPai: number[] = [];
         const array = this.getArray_Pai_Lai(v_mahjongs);
-        if (card !== this.getMahjongLaiZi()) {
-            array.sVecPai.push(card);
-            this.defMahjongSort_stb(array.sVecPai);
-        } else {
-            array.sVecLai.push(card);
-        }
-        if (array.sVecLai.length > 1) {
-            return sVecHuPai;
-        }
+        // if (card !== this.getMahjongLaiZi()) {
+        //     array.sVecPai.push(card);
+        //     this.defMahjongSort_stb(array.sVecPai);
+        // } else {
+        //     array.sVecLai.push(card);
+        // }
+        // if (array.sVecLai.length > 1) {
+        //     return sVecHuPai;
+        // }
 
         const sVecJiang: number[] = [];
         const bHuPai = this.checkHuPai(array.sVecPai, array.sVecLai, false, sVecHuPai, sVecJiang);
@@ -810,15 +810,15 @@ export class Algorithm {
     public canHuPai_WithOther(v_mahjongs: number[], mahjong: number, use_laizi: boolean = false): number[] {
         const sVecHuPai: number[] = [];
         const a = this.getArray_Pai_Lai(v_mahjongs);
-        if (a.sVecLai.length > 1) {
+        if (a.sVecLai.length > 0) {
             return sVecHuPai;
         }
         a.sVecPai.push(mahjong);
         this.defMahjongSort_stb(a.sVecPai);
 
-        if (a.sVecLai.length > 0 && !use_laizi) { // 有赖子就不能捉炮
-            return sVecHuPai;
-        }
+        // if (a.sVecLai.length > 0 && !use_laizi) { // 有赖子就不能捉炮
+        //     return sVecHuPai;
+        // }
 
         const sVecJiang: number[] = [];
         const bHuPai = this.checkHuPai(a.sVecPai, a.sVecLai, false, sVecHuPai, sVecJiang);
@@ -959,18 +959,21 @@ export class Algorithm {
     // 参数: 有效牌组, 摊开的牌组 (牌结构(mahjong,index)), 以前放弃杠的牌
     public canGangPai_withAll(v_mahjongs: number[], s_mahjongs: proto.casino_xtsj.packet_sc_op_ack[], f_mahjongs: number[]): number[] {
         let v_size = v_mahjongs.length;
-        const s_size = s_mahjongs.length;
+        let s_size = 0;
         const v_array = [];
         for (let i = 0; i < v_size; i++) {
             v_array[i] = v_mahjongs[i];
         }
 
         const s_array: number[] = [];
-        for (let i = 0; i < s_size; i++) {
-            s_array[i] = s_mahjongs[i].cards[0];
+        if (s_mahjongs !== undefined && s_mahjongs.length > 0) {
+            s_size = s_mahjongs.length;
+            for (let i = 0; i < s_size; i++) {
+                s_array[i] = s_mahjongs[i].cards[0];
+            }
         }
 
-        if (f_mahjongs !== undefined) {
+        if (f_mahjongs !== undefined && f_mahjongs.length > 0) {
             this.pop_allMahjong(v_array, f_mahjongs);
             v_size = v_array.length;
         }
@@ -980,7 +983,7 @@ export class Algorithm {
         for (let i = 0; i < v_size; i++) {
             const mahjong = v_array[i];
             if (mahjong !== this.getMahjongLaiZi()) {
-                if (mahjong == this.getMahjongFan()) { // 翻牌3张杠,其他4张杠
+                if (mahjong === this.getMahjongFan()) { // 翻牌3张杠,其他4张杠
                     gang_size = 3
                 } else {
                     gang_size = 4
@@ -989,7 +992,7 @@ export class Algorithm {
                 index = 1
                 array[index] = mahjong
                 for (let j = i + 1; j < v_size; j++) {
-                    if (v_array[j] == mahjong) {
+                    if (v_array[j] === mahjong) {
                         array[index] = mahjong
                         index = index + 1
                         if (index >= gang_size) {
@@ -1003,7 +1006,7 @@ export class Algorithm {
                     }
 
                     for (let j = 0; j < s_size; j++) {
-                        if (s_array[j] == mahjong) {
+                        if (s_array[j] === mahjong) {
                             index = index + 1
                             if (index >= gang_size) {
                                 // dd.gang = true;
@@ -1114,9 +1117,9 @@ export class Algorithm {
                     }
                     if (can) {
                         let num = array[tile];
-                        if (mahjong !== undefined && mahjong === tile) {
-                            num++;
-                        }
+                        // if (mahjong !== undefined && mahjong === tile) {
+                        //     num++;
+                        // }
                         if (tile === this.getMahjongFan()) {
                             if (num === 3) {
                                 canKongs.push(tile);
@@ -1157,7 +1160,7 @@ export class Algorithm {
                 return array;
             }
         }
-        if (array.length == 3) {
+        if (array.length === 3) {
             return array;
         }
 

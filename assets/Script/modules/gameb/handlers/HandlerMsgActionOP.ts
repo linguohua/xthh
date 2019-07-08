@@ -21,7 +21,7 @@ export namespace HandlerMsgActionOP {
         if (hu.length > 0) {
             buttonMap.push(ButtonDef.Hu);
         }
-        const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
+        const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
         if (gang.length > 0) {
             player.canKongs = gang;
             buttonMap.push(ButtonDef.Kong);

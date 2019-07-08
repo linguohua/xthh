@@ -62,9 +62,6 @@ export namespace HandlerActionResultDraw {
         const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
 
         room.setWaitingPlayer(player.chairID, reply.time);
-        if (player.isMe()) {
-            checkButton(room, player, reply);
-        }
 
         //增加新抽到的牌到手牌列表
         if (reply.card === 0 && player.isMe()) {
@@ -77,6 +74,9 @@ export namespace HandlerActionResultDraw {
             player.hand2UI(false);
 
             player.notPong = 0; //重置弃碰
+        }
+        if (player.isMe()) {
+            checkButton(room, player, reply);
         }
         setTitleIsDiscard(player);
         // room.tilesInWall = actionResultMsg.tilesInWall;
