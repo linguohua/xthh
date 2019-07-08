@@ -492,7 +492,8 @@ export class Room {
         this.roomView.showOrHideMeldsOpsPanel(chowMelds, actionMsg);
     }
     public isMe(userID: string): boolean {
-        return this.myUser.userID === userID;
+        // 统一转成字符串，避免有的是number,有的是string
+        return `${this.myUser.userID}` === `${userID}`;
     }
     public isReplayMode(): boolean {
         return this.replay !== undefined;

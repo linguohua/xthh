@@ -74,9 +74,9 @@ export class RoomView {
     public showOrHideReadyButton(isShow: boolean): void {
         this.readyButton.visible = isShow;
         // this.returnLobbyBtn.visible = isShow;
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            this.inviteButton.visible = isShow;
-        }
+        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        //     this.inviteButton.visible = isShow;
+        // }
     }
 
     //响应玩家点击左上角的退出按钮以及后退事件
