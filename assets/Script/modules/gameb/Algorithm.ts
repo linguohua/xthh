@@ -658,9 +658,9 @@ export class Algorithm {
         // } else {
         //     array.sVecLai.push(card);
         // }
-        // if (array.sVecLai.length > 1) {
-        //     return sVecHuPai;
-        // }
+        if (array.sVecLai.length > 1) {
+            return sVecHuPai;
+        }
 
         const sVecJiang: number[] = [];
         const bHuPai = this.checkHuPai(array.sVecPai, array.sVecLai, false, sVecHuPai, sVecJiang);

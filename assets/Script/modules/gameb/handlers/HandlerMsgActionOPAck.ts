@@ -20,12 +20,12 @@ export namespace HandlerMsgActionOPAck {
         const a = pAck.cards[0];
         contributorPlayer.removeLatestDiscarded(a); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
         contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
-        if (player.isMe()) {
-            room.mAlgorithm.push_back([], pAck.cards, 1, 2);
-            if (player.getMahjongCount_withV(a) > 0) {
-                room.myMahjong_addForgo(0, a, false);
-            }
-        }
+        // if (player.isMe()) {
+        //     room.mAlgorithm.push_back([], pAck.cards, 1, 2);
+        //     if (player.getMahjongCount_withV(a) > 0) {
+        //         room.myMahjong_addForgo(0, a, false);
+        //     }
+        // }
     };
     const kong2 = (room: RoomInterface, t: number, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack, array: number[]): void => {
         const mahjong = pAck.cards[0];
@@ -111,15 +111,15 @@ export namespace HandlerMsgActionOPAck {
         const player = <Player>room.getPlayerByUserID(`${pAck.player_id}`);
         if (player.isMe()) {
             if (pAck.op === TypeOfOP.Guo) {                //假如没有操作
-                if (room.m_bSaveOPGFlag && room.m_nSaveOPGMahjong !== 0) {
-                    room.myMahjong_addForgo(0, room.m_nSaveOPGMahjong, true);
+                if (player.canKongs !== undefined && player.canKongs.length > 0) {
+                    player.notKongs = player.canKongs;
                 }
-                if (room.m_bSaveOPPFlag && room.m_nSaveOPPMahjong !== 0) {
-                    room.myMahjong_addForgo(0, room.m_nSaveOPPMahjong, true);
+                if (player.isCanPong && player.lastDisCardTile !== 0) {
+                    player.notPong = player.lastDisCardTile;
                 }
             } else if (pAck.op === TypeOfOP.BUZHUOCHONG) {
-                player.setNotCatch(true);
-                room.m_bSaveZCHFlag = false;
+                // player.setNotCatch(true);
+                // room.m_bSaveZCHFlag = false;
             }
         }
         if (pAck.op === TypeOfOP.Pong) {
