@@ -17,9 +17,11 @@ export namespace HandlerMsgActionOP {
             return;
         }
         const buttonMap: string[] = [];
-        const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
-        if (hu.length > 0) {
-            buttonMap.push(ButtonDef.Hu);
+        if (!player.cancelZhuochong) {
+            const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
+            if (hu.length > 0) {
+                buttonMap.push(ButtonDef.Hu);
+            }
         }
         const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
         if (gang.length > 0) {

@@ -121,6 +121,7 @@ export namespace HandlerMsgActionOPAck {
             } else if (pAck.op === TypeOfOP.BUZHUOCHONG) {
                 // player.setNotCatch(true);
                 // room.m_bSaveZCHFlag = false;
+                player.cancelZhuochong = true;
             }
         }
         if (pAck.op === TypeOfOP.Pong) {

@@ -57,6 +57,7 @@ export class Player {
     public notPong: number = 0; //弃碰 只会有一个 不需要列表
     public notKongs: number[] = []; //弃杠 起手有多杠的时候才会用到
     public canKongs: number[] = []; //可杠列表 起手有多杠的时候才会用到
+    public cancelZhuochong: boolean = false; //弃捉冲
     public isCanPong: boolean = false; //可以碰
     private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {

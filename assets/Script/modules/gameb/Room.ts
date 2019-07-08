@@ -622,6 +622,8 @@ export class Room {
         if (gl > 0) {
             this.myPlayer.notKongs = myPlayerInfo.cancelcards;
         }
+        //压入捉铳不铳的标志
+        this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
 
         // this.setWaitingPlayer(this.roomInfo.cur_idx);
         // this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击

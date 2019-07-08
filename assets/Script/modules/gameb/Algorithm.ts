@@ -359,6 +359,7 @@ export class Algorithm {
             for (let j = 0; j < size; j++) {
                 if (sArray[j] === sVector[i]) {
                     sArray.splice(j, 1);
+                    break;
                 }
             }
         }
@@ -381,6 +382,7 @@ export class Algorithm {
             for (let j = 0; j < sArray.length; j++) {
                 if (sArray[j] === mahjongs[i]) {
                     sArray.splice(j, 1);
+                    break;
                 }
             }
         }
@@ -1074,9 +1076,6 @@ export class Algorithm {
 
     //根据他人的牌判断能否胡牌
     public canHu_WithOther(tilesHand: number[], mahjong: number): number[] {
-        if (tilesHand === undefined || tilesHand === null || tilesHand.length === 0) {
-            return [];
-        }
         //判断是否胡牌, 假如有人飘过赖子那么一定不能胡别人的牌, 并且放弃过捉铳
         if (this.getFlagPiao()) {
             return [];
