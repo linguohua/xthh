@@ -56,7 +56,7 @@ export namespace HandlerMsgActionOPAck {
         }
         player.hand2UI(true); //手牌列表更新UI
     };
-    const kong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): void => {
+    const kong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): number => {
         if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_DIANXIAO || pAck.type === OP_TYPE.XTSJ_OP_TYPE_MENGXIAO ||
             pAck.type === OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN || pAck.type === OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN) {
             //检测三种可能的错误（小于等于1张牌，三张牌但是闷笑，三张牌但是点笑）
@@ -96,13 +96,15 @@ export namespace HandlerMsgActionOPAck {
             t = TypeOfOP.DEF_XTSJ_OP_GANG_A;
         }
         if (s_count === 0) {
-            return;
+            return pAck.type;
         }
         const array: number[] = [];
         for (let index = 0; index < v_count; index++) {
             array.push(mahjong);
         }
         kong2(room, t, player, pAck, array);
+
+        return pAck.type;
     };
 
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
@@ -126,31 +128,15 @@ export namespace HandlerMsgActionOPAck {
         }
         if (pAck.op === TypeOfOP.Pong) {
             pong(room, player, pAck);
+            //播放动画
+            await player.exposedResultAnimation(1001);
         } else if (pAck.op === TypeOfOP.Kong) {
-            kong(room, player, pAck);
+            const pAckType = kong(room, player, pAck); //在这个函数里面 pAck.type 会改变
+            //播放动画
+            await player.exposedResultAnimation(pAckType);
         } else if (pAck.op === TypeOfOP.ZiMo || pAck.op === TypeOfOP.Hu || pAck.op === TypeOfOP.QIANGXIAO) {
             //其他的是各种胡牌
+            //胡的类型 是要在结算那边获取。。。
         }
-        //播放动画
-        await player.exposedResultAnimation(pAck.op);
-        // if (reply.op === TypeOfOP.Pong || reply.op === TypeOfOP.Kong) {
-        //     //清理吃牌界面
-        //     room.cleanUI();
-        //     const meld = player.getMeld(reply.cards[0], TypeOfOP.Pong);
-        //     if (meld !== null) {
-        //         //说明是加杠
-        //         meld.op = TypeOfOP.Kong; // 改成杠
-        //         meld.cards.push(reply.cards[0]);
-        //     } else {
-        //         player.addMeld(reply);
-        //     }
-        //     //隐藏箭头
-        //     room.setArrowByParent(null);
-        //     room.hideDiscardedTips();
-        // } else {
-        //     //胡 等其他情况
-        // }
-        // //播放动画
-        // await player.exposedResultAnimation(reply.op);
     };
 }

@@ -24,6 +24,7 @@ export namespace HandlerActionResultDiscarded {
         }
         //有人飘赖子
         if (room.mAlgorithm.getMahjongLaiZi() === reply.card) {
+            await player.exposedResultAnimation(1002, true);
             room.mAlgorithm.setFlagPiao(true);
         }
         if (isMe && !isReplayMode) {

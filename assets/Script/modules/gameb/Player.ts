@@ -16,16 +16,21 @@ const soundDef: { [key: number]: string } = {
     [TypeOfOP.Hu]: "zimo" //自摸
     // Common = "effect_common"
 };
-
+const eXTSJ_OP_TYPE = protoHH.casino_xtsj.eXTSJ_OP_TYPE;
 //特效文件定义
 const effectsDef: { [key: number]: string } = {
-    [TypeOfOP.Pong]: "Effect_zi_peng",
-    [TypeOfOP.Kong]: "Effect_zi_gang",
-    [TypeOfOP.CHAOTIAN]: "Effect_zi_dianpao", //被点炮
-    [TypeOfOP.Hu]: "Effect_zi_zimo" //自摸
-    // Chow = "Effect_zi_chi",
-    // Ting = "ting",
-    // DrawCard = "Effect_zi_zhua"
+    [1001]: "Effect_ico_peng", //碰 这个没定义
+    [1002]: "Effect_ico_piaolai", //飘赖
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DIANXIAO]: "Effect_ico_dianxiao", //点笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "Effect_ico_menxiao", //闷笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "Effect_ico_huitouxiao", //回头笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN]: "Effect_ico_xiaochaotian", //小朝天
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN]: "Effect_ico_xiaochaotian", //大朝天
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG]: "Effect_ico_zhuotong", //捉铳
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO]: "Effect_ico_heimo", //黑摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "Effect_ico_heimo", //黑摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO]: "Effect_ico_ruanmo", //软摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "Effect_ico_ruanmo" //软摸
 };
 
 /**
@@ -310,7 +315,7 @@ export class Player {
         playerView.head.ting.visible = showOrHide;
     }
     //播放动画
-    public async exposedResultAnimation(t: number): Promise<void> {
+    public async exposedResultAnimation(t: number, isWait?: boolean): Promise<void> {
         if (this.isMe()) {
             //隐藏牌组
             this.playerView.hideHands();
@@ -319,7 +324,7 @@ export class Player {
 
         //播放对应音效
         this.playSound("gameb/operate", soundDef[t]);
-        await this.playerView.playerOperationEffect(effectsDef[t]);
+        await this.playerView.playerOperationEffect(effectsDef[t], isWait);
     }
 
     //播放读牌音效

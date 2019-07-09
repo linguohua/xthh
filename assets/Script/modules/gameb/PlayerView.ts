@@ -672,10 +672,10 @@ export class PlayerView {
         if (effectName === undefined || effectName === null) {
             return;
         }
-        if (isWait) {
-            await this.roomHost.animationMgr.coPlay(`lobby/prefabs/mahjong/${effectName}`, this.aniPos.node);
+        if (isWait !== undefined && isWait) {
+            await this.roomHost.animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.aniPos.node);
         } else {
-            this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/${effectName}`, this.aniPos.node);
+            this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/${effectName}`, this.aniPos.node);
         }
     }
 
