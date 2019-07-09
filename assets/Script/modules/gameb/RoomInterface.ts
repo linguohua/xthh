@@ -114,7 +114,7 @@ export interface RoomInterface {
     showDonate(msgDonate: proto.mahjong.MsgDonate): void;
     showRoomNumber(): void;
     removePlayer(chairID: string): void;
-    createMyPlayer(playerInfo: protoHH.casino.Itable_player): void;
+    createMyPlayer(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     createPlayerByInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     showOrHideReadyButton(isShow: boolean): void;
     onUpdateStatus(state: number): void;

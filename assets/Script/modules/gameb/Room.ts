@@ -199,12 +199,11 @@ export class Room {
         this.initCards(playerInfo, player);
 
     }
-
     // 创建自身的玩家对象    // 并绑定playerView
-    public createMyPlayer(playerInfo: protoHH.casino.Itable_player): void {
-        const player = new Player(`${playerInfo.id}`, 0, this);
+    public createMyPlayer(playerInfo: protoHH.casino.Itable_player, chairID: number): void {
+        const player = new Player(`${playerInfo.id}`, chairID, this);
 
-        player.updateByPlayerInfo(playerInfo, 0);
+        player.updateByPlayerInfo(playerInfo, chairID);
 
         const playerView = this.roomView.playerViews[1];
         player.bindView(playerView);
@@ -587,11 +586,23 @@ export class Room {
             return;
         }
 
-        this.createMyPlayer(this.roomInfo.players[0]);
-        for (let i = 1; i < this.roomInfo.players.length; i++) {
+        // this.createMyPlayer(this.roomInfo.players[0]);
+        for (let i = 0; i < this.roomInfo.players.length; i++) {
             const p = this.roomInfo.players[i];
-            if (p !== undefined && p !== null && p.id !== null) {
-                this.createPlayerByInfo(p, i);
+            if (this.isMe(`${p.id}`)) {
+                Logger.debug(`createPlayers, my id:${p.id}, i:${i}`);
+                this.createMyPlayer(p,i);
+                break;
+            }
+        }
+
+        for (let i = 0; i < this.roomInfo.players.length; i++) {
+            const p = this.roomInfo.players[i];
+            if (!this.isMe(`${p.id}`)) {
+                if (p !== undefined && p !== null && p.id !== null) {
+                    Logger.debug(`createPlayers, other id:${p.id}, i:${i}`);
+                    this.createPlayerByInfo(p, i);
+                }
             }
         }
     }

@@ -15,7 +15,7 @@ const mjproto = proto.mahjong;
 const playerCound: number[][] = [
     [1],
     [1],
-    [1, 3],
+    [1, 3, 0 , 3],
     [1, 2, 4],
     [1, 2, 3, 4]
 ];
@@ -271,11 +271,12 @@ export class RoomView {
         //获得chairID相对于本玩家的偏移
         const c = (chairID - myChairId + 4) % 4;
         //加1是由于lua table索引从1开始
-        const le = this.room.roomInfo.players.length;
-        const n = playerCound[le][c];
-        // return playerViews[c + 1];
+        // const le = this.room.roomInfo.players.length;
+        // const n = playerCound[le][c];
+        return playerViews[c + 1];
+        // Logger.debug(`创建别人 , n: ${n}, le: ${le}, c: ${c}`);
 
-        return playerViews[n];
+        // return playerViews[c];
     }
 
     //根据房间的状态做一些开关变量切换
