@@ -44,6 +44,8 @@ export class LobbyView extends cc.Component {
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
+
         this.lm = lm;
         const loader = lm.loader;
 
@@ -217,5 +219,9 @@ export class LobbyView extends cc.Component {
         };
 
         this.lm.switchToGame(params, "gameb");
+    }
+
+    private onReconnectOk(): void {
+        this.testJoinGame();
     }
 }

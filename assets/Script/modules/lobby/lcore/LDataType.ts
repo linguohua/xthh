@@ -42,6 +42,7 @@ export interface GResLoader {
 
 // type GameMsgHandler = (msg: protoHH.casino.ProxyMessage) => void;
 export interface MsgCenter {
+    eventTarget: cc.EventTarget;
     sendGameMsg(buf: ByteBuffer, code: number): void;
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
 

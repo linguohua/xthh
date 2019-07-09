@@ -183,7 +183,8 @@ export class LMsgCenter {
             if (msg.mt === MsgType.wsData) {
                 this.dispatchWeboscketMessage(<proto.casino.ProxyMessage>msg.data);
             } else if (msg.mt === MsgType.wsClosed || msg.mt === MsgType.wsError) {
-                this.retry = false;
+                Logger.debug("Websocket close, retury connect")
+                this.retry = true;
                 loop = false;
             }
         }

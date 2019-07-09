@@ -61,9 +61,9 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         }
         fgui.GRoot.inst.addChild(this.view);
 
-        this.eventTarget.emit(`checkRoomInfo`);
-        this.eventTarget.emit(`onGameSubRecordShow`);
-        this.eventTarget.emit(`onClubViewShow`);
+        // this.eventTarget.emit(`checkRoomInfo`);
+        // this.eventTarget.emit(`onGameSubRecordShow`);
+        // this.eventTarget.emit(`onClubViewShow`);
     }
 
     public requetJoinRoom(roomNumber: string): void {
