@@ -98,7 +98,7 @@ export class GameOverResultView extends cc.Component {
         //房主
         // c.imageRoom.visible = playerScore.isMe();
         //庄家
-        // c.zhuang.visible = this.room.bankerChairID === playerScore.chairID;
+        // c.zhuang.visible = this.room.bankerChairID === playerScore;
         //头像
     }
     //设置大赢家标志

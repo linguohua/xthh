@@ -32,6 +32,7 @@ export namespace HandlerMsgDeal {
         const player = <Player>room.getPlayerByUserID(msgDeal.lord_id.toString());
         room.setWaitingPlayer(player.chairID, msgDeal.time);
 
+        room.bankerChairID = msgDeal.lord_id; //庄家
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);

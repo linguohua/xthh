@@ -43,6 +43,7 @@ import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
+import { HandlerActionResultEndCard } from "./handlers/HandlerActionResultEndCard";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
@@ -83,7 +84,8 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeXTHH.XTSJ_MSG_SC_OP]: HandlerMsgActionOP.onMsg, //服务器询问玩家操作
     [msgCodeXTHH.XTSJ_MSG_SC_OUTCARD_ACK]: HandlerActionResultDiscarded.onMsg, //出牌服务器回复
     [msgCodeXTHH.XTSJ_MSG_SC_OP_ACK]: HandlerMsgActionOPAck.onMsg, //操作服务器回复
-    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg //抽牌
+    [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg, //抽牌
+    [msgCodeXTHH.XTSJ_MSG_SC_ENDCARD]: HandlerActionResultEndCard.onMsg //海底
     // [msgCodeXTHH.XTSJ_MSG_SC_SCORE]: HandlerMsgTableScore.onMsg //结算
 };
 
@@ -625,6 +627,7 @@ export class Room {
         }
         //压入捉铳不铳的标志
         this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
+        this.bankerChairID = this.roomInfo.lord_id;
 
         // this.setWaitingPlayer(this.roomInfo.cur_idx);
         // this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
