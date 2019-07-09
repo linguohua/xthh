@@ -11,6 +11,8 @@ export namespace HandlerActionResultEndCard {
         const reply = proto.casino_xtsj.packet_sc_endcard.decode(msgData);
         Logger.debug("海底----------------------- ", reply);
 
+        //播放动画
+        await room.roomView.gameEndAnimation();
         //增加新抽到的牌到手牌列表
         room.mAlgorithm.mahjongTotal_lower(room.roomInfo.players.length);
         if (reply.card !== 0) {
@@ -19,5 +21,8 @@ export namespace HandlerActionResultEndCard {
             player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
             player.hand2UI(false);
         }
+
+        //等一会
+        await room.coWaitSeconds(2);
     };
 }

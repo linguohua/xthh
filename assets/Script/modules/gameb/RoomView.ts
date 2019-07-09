@@ -125,13 +125,15 @@ export class RoomView {
         // )
     }
 
-    // 播放牌局开始动画
-    public gameStartAnimation(): void {
-        const screenWidth = 1136;
-        const screenHeight = 640;
-        const x = screenWidth / 2;
-        const y = screenHeight / 2;
-        Logger.debug("xxxx ", x, y);
+    // 海底动画
+    public async gameEndAnimation(): Promise<void> {
+        // const screenWidth = 1136;
+        // const screenHeight = 640;
+        // const x = screenWidth / 2;
+        // const y = screenHeight / 2;
+        // Logger.debug("xxxx ", x, y);
+        const effectName = "Effect_ico_zuihousizhang";
+        await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
         // animation.coplay("animations/Effects_jiemian_duijukaishi.prefab", this.unityViewNode, x, y);
     }
 

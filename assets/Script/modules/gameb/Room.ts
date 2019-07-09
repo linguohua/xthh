@@ -357,15 +357,7 @@ export class Room {
             return;
         }
         const playerView = this.myPlayer.playerView;
-        const handsClickCtrls = playerView.handsClickCtrls;
-        for (let i = 0; i < 14; i++) {
-            const handsClickCtrl = handsClickCtrls[i];
-            const tileID = handsClickCtrl.tileID;
-            if (tileID !== null) {
-                handsClickCtrl.isDiscardable = true;
-            }
-        }
-
+        this.myPlayer.setDiscardAble();
     }
 
     public loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void {
@@ -618,7 +610,9 @@ export class Room {
         //设置弃杠弃碰
         const myPlayerInfo = this.roomInfo.players[0];
         const pl = myPlayerInfo.pengcards.length;
+        Logger.debug("弃杠---myPlayerInfo.pengcards : ", myPlayerInfo.pengcards);
         if (pl > 0) {
+            Logger.debug("弃杠 , ", myPlayerInfo.pengcards[pl - 1]);
             this.myPlayer.notPong = myPlayerInfo.pengcards[pl - 1];
         }
         const gl = myPlayerInfo.cancelcards.length;

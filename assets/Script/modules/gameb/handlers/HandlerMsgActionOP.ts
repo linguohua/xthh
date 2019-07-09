@@ -28,6 +28,7 @@ export namespace HandlerMsgActionOP {
             player.canKongs = gang;
             buttonMap.push(ButtonDef.Kong);
         }
+        Logger.debug("player.notPong ：", player.notPong);
         if (player.notPong !== reply.card) {
             const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
             if (peng.length > 0) {
