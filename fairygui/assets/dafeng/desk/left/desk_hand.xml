@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="180,640" opaque="false" designImage="ui://397phochlqn3fs" designImageAlpha="100">
+<component size="180,640" opaque="false" designImage="ui://397phochlqn3fs" designImageAlpha="0">
   <displayList>
     <component id="n35_fxwe" name="n13" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,99" visible="false"/>
     <component id="n34_fxwe" name="n12" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,122" visible="false"/>
@@ -14,6 +14,6 @@
     <component id="n25_fxwe" name="n3" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,325" visible="false"/>
     <component id="n24_fxwe" name="n2" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,348" visible="false"/>
     <component id="n23_fxwe" name="n1" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,370" visible="false"/>
-    <component id="n36_fxwe" name="n14" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,393" visible="false"/>
+    <component id="n36_fxwe" name="n14" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,402" visible="false"/>
   </displayList>
 </component>

@@ -9,9 +9,9 @@
     <image id="n3_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="898,12" hideByEditor="true"/>
     <image id="n4_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="910,80" hideByEditor="true"/>
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="909,55" hideByEditor="true"/>
-    <component id="n10_fxwe" name="melds" src="jmxyq" fileName="desk/dui/desk_meld.xml" xy="0,0" touchable="false"/>
     <component id="n8_fxwe" name="hands" src="jmxys" fileName="desk/dui/desk_hand.xml" xy="0,1" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxyv" fileName="desk/dui/desk_flower.xml" xy="253,112" touchable="false"/>
+    <component id="n10_fxwe" name="melds" src="jmxyq" fileName="desk/dui/desk_meld.xml" xy="0,0" touchable="false"/>
     <component id="n12_fxwe" name="lights" src="jmxyy" fileName="desk/dui/desk_light.xml" xy="1,0" touchable="false"/>
     <component id="n6_fxwe" name="discards" src="jmxyz" fileName="desk/dui/desk_discard.xml" xy="372,148" touchable="false"/>
     <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="773,49" hideByEditor="true"/>

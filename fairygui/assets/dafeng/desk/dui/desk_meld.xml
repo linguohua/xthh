@@ -5,9 +5,5 @@
     <graph id="n45_fxwe" name="meld2" xy="574,7" size="100,100" scale="0,0"/>
     <graph id="n46_fxwe" name="meld3" xy="441,7" size="100,100" scale="0,0"/>
     <graph id="n47_fxwe" name="meld4" xy="309,7" size="100,100" scale="0,0"/>
-    <component id="n52_phg6" name="n52" src="tsg11i" fileName="mahjong_dui/mahjong_dui_meld_chipeng.xml" pkg="l6hoa9ng" xy="707,7" hideByEditor="true" visible="false"/>
-    <component id="n53_phg6" name="n53" src="tsg11i" fileName="mahjong_dui/mahjong_dui_meld_chipeng.xml" pkg="l6hoa9ng" xy="574,7" hideByEditor="true" visible="false"/>
-    <component id="n54_phg6" name="n54" src="tsg11i" fileName="mahjong_dui/mahjong_dui_meld_chipeng.xml" pkg="l6hoa9ng" xy="441,7" hideByEditor="true" visible="false"/>
-    <component id="n55_phg6" name="n55" src="tsg11i" fileName="mahjong_dui/mahjong_dui_meld_chipeng.xml" pkg="l6hoa9ng" xy="309,7" hideByEditor="true" visible="false"/>
   </displayList>
 </component>
