@@ -215,13 +215,13 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         await this.pumpMsg();
 
-        Logger.debug("doEnterRoom leave---");
-
         this.backToLobby();
+
+        Logger.debug("Exit room");
     }
 
     // 请求创建房间
-    private testCreateRoom(createRoomParams: CreateRoomParams): void {
+    private createRoomReq(createRoomParams: CreateRoomParams): void {
         const req = {
             casino_id: createRoomParams.casinoID,
             room_id: createRoomParams.roomID,
@@ -237,7 +237,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private async waitCreateRoom(createRoomParams: CreateRoomParams): Promise<protoHH.casino.packet_table_create_ack> {
-        this.testCreateRoom(createRoomParams);
+        this.createRoomReq(createRoomParams);
 
         this.blockNormal();
         const msg = await this.mq.waitMsg();
@@ -259,7 +259,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    private testJoinRoom(joinRoomParams: JoinRoomParams): void {
+    private joinRoomReq(joinRoomParams: JoinRoomParams): void {
         let tableID = long.ZERO;
         if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
             tableID = long.fromString(joinRoomParams.tableID, true);
@@ -273,8 +273,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
-            casino_id: 16,
-            room_id: 2103,
             table_id: tableID,
             tag: roomNumberInt
         };
@@ -285,7 +283,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private async waitJoinRoom(joinRoomParams: JoinRoomParams): Promise<protoHH.casino.packet_table_join_ack> {
-        this.testJoinRoom(joinRoomParams);
+        this.joinRoomReq(joinRoomParams);
 
         this.blockNormal();
         const msg = await this.mq.waitMsg();
