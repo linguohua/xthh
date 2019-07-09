@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://ls4obr7jlqn3fk" designImageAlpha="100">
+  <displayList>
+    <image id="n1_o570" name="n1" src="lqn3hv" fileName="gps/z_桌面GPS定位/zm_gpsdw_tkdi.png" xy="116,22" size="904,602" hideByEditor="true"/>
+    <image id="n0_o570" name="n0" src="lqn3hn" fileName="gps/z_桌面GPS定位/zm_gpsdw_bt.png" xy="470,21"/>
+    <component id="n3_o570" name="n3" src="o570gj" fileName="gps/continueBtn.xml" xy="665,510"/>
+    <component id="n4_o570" name="n4" src="o570gi" fileName="gps/disbandBtn.xml" xy="275,510"/>
+    <image id="n6_o570" name="r_o_red" src="lqn3hr" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldix1.png" xy="334,355" size="270,4" rotation="320"/>
+    <image id="n9_o570" name="r_o_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="334,355" size="270,4" rotation="320"/>
+    <image id="n10_o570" name="r_o_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="334,355" size="270,4" rotation="320"/>
+    <image id="n11_o570" name="l_o_red" src="lqn3hr" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldix1.png" xy="797,357" size="270,4" rotation="220"/>
+    <image id="n12_o570" name="l_o_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="797,357" size="270,4" rotation="220"/>
+    <image id="n13_o570" name="l_o_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="797,357" size="270,4" rotation="220"/>
+  </displayList>
+</component>

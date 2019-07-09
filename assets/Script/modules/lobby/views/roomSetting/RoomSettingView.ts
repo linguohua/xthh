@@ -1,4 +1,4 @@
-import { DataStore, Dialog, GResLoader } from "../../lcore/LCoreExports";
+import { DataStore, Dialog, GResLoader, Logger } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
     switchBg(agree: number): void;
@@ -17,7 +17,7 @@ export class RoomSettingView extends cc.Component {
     private musicSlider: fgui.GSlider;
     private soundSlider: fgui.GSlider;
 
-    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, width: number): void {
+    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, position: cc.Vec2): void {
         this.room = room;
         if (this.view === undefined || this.view === null) {
             // this.room = room;
@@ -27,8 +27,7 @@ export class RoomSettingView extends cc.Component {
         }
         fgui.GRoot.inst.showPopup(this.view);
 
-        const x = width - 480;
-        this.view.setPosition(x, 0);
+        this.view.setPosition(position.x, position.y - this.view.height);
 
     }
 
@@ -37,7 +36,7 @@ export class RoomSettingView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        this.saveData();
+        //this.saveData();
         this.eventTarget.emit("destroy");
         this.view.dispose();
     }
@@ -51,48 +50,48 @@ export class RoomSettingView extends cc.Component {
         // const bg = this.view.getChild("bg");
         // bg.onClick(this.onCloseClick, this);
 
-        const closeBtn = this.view.getChild("closeBtn");
-        closeBtn.onClick(this.onCloseClick, this);
+        const btnExit = this.view.getChild("btnExit");
+        btnExit.onClick(this.onDisbandBtnClick, this);
 
-        const shutdownBtn = this.view.getChild("shutdownBtn");
-        shutdownBtn.onClick(this.onCloseClick, this);
+        // const shutdownBtn = this.view.getChild("shutdownBtn");
+        // shutdownBtn.onClick(this.onCloseClick, this);
 
-        const exitBtn = this.view.getChild("exitBtn");
-        exitBtn.onClick(this.onExitBtnClick, this);
+        // const exitBtn = this.view.getChild("exitBtn");
+        // exitBtn.onClick(this.onExitBtnClick, this);
 
-        this.view.getController("isOwner").selectedIndex = isOwner ? 0 : 1;
+        // this.view.getController("isOwner").selectedIndex = isOwner ? 0 : 1;
 
-        const disbandBtn = this.view.getChild("disbandBtn");
-        disbandBtn.onClick(this.onDisbandBtnClick, this);
+        // const disbandBtn = this.view.getChild("disbandBtn");
+        // disbandBtn.onClick(this.onDisbandBtnClick, this);
 
-        const blueColorBtn = this.view.getChild("blueColorBtn");
-        blueColorBtn.onClick(this.onBlueColorBtnClick, this);
+        // const blueColorBtn = this.view.getChild("blueColorBtn");
+        // blueColorBtn.onClick(this.onBlueColorBtnClick, this);
 
-        const classColorBtn = this.view.getChild("classColorBtn");
-        classColorBtn.onClick(this.onClassColorBtnClick, this);
+        // const classColorBtn = this.view.getChild("classColorBtn");
+        // classColorBtn.onClick(this.onClassColorBtnClick, this);
 
-        const arrowBtn = this.view.getChild("arrowBtn");
-        arrowBtn.onClick(this.onArrowBtnClick, this);
+        // const arrowBtn = this.view.getChild("arrowBtn");
+        // arrowBtn.onClick(this.onArrowBtnClick, this);
 
-        let soundVolume = DataStore.getString("soundVolume");
-        let musicVolume = DataStore.getString("musicVolume");
+        // let soundVolume = DataStore.getString("soundVolume");
+        // let musicVolume = DataStore.getString("musicVolume");
 
-        this.soundSlider = this.view.getChild("soundSlider").asSlider;
-        if (soundVolume === "") {
-            soundVolume = "50";
-        }
-        this.soundSlider.value = +soundVolume;
-        this.soundSlider.on(fgui.Event.STATUS_CHANGED, this.onSoundSliderChanged, this);
+        // this.soundSlider = this.view.getChild("soundSlider").asSlider;
+        // if (soundVolume === "") {
+        //     soundVolume = "50";
+        // }
+        // this.soundSlider.value = +soundVolume;
+        // this.soundSlider.on(fgui.Event.STATUS_CHANGED, this.onSoundSliderChanged, this);
 
-        this.musicSlider = this.view.getChild("musicSlider").asSlider;
-        if (musicVolume === "") {
-            musicVolume = "50";
-        }
-        this.musicSlider.value = +musicVolume;
-        this.musicSlider.on(fgui.Event.STATUS_CHANGED, this.onMusicSliderChanged, this);
+        // this.musicSlider = this.view.getChild("musicSlider").asSlider;
+        // if (musicVolume === "") {
+        //     musicVolume = "50";
+        // }
+        // this.musicSlider.value = +musicVolume;
+        // this.musicSlider.on(fgui.Event.STATUS_CHANGED, this.onMusicSliderChanged, this);
 
-        //监听view 移出舞台。。。 保存音量
-        this.view.on(fgui.Event.UNDISPLAY, this.saveData, this);
+        // //监听view 移出舞台。。。 保存音量
+        // this.view.on(fgui.Event.UNDISPLAY, this.saveData, this);
     }
     private saveData(): void {
         DataStore.setItem("soundVolume", this.soundSlider.value.toString());
@@ -108,21 +107,6 @@ export class RoomSettingView extends cc.Component {
         cc.audioEngine.setEffectsVolume(slider.value / 100);
     }
 
-    private onExitBtnClick(): void {
-        //
-        this.room.onExitButtonClicked();
-    }
-
-    private onClassColorBtnClick(): void {
-        //
-        this.room.switchBg(0);
-    }
-
-    private onBlueColorBtnClick(): void {
-        //
-        this.room.switchBg(1);
-    }
-
     private onDisbandBtnClick(): void {
         //
         Dialog.showDialog("是否解散房间？", () => {
@@ -132,10 +116,6 @@ export class RoomSettingView extends cc.Component {
         }, () => {
             //
         });
-    }
-
-    private onArrowBtnClick(): void {
-        //
     }
 
     private sendDisbandMsg(): void {

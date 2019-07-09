@@ -345,16 +345,14 @@ export class RoomView {
         const settingView = this.component.addComponent(RoomSettingView);
 
         const isOwner = this.room.ownerID === this.room.getMyPlayerInfo().userID;
-        const bg = this.unityViewNode.getChild("blueBg");
 
-        let width = bg.width;
+        const settingBtn = this.unityViewNode.getChild("settingBtn");
 
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-            width = width + CommonFunction.IOS_ADAPTER_WIDTH;
-        }
-        settingView.showView(this.room, this.room.getRoomHost().getLobbyModuleLoader(), isOwner, width);
+        const position = fgui.GRoot.inst.node.
+            convertToNodeSpaceAR(settingBtn.parent.node.convertToWorldSpaceAR(new cc.Vec2(settingBtn.x, settingBtn.y)));
+        // Logger.debug("convertToNodeSpaceAR position = ", position);
+
+        settingView.showView(this.room, this.room.getRoomHost().getLobbyModuleLoader(), isOwner, position);
     }
 
     /**

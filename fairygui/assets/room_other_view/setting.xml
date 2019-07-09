@@ -1,31 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="480,640" designImage="ui://c1drhdc2qly110" designImageAlpha="100">
-  <controller name="bgController" pages="0,经典,1,普蓝" selected="0"/>
-  <controller name="isOwner" pages="0,yes,1,no" selected="0"/>
+<component size="121,216" designImage="ui://ls4obr7jo570g9" designImageOffsetX="-9" designImageOffsetY="-398" designImageAlpha="0">
   <displayList>
-    <image id="n1_tjkx" name="bgImg" src="tfg8k" fileName="resource/s_设置/beiban.png" xy="-16,-2" size="504,638"/>
-    <image id="n5_tjkx" name="n5" src="tfg8l" fileName="resource/s_设置/fengge.png" xy="8,176" size="470,251"/>
-    <image id="n10_tjkx" name="n10" src="tfg8m" fileName="resource/s_设置/shuipinx.png" xy="11,193"/>
-    <image id="n12_tjkx" name="n12" src="tfg8n" fileName="resource/s_设置/yxgze.png" xy="14,453"/>
-    <component id="n3_tjkx" name="shutdownBtn" src="tfg811" fileName="settingRoom/shutdownBtn.xml" xy="261,544">
-      <gearDisplay controller="isOwner" pages="0"/>
-    </component>
-    <component id="n18_t23f" name="exitBtn" src="tfg812" fileName="settingRoom/exitBtn.xml" xy="261,544">
-      <gearDisplay controller="isOwner" pages="1"/>
-    </component>
-    <component id="n4_tjkx" name="disbandBtn" src="tfg810" fileName="settingRoom/disbandBtn.xml" xy="38,544"/>
-    <component id="n7_tjkx" name="arrowBtn" src="tfg8v" fileName="settingRoom/arrowBtn.xml" xy="405,459"/>
-    <component id="n8_tjkx" name="blueColorBtn" src="tfg8x" fileName="settingRoom/blueColorBtn.xml" xy="243,240"/>
-    <component id="n9_tjkx" name="classColorBtn" src="tfg8y" fileName="settingRoom/classColorBtn.xml" xy="14,240"/>
-    <component id="n11_tjkx" name="closeBtn" src="tfg8z" fileName="settingRoom/closeBtn.xml" xy="419,10"/>
-    <text id="n15_tjkx" name="n15" xy="39,46" size="53,31" fontSize="24" color="#8fc9ca" text="音效"/>
-    <text id="n16_tjkx" name="n16" xy="39,110" size="53,31" fontSize="24" color="#8fc9ca" text="音乐"/>
-    <text id="n17_tjkx" name="n17" xy="189,186" size="101,31" fontSize="24" color="#8fc9ca" text="选择桌面"/>
-    <component id="n19_t23f" name="soundSlider" src="tfg814" fileName="settingRoom/soundSlider.xml" xy="113,49" size="274,22">
-      <Slider value="50" max="100"/>
-    </component>
-    <component id="n20_t23f" name="musicSlider" src="tfg816" fileName="settingRoom/musixSleder.xml" xy="113,115" size="274,22">
-      <Slider value="50" max="100"/>
-    </component>
+    <image id="n0_o570" name="bg" src="o570ga" fileName="resource/s_设置/zm_szdi.png" xy="0,0" size="121,216"/>
+    <component id="n2_o570" name="btnYX" src="o570gc" fileName="resource/s_设置/btnYX.xml" xy="6,11"/>
+    <component id="n3_o570" name="btnYY" src="o570gd" fileName="resource/s_设置/btnYY.xml" xy="6,74"/>
+    <component id="n4_o570" name="btnExit" src="o570ge" fileName="resource/s_设置/btnExit.xml" xy="6,137"/>
   </displayList>
 </component>

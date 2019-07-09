@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="55,90">
+  <displayList>
+    <component id="n10_fxwe" name="n1" src="tsg11p" fileName="mahjong_fan_heng.xml" xy="0,0"/>
+    <component id="n11_fxwe" name="n2" src="tsg11p" fileName="mahjong_fan_heng.xml" xy="0,25"/>
+    <component id="n12_fxwe" name="n3" src="tsg11p" fileName="mahjong_fan_heng.xml" xy="0,51"/>
+    <component id="n13_fxwe" name="n4" src="tsg11p" fileName="mahjong_fan_heng.xml" xy="0,15"/>
+    <component id="n14_ra97" name="n0" src="tsg11m" fileName="mahjong_left/mahjong_left_luo.xml" xy="0,16" scale="0.61,0.61" visible="false"/>
+  </displayList>
+</component>

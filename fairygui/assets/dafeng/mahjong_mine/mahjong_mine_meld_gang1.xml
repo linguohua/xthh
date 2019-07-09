@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="210,160">
+<component size="210,136" designImage="ui://397phochlqn3fr" designImageOffsetX="-15" designImageOffsetY="-491" designImageAlpha="0">
   <displayList>
-    <component id="n8_fxwe" name="n1" src="jmxy13" fileName="mahjong_mine/mahjong_luo.xml" xy="0,0"/>
-    <component id="n9_fxwe" name="n2" src="jmxy13" fileName="mahjong_mine/mahjong_luo.xml" xy="64,0"/>
-    <component id="n10_fxwe" name="n3" src="jmxy13" fileName="mahjong_mine/mahjong_luo.xml" xy="129,0"/>
-    <component id="n11_fxwe" name="n4" src="jmxy13" fileName="mahjong_mine/mahjong_luo.xml" xy="65,-20"/>
+    <component id="n8_fxwe" name="n1" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="0,0" scale="0.75,0.75"/>
+    <component id="n9_fxwe" name="n2" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="64,0" scale="0.75,0.75"/>
+    <component id="n10_fxwe" name="n3" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="128,0" scale="0.75,0.75"/>
+    <component id="n11_fxwe" name="n4" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="64,-21" scale="0.75,0.75"/>
   </displayList>
 </component>

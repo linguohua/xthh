@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,140" opaque="false" designImage="ui://397phochjmxyr" designImageOffsetY="-500">
+<component size="1136,140" opaque="false" designImage="ui://397phochjmxyr" designImageAlpha="0">
   <displayList>
     <graph id="n21_fxwe" name="meld1" xy="20,29" size="0,0"/>
     <graph id="n22_fxwe" name="meld2" xy="230,29" size="0,0"/>
     <graph id="n23_fxwe" name="meld3" xy="440,29" size="0,0"/>
     <graph id="n24_fxwe" name="meld4" xy="650,29" size="0,0"/>
+    <component id="n25_o570" name="example1" src="jmxy2g" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" xy="20,29" hideByEditor="true" visible="false"/>
+    <component id="n26_o570" name="example2" src="jmxy2g" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" xy="230,29" hideByEditor="true" visible="false"/>
+    <component id="n27_o570" name="example3" src="jmxy2g" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" xy="440,29" hideByEditor="true" visible="false"/>
+    <component id="n28_o570" name="example4" src="jmxy2g" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" xy="650,29" hideByEditor="true" visible="false"/>
   </displayList>
 </component>

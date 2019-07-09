@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="210,110">
+  <displayList>
+    <component id="n0_fxwe" name="n1" src="tsg11k" fileName="mahjong_fan_shu.xml" xy="0,0" scale="0.87,0.88"/>
+    <component id="n1_fxwe" name="n2" src="tsg11k" fileName="mahjong_fan_shu.xml" xy="68,0" scale="0.87,0.88"/>
+    <component id="n2_fxwe" name="n3" src="tsg11k" fileName="mahjong_fan_shu.xml" xy="136,0" scale="0.87,0.88"/>
+    <component id="n3_fxwe" name="n4" src="tsg11k" fileName="mahjong_fan_shu.xml" xy="68,-20" scale="0.87,0.88"/>
+    <component id="n4_ra97" name="n0" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="68,-20" scale="0.78,0.8" visible="false"/>
+  </displayList>
+</component>

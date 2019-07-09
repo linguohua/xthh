@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="210,110" designImage="ui://397phochlqn3ft" designImageOffsetX="-7" designImageOffsetY="-484" designImageAlpha="0">
+  <displayList>
+    <component id="n8_fxwe" name="n1" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="0,0" scale="0.78,0.8"/>
+    <component id="n9_fxwe" name="n2" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="68,0" scale="0.78,0.8"/>
+    <component id="n10_fxwe" name="n3" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="136,0" scale="0.78,0.8"/>
+  </displayList>
+</component>

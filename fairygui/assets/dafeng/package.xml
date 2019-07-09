@@ -541,8 +541,6 @@
     <image id="lqn3fh" name="z_桌面-语音输入2标注.jpg" path="/_design/"/>
     <image id="lqn3fi" name="z_桌面-语音输入3.jpg" path="/_design/"/>
     <image id="lqn3fj" name="z_桌面-语音输入3标注.jpg" path="/_design/"/>
-    <image id="lqn3fk" name="z_桌面gps定位.jpg" path="/_design/"/>
-    <image id="lqn3fl" name="z_桌面gps定位标注.jpg" path="/_design/"/>
     <image id="lqn3fp" name="z_桌面对局房间--4人-1.jpg" path="/_design/"/>
     <image id="lqn3fq" name="z_桌面对局房间--4人-1标注.jpg" path="/_design/"/>
     <image id="lqn3fr" name="z_桌面对局房间--4人-2.jpg" path="/_design/"/>
@@ -609,15 +607,6 @@
     <image id="lqn3hk" name="zm_zi_xiao.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3hl" name="zm_zi_xthh.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3hm" name="zm_zi_ydi.png" path="/_resource/z_桌面打牌/"/>
-    <image id="lqn3hn" name="zm_gpsdw_bt.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3ho" name="zm_gpsdw_jldi1.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3hp" name="zm_gpsdw_jldi2.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3hq" name="zm_gpsdw_jldi3.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3hr" name="zm_gpsdw_jldix1.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3hs" name="zm_gpsdw_jldix2.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3ht" name="zm_gpsdw_jldix3.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3hu" name="zm_gpsdw_mzdi.png" path="/_resource/z_桌面GPS定位/"/>
-    <image id="lqn3hv" name="zm_gpsdw_tkdi.png" path="/_resource/z_桌面GPS定位/"/>
     <image id="lqn3hw" name="l_11.png" path="/_resource/m_麻将牌/小/"/>
     <image id="lqn3hx" name="l_12.png" path="/_resource/m_麻将牌/小/"/>
     <image id="lqn3hy" name="l_13.png" path="/_resource/m_麻将牌/小/"/>
@@ -812,6 +801,53 @@
     <component id="tfg8n7" name="back_hall_button.xml" path="/gameOver/"/>
     <component id="tfg8n9" name="share_button.xml" path="/handResult/"/>
     <component id="nfh4na" name="head_Result.xml" path="/btn/"/>
+    <image id="o570nb" name="suit1.png" path="/image_title/"/>
+    <image id="o570nc" name="suit11.png" path="/image_title/"/>
+    <image id="o570nd" name="suit12.png" path="/image_title/"/>
+    <image id="o570ne" name="suit13.png" path="/image_title/"/>
+    <image id="o570nf" name="suit14.png" path="/image_title/"/>
+    <image id="o570ng" name="suit15.png" path="/image_title/"/>
+    <image id="o570nh" name="suit16.png" path="/image_title/"/>
+    <image id="o570ni" name="suit17.png" path="/image_title/"/>
+    <image id="o570nj" name="suit18.png" path="/image_title/"/>
+    <image id="o570nk" name="suit19.png" path="/image_title/"/>
+    <image id="o570nl" name="suit2.png" path="/image_title/"/>
+    <image id="o570nm" name="suit21.png" path="/image_title/"/>
+    <image id="o570nn" name="suit22.png" path="/image_title/"/>
+    <image id="o570no" name="suit23.png" path="/image_title/"/>
+    <image id="o570np" name="suit24.png" path="/image_title/"/>
+    <image id="o570nq" name="suit25.png" path="/image_title/"/>
+    <image id="o570nr" name="suit26.png" path="/image_title/"/>
+    <image id="o570ns" name="suit27.png" path="/image_title/"/>
+    <image id="o570nt" name="suit28.png" path="/image_title/"/>
+    <image id="o570nu" name="suit29.png" path="/image_title/"/>
+    <image id="o570nv" name="suit3.png" path="/image_title/"/>
+    <image id="o570nw" name="suit31.png" path="/image_title/"/>
+    <image id="o570nx" name="suit32.png" path="/image_title/"/>
+    <image id="o570ny" name="suit33.png" path="/image_title/"/>
+    <image id="o570nz" name="suit34.png" path="/image_title/"/>
+    <image id="o570o0" name="suit4.png" path="/image_title/"/>
+    <image id="o570o1" name="suit41.png" path="/image_title/"/>
+    <image id="o570o2" name="suit42.png" path="/image_title/"/>
+    <image id="o570o3" name="suit43.png" path="/image_title/"/>
+    <image id="o570o4" name="suit5.png" path="/image_title/"/>
+    <image id="o570o5" name="suit51.png" path="/image_title/"/>
+    <image id="o570o6" name="suit52.png" path="/image_title/"/>
+    <image id="o570o7" name="suit53.png" path="/image_title/"/>
+    <image id="o570o8" name="suit54.png" path="/image_title/"/>
+    <image id="o570o9" name="suit55.png" path="/image_title/"/>
+    <image id="o570oa" name="suit56.png" path="/image_title/"/>
+    <image id="o570ob" name="suit57.png" path="/image_title/"/>
+    <image id="o570oc" name="suit58.png" path="/image_title/"/>
+    <image id="o570od" name="suit6.png" path="/image_title/"/>
+    <image id="o570oe" name="suit7.png" path="/image_title/"/>
+    <image id="o570of" name="suit8.png" path="/image_title/"/>
+    <image id="o570og" name="suit9.png" path="/image_title/"/>
+    <image id="o570oh" name="dui.png" path="/image_bg/"/>
+    <image id="o570oi" name="heng_fan.png" path="/image_bg/"/>
+    <image id="o570oj" name="mj_s_back.png" path="/image_bg/"/>
+    <image id="o570ok" name="my_b_11.png" path="/image_bg/"/>
+    <image id="o570ol" name="out_b_11.png" path="/image_bg/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" opaque="false" designImage="ui://397phochlqn3g3" designImageAlpha="100">
+<component size="1136,640" opaque="false" designImage="ui://397phochlqn3fp" designImageAlpha="100">
   <displayList>
     <component id="n0_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="889,57"/>
     <text id="n21_jel2" name="nameText" xy="847,89" size="83,28" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
@@ -10,10 +10,10 @@
     <image id="n4_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="910,80" hideByEditor="true"/>
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="909,55" hideByEditor="true"/>
     <component id="n10_fxwe" name="melds" src="jmxyq" fileName="desk/dui/desk_meld.xml" xy="0,0" touchable="false"/>
-    <component id="n8_fxwe" name="hands" src="jmxys" fileName="desk/dui/desk_hand.xml" xy="0,0" touchable="false"/>
+    <component id="n8_fxwe" name="hands" src="jmxys" fileName="desk/dui/desk_hand.xml" xy="0,1" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxyv" fileName="desk/dui/desk_flower.xml" xy="253,112" touchable="false"/>
     <component id="n12_fxwe" name="lights" src="jmxyy" fileName="desk/dui/desk_light.xml" xy="1,0" touchable="false"/>
-    <component id="n6_fxwe" name="discards" src="jmxyz" fileName="desk/dui/desk_discard.xml" xy="371,153" touchable="false"/>
+    <component id="n6_fxwe" name="discards" src="jmxyz" fileName="desk/dui/desk_discard.xml" xy="372,148" touchable="false"/>
     <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="773,49" hideByEditor="true"/>
     <graph id="n13_fxwe" name="aniPos" xy="574,156" pivot="0.5,0.5" size="0,0" visible="false"/>
     <graph id="n15_rh8w" name="userInfoPos" xy="357,40" size="20,26" visible="false"/>

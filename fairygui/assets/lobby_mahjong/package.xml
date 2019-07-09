@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="l6hoa9ng" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="tsg10" name="dui.png" path="/image_bg/"/>
+    <image id="tsg11" name="heng_fan.png" path="/image_bg/" scale9grid="14,13,28,26"/>
+    <image id="tsg12" name="heng_zheng.png" path="/image_bg/"/>
+    <image id="tsg13" name="wo.png" path="/image_bg/"/>
+    <image id="tsg14" name="you.png" path="/image_bg/"/>
+    <image id="tsg15" name="zuo.png" path="/image_bg/"/>
+    <image id="tsg16" name="dui_shu.png" path="/image_bg/"/>
+    <image id="tsg17" name="wo_shou.png" path="/image_bg/"/>
+    <image id="tsg18" name="jbting.png" path="/image_bg/"/>
+    <image id="tsg19" name="suit1.png" path="/image_title/" exported="true"/>
+    <image id="tsg1a" name="suit11.png" path="/image_title/" exported="true"/>
+    <image id="tsg1b" name="suit12.png" path="/image_title/" exported="true"/>
+    <image id="tsg1c" name="suit13.png" path="/image_title/" exported="true"/>
+    <image id="tsg1d" name="suit14.png" path="/image_title/" exported="true"/>
+    <image id="tsg1e" name="suit15.png" path="/image_title/" exported="true"/>
+    <image id="tsg1f" name="suit16.png" path="/image_title/" exported="true"/>
+    <image id="tsg1g" name="suit17.png" path="/image_title/" exported="true"/>
+    <image id="tsg1h" name="suit18.png" path="/image_title/" exported="true"/>
+    <image id="tsg1i" name="suit19.png" path="/image_title/" exported="true"/>
+    <image id="tsg1j" name="suit2.png" path="/image_title/" exported="true"/>
+    <image id="tsg1k" name="suit21.png" path="/image_title/" exported="true"/>
+    <image id="tsg1l" name="suit22.png" path="/image_title/" exported="true"/>
+    <image id="tsg1m" name="suit23.png" path="/image_title/" exported="true"/>
+    <image id="tsg1n" name="suit24.png" path="/image_title/" exported="true"/>
+    <image id="tsg1o" name="suit25.png" path="/image_title/" exported="true"/>
+    <image id="tsg1p" name="suit26.png" path="/image_title/" exported="true"/>
+    <image id="tsg1q" name="suit27.png" path="/image_title/" exported="true"/>
+    <image id="tsg1r" name="suit28.png" path="/image_title/" exported="true"/>
+    <image id="tsg1s" name="suit29.png" path="/image_title/" exported="true"/>
+    <image id="tsg1t" name="suit3.png" path="/image_title/" exported="true"/>
+    <image id="tsg1u" name="suit31.png" path="/image_title/" exported="true"/>
+    <image id="tsg1v" name="suit32.png" path="/image_title/" exported="true"/>
+    <image id="tsg1w" name="suit33.png" path="/image_title/" exported="true"/>
+    <image id="tsg1x" name="suit34.png" path="/image_title/" exported="true"/>
+    <image id="tsg1y" name="suit4.png" path="/image_title/" exported="true"/>
+    <image id="tsg1z" name="suit41.png" path="/image_title/" exported="true"/>
+    <image id="tsg110" name="suit42.png" path="/image_title/" exported="true"/>
+    <image id="tsg111" name="suit43.png" path="/image_title/" exported="true"/>
+    <image id="tsg112" name="suit5.png" path="/image_title/" exported="true"/>
+    <image id="tsg113" name="suit51.png" path="/image_title/" exported="true"/>
+    <image id="tsg114" name="suit52.png" path="/image_title/" exported="true"/>
+    <image id="tsg115" name="suit53.png" path="/image_title/" exported="true"/>
+    <image id="tsg116" name="suit54.png" path="/image_title/" exported="true"/>
+    <image id="tsg117" name="suit55.png" path="/image_title/" exported="true"/>
+    <image id="tsg118" name="suit56.png" path="/image_title/" exported="true"/>
+    <image id="tsg119" name="suit57.png" path="/image_title/" exported="true"/>
+    <image id="tsg11a" name="suit58.png" path="/image_title/" exported="true"/>
+    <image id="tsg11b" name="suit6.png" path="/image_title/" exported="true"/>
+    <image id="tsg11c" name="suit7.png" path="/image_title/" exported="true"/>
+    <image id="tsg11d" name="suit8.png" path="/image_title/" exported="true"/>
+    <image id="tsg11e" name="suit9.png" path="/image_title/" exported="true"/>
+    <component id="tsg11f" name="mahjong_dui_shu.xml" path="/mahjong_dui/" exported="true"/>
+    <component id="tsg11h" name="mahjong_dui_meld_gang1.xml" path="/mahjong_dui/" exported="true"/>
+    <component id="tsg11i" name="mahjong_dui_meld_chipeng.xml" path="/mahjong_dui/" exported="true"/>
+    <component id="tsg11j" name="mahjong_dui_meld_gang2.xml" path="/mahjong_dui/" exported="true"/>
+    <component id="tsg11k" name="mahjong_fan_shu.xml" path="/" exported="true"/>
+    <component id="tsg11l" name="mahjong_left_shu.xml" path="/mahjong_left/" exported="true"/>
+    <component id="tsg11m" name="mahjong_left_luo.xml" path="/mahjong_left/" exported="true"/>
+    <component id="tsg11n" name="mahjong_left_meld_gang1.xml" path="/mahjong_left/" exported="true"/>
+    <component id="tsg11o" name="mahjong_left_meld_gang2.xml" path="/mahjong_left/" exported="true"/>
+    <component id="tsg11p" name="mahjong_fan_heng.xml" path="/" exported="true"/>
+    <component id="tsg11q" name="mahjong_left_meld_chipeng.xml" path="/mahjong_left/" exported="true"/>
+    <component id="tsg11r" name="mahjong_mine_luo.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="tsg11s" name="mahjong_mine_shu.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="tsg11t" name="mahjong_mine_meld_gang1.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="tsg11u" name="mahjong_mine_meld_gang2.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="tsg11v" name="mahjong_mine_meld_chipeng.xml" path="/mahjong_mine/" exported="true"/>
+    <component id="tsg11w" name="mahjong_right_shu.xml" path="/mahjong_right/" exported="true"/>
+    <component id="tsg11x" name="mahjong_right_luo.xml" path="/mahjong_right/" exported="true"/>
+    <component id="tsg11y" name="mahjong_right_meld_gang1.xml" path="/mahjong_right/" exported="true"/>
+    <component id="tsg11z" name="mahjong_right_meld_gang2.xml" path="/mahjong_right/" exported="true"/>
+    <component id="tsg120" name="mahjong_right_meld_chipeng.xml" path="/mahjong_right/" exported="true"/>
+    <image id="tsg123" name="out_b_11.png" path="/_resource/m_麻将牌/大/"/>
+    <image id="tsg124" name="out_b_11.png" path="/mahjong_mine/m_麻将牌/大/"/>
+    <image id="tsg125" name="mj_s_back.png" path="/image_bg/"/>
+    <image id="tsg127" name="my_b_11.png" path="/mahjong_mine/m_麻将牌/大/"/>
+    <image id="tsg128" name="jbting.png" path="/mahjong_mine/m_麻将牌/大/"/>
+    <component id="tsg129" name="mahjong_dui_luo.xml" path="/mahjong_dui/" exported="true"/>
+  </resources>
+  <publish name="lobby_mahjong"/>
+</packageDescription>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="41,35" designImage="ui://397phochlqn3fp" designImageOffsetX="-121" designImageOffsetY="-96" designImageAlpha="0">
+  <displayList>
+    <image id="n1_fxwe" name="n1" src="tsg11" fileName="image_bg/heng_fan.png" xy="0,0" scale="0.76,0.76"/>
+  </displayList>
+</component>

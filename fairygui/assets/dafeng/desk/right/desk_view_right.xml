@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" opaque="false" designImage="ui://397phochlqn3fr" designImageAlpha="100">
   <displayList>
-    <component id="n2_fxwe" name="head" src="jmxy0" fileName="common/head_button.xml" xy="1079,264"/>
+    <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="1079,264"/>
     <text id="n18_sskg" name="nameText" xy="1038,295" size="83,28" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
     <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="1009,175" hideByEditor="true"/>
     <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="1099,220" hideByEditor="true"/>
@@ -9,10 +9,10 @@
     <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="1099,240" hideByEditor="true"/>
     <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="1037,135" hideByEditor="true"/>
     <text id="n16_rh8w" name="huaText" xy="1068,142" size="40,20" hideByEditor="true" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
-    <component id="n1_fxwe" name="discards" src="jmxy1v" fileName="desk/right/desk_discard.xml" xy="783,144" touchable="false"/>
+    <component id="n1_fxwe" name="discards" src="jmxy1v" fileName="desk/right/desk_discard.xml" xy="831,99" touchable="false"/>
     <component id="n8_fxwe" name="hands" src="jmxy1x" fileName="desk/right/desk_hand.xml" xy="955,0" touchable="false"/>
     <component id="n10_fxwe" name="melds" src="jmxy20" fileName="desk/right/desk_meld.xml" xy="955,0" touchable="false"/>
-    <component id="n12_fxwe" name="lights" src="jmxy21" fileName="desk/right/desk_light.xml" xy="956,1" touchable="false"/>
+    <component id="n12_fxwe" name="lights" src="jmxy21" fileName="desk/right/desk_light.xml" xy="955,0" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxy22" fileName="desk/right/desk_flower.xml" xy="917,155" touchable="false"/>
     <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="965,215" hideByEditor="true"/>
     <graph id="n13_fxwe" name="aniPos" xy="827,242" pivot="0.5,0.5" size="0,0"/>

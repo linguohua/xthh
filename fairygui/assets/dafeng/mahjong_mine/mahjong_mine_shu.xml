@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="80,120">
+<component size="89,135" designImage="ui://397phocho570ok" designImageAlpha="0">
   <displayList>
-    <image id="n0_fxwe" name="n0" src="jmxy1q" fileName="image_bg/wo_shou.png" xy="2,1"/>
-    <loader id="n2_fxwe" name="title" xy="5,25" size="74,88" autoSize="true"/>
-    <image id="n3_fxwe" name="ting" src="jmxy1r" fileName="image_bg/jbting.png" xy="5,25" visible="false"/>
+    <image id="n5_o570" name="bg" src="jmxy1q" fileName="image_bg/wo_shou.png" xy="0,0"/>
+    <loader id="n4_rdsx" name="title" xy="10,29" size="69,95" url="ui://397phocho570nb" align="center" vAlign="middle"/>
+    <image id="n3_fxwe" name="ting" src="jmxy1r" fileName="image_bg/jbting.png" xy="1,22" visible="false"/>
   </displayList>
 </component>

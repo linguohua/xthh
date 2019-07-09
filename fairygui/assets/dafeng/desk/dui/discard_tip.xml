@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="124,165">
+<component size="108,140" designImage="ui://397phochlqn3g0" designImageOffsetX="-512" designImageOffsetY="-53" designImageAlpha="0">
   <displayList>
-    <image id="n0_g0pr" name="n0" src="jmxy12" fileName="大丰麻将美术改版/2 游戏内/切图/chupai.png" xy="6,8"/>
-    <component id="n2_g0pr" name="card" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="28,39"/>
+    <image id="n0_g0pr" name="n0" src="lqn3gd" fileName="_resource/z_桌面打牌/zm_cpdi.png" xy="0,0" size="108,140"/>
+    <component id="n1_g0pr" name="card" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="20,13" scale="0.8,0.8"/>
   </displayList>
 </component>

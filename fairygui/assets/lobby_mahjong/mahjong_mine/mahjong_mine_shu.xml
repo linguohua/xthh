@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="89,135">
+  <displayList>
+    <image id="n5_o570" name="bg" src="tsg17" fileName="image_bg/wo_shou.png" xy="0,0"/>
+    <loader id="n6_o570" name="title" xy="10,29" size="69,95" url="ui://l6hoa9ngtsg19" align="center" vAlign="middle"/>
+    <image id="n7_o570" name="ting" src="tsg18" fileName="image_bg/jbting.png" xy="1,22" visible="false"/>
+  </displayList>
+</component>
