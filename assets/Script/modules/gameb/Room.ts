@@ -693,9 +693,11 @@ export class Room {
             player.addDiscardedTiles(playerInfo.outcards);
             player.discarded2UI(isNewDiacard, false);
 
-            for (const outcard of playerInfo.outcards) {
-                if (outcard === this.mAlgorithm.getMahjongLaiZi()) {
-                    this.mAlgorithm.setFlagPiao(true);
+            if (!this.mAlgorithm.getFlagPiao()) {
+                for (const outcard of playerInfo.outcards) {
+                    if (outcard === this.roomInfo.laizi) {
+                        this.mAlgorithm.setFlagPiao(true);
+                    }
                 }
             }
         }

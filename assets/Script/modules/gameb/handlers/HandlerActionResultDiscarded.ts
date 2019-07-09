@@ -22,13 +22,13 @@ export namespace HandlerActionResultDiscarded {
         if (!isMe || isReplayMode) {
             player.discardOutTileID(discardTileId);
         }
-        if (isMe && !isReplayMode) {
-
-            return;
-        }
         //有人飘赖子
         if (room.mAlgorithm.getMahjongLaiZi() === reply.card) {
             room.mAlgorithm.setFlagPiao(true);
+        }
+        if (isMe && !isReplayMode) {
+
+            return;
         }
         //清理吃牌界面
         room.cleanUI();
