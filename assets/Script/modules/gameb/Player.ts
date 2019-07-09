@@ -120,6 +120,13 @@ export class Player {
                 last = this.tilesHand.pop();
             }
             this.tilesHand.sort((x: number, y: number) => {
+                if (x === this.host.laiziID) {
+                    return 1;
+                }
+                if (y === this.host.laiziID) {
+                    return -1;
+                }
+
                 return y - x;
             });
             if (excludeLast) {

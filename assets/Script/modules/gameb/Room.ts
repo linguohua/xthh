@@ -180,6 +180,7 @@ export class Room {
 
         this.playBgSound();
 
+        this.handStartted = this.roomInfo.play_total;
         this.showRoomNumber();
     }
 

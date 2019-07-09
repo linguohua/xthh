@@ -16,9 +16,10 @@ class ViewGroup {
     public zhuang: fgui.GObject;
     public textCountT: fgui.GObject;
     public textCountLoseT: fgui.GObject;
-    public textZimo: fgui.GObject;
-    public textFangpao: fgui.GObject;
-    public textJiepao: fgui.GObject;
+    public textPiaoLai: fgui.GObject;
+    public textChaoShi: fgui.GObject;
+    public textHuPai: fgui.GObject;
+    public textZuoZhuang: fgui.GObject;
     public aniPos: fgui.GObject;
 }
 /**
@@ -108,7 +109,7 @@ export class GameOverResultView extends cc.Component {
         }
     }
     //更新玩家分数信息
-    private updatePlayerScoreData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
+    private updatePlayerScoreData(playerScore: proto.casino.Iplayer_score, c: ViewGroup, p: proto.casino.Itable_player): void {
         const score = playerScore.score_total;
         // const chucker = playerScore.chuckerCounter;
         if (score > this.maxScore) {
@@ -139,14 +140,24 @@ export class GameOverResultView extends cc.Component {
             c.textCountLoseT.visible = true;
             c.textCountT.visible = false;
         }
-        //胡牌次数
-        // c.textWin.text = tostring(playerStat.winSelfDrawnCounter + playerStat.winChuckCounter)
-        //接炮次数
-        // c.textJiepao.text = `接炮次数: ${playerScore.winChuckCounter}`;
-        //放炮次数
-        // c.textFangpao.text = `放炮次数: ${chucker}`;
-        //自摸次数
-        // c.textZimo.text = `自摸次数: ${playerScore.winSelfDrawnCounter}`;
+        if (p !== undefined) {
+            //胡牌次数
+            if (p.hupai_total !== undefined && p.hupai_total !== null) {
+                c.textHuPai.text = `胡牌次数: ${p.hupai_total}`;
+            }
+            //坐庄次数
+            if (p.lord_total !== undefined && p.lord_total !== null) {
+                c.textZuoZhuang.text = `坐庄次数: ${p.lord_total}`;
+            }
+            //飘赖次数
+            if (p.laizi_total !== undefined && p.laizi_total !== null) {
+                c.textPiaoLai.text = `飘赖次数: ${p.laizi_total}`;
+            }
+            //超时次数
+            if (p.timeout_total !== undefined && p.timeout_total !== null) {
+                c.textChaoShi.text = `超时次数: ${p.timeout_total}`;
+            }
+        }
     }
     //更新显示数据
     private updateAllData(): void {
@@ -162,6 +173,11 @@ export class GameOverResultView extends cc.Component {
         this.maxChuckerIndexs = [];
         if (this.msgGameOver !== null) {
             const playerStats = this.msgGameOver.scores;
+            const players = this.msgGameOver.tdata.players;
+            const ps: { [key: number]: proto.casino.Itable_player } = {};
+            for (const p of players) {
+                ps[p.id] = p;
+            }
             // if (playerStats !== undefined) {
             //     playerStats.sort((x: proto.mahjong.IMsgGameOverPlayerStat, y: proto.mahjong.IMsgGameOverPlayerStat) => {
             //         const a = room.getPlayerViewChairIDByChairID(x.chairID);
@@ -179,7 +195,7 @@ export class GameOverResultView extends cc.Component {
                     //玩家基本信息
                     this.updatePlayerInfoData(playerStat, c);
                     //玩家分数信息
-                    this.updatePlayerScoreData(playerStat, c);
+                    this.updatePlayerScoreData(playerStat, c, ps[playerStat.data.id]);
                 }
                 if (this.maxScore > 0 && this.maxScoreIndexs !== undefined) {
                     for (const maxScoreIndex of this.maxScoreIndexs) {
@@ -216,10 +232,12 @@ export class GameOverResultView extends cc.Component {
             contentGroupData.textName = group.getChild("name");
             contentGroupData.textId = group.getChild("id");
             //赢牌次数
-            contentGroupData.textJiepao = group.getChild("num_jiepao");
-            contentGroupData.textFangpao = group.getChild("num_fangpao");
-            contentGroupData.textZimo = group.getChild("num_zimo");
+            contentGroupData.textZuoZhuang = group.getChild("num_zuo_zhuang");
+            contentGroupData.textHuPai = group.getChild("num_hu_pai");
+            contentGroupData.textPiaoLai = group.getChild("num_piao_lai");
+            contentGroupData.textChaoShi = group.getChild("num_chao_shi");
 
+            group.getChild("resultLoader").visible = false; //大输家
             //分数（赢）
             contentGroupData.textCountT = group.getChild("text_win");
             contentGroupData.textCountT.text = "0";

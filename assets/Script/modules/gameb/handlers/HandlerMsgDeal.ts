@@ -35,5 +35,8 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);
+        //瞎鸡巴写
+        room.handStartted++;
+        room.showRoomNumber();
     };
 }

@@ -435,9 +435,15 @@ export class HandResultView extends cc.Component {
         this.destroy();
         this.win.hide();
         this.win.dispose();
+
+        const play_total = this.msgHandOver.tdata.play_total;
+        const round = this.msgHandOver.tdata.round;
         // if (this.msgHandOver.continueAble) {
-        this.room.onReadyButtonClick();
-        // }
+        if (play_total >= round) {
+            this.room.loadGameOverResultView(this.msgHandOver);
+        } else {
+            this.room.onReadyButtonClick();
+        }
     }
 
 }
