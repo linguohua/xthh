@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="73,80" designImage="ui://397phochlqn3fc" designImageOffsetX="-130" designImageOffsetY="-12" designImageAlpha="100">
+  <displayList>
+    <image id="n0_jel2" name="bg" src="lqn3h6" fileName="_resource/z_桌面打牌/zm_yyltdi.png" xy="0,0" size="73,80"/>
+    <text id="n3_jel2" name="text" xy="3,57" size="68,24" fontSize="16" color="#cccccc" align="center" vAlign="middle" autoSize="none" singleLine="true" text="最后一张"/>
+    <component id="n14_tfg8" name="laiziCOm" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="17,3" scale="0.44,0.4"/>
+  </displayList>
+</component>

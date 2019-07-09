@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,140" opaque="false" designImage="ui://397phochjmxyr" designImageAlpha="0">
+  <displayList>
+    <graph id="n21_fxwe" name="meld1" xy="20,29" size="0,0"/>
+    <graph id="n22_fxwe" name="meld2" xy="230,29" size="0,0"/>
+    <graph id="n23_fxwe" name="meld3" xy="440,29" size="0,0"/>
+    <graph id="n24_fxwe" name="meld4" xy="650,29" size="0,0"/>
+    <component id="n25_o570" name="n25" src="tsg11v" fileName="mahjong_mine/mahjong_mine_meld_chipeng.xml" pkg="l6hoa9ng" xy="16,29"/>
+    <component id="n26_o570" name="n26" src="tsg11v" fileName="mahjong_mine/mahjong_mine_meld_chipeng.xml" pkg="l6hoa9ng" xy="230,29"/>
+    <component id="n27_o570" name="n27" src="tsg11v" fileName="mahjong_mine/mahjong_mine_meld_chipeng.xml" pkg="l6hoa9ng" xy="440,29"/>
+    <component id="n28_o570" name="n28" src="tsg11v" fileName="mahjong_mine/mahjong_mine_meld_chipeng.xml" pkg="l6hoa9ng" xy="650,29"/>
+  </displayList>
+</component>

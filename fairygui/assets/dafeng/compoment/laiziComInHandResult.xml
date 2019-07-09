@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="118,88" designImage="ui://397phochlqn3fc" designImageOffsetX="-9" designImageOffsetY="-12" designImageAlpha="100">
+  <displayList>
+    <image id="n0_jel2" name="bg" src="lqn3h6" fileName="_resource/z_桌面打牌/zm_yyltdi.png" xy="0,0" size="118,88"/>
+    <text id="n3_jel2" name="laizi" xy="5,2" size="52,29" fontSize="19" color="#f7ff07" align="center" vAlign="middle" autoSize="none" singleLine="true" text="赖子:"/>
+    <component id="n14_tfg8" name="laiziCOm" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="57,4" scale="0.57,0.52"/>
+  </displayList>
+</component>

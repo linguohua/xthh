@@ -848,6 +848,9 @@
     <image id="o570oj" name="mj_s_back.png" path="/image_bg/"/>
     <image id="o570ok" name="my_b_11.png" path="/image_bg/"/>
     <image id="o570ol" name="out_b_11.png" path="/image_bg/"/>
+    <component id="o570om" name="laiziComInHandResult.xml" path="/compoment/"/>
+    <component id="o570on" name="lastOneCom.xml" path="/compoment/"/>
+    <component id="o570oo" name="desk_meld_hand_result.xml" path="/desk/mine/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
