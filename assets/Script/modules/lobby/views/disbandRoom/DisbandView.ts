@@ -1,9 +1,8 @@
 import {proto as protoHH} from "../../protoHH/protoHH";
-import { GResLoader, Logger } from "../../lcore/LCoreExports";
+import { GResLoader, Logger, DataStore } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
     sendDisbandAgree(agree: boolean): void;
-
 }
 /**
  * 包装精简的用户信息，
@@ -38,7 +37,7 @@ export class DisbandView extends cc.Component {
     private room: RoomInterface;
 
     private myCountDown: fgui.GObject;
-    private myCountDownTxt: fgui.GObject;
+    private myCountDownTxt: fgui.GTextField;
 
     private isDisbandDone: boolean;
 
@@ -89,12 +88,6 @@ export class DisbandView extends cc.Component {
         Logger.debug("disbandReq = ", this.disbandReq);
         Logger.debug("disbandAck = ", this.disbandAck);
 
-        // 如果有人拒绝了，则关闭解散框
-        if (this.disbandAck !== null && !this.disbandAck.disband) {
-            this.destroy();
-            return;
-        }
-
         //先更新所有文字信息，例如谁同意，谁拒绝之类
         this.updateTexts(this.disbandReq, this.disbandAck)
 
@@ -105,72 +98,13 @@ export class DisbandView extends cc.Component {
             this.refuseBtn.visible = false;
         }
 
+        // 如果有人拒绝了，则关闭解散框
+        if (this.disbandAck !== null && !this.disbandAck.disband) {
+            this.unschedule(this.disbandCountDown);
 
-        // 更新按钮
-        // const disbandStateEnum = proto.mahjong.DisbandState;
-        // const isReject = msgDisbandNotify.disbandState === disbandStateEnum.DoneWithOtherReject;
-        // const isTimeout = msgDisbandNotify.disbandState === disbandStateEnum.DoneWithWaitReplyTimeout;
-        // const isNotResponse = msgDisbandNotify.disbandState === disbandStateEnum.DoneWithRoomServerNotResponse;
-
-        // const isDone = msgDisbandNotify.disbandState === disbandStateEnum.Done;
-        // const isWaiting = msgDisbandNotify.disbandState === disbandStateEnum.Waiting;
-
-        // if (isReject || isTimeout || isNotResponse) {
-
-        //     this.myCountDown.visible = false;
-        //     this.agreeBtn.visible = true;
-        //     this.refuseBtn.visible = false;
-
-        //     this.isDisbandDone = true;
-
-        //     this.onAgreeBtnClicked();
-        // } else if (isDone === true) {
-        //     this.isDisbandDone = true;
-        //     this.onAgreeBtnClicked();
-        // } else if (isWaiting === true) {
-        //     // 如果等待列表中有自己，则显示选择按钮，以便玩家做出选择
-        //     if (msgDisbandNotify.countdown !== undefined) {
-
-        //         this.unschedule(this.disbandCountDown);
-        //         this.leftTime = msgDisbandNotify.countdown; //倒计时时间，秒为单位
-        //         let found = false;
-        //         const me = this.myInfo;
-
-        //         msgDisbandNotify.waits.forEach(chairID => {
-        //             if (chairID === me.chairID) {
-        //                 found = true;
-        //             }
-        //         });
-
-        //         if (found === false) {
-        //             if (msgDisbandNotify.waits.length > 0) {
-
-        //                 this.myCountDownTxt.text = `${this.leftTime}`;
-        //                 if (this.leftTime <= 0) {
-        //                     this.unschedule(this.disbandCountDown);
-        //                 }
-
-        //                 Logger.debug("disabnd countdown for others");
-        //                 this.myCountDown.visible = true;
-        //                 //为他人倒计时
-        //                 this.isForMe = false;
-        //                 this.schedule(this.disbandCountDown, 1, cc.macro.REPEAT_FOREVER);
-        //             }
-
-        //             this.showButtons(false);
-        //         } else {
-        //             Logger.debug("disabnd countdown for me");
-        //             this.myCountDown.visible = true;
-        //             this.showButtons(true);
-
-        //             //为自己倒计时
-        //             this.isForMe = true;
-        //             this.schedule(this.disbandCountDown, 1, cc.macro.REPEAT_FOREVER);
-        //         }
-
-        //     }
-        // }
-
+            this.destroy();
+            return;
+        }
     }
 
     protected onDestroy(): void {
@@ -186,9 +120,6 @@ export class DisbandView extends cc.Component {
 
         if (this.leftTime <= 0) {
             this.unschedule(this.disbandCountDown);
-            if (this.isForMe !== undefined && this.isForMe === true) {
-                this.onAgreeBtnClicked();
-            }
         }
     }
 
@@ -196,11 +127,11 @@ export class DisbandView extends cc.Component {
         this.showButtons(false);
         this.room.sendDisbandAgree(false);
 
-        this.unschedule(this.disbandCountDown);
+        // this.unschedule(this.disbandCountDown);
     }
 
     private onAgreeBtnClicked(): void {
-        this.unschedule(this.disbandCountDown);
+        // this.unschedule(this.disbandCountDown);
 
         if (this.isDisbandDone === true) {
             this.destroy();
@@ -218,7 +149,7 @@ export class DisbandView extends cc.Component {
 
     private initView(): void {
         this.myCountDown = this.view.getChild("n9");
-        this.myCountDownTxt = this.view.getChild("time");
+        this.myCountDownTxt = this.view.getChild("time").asTextField;
         this.refuseBtn = this.view.getChild("unagreeBtn").asButton;
         this.agreeBtn = this.view.getChild("agreeBtn").asButton;
 
@@ -236,7 +167,7 @@ export class DisbandView extends cc.Component {
             view.visible = false;
             agreeImg.visible = false;
             refuseImg.visible = false;
-            waitImg.visible = false;
+            waitImg.visible = true;
 
         }
     }
@@ -246,6 +177,19 @@ export class DisbandView extends cc.Component {
             let nick = this.getPlayerNickByID(`${disbandReq.player_id}`);
             const nameText = this.view.getChild("name");
             nameText.text = nick;
+
+            const gameConfigStr = DataStore.getString("gameConfig");
+            const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
+            const disbandTime =   gameConfig.table_disband_time;
+
+            // TODO: 暂时写死，这里需要用同步服务器时间
+            this.leftTime = disbandTime;
+            // const nowTime = Date.now() / 1000;
+
+            // this.leftTime = disbandTime - (nowTime - disbandReq.disband_time.toNumber())
+
+            // Logger.debug(`nowTime:${nowTime}, disbandTime:${disbandTime}, leftTime:${this.leftTime}, startTime:${disbandReq.disband_time.toNumber()}`);
+            this.schedule(this.disbandCountDown, 1,  cc.macro.REPEAT_FOREVER);
        }
 
         for (let i = 0; i < this.playersInfo.length; i++) {
@@ -259,10 +203,12 @@ export class DisbandView extends cc.Component {
             }
 
             if (disbandReq !== null && playerInfo.userID === `${disbandReq.player_id}`) {
+                view.getChild("wait").visible = false;
                 view.getChild("agree").visible = true;
             }
 
             if (disbandAck !== null && playerInfo.userID === `${disbandAck.player_id}`) {
+                view.getChild("wait").visible = false;
                 if (disbandAck.disband) {
                     view.getChild("agree").visible = true;
                 } else {
@@ -273,91 +219,7 @@ export class DisbandView extends cc.Component {
             view.visible = true;
         }
 
-        // 显示谁解散房间
-        // if (this.getPlayerByID(`${disbandReq.player_id}`) !== undefined
-        //     && this.getPlayerByChairID(msgDisbandNotify.applicant) !== null) {
-
-        //     const view = playerList[msgDisbandNotify.applicant];
-        //     nick = this.getPlayerNick(msgDisbandNotify.applicant);
-        //     view.getChild(`name`).text = `玩家(${nick})`;
-        //     view.getChild(`agree`).visible = true;
-        //     view.visible = true;
-
-        // }
-        //等待中的玩家列表
-        // if (msgDisbandNotify.waits !== undefined && msgDisbandNotify.waits !== null) {
-
-        //     Logger.debug("llwant, msgDisbandNotify.waits length:", msgDisbandNotify.waits.length);
-
-        //     msgDisbandNotify.waits.forEach(chairID => {
-        //         if (this.getPlayerByChairID(chairID) !== undefined) {
-        //             Logger.debug("llwant, msgDisbandNotify.waits chairID:", chairID);
-        //             const view = playerList[chairID];
-        //             nick = this.getPlayerNick(chairID);
-        //             view.getChild(`name`).text = `玩家(${nick})`;
-        //             view.getChild(`wait`).visible = true;
-        //             view.visible = true;
-        //         }
-        //     });
-
-        // }
-
-        //同意的玩家列表
-        // if (msgDisbandNotify.agrees !== undefined && msgDisbandNotify.agrees !== null) {
-
-        //     Logger.debug("llwant, msgDisbandNotify.agrees length:", msgDisbandNotify.agrees.length);
-
-        //     msgDisbandNotify.agrees.forEach(chairID => {
-        //         if (this.getPlayerByChairID(chairID) !== undefined) {
-        //             Logger.debug("llwant, msgDisbandNotify.agrees chairID:", chairID);
-        //             const view = playerList[chairID];
-        //             nick = this.getPlayerNick(chairID);
-        //             view.getChild(`name`).text = `玩家(${nick})`;
-        //             view.getChild(`agree`).visible = true;
-        //             view.visible = true;
-        //         }
-        //     });
-
-        // }
-
-        //拒绝的玩家列表
-        // if (msgDisbandNotify.rejects !== undefined && msgDisbandNotify.rejects !== null) {
-
-        //     let isShowTip = true;
-
-        //     Logger.debug("llwant, msgDisbandNotify.rejects length:", msgDisbandNotify.rejects.length);
-
-        //     msgDisbandNotify.rejects.forEach(chairID => {
-        //         if (this.getPlayerByChairID(chairID) !== undefined) {
-        //             Logger.debug("llwant, msgDisbandNotify.rejects chairID:", chairID);
-        //             const view = playerList[chairID];
-        //             nick = this.getPlayerNick(chairID);
-        //             view.getChild(`name`).text = `玩家(${nick})`;
-        //             view.getChild(`unagree`).visible = true;
-        //             view.visible = true;
-
-        //             if (isShowTip === true) {
-        //                 const str = `玩家 ${nick} 不同意解散，解散不成功!`;
-        //                 this.showDialog(str);
-        //                 isShowTip = false;
-
-        //             }
-
-        //         }
-        //     });
-
-        // }
-
     }
-
-    // private showDialog(str: string): void {
-    //     Dialog.showDialog(str, () => {
-
-    //         // tslint:disable-next-line:align
-    //     }, () => {
-    //         //
-    //     });
-    // }
 
     private getPlayerNickByID(playerID: string): string {
         const playerInfo = this.getPlayerByID(playerID);
@@ -384,31 +246,5 @@ export class DisbandView extends cc.Component {
         return playerInfo;
 
     }
-
-    // private getPlayerNick(chairID: number): string {
-    //     const playerInfo = this.getPlayerByChairID(chairID);
-    //     let nick = playerInfo.nick;
-
-    //     if (nick === undefined || nick === undefined || nick === "") {
-    //         nick = playerInfo.userID;
-    //     }
-
-    //     return nick;
-    // }
-
-    // private getPlayerByChairID(chairID: number): DisBandPlayerInfo {
-    //     //
-
-    //     let playerInfo = null;
-
-    //     for (const p of this.playersInfo) {
-    //         if (p.chairID === chairID) {
-    //             playerInfo = p;
-    //         }
-    //     }
-
-    //     return playerInfo;
-
-    // }
 
 }
