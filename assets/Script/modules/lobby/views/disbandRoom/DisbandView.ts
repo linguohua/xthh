@@ -36,12 +36,12 @@ export class DisbandView extends cc.Component {
 
     private room: RoomInterface;
 
-    private myCountDown: fgui.GObject;
+    // private myCountDown: fgui.GObject;
     private myCountDownTxt: fgui.GTextField;
 
     private isDisbandDone: boolean;
 
-    private isForMe: boolean;
+    // private isForMe: boolean;
 
     private leftTime: number;
     private refuseBtn: fgui.GButton;
@@ -148,7 +148,7 @@ export class DisbandView extends cc.Component {
     }
 
     private initView(): void {
-        this.myCountDown = this.view.getChild("n9");
+        // this.myCountDown = this.view.getChild("n9");
         this.myCountDownTxt = this.view.getChild("time").asTextField;
         this.refuseBtn = this.view.getChild("unagreeBtn").asButton;
         this.agreeBtn = this.view.getChild("agreeBtn").asButton;
