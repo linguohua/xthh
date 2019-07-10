@@ -2,7 +2,6 @@ import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobb
 import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
-import { GameRules } from "./GameRules";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
 import { proto } from "./proto/protoGame";
@@ -11,15 +10,15 @@ import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 const mjproto = proto.mahjong;
 
-//玩家位置偏移
+//转换玩家chairid
 const playerCound: number[][] = [
-    [1],
-    [1],
-    [1, 3, 0 , 3],
-    [1, 2, 4],
-    [1, 2, 3, 4]
+    [0],
+    [0],
+    [0, 2],
+    [0, 1, 3],
+    [0, 1, 2, 3]
 ];
-const aa = "07-08-18"; //假的版本号
+const aa = "07-10-11"; //假的版本号
 /**
  * 房间
  */
@@ -268,13 +267,15 @@ export class RoomView {
     public getPlayerViewByChairID(chairID: number, myChairId: number): PlayerView {
         const playerViews = this.playerViews;
 
-        //获得chairID相对于本玩家的偏移
-        const c = (chairID - myChairId + 4) % 4;
+        const le = this.room.roomInfo.players.length;
+        const newC = playerCound[le][chairID];
+        const newM = playerCound[le][myChairId];
         //加1是由于lua table索引从1开始
-        // const le = this.room.roomInfo.players.length;
-        // const n = playerCound[le][c];
+        //获得chairID相对于本玩家的偏移
+        const c = (newC - newM + 4) % 4;
+        // Logger.debug(`创建他人 : c : ${c} , newC : ${newC} , newM : ${newM}`);
+
         return playerViews[c + 1];
-        // Logger.debug(`创建别人 , n: ${n}, le: ${le}, c: ${c}`);
 
         // return playerViews[c];
     }

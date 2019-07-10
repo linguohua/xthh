@@ -591,7 +591,7 @@ export class Room {
             const p = this.roomInfo.players[i];
             if (this.isMe(`${p.id}`)) {
                 Logger.debug(`createPlayers, my id:${p.id}, i:${i}`);
-                this.createMyPlayer(p,i);
+                this.createMyPlayer(p, i);
                 break;
             }
         }
