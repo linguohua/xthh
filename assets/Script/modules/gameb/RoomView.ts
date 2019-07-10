@@ -2,6 +2,8 @@ import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobb
 import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
+import { GameRules } from "./GameRules";
+import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
 import { proto } from "./proto/protoGame";
@@ -294,7 +296,7 @@ export class RoomView {
         bgController.selectedIndex = index;
     }
 
-    public updateDisbandVoteView(msgDisbandNotify: proto.mahjong.MsgDisbandNotify): void {
+    public updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         //
 
         let disbandView = this.component.getComponent(DisbandView);
@@ -317,7 +319,7 @@ export class RoomView {
             disbandView = this.component.addComponent(DisbandView);
         }
 
-        disbandView.saveRoomView(this.room, msgDisbandNotify, load, myInfo, playersInfo);
+        disbandView.saveRoomView(this.room, load, myInfo, playersInfo, disbandReq, disbandAck);
     }
 
     //解散房间按钮点击事件

@@ -110,7 +110,7 @@ export interface RoomInterface {
     setJiaJiaZhuang(): void;
     setRoundMask(): void;
     setBankerFlag(): void;
-    updateDisbandVoteView(msgDisbandNotify: proto.mahjong.MsgDisbandNotify): void;
+    updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void;
     showDonate(msgDonate: proto.mahjong.MsgDonate): void;
     showRoomNumber(): void;
     removePlayer(chairID: string): void;
