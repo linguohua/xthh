@@ -50,6 +50,8 @@ export class HandResultView extends cc.Component {
     private textRoomNumber: fgui.GObject;
     private laizi: fgui.GComponent;
     private lastOne: fgui.GComponent;
+    public dizhu: fgui.GObject;
+    public date: fgui.GObject;
     // private textTime: fgui.GObject;
     private fakes: fgui.GComponent[];
     private aniPos: fgui.GObject;
@@ -155,6 +157,24 @@ export class HandResultView extends cc.Component {
             roomNumber = 0;
         }
         this.textRoomNumber.text = `房号:${roomNumber}`;
+
+        const laizi = this.room.laiziID;
+        const laiziCom = this.laizi.getChild("laiziCOm").asCom;
+        TileImageMounter.mountTileImage(laiziCom, laizi);
+
+        this.dizhu.text = `底注：${this.room.roomInfo.base}`;
+        const date = new Date();
+        this.date.text = this.formatDate(date);
+
+    }
+
+    private formatDate(date: Date): string {
+        const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+        const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
+        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
+
+        return `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
     }
     //马牌列表显示
     // private updateFakeList(titleList: number[]): void {
@@ -178,6 +198,10 @@ export class HandResultView extends cc.Component {
         }
         c.textName.text = name;
         c.textId.text = `ID:${userID}`;
+
+        if (player.id === this.msgHandOver.win_id) {
+            c.hu.visible = true;
+        }
         //房主
         // c.imageRoom.visible = player.isMe();
         //庄家
@@ -318,6 +342,13 @@ export class HandResultView extends cc.Component {
             }
             //显示马牌
             // this.updateFakeList(fakeList);
+
+            if (this.room.isMe(`${playerScore.data.id}`)) {
+                const lastCard = playerScore.last_card;
+                const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
+                this.lastOne.visible = true;
+                TileImageMounter.mountTileImage(lastOneCom, lastCard);
+            }
         }
     }
     //处理大胡数据
@@ -358,6 +389,11 @@ export class HandResultView extends cc.Component {
         // this.textTime = this.unityViewNode.getChild("date");
         //房间信息
         this.textRoomNumber = this.unityViewNode.getChild("roomNumber");
+        this.textRoomNumber.visible = false;
+
+        this.dizhu = this.unityViewNode.getChild("dizhuText");
+        this.date = this.unityViewNode.getChild("date");
+
         this.laizi = this.unityViewNode.getChild("laizi").asCom;
         this.lastOne = this.unityViewNode.getChild("lastOne").asCom;
         //特效位置节点
@@ -381,6 +417,7 @@ export class HandResultView extends cc.Component {
             //名字
             contentGroupData.textName = group.getChild("name");
             contentGroupData.textId = group.getChild("id");
+            contentGroupData.textId.visible = false;
             //庄家
             contentGroupData.zhuang = group.getChild("zhuang");
             contentGroupData.zhuang.visible = false;
