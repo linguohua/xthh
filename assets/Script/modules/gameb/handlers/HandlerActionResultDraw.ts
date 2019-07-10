@@ -44,10 +44,13 @@ export namespace HandlerActionResultDraw {
                 buttonMap.push(ButtonDef.Hu);
             }
         }
-        const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
-        if (gang.length > 0) {
-            player.canKongs = gang;
-            buttonMap.push(ButtonDef.Kong);
+        const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
+        if (isCanGang) {
+            const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
+            if (gang.length > 0) {
+                player.canKongs = gang;
+                buttonMap.push(ButtonDef.Kong);
+            }
         }
         if (buttonMap.length > 0) {
             // player.lastDisCardTile = reply.card;

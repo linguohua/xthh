@@ -23,12 +23,15 @@ export namespace HandlerMsgActionOP {
                 buttonMap.push(ButtonDef.Hu);
             }
         }
-        const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
-        if (gang.length > 0) {
-            player.canKongs = gang;
-            buttonMap.push(ButtonDef.Kong);
+        const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
+        if (isCanGang) {
+            const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
+            if (gang.length > 0) {
+                player.canKongs = gang;
+                buttonMap.push(ButtonDef.Kong);
+            }
         }
-        Logger.debug("player.notPong ：", player.notPong);
+        // Logger.debug("player.notPong ：", player.notPong);
         if (player.notPong !== reply.card) {
             const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
             if (peng.length > 0) {
