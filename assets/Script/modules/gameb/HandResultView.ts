@@ -35,6 +35,7 @@ class ViewGroup {
     public textPlayerScore: fgui.GObject;
     public hu: fgui.GObject;
     public aniPos: fgui.GObject;
+    public ruleText: fgui.GObject;
 }
 /**
  * 显示一手牌结束后的得分结果
@@ -47,6 +48,8 @@ export class HandResultView extends cc.Component {
     private msgHandOver: proto.casino.packet_table_score;
     // private players: Player[];
     private textRoomNumber: fgui.GObject;
+    private laizi: fgui.GComponent;
+    private lastOne: fgui.GComponent;
     // private textTime: fgui.GObject;
     private fakes: fgui.GComponent[];
     private aniPos: fgui.GObject;
@@ -123,13 +126,13 @@ export class HandResultView extends cc.Component {
         let en: string;
         if (this.msgHandOver.op > 0) {
             // const myPlayer = <Player>this.room.getMyPlayer();
-            if (this.msgHandOver.scores[0].score > 0) {
+            if (this.room.isMe(`${this.msgHandOver.win_id}`)) {
                 en = "Effect_jiemian_shengli";
             } else {
                 en = "Effect_jiemian_shibai";
             }
         } else {
-            en = "Effect_jiemian_huangzhuang";
+            en = "Effect_jiemian_huanngzhuang";
         }
         this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/${en}`, this.aniPos.node);
 
@@ -355,6 +358,8 @@ export class HandResultView extends cc.Component {
         // this.textTime = this.unityViewNode.getChild("date");
         //房间信息
         this.textRoomNumber = this.unityViewNode.getChild("roomNumber");
+        this.laizi = this.unityViewNode.getChild("laizi").asCom;
+        this.lastOne = this.unityViewNode.getChild("lastOne").asCom;
         //特效位置节点
         this.aniPos = this.unityViewNode.getChild("aniPos");
         this.fakes = this.initFakes(this.unityViewNode);
@@ -389,6 +394,8 @@ export class HandResultView extends cc.Component {
             contentGroupData.textCountLoseT = group.getChild("text_lose");
             contentGroupData.textCountLoseT.text = "0";
             contentGroupData.textCountLoseT.visible = false;
+
+            contentGroupData.ruleText = group.getChild("ruleText");
             //赢标志的位置
             // contentGroupData.winImagePos = group:Find("WinImagePos")
             //剩余牌数
