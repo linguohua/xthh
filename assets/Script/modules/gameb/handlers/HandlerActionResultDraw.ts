@@ -38,8 +38,8 @@ export namespace HandlerActionResultDraw {
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
         const buttonMap: string[] = [];
-        if (reply.card !== 0) {
-            const hu = room.mAlgorithm.canHuPai(player.tilesHand, reply.card);
+        if (reply.card !== 0 && player.cancelZiMo === false) {
+            const hu = room.mAlgorithm.canHuPai(player.tilesHand);
             if (hu.length > 0) {
                 buttonMap.push(ButtonDef.Hu);
             }
@@ -76,6 +76,9 @@ export namespace HandlerActionResultDraw {
             player.hand2UI(false);
 
             player.notPong = 0; //重置弃碰
+            //牌墙更新
+            room.tilesInWall--;
+            room.updateTilesInWallUI();
         }
         if (player.isMe()) {
             room.isMySelfDisCard = true;
@@ -86,7 +89,6 @@ export namespace HandlerActionResultDraw {
         } else {
             room.isMySelfDisCard = false;
         }
-        // room.tilesInWall = actionResultMsg.tilesInWall;
         // room.updateTilesInWallUI();
 
         // room.hideDiscardedTips();

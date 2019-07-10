@@ -543,9 +543,6 @@ export class Room {
         return this.players;
     }
 
-    public setJiaJiaZhuang(): void {
-        this.roomView.setJiaJiaZhuang();
-    }
     public setRoundMask(): void {
         this.roomView.setRoundMask();
     }
@@ -593,7 +590,7 @@ export class Room {
         for (let i = 0; i < this.roomInfo.players.length; i++) {
             const p = this.roomInfo.players[i];
             if (this.isMe(`${p.id}`)) {
-                Logger.debug(`createPlayers, my id:${p.id}, i:${i}`);
+                // Logger.debug(`createPlayers, my id:${p.id}, i:${i}`);
                 this.createMyPlayer(p, i);
                 break;
             }
@@ -603,7 +600,7 @@ export class Room {
             const p = this.roomInfo.players[i];
             if (!this.isMe(`${p.id}`)) {
                 if (p !== undefined && p !== null && p.id !== null) {
-                    Logger.debug(`createPlayers, other id:${p.id}, i:${i}`);
+                    // Logger.debug(`createPlayers, other id:${p.id}, i:${i}`);
                     this.createPlayerByInfo(p, i);
                 }
             }
@@ -614,6 +611,9 @@ export class Room {
      * 断线重连恢复用户的操作
      */
     public restrorePlayerOperation(): void {
+        //剩牌
+        this.tilesInWall = this.roomInfo.cardcount;
+        this.updateTilesInWallUI();
         //显示癞子
         this.laiziID = this.roomInfo.laizi;
         this.laigenID = this.roomInfo.fanpai;
@@ -622,11 +622,14 @@ export class Room {
         this.mAlgorithm.setMahjongLaiZi(this.roomInfo.laizi);
         this.mAlgorithm.setMahjongFan(this.roomInfo.fanpai);
         //设置弃杠弃碰
-        const myPlayerInfo = this.roomInfo.players[0];
+        let myPlayerInfo: protoHH.casino.Itable_player;
+        for (const p of this.roomInfo.players) {
+            if (`${p.id}` === this.myUser.userID) {
+                myPlayerInfo = p;
+            }
+        }
         const pl = myPlayerInfo.pengcards.length;
-        Logger.debug("弃杠---myPlayerInfo.pengcards : ", myPlayerInfo.pengcards);
         if (pl > 0) {
-            Logger.debug("弃杠 , ", myPlayerInfo.pengcards[pl - 1]);
             this.myPlayer.notPong = myPlayerInfo.pengcards[pl - 1];
         }
         const gl = myPlayerInfo.cancelcards.length;
@@ -636,16 +639,19 @@ export class Room {
         //压入捉铳不铳的标志
         this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
         this.bankerChairID = this.roomInfo.lord_id;
+        //压入自摸不自摸的标志
+        this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
 
         // this.setWaitingPlayer(this.roomInfo.cur_idx);
         // this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
+        const curPlayerInfo = this.roomInfo.players[this.roomInfo.cur_idx];
         if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
-            const lastTile = myPlayerInfo.curcards[myPlayerInfo.curcards.length - 1];
+            const lastTile = curPlayerInfo.curcards[curPlayerInfo.curcards.length - 1];
             this.myPlayer.removeTileFromHand(lastTile);
             const m = new protoHH.casino_xtsj.packet_sc_drawcard();
             m.time = this.roomInfo.time;
             m.card = lastTile;
-            m.player_id = myPlayerInfo.id;
+            m.player_id = curPlayerInfo.id;
 
             const reply = protoHH.casino_xtsj.packet_sc_drawcard.encode(m);
             const msg = new protoHH.casino.ProxyMessage();
@@ -675,15 +681,15 @@ export class Room {
             const handler = msgHandlers[protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_SC_OP];
             handler(reply, this);
         }
-        if (this.roomInfo.cur_idx !== 0) {
-            const player = this.roomInfo.players[this.roomInfo.cur_idx];
-            if (player !== undefined && player !== null) {
-                const p = this.getPlayerByUserID(`${player.id}`);
-                if (p !== undefined) {
-                    this.setWaitingPlayer(p.chairID);
-                }
-            }
-        }
+        // if (this.roomInfo.cur_idx !== 0) {
+        //     const player = this.roomInfo.players[this.roomInfo.cur_idx];
+        //     if (player !== undefined && player !== null) {
+        //         const p = this.getPlayerByUserID(`${player.id}`);
+        //         if (p !== undefined) {
+        //             this.setWaitingPlayer(p.chairID);
+        //         }
+        //     }
+        // }
     }
     public myMahjong_showTingGroup(tile: number): TingPai[] {
         const tingP: TingPai[] = [];
@@ -710,11 +716,15 @@ export class Room {
         //判断是否可以听赖子
         total = this.getMahjongLaveNumber(this.laiziID);
         if (total > 0) {
-            const s = this.mAlgorithm.getArray_Pai_Lai(array);
-            if (s.sVecLai.length <= 0 && (!this.mAlgorithm.isFind(ting_mahjong, this.laiziID))) {
-                ting_mahjong.push(this.laiziID);
+            array.push(this.laiziID);
+            if (this.mAlgorithm.canHuPai(array).length > 0) {
                 tingP.push(new TingPai(this.laiziID, 1, total));
             }
+            // const s = this.mAlgorithm.getArray_Pai_Lai(array);
+            // if (s.sVecLai.length <= 0 && (!this.mAlgorithm.isFind(ting_mahjong, this.laiziID))) {
+            //     ting_mahjong.push(this.laiziID);
+            //     tingP.push(new TingPai(this.laiziID, 1, total));
+            // }
         }
 
         return tingP;

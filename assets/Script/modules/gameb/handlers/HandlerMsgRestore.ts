@@ -39,8 +39,6 @@ export namespace HandlerMsgRestore {
         room.updateTilesInWallUI();
         //TODO:根据风圈修改
         room.setRoundMask();
-        //TODO:修改家家庄标志
-        // room.roomView:setJiaJiaZhuang()
         //TODO:修改庄家标志
         room.setBankerFlag();
         //清理吃牌界面

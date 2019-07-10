@@ -442,6 +442,7 @@ export class HandResultView extends cc.Component {
         if (play_total >= round) {
             this.room.loadGameOverResultView(this.msgHandOver);
         } else {
+            this.room.resetForNewHand();
             this.room.onReadyButtonClick();
         }
     }

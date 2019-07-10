@@ -649,7 +649,7 @@ export class Algorithm {
         }
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(牌结构(mahjong,index))
-    public canHuPai(v_mahjongs: number[], card: number): number[] {
+    public canHuPai(v_mahjongs: number[]): number[] {
         const sVecHuPai: number[] = [];
         const array = this.getArray_Pai_Lai(v_mahjongs);
         this.defMahjongSort_stb(array.sVecPai);
@@ -812,15 +812,15 @@ export class Algorithm {
     public canHuPai_WithOther(v_mahjongs: number[], mahjong: number, use_laizi: boolean = false): number[] {
         const sVecHuPai: number[] = [];
         const a = this.getArray_Pai_Lai(v_mahjongs);
-        if (a.sVecLai.length > 0) {
+        if (a.sVecLai.length > 1) {
             return sVecHuPai;
         }
         a.sVecPai.push(mahjong);
         this.defMahjongSort_stb(a.sVecPai);
 
-        // if (a.sVecLai.length > 0 && !use_laizi) { // 有赖子就不能捉炮
-        //     return sVecHuPai;
-        // }
+        if (a.sVecLai.length > 0 && !use_laizi) { // 有赖子就不能捉炮
+            return sVecHuPai;
+        }
 
         const sVecJiang: number[] = [];
         const bHuPai = this.checkHuPai(a.sVecPai, a.sVecLai, false, sVecHuPai, sVecJiang);
@@ -892,6 +892,7 @@ export class Algorithm {
     // 参数: 有效牌列表(牌结构(mahjong,index))
     public canTingPai(v_mahjongs: number[], mahjong: number): boolean {
         //分开牌组与赖子后默认添加一张赖子来判断是否胡牌
+        Logger.debug("判断是否听牌 ", mahjong);
         const a = this.getArray_Pai_Lai(v_mahjongs);
         a.sVecLai.push(this.getMahjongLaiZi());
 
@@ -911,14 +912,15 @@ export class Algorithm {
         if (mahjong !== this.getMahjongLaiZi()) {
             this.pop_mahjong(sVecPaiNext, mahjong);
         }
+
         if (this.checkHuPai(sVecPaiNext, a.sVecLai, false, sVecSavePai, sVecSaveJiang)) {
             bTing = true;
         }
         //看看可不可以少一个赖子
         if (mahjong !== this.getMahjongLaiZi()) {
             this.push_back(sVecPaiNext, a.sVecPai, 1, a.sVecPai.length);
-            // table.remove(sVecLai, TABLE_SIZE(sVecLai)); TODO
-            a.sVecLai = [];
+            // table.remove(sVecLai, TABLE_SIZE(sVecLai)); //TODO
+            a.sVecLai.pop(); // = [];
             if (this.checkHuPai(sVecPaiNext, a.sVecLai, false, sVecSavePai, sVecSaveJiang)) {
                 bTing = true;
             }
@@ -1079,7 +1081,7 @@ export class Algorithm {
         if (this.getFlagPiao()) {
             return [];
         }
-        const v = this.canHuPai_WithOther(tilesHand, mahjong, true);
+        const v = this.canHuPai_WithOther(tilesHand, mahjong, false);
         if (v.length > 0) {
             if (this.checkHuPai_WithOther(v, mahjong)) {
                 return v;

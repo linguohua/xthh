@@ -106,8 +106,6 @@ export interface RoomInterface {
     setWaitingPlayer(chairID: number, time?: number): void;
     getMyPlayer(): PlayerInterface;
     getPlayers(): { [key: string]: PlayerInterface };
-
-    setJiaJiaZhuang(): void;
     setRoundMask(): void;
     setBankerFlag(): void;
     updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void;

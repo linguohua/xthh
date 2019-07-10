@@ -17,6 +17,7 @@ export namespace HandlerMsgDeal {
         const players = room.getPlayers();
         //保存每一个玩家的牌列表
         const playersKeyArr = Object.keys(players);
+        let playerNum = 0;
         for (const key of playersKeyArr) {
             const p = <Player>players[key];
             if (p.isMe()) {
@@ -26,6 +27,7 @@ export namespace HandlerMsgDeal {
                 p.tileCountInHand = 13;
             }
             p.hand2UI(false);
+            playerNum++;
         }
 
         //等待庄家出牌
@@ -36,8 +38,11 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);
-        //瞎鸡巴写
+        //局数
         room.handStartted++;
         room.showRoomNumber();
+        //牌墙 两个花色 72 张 每人13张 加上 一张翻拍
+        room.tilesInWall = 72 - ((playerNum * 13) + 1);
+        room.updateTilesInWallUI();
     };
 }

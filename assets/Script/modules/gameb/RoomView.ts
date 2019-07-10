@@ -20,7 +20,7 @@ const playerCound: number[][] = [
     [0, 1, 3],
     [0, 1, 2, 3]
 ];
-const aa = "07-10-11"; //假的版本号
+const aa = "07-10-18"; //假的版本号
 /**
  * 房间
  */
@@ -224,10 +224,8 @@ export class RoomView {
         // this.arrowObj.wrapper.scale = pos.scale;
         // this.arrowObj.visible = true;
     }
-    public setJiaJiaZhuang(): void {
-        Logger.debug("家家庄");
-    }
     public showTingDataView(list: TingPai[]): void {
+        Logger.debug("显示听 列表 ", list);
         if (list.length <= 0) {
             this.listensObj.visible = false;
 

@@ -28,6 +28,7 @@ export namespace HandlerActionResultDiscarded {
             room.mAlgorithm.setFlagPiao(true);
         }
         if (isMe && !isReplayMode) {
+            player.cancelZiMo = false;
 
             return;
         }

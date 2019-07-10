@@ -63,6 +63,7 @@ export class Player {
     public notKongs: number[] = []; //弃杠 起手有多杠的时候才会用到
     public canKongs: number[] = []; //可杠列表 起手有多杠的时候才会用到
     public cancelZhuochong: boolean = false; //弃捉冲
+    public cancelZiMo: boolean = false; //弃自摸
     public isCanPong: boolean = false; //可以碰
     private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
@@ -629,8 +630,9 @@ export class Player {
             const tileID = handsClickCtrl.tileID;
             if (tileID !== null) {
                 handsClickCtrl.isDiscardable = true;
-                handsClickCtrl.t.visible = this.myMahjong_setIcoTing(tileID);
-                // handsClickCtrl.readyHandList = readyHandList;
+                const readyHandList = this.host.myMahjong_showTingGroup(tileID);
+                handsClickCtrl.t.visible = readyHandList.length > 0;
+                handsClickCtrl.readyHandList = readyHandList;
             }
         }
     }

@@ -565,40 +565,40 @@ export class PlayerView {
     }
     //处理玩家点击手牌按钮
     public onHandTileBtnClick2(index: number): void {
-        const handsClickCtrls = this.handsClickCtrls;
+        // const handsClickCtrls = this.handsClickCtrls;
 
-        const player = this.player;
-        if (player === null) {
-            Logger.debug("player === null");
+        // const player = this.player;
+        // if (player === null) {
+        //     Logger.debug("player === null");
 
-            return;
-        }
+        //     return;
+        // }
 
-        const clickCtrl = handsClickCtrls[index];
+        // const clickCtrl = handsClickCtrls[index];
 
-        if (!clickCtrl.isDiscardable) {
-            //不可以出牌
-            //"本轮不能出与该牌组合的牌，请选择其他牌"
-            if (clickCtrl.isGray) {
-                if (!this.alreadyShowNonDiscardAbleTips) {
-                    // prompt.showPrompt("本轮不能出与该牌组合的牌，请选择其他牌")
-                    this.alreadyShowNonDiscardAbleTips = true;
-                }
-            }
+        // if (!clickCtrl.isDiscardable) {
+        //     //不可以出牌
+        //     //"本轮不能出与该牌组合的牌，请选择其他牌"
+        //     if (clickCtrl.isGray) {
+        //         if (!this.alreadyShowNonDiscardAbleTips) {
+        //             // prompt.showPrompt("本轮不能出与该牌组合的牌，请选择其他牌")
+        //             this.alreadyShowNonDiscardAbleTips = true;
+        //         }
+        //     }
 
-            return;
-        }
+        //     return;
+        // }
 
-        if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {
-            //如果此牌可以听
-            const tingP: TingPai[] = [];
-            for (let i = 0; i < clickCtrl.readyHandList.length; i += 2) {
-                tingP.push(new TingPai(clickCtrl.readyHandList[i], 1, clickCtrl.readyHandList[i + 1]));
-            }
-            this.room.showTingDataView(tingP);
-        } else {
-            this.room.hideTingDataView();
-        }
+        // if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {
+        //     //如果此牌可以听
+        //     const tingP: TingPai[] = [];
+        //     for (let i = 0; i < clickCtrl.readyHandList.length; i += 2) {
+        //         tingP.push(new TingPai(clickCtrl.readyHandList[i], 1, clickCtrl.readyHandList[i + 1]));
+        //     }
+        //     this.room.showTingDataView(tingP);
+        // } else {
+        //     this.room.hideTingDataView();
+        // }
 
         //播放选牌音效
         //dfCompatibleAPI. soundPlay("effect/effect_xuanpai")
@@ -874,22 +874,6 @@ export class PlayerView {
 
             return;
         }
-        if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {
-            //如果此牌可以听
-            // const tingP: TingPai[] = [];
-            // for (let i = 0; i < clickCtrl.readyHandList.length; i += 2) {
-            //     tingP.push(new TingPai(clickCtrl.readyHandList[i], 1, clickCtrl.readyHandList[i + 1]));
-            // }
-            this.room.showTingDataView(clickCtrl.readyHandList);
-        } else {
-            const arr = this.room.myMahjong_showTingGroup(clickCtrl.tileID);
-            if (clickCtrl.t.visible && arr.length > 0) {
-                clickCtrl.readyHandList = arr;
-                this.room.showTingDataView(clickCtrl.readyHandList);
-            } else {
-                this.room.hideTingDataView();
-            }
-        }
 
         const prevClickTime = this.lastClickTime;
         this.lastClickTime = this.roomHost.timeElapsed;
@@ -922,9 +906,20 @@ export class PlayerView {
                 //第一次点击 弹起
                 this.restoreHandsPositionAndClickCount(index);
                 this.moveHandUp(index);
+                if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {
+                    //如果此牌可以听
+                    this.room.showTingDataView(clickCtrl.readyHandList);
+                } else {
+                    if (clickCtrl.t.visible) {
+                        this.room.showTingDataView(clickCtrl.readyHandList);
+                    } else {
+                        this.room.hideTingDataView();
+                    }
+                }
             } else {
                 //第二次点击 缩回去
                 this.restoreHandPositionAndClickCount(index);
+                this.room.hideTingDataView();
             }
         }
     }
