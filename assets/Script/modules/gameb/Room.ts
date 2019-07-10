@@ -359,7 +359,6 @@ export class Room {
         if (!this.isMySelfDisCard) {
             return;
         }
-        const playerView = this.myPlayer.playerView;
         this.myPlayer.setDiscardAble();
     }
 
@@ -686,6 +685,40 @@ export class Room {
             }
         }
     }
+    public myMahjong_showTingGroup(tile: number): TingPai[] {
+        const tingP: TingPai[] = [];
+        //开始听牌检查
+        const array = this.myPlayer.getAllVMahjongs_delMahjong(tile);
+
+        const check_mahjong: number[] = [
+            21, 22, 23, 24, 25, 26, 27, 28, 29,
+            31, 32, 33, 34, 35, 36, 37, 38, 39];
+        this.mAlgorithm.pop_mahjong(check_mahjong, this.laiziID);
+        let total = 0;
+        const ting_mahjong = [];
+        for (const checkMahjong of check_mahjong) {
+            const bHuPai = this.mAlgorithm.canHuPai_WithOther(array, checkMahjong, true);
+            if (bHuPai.length > 0) {
+                //检查牌剩余数量
+                total = this.getMahjongLaveNumber(checkMahjong);
+                if (total > 0) {
+                    ting_mahjong.push(checkMahjong);
+                    tingP.push(new TingPai(checkMahjong, 1, total));
+                }
+            }
+        }
+        //判断是否可以听赖子
+        total = this.getMahjongLaveNumber(this.laiziID);
+        if (total > 0) {
+            const s = this.mAlgorithm.getArray_Pai_Lai(array);
+            if (s.sVecLai.length <= 0 && (!this.mAlgorithm.isFind(ting_mahjong, this.laiziID))) {
+                ting_mahjong.push(this.laiziID);
+                tingP.push(new TingPai(this.laiziID, 1, total));
+            }
+        }
+
+        return tingP;
+    }
 
     //播放背景音乐
     private playBgSound(): void {
@@ -733,5 +766,22 @@ export class Room {
             player.hand2UI(false);
         }
     }
+    private getMahjongLaveNumber(tile: number): number {
+        //普通牌最大数量是4张，翻牌最大数量就是3张
+        let lave = 4;
+        if (tile === this.mAlgorithm.getMahjongFan()) {
+            lave = 3;
+        }
+        //返回搜到的牌数量
+        Object.keys(this.players).forEach((key: string) => {
+            const p = this.players[key];
+            lave = lave - p.getMahjongCount_withI(tile);
+        });
+        lave = lave - this.myPlayer.getMahjongCount_withV(tile);
+        if (lave < 0) {
+            lave = 0;
+        }
 
+        return lave;
+    }
 }

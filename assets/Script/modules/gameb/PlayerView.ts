@@ -876,13 +876,19 @@ export class PlayerView {
         }
         if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {
             //如果此牌可以听
-            const tingP: TingPai[] = [];
-            for (let i = 0; i < clickCtrl.readyHandList.length; i += 2) {
-                tingP.push(new TingPai(clickCtrl.readyHandList[i], 1, clickCtrl.readyHandList[i + 1]));
-            }
-            this.room.showTingDataView(tingP);
+            // const tingP: TingPai[] = [];
+            // for (let i = 0; i < clickCtrl.readyHandList.length; i += 2) {
+            //     tingP.push(new TingPai(clickCtrl.readyHandList[i], 1, clickCtrl.readyHandList[i + 1]));
+            // }
+            this.room.showTingDataView(clickCtrl.readyHandList);
         } else {
-            this.room.hideTingDataView();
+            const arr = this.room.myMahjong_showTingGroup(clickCtrl.tileID);
+            if (clickCtrl.t.visible && arr.length > 0) {
+                clickCtrl.readyHandList = arr;
+                this.room.showTingDataView(clickCtrl.readyHandList);
+            } else {
+                this.room.hideTingDataView();
+            }
         }
 
         const prevClickTime = this.lastClickTime;

@@ -82,7 +82,7 @@ export namespace HandlerActionResultDraw {
             player.lastDisCardTile = 0;
             player.cancelZhuochong = false;
             checkButton(room, player, reply);
-            player.setDiscardAble();
+            room.setDiscardAble();
         } else {
             room.isMySelfDisCard = false;
         }

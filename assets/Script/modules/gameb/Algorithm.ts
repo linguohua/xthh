@@ -37,7 +37,6 @@ export class Algorithm {
     private m_nMahjongFan: number = 0; // 翻牌(只有三张)
     private m_nMahjongTotal: number = DEF_XTSJ_MJ_MAX; // 自己记录牌总数
     private m_bFlagPiao: boolean = false; // 是否有人飘过赖子
-
     public constructor() {
         this.init();
     }

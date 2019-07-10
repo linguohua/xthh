@@ -140,4 +140,5 @@ export interface RoomInterface {
     onReturnLobbyBtnClick(): void;
     showMsg(chatData: ChatData): void;
     setDiscardAble(): void;
+    myMahjong_showTingGroup(tile: number): TingPai[];
 }

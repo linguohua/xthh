@@ -629,6 +629,8 @@ export class Player {
             const tileID = handsClickCtrl.tileID;
             if (tileID !== null) {
                 handsClickCtrl.isDiscardable = true;
+                handsClickCtrl.t.visible = this.myMahjong_setIcoTing(tileID);
+                // handsClickCtrl.readyHandList = readyHandList;
             }
         }
     }
@@ -679,6 +681,7 @@ export class Player {
     /**
      * 新增函数 end
      */
+    //搜索指定牌数量在所有手牌中
     public getMahjongCount_withV(mahjong: number): number {
         let num = 0;
         for (const tile of this.tilesHand) {
@@ -688,6 +691,44 @@ export class Player {
         }
 
         return num;
+    }
+    public getAllVMahjongs_delMahjong(tile: number): number[] {
+        const array: number[] = [];
+        let bFind = false;
+        for (const tileHand of this.tilesHand) {
+            if (tileHand !== tile || (tileHand === tile && bFind)) {
+                array.push(tileHand);
+            } else {
+                bFind = true;
+            }
+        }
+
+        return array;
+    }
+    //搜索指定牌数量在所有无效牌中
+    public getMahjongCount_withI(tile: number): number {
+        let count = 0;
+        if (tile !== 0) {
+            for (const tileDis of this.tilesDiscarded) {
+                if (tileDis === tile) {
+                    count++;
+                }
+            }
+            for (const meld of this.melds) {
+                if (meld.cards[0] === tile) {
+                    count = count + 3;
+                    if (meld.op === TypeOfOP.Kong && tile !== this.host.mAlgorithm.getMahjongFan()) {
+                        count++; //正常杠是 4张  赖根杠是 3张
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private myMahjong_setIcoTing(tile: number): boolean {
+        return this.host.mAlgorithm.canTingPai(this.tilesHand, tile);
     }
     private playSound(directory: string, effectName: string): void {
         if (effectName === undefined || effectName === null) {

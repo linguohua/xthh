@@ -65,7 +65,7 @@ export namespace HandlerMsgRestore {
             player.addDiscardedTiles(playerTileList.tilesDiscard);
 
             //填充面子牌列表
-            player.addMelds(playerTileList.melds);
+            // player.addMelds(playerTileList.melds);
 
             if (player.chairID === room.bankerChairID) {
                 room.setWaitingPlayer(player.chairID);

@@ -1,5 +1,17 @@
 import { proto } from "../lobby/protoHH/protoHH";
-
+/**
+ * 听牌详情类
+ */
+export class TingPai {
+    public card: number;
+    public fan: number;
+    public num: number;
+    public constructor(card: number, fan: number, num: number) {
+        this.card = card;
+        this.fan = fan;
+        this.num = num;
+    }
+}
 /**
  * 手牌辅助类
  */
@@ -11,7 +23,7 @@ export class ClickCtrl {
     public isNormalState: boolean;
     public t: fgui.GObject;
     public isGray: boolean;
-    public readyHandList: number[];
+    public readyHandList: TingPai[];
 }
 export enum ButtonDef {
     Chow = "Effect_zi_ts_chi",
