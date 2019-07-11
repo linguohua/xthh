@@ -1,7 +1,7 @@
 import { CommonFunction, DataStore, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
-import { GameRules } from "./GameRules";
+// import { GameRules } from "./GameRules";
 import { Player } from "./Player";
 import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
@@ -68,12 +68,15 @@ export class HandResultView extends cc.Component {
     private textRoomNumber: fgui.GObject;
     private laizi: fgui.GComponent;
     private lastOne: fgui.GComponent;
-    public dizhu: fgui.GObject;
-    public date: fgui.GObject;
+    private dizhu: fgui.GObject;
+    private date: fgui.GObject;
+    private countDown: fgui.GObject;
     // private textTime: fgui.GObject;
-    private fakes: fgui.GComponent[];
+    // private fakes: fgui.GComponent[];
     private aniPos: fgui.GObject;
     private contentGroup: ViewGroup[];
+
+    private countDownTime: number;
 
     public showView(room: RoomInterface, msgHandOver: proto.casino.packet_table_score): void {
         this.eventTarget = new cc.EventTarget();
@@ -122,8 +125,10 @@ export class HandResultView extends cc.Component {
         // });
         // this.players = players;
 
-        const againBtn = this.unityViewNode.getChild("againBtn");
+        const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
+        this.countDown = againBtn.getChild("n1");
+
         const infoBtn = this.unityViewNode.getChild("guizeBtn");
         infoBtn.onClick(this.onRoomRuleBtnClick, this);
         const shanreBtn = this.unityViewNode.getChild("shanreBtn");
@@ -137,6 +142,10 @@ export class HandResultView extends cc.Component {
 
         //更新数据
         this.updateAllData();
+
+        this.countDownTime = 15;
+        this.unschedule(this.countDownAgian);
+        this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER)
 
         this.win.show();
     }
@@ -266,10 +275,10 @@ export class HandResultView extends cc.Component {
         }
         //手牌
         let n = -1;
-        const last = false;
-        const meldCount = meldDatas.length;
+        // const last = false;
+        // const meldCount = meldDatas.length;
         const tileCountInHand = tilesHand.length;
-        const isHu = (meldCount * 3 + tileCountInHand) > 13;
+        // const isHu = (meldCount * 3 + tileCountInHand) > 13;
         for (const oCardObj of c.cards) {
             oCardObj.visible = false;
         }
@@ -347,7 +356,7 @@ export class HandResultView extends cc.Component {
     //更新显示数据
     private updateAllData(): void {
         this.updateRoomData();
-        const fakeList: number[] = [];
+        // const fakeList: number[] = [];
         for (let i = 0; i < this.msgHandOver.scores.length; i++) {
             const playerScore = this.msgHandOver.scores[i];
             const c = this.contentGroup[i];
@@ -399,18 +408,18 @@ export class HandResultView extends cc.Component {
     //     return GameRules.getMiniWinStrs(this.room.roomType, miniWin);
     // }
 
-    private initFakes(view: fgui.GComponent): fgui.GComponent[] {
-        const fakes: fgui.GComponent[] = [];
-        const fakeListNode = view.getChild("fakeList").asCom;
-        for (let i = 0; i < 13; i++) {
-            const cname = `n${i + 1}`;
-            const card = fakeListNode.getChild(cname).asCom;
-            card.visible = false;
-            fakes[i] = card;
-        }
+    // private initFakes(view: fgui.GComponent): fgui.GComponent[] {
+    //     const fakes: fgui.GComponent[] = [];
+    //     const fakeListNode = view.getChild("fakeList").asCom;
+    //     for (let i = 0; i < 13; i++) {
+    //         const cname = `n${i + 1}`;
+    //         const card = fakeListNode.getChild(cname).asCom;
+    //         card.visible = false;
+    //         fakes[i] = card;
+    //     }
 
-        return fakes;
-    }
+    //     return fakes;
+    // }
     private initHands(view: fgui.GComponent): fgui.GComponent[] {
         const hands: fgui.GComponent[] = [];
         const myHandTilesNode = view.getChild("hands").asCom;
@@ -437,7 +446,7 @@ export class HandResultView extends cc.Component {
         this.lastOne = this.unityViewNode.getChild("lastOne").asCom;
         //特效位置节点
         this.aniPos = this.unityViewNode.getChild("aniPos");
-        this.fakes = this.initFakes(this.unityViewNode);
+        // this.fakes = this.initFakes(this.unityViewNode);
         const contentGroup: ViewGroup[] = [];
         for (let i = 0; i < 4; i++) {
             const contentGroupData = new ViewGroup();
@@ -530,4 +539,15 @@ export class HandResultView extends cc.Component {
         }
     }
 
+    private countDownAgian(): void {
+        this.countDownTime = this.countDownTime - 1;
+        if (this.countDownTime <= 0) {
+            this.unschedule(this.countDownAgian);
+
+            this.onAgainButtonClick();
+            return;
+        }
+
+        this.countDown.text = `${ this.countDownTime} 继续`
+    }
 }
