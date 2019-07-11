@@ -749,8 +749,8 @@
     <image id="lqn3lr" name="mj_s_back.png" path="/_resource/m_麻将牌/new_背面/"/>
     <image id="lqn3ls" name="mj_s_def.png" path="/_resource/m_麻将牌/new_背面/"/>
     <image id="lqn3lt" name="js_fgx.png" path="/_resource/j_结算/" scale="9grid" scale9grid="0,3,1,36"/>
-    <image id="lqn3lu" name="js_jsdsj.png" path="/_resource/j_结算/"/>
-    <image id="lqn3lv" name="js_jsdyj.png" path="/_resource/j_结算/"/>
+    <image id="lqn3lu" name="js_jsdsj.png" path="/_resource/j_结算/" exported="true"/>
+    <image id="lqn3lv" name="js_jsdyj.png" path="/_resource/j_结算/" exported="true"/>
     <image id="lqn3lw" name="js_wbdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="8,38,6,5"/>
     <image id="lqn3lx" name="js_wbdi2.png" path="/_resource/j_结算/" scale="9grid" scale9grid="11,10,7,7"/>
     <image id="lqn3ly" name="js_xxdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="13,8,4,5"/>
