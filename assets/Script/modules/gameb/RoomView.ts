@@ -13,9 +13,9 @@ import { TileImageMounter } from "./TileImageMounter";
 const playerCound: number[][] = [
     [0],
     [0],
-    [0, 2],
-    [0, 1, 3],
-    [0, 1, 2, 3]
+    [1, 3],
+    [1, 2, 4],
+    [1, 2, 3, 4]
 ];
 const aa = "07-10-18"; //假的版本号
 /**
@@ -260,16 +260,17 @@ export class RoomView {
         const playerViews = this.playerViews;
 
         const le = this.room.roomInfo.players.length;
-        const newC = playerCound[le][chairID];
-        const newM = playerCound[le][myChairId];
+        const c = (chairID - myChairId + le) % le;
+        const newC = playerCound[le][c];
+        // const newM = playerCound[le][myChairId];
         //加1是由于lua table索引从1开始
         //获得chairID相对于本玩家的偏移
-        const c = (newC - newM + 4) % 4;
+        // const c = (newC - newM + 4) % 4;
         // Logger.debug(`创建他人 : c : ${c} , newC : ${newC} , newM : ${newM}`);
 
-        return playerViews[c + 1];
+        // return playerViews[c + 1];
 
-        // return playerViews[c];
+        return playerViews[newC];
     }
 
     //根据房间的状态做一些开关变量切换
