@@ -143,7 +143,7 @@ export class HandResultView extends cc.Component {
         //更新数据
         this.updateAllData();
 
-        this.countDownTime = 15;
+        this.countDownTime = 22;
         this.unschedule(this.countDownAgian);
         this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER)
 
@@ -191,18 +191,10 @@ export class HandResultView extends cc.Component {
 
         this.dizhu.text = `底注：${this.room.roomInfo.base}`;
         const date = new Date();
-        this.date.text = this.formatDate(date);
+        this.date.text = CommonFunction.formatDate(date);
 
     }
 
-    private formatDate(date: Date): string {
-        const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-        const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
-        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
-
-        return `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
-    }
     //马牌列表显示
     // private updateFakeList(titleList: number[]): void {
     //     if (titleList.length > 0) {

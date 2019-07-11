@@ -1,7 +1,7 @@
 import { CommonFunction } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
-import { Player } from "./Player";
+// import { Player } from "./Player";
 import { RoomInterface } from "./RoomInterface";
 
 /**
@@ -32,6 +32,7 @@ export class GameOverResultView extends cc.Component {
     private win: fgui.Window;
     private msgGameOver: proto.casino.packet_table_score;
     private textRoomNumber: fgui.GObject;
+    private dateText: fgui.GObject;
     private maxScore: number = 0;
     private maxScoreIndexs: ViewGroup[];
     private maxChucker: number = 0;
@@ -83,7 +84,8 @@ export class GameOverResultView extends cc.Component {
         // this.textTime.text = date
         //房间信息
         const roomNumber = this.room.roomInfo.tag;
-        this.textRoomNumber.text = `房号:${roomNumber}`;
+        this.textRoomNumber.text = `房号:${roomNumber}  底注:${this.room.roomInfo.base}  总共:${this.room.roomInfo.round}局`;
+        this.dateText.text = CommonFunction.formatDate(new Date());
     }
     //更新玩家基本信息
     private updatePlayerInfoData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
@@ -211,6 +213,7 @@ export class GameOverResultView extends cc.Component {
         // this.textTime = self.unityViewNode:GetChild("date")
         //房间信息
         this.textRoomNumber = this.unityViewNode.getChild("roomNumber");
+        this.dateText = this.unityViewNode.getChild("date");
         //特效位置节点
         this.aniPos = this.unityViewNode.getChild("aniPos");
         const contentGroup: ViewGroup[] = [];
