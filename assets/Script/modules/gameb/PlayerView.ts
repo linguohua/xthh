@@ -424,7 +424,7 @@ export class PlayerView {
             TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
-            this.setMeldTileDirection(false, t2, viewChairID, this.viewChairID);
+            this.setMeldTileDirection(false, t2, viewChairID, 1);
         } else if (meldType === TypeOfOP.Kong) {
             const t4 = meldView.getChild("n4").asCom;
             TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
@@ -435,7 +435,7 @@ export class PlayerView {
                 //赖根只有三张
                 t4.visible = false;
             }
-            this.setMeldTileDirection(false, t4, viewChairID, this.viewChairID);
+            this.setMeldTileDirection(false, t4, viewChairID, 1);
             //} else if (meldType === mtProto.enumMeldTypeConcealedKong) {
             // const t4 = meldView.getChild("n4").asCom; //这个是暗牌显示 用于别的玩家暗杠
             // const t0 = meldView.getChild("n0").asCom; //这个是明牌显示 自己暗杠 或者 回播的时候用的
