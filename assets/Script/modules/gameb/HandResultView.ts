@@ -31,9 +31,16 @@ const hupaiType: { [key: number]: string } = {
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO]: "黑摸", //黑摸
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "黑摸", //黑摸
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO]: "软摸", //软摸
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "软摸" //软摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "软摸", //软摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "放笑", //软摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "飘赖子", //飘赖子
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO]: "抢笑", //抢笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOHOUCHONG]: "笑后铳", //笑后铳
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_BEIQIANGXIAO]: "被抢笑", //被抢笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHONG]: "放铳", //放铳
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RECHONG]: "热铳", //热铳
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHAOTIAN]: "放朝天" //热铳
 };
-
 
 /**
  * palyer ui
@@ -52,6 +59,7 @@ class ViewGroup {
     public textCountLoseT: fgui.GObject;
     public textPlayerScore: fgui.GObject;
     public hu: fgui.GObject;
+    public ting: fgui.GObject;
     public aniPos: fgui.GObject;
     public ruleText: fgui.GObject;
 }
@@ -124,11 +132,15 @@ export class HandResultView extends cc.Component {
         //     return y.playerView.viewChairID - x.playerView.viewChairID;
         // });
         // this.players = players;
+        let btnText = `继续`;
+        if (msgHandOver.tdata.play_total === msgHandOver.tdata.round) {
+            btnText = `查看积分`;
+        }
 
         const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
-        this.countDown.text = `${msgHandOver.time} 继续`
+        this.countDown.text = `${msgHandOver.time} ${btnText}`;
 
         const infoBtn = this.unityViewNode.getChild("guizeBtn");
         infoBtn.onClick(this.onRoomRuleBtnClick, this);
@@ -146,7 +158,7 @@ export class HandResultView extends cc.Component {
 
         this.countDownTime = msgHandOver.time;
         this.unschedule(this.countDownAgian);
-        this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER)
+        this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER);
 
         this.win.show();
     }
@@ -188,8 +200,6 @@ export class HandResultView extends cc.Component {
             // 输了
             this.result.url = `ui://dafeng/js_zi_sl`;
         }
-
-        Logger.debug("this.result:", this.result);
 
         //房间信息
         if (this.room.roomInfo === null) {
@@ -305,27 +315,35 @@ export class HandResultView extends cc.Component {
 
         if (playerScore.hupai_card > 0) {
             c.hu.visible = true;
+        } else if (player.isRichi) {
+            c.ting.visible = true;
+        }
+
+        if (playerScore.opscores.length > 0) {
             c.ruleText.text = this.getHupaiType(playerScore);
+        }
+
+        if (playerScore.data.id === this.room.bankerChairID) {
+            c.zhuang.visible = true;
         }
     }
 
     private getHupaiType(playerScore: proto.casino.Iplayer_score): string {
-        const opscores = playerScore.opscores;
-        let huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
-        for (const opscore of opscores) {
-            if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG ||
-                opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO ||
-                opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO ||
-                opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO) {
-                huType = opscore.type;
-            } else if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2) {
-                huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
-            } else if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2) {
-                huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO;
+        let opscoreString = "";
+        for (const opscore of playerScore.opscores) {
+            if (hupaiType[opscore.type] === undefined) {
+                Logger.error("Unknow opscore type:", opscore.type);
+                continue;
+            }
+
+            if (opscoreString === "") {
+                opscoreString = `${hupaiType[opscore.type]}:${opscore.count}`;
+            } else {
+                opscoreString = `${opscoreString}  ${hupaiType[opscore.type]}:${opscore.count}`;
             }
         }
 
-        return hupaiType[huType];
+        return opscoreString;
     }
     //更新详细数据
     // private updatePlayerScoreData(player: Player, c: ViewGroup): void {
@@ -486,6 +504,8 @@ export class HandResultView extends cc.Component {
             contentGroupData.textPlayerScore = group.getChild("score");
             //胡
             contentGroupData.hu = group.getChild("hu");
+            //听
+            contentGroupData.ting = group.getChild("ting");
             //获胜节点位置
             contentGroupData.aniPos = group.getChild("aniPos");
 
@@ -514,6 +534,7 @@ export class HandResultView extends cc.Component {
     }
     // 玩家点击“继续”按钮，注意如果牌局结束，此按钮是“大结算”
     private onAgainButtonClick(): void {
+        Logger.debug("onAgainButtonClick");
         // 降低消息队列的优先级为0
         const room = this.room;
         if (!room.isReplayMode()) {
@@ -544,9 +565,14 @@ export class HandResultView extends cc.Component {
             this.unschedule(this.countDownAgian);
 
             this.onAgainButtonClick();
+
             return;
         }
 
-        this.countDown.text = `${ this.countDownTime} 继续`
+        let btnText = `继续`;
+        if (this.msgHandOver.tdata.play_total === this.msgHandOver.tdata.round) {
+            btnText = `查看积分`;
+        }
+        this.countDown.text = `${ this.countDownTime} ${btnText}`;
     }
 }
