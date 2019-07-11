@@ -582,7 +582,7 @@
     <image id="lqn3gv" name="zm_icon_zhuang.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gw" name="zm_jb_l.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gx" name="zm_jt2.png" path="/_resource/z_桌面打牌/"/>
-    <image id="lqn3gy" name="zm_mjlzzz.png" path="/_resource/z_桌面打牌/"/>
+    <image id="lqn3gy" name="zm_mjlzzz.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="14,15,2,2"/>
     <image id="lqn3gz" name="zm_mjlzzz_h.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3h0" name="zm_mjlzzz_l.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3h1" name="zm_szandi.png" path="/_resource/z_桌面打牌/"/>

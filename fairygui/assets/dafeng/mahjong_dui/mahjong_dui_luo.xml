@@ -2,8 +2,9 @@
 <component size="90,136">
   <displayList>
     <image id="n8_o570" name="bg" src="jmxyx" fileName="image_bg/wo.png" xy="0,0"/>
-    <loader id="n9_o570" name="title" xy="79,105" size="69,95" rotation="180" url="ui://397phocho570nb" align="center" vAlign="middle" fill="scale"/>
+    <loader id="n9_o570" name="title" xy="79,105" size="69,95" rotation="180" align="center" vAlign="middle" fill="scale"/>
     <graph id="n10_o570" name="pos" xy="46,7" pivot="0.5,0.5" anchor="true" size="18,15" scale="1.66,1.66"/>
     <loader id="n11_o570" name="ts" xy="31,-10" size="28,30"/>
+    <image id="n12_im76" name="laiziMask" src="lqn3gy" fileName="_resource/z_桌面打牌/zm_mjlzzz.png" xy="0,0" size="90,136" hideByEditor="true" visible="false" blend="multiply"/>
   </displayList>
 </component>
