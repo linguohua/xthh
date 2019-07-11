@@ -21,6 +21,7 @@ class ViewGroup {
     public textHuPai: fgui.GObject;
     public textZuoZhuang: fgui.GObject;
     public aniPos: fgui.GObject;
+    public bigWiner: fgui.GLoader;
 }
 /**
  * 显示一手牌结束后的得分结果
@@ -104,12 +105,12 @@ export class GameOverResultView extends cc.Component {
         //头像
     }
     //设置大赢家标志
-    private setDYJEffect(c: ViewGroup): void {
-        //大赢家动效
-        if (c !== null) {
-            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_zi_dayingjia`, c.aniPos.node);
-        }
-    }
+    // private setDYJEffect(c: ViewGroup): void {
+    //     //大赢家动效
+    //     if (c !== null) {
+    //         this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_zi_dayingjia`, c.aniPos.node);
+    //     }
+    // }
     //更新玩家分数信息
     private updatePlayerScoreData(playerScore: proto.casino.Iplayer_score, c: ViewGroup, p: proto.casino.Itable_player): void {
         const score = playerScore.score_total;
@@ -201,7 +202,11 @@ export class GameOverResultView extends cc.Component {
                 }
                 if (this.maxScore > 0 && this.maxScoreIndexs !== undefined) {
                     for (const maxScoreIndex of this.maxScoreIndexs) {
-                        this.setDYJEffect(maxScoreIndex);
+                        maxScoreIndex.bigWiner.url = `ui://dafeng/js_jsdyj`;
+                        maxScoreIndex.bigWiner.visible = true;
+                        // Logger.debug("bigWiner:", maxScoreIndex.bigWiner);
+                        // this.setDYJEffect(maxScoreIndex);
+                        // TODO: 设置大赢家
                     }
                 }
             }
@@ -228,6 +233,7 @@ export class GameOverResultView extends cc.Component {
             contentGroupData.imageRoom.visible = false;
             //大赢家动画位置
             contentGroupData.aniPos = group.getChild("aniPos");
+            contentGroupData.aniPos.visible = false;
             // contentGroupData.imageWin.visible = false
             contentGroupData.zhuang = group.getChild("zhuang");
             contentGroupData.zhuang.visible = false;
@@ -240,7 +246,8 @@ export class GameOverResultView extends cc.Component {
             contentGroupData.textPiaoLai = group.getChild("num_piao_lai");
             contentGroupData.textChaoShi = group.getChild("num_chao_shi");
 
-            group.getChild("resultLoader").visible = false; //大输家
+            contentGroupData.bigWiner = group.getChild("resultLoader").asLoader;
+            contentGroupData.bigWiner.visible = false; //大输家
             //分数（赢）
             contentGroupData.textCountT = group.getChild("text_win");
             contentGroupData.textCountT.text = "0";
