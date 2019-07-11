@@ -164,18 +164,30 @@ export class HandResultView extends cc.Component {
         // } else {
         //     en = "Effect_jiemian_huanngzhuang";
         // }
+        // 显示赖子
+        const laiziCom = this.laizi.getChild("laiziCOm").asCom;
+        laiziCom.getChild("laiziMask").visible = true;
+        TileImageMounter.mountTileImage(laiziCom, this.room.laiziID);
+
+        // 显示最后一张牌
+        const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
+        this.lastOne.visible = true;
+        TileImageMounter.mountTileImage(lastOneCom, this.msgHandOver.nextcard);
+
+        this.result.visible = true;
         if (this.msgHandOver.win_id === 0) {
             // 慌庄
+            this.lastOne.visible = false;
             this.result.url = `ui://dafeng/js_zi_lj`;
         } else if (this.room.isMe(`${this.msgHandOver.win_id}`)) {
             // 赢了
             this.result.url = `ui://dafeng/js_zi_yl`;
-            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_jiemian_shengli`, this.aniPos.node);
+            this.result.visible = false;
+            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_Yingle`, this.aniPos.node);
         } else {
             // 输了
             this.result.url = `ui://dafeng/js_zi_sl`;
         }
-        this.result.visible = true;
 
         Logger.debug("this.result:", this.result);
 
@@ -190,16 +202,6 @@ export class HandResultView extends cc.Component {
         }
         this.textRoomNumber.text = `房号:${roomNumber}`;
 
-        // 显示赖子
-        const laizi = this.room.laiziID;
-        const laiziCom = this.laizi.getChild("laiziCOm").asCom;
-        laiziCom.getChild("laiziMask").visible = true;
-        TileImageMounter.mountTileImage(laiziCom, laizi);
-        // 显示最后一张牌
-        const lastCard = this.msgHandOver.nextcard;
-        const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
-        this.lastOne.visible = true;
-        TileImageMounter.mountTileImage(lastOneCom, lastCard);
         // 显示底注
         this.dizhu.text = `底注：${this.room.roomInfo.base}`;
         const date = new Date();
