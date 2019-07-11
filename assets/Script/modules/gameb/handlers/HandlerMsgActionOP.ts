@@ -16,13 +16,19 @@ export namespace HandlerMsgActionOP {
 
             return;
         }
+        player.m_bSaveZCHFlag = false;
+        player.canKongs = [];
+        player.isCanPong = false;
+
         const buttonMap: string[] = [];
         if (!player.cancelZhuochong) {
             const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
             if (hu.length > 0) {
+                player.m_bSaveZCHFlag = true;
                 buttonMap.push(ButtonDef.Hu);
             }
         }
+        Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
         const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
         if (isCanGang) {
             const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
@@ -31,7 +37,7 @@ export namespace HandlerMsgActionOP {
                 buttonMap.push(ButtonDef.Kong);
             }
         }
-        // Logger.debug("player.notPong ：", player.notPong);
+        Logger.debug(`reply.card , ${reply.card} ; player.notPong ：, ${player.notPong}`);
         if (player.notPong !== reply.card) {
             const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
             if (peng.length > 0) {
@@ -40,7 +46,7 @@ export namespace HandlerMsgActionOP {
             }
         }
         if (buttonMap.length > 0) {
-            player.lastDisCardTile = reply.card;
+            room.lastDisCardTile = reply.card;
             buttonMap.push(ButtonDef.Skip);
             player.playerView.showButton(buttonMap);
         }

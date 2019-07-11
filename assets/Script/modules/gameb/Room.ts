@@ -8,6 +8,7 @@ import { Algorithm } from "./Algorithm";
 import { GameOverResultView } from "./GameOverResultView";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
+import { HandlerActionResultEndCard } from "./handlers/HandlerActionResultEndCard";
 import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
 import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
 // import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
@@ -41,9 +42,8 @@ import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
-import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
+import { PlayerInfo, room_status, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
-import { HandlerActionResultEndCard } from "./handlers/HandlerActionResultEndCard";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
@@ -103,7 +103,7 @@ export class Room {
     public laiziID: number;
     public laigenID: number;
     public isDestroy: boolean = false;
-    public bankerChairID: number = 0;
+    public bankerChairID: number = -1;
     public markup: number;
     public isContinuousBanker: boolean;
     public roomView: RoomView;
@@ -117,6 +117,7 @@ export class Room {
     public readonly roomType: number;
     public mAlgorithm: Algorithm;
     public isMySelfDisCard: boolean = false;
+    public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -182,7 +183,9 @@ export class Room {
 
         this.playBgSound();
 
-        this.handStartted = this.roomInfo.play_total;
+        if (this.roomInfo.play_total !== null) {
+            this.handStartted = this.roomInfo.play_total;
+        }
         this.showRoomNumber();
     }
 
@@ -270,6 +273,9 @@ export class Room {
 
     //重置房间，以便开始新一手游戏
     public resetForNewHand(): void {
+        this.isMySelfDisCard = false;
+        this.lastDisCardTile = 0;
+
         Object.keys(this.players).forEach((key: string) => {
             const v = this.players[key];
             v.resetForNewHand();
@@ -485,9 +491,6 @@ export class Room {
     public setArrowByParent(d: fgui.GComponent): void {
         this.roomView.setArrowByParent(d);
     }
-    public showOrHideMeldsOpsPanel(chowMelds: proto.mahjong.IMsgMeldTile[], actionMsg: proto.mahjong.MsgPlayerAction): void {
-        this.roomView.showOrHideMeldsOpsPanel(chowMelds, actionMsg);
-    }
     public isMe(userID: string): boolean {
         // 统一转成字符串，避免有的是number,有的是string
         return `${this.myUser.userID}` === `${userID}`;
@@ -611,6 +614,7 @@ export class Room {
      * 断线重连恢复用户的操作
      */
     public restrorePlayerOperation(): void {
+        this.onUpdateStatus(room_status.onPlay);
         //剩牌
         this.tilesInWall = this.roomInfo.cardcount;
         this.updateTilesInWallUI();

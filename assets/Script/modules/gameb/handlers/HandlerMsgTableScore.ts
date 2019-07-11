@@ -1,7 +1,7 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
-import { RoomInterface } from "../RoomInterface";
 import { Player } from "../Player";
+import { room_status, RoomInterface } from "../RoomInterface";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 /**
@@ -13,23 +13,23 @@ export namespace HandlerMsgTableScore {
 
         for (const score of reply.scores) {
             if (score.hupai_card > 0) {
-                let hu_type = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
+                let huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
                 const opscores = score.opscores;
                 for (const opscore of opscores) {
                     if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG ||
                         opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO ||
                         opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO ||
                         opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO) {
-                        hu_type = opscore.type;
+                        huType = opscore.type;
                     } else if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2) {
-                        hu_type = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
+                        huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
                     } else if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2) {
-                        hu_type = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO;
+                        huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO;
                     }
                 }
                 //播放动画
                 const player = <Player>room.getPlayerByUserID(`${score.data.id}`);
-                await player.exposedResultAnimation(hu_type, true);
+                await player.exposedResultAnimation(huType, true);
             }
         }
 
@@ -38,12 +38,17 @@ export namespace HandlerMsgTableScore {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const reply = proto.casino.packet_table_score.decode(msgData);
         Logger.debug("HandlerMsgTableScore----------------------- ", reply);
-        // const play_total = reply.tdata.play_total;
-        // const round = reply.tdata.round;
+        //摊牌
+        for (const score of reply.scores) {
+            const curcards = score.curcards;
+            const player = <Player>room.getPlayerByUserID(`${score.data.id}`);
+
+            player.tilesHand = curcards;
+            player.hand2Exposed();
+        }
+
         const disband_type = reply.tdata.disband_type;
         if (disband_type !== null) {
-            // if (room.isDisband || play_total >= round) {
-            //解散  会显示大结算界面
             room.loadGameOverResultView(reply);
         } else {
             await showHu(reply, room);
@@ -51,5 +56,7 @@ export namespace HandlerMsgTableScore {
             // 显示手牌输赢结果
             room.loadHandResultView(reply);
         }
+        //房间状态
+        room.onUpdateStatus(room_status.onWait);
     };
 }

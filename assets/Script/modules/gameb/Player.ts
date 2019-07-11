@@ -58,13 +58,13 @@ export class Player {
     public waitDiscardReAction: boolean;
     public readyHandList: number[];
     public isGuoHuTips: boolean;
-    public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public notPong: number = 0; //弃碰 只会有一个 不需要列表
     public notKongs: number[] = []; //弃杠 起手有多杠的时候才会用到
     public canKongs: number[] = []; //可杠列表 起手有多杠的时候才会用到
     public cancelZhuochong: boolean = false; //弃捉冲
     public cancelZiMo: boolean = false; //弃自摸
     public isCanPong: boolean = false; //可以碰
+    public m_bSaveZCHFlag: boolean = false; //可以捉铳
     private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
@@ -88,6 +88,13 @@ export class Player {
         //是否起手听牌
         //TODO. 当玩家起手听牌时，当仅仅可以打牌操作时，自动打牌
         this.isRichi = false;
+
+        this.notPong = 0;
+        this.notKongs = [];
+        this.canKongs = [];
+        this.cancelZhuochong = false;
+        this.cancelZiMo = false;
+        this.isCanPong = false;
 
         //如果玩家对象是属于当前用户的，而不是对手的
         //则有手牌列表，否则只有一个数字表示对手的手牌张数
@@ -476,12 +483,12 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.cancel_type = -1;
         req2.op = TypeOfOP.Pong;
-        req2.card = this.lastDisCardTile;
+        req2.card = this.host.lastDisCardTile;
         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
-        this.lastDisCardTile = 0;
+        this.host.lastDisCardTile = 0;
     }
 
     //玩家选择了杠牌
@@ -503,8 +510,8 @@ export class Player {
     //当上下文是allowedReActionMsg时，表示吃铳胡牌
     public onWinBtnClick(): void {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
-        Logger.debug(" 胡 ： ", this.lastDisCardTile);
-        if (this.lastDisCardTile !== 0) {
+        Logger.debug(" 胡 ： ", this.host.lastDisCardTile);
+        if (this.host.lastDisCardTile !== 0) {
             req2.op = TypeOfOP.Hu;
         } else {
             req2.op = TypeOfOP.ZiMo;
@@ -519,36 +526,47 @@ export class Player {
     //当上下文是allowedActionMsg时，表示不起手听牌
     //当上下文是allowedReActionMsg时，表示不吃椪杠胡
     public onSkipBtnClick(): void {
-        const curCancelType = -1;
-        const curCancelCard = 0;
+        let curCancelType = -1;
+        let curCancelCard = 0;
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.op = TypeOfOP.Guo;
+        //假如之前是杠牌并且有杠牌，并且之前也有碰并且也有碰牌
+        if (this.canKongs.length > 0 && this.isCanPong) {
+            curCancelType = 2;
+            curCancelCard = this.canKongs[0];
+        } else if (this.canKongs.length > 0) {
+            curCancelType = 0;
+            curCancelCard = this.canKongs[0];
+        } else if (this.isCanPong) {
+            curCancelType = 1;
+            curCancelCard = this.host.lastDisCardTile;
+        }
         req2.cancel_type = curCancelType;
         req2.card = curCancelCard;
         //假如之前OP是捉铳
-        // if (this.host.m_bSaveZCHFlag) {
-        //     this.host.m_bSaveZCHFlag = false;
-        //     req2.op = TypeOfOP.BUZHUOCHONG;
-        //     const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-        //     this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-        // } else if (this.host.m_bOPSelf) {
-        //     const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-        //     this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-        // } else {
-        //     if (curCancelType !== -1 && curCancelType !== 0) {
-        //         const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-        //         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-        //     }
-        // }
-        const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-        this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+        if (this.m_bSaveZCHFlag) {
+            this.m_bSaveZCHFlag = false;
+            req2.op = TypeOfOP.BUZHUOCHONG;
+            const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+            this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+        } else if (this.host.lastDisCardTile !== 0) {
+            const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+            this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+        } else {
+            if (curCancelType !== -1 && curCancelCard !== 0) {
+                const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+                this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+            }
+        }
+        // const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+        // this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
         //重置手牌位置
         this.playerView.restoreHandsPositionAndClickCount(-1);
 
         if (this.isCanPong) {
-            this.notPong = this.lastDisCardTile;
+            this.notPong = this.host.lastDisCardTile;
         }
         if (this.canKongs.length > 0) {
             this.notKongs = this.canKongs;

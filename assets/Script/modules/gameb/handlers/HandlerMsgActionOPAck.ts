@@ -116,8 +116,8 @@ export namespace HandlerMsgActionOPAck {
                 if (player.canKongs !== undefined && player.canKongs.length > 0) {
                     player.notKongs = player.canKongs;
                 }
-                if (player.isCanPong && player.lastDisCardTile !== 0) {
-                    player.notPong = player.lastDisCardTile;
+                if (player.isCanPong && room.lastDisCardTile !== 0) {
+                    player.notPong = room.lastDisCardTile;
                 }
                 room.setDiscardAble();
             } else if (pAck.op === TypeOfOP.BUZHUOCHONG) {

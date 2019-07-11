@@ -5,6 +5,13 @@ import { ChatData } from "../lobby/views/chat/ChatExports";
 import { Algorithm } from "./Algorithm";
 import { PlayerInterface } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
+/**
+ * 房间状态
+ */
+export const room_status = {
+    onPlay: 1,
+    onWait: 2
+};
 
 /**
  * 听牌详情类
@@ -81,13 +88,13 @@ export interface RoomInterface {
     isDestroy: boolean;
     isMySelfDisCard: boolean;
     quit: Function;
+    lastDisCardTile: number;
     // 获取RoomHost
     getRoomHost(): RoomHost;
     isMe(userID: string): boolean;
     isReplayMode(): boolean;
     sendActionMsg(msgAction: ByteBuffer, opCode: number): void;
     getBankerChairID(): number;
-    showOrHideMeldsOpsPanel(chowMelds: proto.mahjong.IMsgMeldTile[], actionMsg: proto.mahjong.MsgPlayerAction): void;
     setArrowByParent(d: fgui.GComponent): void;
     getPlayerViewChairIDByChairID(chairID: number): number;
 

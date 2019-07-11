@@ -1,16 +1,13 @@
 import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
+import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
-import { GameRules } from "./GameRules";
-import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
-import { proto } from "./proto/protoGame";
-import { RoomInterface, TingPai } from "./RoomInterface";
+import { RoomInterface, TingPai, room_status } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-const mjproto = proto.mahjong;
 
 //转换玩家chairid
 const playerCound: number[][] = [
@@ -48,9 +45,7 @@ export class RoomView {
     private listensObjNum: fgui.GObject;
     private multiOpsObj: fgui.GList;
     private listensDataList: TingPai[];
-    private multiOpsDataList: proto.mahjong.IMsgMeldTile[];
     private arrowObj: cc.Node;
-    private actionMsg: proto.mahjong.MsgPlayerAction;
     private leftTime: number;
     private leftTimerCB: Function;
     private component: cc.Component;
@@ -198,14 +193,6 @@ export class RoomView {
         const str = `房号:${room.roomInfo.tag}${s}局数:${num}${s}${aa}`;
         this.roomInfoText.text = str;
 
-    }
-    public showOrHideMeldsOpsPanel(meld: proto.mahjong.IMsgMeldTile[], actionMsg: proto.mahjong.MsgPlayerAction): void {
-        this.actionMsg = actionMsg;
-        const size = meld.length;
-        this.multiOpsDataList = meld;
-        this.multiOpsObj.numItems = size;
-        this.multiOpsObj.resizeToFit(size);
-        this.meldOpsPanel.visible = size > 0;
     }
     //显示出牌提示箭头
     public setArrowByParent(btn: fgui.GComponent): void {
@@ -484,7 +471,7 @@ export class RoomView {
             // roomView.invitButton.visible = false
             // roomView.returnHallBtn.visible = false
             this.tilesInWall.visible = true;
-            this.laiziCom.visible = false; //发牌的时候，或者掉线恢复的时候会设置风圈因此此处不需要visible
+            this.laiziCom.visible = true;
 
             this.roundMarkView.visible = true;
             // this.clearWaitingPlayer();
@@ -497,10 +484,10 @@ export class RoomView {
         };
 
         const status = [];
-        status[proto.mahjong.RoomState.SRoomIdle] = onIdle;
-        status[proto.mahjong.RoomState.SRoomWaiting] = onWait;
-        status[proto.mahjong.RoomState.SRoomPlaying] = onPlay;
-        status[proto.mahjong.RoomState.SRoomDeleted] = onDelete;
+        // status[proto.mahjong.RoomState.SRoomIdle] = onIdle;
+        status[room_status.onWait] = onWait;
+        status[room_status.onPlay] = onPlay;
+        // status[proto.mahjong.RoomState.SRoomDeleted] = onDelete;
         this.statusHandlers = status;
     }
 
@@ -538,46 +525,46 @@ export class RoomView {
     }
 
     private renderMultiOpsListItem(index: number, obj: fgui.GComponent): void {
-        const meld = this.multiOpsDataList[index];
-        obj.name = index.toString();
-        let add = 0;
-        let num = 4;
-        if (meld.meldType === mjproto.MeldType.enumMeldTypeSequence) {
-            //吃的时候exp是3，所以第4个牌可以隐藏起来
-            obj.getChild("n4").visible = false;
-            add = 1;
-            num = 3;
-        }
-        let a = 0;
-        for (let i = 1; i <= num; i++) {
-            const oCurCard = obj.getChild(`n${i}`).asCom;
-            TileImageMounter.mountTileImage(oCurCard, meld.tile1 + a);
-            oCurCard.visible = true;
-            a += add;
-        }
+        // const meld = this.multiOpsDataList[index];
+        // obj.name = index.toString();
+        // let add = 0;
+        // let num = 4;
+        // if (meld.meldType === mjproto.MeldType.enumMeldTypeSequence) {
+        //     //吃的时候exp是3，所以第4个牌可以隐藏起来
+        //     obj.getChild("n4").visible = false;
+        //     add = 1;
+        //     num = 3;
+        // }
+        // let a = 0;
+        // for (let i = 1; i <= num; i++) {
+        //     const oCurCard = obj.getChild(`n${i}`).asCom;
+        //     TileImageMounter.mountTileImage(oCurCard, meld.tile1 + a);
+        //     oCurCard.visible = true;
+        //     a += add;
+        // }
 
-        obj.visible = true;
+        // obj.visible = true;
     }
 
     private onMeldOpsClick(index: string): void {
-        const data = this.multiOpsDataList[+index];
-        const actionMsg = new proto.mahjong.MsgPlayerAction();
-        actionMsg.qaIndex = this.actionMsg.qaIndex;
-        actionMsg.action = this.actionMsg.action;
-        actionMsg.tile = this.actionMsg.tile;
-        actionMsg.meldType = data.meldType;
-        actionMsg.meldTile1 = data.tile1;
-        if (data.meldType === mjproto.MeldType.enumMeldTypeConcealedKong) {
-            actionMsg.tile = data.tile1;
-            actionMsg.action = mjproto.ActionType.enumActionType_KONG_Concealed;
-        } else if (data.meldType === mjproto.MeldType.enumMeldTypeTriplet2Kong) {
-            actionMsg.tile = data.tile1;
-            actionMsg.action = mjproto.ActionType.enumActionType_KONG_Triplet2;
-        }
+        // const data = this.multiOpsDataList[+index];
+        // const actionMsg = new proto.mahjong.MsgPlayerAction();
+        // actionMsg.qaIndex = this.actionMsg.qaIndex;
+        // actionMsg.action = this.actionMsg.action;
+        // actionMsg.tile = this.actionMsg.tile;
+        // actionMsg.meldType = data.meldType;
+        // actionMsg.meldTile1 = data.tile1;
+        // if (data.meldType === mjproto.MeldType.enumMeldTypeConcealedKong) {
+        //     actionMsg.tile = data.tile1;
+        //     actionMsg.action = mjproto.ActionType.enumActionType_KONG_Concealed;
+        // } else if (data.meldType === mjproto.MeldType.enumMeldTypeTriplet2Kong) {
+        //     actionMsg.tile = data.tile1;
+        //     actionMsg.action = mjproto.ActionType.enumActionType_KONG_Triplet2;
+        // }
 
-        const actionMsgBuf = proto.mahjong.MsgPlayerAction.encode(actionMsg);
-        // this.room.sendActionMsg(actionMsgBuf);
-        this.playerViews[1].hideOperationButtons();
-        this.meldOpsPanel.visible = false;
+        // const actionMsgBuf = proto.mahjong.MsgPlayerAction.encode(actionMsg);
+        // // this.room.sendActionMsg(actionMsgBuf);
+        // this.playerViews[1].hideOperationButtons();
+        // this.meldOpsPanel.visible = false;
     }
 }

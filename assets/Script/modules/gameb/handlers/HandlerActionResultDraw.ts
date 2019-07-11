@@ -44,6 +44,7 @@ export namespace HandlerActionResultDraw {
                 buttonMap.push(ButtonDef.Hu);
             }
         }
+        Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
         const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
         if (isCanGang) {
             const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
@@ -83,9 +84,9 @@ export namespace HandlerActionResultDraw {
             room.tilesInWall--;
             room.updateTilesInWallUI();
         }
+        room.lastDisCardTile = 0;
         if (player.isMe()) {
             room.isMySelfDisCard = true;
-            player.lastDisCardTile = 0;
             player.cancelZhuochong = false;
             checkButton(room, player, reply);
             room.setDiscardAble();

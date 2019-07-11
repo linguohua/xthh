@@ -1,6 +1,6 @@
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
-import { RoomInterface } from "../RoomInterface";
+import { room_status, RoomInterface } from "../RoomInterface";
 
 /**
  * 发牌处理
@@ -35,6 +35,7 @@ export namespace HandlerMsgDeal {
         room.setWaitingPlayer(player.chairID, msgDeal.time);
 
         room.bankerChairID = msgDeal.lord_id; //庄家
+        // room.coWaitSeconds(1);
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);
@@ -44,5 +45,7 @@ export namespace HandlerMsgDeal {
         //牌墙 两个花色 72 张 每人13张 加上 一张翻拍
         room.tilesInWall = 72 - ((playerNum * 13) + 1);
         room.updateTilesInWallUI();
+        //房间状态
+        room.onUpdateStatus(room_status.onPlay);
     };
 }
