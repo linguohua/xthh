@@ -6,7 +6,8 @@
   <controller name="23Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <controller name="24Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <controller name="34Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
-  <controller name="player2" pages="" selected="-1"/>
+  <controller name="twoPlayer" alias="两人" pages="0,,1," selected="0"/>
+  <controller name="threePlayer" alias="3人" pages="0,,1," selected="0"/>
   <displayList>
     <image id="n14_im76" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640" hideByEditor="true"/>
     <image id="n1_o570" name="bg" src="lqn3hv" fileName="gps/z_桌面GPS定位/zm_gpsdw_tkdi.png" xy="116,22" size="904,602" hideByEditor="true"/>

@@ -4,7 +4,6 @@
     <component id="pg4qg" name="joinRoom.xml" path="/" exported="true"/>
     <component id="pg4qh" name="button0.xml" path="/"/>
     <component id="pg4qt" name="btnClose.xml" path="/"/>
-    <image id="pg4qu" name="ty_btnClose.png" path="/bg/" exported="true"/>
     <image id="pg4qv" name="s_私人_加入房间.jpg" path="/design/"/>
     <image id="pg4qw" name="s_私人_加入房间标注.jpg" path="/design/"/>
     <image id="pg4qx" name="srf_anjian.png" path="/resource/" scale="9grid" scale9grid="12,23,13,31"/>

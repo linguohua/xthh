@@ -74,6 +74,10 @@ export class Dialog {
 
             const view = fgui.UIPackage.createObject("lobby_dialog", "dialog").asCom;
             CommonFunction.setViewInCenter(view);
+
+            const mask = view.getChild("mask");
+            CommonFunction.setBgFullScreenSize(mask);
+
             const win = new fgui.Window();
             win.modal = true;
             win.contentPane = view;

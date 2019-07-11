@@ -66,8 +66,7 @@ export class LobbyView extends cc.Component {
             x = x - CommonFunction.IOS_ADAPTER_WIDTH;
         }
         const bg = this.view.getChild('bg');
-        bg.setPosition(-x, 0);
-        CommonFunction.setBgFullScreen(bg);
+        CommonFunction.setBgFullScreenSize(bg);
 
         // 兼容底部背景
         const diBg = view.getChild('bg1');
@@ -77,12 +76,12 @@ export class LobbyView extends cc.Component {
         // 兼容跑马灯背景
         const bg3 = view.getChild('bg3');
         bg3.width = bg.width;
-        bg3.setPosition(-x, diBg.y);
+        bg3.setPosition(-x, bg3.y);
 
         // 兼容跑马灯文字
         const announcementText = view.getChild('announcementText');
         announcementText.width = bg.width;
-        announcementText.setPosition(-x, diBg.y);
+        announcementText.setPosition(-x, announcementText.y);
 
         this.view = view;
         this.initView();

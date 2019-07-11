@@ -82,11 +82,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             x = x - CommonFunction.IOS_ADAPTER_WIDTH;
         }
         let bg = view.getChild("blueBg");
-        bg.setPosition(-x, 0);
-        CommonFunction.setBgFullScreen(bg);
+
+        CommonFunction.setBgFullScreenSize(bg);
         bg = view.getChild("classBg");
-        bg.setPosition(-x, 0);
-        CommonFunction.setBgFullScreen(bg);
+        CommonFunction.setBgFullScreenSize(bg);
 
         // 兼容底部背景
         const diBg = view.getChild('diBg');

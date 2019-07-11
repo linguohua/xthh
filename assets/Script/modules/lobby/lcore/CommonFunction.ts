@@ -1,5 +1,6 @@
 import { DataStore } from "./DataStore";
 import { KeyConstants } from "./KeyConstants";
+import { Logger } from "./Logger";
 
 /**
  * 公共函数类
@@ -55,6 +56,23 @@ export namespace CommonFunction {
 
         return x;
     };
+    /**
+     * 设置遮盖大小
+     * @param view mask 节点
+     */
+    export const setBgFullScreenSize = (view: fgui.GObject): void => {
+        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        let x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+        if (newIPhone === "1") {
+            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
+            x = (cc.winSize.width - IOS_ADAPTER_WIDTH) / 2 - (cc.winSize.height * 1136 / 640 / 2) + IOS_ADAPTER_WIDTH;
+        }
+        Logger.debug("x = ", x);
+
+        view.setPosition(-x, 0);
+        setBgFullScreen(view);
+
+    };
 
     /**
      * 根据大小，拉长比例
@@ -85,7 +103,7 @@ export namespace CommonFunction {
      * 根据大小 拉长高宽
      * @param node 节点
      */
-    export const setBgFullScreen = (node: fgui.GObject): void => {
+    const setBgFullScreen = (node: fgui.GObject): void => {
 
         // 1. 先找到 SHOW_ALL 模式适配之后，本节点的实际宽高以及初始缩放值
         const srcScaleForShowAll = Math.min(
@@ -118,6 +136,6 @@ export namespace CommonFunction {
         const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
 
         return `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
-    }
+    };
 
 }

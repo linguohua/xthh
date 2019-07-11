@@ -20,8 +20,8 @@ interface MyGame {
 
 }
 
-const myGames: MyGame[] = [{casinoID: 2, roomID: 2100, name: "仙桃晃晃"},
-{casinoID: 16, roomID: 2103, name: "三人两门"}, {casinoID: 16, roomID: 2112, name: "两人两门"}];
+const myGames: MyGame[] = [{ casinoID: 2, roomID: 2100, name: "仙桃晃晃" },
+{ casinoID: 16, roomID: 2103, name: "三人两门" }, { casinoID: 16, roomID: 2112, name: "两人两门" }];
 
 // const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
 
@@ -99,6 +99,9 @@ export class NewRoomView extends cc.Component {
         const view = fgui.UIPackage.createObject("lobby_personal_room", "personalRoomView").asCom;
         CommonFunction.setViewInCenter(view);
 
+        const mask = view.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
+
         this.view = view;
 
         const win = new fgui.Window();
@@ -114,8 +117,10 @@ export class NewRoomView extends cc.Component {
         if (defaultConfig !== "") {
             this.defaultConfig = <DefaultConfig>JSON.parse(defaultConfig);
         } else {
-            this.defaultConfig = {gameTypeRadioBtnIndex: 0, anteRadioBtnIndex: 0, roundRadioBtnIndex: 0,
-                 joinRadioBtnIndex: 0, playerRequireRadioBtnIndex: 0};
+            this.defaultConfig = {
+                gameTypeRadioBtnIndex: 0, anteRadioBtnIndex: 0, roundRadioBtnIndex: 0,
+                joinRadioBtnIndex: 0, playerRequireRadioBtnIndex: 0
+            };
         }
     }
 
@@ -250,10 +255,10 @@ export class NewRoomView extends cc.Component {
         const myCard = DataStore.getString("card");
         const myCardInt: number = parseInt(myCard, 10);
 
-        this.fkText =  personalRoomView.getChild("fkText").asTextField;
+        this.fkText = personalRoomView.getChild("fkText").asTextField;
         this.fkText.text = `${needCard}/${myCard}`;
 
-        this.noEnoughFkText =  personalRoomView.getChild("noEnoughFk").asTextField;
+        this.noEnoughFkText = personalRoomView.getChild("noEnoughFk").asTextField;
         if (myCardInt >= needCard) {
             this.noEnoughFkText.visible = false;
             this.createRoomBtn.grayed = false;
@@ -403,7 +408,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onGameTypeRadioBtnClick(ev: fgui.Event): void {
-        Logger.debug("onGameTypeRadioBtnClick:",  <string>ev.initiator.data);
+        Logger.debug("onGameTypeRadioBtnClick:", <string>ev.initiator.data);
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         this.onGameTypeSelect(gameTypeRadioBtnSelectIndex);
 

@@ -97,8 +97,7 @@ export class HandResultView extends cc.Component {
             x = x - CommonFunction.IOS_ADAPTER_WIDTH;
         }
         const bg = view.getChild('bg');
-        bg.setPosition(-x, 0);
-        CommonFunction.setBgFullScreen(bg);
+        CommonFunction.setBgFullScreenSize(bg);
 
         this.unityViewNode = view;
         const win = new fgui.Window();

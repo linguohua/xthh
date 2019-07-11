@@ -1,5 +1,5 @@
 import { CommonFunction, DataStore, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
-import { proto as protoHH} from "../protoHH/protoHH";
+import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
 
@@ -29,11 +29,20 @@ export class ShopView extends cc.Component {
         loader.fguiAddPackage("lobby/fui_lobby_shop/lobby_shop");
 
         const view = fgui.UIPackage.createObject("lobby_shop", "shopView").asCom;
+
         CommonFunction.setViewInCenter(view);
+
+        let mask = view.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
+
         this.view = view;
 
         const vipView = fgui.UIPackage.createObject("lobby_shop", "vipView").asCom;
         CommonFunction.setViewInCenter(vipView);
+
+        mask = vipView.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
+
         this.vipView = vipView;
 
         const win = new fgui.Window();

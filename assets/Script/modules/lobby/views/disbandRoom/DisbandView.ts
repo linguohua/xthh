@@ -1,5 +1,5 @@
-import {proto as protoHH} from "../../protoHH/protoHH";
-import { GResLoader, Logger, DataStore } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, GResLoader, Logger } from "../../lcore/LCoreExports";
+import { proto as protoHH } from "../../protoHH/protoHH";
 
 export interface RoomInterface {
     sendDisbandAgree(agree: boolean): void;
@@ -55,7 +55,7 @@ export class DisbandView extends cc.Component {
 
     public saveRoomView(room: RoomInterface, loader: GResLoader
         // tslint:disable-next-line:align
-        , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[], disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack,): void {
+        , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[], disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack, ): void {
         this.myInfo = myInfo;
         this.room = room;
         this.playersInfo = playersInfo;
@@ -65,6 +65,12 @@ export class DisbandView extends cc.Component {
         if (this.view === null || this.view === undefined) {
             loader.fguiAddPackage("lobby/fui_room_other_view/room_other_view");
             const view = fgui.UIPackage.createObject("room_other_view", "disband_room").asCom;
+
+            CommonFunction.setViewInCenter(view);
+
+            const mask = view.getChild("mask");
+            CommonFunction.setBgFullScreenSize(mask);
+
             this.view = view;
             const win = new fgui.Window();
             win.contentPane = view;
@@ -93,7 +99,7 @@ export class DisbandView extends cc.Component {
 
 
         if ((this.disbandReq !== null && `${this.disbandReq.player_id}` === this.myInfo.userID) ||
-        (this.disbandAck !== null && `${this.disbandAck.player_id}` === this.myInfo.userID)) {
+            (this.disbandAck !== null && `${this.disbandAck.player_id}` === this.myInfo.userID)) {
             this.agreeBtn.visible = false;
             this.refuseBtn.visible = false;
         }
@@ -173,14 +179,14 @@ export class DisbandView extends cc.Component {
     }
 
     private updateTexts(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
-       if (disbandReq !== null) {
+        if (disbandReq !== null) {
             let nick = this.getPlayerNickByID(`${disbandReq.player_id}`);
             const nameText = this.view.getChild("name");
             nameText.text = nick;
 
             const gameConfigStr = DataStore.getString("gameConfig");
             const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
-            const disbandTime =   gameConfig.table_disband_time;
+            const disbandTime = gameConfig.table_disband_time;
 
             // TODO: 暂时写死，这里需要用同步服务器时间
             this.leftTime = disbandTime;
@@ -189,8 +195,8 @@ export class DisbandView extends cc.Component {
             // this.leftTime = disbandTime - (nowTime - disbandReq.disband_time.toNumber())
 
             // Logger.debug(`nowTime:${nowTime}, disbandTime:${disbandTime}, leftTime:${this.leftTime}, startTime:${disbandReq.disband_time.toNumber()}`);
-            this.schedule(this.disbandCountDown, 1,  cc.macro.REPEAT_FOREVER);
-       }
+            this.schedule(this.disbandCountDown, 1, cc.macro.REPEAT_FOREVER);
+        }
 
         for (let i = 0; i < this.playersInfo.length; i++) {
             const playerInfo = this.playersInfo[i];

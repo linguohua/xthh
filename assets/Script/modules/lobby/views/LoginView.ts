@@ -48,8 +48,7 @@ export class LoginView extends cc.Component {
             x = x - CommonFunction.IOS_ADAPTER_WIDTH;
         }
         const bg = view.getChild('bg');
-        bg.setPosition(-x, 0);
-        CommonFunction.setBgFullScreen(bg);
+        CommonFunction.setBgFullScreenSize(bg);
 
         // 兼容底部背景
         const diBg = view.getChild('diBg');
@@ -244,11 +243,11 @@ export class LoginView extends cc.Component {
     private constructFastLoginReq(): protoHH.casino.packet_fast_login_req {
         let openudid = DataStore.getString("openudid", "");
         if (openudid === "") {
-           const now = Date.now();
-           const random = Math.random() * 100000;
-           openudid =  md5(`${now}${random}`);
+            const now = Date.now();
+            const random = Math.random() * 100000;
+            openudid = md5(`${now}${random}`);
 
-           Logger.debug("constructFastLoginReq new openudid:", openudid);
+            Logger.debug("constructFastLoginReq new openudid:", openudid);
         }
 
         const devInfo = {
@@ -276,16 +275,16 @@ export class LoginView extends cc.Component {
         };
 
         return {
-                channel: "mac",
-                ticket: "",
-                user_id: 1094151,
-                reconnect: false,
-                gdatacrc: 0xFFFFFFFF,
-                devinfo: devInfo,
-                pdatacrc: 0,
-                pay: "",
-                request_id : 0
-            };
+            channel: "mac",
+            ticket: "",
+            user_id: 1094151,
+            reconnect: false,
+            gdatacrc: 0xFFFFFFFF,
+            devinfo: devInfo,
+            pdatacrc: 0,
+            pay: "",
+            request_id: 0
+        };
     }
 
     private async testFastLogin(serverCfg: ServerCfg): Promise<void> {

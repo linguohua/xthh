@@ -1,12 +1,12 @@
 
-import { LobbyModuleInterface, Logger, CommonFunction } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 
 interface JoinRoomInterface {
     joinRoom(roomNumber: string): void;
 }
 /**
- * 加入房间
+ * ????
  */
 @ccclass
 export class JoinRoom extends cc.Component {
@@ -32,6 +32,9 @@ export class JoinRoom extends cc.Component {
         loader.fguiAddPackage("lobby/fui_join_room/lobby_join_room");
         const view = fgui.UIPackage.createObject("lobby_join_room", "joinRoom").asCom;
         CommonFunction.setViewInCenter(view);
+
+        const mask = view.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
 
         this.view = view;
 
@@ -114,10 +117,10 @@ export class JoinRoom extends cc.Component {
     }
 
     private onOkBtnClick(): void {
-       this.win.hide();
-       this.destroy();
+        this.win.hide();
+        this.destroy();
 
-       this.newRoomView.joinRoom(this.numbers.text);
+        this.newRoomView.joinRoom(this.numbers.text);
     }
 
 }
