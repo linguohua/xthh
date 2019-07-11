@@ -11,6 +11,17 @@ export namespace HandlerMsgDeal {
         console.log("HandlerMsgDeal---------------- ", msgDeal);
         //清理
         room.resetForNewHand();
+        //播放开局动画 并等待
+        await room.roomView.playAnimation("Effect_ico_kaiju", true);
+        //播放庄动画 并等待
+        let zhuangAni = "Effect_ico_huanzhuang";
+        if (room.bankerChairID === msgDeal.lord_id) {
+            zhuangAni = "Effect_ico_lianzhuang";
+        }
+        await room.roomView.playAnimation(zhuangAni, true);
+        //播放定赖动画 并等待
+        // await room.roomView.playAnimation("Effect_ico_dinglai", true);
+
         room.laiziID = msgDeal.laizi;
         room.laigenID = msgDeal.fanpai;
         room.setRoundMask();
@@ -35,7 +46,7 @@ export namespace HandlerMsgDeal {
         room.setWaitingPlayer(player.chairID, msgDeal.time);
 
         room.bankerChairID = msgDeal.lord_id; //庄家
-        // room.coWaitSeconds(1);
+        room.setBankerFlag();
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);

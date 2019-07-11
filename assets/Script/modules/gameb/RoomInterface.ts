@@ -62,7 +62,7 @@ export class PlayerInfo {
 export interface RoomViewInterface {
     stopDiscardCountdown(): void;
     clearWaitingPlayer(): void;
-    gameEndAnimation(num: number): Promise<void>;
+    playAnimation(effectName: string, isWait?: boolean): Promise<void>;
 }
 
 /**

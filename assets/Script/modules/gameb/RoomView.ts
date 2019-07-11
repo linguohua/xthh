@@ -113,23 +113,17 @@ export class RoomView {
         // )
     }
 
-    // 海底动画
-    public async gameEndAnimation(num: number): Promise<void> {
-        // const screenWidth = 1136;
-        // const screenHeight = 640;
-        // const x = screenWidth / 2;
-        // const y = screenHeight / 2;
-        // Logger.debug("xxxx ", x, y);
-        let effectName = "Effect_ico_zuihousizhang";
-        if (num === 2) {
-            effectName = "Effect_ico_zuihouerzhang";
-        } else if (num === 3) {
-            effectName = "Effect_ico_zuihousanzhang";
+    // 播放动画
+    public async playAnimation(effectName: string, isWait?: boolean): Promise<void> {
+        if (effectName === undefined || effectName === null) {
+            return;
         }
-        await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
-        // animation.coplay("animations/Effects_jiemian_duijukaishi.prefab", this.unityViewNode, x, y);
+        if (isWait !== undefined && isWait) {
+            await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
+        } else {
+            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
+        }
     }
-
     public startDiscardCountdown(time: number): void {
         if (this.leftTimerCB === undefined) {
             this.leftTimerCB = <Function>this.countDownCallBack.bind(this);

@@ -371,7 +371,7 @@ export class Room {
     public setBankerFlag(): void {
         Object.keys(this.players).forEach((key: string) => {
             const v = this.players[key];
-            v.playerView.head.onUpdateBankerFlag(v.chairID === this.bankerChairID, this.isContinuousBanker);
+            v.playerView.head.onUpdateBankerFlag(v.userID === `${this.bankerChairID}`, this.isContinuousBanker);
         });
     }
 
@@ -656,7 +656,9 @@ export class Room {
         }
         //压入捉铳不铳的标志
         this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
+        //显示庄家
         this.bankerChairID = this.roomInfo.lord_id;
+        this.setBankerFlag();
         //压入自摸不自摸的标志
         this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
 
