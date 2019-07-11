@@ -375,11 +375,11 @@ export class Room {
         });
     }
 
-    public setDiscardAble(): void {
+    public setDiscardAble(isDiscardAble: boolean): void {
         if (!this.isMySelfDisCard) {
             return;
         }
-        this.myPlayer.setDiscardAble();
+        this.myPlayer.setDiscardAble(isDiscardAble);
     }
 
     public loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void {
@@ -660,8 +660,6 @@ export class Room {
         //压入自摸不自摸的标志
         this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
 
-        // this.setWaitingPlayer(this.roomInfo.cur_idx);
-        // this.setDiscardAble(this.roomInfo.cur_idx); // 如果是轮到我出牌 要让牌可以点击
         const curPlayerInfo = this.roomInfo.players[this.roomInfo.cur_idx];
         if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
             const lastTile = curPlayerInfo.curcards[curPlayerInfo.curcards.length - 1];

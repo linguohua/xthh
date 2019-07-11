@@ -119,7 +119,7 @@ export namespace HandlerMsgActionOPAck {
                 if (player.isCanPong && room.lastDisCardTile !== 0) {
                     player.notPong = room.lastDisCardTile;
                 }
-                room.setDiscardAble();
+                // room.setDiscardAble();
             } else if (pAck.op === TypeOfOP.BUZHUOCHONG) {
                 // player.setNotCatch(true);
                 // room.m_bSaveZCHFlag = false;

@@ -558,6 +558,9 @@ export class PlayerView {
             //把听牌标志隐藏
             this.hideTing();
         }
+        // if (this.room.isMySelfDisCard) {
+        //     this.room.setDiscardAble();
+        // }
 
         this.hideOperationButtons();
         //隐藏听牌详情界面
@@ -1070,7 +1073,7 @@ export class PlayerView {
             return;
         }
         for (const clickCtrl of this.handsClickCtrls) {
-            clickCtrl.isDiscardable = null;
+            clickCtrl.isDiscardable = false;
             if (clickCtrl.isGray) {
                 clickCtrl.isGray = false;
                 this.clearGray(clickCtrl.h);

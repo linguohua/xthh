@@ -562,6 +562,7 @@ export class Player {
         // this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
         this.playerView.clearAllowedActionsView(false);
+        this.setDiscardAble(this.host.isMySelfDisCard); //轮到我的时候 要设置手牌可点
         //重置手牌位置
         this.playerView.restoreHandsPositionAndClickCount(-1);
 
@@ -640,14 +641,14 @@ export class Player {
         return true;
     }
 
-    public setDiscardAble(): void {
+    public setDiscardAble(isDiscardable: boolean): void {
         const playerView = this.playerView;
         const handsClickCtrls = playerView.handsClickCtrls;
         for (let i = 0; i < 14; i++) {
             const handsClickCtrl = handsClickCtrls[i];
             const tileID = handsClickCtrl.tileID;
             if (tileID !== null) {
-                handsClickCtrl.isDiscardable = true;
+                handsClickCtrl.isDiscardable = isDiscardable;
                 const readyHandList = this.host.myMahjong_showTingGroup(tileID);
                 handsClickCtrl.t.visible = readyHandList.length > 0;
                 handsClickCtrl.readyHandList = readyHandList;

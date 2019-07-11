@@ -36,7 +36,7 @@ export namespace HandlerActionResultDraw {
     //     }
     // };
 
-    const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard) => {
+    const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard): boolean => {
         const buttonMap: string[] = [];
         if (reply.card !== 0 && player.cancelZiMo === false) {
             const hu = room.mAlgorithm.canHuPai(player.tilesHand);
@@ -57,7 +57,11 @@ export namespace HandlerActionResultDraw {
             // player.lastDisCardTile = reply.card;
             buttonMap.push(ButtonDef.Skip);
             player.playerView.showButton(buttonMap);
+
+            return true;
         }
+
+        return false;
     };
 
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
@@ -88,8 +92,7 @@ export namespace HandlerActionResultDraw {
         if (player.isMe()) {
             room.isMySelfDisCard = true;
             player.cancelZhuochong = false;
-            checkButton(room, player, reply);
-            room.setDiscardAble();
+            room.setDiscardAble(!checkButton(room, player, reply));
         } else {
             room.isMySelfDisCard = false;
         }
