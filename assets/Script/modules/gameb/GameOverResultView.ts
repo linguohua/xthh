@@ -35,7 +35,9 @@ export class GameOverResultView extends cc.Component {
     private textRoomNumber: fgui.GObject;
     private dateText: fgui.GObject;
     private maxScore: number = 0;
+    private minScore: number = 0;
     private maxScoreIndexs: ViewGroup[];
+    private minScoreIndexs: ViewGroup[];
     private maxChucker: number = 0;
     private maxChuckerIndexs: ViewGroup[];
     private contentGroup: ViewGroup[];
@@ -76,6 +78,9 @@ export class GameOverResultView extends cc.Component {
 
         //更新数据
         this.updateAllData();
+
+        this.resetPosition();
+
         this.win.show();
     }
 
@@ -128,6 +133,15 @@ export class GameOverResultView extends cc.Component {
         } else if (score === this.maxScore) {
             this.maxScoreIndexs.push(c);
         }
+
+        if (score < this.minScore) {
+            this.minScoreIndexs = [];
+            this.minScoreIndexs.push(c);
+            this.minScore = score;
+        } else if (score === this.minScore && score !== 0) {
+            this.minScoreIndexs.push(c);
+        }
+
         if (score < this.maxChucker) {
             this.maxChuckerIndexs = [];
             this.maxChuckerIndexs.push(c);
@@ -206,14 +220,22 @@ export class GameOverResultView extends cc.Component {
                     //玩家分数信息
                     this.updatePlayerScoreData(playerStat, c, ps[playerStat.data.id]);
                 }
-                if (this.maxScore > 0 && this.maxScoreIndexs !== undefined) {
-                    for (const maxScoreIndex of this.maxScoreIndexs) {
-                        maxScoreIndex.bigWiner.url = `ui://dafeng/js_jsdyj`;
-                        maxScoreIndex.bigWiner.visible = true;
-                        // Logger.debug("bigWiner:", maxScoreIndex.bigWiner);
-                        // this.setDYJEffect(maxScoreIndex);
-                        // TODO: 设置大赢家
-                    }
+            }
+
+            if (this.maxScore > 0 && this.maxScoreIndexs !== undefined) {
+                for (const maxScoreIndex of this.maxScoreIndexs) {
+                    maxScoreIndex.bigWiner.url = `ui://dafeng/js_jsdyj`;
+                    maxScoreIndex.bigWiner.visible = true;
+                    // Logger.debug("bigWiner:", maxScoreIndex.bigWiner);
+                    // this.setDYJEffect(maxScoreIndex);
+                    // TODO: 设置大赢家
+                }
+            }
+
+            if (this.minScore < 0 && this.minScoreIndexs !== undefined) {
+                for (const minScoreIndex of this.minScoreIndexs) {
+                    minScoreIndex.bigWiner.url = `ui://dafeng/js_jsdsj`;
+                    minScoreIndex.bigWiner.visible = true;
                 }
             }
         }
@@ -286,5 +308,22 @@ export class GameOverResultView extends cc.Component {
 
     private onShareButtonClick(): void {
         Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
+    }
+
+    private resetPosition(): void {
+        if (this.msgGameOver.scores.length !== 2) {
+            return;
+        }
+
+        const originPositions: cc.Vec2[] = [];
+        for (let i = 0; i < 4; i++) {
+            originPositions[i] = new cc.Vec2(this.contentGroup[i].group.x, this.contentGroup[i].group.y);
+        }
+
+        this.contentGroup[2].group.visible = false;
+        this.contentGroup[3].group.visible = false;
+
+        this.contentGroup[0].group.setPosition(originPositions[1].x, originPositions[1].y);
+        this.contentGroup[1].group.setPosition(originPositions[2].x, originPositions[2].y);
     }
 }
