@@ -8,6 +8,8 @@ import { RoomInterface } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 
+const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
+
 //面子牌组资源 后缀
 const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
     [TypeOfOP.Kong]: "gang1",
@@ -16,6 +18,22 @@ const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
     [TypeOfOP.Pong]: "chipeng"
     // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 };
+
+const hupaiType: { [key: number]: string } = {
+    [1001]: "碰", //碰 这个没定义
+    [1002]: "飘赖", //飘赖
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DIANXIAO]: "点笑", //点笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "闷笑", //闷笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "回头笑", //回头笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN]: "小朝天", //小朝天
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN]: "大朝天", //大朝天
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG]: "捉铳", //捉铳
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO]: "黑摸", //黑摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "黑摸", //黑摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO]: "软摸", //软摸
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "软摸" //软摸
+};
+
 
 /**
  * palyer ui
@@ -197,11 +215,7 @@ export class HandResultView extends cc.Component {
             name = `${userID}`;
         }
         c.textName.text = name;
-        c.textId.text = `ID:${userID}`;
-
-        if (player.id === this.msgHandOver.win_id) {
-            c.hu.visible = true;
-        }
+        // c.textId.text = `ID:${userID}`;
         //房主
         // c.imageRoom.visible = player.isMe();
         //庄家
@@ -274,6 +288,30 @@ export class HandResultView extends cc.Component {
             oCardObj.visible = true;
             // }
         }
+
+        if (playerScore.hupai_card > 0) {
+            c.hu.visible = true;
+            c.ruleText.text = this.getHupaiType(playerScore);
+        }
+    }
+
+    private getHupaiType(playerScore: proto.casino.Iplayer_score): string {
+        const opscores = playerScore.opscores;
+        let huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
+        for (const opscore of opscores) {
+            if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG ||
+                opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO ||
+                opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO ||
+                opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO) {
+                huType = opscore.type;
+            } else if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2) {
+                huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
+            } else if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2) {
+                huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO;
+            }
+        }
+
+        return hupaiType[huType];
     }
     //更新详细数据
     // private updatePlayerScoreData(player: Player, c: ViewGroup): void {
@@ -343,6 +381,7 @@ export class HandResultView extends cc.Component {
             //显示马牌
             // this.updateFakeList(fakeList);
 
+            // 显示最后的一张牌
             if (this.room.isMe(`${playerScore.data.id}`)) {
                 const lastCard = playerScore.last_card;
                 const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
@@ -417,7 +456,7 @@ export class HandResultView extends cc.Component {
             //名字
             contentGroupData.textName = group.getChild("name");
             contentGroupData.textId = group.getChild("id");
-            contentGroupData.textId.visible = false;
+            // contentGroupData.textId.visible = false;
             //庄家
             contentGroupData.zhuang = group.getChild("zhuang");
             contentGroupData.zhuang.visible = false;
