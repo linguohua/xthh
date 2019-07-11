@@ -845,12 +845,16 @@ export class PlayerView {
                     image.url = "ui://dafeng/ts_chi";
                 } else {
                     const x = dir - viewChairID;
+                    image.url = "ui://dafeng/zm_icon_jt";
                     if (x === 1 || x === -3) {
-                        image.url = "ui://dafeng/ts_xia";
+                        // image.url = "ui://dafeng/ts_xia";
+                        image.rotation = 90;
                     } else if (x === 2 || x === -2) {
-                        image.url = "ui://dafeng/ts_dui";
+                        // image.url = "ui://dafeng/ts_dui";
+                        image.rotation = 0;
                     } else if (x === 3 || x === -1) {
-                        image.url = "ui://dafeng/ts_shang";
+                        // image.url = "ui://dafeng/ts_shang";
+                        image.rotation = -90;
                     }
                 }
                 image.visible = true;

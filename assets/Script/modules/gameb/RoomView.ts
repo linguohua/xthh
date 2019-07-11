@@ -5,18 +5,10 @@ import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/Disba
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
-import { RoomInterface, TingPai, room_status } from "./RoomInterface";
+import { room_status, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 
-//转换玩家chairid
-const playerCound: number[][] = [
-    [0],
-    [0],
-    [1, 3],
-    [1, 2, 4],
-    [1, 2, 3, 4]
-];
 const aa = "07-10-18"; //假的版本号
 /**
  * 房间
@@ -256,12 +248,7 @@ export class RoomView {
 
     // 根据玩家的chairID获得相应的playerView
     // 注意服务器的chairID是由0开始
-    public getPlayerViewByChairID(chairID: number, myChairId: number): PlayerView {
-        const playerViews = this.playerViews;
-
-        const le = this.room.roomInfo.players.length;
-        const c = (chairID - myChairId + le) % le;
-        const newC = playerCound[le][c];
+    public getPlayerViewByChairID(num: number): PlayerView {
         // const newM = playerCound[le][myChairId];
         //加1是由于lua table索引从1开始
         //获得chairID相对于本玩家的偏移
@@ -270,7 +257,7 @@ export class RoomView {
 
         // return playerViews[c + 1];
 
-        return playerViews[newC];
+        return this.playerViews[num];
     }
 
     //根据房间的状态做一些开关变量切换

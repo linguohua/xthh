@@ -89,6 +89,14 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     // [msgCodeXTHH.XTSJ_MSG_SC_SCORE]: HandlerMsgTableScore.onMsg //结算
 };
 
+//转换玩家chairid
+const playerCound: number[][] = [
+    [0],
+    [0],
+    [1, 3],
+    [1, 2, 4],
+    [1, 2, 3, 4]
+];
 /**
  * 房间
  */
@@ -194,7 +202,9 @@ export class Room {
         const player = new Player(`${playerInfo.id}`, chairID, this);
         player.updateByPlayerInfo(playerInfo, chairID);
 
-        const playerView = this.roomView.getPlayerViewByChairID(chairID, this.myPlayer.chairID);
+        const pChair = this.getPlayerViewChairIDByChairID(chairID);
+
+        const playerView = this.roomView.getPlayerViewByChairID(pChair);
         player.bindView(playerView);
 
         this.players[player.userID] = player;
@@ -246,11 +256,15 @@ export class Room {
     // 根据玩家的chairID获得相应的playerViewChairID    // 注意服务器的chairID是由0开始
     public getPlayerViewChairIDByChairID(chairID: number): number {
         const myChairId = this.myPlayer.chairID;
-        //获得chairID相对于本玩家的偏移
-        const c = (chairID - myChairId + 4) % 4;
-        //加1是由于lua table索引从1开始
 
-        return c + 1;
+        const le = this.roomInfo.players.length;
+        const c = (chairID - myChairId + le) % le;
+
+        return playerCound[le][c];
+
+        //获得chairID相对于本玩家的偏移
+        // const c = (chairID - myChairId + 4) % 4;
+        //加1是由于lua table索引从1开始
     }
     //从房间的玩家列表中删除一个玩家
     //注意玩家视图的解除绑定需要外部处理
