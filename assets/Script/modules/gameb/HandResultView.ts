@@ -128,7 +128,7 @@ export class HandResultView extends cc.Component {
         const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
-        this.countDown.text = "25 继续"
+        this.countDown.text = `${msgHandOver.time} 继续`
 
         const infoBtn = this.unityViewNode.getChild("guizeBtn");
         infoBtn.onClick(this.onRoomRuleBtnClick, this);
@@ -144,7 +144,7 @@ export class HandResultView extends cc.Component {
         //更新数据
         this.updateAllData();
 
-        this.countDownTime = 25;
+        this.countDownTime = msgHandOver.time;
         this.unschedule(this.countDownAgian);
         this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER)
 
@@ -175,6 +175,9 @@ export class HandResultView extends cc.Component {
             // 输了
             this.result.url = `ui://dafeng/js_zi_sl`;
         }
+        this.result.visible = true;
+
+        Logger.debug("this.result:", this.result);
 
         //房间信息
         if (this.room.roomInfo === null) {
