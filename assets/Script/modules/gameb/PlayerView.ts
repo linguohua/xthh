@@ -503,12 +503,12 @@ export class PlayerView {
             TileImageMounter.mountTileImage(h, tileshand[i]);
             h.visible = true;
             handsClickCtrls[j].tileID = tileshand[i];
-            if (this.player.isRichi) {
-                //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
-                //判断 handsClickCtrls[j].isDiscardable 是否为 true, 是的话 则不能 setGray
-                this.setGray(h);
-                handsClickCtrls[j].isGray = true;
-            }
+            // if (this.player.isRichi) {
+            //     //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
+            //     //判断 handsClickCtrls[j].isDiscardable 是否为 true, 是的话 则不能 setGray
+            //     this.setGray(h);
+            //     handsClickCtrls[j].isGray = true;
+            // }
             j = j + 1;
         }
     }
@@ -693,12 +693,12 @@ export class PlayerView {
 
     //设置灰度
     public setGray(obj: fgui.GComponent): void {
-        obj.grayed = true;
+        // obj.grayed = true;
     }
 
     //恢复灰度
     public clearGray(obj: fgui.GComponent): void {
-        obj.grayed = false;
+        // obj.grayed = false;
     }
 
     public getUserInfoPos(): fgui.GObject {
@@ -1068,10 +1068,10 @@ export class PlayerView {
 
     //让所有的手牌都不可以点击
     private clearDiscardable(): void {
-        if (this.player.isRichi) {
-            //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
-            return;
-        }
+        // if (this.player.isRichi) {
+        //     //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
+        //     return;
+        // }
         for (const clickCtrl of this.handsClickCtrls) {
             clickCtrl.isDiscardable = false;
             if (clickCtrl.isGray) {

@@ -644,16 +644,22 @@ export class Player {
     public setDiscardAble(isDiscardable: boolean): void {
         const playerView = this.playerView;
         const handsClickCtrls = playerView.handsClickCtrls;
+        let isTing = false;
         for (let i = 0; i < 14; i++) {
             const handsClickCtrl = handsClickCtrls[i];
             const tileID = handsClickCtrl.tileID;
             if (tileID !== null) {
                 handsClickCtrl.isDiscardable = isDiscardable;
                 const readyHandList = this.host.myMahjong_showTingGroup(tileID);
-                handsClickCtrl.t.visible = readyHandList.length > 0;
+                const isT = readyHandList.length > 0;
+                handsClickCtrl.t.visible = isT;
                 handsClickCtrl.readyHandList = readyHandList;
+                if (isT) {
+                    isTing = true;
+                }
             }
         }
+        this.isRichi = isTing;
     }
     /**
      * name
@@ -748,9 +754,10 @@ export class Player {
         return count;
     }
 
-    private myMahjong_setIcoTing(tile: number): boolean {
-        return this.host.mAlgorithm.canTingPai(this.tilesHand, tile);
-    }
+    // private myMahjong_setIcoTing(tile: number): boolean {
+    //     return this.host.mAlgorithm.canTingPai(this.tilesHand, tile);
+    // }
+
     private playSound(directory: string, effectName: string): void {
         if (effectName === undefined || effectName === null) {
             return;
