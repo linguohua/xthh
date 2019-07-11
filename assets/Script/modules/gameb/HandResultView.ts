@@ -74,6 +74,7 @@ export class HandResultView extends cc.Component {
     // private textTime: fgui.GObject;
     // private fakes: fgui.GComponent[];
     private aniPos: fgui.GObject;
+    private result: fgui.GLoader;
     private contentGroup: ViewGroup[];
 
     private countDownTime: number;
@@ -127,6 +128,7 @@ export class HandResultView extends cc.Component {
         const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
+        this.countDown.text = "25 继续"
 
         const infoBtn = this.unityViewNode.getChild("guizeBtn");
         infoBtn.onClick(this.onRoomRuleBtnClick, this);
@@ -142,7 +144,7 @@ export class HandResultView extends cc.Component {
         //更新数据
         this.updateAllData();
 
-        this.countDownTime = 22;
+        this.countDownTime = 25;
         this.unschedule(this.countDownAgian);
         this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER)
 
@@ -151,27 +153,28 @@ export class HandResultView extends cc.Component {
 
     //更新房间相关数据
     private updateRoomData(): void {
-        let en: string;
-        if (this.msgHandOver.op > 0) {
-            // const myPlayer = <Player>this.room.getMyPlayer();
-            if (this.room.isMe(`${this.msgHandOver.win_id}`)) {
-                en = "Effect_jiemian_shengli";
-            } else {
-                en = "Effect_jiemian_shibai";
-            }
-        } else {
-            en = "Effect_jiemian_huanngzhuang";
-        }
-        this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/${en}`, this.aniPos.node);
-
-        // let date: string;
-        // if (this.room.isReplayMode()) {
-
+        // let en: string;
+        // if (this.msgHandOver.op > 0) {
+        //     // const myPlayer = <Player>this.room.getMyPlayer();
+        //     if (this.room.isMe(`${this.msgHandOver.win_id}`)) {
+        //         en = "Effect_jiemian_shengli";
+        //     } else {
+        //         en = "Effect_jiemian_shibai";
+        //     }
         // } else {
-        //     const startTime = this.room.re.msgHandRecord.endTime;
-        //     date = os.date("%Y-%m-%d %H:%M", startTime * 60)
+        //     en = "Effect_jiemian_huanngzhuang";
         // }
-        // this.textTime.text = date;
+        if (this.msgHandOver.win_id === 0) {
+            // 慌庄
+            this.result.url = `ui://dafeng/js_zi_lj`;
+        } else if (this.room.isMe(`${this.msgHandOver.win_id}`)) {
+            // 赢了
+            this.result.url = `ui://dafeng/js_zi_yl`;
+            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_jiemian_shengli`, this.aniPos.node);
+        } else {
+            // 输了
+            this.result.url = `ui://dafeng/js_zi_sl`;
+        }
 
         //房间信息
         if (this.room.roomInfo === null) {
@@ -184,14 +187,20 @@ export class HandResultView extends cc.Component {
         }
         this.textRoomNumber.text = `房号:${roomNumber}`;
 
+        // 显示赖子
         const laizi = this.room.laiziID;
         const laiziCom = this.laizi.getChild("laiziCOm").asCom;
+        laiziCom.getChild("laiziMask").visible = true;
         TileImageMounter.mountTileImage(laiziCom, laizi);
-
+        // 显示最后一张牌
+        const lastCard = this.msgHandOver.nextcard;
+        const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
+        this.lastOne.visible = true;
+        TileImageMounter.mountTileImage(lastOneCom, lastCard);
+        // 显示底注
         this.dizhu.text = `底注：${this.room.roomInfo.base}`;
         const date = new Date();
         this.date.text = CommonFunction.formatDate(date);
-
     }
 
     //马牌列表显示
@@ -380,14 +389,6 @@ export class HandResultView extends cc.Component {
             }
             //显示马牌
             // this.updateFakeList(fakeList);
-
-            // 显示最后的一张牌
-            if (this.room.isMe(`${playerScore.data.id}`)) {
-                const lastCard = playerScore.last_card;
-                const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
-                this.lastOne.visible = true;
-                TileImageMounter.mountTileImage(lastOneCom, lastCard);
-            }
         }
     }
     //处理大胡数据
@@ -437,6 +438,8 @@ export class HandResultView extends cc.Component {
         this.lastOne = this.unityViewNode.getChild("lastOne").asCom;
         //特效位置节点
         this.aniPos = this.unityViewNode.getChild("aniPos");
+
+        this.result = this.unityViewNode.getChild("loader").asLoader;
         // this.fakes = this.initFakes(this.unityViewNode);
         const contentGroup: ViewGroup[] = [];
         for (let i = 0; i < 4; i++) {
