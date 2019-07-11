@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://l6hq6c41tfg8f" designImageAlpha="0">
-  <controller name="tab" pages="0,房卡,1,欢乐豆" selected="1"/>
+  <controller name="tab" pages="0,房卡,1,欢乐豆" selected="0"/>
   <displayList>
+    <image id="n8_im76" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640"/>
     <image id="n0_tfg8" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="158,57" size="815,518"/>
     <component id="n1_tfg8" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="144,54"/>
     <component id="n2_tfg8" name="douBtn" src="tfg8m" fileName="btn/douBtn.xml" xy="548,64">
-      <Button checked="true" controller="tab" page="1"/>
+      <Button controller="tab" page="1"/>
     </component>
     <component id="n3_tfg8" name="fkBtn" src="tfg8k" fileName="btn/fkBtn.xml" xy="379,64">
-      <Button controller="tab" page="0"/>
+      <Button checked="true" controller="tab" page="0"/>
     </component>
     <component id="n7_tfg8" name="douCom" src="tfg8p" fileName="douCom.xml" xy="186,132">
       <gearDisplay controller="tab" pages="1"/>

@@ -23,6 +23,7 @@
     <image id="jmxyj" name="boy_img.png" path="/resource/" exported="true"/>
     <image id="jmxyk" name="girl_img.png" path="/resource/" exported="true"/>
     <image id="jmxyl" name="txk_wx80.png" path="/resource/" exported="true"/>
+    <image id="im76m" name="ty_zz.png" path="/resource/" exported="true" scale="9grid" scale9grid="1,1,1,1"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

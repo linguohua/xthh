@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://l6hq6c41tfg8h" designImageAlpha="100">
   <displayList>
+    <image id="n27_im76" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640"/>
     <image id="n0_tfg8" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="158,57" size="815,518"/>
     <image id="n10_tfg8" name="n10" src="tfg83" fileName="resource/cz_di3.png" xy="187,142" size="761,348"/>
     <image id="n24_tfg8" name="n24" src="tfg8d" fileName="resource/cz_icon_vip1.png" xy="242,328"/>
@@ -8,11 +9,11 @@
     <image id="n26_tfg8" name="n26" src="tfg85" fileName="resource/cz_fgx.png" xy="198,402" size="741,2"/>
     <component id="n1_tfg8" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="144,54"/>
     <text id="n8_tfg8" name="n8" xy="488,68" size="152,41" fontSize="33" color="#ffffff" align="center" vAlign="middle" letterSpacing="2" autoSize="none" bold="true" singleLine="true" text="VIP特权"/>
-    <text id="n11_tfg8" name="n11" xy="252,153" size="60,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="身份"/>
-    <text id="n12_tfg8" name="n12" xy="421,153" size="87,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="充值额"/>
-    <text id="n13_tfg8" name="n13" xy="593,153" size="114,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="对应商城"/>
-    <text id="n14_tfg8" name="n14" xy="782,153" size="114,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="其他权限"/>
-    <text id="n16_tfg8" name="n16" xy="215,226" size="130,44" fontSize="30" color="#ba4a07" align="center" vAlign="middle" letterSpacing="1" bold="true" text="普通玩家&#xA;"/>
+    <text id="n11_tfg8" name="n11" xy="252,153" size="59,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="身份"/>
+    <text id="n12_tfg8" name="n12" xy="421,153" size="86,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="充值额"/>
+    <text id="n13_tfg8" name="n13" xy="593,153" size="113,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="对应商城"/>
+    <text id="n14_tfg8" name="n14" xy="782,153" size="113,38" fontSize="26" color="#856d57" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="其他权限"/>
+    <text id="n16_tfg8" name="n16" xy="215,226" size="129,44" fontSize="30" color="#ba4a07" align="center" vAlign="middle" letterSpacing="1" bold="true" text="普通玩家&#xA;"/>
     <text id="n17_tfg8" name="n17" xy="420,232" size="87,35" fontSize="24" color="#856d57" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="0"/>
     <text id="n18_tfg8" name="n18" xy="420,337" size="87,35" fontSize="24" color="#856d57" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="100"/>
     <text id="n19_tfg8" name="n19" xy="593,231" size="114,35" fontSize="24" color="#856d57" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="普通商城"/>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://3ayys8dnpg4qv" designImageAlpha="100">
   <displayList>
+    <image id="n65_im76" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640"/>
     <image id="n44_h8zv" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="217,127" size="700,409"/>
     <image id="n62_pg4q" name="bg1" src="pg4q1b" fileName="resource/srf_srk.png" xy="262,227" size="399,73"/>
     <component id="n46_h8zv" name="closeBtn" src="pg4qt" fileName="btnClose.xml" xy="205,123"/>
@@ -18,6 +19,6 @@
     <component id="n60_pg4q" name="buttonQD" src="pg4q1a" fileName="buttonQD.xml" xy="784,321"/>
     <component id="n61_pg4q" name="buttonSC" src="pg4q19" fileName="buttonSC.xml" xy="678,226"/>
     <text id="n43_h8zv" name="number" xy="338,228" size="241,84" font="Microsoft YaHei" fontSize="60" color="#fcf3d7" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="123456"/>
-    <text id="n47_h8zv" name="hintText" xy="327,179" size="453,40" font="Microsoft YaHei" fontSize="28" color="#6e5840" align="center" vAlign="middle" text="请输入您要加入的6位数朋友房间号 !"/>
+    <text id="n47_h8zv" name="hintText" xy="327,179" size="458,40" font="Microsoft YaHei" fontSize="28" color="#6e5840" align="center" vAlign="middle" text="请输入您要加入的6位数朋友房间号 !"/>
   </displayList>
 </component>

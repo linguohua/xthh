@@ -1,4 +1,4 @@
-import { DataStore, Dialog, GResLoader, Logger } from "../../lcore/LCoreExports";
+import { Dialog, GResLoader } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
     switchBg(agree: number): void;
@@ -14,8 +14,8 @@ export class RoomSettingView extends cc.Component {
     private view: fgui.GComponent;
     private eventTarget: cc.EventTarget;
     private room: RoomInterface;
-    private musicSlider: fgui.GSlider;
-    private soundSlider: fgui.GSlider;
+    // private musicSlider: fgui.GSlider;
+    // private soundSlider: fgui.GSlider;
 
     public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, position: cc.Vec2): void {
         this.room = room;
@@ -39,10 +39,6 @@ export class RoomSettingView extends cc.Component {
         //this.saveData();
         this.eventTarget.emit("destroy");
         this.view.dispose();
-    }
-
-    private onCloseClick(): void {
-        this.destroy();
     }
 
     private initView(isOwner: boolean): void {
@@ -93,19 +89,19 @@ export class RoomSettingView extends cc.Component {
         // //监听view 移出舞台。。。 保存音量
         // this.view.on(fgui.Event.UNDISPLAY, this.saveData, this);
     }
-    private saveData(): void {
-        DataStore.setItem("soundVolume", this.soundSlider.value.toString());
-        DataStore.setItem("musicVolume", this.musicSlider.value.toString());
-    }
-    private onMusicSliderChanged(slider: fgui.GSlider): void {
-        // Logger.debug("onMusicSliderChanged slider = ", slider.value
-        cc.audioEngine.setMusicVolume(slider.value / 100);
-    }
+    // private saveData(): void {
+    //     DataStore.setItem("soundVolume", this.soundSlider.value.toString());
+    //     DataStore.setItem("musicVolume", this.musicSlider.value.toString());
+    // }
+    // private onMusicSliderChanged(slider: fgui.GSlider): void {
+    //     // Logger.debug("onMusicSliderChanged slider = ", slider.value
+    //     cc.audioEngine.setMusicVolume(slider.value / 100);
+    // }
 
-    private onSoundSliderChanged(slider: fgui.GSlider): void {
-        // Logger.debug("onSoundSliderChanged slider = ", slider.value);
-        cc.audioEngine.setEffectsVolume(slider.value / 100);
-    }
+    // private onSoundSliderChanged(slider: fgui.GSlider): void {
+    //     // Logger.debug("onSoundSliderChanged slider = ", slider.value);
+    //     cc.audioEngine.setEffectsVolume(slider.value / 100);
+    // }
 
     private onDisbandBtnClick(): void {
         //

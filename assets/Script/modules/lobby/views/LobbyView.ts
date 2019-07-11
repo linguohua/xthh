@@ -74,6 +74,16 @@ export class LobbyView extends cc.Component {
         diBg.width = bg.width;
         diBg.setPosition(-x, diBg.y);
 
+        // 兼容跑马灯背景
+        const bg3 = view.getChild('bg3');
+        bg3.width = bg.width;
+        bg3.setPosition(-x, diBg.y);
+
+        // 兼容跑马灯文字
+        const announcementText = view.getChild('announcementText');
+        announcementText.width = bg.width;
+        announcementText.setPosition(-x, diBg.y);
+
         this.view = view;
         this.initView();
         this.testJoinGame();
