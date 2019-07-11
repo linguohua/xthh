@@ -31,7 +31,7 @@
     <image id="lqn3hr" name="zm_gpsdw_jldix1.png" path="/gps/z_桌面GPS定位/"/>
     <image id="lqn3hs" name="zm_gpsdw_jldix2.png" path="/gps/z_桌面GPS定位/"/>
     <image id="lqn3ht" name="zm_gpsdw_jldix3.png" path="/gps/z_桌面GPS定位/"/>
-    <image id="lqn3hu" name="zm_gpsdw_mzdi.png" path="/gps/z_桌面GPS定位/"/>
+    <image id="lqn3hu" name="zm_gpsdw_mzdi.png" path="/gps/z_桌面GPS定位/" scale="9grid" scale9grid="3,3,6,6"/>
     <image id="lqn3hv" name="zm_gpsdw_tkdi.png" path="/gps/z_桌面GPS定位/" scale="9grid" scale9grid="29,90,15,10"/>
     <component id="o570gi" name="disbandBtn.xml" path="/gps/"/>
     <component id="o570gj" name="continueBtn.xml" path="/gps/"/>

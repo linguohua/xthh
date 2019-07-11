@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://ls4obr7jlqn3fm" designImageAlpha="100">
   <displayList>
+    <image id="n19_im76" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640"/>
     <image id="n0_mjk8" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,59" size="815,518"/>
     <image id="n12_tfg8" name="bg2" src="ik116" fileName="resource/ty_di1.png" pkg="snwj6cnx" xy="247,181" size="648,226"/>
     <component id="n13_tfg8" name="player1" src="tfg86" fileName="disbandRoom/disband_room_player.xml" xy="269,198"/>
