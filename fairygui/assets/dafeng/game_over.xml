@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://397phochlqn3f7" designImageAlpha="100">
   <displayList>
+    <image id="n22_im76" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640"/>
     <image id="n13_tfg8" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="81,28" size="974,587"/>
     <image id="n19_nfh4" name="n19" src="lqn3lt" fileName="_resource/j_结算/js_fgx.png" xy="345,58" size="2,450"/>
     <image id="n20_nfh4" name="n20" src="lqn3lt" fileName="_resource/j_结算/js_fgx.png" xy="564,58" size="2,450"/>

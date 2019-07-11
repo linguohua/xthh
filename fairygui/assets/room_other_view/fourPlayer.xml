@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1034,372">
+  <controller name="12Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <controller name="13Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <controller name="14Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <controller name="23Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <controller name="24Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <controller name="34Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <displayList>
+    <image id="n32_im76" name="bg1" src="lqn3hu" fileName="gps/z_桌面GPS定位/zm_gpsdw_mzdi.png" xy="260,196" size="132,54" group="n73_im76"/>
+    <image id="n33_im76" name="bg2" src="lqn3hu" fileName="gps/z_桌面GPS定位/zm_gpsdw_mzdi.png" xy="520,276" size="132,54" group="n73_im76"/>
+    <image id="n30_im76" name="bg3" src="lqn3hu" fileName="gps/z_桌面GPS定位/zm_gpsdw_mzdi.png" xy="336,3" size="132,54" group="n73_im76"/>
+    <image id="n31_im76" name="bg4" src="lqn3hu" fileName="gps/z_桌面GPS定位/zm_gpsdw_mzdi.png" xy="0,276" size="132,54" group="n73_im76"/>
+    <image id="n22_im76" name="1_2_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="556,221" size="215,4" group="n73_im76" rotation="195">
+      <gearDisplay controller="12Ctrl" pages="0"/>
+    </image>
+    <image id="n21_im76" name="1_2_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="556,221" size="215,4" group="n73_im76" rotation="195">
+      <gearDisplay controller="12Ctrl" pages="1"/>
+    </image>
+    <image id="n20_im76" name="1_2_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="556,221" size="215,4" group="n73_im76" rotation="195">
+      <gearDisplay controller="12Ctrl" pages="2"/>
+    </image>
+    <image id="n25_im76" name="1_3_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="325,139" size="100,4" group="n73_im76" rotation="270">
+      <gearDisplay controller="13Ctrl" pages="0"/>
+    </image>
+    <image id="n24_im76" name="1_3_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="325,139" size="100,4" group="n73_im76" rotation="270">
+      <gearDisplay controller="13Ctrl" pages="1"/>
+    </image>
+    <image id="n23_im76" name="1_3_red" src="lqn3hr" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldix1.png" xy="325,139" size="100,4" group="n73_im76" rotation="270">
+      <gearDisplay controller="13Ctrl" pages="2"/>
+    </image>
+    <image id="n19_im76" name="1_4_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="93,222" size="215,4" group="n73_im76" rotation="344">
+      <gearDisplay controller="14Ctrl" pages="0"/>
+    </image>
+    <image id="n18_im76" name="1_4_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="93,222" size="215,4" group="n73_im76" rotation="344">
+      <gearDisplay controller="14Ctrl" pages="1"/>
+    </image>
+    <image id="n15_im76" name="1_4_red" src="lqn3hr" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldix1.png" xy="93,222" size="215,4" group="n73_im76" rotation="344">
+      <gearDisplay controller="14Ctrl" pages="2"/>
+    </image>
+    <image id="n13_o570" name="2_3_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="556,221" size="270,4" group="n73_im76" rotation="220">
+      <gearDisplay controller="23Ctrl" pages="0"/>
+    </image>
+    <image id="n12_o570" name="2_3_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="556,221" size="270,4" group="n73_im76" rotation="220">
+      <gearDisplay controller="23Ctrl" pages="1"/>
+    </image>
+    <image id="n11_o570" name="2_3_red" src="lqn3hr" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldix1.png" xy="556,221" size="270,4" group="n73_im76" rotation="220">
+      <gearDisplay controller="23Ctrl" pages="2"/>
+    </image>
+    <image id="n28_im76" name="2_4_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="559,274" size="475,4" group="n73_im76" rotation="180">
+      <gearDisplay controller="24Ctrl" pages="0"/>
+    </image>
+    <image id="n27_im76" name="2_4_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="559,274" size="475,4" group="n73_im76" rotation="180">
+      <gearDisplay controller="24Ctrl" pages="1"/>
+    </image>
+    <image id="n26_im76" name="2_4_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="559,274" size="475,4" group="n73_im76" rotation="180">
+      <gearDisplay controller="24Ctrl" pages="2"/>
+    </image>
+    <image id="n10_o570" name="3_4_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="93,219" size="270,4" group="n73_im76" rotation="320">
+      <gearDisplay controller="34Ctrl" pages="0"/>
+    </image>
+    <image id="n9_o570" name="3_4_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="93,219" size="270,4" group="n73_im76" rotation="320">
+      <gearDisplay controller="34Ctrl" pages="1"/>
+    </image>
+    <image id="n6_o570" name="3_4_red" src="lqn3hr" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldix1.png" xy="93,219" size="270,4" group="n73_im76" rotation="320">
+      <gearDisplay controller="34Ctrl" pages="2"/>
+    </image>
+    <image id="n53_im76" name="1_2_bg_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="508,221" size="122,29" group="n73_im76" rotation="195">
+      <gearDisplay controller="12Ctrl" pages="0"/>
+    </image>
+    <image id="n46_im76" name="1_2_bg_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="508,221" size="122,29" group="n73_im76" rotation="195">
+      <gearDisplay controller="12Ctrl" pages="1"/>
+    </image>
+    <image id="n42_im76" name="1_2_bg_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="508,221" size="122,29" group="n73_im76" rotation="195">
+      <gearDisplay controller="12Ctrl" pages="2"/>
+    </image>
+    <image id="n51_im76" name="1_3_bg_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="266,86" size="122,29" group="n73_im76">
+      <gearDisplay controller="13Ctrl" pages="0"/>
+    </image>
+    <image id="n45_im76" name="1_3_bg_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="266,86" size="122,29" group="n73_im76">
+      <gearDisplay controller="13Ctrl" pages="1"/>
+    </image>
+    <image id="n47_im76" name="1_3_bg_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="266,86" size="122,29" group="n73_im76">
+      <gearDisplay controller="13Ctrl" pages="2"/>
+    </image>
+    <image id="n55_im76" name="1_4_bg_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="139,195" size="122,29" group="n73_im76" rotation="345">
+      <gearDisplay controller="14Ctrl" pages="0"/>
+    </image>
+    <image id="n38_im76" name="1_4_bg_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="139,195" size="122,29" group="n73_im76" rotation="345">
+      <gearDisplay controller="14Ctrl" pages="1"/>
+    </image>
+    <image id="n44_im76" name="1_4_bg_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="139,195" size="122,29" group="n73_im76" rotation="345">
+      <gearDisplay controller="14Ctrl" pages="2"/>
+    </image>
+    <image id="n52_im76" name="2_3_bg_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="493,181" size="122,29" group="n73_im76" rotation="220">
+      <gearDisplay controller="23Ctrl" pages="0"/>
+    </image>
+    <image id="n48_im76" name="2_3_bg_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="494,181" size="122,29" group="n73_im76" rotation="220">
+      <gearDisplay controller="23Ctrl" pages="1"/>
+    </image>
+    <image id="n49_im76" name="2_3_bg_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="493,181" size="122,29" group="n73_im76" rotation="220">
+      <gearDisplay controller="23Ctrl" pages="2"/>
+    </image>
+    <image id="n54_im76" name="2_4_bg_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="266,257" size="122,29" group="n73_im76">
+      <gearDisplay controller="24Ctrl" pages="0"/>
+    </image>
+    <image id="n40_im76" name="2_4_bg_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="266,257" size="122,29" group="n73_im76">
+      <gearDisplay controller="24Ctrl" pages="1"/>
+    </image>
+    <image id="n43_im76" name="2_4_bg_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="266,257" size="122,29" group="n73_im76">
+      <gearDisplay controller="24Ctrl" pages="2"/>
+    </image>
+    <image id="n50_im76" name="3_4_bg_gray" src="lqn3hq" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi3.png" xy="139,161" size="122,29" group="n73_im76" rotation="320">
+      <gearDisplay controller="34Ctrl" pages="0"/>
+    </image>
+    <image id="n39_im76" name="3_4_bg_green" src="lqn3hp" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi2.png" xy="139,161" size="122,29" group="n73_im76" rotation="320">
+      <gearDisplay controller="34Ctrl" pages="1"/>
+    </image>
+    <image id="n41_im76" name="3_4_bg_red" src="lqn3ho" fileName="gps/z_桌面GPS定位/zm_gpsdw_jldi1.png" xy="139,161" size="122,29" group="n73_im76" rotation="320">
+      <gearDisplay controller="34Ctrl" pages="2"/>
+    </image>
+    <loader id="n37_im76" name="loader1" xy="296,136" size="60,60" group="n73_im76" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
+    <loader id="n35_im76" name="loader2" xy="556,216" size="60,60" group="n73_im76" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
+    <loader id="n36_im76" name="loader3" xy="296,0" size="60,60" group="n73_im76" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
+    <loader id="n34_im76" name="loader4" xy="36,216" size="60,60" group="n73_im76" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
+    <text id="n59_im76" name="1_2_label" xy="507,220" pivot="1,1" anchor="true" size="122,29" group="n73_im76" rotation="14" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n60_im76" name="1_3_label" xy="266,86" size="122,29" group="n73_im76" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n57_im76" name="1_4_label" xy="139,196" size="122,29" group="n73_im76" rotation="345" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n61_im76" name="2_3_label" xy="493,181" pivot="1,1" anchor="true" size="122,29" group="n73_im76" rotation="40" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n58_im76" name="2_4_label" xy="266,259" size="122,29" group="n73_im76" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n56_im76" name="3_4_label" xy="140,161" size="122,29" group="n73_im76" rotation="320" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n62_im76" name="warningText" xy="160,334" size="334,38" group="n73_im76" fontSize="26" color="#ed0d0d" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="发现未检测到位置的玩家"/>
+    <text id="n65_im76" name="name1" xy="262,197" size="129,25" group="n73_im76" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n69_im76" name="name2" xy="522,277" size="129,25" group="n73_im76" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n67_im76" name="name3" xy="358,5" size="111,25" group="n73_im76" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n63_im76" name="name4" xy="2,277" size="129,25" group="n73_im76" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n66_im76" name="city1" xy="260,224" size="129,25" group="n73_im76" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <text id="n70_im76" name="city2" xy="520,304" size="129,25" group="n73_im76" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <text id="n68_im76" name="city3" xy="358,32" size="113,25" group="n73_im76" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <text id="n64_im76" name="city4" xy="0,305" size="129,25" group="n73_im76" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <group id="n73_im76" name="n73" xy="0,0" size="1034,372" advanced="true" collapsed="true"/>
+  </displayList>
+</component>

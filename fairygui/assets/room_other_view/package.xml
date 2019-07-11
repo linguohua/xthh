@@ -21,7 +21,7 @@
     <component id="o570gd" name="btnYY.xml" path="/resource/s_设置/"/>
     <component id="o570ge" name="btnExit.xml" path="/resource/s_设置/"/>
     <image id="o570gg" name="zm_szandi.png" path="/resource/s_设置/" scale="9grid" scale9grid="8,8,16,16"/>
-    <component id="o570gh" name="gps.xml" path="/"/>
+    <component id="o570gh" name="gps.xml" path="/" exported="true"/>
     <image id="lqn3fk" name="z_桌面gps定位.jpg" path="/design/"/>
     <image id="lqn3fl" name="z_桌面gps定位标注.jpg" path="/design/"/>
     <image id="lqn3hn" name="zm_gpsdw_bt.png" path="/gps/z_桌面GPS定位/"/>
@@ -35,6 +35,7 @@
     <image id="lqn3hv" name="zm_gpsdw_tkdi.png" path="/gps/z_桌面GPS定位/" scale="9grid" scale9grid="29,90,15,10"/>
     <component id="o570gi" name="disbandBtn.xml" path="/gps/"/>
     <component id="o570gj" name="continueBtn.xml" path="/gps/"/>
+    <component id="im76hw" name="fourPlayer.xml" path="/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>
