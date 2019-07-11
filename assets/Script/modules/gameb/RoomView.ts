@@ -127,13 +127,18 @@ export class RoomView {
     }
 
     // 海底动画
-    public async gameEndAnimation(): Promise<void> {
+    public async gameEndAnimation(num: number): Promise<void> {
         // const screenWidth = 1136;
         // const screenHeight = 640;
         // const x = screenWidth / 2;
         // const y = screenHeight / 2;
         // Logger.debug("xxxx ", x, y);
-        const effectName = "Effect_ico_zuihousizhang";
+        let effectName = "Effect_ico_zuihousizhang";
+        if (num === 2) {
+            effectName = "Effect_ico_zuihouerzhang";
+        } else if (num === 3) {
+            effectName = "Effect_ico_zuihousanzhang";
+        }
         await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
         // animation.coplay("animations/Effects_jiemian_duijukaishi.prefab", this.unityViewNode, x, y);
     }

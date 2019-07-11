@@ -12,9 +12,13 @@ export namespace HandlerActionResultEndCard {
         Logger.debug("海底----------------------- ", reply);
 
         //播放动画
-        await room.roomView.gameEndAnimation();
+        const le = room.roomInfo.players.length;
+        await room.roomView.gameEndAnimation(le);
         //增加新抽到的牌到手牌列表
-        room.mAlgorithm.mahjongTotal_lower(room.roomInfo.players.length);
+        room.mAlgorithm.mahjongTotal_lower(le);
+        //牌墙
+        room.tilesInWall = room.tilesInWall - le;
+        room.updateTilesInWallUI();
         if (reply.card !== 0) {
             const player = <Player>room.getMyPlayer();
             player.addHandTile(reply.card);
