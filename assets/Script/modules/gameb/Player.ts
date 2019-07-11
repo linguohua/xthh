@@ -25,7 +25,7 @@ const effectsDef: { [key: number]: string } = {
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "Effect_ico_menxiao", //闷笑
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "Effect_ico_huitouxiao", //回头笑
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN]: "Effect_ico_xiaochaotian", //小朝天
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN]: "Effect_ico_xiaochaotian", //大朝天
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN]: "Effect_ico_dachaotian", //大朝天
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG]: "Effect_ico_zhuotong", //捉铳
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO]: "Effect_ico_heimo", //黑摸
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "Effect_ico_heimo", //黑摸
