@@ -15,7 +15,7 @@
     <component id="n12_fxwe" name="lights" src="jmxy21" fileName="desk/right/desk_light.xml" xy="955,0" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxy22" fileName="desk/right/desk_flower.xml" xy="917,155" touchable="false"/>
     <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="965,215" hideByEditor="true"/>
-    <graph id="n13_fxwe" name="aniPos" xy="827,242" pivot="0.5,0.5" size="0,0"/>
+    <graph id="n13_fxwe" name="aniPos" xy="935,243" pivot="0.5,0.5" size="0,0"/>
     <component id="n14_g0pr" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="861,192" visible="false"/>
     <graph id="n15_rh8w" name="userInfoPos" xy="533,193" size="20,26" hideByEditor="true" visible="false"/>
     <component id="n17_dtxt" name="qipao" src="jmxy14" fileName="qipao2.xml" xy="604,182" hideByEditor="true" visible="false"/>
