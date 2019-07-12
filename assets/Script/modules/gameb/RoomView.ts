@@ -5,7 +5,7 @@ import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/Disba
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
-import { roomStatus, RoomInterface, TingPai } from "./RoomInterface";
+import { RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 
@@ -291,7 +291,8 @@ export class RoomView {
         bgController.selectedIndex = index;
     }
 
-    public updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
+    public updateDisbandVoteView(
+        disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         //
 
         let disbandView = this.component.getComponent(DisbandView);
@@ -477,9 +478,9 @@ export class RoomView {
         };
 
         //房间空闲，客户端永远看不到这个状态
-        const onIdle = (): void => {
-            Logger.debug("房间空闲，客户端永远看不到这个状态");
-        };
+        // const onIdle = (): void => {
+        //     Logger.debug("房间空闲，客户端永远看不到这个状态");
+        // };
 
         // 游戏开始了
         const onPlay = (): void => {
@@ -494,9 +495,9 @@ export class RoomView {
         };
 
         //房间已经被删除，客户端永远看不到这个状态
-        const onDelete = (): void => {
-            Logger.debug("房间已经被删除，客户端永远看不到这个状态");
-        };
+        // const onDelete = (): void => {
+        //     Logger.debug("房间已经被删除，客户端永远看不到这个状态");
+        // };
 
         const status = [];
         // status[proto.mahjong.RoomState.SRoomIdle] = onIdle;

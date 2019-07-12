@@ -42,7 +42,7 @@ import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
-import { PlayerInfo, roomStatus, RoomInterface, TingPai } from "./RoomInterface";
+import { PlayerInfo, RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
@@ -321,7 +321,8 @@ export class Room {
     }
 
     //更新解散处理界面
-    public updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
+    public updateDisbandVoteView(
+        disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         this.disbandReq = disbandReq;
 
         this.roomView.updateDisbandVoteView(disbandReq, disbandAck);
@@ -340,9 +341,8 @@ export class Room {
     public sendDisbandAgree(agree: boolean): void {
         const disbandAck = {
             player_id: +this.myUser.userID,
-            disband: agree,
-
-        }
+            disband: agree
+        };
         const req2 = new protoHH.casino.packet_table_disband_ack(disbandAck);
         const buf = protoHH.casino.packet_table_disband_ack.encode(req2);
         this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK);
@@ -716,19 +716,19 @@ export class Room {
         //开始听牌检查
         const array = this.myPlayer.getAllVMahjongs_delMahjong(tile);
 
-        const check_mahjong: number[] = [
+        const checkMahjongs: number[] = [
             21, 22, 23, 24, 25, 26, 27, 28, 29,
             31, 32, 33, 34, 35, 36, 37, 38, 39];
-        this.mAlgorithm.pop_mahjong(check_mahjong, this.laiziID);
+        this.mAlgorithm.pop_mahjong(checkMahjongs, this.laiziID);
         let total = 0;
-        const ting_mahjong = [];
-        for (const checkMahjong of check_mahjong) {
+        const tingMahjong = [];
+        for (const checkMahjong of checkMahjongs) {
             const bHuPai = this.mAlgorithm.canHuPai_WithOther(array, checkMahjong, true);
             if (bHuPai.length > 0) {
                 //检查牌剩余数量
                 total = this.getMahjongLaveNumber(checkMahjong);
                 if (total > 0) {
-                    ting_mahjong.push(checkMahjong);
+                    tingMahjong.push(checkMahjong);
                     tingP.push(new TingPai(checkMahjong, 1, total));
                 }
             }

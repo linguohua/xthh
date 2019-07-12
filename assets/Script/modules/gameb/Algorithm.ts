@@ -796,7 +796,6 @@ export class Algorithm {
             c.bHuPai = false;
             return c;
         } else {
-
             bHuPai = this.checkHuPai(a.sVecPai, a.sVecLai, false, sVecHuPaisss, sVecJiangsss)
             if (bHuPai) {
                 this.push_back(sVecHuPaisss, sVecJiangsss, 1, 2)

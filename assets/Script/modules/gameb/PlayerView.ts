@@ -331,7 +331,7 @@ export class PlayerView {
         }
 
         if (isPiao) {
-            this.playePiaoEffect(lastD.node);
+            this.playPiaoEffect(lastD.node);
         }
     }
 
@@ -690,7 +690,7 @@ export class PlayerView {
         }
     }
 
-    public async playePiaoEffect(node: cc.Node): Promise<void> {
+    public async playPiaoEffect(node: cc.Node): Promise<void> {
         await this.roomHost.animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, node);
     }
     //特效道具播放
