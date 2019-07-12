@@ -1,7 +1,7 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
-import { room_status, RoomInterface } from "../RoomInterface";
+import { roomStatus, RoomInterface } from "../RoomInterface";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 /**
@@ -57,6 +57,6 @@ export namespace HandlerMsgTableScore {
             room.loadHandResultView(reply);
         }
         //房间状态
-        room.onUpdateStatus(room_status.onWait);
+        room.onUpdateStatus(roomStatus.onWait);
     };
 }

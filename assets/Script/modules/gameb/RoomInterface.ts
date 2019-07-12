@@ -8,7 +8,7 @@ import { proto } from "./proto/protoGame";
 /**
  * 房间状态
  */
-export const room_status = {
+export const roomStatus = {
     onPlay: 1,
     onWait: 2
 };
@@ -146,4 +146,5 @@ export interface RoomInterface {
     showMsg(chatData: ChatData): void;
     setDiscardAble(isDiscardAble: boolean): void;
     myMahjong_showTingGroup(tile: number): TingPai[];
+    playZhuangAni(isMoveTo: boolean, playerId: number): void;
 }

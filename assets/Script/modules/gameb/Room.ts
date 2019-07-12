@@ -42,7 +42,7 @@ import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
-import { PlayerInfo, room_status, RoomInterface, TingPai } from "./RoomInterface";
+import { PlayerInfo, roomStatus, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
@@ -413,6 +413,12 @@ export class Room {
         this.sendMsg(proto.mahjong.MessageCode.OPDonate, actionMsgBuf);
     }
 
+    public async playZhuangAni(isMoveTo: boolean, playerId: number): Promise<void> {
+        await this.roomView.playAnimation("Effect_ico_zhuang01");
+        //飞动画
+        // const moveAnimation = cc.moveTo(1, toPos);
+        // oCurOpObj.node.runAction(moveAnimation);
+    }
     // 显示道具动画
     public showDonate(msgDonate: proto.mahjong.MsgDonate): void {
         // Logger.debug("显示道具动画 msgDonate : ", msgDonate);
@@ -628,7 +634,7 @@ export class Room {
      * 断线重连恢复用户的操作
      */
     public restrorePlayerOperation(): void {
-        this.onUpdateStatus(room_status.onPlay);
+        this.onUpdateStatus(roomStatus.onPlay);
         //剩牌
         this.tilesInWall = this.roomInfo.cardcount;
         this.updateTilesInWallUI();

@@ -5,7 +5,7 @@ import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/Disba
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
-import { room_status, RoomInterface, TingPai } from "./RoomInterface";
+import { roomStatus, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 
@@ -40,6 +40,8 @@ export class RoomView {
     private leftTime: number;
     private leftTimerCB: Function;
     private component: cc.Component;
+    private zhuangPos: fgui.GObject;
+    private aniPos: fgui.GObject;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -118,9 +120,9 @@ export class RoomView {
             return;
         }
         if (isWait !== undefined && isWait) {
-            await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
+            await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/${effectName}`, this.aniPos.node);
         } else {
-            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/${effectName}`, this.roundMarkView.node);
+            this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/${effectName}`, this.aniPos.node);
         }
     }
     public startDiscardCountdown(time: number): void {
@@ -427,6 +429,10 @@ export class RoomView {
         this.donateMoveObj = this.unityViewNode.getChild("donate").asLoader;
         //剩牌
         this.tilesInWall = this.unityViewNode.getChild("tilesInWall");
+        //庄家动画挂载节点
+        this.zhuangPos = this.unityViewNode.getChild("zhuangPos");
+        //其他动画挂载节点
+        this.aniPos = this.unityViewNode.getChild("AniPos");
     }
 
     //初始化房间状态事件
@@ -466,8 +472,8 @@ export class RoomView {
 
         const status = [];
         // status[proto.mahjong.RoomState.SRoomIdle] = onIdle;
-        status[room_status.onWait] = onWait;
-        status[room_status.onPlay] = onPlay;
+        status[roomStatus.onWait] = onWait;
+        status[roomStatus.onPlay] = onPlay;
         // status[proto.mahjong.RoomState.SRoomDeleted] = onDelete;
         this.statusHandlers = status;
     }

@@ -1,6 +1,6 @@
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
-import { room_status, RoomInterface } from "../RoomInterface";
+import { RoomInterface, roomStatus } from "../RoomInterface";
 
 /**
  * 发牌处理
@@ -14,11 +14,14 @@ export namespace HandlerMsgDeal {
         //播放开局动画 并等待
         await room.roomView.playAnimation("Effect_ico_kaiju", true);
         //播放庄动画 并等待
-        let zhuangAni = "Effect_ico_huanzhuang";
         if (room.bankerChairID === msgDeal.lord_id) {
-            zhuangAni = "Effect_ico_lianzhuang";
+            //连庄
+            await room.roomView.playAnimation("Effect_ico_lianzhuang", true);
+        } else if (room.bankerChairID !== -1) {
+            //换庄
+            await room.roomView.playAnimation("Effect_ico_huanzhuang", true);
         }
-        await room.roomView.playAnimation(zhuangAni, true);
+        // room.playZhuangAni(true, msgDeal.lord_id);
         //播放定赖动画 并等待
         // await room.roomView.playAnimation("Effect_ico_dinglai", true);
 
@@ -57,6 +60,6 @@ export namespace HandlerMsgDeal {
         room.tilesInWall = 72 - ((playerNum * 13) + 1);
         room.updateTilesInWallUI();
         //房间状态
-        room.onUpdateStatus(room_status.onPlay);
+        room.onUpdateStatus(roomStatus.onPlay);
     };
 }
