@@ -32,14 +32,14 @@ const hupaiType: { [key: number]: string } = {
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "黑摸", //黑摸
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO]: "软摸", //软摸
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "软摸", //软摸
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "放笑", //软摸
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "飘赖子", //飘赖子
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "放笑", //放笑
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "飘赖子数", //飘赖子
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO]: "抢笑", //抢笑
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOHOUCHONG]: "笑后铳", //笑后铳
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_BEIQIANGXIAO]: "被抢笑", //被抢笑
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHONG]: "放铳", //放铳
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RECHONG]: "热铳", //热铳
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHAOTIAN]: "放朝天" //热铳
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHAOTIAN]: "放朝天" //放朝天
 };
 
 /**
@@ -63,6 +63,7 @@ class ViewGroup {
     public ting: fgui.GObject;
     public aniPos: fgui.GObject;
     public ruleText: fgui.GObject;
+    public laiziCount: fgui.GObject;
 }
 /**
  * 显示一手牌结束后的得分结果
@@ -325,7 +326,8 @@ export class HandResultView extends cc.Component {
         }
 
         if (playerScore.opscores.length > 0) {
-            c.ruleText.text = this.getHupaiType(playerScore);
+            // c.ruleText.text = this.getHupaiType(playerScore);
+            this.setOpscore(playerScore, c);
         }
 
         if (playerScore.data.id === this.room.bankerChairID) {
@@ -333,22 +335,38 @@ export class HandResultView extends cc.Component {
         }
     }
 
-    private getHupaiType(playerScore: proto.casino.Iplayer_score): string {
+    private setOpscore(playerScore: proto.casino.Iplayer_score,  c: ViewGroup): void {
         let opscoreString = "";
+        let piaoLaizi = "";
         for (const opscore of playerScore.opscores) {
             if (hupaiType[opscore.type] === undefined) {
                 Logger.error("Unknow opscore type:", opscore.type);
                 continue;
             }
 
-            if (opscoreString === "") {
-                opscoreString = `${hupaiType[opscore.type]}:${opscore.count}`;
+            if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI) {
+                piaoLaizi = `${hupaiType[opscore.type]}:${opscore.count}`;
+                continue;
+            }
+
+            let hupaiString: string = "";
+            if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO || opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2
+                || opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO || opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2) {
+                    // 各种摸没有次数
+                    hupaiString = hupaiType[opscore.type];
             } else {
-                opscoreString = `${opscoreString}  ${hupaiType[opscore.type]}:${opscore.count}`;
+                hupaiString =  opscore.count > 1 ?  `${hupaiType[opscore.type]}:${opscore.count}` : `${hupaiType[opscore.type]}`;
+            }
+
+            if (opscoreString === "") {
+                opscoreString = hupaiString;
+            } else {
+                opscoreString = `${opscoreString}/${hupaiString}`;
             }
         }
 
-        return opscoreString;
+        c.laiziCount.text = piaoLaizi;
+        c.ruleText.text = opscoreString;
     }
     //更新详细数据
     // private updatePlayerScoreData(player: Player, c: ViewGroup): void {
@@ -505,6 +523,9 @@ export class HandResultView extends cc.Component {
             contentGroupData.textCountLoseT.visible = false;
 
             contentGroupData.ruleText = group.getChild("ruleText");
+
+            contentGroupData.ruleText = group.getChild("ruleText");
+            contentGroupData.laiziCount = group.getChild("laiziCount");
             //赢标志的位置
             // contentGroupData.winImagePos = group:Find("WinImagePos")
             //剩余牌数
