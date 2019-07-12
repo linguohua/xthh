@@ -321,7 +321,7 @@ export class HandResultView extends cc.Component {
 
         if (playerScore.hupai_card > 0) {
             c.hu.visible = true;
-        } else if (player.isRichi) {
+        } else if (this.isTing(tilesHand)) {
             c.ting.visible = true;
         }
 
@@ -602,5 +602,16 @@ export class HandResultView extends cc.Component {
             btnText = `查看积分`;
         }
         this.countDown.text = `${this.countDownTime} ${btnText}`;
+    }
+
+    private isTing(handTiles: number[]): boolean {
+        for (const tileID of handTiles) {
+            const readyHandList = this.room.myMahjong_showTingGroup(tileID);
+            if (readyHandList.length > 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
