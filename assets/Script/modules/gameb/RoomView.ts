@@ -9,7 +9,6 @@ import { room_status, RoomInterface, TingPai } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 
-const aa = "07-10-18"; //假的版本号
 /**
  * 房间
  */
@@ -176,7 +175,7 @@ export class RoomView {
         const room = this.room;
         const num = `${this.room.handStartted}/${this.room.handNum}`;
         const s = `     `;
-        const str = `房号:${room.roomInfo.tag}${s}局数:${num}${s}${aa}`;
+        const str = `房号:${room.roomInfo.tag}${s}局数:${num}`;
         this.roomInfoText.text = str;
 
     }
