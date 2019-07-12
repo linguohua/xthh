@@ -24,12 +24,13 @@ export namespace HandlerMsgDeal {
         const player = <Player>room.getPlayerByUserID(msgDeal.lord_id.toString());
         room.roomView.playZhuangAni(player.playerView.head.bankerFlag);
         await room.coWaitSeconds(1);
-        //播放定赖动画 并等待
-        // await room.roomView.playAnimation("Effect_ico_dinglai", true);
 
+        //播放定赖动画 并等待
         room.laiziID = msgDeal.laizi;
         room.laigenID = msgDeal.fanpai;
-        room.setRoundMask();
+        room.roomView.playLaiAni();
+        await room.coWaitSeconds(1);
+
         const players = room.getPlayers();
         //保存每一个玩家的牌列表
         const playersKeyArr = Object.keys(players);

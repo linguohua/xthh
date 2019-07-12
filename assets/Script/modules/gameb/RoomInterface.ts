@@ -64,6 +64,7 @@ export interface RoomViewInterface {
     clearWaitingPlayer(): void;
     playAnimation(effectName: string, isWait?: boolean): Promise<void>;
     playZhuangAni(pos: fgui.GObject): void;
+    playLaiAni(): void;
 }
 
 /**

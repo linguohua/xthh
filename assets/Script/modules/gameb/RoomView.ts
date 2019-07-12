@@ -31,6 +31,10 @@ export class RoomView {
     private laiziCom: fgui.GComponent;
     private laiziTile: fgui.GComponent;
     private laigenTile: fgui.GComponent;
+    private laiziTilePos1: fgui.GObject;
+    private laigenTilePos1: fgui.GObject;
+    private laiziTilePos2: fgui.GObject;
+    private laigenTilePos2: fgui.GObject;
     private countDownText: fgui.GObject;
     private listensObjList: fgui.GList;
     private listensObjNum: fgui.GObject;
@@ -117,6 +121,19 @@ export class RoomView {
     public playZhuangAni(pos: fgui.GObject): void {
         this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_zhuang01`, this.zhuangPos.node);
         this.zhuangPos.node.runAction(cc.moveTo(1, pos.node.position));
+    }
+
+    public async playLaiAni(): Promise<void> {
+        TileImageMounter.mountTileImage(this.laiziTile, this.room.laiziID);
+        this.laiziTile.getChild("laiziMask").visible = true;
+        TileImageMounter.mountTileImage(this.laigenTile, this.room.laigenID);
+        this.laiziTile.node.position = this.laiziTilePos2.node.position;
+        this.laigenTile.node.position = this.laigenTilePos2.node.position;
+        this.laiziCom.visible = true;
+
+        this.laigenTile.node.runAction(cc.moveTo(1, this.laigenTilePos1.node.position));
+        await this.room.coWaitSeconds(0.5);
+        this.laiziTile.node.runAction(cc.moveTo(1, this.laiziTilePos1.node.position));
     }
 
     // 播放动画
@@ -426,6 +443,12 @@ export class RoomView {
         this.laiziCom = this.unityViewNode.getChild("laiziCom").asCom;
         this.laigenTile = this.laiziCom.getChild("laigenCom").asCom;
         this.laiziTile = this.laiziCom.getChild("laiziCOm").asCom;
+
+        this.laiziTilePos1 = this.laiziCom.getChild("laiziPos1");
+        this.laiziTilePos2 = this.laiziCom.getChild("laiziPos2");
+        this.laigenTilePos1 = this.laiziCom.getChild("laigenPos1");
+        this.laigenTilePos2 = this.laiziCom.getChild("laigenPos2");
+
         this.laiziCom.visible = false;
 
         //倒计时
