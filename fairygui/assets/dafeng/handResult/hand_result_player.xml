@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1118,107" designImage="ui://397phochlqn3fc" designImageOffsetX="-8" designImageOffsetY="-106" designImageAlpha="100">
+<component size="1118,107" designImage="ui://397phochlqn3fa" designImageOffsetX="-8" designImageOffsetY="-106" designImageAlpha="100">
   <displayList>
     <image id="n17_tfg8" name="bg" src="lqn3ge" fileName="_resource/z_桌面打牌/zm_di1.png" xy="0,0" size="1118,108"/>
     <image id="n21_tfg8" name="n21" src="lqn3ly" fileName="_resource/j_结算/js_xxdi1.png" xy="955,79" size="163,28"/>
     <image id="n22_tfg8" name="n22" src="lqn3ly" fileName="_resource/j_结算/js_xxdi1.png" xy="43,78" size="707,28"/>
-    <image id="n23_tfg8" name="n23" src="lqn3ly" fileName="_resource/j_结算/js_xxdi1.png" xy="43,78" size="167,28"/>
+    <image id="n23_tfg8" name="n23" src="lqn3ly" fileName="_resource/j_结算/js_xxdi1.png" xy="43,78" size="167,28" visible="false"/>
     <text id="n1_rhc4" name="name" xy="49,78" size="155,31" fontSize="20" color="#edffbc" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼喵喵喵"/>
-    <text id="n2_rhc4" name="id" xy="216,78" size="264,31" fontSize="20" color="#edffbc" vAlign="middle" autoSize="none" singleLine="true" text="&#xA;"/>
-    <text id="n24_tfg8" name="ruleText" xy="216,78" size="527,31" fontSize="20" color="#edffbc" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="放笑/软摸"/>
+    <text id="n2_rhc4" name="id" xy="1773,32" size="264,31" fontSize="20" color="#edffbc" vAlign="middle" autoSize="none" singleLine="true" text="id&#xA;"/>
+    <text id="n24_tfg8" name="ruleText" xy="216,80" size="300,31" fontSize="20" color="#edffbc" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="放笑/软摸"/>
     <text id="n6_rhc4" name="text_lose" xy="1003,79" pivot="0.5,0" size="72,45" scale="0.7,0.7" font="ui://397phochtfg8n3" fontSize="0" color="#784819" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="-7"/>
+    <text id="n26_im76" name="laiziCount" xy="517,80" size="206,31" fontSize="20" color="#edffbc" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="飘赖子数:1&#xA;"/>
     <text id="n18_tfg8" name="text_win" xy="1003,79" pivot="0.5,0" size="72,45" scale="0.7,0.7" font="ui://397phochtfg8me" fontSize="0" color="#784819" align="center" vAlign="middle" bold="true" singleLine="true" autoClearText="true" text="+7"/>
     <graph id="n9_e27g" name="aniPos" xy="515,61" size="0,0"/>
     <text id="n10_fxwe" name="score" xy="161,6" size="688,33" fontSize="24" color="#fff3a1" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#734305" singleLine="true" text=""/>

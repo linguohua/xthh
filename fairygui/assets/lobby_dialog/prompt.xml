@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="23,52" pivot="0.5,0.5" anchor="true">
+<component size="63,65" pivot="0.5,0.5" anchor="true">
   <displayList>
-    <image id="n2_zqjk" name="n2" src="ik11b" fileName="resource/ty_tips1.png" pkg="snwj6cnx" xy="0,0" size="23,52">
+    <image id="n2_zqjk" name="n2" src="ik11b" fileName="resource/ty_tips1.png" pkg="snwj6cnx" xy="32,32" pivot="0.5,0.5" anchor="true" size="64,65">
       <relation target="n3_zqjk" sidePair="height-height,width-width"/>
     </image>
-    <text id="n3_zqjk" name="text" xy="6,11" size="10,33" fontSize="24" color="#d73f3a" bold="true" text=""/>
+    <text id="n3_zqjk" name="text" xy="32,32" pivot="0.5,0.5" anchor="true" size="29,35" fontSize="24" color="#d73f3a" align="center" vAlign="middle" bold="true" singleLine="true" autoClearText="true" text="错"/>
   </displayList>
-  <relation target="n3_zqjk" sidePair="width-width,height-height"/>
   <transition name="t1">
     <item time="0" type="XY" label="abc" tween="true" startValue="0,0" endValue="0,-100" duration="24" label2="abc" ease="Quad.In"/>
     <item time="12" type="Alpha" label="efg" tween="true" startValue="1" endValue="0" duration="24" label2="efg" ease="Quad.In"/>

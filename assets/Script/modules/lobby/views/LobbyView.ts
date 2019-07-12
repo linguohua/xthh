@@ -178,6 +178,7 @@ export class LobbyView extends cc.Component {
 
     private openEmailClick(): void {
         // TODO: 显示邮件界面
+        // Dialog.prompt("我草---------------");
     }
 
     private onCreateRoom(): void {

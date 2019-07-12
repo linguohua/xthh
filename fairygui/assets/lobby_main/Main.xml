@@ -10,7 +10,7 @@
     <image id="n26_u4cz" name="bg6" src="9f1el" fileName="resource/dt_zydi.png" xy="49,23" size="188,34"/>
     <image id="n23_u4cz" name="douImg" src="u4cz17" fileName="resource/ty_icon_hld.png" xy="243,17"/>
     <image id="n24_u4cz" name="fkImg" src="u4cz16" fileName="resource/ty_icon_fk.png" xy="437,17"/>
-    <image id="n13_9f1e" name="wxImg" src="9f1ec" fileName="resource/dt_btn_wx.png" xy="195,24"/>
+    <image id="n13_9f1e" name="wxImg" src="9f1ec" fileName="resource/dt_btn_wx.png" xy="195,24" visible="false"/>
     <component id="n1_9f1e" name="shareBtn" src="9f1ep" fileName="btn/shareBtn.xml" xy="783,9"/>
     <component id="n3_9f1e" name="announcementBtn" src="9f1eq" fileName="btn/announcementBtn.xml" xy="990,408"/>
     <component id="n5_9f1e" name="guildBtn" src="9f1er" fileName="btn/guildBtn.xml" xy="980,537"/>
@@ -33,32 +33,6 @@
     <text id="n30_u4cz" name="nameText" xy="69,28" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学"/>
     <text id="n31_u4cz" name="douText" xy="285,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
     <text id="n32_u4cz" name="fkText" xy="480,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
-    <text id="n33_u4cz" name="announcementText" xy="0,78" size="1136,41" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" autoSize="none" singleLine="true" text="公告内容内容内容公告内容内容内容公告内容内容内容"/>
+    <text id="n33_u4cz" name="announcementText" xy="0,78" size="1136,41" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" autoSize="none" bold="true" singleLine="true" text="公告内容内容内容公告内容内容内容公告内容内容内容"/>
   </displayList>
-  <transition name="t0" autoPlayRepeat="-1">
-    <item time="0" type="XY" target="n20_u4cz" value="11,496"/>
-    <item time="1" type="XY" target="n20_u4cz" value="11,495"/>
-    <item time="2" type="XY" target="n20_u4cz" value="11,494"/>
-    <item time="3" type="XY" target="n20_u4cz" value="11,493"/>
-    <item time="4" type="XY" target="n20_u4cz" value="11,492"/>
-    <item time="5" type="XY" target="n20_u4cz" value="11,491"/>
-    <item time="6" type="XY" target="n20_u4cz" value="11,490"/>
-    <item time="7" type="XY" target="n20_u4cz" value="11,489"/>
-    <item time="8" type="XY" target="n20_u4cz" value="11,488"/>
-    <item time="9" type="XY" target="n20_u4cz" value="11,487"/>
-    <item time="10" type="XY" target="n20_u4cz" value="11,486"/>
-    <item time="11" type="XY" target="n20_u4cz" value="11,485"/>
-    <item time="12" type="XY" target="n20_u4cz" value="11,486"/>
-    <item time="13" type="XY" target="n20_u4cz" value="11,487"/>
-    <item time="14" type="XY" target="n20_u4cz" value="11,488"/>
-    <item time="15" type="XY" target="n20_u4cz" value="11,489"/>
-    <item time="16" type="XY" target="n20_u4cz" value="11,490"/>
-    <item time="17" type="XY" target="n20_u4cz" value="11,491"/>
-    <item time="18" type="XY" target="n20_u4cz" value="11,492"/>
-    <item time="19" type="XY" target="n20_u4cz" value="11,493"/>
-    <item time="20" type="XY" target="n20_u4cz" value="11,494"/>
-    <item time="21" type="XY" target="n20_u4cz" value="11,495"/>
-    <item time="22" type="XY" target="n20_u4cz" value="11,496"/>
-    <item time="23" type="XY" target="n20_u4cz" value="11,496"/>
-  </transition>
 </component>
