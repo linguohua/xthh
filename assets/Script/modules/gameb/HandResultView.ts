@@ -272,8 +272,17 @@ export class HandResultView extends cc.Component {
         //构造落地牌组
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
         const meldDatas = player.melds;
-        const tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
-        this.sortHands(tilesHand, false);
+        let tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
+        // this.sortHands(tilesHand, false);
+        if (playerScore.hupai_card > 0) {
+            const majong =  this.room.mAlgorithm.canHuPai_defEX(tilesHand);
+            if (majong.bHuPai) {
+                tilesHand = majong.sVecHuPai;
+                Logger.debug("tilesHand:", tilesHand);
+            }
+        } else {
+            this.sortHands(tilesHand, false);
+        }
         // const lastTile = player.lastTile; //玩家最后一张牌
         //吃碰杠牌
         const rm = "mahjong_mine_meld_";
@@ -283,6 +292,9 @@ export class HandResultView extends cc.Component {
                 c.melds.removeChild(mm, true);
             }
         }
+        meldDatas.sort((x: proto.casino_xtsj.packet_sc_op_ack, y: proto.casino_xtsj.packet_sc_op_ack) => {
+            return x.cards[0] - y.cards[0];
+        });
         //摆放牌
         for (let i = 0; i < meldDatas.length; i++) {
             const meldData = meldDatas[i];
@@ -321,7 +333,7 @@ export class HandResultView extends cc.Component {
 
         if (playerScore.hupai_card > 0) {
             c.hu.visible = true;
-        } else if (this.isTing(tilesHand)) {
+        } else if (this.isTing(playerScore.curcards)) {
             c.ting.visible = true;
         }
 
@@ -605,11 +617,8 @@ export class HandResultView extends cc.Component {
     }
 
     private isTing(handTiles: number[]): boolean {
-        for (const tileID of handTiles) {
-            const readyHandList = this.room.myMahjong_showTingGroup(tileID);
-            if (readyHandList.length > 0) {
-                return true;
-            }
+        if (this.room.mAlgorithm.canTingPaiEX(handTiles)) {
+            return true;
         }
 
         return false;

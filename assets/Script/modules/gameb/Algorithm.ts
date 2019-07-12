@@ -265,7 +265,7 @@ export class Algorithm {
     }
 
     //TODO 这个后面要修改  不知道类型 无法还原
-    public getArray_Pai_Lai_ex(mahjongs: Mahjong[]): ArrayClass_a {
+    public getArray_Pai_Lai_ex(mahjongs: number[]): ArrayClass_a {
         const array = new ArrayClass_a();
         array.sVecPai = [];
         array.sVecLai = [];
@@ -278,8 +278,8 @@ export class Algorithm {
         const laizi = this.getMahjongLaiZi()
 
         for (let i = 0; i < size; i++) {
-            if (mahjongs[i].mahjong !== laizi) {
-                array.sVecPai.push(mahjongs[i].mahjong);
+            if (mahjongs[i] !== laizi) {
+                array.sVecPai.push(mahjongs[i]);
             } else {
                 array.sVecLai.push(laizi);
             }
@@ -294,7 +294,7 @@ export class Algorithm {
         return false;
     }
     //TODO 这个后面要修改  不知道类型 无法还原
-    public getArrayDef_Pai_Lai(mahjongs: Mahjong[]): ArrayClass_a {
+    public getArrayDef_Pai_Lai(mahjongs: number[]): ArrayClass_a {
         const array = new ArrayClass_a();
         array.sVecPai = [];
         array.sVecLai = [];
@@ -307,8 +307,8 @@ export class Algorithm {
         const laizi = this.getMahjongLaiZi()
 
         for (let i = 0; i < size; i++) {
-            if (mahjongs[i].mahjong !== laizi) {
-                array.sVecPai.push(mahjongs[i].mahjong);
+            if (mahjongs[i] !== laizi) {
+                array.sVecPai.push(mahjongs[i]);
             } else {
                 array.sVecLai.push(laizi);
             }
@@ -674,7 +674,7 @@ export class Algorithm {
         return sVecHuPai;
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(mahjong))
-    public canHuPai_def(mahjongs: Mahjong[]): ArrayClass_c {
+    public canHuPai_def(mahjongs: number[]): ArrayClass_c {
         const sVecHuPai: number[] = [];
         const array = this.getArrayDef_Pai_Lai(mahjongs);
         const a = new ArrayClass_c();
@@ -696,7 +696,7 @@ export class Algorithm {
     }
 
     // 会去除杠的牌,判断能否胡牌
-    public canHuPai_defEX_old(mahjongs: Mahjong[]): ArrayClass_c {
+    public canHuPai_defEX_old(mahjongs: number[]): ArrayClass_c {
         const sVecHuPai: number[] = [];
         const a = this.getArrayDef_Pai_Lai(mahjongs);
         const c = new ArrayClass_c();
@@ -731,7 +731,7 @@ export class Algorithm {
     }
 
     //会去除杠的牌,判断能否胡牌(递归方式)
-    public canHuPai_defEX(mahjongs: Mahjong[]): ArrayClass_c {
+    public canHuPai_defEX(mahjongs: number[]): ArrayClass_c {
         const sVecHuPaisss: number[] = [];
         const a = this.getArrayDef_Pai_Lai(mahjongs);
         const c = new ArrayClass_c();
@@ -930,11 +930,12 @@ export class Algorithm {
 
     // 参数: 有效牌列表数字
     //去除杠的牌，判断能否听牌
-    public canTingPaiEX(mahjongs: Mahjong[]): boolean {
+    public canTingPaiEX(mahjongs: number[]): boolean {
 
         const a = this.getArray_Pai_Lai_ex(mahjongs);
         let sVecPai = a.sVecPai;
         let sVecLai = a.sVecLai;
+        this.defMahjongSort_stb(sVecPai);
         sVecLai.push(this.getMahjongLaiZi());
         if (sVecLai.length > 2) {
             return false;
