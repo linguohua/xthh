@@ -1,5 +1,51 @@
 import { Logger } from "../lobby/lcore/LCoreExports";
 
+const indexStrMap: { [key: number]: string } = {
+    [11]: "一万", //万子
+    [12]: "二万",
+    [13]: "三万",
+    [14]: "四万",
+    [15]: "五万",
+    [16]: "六万",
+    [17]: "七万",
+    [18]: "八万",
+    [19]: "九万",
+    [21]: "一条", //索子
+    [22]: "二条",
+    [23]: "三条",
+    [24]: "四条",
+    [25]: "五条",
+    [26]: "六条",
+    [27]: "七条",
+    [28]: "八条",
+    [29]: "九条",
+    [31]: "一筒", //筒子
+    [32]: "二筒",
+    [33]: "三筒",
+    [34]: "四筒",
+    [35]: "五筒",
+    [36]: "六筒",
+    [37]: "七筒",
+    [38]: "八筒",
+    [39]: "九筒",
+
+    [41]: "东", //东
+    [42]: "南", //南
+    [43]: "西", //西
+    [44]: "北", //北
+    [51]: "中", //中
+    [52]: "白", //白
+    [53]: "发", //发
+
+    [61]: "春", //春
+    [62]: "夏", //夏
+    [63]: "秋", //秋
+    [64]: "冬", //冬
+    [65]: "梅", //梅
+    [66]: "兰", //兰
+    [67]: "竹", //竹
+    [68]: "菊" //菊
+};
 const indexMap: { [key: number]: string } = {
     [11]: "1", //万子
     [12]: "2",
@@ -58,5 +104,15 @@ export namespace AgariIndex {
         }
 
         return artId;
+    };
+
+    export const tileId2Str = (tileID: number): string => {
+        const artStr = indexStrMap[tileID];
+        if (artStr == null) {
+            Logger.debug(`no art id for tile:${tileID}`);
+            // throw Error(`no art id for tile:${tileID}`);
+        }
+
+        return artStr;
     };
 }

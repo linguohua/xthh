@@ -1,4 +1,4 @@
-import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
@@ -531,15 +531,19 @@ export class Player {
         const req2 = new protoHH.casino_xtsj.packet_cs_op_req({ player_id: +this.userID });
         req2.op = TypeOfOP.Guo;
         //假如之前是杠牌并且有杠牌，并且之前也有碰并且也有碰牌
+        let str = "";
         if (this.canKongs.length > 0 && this.isCanPong) {
             curCancelType = 2;
             curCancelCard = this.canKongs[0];
+            str = `${AgariIndex.tileId2Str(curCancelCard)}弃杠、弃碰`;
         } else if (this.canKongs.length > 0) {
             curCancelType = 0;
             curCancelCard = this.canKongs[0];
+            str = `${AgariIndex.tileId2Str(curCancelCard)}弃杠`;
         } else if (this.isCanPong) {
             curCancelType = 1;
             curCancelCard = this.host.lastDisCardTile;
+            str = `${AgariIndex.tileId2Str(curCancelCard)}弃碰`;
         }
         req2.cancel_type = curCancelType;
         req2.card = curCancelCard;
@@ -549,6 +553,7 @@ export class Player {
             req2.op = TypeOfOP.BUZHUOCHONG;
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+            str = `${str} 弃捉铳`;
         } else if (this.host.lastDisCardTile !== 0) {
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
@@ -557,6 +562,9 @@ export class Player {
                 const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
                 this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
             }
+        }
+        if (str !== "") {
+            Dialog.prompt(str);
         }
         // const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         // this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);

@@ -319,6 +319,7 @@ export class PlayerView {
             lastT = tilesDiscard[i];
             TileImageMounter.mountTileImage(lastD, lastT);
             lastD.visible = true;
+            lastD.getChild("laiziMask").visible = lastT === this.room.laiziID;
         }
 
         //如果是新打出的牌，给加一个箭头
@@ -486,10 +487,12 @@ export class PlayerView {
             if (wholeMove) {
                 TileImageMounter.mountTileImage(this.hands[13], tileshand[0]);
                 handsClickCtrls[13].tileID = tileshand[0];
+                this.hands[13].getChild("laiziMask").visible = tileshand[0] === this.room.laiziID;
                 begin = 1;
             } else {
                 TileImageMounter.mountTileImage(this.hands[13], tileshand[tileCountInHand - 1]);
                 handsClickCtrls[13].tileID = tileshand[tileCountInHand - 1];
+                this.hands[13].getChild("laiziMask").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
                 endd = tileCountInHand - 1;
             }
         }
@@ -500,9 +503,11 @@ export class PlayerView {
         let j = 0;
         for (let i = begin; i < endd; i++) {
             const h = this.hands[j];
-            TileImageMounter.mountTileImage(h, tileshand[i]);
+            const t = tileshand[i];
+            TileImageMounter.mountTileImage(h, t);
+            h.getChild("laiziMask").visible = t === this.room.laiziID;
             h.visible = true;
-            handsClickCtrls[j].tileID = tileshand[i];
+            handsClickCtrls[j].tileID = t;
             // if (this.player.isRichi) {
             //     //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
             //     //判断 handsClickCtrls[j].isDiscardable 是否为 true, 是的话 则不能 setGray
@@ -858,6 +863,8 @@ export class PlayerView {
                     } else if (x === 3 || x === -1) {
                         // image.url = "ui://dafeng/ts_shang";
                         image.rotation = -90;
+                    } else {
+                        image.rotation = 180;
                     }
                 }
                 image.visible = true;
