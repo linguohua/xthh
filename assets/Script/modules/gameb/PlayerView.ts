@@ -293,7 +293,7 @@ export class PlayerView {
     }
 
     //显示打出去的牌，明牌显示
-    public showDiscarded(newDiscard: boolean, waitDiscardReAction: boolean): void {
+    public showDiscarded(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): void {
         //先隐藏所有的打出牌节点
         const discards = this.discards;
         for (const d of discards) {
@@ -329,6 +329,10 @@ export class PlayerView {
 
             //放大打出去的牌
             this.enlargeDiscarded(lastT, waitDiscardReAction);
+        }
+
+        if (isPiao) {
+            this.playePiaoEffect(lastD.node);
         }
     }
 
@@ -687,6 +691,9 @@ export class PlayerView {
         }
     }
 
+    public async playePiaoEffect(node: cc.Node): Promise<void> {
+        await this.roomHost.animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, node);
+    }
     //特效道具播放
     public playerDonateEffect(effectName: string): void {
         this.roomHost.animationMgr.play(`lobby/prefabs/donate/${effectName}`, this.head.headView.node);

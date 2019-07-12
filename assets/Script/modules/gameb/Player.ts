@@ -20,7 +20,6 @@ const eXTSJ_OP_TYPE = protoHH.casino_xtsj.eXTSJ_OP_TYPE;
 //特效文件定义
 const effectsDef: { [key: number]: string } = {
     [1001]: "Effect_ico_peng", //碰 这个没定义
-    [1002]: "Effect_ico_piaolai", //飘赖
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DIANXIAO]: "Effect_ico_dianxiao", //点笑
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "Effect_ico_menxiao", //闷笑
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "Effect_ico_huitouxiao", //回头笑
@@ -302,8 +301,8 @@ export class Player {
     }
 
     //把打出的牌列表显示到界面上
-    public discarded2UI(newDiscard: boolean, waitDiscardReAction: boolean): void {
-        this.playerView.showDiscarded(newDiscard, waitDiscardReAction);
+    public discarded2UI(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): void {
+        this.playerView.showDiscarded(newDiscard, waitDiscardReAction, isPiao);
     }
 
     //隐藏打出的牌提示
@@ -640,7 +639,7 @@ export class Player {
         //         }
         //     }
         // }
-        this.discardToDeskOfMe(tileID);
+        // this.discardToDeskOfMe(tileID);
         this.myDiscardAction(tileID);
         const req2 = new protoHH.casino_xtsj.packet_cs_outcard_req({ player_id: +this.userID, card: tileID });
         const buf = protoHH.casino_xtsj.packet_cs_outcard_req.encode(req2);

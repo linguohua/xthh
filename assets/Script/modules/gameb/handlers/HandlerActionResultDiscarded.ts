@@ -22,21 +22,20 @@ export namespace HandlerActionResultDiscarded {
         if (!isMe || isReplayMode) {
             player.discardOutTileID(discardTileId);
         }
-        //有人飘赖子
-        if (room.mAlgorithm.getMahjongLaiZi() === reply.card) {
-            await player.exposedResultAnimation(1002, true);
-            room.mAlgorithm.setFlagPiao(true);
-        }
         if (isMe && !isReplayMode) {
             player.cancelZiMo = false;
-
-            return;
         }
         //清理吃牌界面
         room.cleanUI();
         //加到打出牌列表
         player.addDicardedTile(discardTileId);
-        player.discarded2UI(true, false);
+        const isPiao = room.mAlgorithm.getMahjongLaiZi() === reply.card;
+        player.discarded2UI(true, false, isPiao);
 
+        //有人飘赖子
+        if (isPiao) {
+            // await player.exposedResultAnimation(1002, true);
+            room.mAlgorithm.setFlagPiao(true);
+        }
     };
 }
