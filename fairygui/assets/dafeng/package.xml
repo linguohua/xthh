@@ -572,7 +572,7 @@
     <image id="lqn3gl" name="zm_hf_icon_kj.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gm" name="zm_hf_icon_zt.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gn" name="zm_icon_dw.png" path="/_resource/z_桌面打牌/"/>
-    <image id="lqn3go" name="zm_icon_jt.png" path="/_resource/z_桌面打牌/" exported="true"/>
+    <image id="lqn3go" name="zm_icon_jt.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gp" name="zm_icon_jt1.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gq" name="zm_icon_lt.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gr" name="zm_icon_qiang.png" path="/_resource/z_桌面打牌/"/>
@@ -755,10 +755,10 @@
     <image id="lqn3lx" name="js_wbdi2.png" path="/_resource/j_结算/" scale="9grid" scale9grid="11,10,7,7"/>
     <image id="lqn3ly" name="js_xxdi1.png" path="/_resource/j_结算/" scale="9grid" scale9grid="13,8,4,5"/>
     <image id="lqn3lz" name="js_zi_hu.png" path="/_resource/j_结算/"/>
-    <image id="lqn3m0" name="js_zi_lj.png" path="/_resource/j_结算/" exported="true"/>
-    <image id="lqn3m1" name="js_zi_sl.png" path="/_resource/j_结算/" exported="true"/>
+    <image id="lqn3m0" name="js_zi_lj.png" path="/_resource/j_结算/"/>
+    <image id="lqn3m1" name="js_zi_sl.png" path="/_resource/j_结算/"/>
     <image id="lqn3m2" name="js_zi_ting.png" path="/_resource/j_结算/"/>
-    <image id="lqn3m3" name="js_zi_yl.png" path="/_resource/j_结算/" exported="true"/>
+    <image id="lqn3m3" name="js_zi_yl.png" path="/_resource/j_结算/"/>
     <image id="lqn3m4" name="js_zjdi.png" path="/_resource/j_结算/"/>
     <component id="jel2m5" name="gpsBtn.xml" path="/btn/"/>
     <component id="jel2m6" name="recorderBtn.xml" path="/btn/"/>
