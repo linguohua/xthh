@@ -63,6 +63,7 @@ export interface RoomViewInterface {
     stopDiscardCountdown(): void;
     clearWaitingPlayer(): void;
     playAnimation(effectName: string, isWait?: boolean): Promise<void>;
+    playZhuangAni(pos: fgui.GObject): void;
 }
 
 /**
@@ -146,5 +147,4 @@ export interface RoomInterface {
     showMsg(chatData: ChatData): void;
     setDiscardAble(isDiscardAble: boolean): void;
     myMahjong_showTingGroup(tile: number): TingPai[];
-    playZhuangAni(isMoveTo: boolean, playerId: number): void;
 }

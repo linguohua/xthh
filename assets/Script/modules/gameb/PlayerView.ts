@@ -71,7 +71,6 @@ export class PlayerView {
     //打出的牌放大显示
     public discardTips: fgui.GComponent;
     public head: Head;
-
     public viewChairID: number;
     public onUpdateStatus: Function[];
     private discards: fgui.GComponent[];
@@ -782,18 +781,18 @@ export class PlayerView {
 
         //更新庄家UI
         const updateBanker = (isBanker: boolean, isContinue: boolean): void => {
-            if (isBanker) {
-                if (isContinue) {
-                    head.bankerFlag.visible = false;
-                    head.continuousBankerFlag.visible = true;
-                } else {
-                    head.bankerFlag.visible = true;
-                    head.continuousBankerFlag.visible = false;
-                }
-            } else {
-                head.bankerFlag.visible = false;
-                head.continuousBankerFlag.visible = false;
-            }
+            // if (isBanker) {
+            //     if (isContinue) {
+            //         head.bankerFlag.visible = false;
+            //         head.continuousBankerFlag.visible = true;
+            //     } else {
+            //         head.bankerFlag.visible = true;
+            //         head.continuousBankerFlag.visible = false;
+            //     }
+            // } else {
+            //     head.bankerFlag.visible = false;
+            //     head.continuousBankerFlag.visible = false;
+            // }
         };
         head.onUpdateBankerFlag = updateBanker;
 

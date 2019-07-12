@@ -300,7 +300,7 @@ export class Replay {
         // 根据风圈修改
         room.setRoundMask();
         // 修改庄家标志
-        room.setBankerFlag();
+        // room.setBankerFlag();
 
         let drawCount = 0;
         // 保存每一个玩家的牌列表

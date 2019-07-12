@@ -114,6 +114,11 @@ export class RoomView {
         // )
     }
 
+    public playZhuangAni(pos: fgui.GObject): void {
+        this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_zhuang01`, this.zhuangPos.node);
+        this.zhuangPos.node.runAction(cc.moveTo(1, pos.node.position));
+    }
+
     // 播放动画
     public async playAnimation(effectName: string, isWait?: boolean): Promise<void> {
         if (effectName === undefined || effectName === null) {

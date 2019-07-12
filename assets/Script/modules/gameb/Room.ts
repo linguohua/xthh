@@ -413,12 +413,6 @@ export class Room {
         this.sendMsg(proto.mahjong.MessageCode.OPDonate, actionMsgBuf);
     }
 
-    public async playZhuangAni(isMoveTo: boolean, playerId: number): Promise<void> {
-        await this.roomView.playAnimation("Effect_ico_zhuang01");
-        //飞动画
-        // const moveAnimation = cc.moveTo(1, toPos);
-        // oCurOpObj.node.runAction(moveAnimation);
-    }
     // 显示道具动画
     public showDonate(msgDonate: proto.mahjong.MsgDonate): void {
         // Logger.debug("显示道具动画 msgDonate : ", msgDonate);
@@ -664,7 +658,9 @@ export class Room {
         this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
         //显示庄家
         this.bankerChairID = this.roomInfo.lord_id;
-        this.setBankerFlag();
+        const player = <Player>this.getPlayerByUserID(this.bankerChairID.toString());
+        this.roomView.playZhuangAni(player.playerView.head.bankerFlag);
+        // this.setBankerFlag();
         //压入自摸不自摸的标志
         this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
 

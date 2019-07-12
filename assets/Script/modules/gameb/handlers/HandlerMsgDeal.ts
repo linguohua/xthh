@@ -21,7 +21,9 @@ export namespace HandlerMsgDeal {
             //换庄
             await room.roomView.playAnimation("Effect_ico_huanzhuang", true);
         }
-        // room.playZhuangAni(true, msgDeal.lord_id);
+        const player = <Player>room.getPlayerByUserID(msgDeal.lord_id.toString());
+        room.roomView.playZhuangAni(player.playerView.head.bankerFlag);
+        await room.coWaitSeconds(1);
         //播放定赖动画 并等待
         // await room.roomView.playAnimation("Effect_ico_dinglai", true);
 
@@ -45,11 +47,10 @@ export namespace HandlerMsgDeal {
         }
 
         //等待庄家出牌
-        const player = <Player>room.getPlayerByUserID(msgDeal.lord_id.toString());
         room.setWaitingPlayer(player.chairID, msgDeal.time);
 
         room.bankerChairID = msgDeal.lord_id; //庄家
-        room.setBankerFlag();
+        // room.setBankerFlag();
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);

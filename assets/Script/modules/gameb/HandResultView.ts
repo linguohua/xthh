@@ -160,7 +160,7 @@ export class HandResultView extends cc.Component {
 
         this.countDownTime = msgHandOver.time;
         this.unschedule(this.countDownAgian);
-        this.schedule(this.countDownAgian, 1,  cc.macro.REPEAT_FOREVER);
+        this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
 
         this.win.show();
     }
@@ -335,7 +335,7 @@ export class HandResultView extends cc.Component {
         }
     }
 
-    private setOpscore(playerScore: proto.casino.Iplayer_score,  c: ViewGroup): void {
+    private setOpscore(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
         let opscoreString = "";
         let piaoLaizi = "";
         for (const opscore of playerScore.opscores) {
@@ -352,10 +352,10 @@ export class HandResultView extends cc.Component {
             let hupaiString: string = "";
             if (opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO || opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2
                 || opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO || opscore.type === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2) {
-                    // 各种摸没有次数
-                    hupaiString = hupaiType[opscore.type];
+                // 各种摸没有次数
+                hupaiString = hupaiType[opscore.type];
             } else {
-                hupaiString =  opscore.count > 1 ?  `${hupaiType[opscore.type]}:${opscore.count}` : `${hupaiType[opscore.type]}`;
+                hupaiString = opscore.count > 1 ? `${hupaiType[opscore.type]}:${opscore.count}` : `${hupaiType[opscore.type]}`;
             }
 
             if (opscoreString === "") {
@@ -601,6 +601,6 @@ export class HandResultView extends cc.Component {
         if (this.msgHandOver.tdata.play_total === this.msgHandOver.tdata.round) {
             btnText = `查看积分`;
         }
-        this.countDown.text = `${ this.countDownTime} ${btnText}`;
+        this.countDown.text = `${this.countDownTime} ${btnText}`;
     }
 }
