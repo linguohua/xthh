@@ -259,7 +259,7 @@ export class HandResultView extends cc.Component {
                 last = tilesHand.pop();
             }
             tilesHand.sort((x: number, y: number) => {
-                return y - x;
+                return x - y;
             });
             if (excludeLast) {
                 tilesHand.push(last);
@@ -278,7 +278,11 @@ export class HandResultView extends cc.Component {
             const majong =  this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 tilesHand = majong.sVecHuPai;
-                Logger.debug("tilesHand:", tilesHand);
+                // Logger.debug("tilesHand:", tilesHand);
+
+                const lastTile = tilesHand.pop();
+                const  lNums : number[] = [lastTile];
+                tilesHand = lNums.concat(tilesHand);
             }
         } else {
             this.sortHands(tilesHand, false);
@@ -315,7 +319,7 @@ export class HandResultView extends cc.Component {
         for (const oCardObj of c.cards) {
             oCardObj.visible = false;
         }
-        for (let i = 0; i < tileCountInHand; i++) {
+        for (let i = tileCountInHand - 1; i >= 0; i--) {
             const tiles = tilesHand[i];
             //因为玩家有可能有两张一样的牌，所以要加一个变量来判断是否已处理
             // if (lastTile === tiles && !last && isHu) {

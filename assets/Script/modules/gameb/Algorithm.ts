@@ -742,6 +742,7 @@ export class Algorithm {
         }
         let bHuPai = false;
         const sVecJiangsss: number[] = [];
+        this.defMahjongSort_stb(a.sVecPai);
         const d: ArrayClass_d = this.canGangPai_withAllEX(a.sVecPai);
         if (d.gang) {
             const gang_pai = [];
