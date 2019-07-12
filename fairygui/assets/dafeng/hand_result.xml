@@ -10,7 +10,7 @@
     <text id="n2_rhc4" name="date" xy="45,605" size="163,28" fontSize="18" color="#6fe330" vAlign="middle" autoSize="none" singleLine="true" text="2019-05-20 09:15"/>
     <component id="n3_rhc4" name="againBtn" src="jmxy45" fileName="handResult/again_button.xml" xy="922,559"/>
     <component id="n4_rhc4" name="shanreBtn" src="tfg8n9" fileName="handResult/share_button.xml" xy="925,713"/>
-    <graph id="n8_e27g" name="aniPos" xy="568,69" pivot="0.5,0.5" size="0,0"/>
+    <graph id="n8_e27g" name="aniPos" xy="581,51" pivot="0.5,0.5" anchor="true" size="0,0"/>
     <component id="n9_fxwe" name="player1" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,105"/>
     <component id="n10_fxwe" name="player2" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,219"/>
     <component id="n11_fxwe" name="player3" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,333"/>
