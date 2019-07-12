@@ -6,5 +6,9 @@
     <text id="n3_jel2" name="laizi" xy="63,1" size="41,29" fontSize="19" color="#009900" align="center" vAlign="middle" autoSize="none" singleLine="true" text="赖子"/>
     <component id="n13_tfg8" name="laigenCom" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="4,29" scale="0.57,0.52"/>
     <component id="n14_tfg8" name="laiziCOm" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="58,29" scale="0.57,0.52"/>
+    <graph id="n15_lop0" name="laigenPos1" xy="4,29" size="90,136" scale="0.57,0.52"/>
+    <graph id="n16_lop0" name="laiziPos1" xy="58,29" size="90,136" scale="0.57,0.52"/>
+    <graph id="n17_lop0" name="laigenPos2" xy="527,252" size="90,136" scale="0.57,0.52"/>
+    <graph id="n18_lop0" name="laiziPos2" xy="581,252" size="90,136" scale="0.57,0.52"/>
   </displayList>
 </component>
