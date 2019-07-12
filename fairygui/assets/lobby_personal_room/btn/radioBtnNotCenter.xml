@@ -9,7 +9,7 @@
       <gearDisplay controller="button" pages="1"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n3_b75t" name="text" xy="0,3" size="133,49" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="0.5&#xA;"/>
+    <text id="n3_b75t" name="text" xy="33,10" size="94,29" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="两人三门"/>
   </displayList>
   <Button mode="Radio"/>
 </component>

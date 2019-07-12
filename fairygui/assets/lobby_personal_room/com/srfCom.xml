@@ -22,19 +22,19 @@
     <text id="n19_b75t" name="round" xy="235,183" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="房间局数 :"/>
     <text id="n20_b75t" name="premission" xy="235,245" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="允许进入 :"/>
     <text id="n21_b75t" name="playerNumber" xy="235,305" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局人数 :"/>
-    <text id="n22_b75t" name="neededText" xy="234,391" size="197,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" bold="true" singleLine="true" text="需要/拥有房卡数 :"/>
+    <text id="n22_b75t" name="neededText" xy="234,391" size="196,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" bold="true" singleLine="true" text="需要/拥有房卡数 :"/>
     <text id="n53_b75t" name="fkText" xy="503,392" size="181,35" fontSize="24" color="#fef6e2" vAlign="middle" autoSize="none" bold="true" text="1/9"/>
     <text id="n55_b75t" name="noEnoughFk" xy="579,394" size="107,33" fontSize="24" color="#e74513" vAlign="middle" autoSize="none" bold="true" text="房卡不足"/>
     <component id="n27_b75t" name="accessBtn" src="b75to" fileName="btn/accessBtn.xml" xy="7,372" size="187,72"/>
     <component id="n29_b75t" name="createRoomBtn" src="b75tp" fileName="btn/createRoomBtn.xml" xy="721,371"/>
-    <component id="n30_b75t" name="type0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,56">
+    <component id="n30_b75t" name="type0" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="363,56">
       <Button checked="true" controller="type" page="0"/>
     </component>
-    <component id="n31_b75t" name="type1" src="b75tq" fileName="btn/radioBtn.xml" xy="535,56">
+    <component id="n31_b75t" name="type1" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="535,56">
       <relation target="n30_b75t" sidePair="top-top,left-left"/>
       <Button controller="type" page="1"/>
     </component>
-    <component id="n32_b75t" name="type2" src="b75tq" fileName="btn/radioBtn.xml" xy="703,56">
+    <component id="n32_b75t" name="type2" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="703,56">
       <relation target="n30_b75t" sidePair="top-top,left-left"/>
       <Button controller="type" page="2"/>
     </component>
