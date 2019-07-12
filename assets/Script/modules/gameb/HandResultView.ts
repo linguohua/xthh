@@ -52,6 +52,7 @@ class ViewGroup {
     public cards: fgui.GComponent[];
     public melds: fgui.GComponent;
     public textName: fgui.GObject;
+    public nameBg: fgui.GObject;
     public textId: fgui.GObject;
     public zhuang: fgui.GObject;
     public lianzhuang: fgui.GObject;
@@ -239,6 +240,10 @@ export class HandResultView extends cc.Component {
             name = `${userID}`;
         }
         c.textName.text = name;
+
+        if (this.room.isMe(`${player.id}`)) {
+            c.nameBg.visible = true;
+        }
         // c.textId.text = `ID:${userID}`;
         //房主
         // c.imageRoom.visible = player.isMe();
@@ -481,6 +486,8 @@ export class HandResultView extends cc.Component {
             contentGroupData.melds = group.getChild("melds").asCom;
             //名字
             contentGroupData.textName = group.getChild("name");
+            contentGroupData.nameBg = group.getChild("n23");
+
             contentGroupData.textId = group.getChild("id");
             // contentGroupData.textId.visible = false;
             //庄家
