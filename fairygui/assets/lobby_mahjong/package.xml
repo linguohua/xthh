@@ -73,7 +73,6 @@
     <component id="tsg11y" name="mahjong_right_meld_gang1.xml" path="/mahjong_right/" exported="true"/>
     <component id="tsg11z" name="mahjong_right_meld_gang2.xml" path="/mahjong_right/" exported="true"/>
     <component id="tsg120" name="mahjong_right_meld_chipeng.xml" path="/mahjong_right/" exported="true"/>
-    <image id="tsg123" name="out_b_11.png" path="/_resource/m_麻将牌/大/"/>
     <image id="tsg124" name="out_b_11.png" path="/mahjong_mine/m_麻将牌/大/"/>
     <image id="tsg125" name="mj_s_back.png" path="/image_bg/"/>
     <image id="tsg127" name="my_b_11.png" path="/mahjong_mine/m_麻将牌/大/"/>

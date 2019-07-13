@@ -2,8 +2,6 @@
 <packageDescription id="397phoch" jpegQuality="80" compressPNG="true">
   <resources>
     <component id="jmxy0" name="head_button.xml" path="/btn/"/>
-    <image id="jmxy1" name="girl_img.png" path="/头像/" exported="true"/>
-    <image id="jmxy2" name="txk_wx80.png" path="/头像/" exported="true"/>
     <component id="jmxy3" name="chi_button.xml" path="/desk/button/" exported="true"/>
     <component id="jmxy4" name="peng_button.xml" path="/desk/button/" exported="true"/>
     <image id="jmxy5" name="di_cpg.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/"/>
@@ -81,7 +79,6 @@
     <image id="jmxy25" name="an_gengduo.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
     <component id="jmxy26" name="guize_button.xml" path="/desk/"/>
     <image id="jmxy27" name="guize.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
-    <component id="jmxy28" name="chat_button.xml" path="/desk/"/>
     <image id="jmxy29" name="an_dazi.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
     <component id="jmxy2a" name="operation_panel.xml" path="/desk/"/>
     <image id="jmxy2b" name="cpbg_9gong.png" path="/大丰麻将美术改版/2 游戏内/切图/出牌按钮/" scale="9grid" scale9grid="46,29,92,58"/>
@@ -92,7 +89,6 @@
     <component id="jmxy2g" name="mahjong_mine_meld_gang1.xml" path="/mahjong_mine/" exported="true"/>
     <component id="jmxy2h" name="meld_cancel_button.xml" path="/desk/"/>
     <image id="jmxy2i" name="cpqx.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
-    <font id="jmxy2j" name="countDown.fnt" path="/desk/" exported="true"/>
     <image id="jmxy2k" name="djs0.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
     <image id="jmxy2l" name="djs1.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
     <image id="jmxy2m" name="djs2.png" path="/大丰麻将美术改版/2 游戏内/切图/"/>
@@ -119,7 +115,6 @@
     <component id="jmxy37" name="invite_button.xml" path="/desk/"/>
     <image id="jmxy38" name="yaoqin.png" path="/大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/"/>
     <image id="jmxy3a" name="zjsbg.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
-    <font id="jmxy3b" name="win.fnt" path="/handResult/" exported="true"/>
     <image id="jmxy3c" name="z0.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3d" name="z1.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3e" name="z2.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
@@ -131,7 +126,6 @@
     <image id="jmxy3k" name="z8.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3l" name="z9.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3m" name="zjia.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
-    <font id="jmxy3n" name="lose.fnt" path="/handResult/" exported="true"/>
     <image id="jmxy3o" name="f0.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3p" name="f1.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
     <image id="jmxy3q" name="f2.png" path="/大丰麻将美术改版/2 游戏内/切图/j_结算/"/>
