@@ -704,7 +704,6 @@
     <image id="o570og" name="suit9.png" path="/image_title/"/>
     <image id="o570oh" name="dui.png" path="/image_bg/"/>
     <image id="o570oi" name="heng_fan.png" path="/image_bg/"/>
-    <image id="o570oj" name="mj_s_back.png" path="/image_bg/"/>
     <image id="o570ok" name="my_b_11.png" path="/image_bg/"/>
     <image id="o570ol" name="out_b_11.png" path="/image_bg/"/>
     <component id="o570om" name="laiziComInHandResult.xml" path="/compoment/"/>

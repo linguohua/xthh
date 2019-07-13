@@ -331,7 +331,8 @@ export class PlayerView {
         }
 
         if (isPiao) {
-            this.playPiaoEffect(lastD.node);
+            const point = lastD.getChild("piaoPos");
+            this.playPiaoEffect(point.node);
         }
     }
 
