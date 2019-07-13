@@ -10,7 +10,6 @@ export namespace HandlerMsgTableDisbandReq {
         const disbandReq = proto.casino.packet_table_disband_req.decode(msgData);
         Logger.debug("HandlerMsgTableDisbandReq----------------------- ", disbandReq);
 
-
         //保存到room到，以便重复点击申请解散按钮进而显示
         room.updateDisbandVoteView(disbandReq, null);
     };

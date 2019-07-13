@@ -55,7 +55,9 @@ export class DisbandView extends cc.Component {
 
     public saveRoomView(room: RoomInterface, loader: GResLoader
         // tslint:disable-next-line:align
-        , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[], disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack, ): void {
+        , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[],
+        // tslint:disable-next-line:align
+        disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         this.myInfo = myInfo;
         this.room = room;
         this.playersInfo = playersInfo;
@@ -83,7 +85,6 @@ export class DisbandView extends cc.Component {
             this.initView();
         }
 
-
         this.updateView();
 
     }
@@ -95,8 +96,7 @@ export class DisbandView extends cc.Component {
         Logger.debug("disbandAck = ", this.disbandAck);
 
         //先更新所有文字信息，例如谁同意，谁拒绝之类
-        this.updateTexts(this.disbandReq, this.disbandAck)
-
+        this.updateTexts(this.disbandReq, this.disbandAck);
 
         if ((this.disbandReq !== null && `${this.disbandReq.player_id}` === this.myInfo.userID) ||
             (this.disbandAck !== null && `${this.disbandAck.player_id}` === this.myInfo.userID)) {
@@ -109,6 +109,7 @@ export class DisbandView extends cc.Component {
             this.unschedule(this.disbandCountDown);
 
             this.destroy();
+
             return;
         }
     }
@@ -180,7 +181,7 @@ export class DisbandView extends cc.Component {
 
     private updateTexts(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         if (disbandReq !== null) {
-            let nick = this.getPlayerNickByID(`${disbandReq.player_id}`);
+            const nick = this.getPlayerNickByID(`${disbandReq.player_id}`);
             const nameText = this.view.getChild("name");
             nameText.text = nick;
 
@@ -194,7 +195,6 @@ export class DisbandView extends cc.Component {
 
             // this.leftTime = disbandTime - (nowTime - disbandReq.disband_time.toNumber())
 
-            // Logger.debug(`nowTime:${nowTime}, disbandTime:${disbandTime}, leftTime:${this.leftTime}, startTime:${disbandReq.disband_time.toNumber()}`);
             this.schedule(this.disbandCountDown, 1, cc.macro.REPEAT_FOREVER);
         }
 

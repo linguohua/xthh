@@ -56,23 +56,6 @@ export namespace CommonFunction {
 
         return x;
     };
-    /**
-     * 设置遮盖大小
-     * @param view mask 节点
-     */
-    export const setBgFullScreenSize = (view: fgui.GObject): void => {
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        let x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-            x = (cc.winSize.width - IOS_ADAPTER_WIDTH) / 2 - (cc.winSize.height * 1136 / 640 / 2) + IOS_ADAPTER_WIDTH;
-        }
-        Logger.debug("x = ", x);
-
-        view.setPosition(-x, 0);
-        setBgFullScreen(view);
-
-    };
 
     /**
      * 根据大小，拉长比例
@@ -136,6 +119,24 @@ export namespace CommonFunction {
         const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
 
         return `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
+    };
+
+    /**
+     * 设置遮盖大小
+     * @param view mask 节点
+     */
+    export const setBgFullScreenSize = (view: fgui.GObject): void => {
+        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        let x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+        if (newIPhone === "1") {
+            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
+            x = (cc.winSize.width - IOS_ADAPTER_WIDTH) / 2 - (cc.winSize.height * 1136 / 640 / 2) + IOS_ADAPTER_WIDTH;
+        }
+        Logger.debug("x = ", x);
+
+        view.setPosition(-x, 0);
+        setBgFullScreen(view);
+
     };
 
 }

@@ -1,5 +1,5 @@
+import { Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
-import { Logger } from "../lobby/lcore/Logger";
 
 /* tslint:disable */
 // 先把tslint关闭，等待完全修改好之后再打开
