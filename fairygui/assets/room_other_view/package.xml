@@ -36,6 +36,8 @@
     <component id="o570gi" name="disbandBtn.xml" path="/gps/"/>
     <component id="o570gj" name="continueBtn.xml" path="/gps/"/>
     <component id="im76hw" name="fourPlayer.xml" path="/"/>
+    <component id="bvbthx" name="twoPlayer.xml" path="/"/>
+    <component id="bvbthy" name="threePlayer.xml" path="/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>
