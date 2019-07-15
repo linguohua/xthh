@@ -1,7 +1,6 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
-import { ButtonDef } from "../PlayerInterface";
 import { RoomInterface } from "../RoomInterface";
 
 /**
@@ -38,12 +37,17 @@ export namespace HandlerActionResultDraw {
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard): boolean => {
         player.resetAllStatus();
+        player.playerView.skipBtn.grayed = true;
+        player.playerView.gangBtn.grayed = true;
+        player.playerView.pengBtn.grayed = true;
+        player.playerView.huBtn.grayed = true;
 
-        const buttonMap: string[] = [];
+        let buttonMap: boolean = false;
         if (reply.card !== 0 && player.cancelZiMo === false) {
             const hu = room.mAlgorithm.canHuPai(player.tilesHand);
             if (hu.length > 0) {
-                buttonMap.push(ButtonDef.Hu);
+                buttonMap = true;
+                player.playerView.huBtn.grayed = false;
             }
         }
         Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
@@ -51,14 +55,15 @@ export namespace HandlerActionResultDraw {
         if (isCanGang) {
             const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
             if (gang.length > 0) {
+                buttonMap = true;
                 player.canKongs = gang;
-                buttonMap.push(ButtonDef.Kong);
+                player.playerView.gangBtn.grayed = false;
             }
         }
-        if (buttonMap.length > 0) {
+        if (buttonMap) {
             // player.lastDisCardTile = reply.card;
-            buttonMap.push(ButtonDef.Skip);
-            player.playerView.showButton(buttonMap);
+            player.playerView.skipBtn.grayed = false;
+            player.playerView.showButton();
 
             return true;
         }

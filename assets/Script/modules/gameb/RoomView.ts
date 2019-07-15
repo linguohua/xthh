@@ -406,7 +406,7 @@ export class RoomView {
         // )
 
         const chatBtn = this.unityViewNode.getChild("chatBtn");
-        chatBtn.onClick(this.onChatBtnClick, this);
+        // chatBtn.onClick(this.onChatBtnClick, this);
 
         const settingBtn = this.unityViewNode.getChild("settingBtn");
         settingBtn.onClick(this.onSettingBtnClick, this);
@@ -550,7 +550,7 @@ export class RoomView {
         const cancelBtn = this.meldOpsPanel.getChild("cancelBtn");
         const cancelOnClick = () => {
             this.meldOpsPanel.visible = false;
-            this.playerViews[1].showButton([]);
+            this.playerViews[1].showButton();
         };
         cancelBtn.onClick(cancelOnClick, this);
     }

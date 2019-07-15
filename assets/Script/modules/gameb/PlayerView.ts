@@ -2,7 +2,7 @@ import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameRules } from "./GameRules";
-import { ButtonDef, ClickCtrl, PlayerInterface, TypeOfOP } from "./PlayerInterface";
+import { ClickCtrl, PlayerInterface, TypeOfOP } from "./PlayerInterface";
 import { proto } from "./proto/protoGame";
 import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
 import { TileImageMounter } from "./TileImageMounter";
@@ -83,7 +83,6 @@ export class PlayerView {
     private operationPanel: fgui.GComponent;
     private buttonList: fgui.GList;
     private buttonDataList: string[];
-
     private aniPos: fgui.GObject;
     private userInfoPos: fgui.GObject;
     private qipao: fgui.GComponent;
@@ -94,9 +93,12 @@ export class PlayerView {
     private roomHost: RoomHost;
     private lastClickTime: number;
     private lastClickIndex: number;
-
     private dragHand: fgui.GComponent; //拖牌时 克隆的牌
     private msgTimerCB: Function;
+    public skipBtn: fgui.GButton;
+    public pengBtn: fgui.GButton;
+    public huBtn: fgui.GButton;
+    public gangBtn: fgui.GButton;
 
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
@@ -135,12 +137,12 @@ export class PlayerView {
     }
 
     //显示操作按钮
-    public showButton(map: string[]): void {
-        if (map !== undefined && map.length > 0) {
-            this.buttonDataList = map;
-            this.buttonList.numItems = map.length;
-            this.buttonList.resizeToFit(map.length);
-        }
+    public showButton(): void {
+        // if (map !== undefined && map.length > 0) {
+        //     this.buttonDataList = map;
+        //     this.buttonList.numItems = map.length;
+        //     this.buttonList.resizeToFit(map.length);
+        // }
         this.operationPanel.visible = true;
     }
 
@@ -1172,58 +1174,79 @@ export class PlayerView {
         this.handsClickCtrls = handsClickCtrls; // 手牌点击时控制数据结构
     }
 
-    private onClickBtn(name: string): void {
-        if (this.btnHanders === undefined) {
-            this.btnHanders = {};
-            const btnHanders = this.btnHanders;
-            btnHanders[ButtonDef.Kong] = () => {
-                this.player.onKongBtnClick();
-            };
-            btnHanders[ButtonDef.Skip] = () => {
-                this.player.onSkipBtnClick();
-            };
-            btnHanders[ButtonDef.Pong] = () => {
-                this.player.onPongBtnClick();
-            };
-            btnHanders[ButtonDef.Ting] = () => {
-                this.player.onReadyHandBtnClick();
-            };
-            btnHanders[ButtonDef.Hu] = () => {
-                this.player.onWinBtnClick();
-            };
-        }
+    // private onClickBtn(name: string): void {
+    //     if (this.btnHanders === undefined) {
+    //         this.btnHanders = {};
+    //         const btnHanders = this.btnHanders;
+    //         btnHanders[ButtonDef.Kong] = () => {
+    //             this.player.onKongBtnClick();
+    //         };
+    //         btnHanders[ButtonDef.Skip] = () => {
+    //             this.player.onSkipBtnClick();
+    //         };
+    //         btnHanders[ButtonDef.Pong] = () => {
+    //             this.player.onPongBtnClick();
+    //         };
+    //         btnHanders[ButtonDef.Ting] = () => {
+    //             this.player.onReadyHandBtnClick();
+    //         };
+    //         btnHanders[ButtonDef.Hu] = () => {
+    //             this.player.onWinBtnClick();
+    //         };
+    //     }
 
-        const handler = this.btnHanders[name];
-        handler();
-    }
+    //     const handler = this.btnHanders[name];
+    //     handler();
+    // }
 
     // public itemProviderButtonList(index: number): string {
     //     return this.buttonDataList[index];
     // }
     //操作按钮
     private initOperationButtons(): void {
-        this.buttonList = this.operationPanel.getChild("buttonList").asList;
-        this.buttonList.itemRenderer = <(index: number, item: fgui.GComponent) => void>this.renderButtonListItem.bind(this);
-        this.buttonList.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onClickBtn(onClickItem.name); }, this);
+        this.skipBtn = this.operationPanel.getChild("skipBtn").asButton;
+        this.pengBtn = this.operationPanel.getChild("pengBtn").asButton;
+        this.huBtn = this.operationPanel.getChild("huBtn").asButton;
+        this.gangBtn = this.operationPanel.getChild("gangBtn").asButton;
+
+        this.skipBtn.onClick(() => { this.player.onSkipBtnClick(); }, this);
+        this.pengBtn.onClick(() => {
+            if (!this.pengBtn.grayed) {
+                this.player.onPongBtnClick();
+            }
+        }, this);
+        this.huBtn.onClick(() => {
+            if (!this.huBtn.grayed) {
+                this.player.onWinBtnClick();
+            }
+        }, this);
+        this.gangBtn.onClick(() => {
+            if (!this.gangBtn.grayed) {
+                this.player.onKongBtnClick();
+            }
+        }, this);
+        // this.buttonList = this.operationPanel.getChild("buttonList").asList;
+        // this.buttonList.itemRenderer = <(index: number, item: fgui.GComponent) => void>this.renderButtonListItem.bind(this);
+        // this.buttonList.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onClickBtn(onClickItem.name); }, this);
         this.hideOperationButtons();
 
-        //检查听详情 按钮
-        this.checkReadyHandBtn = this.viewUnityNode.getChild("checkReadyHandBtn").asButton;
-        this.checkReadyHandBtn.onClick(this.onCheckReadyHandBtnClick, this);
+        // //检查听详情 按钮
+        // this.checkReadyHandBtn = this.viewUnityNode.getChild("checkReadyHandBtn").asButton;
+        // this.checkReadyHandBtn.onClick(this.onCheckReadyHandBtnClick, this);
     }
 
-    private renderButtonListItem(index: number, obj: fgui.GObject): void {
-        const name = this.buttonDataList[index];
-        obj.name = name;
-        obj.visible = true;
+    // private renderButtonListItem(index: number, obj: fgui.GObject): void {
+    //     const name = this.buttonDataList[index];
+    //     obj.name = name;
+    //     obj.visible = true;
 
-        const node = obj.node;
-        if (node.childrenCount > 0) {
-            node.children.forEach((c) => {
-                c.active = false;
-            });
-        }
+    //     const node = obj.node;
+    //     if (node.childrenCount > 0) {
+    //         node.children.forEach((c) => {
+    //             c.active = false;
+    //         });
+    //     }
 
-        this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/${name}`, node);
-    }
+    //     this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/${name}`, node);
+    // }
 }

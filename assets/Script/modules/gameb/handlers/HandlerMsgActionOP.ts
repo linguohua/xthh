@@ -1,7 +1,6 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
-import { ButtonDef } from "../PlayerInterface";
 import { RoomInterface } from "../RoomInterface";
 
 /**
@@ -16,15 +15,20 @@ export namespace HandlerMsgActionOP {
 
             return;
         }
+        player.playerView.skipBtn.grayed = true;
+        player.playerView.gangBtn.grayed = true;
+        player.playerView.pengBtn.grayed = true;
+        player.playerView.huBtn.grayed = true;
 
         player.resetAllStatus();
 
-        const buttonMap: string[] = [];
+        let buttonMap: boolean = false;
         if (!player.cancelZhuochong) {
             const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
             if (hu.length > 0) {
+                buttonMap = true;
                 player.m_bSaveZCHFlag = true;
-                buttonMap.push(ButtonDef.Hu);
+                player.playerView.huBtn.grayed = false;
             }
         }
         Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
@@ -32,22 +36,24 @@ export namespace HandlerMsgActionOP {
         if (isCanGang) {
             const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
             if (gang.length > 0) {
+                buttonMap = true;
                 player.canKongs = gang;
-                buttonMap.push(ButtonDef.Kong);
+                player.playerView.gangBtn.grayed = false;
             }
         }
         Logger.debug(`reply.card , ${reply.card} ; player.notPong ：, ${player.notPong}`);
         if (player.notPong !== reply.card) {
             const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
             if (peng.length > 0) {
+                buttonMap = true;
                 player.isCanPong = true;
-                buttonMap.push(ButtonDef.Pong);
+                player.playerView.pengBtn.grayed = false;
             }
         }
-        if (buttonMap.length > 0) {
+        if (buttonMap) {
             room.lastDisCardTile = reply.card;
-            buttonMap.push(ButtonDef.Skip);
-            player.playerView.showButton(buttonMap);
+            player.playerView.skipBtn.grayed = false;
+            player.playerView.showButton();
         }
     };
 

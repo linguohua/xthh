@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://397phochlqn3fr" designImageAlpha="100">
+<component size="1136,640" designImage="ui://397phochlqn3fd" designImageAlpha="100">
   <controller name="bgController" pages="0,经典,1,普蓝" selected="0"/>
   <displayList>
     <image id="n29_qhzt" name="blueBg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0" size="1136,640" hideByEditor="true">
@@ -38,7 +38,6 @@
     </component>
     <component id="n24_fxwe" name="roundMask" src="jmxy2u" fileName="desk/round_mask.xml" xy="514,249"/>
     <component id="n20_fxwe" name="meldOpsPanel" src="jmxy2e" fileName="desk/meld_multi_ops.xml" xy="0,0" hideByEditor="true" visible="false"/>
-    <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="-1,378" hideByEditor="true"/>
     <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" hideByEditor="true" visible="false"/>
     <loader id="n27_rh8w" name="donate" xy="72,439" pivot="0.5,0.5" anchor="true" size="105,97" hideByEditor="true" visible="false"/>
     <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596">
@@ -62,6 +61,7 @@
     <component id="n40_jel2" name="recorderBtn" src="jel2m6" fileName="btn/recorderBtn.xml" xy="1027,329">
       <relation target="n29_qhzt" sidePair="right-right"/>
     </component>
+    <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="7,353"/>
     <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598">
       <relation target="n29_qhzt" sidePair="right-right,bottom-bottom"/>
     </component>

@@ -5,7 +5,7 @@
     <image id="n0_wxwu" name="n0" src="lqn3hm" fileName="_resource/z_桌面打牌/zm_zi_ydi.png" xy="0,0">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n1_wxwu" name="n1" src="lqn3hi" fileName="_resource/z_桌面打牌/zm_zi_peng.png" xy="26,24"/>
+    <image id="n1_wxwu" name="n1" src="lqn3hg" fileName="_resource/z_桌面打牌/zm_zi_hu.png" xy="27,21"/>
   </displayList>
   <Button/>
 </component>

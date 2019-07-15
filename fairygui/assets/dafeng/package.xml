@@ -520,7 +520,6 @@
     <misc id="jmxyez" name="zan01.json" path="/大丰麻将美术改版/2 游戏内/表情动画/zan01/"/>
     <image id="jmxyf0" name="zan01.png" path="/大丰麻将美术改版/2 游戏内/表情动画/zan01/"/>
     <component id="jmxyf1" name="desk.xml" path="/" exported="true"/>
-    <component id="jmxyf2" name="peng_button.xml" path="/"/>
     <image id="jmxyf3" name="bg.png" path="/"/>
     <component id="jmxyf5" name="hand_result.xml" path="/" exported="true"/>
     <image id="lqn3f7" name="j_大结算.jpg" path="/_design/"/>
@@ -558,7 +557,7 @@
     <image id="lqn3gd" name="zm_cpdi.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="24,18,7,12"/>
     <image id="lqn3ge" name="zm_di1.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="8,8,16,16"/>
     <image id="lqn3gf" name="zm_gb1.png" path="/_resource/z_桌面打牌/"/>
-    <image id="lqn3gg" name="zm_hfgnjdi.png" path="/_resource/z_桌面打牌/"/>
+    <image id="lqn3gg" name="zm_hfgnjdi.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="28,7,2,1" gridTile="16"/>
     <image id="lqn3gh" name="zm_hf_icon_fh.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gi" name="zm_hf_icon_gb.png" path="/_resource/z_桌面打牌/"/>
     <image id="lqn3gj" name="zm_hf_icon_jt1.png" path="/_resource/z_桌面打牌/"/>
@@ -710,6 +709,10 @@
     <component id="o570on" name="lastOneCom.xml" path="/compoment/"/>
     <component id="o570oo" name="desk_meld_hand_result.xml" path="/desk/mine/"/>
     <component id="jgmtop" name="cancelCom.xml" path="/"/>
+    <component id="wxwuoq" name="hu_Button.xml" path="/"/>
+    <component id="wxwuor" name="gang_Button.xml" path="/"/>
+    <component id="wxwuos" name="peng_Button.xml" path="/"/>
+    <component id="wxwuou" name="cancel_button.xml" path="/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
