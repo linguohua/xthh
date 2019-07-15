@@ -32,13 +32,16 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private view: fgui.GComponent;
 
     private mq: MsgQueue;
-    private connectErrorCount: number;
+    private connectErrorCount: number = 0;
     // private retry: boolean = false;
     // private forceExit: boolean = false;
     private mRoom: Room;
     private lm: LobbyModuleInterface;
     private mUser: UserInfo;
+    private mJoinRoomParams: JoinRoomParams;
+    private mCreateRoomParams: CreateRoomParams;
     private mAnimationMgr: AnimationMgr;
+    private retry: boolean = false;
 
     public getLobbyModuleLoader(): GResLoader {
         return this.lm.loader;
@@ -67,6 +70,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // 尝试进入房间
         this.lm = args.lm;
         this.loader = args.loader;
+
+        this.lm.eventTarget.on("reconnect", this.onReconnect, this);
 
         // 加载游戏界面
         this.loader.fguiAddPackage("lobby/fui_lobby_mahjong/lobby_mahjong");
@@ -101,7 +106,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             const chairID = 0;
             await this.tryEnterReplayRoom(args.userInfo.userID, args.record, chairID);
         } else {
-            await this.doEnterRoom(args.userInfo, args.joinRoomParams, args.createRoomParams);
+            await this.tryEnterRoom(args.userInfo, args.joinRoomParams, args.createRoomParams);
         }
     }
 
@@ -145,11 +150,44 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         fgui.GRoot.inst.removeChild(this.view);
         this.view.dispose();
 
+        this.lm.eventTarget.off("reconnect", this.onReconnect, this);
         this.lm.returnFromGame();
     }
 
     protected update(dt: number): void {
         this.timeElapsed += dt;
+    }
+
+    private async tryEnterRoom(
+        myUser: UserInfo,
+        joinRoomParams: JoinRoomParams, createRoomParams: CreateRoomParams): Promise<void> {
+
+        this.mUser = myUser;
+        this.mJoinRoomParams = joinRoomParams;
+        this.mCreateRoomParams = createRoomParams;
+
+        let loop = true;
+        while (loop) {
+            await this.doEnterRoom(this.mUser, this.mJoinRoomParams, this.mCreateRoomParams);
+            Logger.debug("doEnterRoom return, retry:", this.retry);
+
+            this.connectErrorCount++;
+
+            if (!this.retry) {
+                loop = false;
+            } else {
+                Logger.debug("retury connectErrorCount:", this.connectErrorCount);
+            }
+        }
+
+        if (this.mRoom !== null) {
+            this.mRoom = null;
+        }
+
+        // 退出到大厅
+        this.backToLobby();
+
+        Logger.debug("Exit room");
     }
 
     private backToLobby(): void {
@@ -164,8 +202,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.subMsg();
 
+        this.retry = false;
         let reconnect = false;
         let table: protoHH.casino.Itable = null;
+
         if (createRoomParams !== undefined && createRoomParams !== null) {
             // 创建房间
             const createRoomAck = await this.waitCreateRoom(createRoomParams);
@@ -203,8 +243,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // 创建房间View
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, table);
+        } else {
+            this.mRoom.updateRoom(table);
         }
-        this.mRoom.createPlayers();
 
         this.mRoom.showOrHideReadyButton(!reconnect);
 
@@ -214,9 +255,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         await this.pumpMsg();
 
-        this.backToLobby();
+        // this.backToLobby();
 
-        Logger.debug("Exit room");
     }
 
     // 请求创建房间
@@ -310,6 +350,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         //
         this.mRoom = new Room(myUser, roomInfo, this, rePlay);
         this.mRoom.loadRoomView(this.view);
+
+        // 创建玩家
+        this.mRoom.createPlayers();
     }
 
     // private async showRetryMsgBox(msg?: string): Promise<void> {
@@ -384,13 +427,15 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                     break;
                 }
 
+                this.retry = true;
+
                 // 网络连接断开，重新登入
                 // await this.showRetryMsgBox("与游戏服务器连接断开，是否重连？");
                 // this.retry = true;
 
-                if (this.connectErrorCount > 2) {
-                    // await this.showRetryMsgBox();
-                }
+                // if (this.connectErrorCount > 2) {
+                //     await this.showRetryMsgBox();
+                // }
 
                 loop = false;
             }
@@ -442,5 +487,26 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // await replay.gogogo(this.room);
 
         this.backToLobby();
+    }
+
+    private async onReconnect(): Promise<void> {
+        Logger.debug("onReconnect");
+        // const playerID = DataStore.getString("playerID");
+
+        // const myUser = { userID: `${playerID}` };
+
+        const joinRoomParams = {
+            tableID: `${this.mRoom.roomInfo.id}`
+        };
+
+        this.mJoinRoomParams = joinRoomParams;
+        this.mCreateRoomParams = null;
+        // await this.doEnterRoom(myUser, joinRoomParams, null);
+
+        if (this.mq !== undefined && this.mq !== null) {
+            const msg = new Message(MsgType.wsClosed);
+            this.mq.pushMessage(msg);
+        }
+
     }
 }

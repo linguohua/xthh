@@ -158,7 +158,9 @@ export class HandResultView extends cc.Component {
         //更新数据
         this.updateAllData();
 
-        this.countDownTime = msgHandOver.time;
+        // 这个是看lua代码加上
+        const timeLeft = 3;
+        this.countDownTime = msgHandOver.time - timeLeft;
         this.unschedule(this.countDownAgian);
         this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
 
@@ -275,13 +277,13 @@ export class HandResultView extends cc.Component {
         let tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);
         if (playerScore.hupai_card > 0) {
-            const majong =  this.room.mAlgorithm.canHuPai_defEX(tilesHand);
+            const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 tilesHand = majong.sVecHuPai;
                 // Logger.debug("tilesHand:", tilesHand);
 
                 const lastTile = tilesHand.pop();
-                const  lNums : number[] = [lastTile];
+                const lNums: number[] = [lastTile];
                 tilesHand = lNums.concat(tilesHand);
             }
         } else {

@@ -624,6 +624,77 @@ export class Room {
         }
     }
 
+    public updateRoom(table: protoHH.casino.Itable): void {
+        if (table === undefined || table == null) {
+            Logger.error("table == undefined || table == null");
+
+            return;
+        }
+
+        //有人退出为 -1 有人进来为 1 没有变动为 0
+        let updatePlayer = 0;
+
+        const player2Remove: Player[] = [];
+        const userID2Player: { [key: string]: protoHH.casino.Itable_player } = {};
+        for (const player of table.players) {
+            userID2Player[`${player.id}`] = player;
+        }
+
+        // for (const msgPlayer of msgPlayers) {
+        //     userID2Player[msgPlayer.userID] = msgPlayer;
+        // }
+        //记录需要被删除的玩家
+        const players = this.getPlayers();
+        Object.keys(players).forEach((key: string) => {
+            const player = <Player>players[key];
+            if (userID2Player[player.userID] === undefined) {
+                player2Remove.push(player);
+            }
+        });
+        //删除已经离开的玩家，并隐藏其视图
+        for (const player of player2Remove) {
+            this.removePlayer(player.userID);
+            player.unbindView();
+            //有人出去
+            updatePlayer = -1;
+        }
+
+        //如果自己还没有创建，创建自己
+        for (let i = 0; i < table.players.length; i++) {
+            const p = table.players[i];
+            if (this.isMe(`${p.id}`)) {
+                // const player = <Player>this.getPlayerByUserID(`${p.id}`);
+                const player = this.getPlayerByChairID(i);
+                if (player === null) {
+                    this.createMyPlayer(p, i);
+                } else if (player.chairID !== i) {
+                    this.removePlayer(player.userID);
+                    player.unbindView();
+                    this.createMyPlayer(p, i);
+                }
+
+                break;
+            }
+        }
+
+        for (let i = 0; i < table.players.length; i++) {
+            const p = table.players[i];
+            if (!this.isMe(`${p.id}`)) {
+                const player = this.getPlayerByChairID(i);
+                if (player === null) {
+                    this.createPlayerByInfo(p, i);
+                    //有人进来或者更新，更新GPS
+                    if (updatePlayer === 0) {
+                        updatePlayer = 1;
+                    }
+                } else {
+                    player.updateByPlayerInfo(p, i);
+                }
+            }
+
+        }
+    }
+
     /**
      * 断线重连恢复用户的操作
      */

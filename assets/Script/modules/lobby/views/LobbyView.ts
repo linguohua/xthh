@@ -22,6 +22,8 @@ export class LobbyView extends cc.Component {
 
     private fkText: fgui.GTextField;
 
+    private isReconnect: boolean = false;
+
     private wxShowCallBackFunction: (res: showRes) => void;
 
     protected start(): void {
@@ -92,7 +94,7 @@ export class LobbyView extends cc.Component {
     }
 
     protected onDestroy(): void {
-
+        this.isReconnect = false;
         // this.msgCenter.destory();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -206,6 +208,11 @@ export class LobbyView extends cc.Component {
         console.log("onJoinGameAck");
         const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
 
+        if (this.isReconnect) {
+            this.lm.eventTarget.emit("reconnect");
+            this.isReconnect = false;
+        }
+
         const tableID = DataStore.getString("tableID", "");
         if (tableID === "") {
             return;
@@ -232,6 +239,7 @@ export class LobbyView extends cc.Component {
     }
 
     private onReconnectOk(): void {
+        this.isReconnect = true;
         this.testJoinGame();
     }
 }
