@@ -244,7 +244,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, table);
         } else {
+            Dialog.prompt("正在恢复...");
             this.mRoom.updateRoom(table);
+            Dialog.hidePrompt();
         }
 
         this.mRoom.showOrHideReadyButton(!reconnect);

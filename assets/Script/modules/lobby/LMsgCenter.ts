@@ -1,4 +1,4 @@
-import { Logger, MsgQueue, MsgType, WS } from "./lcore/LCoreExports";
+import { Logger, MsgQueue, MsgType, WS, Dialog } from "./lcore/LCoreExports";
 import { proto } from "./protoHH/protoHH";
 
 export type GameMsgHandler = (msg: proto.casino.ProxyMessage) => void;
@@ -58,6 +58,7 @@ export class LMsgCenter {
             } else {
                 Logger.trace(`Wait 3 seconds to retry, connectErrorCount:${this.connectErrorCount}`);
 
+                Dialog.prompt("网络断开，正在重连");
                 await this.waitSecond();
             }
         }
@@ -231,6 +232,8 @@ export class LMsgCenter {
         this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PING, this.onServerPing, this);
 
         this.eventTarget.emit("onFastLoginComplete", fastLoginReply);
+
+        Dialog.hidePrompt();
     }
 
     private onServerPing(msg: proto.casino.ProxyMessage): void {
