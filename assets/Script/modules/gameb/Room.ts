@@ -625,6 +625,8 @@ export class Room {
     }
 
     public updateRoom(table: protoHH.casino.Itable): void {
+        Logger.debug("updateRoom");
+
         if (table === undefined || table == null) {
             Logger.error("table == undefined || table == null");
 
@@ -640,9 +642,6 @@ export class Room {
             userID2Player[`${player.id}`] = player;
         }
 
-        // for (const msgPlayer of msgPlayers) {
-        //     userID2Player[msgPlayer.userID] = msgPlayer;
-        // }
         //记录需要被删除的玩家
         const players = this.getPlayers();
         Object.keys(players).forEach((key: string) => {
@@ -692,6 +691,15 @@ export class Room {
                 }
             }
 
+        }
+
+        // 恢复玩家牌局
+        this.resetForNewHand();
+
+        for (let i = 0; i < table.players.length; i++) {
+            const p = table.players[i];
+            const player = this.getPlayerByChairID(i);
+            this.initCards(p, player);
         }
     }
 
