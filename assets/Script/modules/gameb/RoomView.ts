@@ -261,6 +261,7 @@ export class RoomView {
         // if (GameRules.haveRoundMask(this.room.roomType)) {
         this.laiziCom.visible = true;
         TileImageMounter.mountTileImage(this.laiziTile, this.room.laiziID);
+        this.laiziTile.getChild("laiziMask").visible = true;
         TileImageMounter.mountTileImage(this.laigenTile, this.room.laigenID);
         // }
     }

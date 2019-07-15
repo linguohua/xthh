@@ -833,6 +833,8 @@ export class Room {
     }
     //重连 初始化 牌组
     private initCards(playerInfo: protoHH.casino.Itable_player, player: Player, isNewDiacard: boolean = false): void {
+        //先保存癞子 才能排序
+        this.laiziID = this.roomInfo.laizi;
         if (playerInfo.curcards.length > 0) {
             player.addHandTiles(playerInfo.curcards);
             player.sortHands(false);

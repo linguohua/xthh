@@ -492,11 +492,13 @@ export class PlayerView {
                 TileImageMounter.mountTileImage(this.hands[13], tileshand[0]);
                 handsClickCtrls[13].tileID = tileshand[0];
                 this.hands[13].getChild("laiziMask").visible = tileshand[0] === this.room.laiziID;
+                this.hands[13].getChild("laizi").visible = tileshand[0] === this.room.laiziID;
                 begin = 1;
             } else {
                 TileImageMounter.mountTileImage(this.hands[13], tileshand[tileCountInHand - 1]);
                 handsClickCtrls[13].tileID = tileshand[tileCountInHand - 1];
                 this.hands[13].getChild("laiziMask").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
+                this.hands[13].getChild("laizi").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
                 endd = tileCountInHand - 1;
             }
         }
@@ -510,6 +512,7 @@ export class PlayerView {
             const t = tileshand[i];
             TileImageMounter.mountTileImage(h, t);
             h.getChild("laiziMask").visible = t === this.room.laiziID;
+            h.getChild("laizi").visible = t === this.room.laiziID;
             h.visible = true;
             handsClickCtrls[j].tileID = t;
             // if (this.player.isRichi) {
