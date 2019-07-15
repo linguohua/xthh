@@ -851,6 +851,7 @@
     <component id="o570om" name="laiziComInHandResult.xml" path="/compoment/"/>
     <component id="o570on" name="lastOneCom.xml" path="/compoment/"/>
     <component id="o570oo" name="desk_meld_hand_result.xml" path="/desk/mine/"/>
+    <component id="jgmtop" name="cancelCom.xml" path="/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

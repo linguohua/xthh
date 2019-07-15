@@ -46,6 +46,8 @@ export class RoomView {
     private component: cc.Component;
     private zhuangPos: fgui.GObject;
     private aniPos: fgui.GObject;
+    private cancelCom: fgui.GComponent;
+    private cancelComText: fgui.GObject;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -318,6 +320,13 @@ export class RoomView {
         disbandView.saveRoomView(this.room, load, myInfo, playersInfo, disbandReq, disbandAck);
     }
 
+    public showOrHideCancelCom(isShow: boolean, str: string): void {
+        if (isShow) {
+            this.cancelComText.text = str;
+        }
+        this.cancelCom.visible = isShow;
+    }
+
     //解散房间按钮点击事件
     // private onDissolveClick(): void {
     //     // const msg = "确实要申请解散房间吗？";
@@ -462,6 +471,9 @@ export class RoomView {
         this.zhuangPos = this.unityViewNode.getChild("zhuangPos");
         //其他动画挂载节点
         this.aniPos = this.unityViewNode.getChild("AniPos");
+        //弃碰弃杠 提示
+        this.cancelCom = this.unityViewNode.getChild("cancelCom").asCom;
+        this.cancelComText = this.cancelCom.getChild("text");
     }
 
     //初始化房间状态事件
@@ -473,6 +485,8 @@ export class RoomView {
 
             this.roundMarkView.visible = false;
             this.stopDiscardCountdown();
+
+            this.cancelCom.visible = false;
             //等待状态重置上手牌遗留
             this.room.resetForNewHand();
         };

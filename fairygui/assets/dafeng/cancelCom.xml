@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="400,40">
+  <displayList>
+    <image id="n0_jgmt" name="n0" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="2,2" size="396,33"/>
+    <text id="n1_jgmt" name="text" xy="10,-5" size="377,50" fontSize="26" color="#e2ffd5" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

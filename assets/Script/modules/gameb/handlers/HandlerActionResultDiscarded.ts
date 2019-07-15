@@ -22,8 +22,9 @@ export namespace HandlerActionResultDiscarded {
         if (!isMe || isReplayMode) {
             player.discardOutTileID(discardTileId);
         }
-        if (isMe && !isReplayMode) {
+        if (isMe) {
             player.cancelZiMo = false;
+            room.showOrHideCancelCom(false);
         }
         //清理吃牌界面
         room.cleanUI();

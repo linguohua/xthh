@@ -16,6 +16,7 @@ export namespace HandlerMsgActionOP {
 
             return;
         }
+
         player.resetAllStatus();
 
         const buttonMap: string[] = [];

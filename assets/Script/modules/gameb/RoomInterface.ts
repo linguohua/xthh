@@ -148,4 +148,5 @@ export interface RoomInterface {
     showMsg(chatData: ChatData): void;
     setDiscardAble(isDiscardAble: boolean): void;
     myMahjong_showTingGroup(tile: number): TingPai[];
+    showOrHideCancelCom(isShow: boolean, str?: string): void;
 }

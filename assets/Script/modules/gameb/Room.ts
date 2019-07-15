@@ -782,6 +782,9 @@ export class Room {
         //     }
         // }
     }
+    public showOrHideCancelCom(isShow: boolean, str: string = ""): void {
+        this.roomView.showOrHideCancelCom(isShow, str);
+    }
     public myMahjong_showTingGroup(tile: number): TingPai[] {
         const tingP: TingPai[] = [];
         //开始听牌检查

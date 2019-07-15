@@ -70,5 +70,6 @@
     </component>
     <graph id="n47_lop0" name="zhuangPos" xy="568,320" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n48_lop0" name="AniPos" xy="568,300" pivot="0.5,0.5" anchor="true" size="18,28"/>
+    <component id="n51_jgmt" name="cancelCom" src="jgmtop" fileName="cancelCom.xml" xy="365,428" visible="false"/>
   </displayList>
 </component>

@@ -535,11 +535,11 @@ export class Player {
         if (this.canKongs.length > 0 && this.isCanPong) {
             curCancelType = 2;
             curCancelCard = this.canKongs[0];
-            str = `${AgariIndex.tileId2Str(curCancelCard)}弃杠、弃碰`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)}弃笑 ${AgariIndex.tileId2Str(curCancelCard)}弃碰`;
         } else if (this.canKongs.length > 0) {
             curCancelType = 0;
             curCancelCard = this.canKongs[0];
-            str = `${AgariIndex.tileId2Str(curCancelCard)}弃杠`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)}弃笑`;
         } else if (this.isCanPong) {
             curCancelType = 1;
             curCancelCard = this.host.lastDisCardTile;
@@ -563,9 +563,11 @@ export class Player {
                 this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
             }
         }
-        if (str !== "") {
-            Dialog.prompt(str);
+        if (str === "") {
+            str = `弃自摸`;
+            // Dialog.prompt(str);
         }
+        this.host.showOrHideCancelCom(true, str);
         // const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
         // this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
 
