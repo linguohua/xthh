@@ -7,7 +7,7 @@
     <image id="n2_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="935,8" hideByEditor="true"/>
     <text id="n16_rh8w" name="huaText" xy="972,12" size="40,20" hideByEditor="true" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
     <image id="n3_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="898,12" hideByEditor="true"/>
-    <image id="n4_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="910,80" hideByEditor="true"/>
+    <image id="n4_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="914,64" pivot="0.5,0.5" anchor="true" hideByEditor="true"/>
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="909,55" hideByEditor="true"/>
     <component id="n8_fxwe" name="hands" src="jmxys" fileName="desk/dui/desk_hand.xml" xy="0,1" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxyv" fileName="desk/dui/desk_flower.xml" xy="253,112" touchable="false"/>

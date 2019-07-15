@@ -7,7 +7,7 @@
     <image id="n1_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="521,770" hideByEditor="true" visible="false"/>
     <image id="n2_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="402,755" hideByEditor="true" visible="false"/>
     <image id="n3_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="478,762" hideByEditor="true" visible="false"/>
-    <image id="n4_fxwe" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="21,422" hideByEditor="true" visible="false"/>
+    <image id="n4_fxwe" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="119,619" pivot="0.5,0.5" anchor="true" hideByEditor="true" visible="false"/>
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="367,748" hideByEditor="true" visible="false"/>
     <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="246,716" hideByEditor="true" visible="false"/>
     <component id="n9_fxwe" name="melds" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="0,458" touchable="false"/>

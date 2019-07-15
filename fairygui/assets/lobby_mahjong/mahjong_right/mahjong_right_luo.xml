@@ -5,5 +5,7 @@
     <loader id="n2_fxwe" name="title" xy="4,38" size="74,127" scale="0.5,0.5" rotation="-90" url="ui://l6hoa9ngtsg19" align="center" vAlign="middle" fill="scale"/>
     <graph id="n3_fxwe" name="pos" xy="36,1" pivot="0.5,0.5" anchor="true" size="18,15"/>
     <loader id="n4_g0pr" name="ts" xy="0,20" pivot="0.5,0.5" anchor="true" size="28,30"/>
+    <graph id="n6_wxwu" name="piaoPos" xy="38,19" pivot="0.5,0.5" anchor="true" size="2,2" hideByEditor="true" visible="false"/>
+    <image id="n7_wxwu" name="laiziMask" src="wxwu2a" fileName="_resource/z_桌面打牌/zm_mjlzzz.png" xy="2,1" size="65,57" hideByEditor="true" visible="false" blend="multiply"/>
   </displayList>
 </component>

@@ -78,6 +78,9 @@
     <image id="tsg127" name="my_b_11.png" path="/mahjong_mine/m_麻将牌/大/"/>
     <image id="tsg128" name="jbting.png" path="/mahjong_mine/m_麻将牌/大/"/>
     <component id="tsg129" name="mahjong_dui_luo.xml" path="/mahjong_dui/" exported="true"/>
+    <image id="wxwu2a" name="zm_mjlzzz.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="14,15,2,2"/>
+    <image id="wxwu2b" name="zm_jb_l.png" path="/_resource/z_桌面打牌/"/>
+    <image id="wxwu2c" name="zm_jb_t.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="lobby_mahjong"/>
 </packageDescription>
