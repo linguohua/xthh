@@ -75,6 +75,12 @@ export class Player {
     // public isMyUserId(userID: string): boolean {
     //     return this.userID === userID;
     // }
+    public resetAllStatus(): void {
+        this.canKongs = [];
+        this.cancelZhuochong = false;
+        this.cancelZiMo = false;
+        this.isCanPong = false;
+    }
 
     public resetForNewHand(): void {
         //玩家打出的牌列表
@@ -84,17 +90,12 @@ export class Player {
         //玩家的花牌列表
         this.tilesFlower = [];
 
+        this.notPong = 0;
+        this.notKongs = [];
         //是否起手听牌
         //TODO. 当玩家起手听牌时，当仅仅可以打牌操作时，自动打牌
         this.isRichi = false;
-
-        this.notPong = 0;
-        this.notKongs = [];
-        this.canKongs = [];
-        this.cancelZhuochong = false;
-        this.cancelZiMo = false;
-        this.isCanPong = false;
-
+        this.resetAllStatus();
         //如果玩家对象是属于当前用户的，而不是对手的
         //则有手牌列表，否则只有一个数字表示对手的手牌张数
         if (this.isMe()) {
@@ -573,12 +574,12 @@ export class Player {
         //重置手牌位置
         this.playerView.restoreHandsPositionAndClickCount(-1);
 
-        if (this.isCanPong) {
-            this.notPong = this.host.lastDisCardTile;
-        }
-        if (this.canKongs.length > 0) {
-            this.notKongs = this.canKongs;
-        }
+        // if (this.isCanPong) {
+        //     this.notPong = this.host.lastDisCardTile;
+        // }
+        // if (this.canKongs.length > 0) {
+        //     this.notKongs = this.canKongs;
+        // }
     }
 
     //执行自动打牌操作

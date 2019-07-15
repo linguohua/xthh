@@ -37,7 +37,8 @@ export namespace HandlerActionResultDraw {
     // };
 
     const checkButton = (room: RoomInterface, player: Player, reply: proto.casino_xtsj.packet_sc_drawcard): boolean => {
-        player.canKongs = [];
+        player.resetAllStatus();
+
         const buttonMap: string[] = [];
         if (reply.card !== 0 && player.cancelZiMo === false) {
             const hu = room.mAlgorithm.canHuPai(player.tilesHand);

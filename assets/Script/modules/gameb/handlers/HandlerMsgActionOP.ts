@@ -16,9 +16,7 @@ export namespace HandlerMsgActionOP {
 
             return;
         }
-        player.m_bSaveZCHFlag = false;
-        player.canKongs = [];
-        player.isCanPong = false;
+        player.resetAllStatus();
 
         const buttonMap: string[] = [];
         if (!player.cancelZhuochong) {
