@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="146,183" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n3_hsnc" name="n3" src="hsnci5" fileName="resource/zm_di1.png" xy="0,0" size="146,183">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n6_hsnc" name="n6" src="hsncig" fileName="resource/zm_txkdi.png" xy="23,15" size="100,100"/>
+    <loader id="n4_hsnc" name="n4" xy="25,17" size="95,94" url="ui://397phochjmxy1"/>
+    <text id="n5_hsnc" name="name" xy="0,125" size="146,34" fontSize="22" color="#70c347" align="center" autoSize="none" text="天生打印机"/>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,13 @@
+info creator=UIBuilder size=12 resizable=true
+char id=48 img=hsncii xoffset=0 yoffset=0 xadvance=0
+char id=49 img=hsncij xoffset=0 yoffset=0 xadvance=0
+char id=50 img=hsncik xoffset=0 yoffset=0 xadvance=0
+char id=51 img=hsncil xoffset=0 yoffset=0 xadvance=0
+char id=52 img=hsncim xoffset=0 yoffset=0 xadvance=0
+char id=53 img=hsncin xoffset=0 yoffset=0 xadvance=0
+char id=54 img=hsncio xoffset=0 yoffset=0 xadvance=0
+char id=55 img=hsncip xoffset=0 yoffset=0 xadvance=0
+char id=56 img=hsnciq xoffset=0 yoffset=0 xadvance=0
+char id=57 img=hsncir xoffset=0 yoffset=0 xadvance=0
+char id=46 img=hsncis xoffset=0 yoffset=0 xadvance=0
+char id=43 img=hsncit xoffset=0 yoffset=0 xadvance=0
