@@ -59,6 +59,7 @@ export class LMsgCenter {
                 Logger.trace(`Wait 3 seconds to retry, connectErrorCount:${this.connectErrorCount}`);
 
                 Dialog.prompt("网络断开，正在重连");
+                Dialog.showWaiting();
                 await this.waitSecond();
             }
         }
@@ -233,7 +234,7 @@ export class LMsgCenter {
 
         this.eventTarget.emit("onFastLoginComplete", fastLoginReply);
 
-        Dialog.hidePrompt();
+        Dialog.hideWaiting();
     }
 
     private onServerPing(msg: proto.casino.ProxyMessage): void {

@@ -244,10 +244,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, table);
         } else {
-            Dialog.prompt("正在恢复...");
             this.mRoom.updateRoom(table);
             reconnect = true;
-            Dialog.hidePrompt();
+            Dialog.hideWaiting();
         }
 
         this.mRoom.showOrHideReadyButton(!reconnect);
@@ -497,6 +496,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // const playerID = DataStore.getString("playerID");
 
         // const myUser = { userID: `${playerID}` };
+        Dialog.showWaiting();
 
         const joinRoomParams = {
             tableID: `${this.mRoom.roomInfo.id}`
