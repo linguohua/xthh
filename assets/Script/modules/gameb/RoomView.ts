@@ -186,7 +186,7 @@ export class RoomView {
         const viewChairID = playerView.viewChairID;
         this.roundMarks[viewChairID].visible = true;
 
-        playerView.setHeadEffectBox(true);
+        // playerView.setHeadEffectBox(true);
     }
     //清除当前房间的等待玩家标志
     public clearWaitingPlayer(): void {
@@ -199,9 +199,10 @@ export class RoomView {
     }
     public showRoomNumber(): void {
         const room = this.room;
-        const num = `${this.room.handStartted}/${this.room.handNum}`;
+        const num = `还有:${this.room.handNum - this.room.handStartted}`;
         const s = `     `;
-        const str = `房号:${room.roomInfo.tag}${s}局数:${num}`;
+        const base = `底注:${this.room.roomInfo.base}`;
+        const str = `${base}${s}${num}${s}房号:${room.roomInfo.tag}`;
         this.roomInfoText.text = str;
 
     }
