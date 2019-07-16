@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="210,110" designImage="ui://397phochlqn3ft" designImageOffsetX="-7" designImageOffsetY="-484" designImageAlpha="0">
   <displayList>
-    <component id="n8_fxwe" name="n1" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="0,0" scale="0.78,0.8"/>
-    <component id="n9_fxwe" name="n2" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="68,0" scale="0.78,0.8"/>
-    <component id="n10_fxwe" name="n3" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="136,0" scale="0.78,0.8"/>
+    <component id="n8_fxwe" name="n1" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="19,0" scale="0.65,0.65"/>
+    <component id="n9_fxwe" name="n2" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="76,0" scale="0.65,0.65"/>
+    <component id="n10_fxwe" name="n3" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="133,0" scale="0.65,0.65"/>
+    <image id="n12_q32b" name="ts" src="q32b2d" fileName="_resource/z_桌面打牌/zm_icon_jt.png" xy="106,68" pivot="0.5,0.5" anchor="true"/>
   </displayList>
 </component>

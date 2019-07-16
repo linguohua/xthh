@@ -81,6 +81,7 @@
     <image id="wxwu2a" name="zm_mjlzzz.png" path="/_resource/z_桌面打牌/" scale="9grid" scale9grid="14,15,2,2"/>
     <image id="wxwu2b" name="zm_jb_l.png" path="/_resource/z_桌面打牌/"/>
     <image id="wxwu2c" name="zm_jb_t.png" path="/_resource/z_桌面打牌/"/>
+    <image id="q32b2d" name="zm_icon_jt.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="lobby_mahjong"/>
 </packageDescription>

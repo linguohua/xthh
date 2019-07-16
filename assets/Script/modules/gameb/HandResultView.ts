@@ -305,7 +305,12 @@ export class HandResultView extends cc.Component {
         for (let i = 0; i < meldDatas.length; i++) {
             const meldData = meldDatas[i];
             const mv = c.melds.getChild(`meld${i + 1}`);
-            const resName = `${rm}${MELD_COMPONENT_SUFFIX[meldData.op]}`;
+            let meldType = meldData.op;
+            if (meldData.cards[0] === this.room.mAlgorithm.getMahjongFan()) {
+                //赖根只有三张
+                meldType = TypeOfOP.Pong;
+            }
+            const resName = `${rm}${MELD_COMPONENT_SUFFIX[meldType]}`;
             const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
             meldView.setPosition(mv.x, mv.y);
             meldView.name = `myMeld${i}`;

@@ -387,7 +387,12 @@ export class PlayerView {
             //根据面子牌挂载牌的图片
             const meldData = ms[i];
             // Logger.debug("根据面子牌挂载牌的图片 : ", meldData);
-            const resName = rm + MELD_COMPONENT_SUFFIX[meldData.op];
+            let meldType = meldData.op;
+            if (meldData.cards[0] === this.room.mAlgorithm.getMahjongFan()) {
+                //赖根只有三张
+                meldType = TypeOfOP.Pong;
+            }
+            const resName = rm + MELD_COMPONENT_SUFFIX[meldType];
             const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
             meldView.setPosition(mv.x, mv.y);
             meldView.name = `myMeld${i}`;
@@ -408,7 +413,7 @@ export class PlayerView {
         const t1 = meldView.getChild("n1").asCom;
         const t2 = meldView.getChild("n2").asCom;
         const t3 = meldView.getChild("n3").asCom;
-        const meldType = msgMeld.op;
+        let meldType = msgMeld.op;
         // const mtProto = mjproto.MeldType;
         // if (meldType === mtProto.enumMeldTypeSequence) {
         // let chowTile = t1;
@@ -424,22 +429,23 @@ export class PlayerView {
         // TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1 + 2, this.viewChairID);
         // this.setMeldTileDirection(true, chowTile, viewChairID, this.viewChairID);
         const tile = msgMeld.cards[0];
+        if (tile === this.room.mAlgorithm.getMahjongFan()) {
+            //赖根只有三张
+            meldType = TypeOfOP.Pong;
+        }
         if (meldType === TypeOfOP.Pong) {
             TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
-            this.setMeldTileDirection(false, t2, viewChairID, 1);
+            this.setMeldTileDirection(false, meldView, viewChairID, 1);
         } else if (meldType === TypeOfOP.Kong) {
             const t4 = meldView.getChild("n4").asCom;
             TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
             TileImageMounter.mountMeldEnableImage(t4, tile, this.viewChairID);
-            if (tile === this.room.mAlgorithm.getMahjongFan()) {
-                //赖根只有三张
-                t4.visible = false;
-            }
-            this.setMeldTileDirection(false, t4, viewChairID, 1);
+
+            this.setMeldTileDirection(false, meldView, viewChairID, 1);
             //} else if (meldType === mtProto.enumMeldTypeConcealedKong) {
             // const t4 = meldView.getChild("n4").asCom; //这个是暗牌显示 用于别的玩家暗杠
             // const t0 = meldView.getChild("n0").asCom; //这个是明牌显示 自己暗杠 或者 回播的时候用的
@@ -855,25 +861,17 @@ export class PlayerView {
     //设置面子牌的方向
     private setMeldTileDirection(ischi: boolean, tileObj: fgui.GComponent, dir: number, viewChairID: number): void {
         if (dir > 0 && viewChairID > 0) {
-            const image = tileObj.getChild("ts").asLoader;
+            const image = tileObj.getChild("ts");
             if (image != null) {
-                if (ischi) {
-                    image.url = "ui://dafeng/ts_chi";
+                const x = dir - viewChairID;
+                if (x === 1 || x === -3) {
+                    image.rotation = 90;
+                } else if (x === 2 || x === -2) {
+                    image.rotation = 0;
+                } else if (x === 3 || x === -1) {
+                    image.rotation = -90;
                 } else {
-                    const x = dir - viewChairID;
-                    image.url = "ui://dafeng/zm_icon_jt";
-                    if (x === 1 || x === -3) {
-                        // image.url = "ui://dafeng/ts_xia";
-                        image.rotation = 90;
-                    } else if (x === 2 || x === -2) {
-                        // image.url = "ui://dafeng/ts_dui";
-                        image.rotation = 0;
-                    } else if (x === 3 || x === -1) {
-                        // image.url = "ui://dafeng/ts_shang";
-                        image.rotation = -90;
-                    } else {
-                        image.rotation = 180;
-                    }
+                    image.rotation = 180;
                 }
                 image.visible = true;
             }

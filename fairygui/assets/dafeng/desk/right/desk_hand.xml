@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="180,640" opaque="false" designImage="ui://397phochlqn3fs" designImageOffsetX="-955" designImageAlpha="100">
   <displayList>
-    <component id="n26_fxwe" name="n14" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,71" visible="false"/>
-    <component id="n27_fxwe" name="n1" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,119" visible="false"/>
-    <component id="n28_fxwe" name="n2" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,142" visible="false"/>
-    <component id="n29_fxwe" name="n3" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,165" visible="false"/>
-    <component id="n30_fxwe" name="n4" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,188" visible="false"/>
-    <component id="n31_fxwe" name="n5" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,210" visible="false"/>
-    <component id="n32_fxwe" name="n6" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,232" visible="false"/>
-    <component id="n33_fxwe" name="n7" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,255" visible="false"/>
-    <component id="n34_fxwe" name="n8" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,277" visible="false"/>
-    <component id="n35_fxwe" name="n9" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,299" visible="false"/>
-    <component id="n36_fxwe" name="n10" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,322" visible="false"/>
-    <component id="n25_fxwe" name="n11" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,345" visible="false"/>
-    <component id="n24_fxwe" name="n12" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,367" visible="false"/>
-    <component id="n23_fxwe" name="n13" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,388" visible="false"/>
+    <component id="n26_fxwe" name="n14" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,65" visible="false"/>
+    <component id="n27_fxwe" name="n1" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,107" visible="false"/>
+    <component id="n28_fxwe" name="n2" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,130" visible="false"/>
+    <component id="n29_fxwe" name="n3" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,153" visible="false"/>
+    <component id="n30_fxwe" name="n4" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,176" visible="false"/>
+    <component id="n31_fxwe" name="n5" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,198" visible="false"/>
+    <component id="n32_fxwe" name="n6" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,220" visible="false"/>
+    <component id="n33_fxwe" name="n7" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,243" visible="false"/>
+    <component id="n34_fxwe" name="n8" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,265" visible="false"/>
+    <component id="n35_fxwe" name="n9" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,287" visible="false"/>
+    <component id="n36_fxwe" name="n10" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,310" visible="false"/>
+    <component id="n25_fxwe" name="n11" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,333" visible="false"/>
+    <component id="n24_fxwe" name="n12" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,355" visible="false"/>
+    <component id="n23_fxwe" name="n13" src="jmxy1y" fileName="mahjong_right/mahjong_right_shu.xml" xy="20,376" visible="false"/>
   </displayList>
 </component>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="180,640" opaque="false" designImage="ui://397phochlqn3fr" designImageOffsetX="-955" designImageAlpha="100">
   <displayList>
-    <graph id="n19_fxwe" name="meld4" xy="5,131" size="0,0" visible="false"/>
-    <graph id="n20_fxwe" name="meld3" xy="5,216" size="0,0" visible="false"/>
-    <graph id="n21_fxwe" name="meld2" xy="5,302" size="0,0" visible="false"/>
-    <graph id="n22_fxwe" name="meld1" xy="5,386" size="0,0" visible="false"/>
+    <graph id="n19_fxwe" name="meld4" xy="23,145" size="0,0" visible="false"/>
+    <graph id="n20_fxwe" name="meld3" xy="23,225" size="0,0" visible="false"/>
+    <graph id="n21_fxwe" name="meld2" xy="23,305" size="0,0" visible="false"/>
+    <graph id="n22_fxwe" name="meld1" xy="23,385" size="0,0" visible="false"/>
   </displayList>
 </component>
