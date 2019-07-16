@@ -333,7 +333,12 @@ export class PlayerView {
         }
 
         if (isPiao) {
+            //因为出牌列表节点会缩小 得把飘赖效果放大。。。
             const point = lastD.getChild("piaoPos");
+            point.scaleX = 1 / lastD.scaleX;
+            point.scaleY = 1 / lastD.scaleY;
+            // Logger.debug("point : ", point.scaleX);
+
             this.playPiaoEffect(point.node);
         }
     }
