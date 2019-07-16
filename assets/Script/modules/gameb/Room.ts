@@ -102,7 +102,7 @@ const playerCound: number[][] = [
  */
 export class Room {
     public readonly myUser: UserInfo;
-    public readonly roomInfo: protoHH.casino.Itable;
+    public roomInfo: protoHH.casino.Itable;
     public readonly host: RoomHost;
     public scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
     public state: number;
@@ -625,13 +625,14 @@ export class Room {
     }
 
     public updateRoom(table: protoHH.casino.Itable): void {
-        Logger.debug("updateRoom");
+        // Logger.debug("updateRoom : ", table);
 
         if (table === undefined || table == null) {
             Logger.error("table == undefined || table == null");
 
             return;
         }
+        this.roomInfo = table;
 
         // 恢复玩家牌局
         this.resetForNewHand();
@@ -643,10 +644,10 @@ export class Room {
             this.initCards(p, player);
         }
 
-        if (table.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OP) {
-            const player = <Player>this.getPlayerByUserID(`${table.target_id}`);
-            this.setWaitingPlayer(player.chairID);
-        }
+        // if (table.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OP) {
+        //     const player = <Player>this.getPlayerByUserID(`${table.target_id}`);
+        //     this.setWaitingPlayer(player.chairID);
+        // }
         //等待庄家出牌
     }
 
@@ -684,7 +685,7 @@ export class Room {
         this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
         //显示庄家
         this.bankerChairID = this.roomInfo.lord_id;
-        const player = <Player>this.getPlayerByUserID(this.bankerChairID.toString());
+        const player = <Player>this.getPlayerByUserID(`${this.bankerChairID}`);
         this.roomView.playZhuangAni(player.playerView.head.bankerFlag);
         // this.setBankerFlag();
         //压入自摸不自摸的标志

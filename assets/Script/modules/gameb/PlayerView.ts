@@ -344,15 +344,15 @@ export class PlayerView {
         const discardTipsTile = this.discardTipsTile;
         TileImageMounter.mountTileImage(discardTipsTile, discardTileId);
         discardTips.visible = true;
-        if (waitDiscardReAction) {
-            this.player.waitDiscardReAction = true;
-        } else {
-            this.roomHost.component.scheduleOnce(
-                () => {
-                    discardTips.visible = false;
-                },
-                1);
-        }
+        // if (waitDiscardReAction) {
+        //     this.player.waitDiscardReAction = true;
+        // } else {
+        this.roomHost.component.scheduleOnce(
+            () => {
+                discardTips.visible = false;
+            },
+            1);
+        // }
     }
 
     //显示对手玩家的手牌，对手玩家的手牌是暗牌显示

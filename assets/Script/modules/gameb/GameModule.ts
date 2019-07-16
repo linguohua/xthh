@@ -246,6 +246,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         } else {
             Dialog.prompt("正在恢复...");
             this.mRoom.updateRoom(table);
+            reconnect = true;
             Dialog.hidePrompt();
         }
 

@@ -308,10 +308,10 @@ export class Player {
 
     //隐藏打出的牌提示
     public hideDiscardedTips(): void {
-        if (!this.waitDiscardReAction) {
-            return;
-        }
-        this.waitDiscardReAction = false;
+        // if (!this.waitDiscardReAction) {
+        //     return;
+        // }
+        // this.waitDiscardReAction = false;
         const discardTips = this.playerView.discardTips;
         discardTips.visible = false;
     }
