@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="100,330" opaque="false" designImage="ui://397phochlqn3fr" designImageOffsetX="-831" designImageOffsetY="-89" designImageAlpha="100">
   <displayList>
-    <component id="n96_fxwe" name="n20" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,7" scale="0.79,0.79" visible="false"/>
-    <component id="n97_fxwe" name="n19" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,38" scale="0.79,0.79" visible="false"/>
-    <component id="n98_fxwe" name="n18" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,69" scale="0.79,0.79" visible="false"/>
-    <component id="n99_fxwe" name="n17" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,100" scale="0.79,0.79" visible="false"/>
-    <component id="n100_fxwe" name="n16" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,131" scale="0.79,0.79" visible="false"/>
-    <component id="n101_fxwe" name="n15" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,162" scale="0.79,0.79" visible="false"/>
-    <component id="n102_fxwe" name="n14" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,193" scale="0.79,0.79" visible="false"/>
-    <component id="n103_fxwe" name="n13" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,224" scale="0.79,0.79" visible="false"/>
-    <component id="n104_fxwe" name="n12" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,255" scale="0.79,0.79" visible="false"/>
-    <component id="n105_fxwe" name="n11" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="51,286" scale="0.79,0.79" visible="false"/>
-    <component id="n106_fxwe" name="n10" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,7" scale="0.79,0.79" visible="false"/>
-    <component id="n107_fxwe" name="n9" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,38" scale="0.79,0.79" visible="false"/>
-    <component id="n108_fxwe" name="n8" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,69" scale="0.79,0.79" visible="false"/>
-    <component id="n109_fxwe" name="n7" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,100" scale="0.79,0.79" visible="false"/>
-    <component id="n110_fxwe" name="n6" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,131" scale="0.79,0.79" visible="false"/>
-    <component id="n111_fxwe" name="n5" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,162" scale="0.79,0.79" visible="false"/>
-    <component id="n112_fxwe" name="n4" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,193" scale="0.79,0.79" visible="false"/>
-    <component id="n113_fxwe" name="n3" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,224" scale="0.79,0.79" visible="false"/>
-    <component id="n114_fxwe" name="n2" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,255" scale="0.79,0.79" visible="false"/>
-    <component id="n115_fxwe" name="n1" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="0,286" scale="0.79,0.79" visible="false"/>
+    <component id="n96_fxwe" name="n20" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,35" scale="0.79,0.79" visible="false"/>
+    <component id="n97_fxwe" name="n19" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,65" scale="0.79,0.79" visible="false"/>
+    <component id="n98_fxwe" name="n18" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,95" scale="0.79,0.79" visible="false"/>
+    <component id="n99_fxwe" name="n17" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,125" scale="0.79,0.79" visible="false"/>
+    <component id="n100_fxwe" name="n16" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,155" scale="0.79,0.79" visible="false"/>
+    <component id="n101_fxwe" name="n15" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,185" scale="0.79,0.79" visible="false"/>
+    <component id="n102_fxwe" name="n14" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,215" scale="0.79,0.79" visible="false"/>
+    <component id="n103_fxwe" name="n13" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,245" scale="0.79,0.79" visible="false"/>
+    <component id="n104_fxwe" name="n12" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,275" scale="0.79,0.79" visible="false"/>
+    <component id="n105_fxwe" name="n11" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="48,305" scale="0.79,0.79" visible="false"/>
+    <component id="n106_fxwe" name="n10" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,35" scale="0.79,0.79" visible="false"/>
+    <component id="n107_fxwe" name="n9" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,65" scale="0.79,0.79" visible="false"/>
+    <component id="n108_fxwe" name="n8" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,95" scale="0.79,0.79" visible="false"/>
+    <component id="n109_fxwe" name="n7" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,125" scale="0.79,0.79" visible="false"/>
+    <component id="n110_fxwe" name="n6" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,155" scale="0.79,0.79" visible="false"/>
+    <component id="n111_fxwe" name="n5" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,185" scale="0.79,0.79" visible="false"/>
+    <component id="n112_fxwe" name="n4" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,215" scale="0.79,0.79" visible="false"/>
+    <component id="n113_fxwe" name="n3" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,245" scale="0.79,0.79" visible="false"/>
+    <component id="n114_fxwe" name="n2" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,275" scale="0.79,0.79" visible="false"/>
+    <component id="n115_fxwe" name="n1" src="tsg11x" fileName="mahjong_right/mahjong_right_luo.xml" pkg="l6hoa9ng" xy="-3,305" scale="0.79,0.79" visible="false"/>
   </displayList>
 </component>

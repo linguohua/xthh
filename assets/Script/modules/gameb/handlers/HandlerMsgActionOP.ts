@@ -27,7 +27,7 @@ export namespace HandlerMsgActionOP {
             const hu = room.mAlgorithm.canHu_WithOther(player.tilesHand, reply.card);
             if (hu.length > 0) {
                 buttonMap = true;
-                player.m_bSaveZCHFlag = true;
+                player.mBSaveZCHFlag = true;
                 player.playerView.huBtn.grayed = false;
             }
         }

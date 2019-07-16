@@ -42,6 +42,8 @@ export class PlayerInfo {
     public readonly userID: string;
     public readonly nick: string;
     public readonly chairID: number;
+    public readonly scoreTotal: number;
+    public readonly score: number;
 
     public constructor(playerIfo: protoHH.casino.Itable_player, chairID: number) {
         this.gender = playerIfo.sex;
@@ -56,6 +58,8 @@ export class PlayerInfo {
         this.userID = playerIfo.id.toString();
         this.chairID = chairID;
         this.nick = playerIfo.nickname;
+        this.scoreTotal = playerIfo.score_total;
+        this.score = playerIfo.score;
     }
 }
 

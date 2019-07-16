@@ -198,13 +198,12 @@ export class RoomView {
         }
     }
     public showRoomNumber(): void {
-        const room = this.room;
-        const num = `还有:${this.room.handNum - this.room.handStartted}`;
+        // const room = this.room;
+        const num = `还有:${this.room.handNum - this.room.handStartted}局`;
         const s = `     `;
         const base = `底注:${this.room.roomInfo.base}`;
-        const str = `${base}${s}${num}${s}房号:${room.roomInfo.tag}`;
+        const str = `${base}${s}${num}${s}`;
         this.roomInfoText.text = str;
-
     }
     //显示出牌提示箭头
     public setArrowByParent(btn: fgui.GComponent): void {
@@ -286,6 +285,12 @@ export class RoomView {
         const handler = this.statusHandlers[state];
         if (handler !== null) {
             handler(this);
+        }
+        const players = this.room.getPlayers();
+        const pKey = Object.keys(players);
+        for (const k of pKey) {
+            const p = <Player>players[k];
+            p.playerView.onUpdateStatus[state]();
         }
     }
 

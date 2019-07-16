@@ -1,4 +1,4 @@
-import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
@@ -63,8 +63,10 @@ export class Player {
     public cancelZhuochong: boolean = false; //弃捉冲
     public cancelZiMo: boolean = false; //弃自摸
     public isCanPong: boolean = false; //可以碰
-    public m_bSaveZCHFlag: boolean = false; //可以捉铳
-    private flagsTing: boolean;
+    public mBSaveZCHFlag: boolean = false; //可以捉铳
+    public mScore: number = 0;
+    public mNick: string = "";
+    // private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
@@ -378,6 +380,19 @@ export class Player {
     public updateByPlayerInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void {
         this.state = playerInfo.status;
         this.playerInfo = new PlayerInfo(playerInfo, chairID);
+        if (this.playerInfo.scoreTotal !== null) {
+            this.mScore = this.playerInfo.scoreTotal;
+        }
+
+        let nick = this.playerInfo.nick;
+        if (nick === undefined || nick === "") {
+            nick = this.playerInfo.userID;
+        }
+        //裁剪
+        if (nick.length > 8) {
+            nick = `${nick.substring(0, 8)}...`;
+        }
+        this.mNick = nick;
     }
 
     public discardOutTileID(tileID: number): void {
@@ -464,7 +479,7 @@ export class Player {
                 }
             }
             //设置一个标志，接下来打牌就看这个标志
-            this.flagsTing = true;
+            // this.flagsTing = true;
             //设置一个标志，表示已经点击了动作按钮（吃碰杠胡过）
             this.waitSkip = false;
         } else {
@@ -548,8 +563,8 @@ export class Player {
         req2.cancel_type = curCancelType;
         req2.card = curCancelCard;
         //假如之前OP是捉铳
-        if (this.m_bSaveZCHFlag) {
-            this.m_bSaveZCHFlag = false;
+        if (this.mBSaveZCHFlag) {
+            this.mBSaveZCHFlag = false;
             req2.op = TypeOfOP.BUZHUOCHONG;
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
@@ -681,9 +696,9 @@ export class Player {
     public updateReadyHandList(readyHandList: number[]): void {
         this.readyHandList = readyHandList;
         if (this.readyHandList !== undefined && this.readyHandList !== null && this.readyHandList.length > 0) {
-            this.playerView.checkReadyHandBtn.visible = true;
+            // this.playerView.checkReadyHandBtn.visible = true;
         } else {
-            this.playerView.checkReadyHandBtn.visible = false;
+            // this.playerView.checkReadyHandBtn.visible = false;
         }
     }
     public onChatMsg(chatData: ChatData): void {
@@ -786,12 +801,12 @@ export class Player {
         this.playerView.enlargeDiscarded(tileID, true);
     }
 
-    private discardToDeskOfMe(discardTileId: number): void {
-        //自己打出去的牌 先显示到桌面  服务器回复之后 就不再操作桌面了
-        //清理吃牌界面
-        this.host.cleanUI();
-        //加到打出牌列表
-        this.addDicardedTile(discardTileId);
-        this.discarded2UI(true, false);
-    }
+    // private discardToDeskOfMe(discardTileId: number): void {
+    //     //自己打出去的牌 先显示到桌面  服务器回复之后 就不再操作桌面了
+    //     //清理吃牌界面
+    //     this.host.cleanUI();
+    //     //加到打出牌列表
+    //     this.addDicardedTile(discardTileId);
+    //     this.discarded2UI(true, false);
+    // }
 }

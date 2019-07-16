@@ -5,21 +5,21 @@
     <component id="n113_rdsx" name="n2" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="45,1" scale="0.51,0.51" visible="false"/>
     <component id="n114_rdsx" name="n3" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="90,1" scale="0.51,0.51" visible="false"/>
     <component id="n115_rdsx" name="n4" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="135,1" scale="0.51,0.51" visible="false"/>
-    <component id="n117_rdsx" name="n5" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="179,1" scale="0.51,0.51" visible="false"/>
-    <component id="n118_rdsx" name="n6" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="224,1" scale="0.51,0.51" visible="false"/>
-    <component id="n119_rdsx" name="n7" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="269,1" scale="0.51,0.51" visible="false"/>
-    <component id="n120_rdsx" name="n8" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="314,1" scale="0.51,0.51" visible="false"/>
-    <component id="n121_rdsx" name="n9" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="358,1" scale="0.51,0.51" visible="false"/>
-    <component id="n122_rdsx" name="n10" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="403,1" scale="0.51,0.51" visible="false"/>
+    <component id="n117_rdsx" name="n5" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="180,1" scale="0.51,0.51" visible="false"/>
+    <component id="n118_rdsx" name="n6" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="225,1" scale="0.51,0.51" visible="false"/>
+    <component id="n119_rdsx" name="n7" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="270,1" scale="0.51,0.51" visible="false"/>
+    <component id="n120_rdsx" name="n8" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="315,1" scale="0.51,0.51" visible="false"/>
+    <component id="n121_rdsx" name="n9" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="360,1" scale="0.51,0.51" visible="false"/>
+    <component id="n122_rdsx" name="n10" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="405,1" scale="0.51,0.51" visible="false"/>
     <component id="n123_rdsx" name="n11" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="0,55" scale="0.51,0.46" visible="false"/>
     <component id="n124_rdsx" name="n12" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="45,55" scale="0.51,0.46" visible="false"/>
     <component id="n125_rdsx" name="n13" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="90,55" scale="0.51,0.46" visible="false"/>
     <component id="n126_rdsx" name="n14" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="135,55" scale="0.51,0.46" visible="false"/>
-    <component id="n127_rdsx" name="n15" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="179,55" scale="0.51,0.46" visible="false"/>
-    <component id="n128_rdsx" name="n16" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="224,55" scale="0.51,0.46" visible="false"/>
-    <component id="n129_rdsx" name="n17" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="269,55" scale="0.51,0.46" visible="false"/>
-    <component id="n130_rdsx" name="n18" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="314,55" scale="0.51,0.46" visible="false"/>
-    <component id="n116_rdsx" name="n19" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="358,55" scale="0.51,0.46" visible="false"/>
-    <component id="n131_rdsx" name="n20" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="403,55" scale="0.51,0.46" visible="false"/>
+    <component id="n127_rdsx" name="n15" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="180,55" scale="0.51,0.46" visible="false"/>
+    <component id="n128_rdsx" name="n16" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="225,55" scale="0.51,0.46" visible="false"/>
+    <component id="n129_rdsx" name="n17" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="270,55" scale="0.51,0.46" visible="false"/>
+    <component id="n130_rdsx" name="n18" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="315,55" scale="0.51,0.46" visible="false"/>
+    <component id="n116_rdsx" name="n19" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="360,55" scale="0.51,0.46" visible="false"/>
+    <component id="n131_rdsx" name="n20" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="405,55" scale="0.51,0.46" visible="false"/>
   </displayList>
 </component>

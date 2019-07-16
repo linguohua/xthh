@@ -25,15 +25,15 @@ export class ClickCtrl {
     public isGray: boolean;
     public readyHandList: TingPai[];
 }
-// export enum ButtonDef {
-//     Chow = "Effect_zi_ts_chi",
-//     Pong = "Effect_zi_ts_peng",
-//     Kong = "Effect_zi_ts_gang",
-//     Ting = "Effect_zi_ts_ting",
-//     Skip = "Effect_zi_ts_guo",
-//     Hu = "Effect_zi_ts_hu",
-//     Zhua = "Effect_zi_ts_zhua"
-// }
+/**
+ * 玩家状态
+ */
+export const playerStatus = {
+    onPlay: 1,
+    onWait: 2,
+    onReady: 3,
+    onOffLine: 4
+};
 export enum TypeOfOP {
     Guo = 0,
     Pong = 1, //碰
@@ -53,6 +53,8 @@ export enum TypeOfOP {
  */
 export interface PlayerInterface {
     readonly chairID: number;
+    mScore: number;
+    mNick: string;
     readyHandList: number[];
     waitSkip: boolean;
     tilesHand: number[];

@@ -1,13 +1,10 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Dialog } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameRules } from "./GameRules";
-import { ClickCtrl, PlayerInterface, TypeOfOP } from "./PlayerInterface";
-import { proto } from "./proto/protoGame";
-import { PlayerInfo, RoomInterface, TingPai } from "./RoomInterface";
+import { ClickCtrl, PlayerInterface, playerStatus, TypeOfOP } from "./PlayerInterface";
+import { PlayerInfo, RoomInterface } from "./RoomInterface";
 import { TileImageMounter } from "./TileImageMounter";
-
-const mjproto = proto.mahjong;
 
 /**
  * playerview对应玩家的视图，牌桌上有4个playerview
@@ -64,7 +61,7 @@ const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
  */
 export class PlayerView {
     public handsClickCtrls: ClickCtrl[];
-    public checkReadyHandBtn: fgui.GButton = null;
+    // public checkReadyHandBtn: fgui.GButton = null;
     public player: PlayerInterface;
     public room: RoomInterface;
 
@@ -73,6 +70,10 @@ export class PlayerView {
     public head: Head;
     public viewChairID: number;
     public onUpdateStatus: Function[];
+    public skipBtn: fgui.GButton;
+    public pengBtn: fgui.GButton;
+    public huBtn: fgui.GButton;
+    public gangBtn: fgui.GButton;
     private discards: fgui.GComponent[];
     private lights: fgui.GComponent[];
     private hands: fgui.GComponent[];
@@ -81,25 +82,17 @@ export class PlayerView {
     private viewUnityNode: fgui.GComponent;
     private myView: fgui.GComponent;
     private operationPanel: fgui.GComponent;
-    private buttonList: fgui.GList;
-    private buttonDataList: string[];
     private aniPos: fgui.GObject;
     private userInfoPos: fgui.GObject;
     private qipao: fgui.GComponent;
     private qipaoText: fgui.GObject;
     private alreadyShowNonDiscardAbleTips: boolean;
     private discardTipsTile: fgui.GComponent;
-    private btnHanders: { [key: string]: Function };
     private roomHost: RoomHost;
     private lastClickTime: number;
     private lastClickIndex: number;
     private dragHand: fgui.GComponent; //拖牌时 克隆的牌
     private msgTimerCB: Function;
-    public skipBtn: fgui.GButton;
-    public pengBtn: fgui.GButton;
-    public huBtn: fgui.GButton;
-    public gangBtn: fgui.GButton;
-
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
         this.viewChairID = viewChairID;
@@ -292,7 +285,6 @@ export class PlayerView {
             d.visible = true;
         }
     }
-
     //显示打出去的牌，明牌显示
     public showDiscarded(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): void {
         //先隐藏所有的打出牌节点
@@ -663,15 +655,7 @@ export class PlayerView {
         this.head.headView.visible = true;
         // this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
 
-        let nick = playerInfo.nick;
-        if (nick === undefined || nick === "") {
-            nick = playerInfo.userID;
-        }
-        //裁剪
-        if (nick.length > 8) {
-            nick = `${nick.substring(0, 8)}...`;
-        }
-        this.head.nameText.text = nick;
+        this.head.nameText.text = this.player.mNick;
         this.head.nameText.visible = true;
         //头像
         CommonFunction.setHead(this.head.headLoader, playerInfo.headIconURI, playerInfo.gender);
@@ -827,9 +811,10 @@ export class PlayerView {
         //起始
         const onStart = (): void => {
             this.head.readyIndicator.visible = false;
-            if (this.viewChairID === 1) {
-                this.checkReadyHandBtn.visible = false;
-            }
+            // if (this.viewChairID === 1) {
+            //     this.checkReadyHandBtn.visible = false;
+            // }
+            this.head.nameText.text = `${this.player.mNick}`;
         };
 
         //准备
@@ -851,13 +836,19 @@ export class PlayerView {
             this.head.headView.grayed = false;
 
             this.showOwner();
+            //开始玩之后 不显示名字 显示分数
+            if (this.viewChairID === 1) {
+                this.head.nameText.text = `${this.player.mNick}:${this.player.mScore}`;
+            } else {
+                this.head.nameText.text = `${this.player.mScore}`;
+            }
         };
 
         const status = [];
-        status[mjproto.PlayerState.PSNone] = onStart;
-        status[mjproto.PlayerState.PSReady] = onReady;
-        status[mjproto.PlayerState.PSOffline] = onLeave;
-        status[mjproto.PlayerState.PSPlaying] = onPlaying;
+        status[playerStatus.onWait] = onStart;
+        status[playerStatus.onReady] = onReady;
+        status[playerStatus.onOffLine] = onLeave;
+        status[playerStatus.onPlay] = onPlaying;
         this.onUpdateStatus = status;
     }
 
@@ -956,20 +947,20 @@ export class PlayerView {
     }
 
     //处理玩家点击左下角的“听”按钮
-    private onCheckReadyHandBtnClick(): void {
-        const player = this.player;
-        const readyHandList = player.readyHandList;
-        if (!this.room.isListensObjVisible() && readyHandList != null && readyHandList.length > 0) {
-            //const tingData = {}
-            const tingP: TingPai[] = [];
-            for (let i = 0; i < readyHandList.length; i += 2) {
-                tingP.push(new TingPai(readyHandList[i], 1, readyHandList[i + 1]));
-            }
-            this.room.showTingDataView(tingP);
-        } else {
-            this.room.hideTingDataView();
-        }
-    }
+    // private onCheckReadyHandBtnClick(): void {
+    //     const player = this.player;
+    //     const readyHandList = player.readyHandList;
+    //     if (!this.room.isListensObjVisible() && readyHandList != null && readyHandList.length > 0) {
+    //         //const tingData = {}
+    //         const tingP: TingPai[] = [];
+    //         for (let i = 0; i < readyHandList.length; i += 2) {
+    //             tingP.push(new TingPai(readyHandList[i], 1, readyHandList[i + 1]));
+    //         }
+    //         this.room.showTingDataView(tingP);
+    //     } else {
+    //         this.room.hideTingDataView();
+    //     }
+    // }
 
     //拖动出牌事件
     private onDrag(dragGo: fgui.GObject, index: number): void {
