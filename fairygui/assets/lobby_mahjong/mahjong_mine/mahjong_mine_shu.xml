@@ -3,8 +3,8 @@
   <displayList>
     <image id="n5_o570" name="bg" src="tsg17" fileName="image_bg/wo_shou.png" xy="0,0"/>
     <loader id="n6_o570" name="title" xy="10,29" size="69,95" url="ui://l6hoa9ngtsg19" align="center" vAlign="middle"/>
-    <image id="n7_o570" name="ting" src="wxwu2c" fileName="_resource/z_桌面打牌/zm_jb_t.png" xy="1,22" visible="false"/>
-    <image id="n8_wxwu" name="laizi" src="wxwu2b" fileName="_resource/z_桌面打牌/zm_jb_l.png" xy="2,22" visible="false"/>
+    <image id="n7_o570" name="ting" src="wxwu2c" fileName="_resource/z_桌面打牌/zm_jb_t.png" xy="-1,-1" visible="false"/>
+    <image id="n8_wxwu" name="laizi" src="wxwu2b" fileName="_resource/z_桌面打牌/zm_jb_l.png" xy="-1,-1" visible="false"/>
     <image id="n9_wxwu" name="laiziMask" src="wxwu2a" fileName="_resource/z_桌面打牌/zm_mjlzzz.png" xy="0,-3" size="88,138" hideByEditor="true" visible="false" blend="multiply"/>
   </displayList>
 </component>
