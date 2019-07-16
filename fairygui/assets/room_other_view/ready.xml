@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://ls4obr7jfeehi1" designImageAlpha="100">
+<component size="1136,640" designImage="ui://ls4obr7jhsncj3" designImageAlpha="100">
   <displayList>
-    <component id="n2_hsnc" name="head0" src="hsnci4" fileName="ready/head_button.xml" xy="140,145"/>
-    <component id="n3_hsnc" name="head1" src="hsnci4" fileName="ready/head_button.xml" xy="377,145"/>
-    <component id="n4_hsnc" name="head2" src="hsnci4" fileName="ready/head_button.xml" xy="613,145"/>
-    <component id="n5_hsnc" name="head3" src="hsnci4" fileName="ready/head_button.xml" xy="850,145"/>
-    <image id="n6_hsnc" name="n6" src="hsncib" fileName="resource/准备界面/zm_zi_xthh.png" xy="533,71"/>
-    <image id="n8_hsnc" name="n8" src="hsncif" fileName="resource/准备界面/zm_di2.png" xy="457,0" size="254,66"/>
+    <image id="n23_hsnc" name="bg" src="hsnci5" fileName="resource/准备界面/zm_bj.jpg" xy="0,0" size="1136,640" hideByEditor="true" aspect="true"/>
+    <component id="n24_hsnc" name="head1" src="hsnci1" fileName="ready/head_button.xml" xy="140,145" size="146,183"/>
+    <component id="n25_hsnc" name="head2" src="hsnci1" fileName="ready/head_button.xml" xy="378,145" size="146,183"/>
+    <component id="n26_hsnc" name="head3" src="hsnci1" fileName="ready/head_button.xml" xy="613,146" size="146,183"/>
+    <component id="n27_hsnc" name="head4" src="hsnci1" fileName="ready/head_button.xml" xy="850,145" size="146,183"/>
+    <image id="n6_hsnc" name="n6" src="hsncib" fileName="resource/准备界面/zm_di2.png" xy="457,0" size="254,66"/>
+    <image id="n28_hsnc" name="n28" src="hsncid" fileName="resource/准备界面/zm_zi_srf.png" xy="656,33"/>
     <image id="n19_hsnc" name="n19" src="hsncj6" fileName="resource/准备界面/zm_zi_srf.png" xy="503,9"/>
     <image id="n20_hsnc" name="n20" src="hsncj7" fileName="resource/准备界面/ty_tips1.png" xy="243,339" size="655,78" visible="false"/>
-    <image id="n15_hsnc" name="n15" src="hsnci5" fileName="resource/准备界面/zm_di1.png" xy="-2,420" size="1136,170"/>
-    <image id="n9_hsnc" name="n9" src="hsncie" fileName="resource/准备界面/ty_btn_lv1.png" xy="50,470" size="194,70"/>
-    <image id="n16_hsnc" name="n16" src="hsnci9" fileName="resource/准备界面/zm_btn_zi_lkfj.png" xy="76,485"/>
-    <image id="n10_hsnc" name="n10" src="hsncid" fileName="resource/准备界面/ty_btn_h1.png" xy="875,433" size="211,119"/>
-    <image id="n17_hsnc" name="n17" src="hsnci7" fileName="resource/准备界面/zm_btn_zi_fxfh.png" xy="912,498"/>
+    <image id="n15_hsnc" name="n15" src="hsnci5" fileName="resource/准备界面/zm_bj.jpg" xy="-2,420" size="1136,170"/>
+    <image id="n9_hsnc" name="n9" src="hsncie" fileName="resource/准备界面/zm_zi_xthh.png" xy="50,470" size="194,70"/>
+    <image id="n16_hsnc" name="n16" src="hsnci9" fileName="resource/准备界面/zm_btn_zi_wtrkf.png" xy="76,485"/>
+    <image id="n10_hsnc" name="n10" src="hsncid" fileName="resource/准备界面/zm_zi_srf.png" xy="875,433" size="211,119"/>
+    <image id="n17_hsnc" name="n17" src="hsnci7" fileName="resource/准备界面/zm_btn_zi_jsfj.png" xy="912,498"/>
     <text id="n13_hsnc" name="rule" xy="294,464" size="580,39" fontSize="26" color="#00df01" align="center" vAlign="middle" autoSize="none" text="一赖到底，飘赖子有将，笑翻倍"/>
     <text id="n14_hsnc" name="dizhu" xy="411,526" size="341,43" fontSize="30" color="#00df01" text="底注：1        总共：10局"/>
-    <text id="n18_hsnc" name="roomNumber" xy="891,450" size="178,39" font="ui://ls4obr7jhsncih" fontSize="10" color="#00df01" text="999999"/>
+    <text id="n18_hsnc" name="roomNumber" xy="891,450" size="10,4" font="ui://ls4obr7jhsncih" fontSize="10" color="#00df01" text="999999"/>
     <text id="n21_hsnc" name="tips" xy="266,362" size="600,34" visible="false" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" text="(09:20) 后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
     <text id="n22_hsnc" name="n22" xy="907,550" size="143,28" fontSize="18" color="#91cca9" align="center" vAlign="middle" text="[所有人]允许进入"/>
   </displayList>
