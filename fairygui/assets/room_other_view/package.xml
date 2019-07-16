@@ -38,36 +38,38 @@
     <component id="im76hw" name="fourPlayer.xml" path="/"/>
     <component id="bvbthx" name="twoPlayer.xml" path="/"/>
     <component id="bvbthy" name="threePlayer.xml" path="/"/>
-    <component id="hsnchz" name="ready.xml" path="/"/>
-    <font id="hsnci0" name="bmf.fnt" path="/resource/"/>
+    <component id="hsnchz" name="ready.xml" path="/" exported="true"/>
+    <font id="hsnci0" name="bmf.fnt" path="/ready/" exported="true"/>
     <component id="hsnci1" name="head_button.xml" path="/ready/"/>
-    <image id="hsnci2" name="ty_btn_h1.png" path="/resource/准备界面/" scale="9grid" scale9grid="27,24,54,16"/>
-    <image id="hsnci3" name="ty_btn_lv1.png" path="/resource/准备界面/" scale="9grid" scale9grid="29,18,58,36" gridTile="16"/>
-    <image id="hsnci4" name="ty_tips1.png" path="/resource/准备界面/" scale="9grid" scale9grid="24,24,18,18"/>
-    <image id="hsnci5" name="zm_bj.jpg" path="/resource/准备界面/"/>
-    <image id="hsnci6" name="zm_btn_zi_fxfh.png" path="/resource/准备界面/"/>
-    <image id="hsnci7" name="zm_btn_zi_jsfj.png" path="/resource/准备界面/"/>
-    <image id="hsnci8" name="zm_btn_zi_lkfj.png" path="/resource/准备界面/"/>
-    <image id="hsnci9" name="zm_btn_zi_wtrkf.png" path="/resource/准备界面/"/>
-    <image id="hsncia" name="zm_di1.png" path="/resource/准备界面/" scale="9grid" scale9grid="8,8,16,16" gridTile="16"/>
-    <image id="hsncib" name="zm_di2.png" path="/resource/准备界面/" scale="9grid" scale9grid="14,8,28,16" gridTile="16"/>
-    <image id="hsncic" name="zm_txkdi.png" path="/resource/准备界面/" scale="9grid" scale9grid="8,8,16,16" gridTile="16"/>
-    <image id="hsncid" name="zm_zi_srf.png" path="/resource/准备界面/"/>
-    <image id="hsncie" name="zm_zi_xthh.png" path="/resource/准备界面/"/>
-    <image id="hsncif" name="sz_1_0.png" path="/resource/bmf/"/>
-    <image id="hsncig" name="sz_1_1.png" path="/resource/bmf/"/>
-    <image id="hsncih" name="sz_1_2.png" path="/resource/bmf/"/>
-    <image id="hsncii" name="sz_1_3.png" path="/resource/bmf/"/>
-    <image id="hsncij" name="sz_1_4.png" path="/resource/bmf/"/>
-    <image id="hsncik" name="sz_1_5.png" path="/resource/bmf/"/>
-    <image id="hsncil" name="sz_1_6.png" path="/resource/bmf/"/>
-    <image id="hsncim" name="sz_1_7.png" path="/resource/bmf/"/>
-    <image id="hsncin" name="sz_1_8.png" path="/resource/bmf/"/>
-    <image id="hsncio" name="sz_1_9.png" path="/resource/bmf/"/>
-    <image id="hsncip" name="sz_1_d.png" path="/resource/bmf/"/>
-    <image id="hsnciq" name="sz_1_j.png" path="/resource/bmf/"/>
+    <image id="hsnci2" name="ty_btn_h1.png" path="/ready/z_准备界面/" scale="9grid" scale9grid="27,24,54,16"/>
+    <image id="hsnci3" name="ty_btn_lv1.png" path="/ready/z_准备界面/" scale="9grid" scale9grid="29,18,58,36" gridTile="16"/>
+    <image id="hsnci4" name="ty_tips1.png" path="/ready/z_准备界面/" scale="9grid" scale9grid="24,24,18,18"/>
+    <image id="hsnci5" name="zm_bj.jpg" path="/ready/z_准备界面/"/>
+    <image id="hsnci6" name="zm_btn_zi_fxfh.png" path="/ready/z_准备界面/"/>
+    <image id="hsnci7" name="zm_btn_zi_jsfj.png" path="/ready/z_准备界面/"/>
+    <image id="hsnci8" name="zm_btn_zi_lkfj.png" path="/ready/z_准备界面/"/>
+    <image id="hsnci9" name="zm_btn_zi_wtrkf.png" path="/ready/z_准备界面/"/>
+    <image id="hsncia" name="zm_di1.png" path="/ready/z_准备界面/" scale="9grid" scale9grid="8,8,16,16" gridTile="16"/>
+    <image id="hsncib" name="zm_di2.png" path="/ready/z_准备界面/" scale="9grid" scale9grid="14,8,28,16" gridTile="16"/>
+    <image id="hsncic" name="zm_txkdi.png" path="/ready/z_准备界面/" scale="9grid" scale9grid="8,8,16,16" gridTile="16"/>
+    <image id="hsncid" name="zm_zi_srf.png" path="/ready/z_准备界面/"/>
+    <image id="hsncie" name="zm_zi_xthh.png" path="/ready/z_准备界面/"/>
+    <image id="hsncif" name="sz_1_0.png" path="/ready/bmf/"/>
+    <image id="hsncig" name="sz_1_1.png" path="/ready/bmf/"/>
+    <image id="hsncih" name="sz_1_2.png" path="/ready/bmf/"/>
+    <image id="hsncii" name="sz_1_3.png" path="/ready/bmf/"/>
+    <image id="hsncij" name="sz_1_4.png" path="/ready/bmf/"/>
+    <image id="hsncik" name="sz_1_5.png" path="/ready/bmf/"/>
+    <image id="hsncil" name="sz_1_6.png" path="/ready/bmf/"/>
+    <image id="hsncim" name="sz_1_7.png" path="/ready/bmf/"/>
+    <image id="hsncin" name="sz_1_8.png" path="/ready/bmf/"/>
+    <image id="hsncio" name="sz_1_9.png" path="/ready/bmf/"/>
+    <image id="hsncip" name="sz_1_d.png" path="/ready/bmf/"/>
+    <image id="hsnciq" name="sz_1_j.png" path="/ready/bmf/"/>
     <image id="hsncj3" name="z_桌面开放对局.jpg" path="/design/"/>
     <image id="hsncj4" name="z_桌面开放对局1.jpg" path="/design/"/>
+    <component id="hsncj8" name="leave_room_btn.xml" path="/ready/"/>
+    <component id="hsncj9" name="share_btn.xml" path="/ready/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>

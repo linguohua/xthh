@@ -2,9 +2,9 @@
 <component size="146,183" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n7_hsnc" name="bg" src="hsncia" fileName="resource/准备界面/zm_di1.png" xy="0,0" size="146,183"/>
-    <image id="n8_hsnc" name="n8" src="hsncic" fileName="resource/准备界面/zm_txkdi.png" xy="23,15" size="100,100"/>
-    <loader id="n4_hsnc" name="n4" xy="25,17" size="95,94" url="ui://397phochjmxy1"/>
+    <image id="n7_hsnc" name="bg" src="hsncia" fileName="ready/z_准备界面/zm_di1.png" xy="0,0" size="146,183"/>
+    <image id="n8_hsnc" name="n8" src="hsncic" fileName="ready/z_准备界面/zm_txkdi.png" xy="23,15" size="100,100"/>
+    <loader id="n4_hsnc" name="loader" xy="25,17" size="95,94" url="ui://397phochjmxy1"/>
     <text id="n5_hsnc" name="name" xy="0,125" size="146,34" fontSize="22" color="#70c347" align="center" autoSize="none" text="天生打印机"/>
   </displayList>
   <Button/>
