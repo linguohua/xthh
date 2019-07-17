@@ -46,9 +46,13 @@ export namespace HandlerMsgTableScore {
         for (const score of reply.scores) {
             const curcards = score.curcards;
             const player = <Player>room.getPlayerByUserID(`${score.data.id}`);
-
-            player.tilesHand = curcards;
-            player.hand2Exposed();
+            //胡牌的人才 摊牌
+            if (score.hupai_card > 0) {
+                if (!player.isMe()) {
+                    player.tilesHand = curcards;
+                }
+                player.hand2Exposed();
+            }
         }
 
         const disband_type = reply.tdata.disband_type;
