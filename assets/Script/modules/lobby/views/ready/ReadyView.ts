@@ -141,7 +141,7 @@ export class ReadyView extends cc.Component {
         shareBtn.onClick(this.onShareBtnClick, this);
         const roomNumber = shareBtn.getChild("roomNumber");
 
-        if (this.userID !== `${this.table.master_id}`) {
+        if (`${this.userID}` !== `${this.table.master_id}`) {
             leaveBtn.visible = true;
             forOtherBtn.visible = false;
             disbandRoomBtn.visible = false;
