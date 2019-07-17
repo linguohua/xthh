@@ -1,10 +1,17 @@
-import { CommonFunction, DataStore, GResLoader, Logger, LobbyModuleInterface } from "../../lcore/LCoreExports";
+import { RoomHost } from "../../interface/LInterfaceExports";
+import { CommonFunction, DataStore, Logger } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
-import { RoomHost } from "../../interface/RoomHost";
 
 export interface RoomInterface {
     sendDisbandAgree(agree: boolean): void;
 }
+
+const permissionText: { [key: number]: string } = {
+    [0]: "所有人",
+    [1]: "微信",
+    [2]: "工会"
+};
+
 /**
  * 包装精简的用户信息，
  */
@@ -33,12 +40,8 @@ export class ReadyView extends cc.Component {
 
     // private isForMe: boolean;
     private table: protoHH.casino.Itable;
-    private roomNumber: fgui.GObject;
 
     private headViews: fgui.GComponent[] = [];
-
-    private ruleText: fgui.GTextField;
-    private anteText: fgui.GTextField;
     private host: RoomHost;
 
     private userID: string;
@@ -82,9 +85,7 @@ export class ReadyView extends cc.Component {
     }
 
     protected updateView(players: protoHH.casino.Itable_player[]): void {
-        Logger.debug("updateView, roomNumber:", this.table.tag);
-        this.roomNumber.text = `${this.table.tag}`;
-        this.anteText.text = `底注：${this.table.base}       总共：${this.table.round}局`;
+        Logger.debug("updateView");
         // this.ruleText.text = ``;
 
         const length = players.length;
@@ -113,6 +114,8 @@ export class ReadyView extends cc.Component {
             this.headViews[i] = head;
         }
 
+        this.resetHeadPosition();
+
         this.userID = DataStore.getString("playerID");
 
         const leaveBtn = this.view.getChild("leaveBtn").asButton;
@@ -126,6 +129,7 @@ export class ReadyView extends cc.Component {
 
         const shareBtn = this.view.getChild("shareBtn").asButton;
         shareBtn.onClick(this.onShareBtnClick, this);
+        const roomNumber = shareBtn.getChild("roomNumber");
 
         if (this.userID !== `${this.table.master_id}`) {
             leaveBtn.visible = true;
@@ -137,29 +141,20 @@ export class ReadyView extends cc.Component {
             disbandRoomBtn.visible = true;
         }
 
-        this.roomNumber = shareBtn.getChild("roomNumber");
+        const permission = this.view.getChild("permission");
+        const ruleText = this.view.getChild("rule").asTextField;
+        const anteText = this.view.getChild("dizhu").asTextField;
+        const tips = this.view.getChild("tips").asTextField;
+        const disbandTime = this.getDisbandTime();
+        tips.text = `（${disbandTime}）后, 牌友还没到齐，牌局将自动解散，并退还房卡！`;
+        roomNumber.text = `${this.table.tag}`;
+        anteText.text = `底注：${this.table.base}       总共：${this.table.round}局`;
+        ruleText.text = `一赖到底，飘赖子有奖，笑翻倍`;
+        permission.text = `[${permissionText[this.table.join]}]允许进入`;
 
-        this.ruleText = this.view.getChild("rule").asTextField;
-        this.anteText = this.view.getChild("dizhu").asTextField;
+        // 10 分钟后自动解散房间
+        this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
     }
-    // protected updateView(): void {
-    //     Logger.debug("updateView, roomNumber:", this.table.tag);
-    //     this.roomNumber.text = `${this.table.tag}`;
-
-    //     const length = this.players.length;
-    //     for (let i = 0; i < length; i++) {
-    //         const headView = this.headViews[i];
-    //         headView.visible = true;
-
-    //         const player = this.players[i];
-    //         if (player !== null && player.id !== null) {
-    //             headView.getChild("name").text = player.nickname;
-    //             const loader = headView.getChild("loader").asLoader;
-    //             CommonFunction.setHead(loader, player.channel_head, player.sex);
-    //             // loader.url = player.ur
-    //         }
-    //     }
-    // }
 
     protected onDestroy(): void {
         this.view.dispose();
@@ -169,10 +164,7 @@ export class ReadyView extends cc.Component {
 
     private onLeaveRoomBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
-        const myUserID = DataStore.getString("playerID");
-        const req2 = new protoHH.casino.packet_table_disband_req({ player_id: + myUserID });
-        const buf = protoHH.casino.packet_table_disband_req.encode(req2);
-        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
+        this.disbandRoom();
     }
 
     private onForOtherCreateRoomBtnClick(): void {
@@ -186,4 +178,48 @@ export class ReadyView extends cc.Component {
     private onDeal(): void {
         this.destroy();
     }
+
+    private disbandRoom(): void {
+        const myUserID = DataStore.getString("playerID");
+        const req2 = new protoHH.casino.packet_table_disband_req({ player_id: + myUserID });
+        const buf = protoHH.casino.packet_table_disband_req.encode(req2);
+        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
+    }
+
+    // private leaveRoom(): void {
+    //     const myUserID = DataStore.getString("playerID");
+    //     const req2 = new protoHH.casino.packet_table_disband_req({ player_id: + myUserID });
+    //     const buf = protoHH.casino.packet_table_disband_req.encode(req2);
+    //     this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
+    // }
+
+    private resetHeadPosition(): void {
+        if (this.table.players.length !== 2) {
+            return;
+        }
+
+        const originPositions: cc.Vec2[] = [];
+        for (let i = 0; i < 4; i++) {
+            originPositions[i] = new cc.Vec2(this.headViews[i].x, this.headViews[i].y);
+        }
+
+        this.headViews[2].visible = false;
+        this.headViews[3].visible = false;
+
+        this.headViews[0].setPosition(originPositions[1].x, originPositions[1].y);
+        this.headViews[1].setPosition(originPositions[2].x, originPositions[2].y);
+    }
+
+    private schedule2DisbandRoom(): void {
+        this.disbandRoom();
+    }
+
+    private getDisbandTime(): string {
+        const nowTime = Math.ceil(Date.now());
+        const disbandTime = new Date();
+        disbandTime.setTime(nowTime + 10 * 60 * 1000);
+
+        return `${disbandTime.getHours()}: ${disbandTime.getMinutes()} `;
+    }
+
 }
