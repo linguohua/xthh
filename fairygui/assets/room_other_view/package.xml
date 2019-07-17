@@ -70,6 +70,8 @@
     <image id="hsncj4" name="z_桌面开放对局1.jpg" path="/design/"/>
     <component id="hsncj8" name="leave_room_btn.xml" path="/ready/"/>
     <component id="hsncj9" name="share_btn.xml" path="/ready/"/>
+    <component id="wehqja" name="disband_room_btn.xml" path="/ready/"/>
+    <component id="wehqjb" name="create_room_for_other.xml" path="/ready/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>

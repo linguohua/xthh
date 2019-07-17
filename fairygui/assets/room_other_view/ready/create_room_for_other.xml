@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="194,70" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n3_hsnc" name="n3" src="hsnci3" fileName="ready/z_准备界面/ty_btn_lv1.png" xy="0,0" size="194,70"/>
+    <image id="n5_wehq" name="n5" src="hsnci9" fileName="ready/z_准备界面/zm_btn_zi_wtrkf.png" xy="17,14"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

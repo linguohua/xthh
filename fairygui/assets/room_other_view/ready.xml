@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://ls4obr7jhsncj3" designImageAlpha="100">
+<component size="1136,640" designImage="ui://ls4obr7jhsncj4" designImageAlpha="100">
   <displayList>
     <image id="n23_hsnc" name="bg" src="hsnci5" fileName="ready/z_准备界面/zm_bj.jpg" xy="0,0" size="1152,649" aspect="true"/>
     <component id="n24_hsnc" name="head0" src="hsnci1" fileName="ready/head_button.xml" xy="140,145" size="146,183"/>
@@ -12,12 +12,14 @@
     <image id="n15_hsnc" name="n15" src="hsnci5" fileName="ready/z_准备界面/zm_bj.jpg" xy="0,420" size="1152,170">
       <relation target="n23_hsnc" sidePair="leftext-left,rightext-right"/>
     </image>
-    <image id="n32_hsnc" name="n32" src="hsnci4" fileName="ready/z_准备界面/ty_tips1.png" xy="245,346" size="647,65" visible="false"/>
-    <component id="n30_hsnc" name="leaveBtn" src="hsncj8" fileName="ready/leave_room_btn.xml" xy="50,471"/>
+    <image id="n32_hsnc" name="n32" src="hsnci4" fileName="ready/z_准备界面/ty_tips1.png" xy="245,346" size="647,65"/>
+    <component id="n30_hsnc" name="leaveBtn" src="hsncj8" fileName="ready/leave_room_btn.xml" xy="50,471" visible="false"/>
+    <component id="n35_wehq" name="forOther" src="wehqjb" fileName="ready/create_room_for_other.xml" xy="50,429" visible="false"/>
+    <component id="n36_wehq" name="disbandBtn" src="wehqja" fileName="ready/disband_room_btn.xml" xy="50,512" visible="false"/>
     <component id="n31_hsnc" name="shareBtn" src="hsncj9" fileName="ready/share_btn.xml" xy="878,436"/>
     <text id="n13_hsnc" name="rule" xy="294,464" size="580,39" fontSize="26" color="#00df01" align="center" vAlign="middle" autoSize="none" text="一赖到底，飘赖子有将，笑翻倍"/>
-    <text id="n14_hsnc" name="dizhu" xy="411,526" size="341,43" fontSize="30" color="#00df01" text="底注：1        总共：10局"/>
-    <text id="n21_hsnc" name="tips" xy="266,362" size="600,34" visible="false" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" text="(09:20) 后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
+    <text id="n14_hsnc" name="dizhu" xy="409,526" size="341,43" fontSize="30" color="#00df01" text="底注：1        总共：10局"/>
+    <text id="n21_hsnc" name="tips" xy="266,362" size="600,34" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" text="(09:20) 后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
     <text id="n22_hsnc" name="permission" xy="907,550" size="143,28" fontSize="18" color="#91cca9" align="center" vAlign="middle" text="[所有人]允许进入"/>
   </displayList>
 </component>
