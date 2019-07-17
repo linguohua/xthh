@@ -5,7 +5,7 @@
     <image id="n0_fxwe" name="n0" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="187,72">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n1_tfg8" name="n1" xy="36,12" size="115,56" fontSize="28" color="#f7fec0" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="复制战绩"/>
+    <text id="n1_tfg8" name="n1" xy="0,0" size="187,72" fontSize="28" color="#f7fec0" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="复制战绩"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="1.10"/>
 </component>
