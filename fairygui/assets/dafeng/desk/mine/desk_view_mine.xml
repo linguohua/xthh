@@ -15,7 +15,8 @@
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="367,748" hideByEditor="true" visible="false"/>
     <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="246,716" hideByEditor="true" visible="false"/>
     <component id="n9_fxwe" name="melds" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="0,458" touchable="false"/>
-    <component id="n6_fxwe" name="discards" src="jmxy1l" fileName="desk/mine/desk_discard.xml" xy="365,330" touchable="false"/>
+    <component id="n24_drq7" name="discards2" src="drq7ox" fileName="desk/mine/desk_discard2.xml" xy="365,330" visible="false"/>
+    <component id="n6_fxwe" name="discards" src="jmxy1l" fileName="desk/mine/desk_discard.xml" xy="365,330" visible="false" touchable="false"/>
     <component id="n10_fxwe" name="flowers" src="jmxy1n" fileName="desk/mine/desk_flower.xml" xy="255,432" touchable="false"/>
     <component id="n7_fxwe" name="hands" src="jmxy1o" fileName="desk/mine/desk_hand.xml" xy="0,471"/>
     <component id="n11_fxwe" name="lights" src="jmxy1s" fileName="desk/mine/desk_light.xml" xy="0,471" touchable="false"/>

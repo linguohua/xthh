@@ -93,11 +93,14 @@ export class PlayerView {
     private lastClickIndex: number;
     private dragHand: fgui.GComponent; //拖牌时 克隆的牌
     private msgTimerCB: Function;
+    private isTwoPlayer: boolean = false;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
         this.viewChairID = viewChairID;
         this.viewUnityNode = viewUnityNode;
         this.roomHost = this.room.getRoomHost();
+
+        this.isTwoPlayer = this.room.roomInfo.players.length === 2;
 
         //这里需要把player的chairID转换为游戏视图中的chairID，这是因为，无论当前玩家本人
         //的chair ID是多少，他都是居于正中下方，左手是上家，右手是下家，正中上方是对家
@@ -1120,8 +1123,14 @@ export class PlayerView {
     //打出的牌列表
     private initDiscards(): void {
         const discards: fgui.GComponent[] = [];
-        const myDicardTilesNode = this.myView.getChild("discards").asCom;
-        for (let i = 0; i < 20; i++) {
+        let myDicardTilesNode = this.myView.getChild("discards").asCom;
+        let disLen = 20;
+        if (this.isTwoPlayer) {
+            myDicardTilesNode = this.myView.getChild("discards2").asCom;
+            disLen = 40;
+        }
+        myDicardTilesNode.visible = true;
+        for (let i = 0; i < disLen; i++) {
             const card = myDicardTilesNode.getChild(`n${i + 1}`).asCom;
             discards[i] = card;
         }

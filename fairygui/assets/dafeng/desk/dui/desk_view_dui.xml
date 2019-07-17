@@ -13,7 +13,8 @@
     <component id="n11_fxwe" name="flowers" src="jmxyv" fileName="desk/dui/desk_flower.xml" xy="253,112" touchable="false"/>
     <component id="n10_fxwe" name="melds" src="jmxyq" fileName="desk/dui/desk_meld.xml" xy="0,0" touchable="false"/>
     <component id="n12_fxwe" name="lights" src="jmxyy" fileName="desk/dui/desk_light.xml" xy="1,0" touchable="false"/>
-    <component id="n6_fxwe" name="discards" src="jmxyz" fileName="desk/dui/desk_discard.xml" xy="372,148" touchable="false"/>
+    <component id="n22_drq7" name="discards2" src="drq7oy" fileName="desk/dui/desk_discard2.xml" xy="372,148" visible="false"/>
+    <component id="n6_fxwe" name="discards" src="jmxyz" fileName="desk/dui/desk_discard.xml" xy="372,148" visible="false" touchable="false"/>
     <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="773,49" hideByEditor="true"/>
     <graph id="n13_fxwe" name="aniPos" xy="540,98" pivot="0.5,0.5" size="0,0" visible="false"/>
     <graph id="n15_rh8w" name="userInfoPos" xy="357,40" size="20,26" visible="false"/>
