@@ -1,6 +1,7 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Logger } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
+import { Share } from "../../shareUtil/ShareExports";
 
 export interface RoomInterface {
     sendDisbandAgree(agree: boolean): void;
@@ -46,6 +47,8 @@ export class ReadyView extends cc.Component {
 
     private userID: string;
 
+    private eventTarget: cc.EventTarget;
+
     public showReadyView(roomHost: RoomHost, table: protoHH.casino.Itable, ps?: protoHH.casino.Itable_player[]): void {
         // 注意：table中的playrs不是最新的，新的player通过参数传进来
         // 后面可以分开或者抽取出来
@@ -62,6 +65,7 @@ export class ReadyView extends cc.Component {
             CommonFunction.setBgFullScreenSize(bg);
 
             roomHost.eventTarget.once("onDeal", this.onDeal, this);
+            roomHost.eventTarget.once("leave", this.onLeave, this);
 
             this.view = view;
             const win = new fgui.Window();
@@ -84,6 +88,10 @@ export class ReadyView extends cc.Component {
 
     }
 
+    protected onLoad(): void {
+        this.eventTarget = new cc.EventTarget();
+    }
+
     protected updateView(players: protoHH.casino.Itable_player[]): void {
         Logger.debug("updateView");
         // this.ruleText.text = ``;
@@ -100,9 +108,11 @@ export class ReadyView extends cc.Component {
                 name.visible = true;
                 const loader = headView.getChild("loader").asLoader;
                 CommonFunction.setHead(loader, player.channel_head, player.sex);
+                loader.visible = true;
                 // loader.url = player.ur
             } else {
                 headView.getChild("name").visible = false;
+                headView.getChild("loader").visible = false;
             }
         }
     }
@@ -125,7 +135,7 @@ export class ReadyView extends cc.Component {
         forOtherBtn.onClick(this.onForOtherCreateRoomBtnClick, this);
 
         const disbandRoomBtn = this.view.getChild("disbandBtn").asButton;
-        disbandRoomBtn.onClick(this.onLeaveRoomBtnClick, this);
+        disbandRoomBtn.onClick(this.onDisbandBtnClick, this);
 
         const shareBtn = this.view.getChild("shareBtn").asButton;
         shareBtn.onClick(this.onShareBtnClick, this);
@@ -164,18 +174,43 @@ export class ReadyView extends cc.Component {
 
     private onLeaveRoomBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
-        this.disbandRoom();
+        Dialog.showDialog("你确定要离开当前所在的房间吗？", () => {
+
+            this.leaveRoom();
+            // tslint:disable-next-line:align
+        }, () => {
+            //
+        });
     }
 
+    private onDisbandBtnClick(): void {
+        Logger.debug("onDisbandBtnClick");
+        Dialog.showDialog("确定要解散当前的牌局吗？", () => {
+
+            this.disbandRoom();
+            // tslint:disable-next-line:align
+        }, () => {
+            //
+        });
+    }
     private onForOtherCreateRoomBtnClick(): void {
         Logger.debug("onForOtherCreateRoomBtnClick");
     }
 
     private onShareBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
+        }
     }
 
     private onDeal(): void {
+        this.destroy();
+    }
+
+    // 自己退出房间
+    private onLeave(): void {
+        this.host.quit();
         this.destroy();
     }
 
@@ -186,12 +221,16 @@ export class ReadyView extends cc.Component {
         this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
     }
 
-    // private leaveRoom(): void {
-    //     const myUserID = DataStore.getString("playerID");
-    //     const req2 = new protoHH.casino.packet_table_disband_req({ player_id: + myUserID });
-    //     const buf = protoHH.casino.packet_table_disband_req.encode(req2);
-    //     this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
-    // }
+    private leaveRoom(): void {
+        const myUserID = DataStore.getString("playerID");
+
+        const req = new protoHH.casino.packet_table_leave();
+        req.idx = 1;
+        req.player_id = +myUserID;
+
+        const buf = protoHH.casino.packet_table_leave.encode(req);
+        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_LEAVE);
+    }
 
     private resetHeadPosition(): void {
         if (this.table.players.length !== 2) {

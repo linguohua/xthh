@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://ls4obr7jhsncj4" designImageAlpha="100">
   <displayList>
-    <image id="n23_hsnc" name="bg" src="hsnci5" fileName="ready/z_准备界面/zm_bj.jpg" xy="0,0" size="1152,649" aspect="true"/>
+    <image id="n23_hsnc" name="bg" src="hsnci5" fileName="ready/z_准备界面/zm_bj.jpg" xy="0,0" size="1152,649" hideByEditor="true" aspect="true"/>
     <component id="n24_hsnc" name="head0" src="hsnci1" fileName="ready/head_button.xml" xy="140,145" size="146,183"/>
     <component id="n25_hsnc" name="head1" src="hsnci1" fileName="ready/head_button.xml" xy="378,145" size="146,183"/>
     <component id="n26_hsnc" name="head2" src="hsnci1" fileName="ready/head_button.xml" xy="613,146" size="146,183"/>
@@ -9,7 +9,7 @@
     <image id="n6_hsnc" name="n6" src="hsncib" fileName="ready/z_准备界面/zm_di2.png" xy="457,0" size="254,66"/>
     <image id="n34_hsnc" name="n34" src="hsncid" fileName="ready/z_准备界面/zm_zi_srf.png" xy="503,8"/>
     <image id="n33_hsnc" name="n33" src="hsncie" fileName="ready/z_准备界面/zm_zi_xthh.png" xy="530,73"/>
-    <image id="n15_hsnc" name="n15" src="hsnci5" fileName="ready/z_准备界面/zm_bj.jpg" xy="0,420" size="1152,170">
+    <image id="n15_hsnc" name="n15" src="hsnci5" fileName="ready/z_准备界面/zm_bj.jpg" xy="0,420" size="1152,170" hideByEditor="true">
       <relation target="n23_hsnc" sidePair="leftext-left,rightext-right"/>
     </image>
     <image id="n32_hsnc" name="n32" src="hsnci4" fileName="ready/z_准备界面/ty_tips1.png" xy="245,346" size="647,65"/>
@@ -20,6 +20,6 @@
     <text id="n13_hsnc" name="rule" xy="294,464" size="580,39" fontSize="26" color="#00df01" align="center" vAlign="middle" autoSize="none" text="一赖到底，飘赖子有奖，笑翻倍"/>
     <text id="n14_hsnc" name="dizhu" xy="409,526" size="341,43" fontSize="30" color="#00df01" text="底注：1        总共：10局"/>
     <text id="n21_hsnc" name="tips" xy="254,360" size="626,34" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" text="（11:28）后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
-    <text id="n22_hsnc" name="permission" xy="907,550" size="143,28" fontSize="18" color="#91cca9" align="center" vAlign="middle" text="[所有人]允许进入"/>
+    <text id="n22_hsnc" name="permission" xy="906,550" size="143,28" fontSize="18" color="#91cca9" align="center" vAlign="middle" text="[所有人]允许进入"/>
   </displayList>
 </component>
