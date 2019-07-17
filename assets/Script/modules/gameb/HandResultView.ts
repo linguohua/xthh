@@ -338,7 +338,12 @@ export class HandResultView extends cc.Component {
             n = n + 1;
             const oCardObj = c.cards[n];
             TileImageMounter.mountTileImage(oCardObj, tiles);
+            if (tiles === this.room.laiziID) {
+                oCardObj.getChild("laiziMask").visible = true;
+            }
+
             oCardObj.visible = true;
+
             // }
         }
 
