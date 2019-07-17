@@ -53,7 +53,7 @@ export enum TypeOfOP {
  */
 export interface PlayerInterface {
     readonly chairID: number;
-    mScore: number;
+    totalScores: number;
     mNick: string;
     readyHandList: number[];
     waitSkip: boolean;

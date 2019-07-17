@@ -48,7 +48,6 @@ export class Player {
     public tilesHand: number[];
     public isRichi: boolean;
     public tileCountInHand: number;
-    public totalScores: number;
     public playerView: PlayerView;
     //设置一个标志，表示已经点击了动作按钮（吃碰杠胡过）
     public waitSkip: boolean;
@@ -64,7 +63,7 @@ export class Player {
     public cancelZiMo: boolean = false; //弃自摸
     public isCanPong: boolean = false; //可以碰
     public mBSaveZCHFlag: boolean = false; //可以捉铳
-    public mScore: number = 0;
+    public totalScores: number = 0;
     public mNick: string = "";
     // private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
@@ -381,7 +380,7 @@ export class Player {
         this.state = playerInfo.status;
         this.playerInfo = new PlayerInfo(playerInfo, chairID);
         if (this.playerInfo.scoreTotal !== null) {
-            this.mScore = this.playerInfo.scoreTotal;
+            this.totalScores = this.playerInfo.scoreTotal;
         }
 
         let nick = this.playerInfo.nick;
@@ -573,10 +572,10 @@ export class Player {
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
         } else {
-            if (curCancelType !== -1 && curCancelCard !== 0) {
-                const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
-                this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-            }
+            // if (curCancelType !== -1 && curCancelCard !== 0) {
+            const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
+            this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
+            // }
         }
         if (str === "") {
             str = `弃自摸`;

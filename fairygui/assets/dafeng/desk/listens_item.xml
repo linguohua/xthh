@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="70,110" designImage="ui://397phochjmxy32" designImageOffsetX="-500" designImageOffsetY="-190">
   <displayList>
-    <component id="n1_fxwe" name="n1" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="6,3" scale="0.7,0.7"/>
-    <text id="n2_fxwe" name="num" xy="17,85" size="40,30" fontSize="22" color="#e9bf89" bold="true" strokeColor="#280000" text="3张"/>
+    <component id="n1_fxwe" name="n1" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="6,3" scale="0.7,0.7"/>
+    <image id="n3_q32b" name="n3" src="q32bow" fileName="_resource/z_桌面打牌/zm_tpdi.png" xy="25,70"/>
+    <text id="n4_q32b" name="num" xy="30,70" size="16,29" fontSize="18" color="#fffe1f" text="1&#xA;"/>
   </displayList>
 </component>

@@ -753,6 +753,9 @@ export class Room {
         let total = 0;
         const tingMahjong = [];
         for (const checkMahjong of checkMahjongs) {
+            if (tingP.length > 8) {
+                return tingP;
+            }
             const bHuPai = this.mAlgorithm.canHuPai_WithOther(array, checkMahjong, true);
             if (bHuPai.length > 0) {
                 //检查牌剩余数量

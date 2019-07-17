@@ -713,6 +713,8 @@
     <component id="wxwuor" name="gang_Button.xml" path="/"/>
     <component id="wxwuos" name="peng_Button.xml" path="/"/>
     <component id="wxwuou" name="cancel_button.xml" path="/"/>
+    <image id="q32bov" name="zm_tpzi.png" path="/_resource/z_桌面打牌/"/>
+    <image id="q32bow" name="zm_tpdi.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

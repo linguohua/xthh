@@ -229,7 +229,7 @@ export class RoomView {
         // this.arrowObj.visible = true;
     }
     public showTingDataView(list: TingPai[]): void {
-        Logger.debug("显示听 列表 ", list);
+        // Logger.debug("显示听 列表 ", list);
         if (list.length <= 0) {
             this.listensObj.visible = false;
 
@@ -237,19 +237,19 @@ export class RoomView {
         }
         const len = list.length;
         this.listensDataList = list;
-        let width = 290;
-        let height = 110;
-        if (len <= 2) {
-            width = 150;
-        } else if (len > 4) {
-            height = 230;
-        }
-        this.listensObjList.setSize(width, height);
+        // let width = 290;
+        // let height = 110;
+        // if (len <= 2) {
+        //     width = 150;
+        // } else if (len > 4) {
+        //     height = 230;
+        // }
+        // this.listensObjList.setSize(width, height);
         let nCount = 0;
         for (const d of list) {
             nCount = nCount + d.num;
         }
-        this.listensObjNum.text = `${nCount}张`;
+        this.listensObjNum.text = `${nCount}`;
         this.listensObjList.numItems = len;
         this.listensObj.visible = true;
     }
@@ -554,8 +554,11 @@ export class RoomView {
         const tingPai = this.listensDataList[index];
         const t = obj.getChild("n1").asCom;
         const num = obj.getChild("num");
-        num.text = `${tingPai.num}张`;
+        num.text = `${tingPai.num}`;
         TileImageMounter.mountTileImage(t, tingPai.card);
+        if (tingPai.card === this.room.laiziID) {
+            t.getChild("laiziMask").visible = true;
+        }
     }
 
     //面子牌选择面板

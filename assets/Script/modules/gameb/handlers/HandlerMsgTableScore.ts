@@ -12,6 +12,7 @@ export namespace HandlerMsgTableScore {
     const showHu = async (reply: proto.casino.packet_table_score, room: RoomInterface): Promise<void> => {
 
         for (const score of reply.scores) {
+            const player = <Player>room.getPlayerByUserID(`${score.data.id}`);
             if (score.hupai_card > 0) {
                 let huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
                 const opscores = score.opscores;
@@ -28,8 +29,11 @@ export namespace HandlerMsgTableScore {
                     }
                 }
                 //播放动画
-                const player = <Player>room.getPlayerByUserID(`${score.data.id}`);
                 await player.exposedResultAnimation(huType, true);
+            }
+            //保存分数
+            if (score.score_total !== null) {
+                player.totalScores = score.score_total;
             }
         }
 

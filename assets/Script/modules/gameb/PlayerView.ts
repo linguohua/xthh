@@ -844,9 +844,9 @@ export class PlayerView {
             this.showOwner();
             //开始玩之后 不显示名字 显示分数
             if (this.viewChairID === 1) {
-                this.head.nameText.text = `${this.player.mNick}:${this.player.mScore}`;
+                this.head.nameText.text = `${this.player.mNick}:${this.player.totalScores}`;
             } else {
-                this.head.nameText.text = `${this.player.mScore}`;
+                this.head.nameText.text = `${this.player.totalScores}`;
             }
         };
 
