@@ -17,9 +17,9 @@
     <component id="n35_wehq" name="forOther" src="wehqjb" fileName="ready/create_room_for_other.xml" xy="50,429" visible="false"/>
     <component id="n36_wehq" name="disbandBtn" src="wehqja" fileName="ready/disband_room_btn.xml" xy="50,512" visible="false"/>
     <component id="n31_hsnc" name="shareBtn" src="hsncj9" fileName="ready/share_btn.xml" xy="878,436"/>
-    <text id="n13_hsnc" name="rule" xy="294,464" size="580,39" fontSize="26" color="#00df01" align="center" vAlign="middle" autoSize="none" text="一赖到底，飘赖子有将，笑翻倍"/>
+    <text id="n13_hsnc" name="rule" xy="294,464" size="580,39" fontSize="26" color="#00df01" align="center" vAlign="middle" autoSize="none" text="一赖到底，飘赖子有奖，笑翻倍"/>
     <text id="n14_hsnc" name="dizhu" xy="409,526" size="341,43" fontSize="30" color="#00df01" text="底注：1        总共：10局"/>
-    <text id="n21_hsnc" name="tips" xy="262,362" size="606,34" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" text="（11:28）后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
+    <text id="n21_hsnc" name="tips" xy="254,360" size="626,34" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" text="（11:28）后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
     <text id="n22_hsnc" name="permission" xy="907,550" size="143,28" fontSize="18" color="#91cca9" align="center" vAlign="middle" text="[所有人]允许进入"/>
   </displayList>
 </component>
