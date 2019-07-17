@@ -153,4 +153,5 @@ export interface RoomInterface {
     setDiscardAble(isDiscardAble: boolean): void;
     myMahjong_showTingGroup(tile: number): TingPai[];
     showOrHideCancelCom(isShow: boolean, str?: string): void;
+    updateReadView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void;
 }

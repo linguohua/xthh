@@ -780,6 +780,9 @@ export class Room {
         return tingP;
     }
 
+    public updateReadView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
+        this.roomView.updateReadyView(table, players);
+    }
     //播放背景音乐
     private playBgSound(): void {
         SoundMgr.playMusicAudio("gameb/game_matchBg", true);

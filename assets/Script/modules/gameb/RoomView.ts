@@ -2,6 +2,7 @@ import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobb
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
+import { ReadyView } from "../lobby/views/ready/ReadyExports";
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
 import { Player } from "./Player";
 import { PlayerView } from "./PlayerView";
@@ -325,6 +326,17 @@ export class RoomView {
         }
 
         disbandView.saveRoomView(this.room, load, myInfo, playersInfo, disbandReq, disbandAck);
+    }
+
+    public updateReadyView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
+        let readyView = this.component.getComponent(ReadyView);
+        if (readyView === undefined || readyView == null) {
+            readyView = this.component.addComponent(ReadyView);
+        }
+
+        // const load = this.room.getRoomHost().getLobbyModuleLoader();
+        const roomHost = this.room.getRoomHost();
+        readyView.showReadyView(roomHost, table, players);
     }
 
     public showOrHideCancelCom(isShow: boolean, str: string): void {

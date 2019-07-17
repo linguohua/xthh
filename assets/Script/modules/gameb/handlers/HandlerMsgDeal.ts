@@ -9,6 +9,7 @@ export namespace HandlerMsgDeal {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const msgDeal = proto.casino_xtsj.packet_sc_start_play.decode(msgData);
         console.log("HandlerMsgDeal---------------- ", msgDeal);
+        room.getRoomHost().eventTarget.emit("onDeal");
         //清理
         room.resetForNewHand();
         //播放开局动画 并等待

@@ -31,38 +31,17 @@ export class ReadyView extends cc.Component {
 
     private win: fgui.Window;
 
-    private playersInfo: DisBandPlayerInfo[];
-
-    private myInfo: DisBandPlayerInfo;
-
-    private room: RoomInterface;
-
-    // private myCountDown: fgui.GObject;
-    private myCountDownTxt: fgui.GTextField;
-
-    private isDisbandDone: boolean;
-
     // private isForMe: boolean;
-
-    private leftTime: number;
-    private refuseBtn: fgui.GButton;
-
-    private agreeBtn: fgui.GButton;
-
-    private disbandReq: protoHH.casino.packet_table_disband_req;
-    private disbandAck: protoHH.casino.packet_table_disband_ack;
-
-    private playerList: fgui.GComponent[];
-
     private table: protoHH.casino.Itable;
-    private players: protoHH.casino.table_player[];
     private roomNumber: fgui.GObject;
 
     private headViews: fgui.GComponent[] = [];
 
     private ruleText: fgui.GTextField;
-    private anteText: fgui.GTextField
+    private anteText: fgui.GTextField;
     private host: RoomHost;
+
+    private userID: string;
 
     public showReadyView(roomHost: RoomHost, table: protoHH.casino.Itable, ps?: protoHH.casino.Itable_player[]): void {
         // 注意：table中的playrs不是最新的，新的player通过参数传进来
@@ -105,6 +84,8 @@ export class ReadyView extends cc.Component {
     protected updateView(players: protoHH.casino.Itable_player[]): void {
         Logger.debug("updateView, roomNumber:", this.table.tag);
         this.roomNumber.text = `${this.table.tag}`;
+        this.anteText.text = `底注：${this.table.base}       总共：${this.table.round}局`;
+        // this.ruleText.text = ``;
 
         const length = players.length;
         for (let i = 0; i < length; i++) {
@@ -132,11 +113,29 @@ export class ReadyView extends cc.Component {
             this.headViews[i] = head;
         }
 
+        this.userID = DataStore.getString("playerID");
+
         const leaveBtn = this.view.getChild("leaveBtn").asButton;
         leaveBtn.onClick(this.onLeaveRoomBtnClick, this);
 
+        const forOtherBtn = this.view.getChild("forOther").asButton;
+        forOtherBtn.onClick(this.onForOtherCreateRoomBtnClick, this);
+
+        const disbandRoomBtn = this.view.getChild("disbandBtn").asButton;
+        disbandRoomBtn.onClick(this.onLeaveRoomBtnClick, this);
+
         const shareBtn = this.view.getChild("shareBtn").asButton;
         shareBtn.onClick(this.onShareBtnClick, this);
+
+        if (this.userID !== `${this.table.master_id}`) {
+            leaveBtn.visible = true;
+            forOtherBtn.visible = false;
+            disbandRoomBtn.visible = false;
+        } else {
+            leaveBtn.visible = false;
+            forOtherBtn.visible = true;
+            disbandRoomBtn.visible = true;
+        }
 
         this.roomNumber = shareBtn.getChild("roomNumber");
 
@@ -176,18 +175,15 @@ export class ReadyView extends cc.Component {
         this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
     }
 
+    private onForOtherCreateRoomBtnClick(): void {
+        Logger.debug("onForOtherCreateRoomBtnClick");
+    }
+
     private onShareBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
     }
 
     private onDeal(): void {
         this.destroy();
-    }
-
-    private autoReady(): void {
-        Logger.debug("autoReady");
-        const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
-        const buf = protoHH.casino.packet_table_ready.encode(req2);
-        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_READY);
     }
 }

@@ -10,5 +10,9 @@ export namespace HandlerMsgTableEntry {
         const d = proto.casino.packet_table_entry.decode(msgData);
         Logger.debug("HandlerMsgTableEntry----------------------- ", d);
         room.createPlayerByInfo(d.pdata, d.idx);
+
+        const players = room.roomInfo.players;
+        players[d.idx] = d.pdata;
+        room.updateReadView(room.roomInfo, players);
     };
 }

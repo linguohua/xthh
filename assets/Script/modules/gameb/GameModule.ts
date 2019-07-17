@@ -235,6 +235,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
 
         if (table === null) {
+            Dialog.hideWaiting();
+
             return;
         }
 
@@ -249,7 +251,12 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             Dialog.hideWaiting();
         }
 
-        this.mRoom.showOrHideReadyButton(!reconnect);
+        // this.mRoom.showOrHideReadyButton(!reconnect);
+        if (table.status === null) {
+            // 显示准备界面
+            this.room.updateReadView(table);
+            this.room.onReadyButtonClick();
+        }
 
         if (reconnect) {
             this.mRoom.restrorePlayerOperation();
