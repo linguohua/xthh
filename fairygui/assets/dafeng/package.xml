@@ -617,7 +617,7 @@
     <image id="lqn3m1" name="js_zi_sl.png" path="/_resource/j_结算/" exported="true"/>
     <image id="lqn3m2" name="js_zi_ting.png" path="/_resource/j_结算/"/>
     <image id="lqn3m3" name="js_zi_yl.png" path="/_resource/j_结算/" exported="true"/>
-    <image id="lqn3m4" name="js_zjdi.png" path="/_resource/j_结算/"/>
+    <image id="lqn3m4" name="js_zjdi.png" path="/_resource/j_结算/" scale="9grid" scale9grid="19,18,6,7" gridTile="16"/>
     <component id="jel2m5" name="gpsBtn.xml" path="/btn/"/>
     <component id="jel2m6" name="recorderBtn.xml" path="/btn/"/>
     <component id="jel2m7" name="preparePage.xml" path="/compoment/"/>
@@ -715,8 +715,7 @@
     <component id="wxwuou" name="cancel_button.xml" path="/"/>
     <image id="q32bov" name="zm_tpzi.png" path="/_resource/z_桌面打牌/"/>
     <image id="q32bow" name="zm_tpdi.png" path="/_resource/z_桌面打牌/"/>
-    <component id="drq7ox" name="desk_discard2.xml" path="/desk/mine/"/>
-    <component id="drq7oy" name="desk_discard2.xml" path="/desk/dui/"/>
+    <image id="wehqox" name="jbting.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
