@@ -64,6 +64,7 @@ class ViewGroup {
     public aniPos: fgui.GObject;
     public ruleText: fgui.GObject;
     public laiziCount: fgui.GObject;
+    public kuang: fgui.GObject;
 }
 /**
  * 显示一手牌结束后的得分结果
@@ -349,6 +350,7 @@ export class HandResultView extends cc.Component {
 
         if (playerScore.hupai_card > 0) {
             c.hu.visible = true;
+            c.kuang.visible = true;
         } else if (this.isTing(playerScore.curcards)) {
             c.ting.visible = true;
         }
@@ -564,6 +566,7 @@ export class HandResultView extends cc.Component {
             contentGroupData.ting = group.getChild("ting");
             //获胜节点位置
             contentGroupData.aniPos = group.getChild("aniPos");
+            contentGroupData.kuang = group.getChild("kuang");
 
             //保存userID
             // contentGroupData.userID = "";
