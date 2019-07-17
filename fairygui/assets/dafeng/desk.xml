@@ -15,9 +15,6 @@
     <image id="n43_jel2" name="bg5" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="407,604" size="331,33">
       <relation target="n29_qhzt" sidePair="left-left,bottom-bottom"/>
     </image>
-    <image id="n44_jel2" name="gameIcon" src="lqn3hl" fileName="_resource/z_桌面打牌/zm_zi_xthh.png" xy="7,111">
-      <relation target="n29_qhzt" sidePair="left-left"/>
-    </image>
     <text id="n28_rh8w" name="tilesInWall" xy="424,607" size="77,28" visible="false" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="余牌:60">
       <relation target="n29_qhzt" sidePair="left-left"/>
     </text>
@@ -65,11 +62,13 @@
     <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598">
       <relation target="n29_qhzt" sidePair="right-right,bottom-bottom"/>
     </component>
-    <component id="n46_jel2" name="laiziCom" src="jel2md" fileName="compoment/laiziCom.xml" xy="3,3">
+    <component id="n46_jel2" name="laiziCom" src="jel2md" fileName="compoment/laiziCom.xml" xy="511,5">
       <relation target="n29_qhzt" sidePair="left-left,top-top"/>
     </component>
     <graph id="n47_lop0" name="zhuangPos" xy="568,320" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n48_lop0" name="AniPos" xy="568,300" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <component id="n51_jgmt" name="cancelCom" src="jgmtop" fileName="cancelCom.xml" xy="365,428" visible="false"/>
+    <graph id="n52_q32b" name="laiComPos1" xy="3,3" pivot="0.5,0.5" anchor="true" size="18,28"/>
+    <graph id="n53_q32b" name="laiComPos2" xy="511,3" pivot="0.5,0.5" anchor="true" size="18,28"/>
   </displayList>
 </component>

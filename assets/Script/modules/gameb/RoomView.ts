@@ -469,14 +469,26 @@ export class RoomView {
             roundMarks[i] = roundMark;
         }
         this.roundMarks = roundMarks;
+
         this.laiziCom = this.unityViewNode.getChild("laiziCom").asCom;
+        let laiComPos = this.unityViewNode.getChild("laiComPos1");
+        if (this.room.roomInfo.players.length === 3) {
+            laiComPos = this.unityViewNode.getChild("laiComPos2");
+        }
+        this.laiziCom.setPosition(laiComPos.x, laiComPos.y);
+
         this.laigenTile = this.laiziCom.getChild("laigenCom").asCom;
         this.laiziTile = this.laiziCom.getChild("laiziCOm").asCom;
 
         this.laiziTilePos1 = this.laiziCom.getChild("laiziPos1");
-        this.laiziTilePos2 = this.laiziCom.getChild("laiziPos2");
         this.laigenTilePos1 = this.laiziCom.getChild("laigenPos1");
-        this.laigenTilePos2 = this.laiziCom.getChild("laigenPos2");
+        if (this.room.roomInfo.players.length === 3) {
+            this.laiziTilePos2 = this.laiziCom.getChild("laiziPos3");
+            this.laigenTilePos2 = this.laiziCom.getChild("laigenPos3");
+        } else {
+            this.laiziTilePos2 = this.laiziCom.getChild("laiziPos2");
+            this.laigenTilePos2 = this.laiziCom.getChild("laigenPos2");
+        }
 
         this.laiziCom.visible = false;
 
@@ -556,9 +568,7 @@ export class RoomView {
         const num = obj.getChild("num");
         num.text = `${tingPai.num}`;
         TileImageMounter.mountTileImage(t, tingPai.card);
-        if (tingPai.card === this.room.laiziID) {
-            t.getChild("laiziMask").visible = true;
-        }
+        t.getChild("laiziMask").visible = tingPai.card === this.room.laiziID;
     }
 
     //面子牌选择面板

@@ -8,7 +8,10 @@
     <component id="n14_tfg8" name="laiziCOm" src="jmxy13" fileName="mahjong_mine/mahjong_mine_luo.xml" xy="58,29" scale="0.57,0.52"/>
     <graph id="n15_lop0" name="laigenPos1" xy="4,29" size="90,136" scale="0.57,0.52"/>
     <graph id="n16_lop0" name="laiziPos1" xy="58,29" size="90,136" scale="0.57,0.52"/>
-    <graph id="n17_lop0" name="laigenPos2" xy="527,252" size="90,136" scale="0.57,0.52"/>
-    <graph id="n18_lop0" name="laiziPos2" xy="581,252" size="90,136" scale="0.57,0.52"/>
+    <image id="n19_q32b" name="gameIcon" src="lqn3hl" fileName="_resource/z_桌面打牌/zm_zi_xthh.png" xy="4,108"/>
+    <graph id="n20_q32b" name="laigenPos2" xy="516,232" size="90,136" scale="0.57,0.52"/>
+    <graph id="n21_q32b" name="laiziPos2" xy="570,232" size="90,136" scale="0.57,0.52"/>
+    <graph id="n22_q32b" name="laigenPos3" xy="3,230" size="90,136" scale="0.57,0.52"/>
+    <graph id="n23_q32b" name="laiziPos3" xy="57,230" size="90,136" scale="0.57,0.52"/>
   </displayList>
 </component>
