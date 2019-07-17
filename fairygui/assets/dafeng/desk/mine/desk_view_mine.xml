@@ -2,9 +2,13 @@
 <component size="1136,640" opaque="false" designImage="ui://397phochlqn3fs" designImageAlpha="100">
   <displayList>
     <component id="n0_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="600,801" hideByEditor="true" visible="false"/>
-    <text id="n17_sskg" name="nameText" xy="164,607" size="206,28" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
     <text id="n15_rh8w" name="huaText" xy="437,760" size="40,28" hideByEditor="true" visible="false" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
     <image id="n1_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="521,770" hideByEditor="true" visible="false"/>
+    <image id="n20_drq7" name="bg4" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="150,605" size="244,33"/>
+    <image id="n21_drq7" name="bg5" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="405,605" size="331,33"/>
+    <text id="n22_drq7" name="tilesInWall" xy="426,606" size="77,28" visible="false" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="余牌:60"/>
+    <text id="n23_drq7" name="roomInfo" xy="504,606" size="227,28" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="底注:1    还有9局"/>
+    <text id="n17_sskg" name="nameText" xy="164,607" size="206,28" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
     <image id="n2_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="402,755" hideByEditor="true" visible="false"/>
     <image id="n3_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="478,762" hideByEditor="true" visible="false"/>
     <image id="n4_fxwe" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="119,619" pivot="0.5,0.5" anchor="true" hideByEditor="true" visible="false"/>

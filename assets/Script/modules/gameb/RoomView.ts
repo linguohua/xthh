@@ -459,8 +459,6 @@ export class RoomView {
     }
 
     private initOtherView(): void {
-        // 房间号
-        this.roomInfoText = this.unityViewNode.getChild("roomInfo");
         // 风圈和当前操作玩家指示箭头roundMarkArrow
         const roundMarks: fgui.GObject[] = [];
         this.roundMarkView = this.unityViewNode.getChild("roundMask").asCom;
@@ -496,8 +494,6 @@ export class RoomView {
         this.countDownText = this.roundMarkView.getChild("num");
         //道具
         this.donateMoveObj = this.unityViewNode.getChild("donate").asLoader;
-        //剩牌
-        this.tilesInWall = this.unityViewNode.getChild("tilesInWall");
         //庄家动画挂载节点
         this.zhuangPos = this.unityViewNode.getChild("zhuangPos");
         //其他动画挂载节点
@@ -505,6 +501,13 @@ export class RoomView {
         //弃碰弃杠 提示
         this.cancelCom = this.unityViewNode.getChild("cancelCom").asCom;
         this.cancelComText = this.cancelCom.getChild("text");
+
+        //为了兼容界面 房间信息 跟 余牌text  放在了 player1里面
+        const player1 = this.unityViewNode.getChild(`player1`).asCom;
+        // 房间号
+        this.roomInfoText = player1.getChild("roomInfo");
+        //剩牌
+        this.tilesInWall = player1.getChild("tilesInWall");
     }
 
     //初始化房间状态事件
