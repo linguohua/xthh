@@ -337,7 +337,7 @@ export class RoomView {
 
         // const load = this.room.getRoomHost().getLobbyModuleLoader();
         const roomHost = this.room.getRoomHost();
-        readyView.showReadyView(roomHost, table, players);
+        readyView.updateReadyView(roomHost, table, players);
     }
 
     public showOrHideCancelCom(isShow: boolean, str: string): void {

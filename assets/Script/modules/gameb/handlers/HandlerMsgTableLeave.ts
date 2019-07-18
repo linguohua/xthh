@@ -22,9 +22,9 @@ export namespace HandlerMsgTableLeave {
         if (room.isMe(playerID)) {
             room.getRoomHost().eventTarget.emit("leave");
         } else {
-            // const player = <Player>room.getPlayerByUserID(playerID);
-            // player.unbindView();
-            // room.removePlayer(playerID);
+            const player = <Player>room.getPlayerByUserID(playerID);
+            player.unbindView();
+            room.removePlayer(playerID);
         }
 
     };
