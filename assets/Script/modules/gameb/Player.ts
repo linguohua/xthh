@@ -328,7 +328,7 @@ export class Player {
         if (this.isMe()) {
             //隐藏牌组
             this.playerView.hideHands();
-            this.playerView.showHandsForMe(true);
+            this.playerView.showHandsForMe(false);
         }
 
         //播放对应音效

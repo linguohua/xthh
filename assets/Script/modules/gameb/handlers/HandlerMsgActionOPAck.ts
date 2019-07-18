@@ -15,7 +15,8 @@ export namespace HandlerMsgActionOPAck {
             player.removeTileFromHand(pAck.cards[0]);
         }
         player.addMeld(pAck);
-        player.hand2UI(true); //手牌列表更新UI
+        // player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
+        player.hand2UI(false); //手牌列表更新UI
         const contributorPlayer = <Player>room.getPlayerByUserID(`${pAck.target_id}`);
         const a = pAck.cards[0];
         contributorPlayer.removeLatestDiscarded(a); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
@@ -54,7 +55,8 @@ export namespace HandlerMsgActionOPAck {
             contributorPlayer.removeLatestDiscarded(mahjong); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
             contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
         }
-        player.hand2UI(true); //手牌列表更新UI
+        // player.sortHands(false); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
+        player.hand2UI(false); //手牌列表更新UI
     };
     const kong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): number => {
         if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_DIANXIAO || pAck.type === OP_TYPE.XTSJ_OP_TYPE_MENGXIAO ||
