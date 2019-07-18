@@ -175,7 +175,7 @@ export class PlayerView {
                     }
                 }
             }
-            if (isShow && tile !== undefined && tile !== null) {
+            if (isShow && tile !== undefined && tile !== null && tile !== this.room.laiziID) {
                 const ts = this.discardLans[tile];
                 if (ts !== undefined && ts !== null) {
                     for (const t of ts) {
