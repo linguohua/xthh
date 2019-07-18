@@ -7,5 +7,6 @@
     <loader id="n17_o570" name="ts" xy="45,107" pivot="0.5,0.5" anchor="true" size="28,30"/>
     <graph id="n18_wxwu" name="piaoPos" xy="45,50" pivot="0.5,0.5" anchor="true" size="2,2" hideByEditor="true" visible="false"/>
     <image id="n19_wxwu" name="laiziMask" src="wxwu2a" fileName="_resource/z_桌面打牌/zm_mjlzzz.png" xy="1,0" size="87,132" hideByEditor="true" visible="false" blend="multiply"/>
+    <image id="n20_ef0a" name="lanMask" src="ef0a2e" fileName="_resource/z_桌面打牌/zm_mjlzzz_l.png" xy="1,0" size="87,132" hideByEditor="true" visible="false" blend="multiply"/>
   </displayList>
 </component>

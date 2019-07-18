@@ -114,6 +114,7 @@ export namespace HandlerMsgActionOPAck {
         Logger.debug("HandlerMsgActionOPAck----------------------- ", pAck);
         const player = <Player>room.getPlayerByUserID(`${pAck.player_id}`);
         if (player.isMe()) {
+            player.playerView.setLanOfHands(false);
             if (pAck.op === TypeOfOP.Guo) {                //假如没有操作
                 if (player.canKongs !== undefined && player.canKongs.length > 0) {
                     // player.notKongs = player.canKongs;

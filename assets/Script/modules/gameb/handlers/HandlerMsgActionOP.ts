@@ -31,7 +31,7 @@ export namespace HandlerMsgActionOP {
                 player.playerView.huBtn.grayed = false;
             }
         }
-        Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
+        // Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
         const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
         if (isCanGang) {
             const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
@@ -54,6 +54,7 @@ export namespace HandlerMsgActionOP {
             room.lastDisCardTile = reply.card;
             player.playerView.skipBtn.grayed = false;
             player.playerView.showButton();
+            player.playerView.setLanOfHands(true, reply.card);
         }
     };
 

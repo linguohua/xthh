@@ -165,6 +165,19 @@ export class PlayerView {
         //}
     }
 
+    public setLanOfHands(isShow: boolean, tile?: number): void {
+        const handsClickCtrls = this.handsClickCtrls;
+        for (const handsClickCtrl of handsClickCtrls) {
+            if (isShow) {
+                if (handsClickCtrl.tileID === tile) {
+                    handsClickCtrl.h.getChild("lanMask").visible = true;
+                }
+            } else {
+                handsClickCtrl.h.getChild("lanMask").visible = false;
+            }
+        }
+    }
+
     //设置头像特殊效果是否显示（当前出牌者则显示）
     public setHeadEffectBox(isShow: boolean): void {
         // const x = this.head.pos.x
