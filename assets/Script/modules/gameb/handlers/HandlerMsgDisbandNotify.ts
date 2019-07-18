@@ -23,6 +23,6 @@ export namespace HandlerMsgDisbandNotify {
         }
 
         //保存到room到，以便重复点击申请解散按钮进而显示
-        room.updateDisbandVoteView(msgDisbandNotify);
+        // room.updateDisbandVoteView(msgDisbandNotify);
     };
 }

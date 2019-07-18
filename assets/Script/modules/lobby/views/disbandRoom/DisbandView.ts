@@ -53,7 +53,7 @@ export class DisbandView extends cc.Component {
 
     private playerList: fgui.GComponent[];
 
-    public saveRoomView(room: RoomInterface, loader: GResLoader
+    public showDisbandView(room: RoomInterface, loader: GResLoader
         // tslint:disable-next-line:align
         , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[],
         // tslint:disable-next-line:align

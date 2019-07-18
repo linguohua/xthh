@@ -337,6 +337,13 @@ export class Room {
         // }
     }
 
+    public showDisbandVoteForRecconect(disbandPlayerID: number, disbandTime: Long): void {
+        const disbandReq = new protoHH.casino.packet_table_disband_req();
+        disbandReq.player_id = disbandPlayerID;
+        disbandReq.disband_time = disbandTime;
+        this.updateDisbandVoteView(disbandReq, null);
+    }
+
     //发送解散回复给服务器
     public sendDisbandAgree(agree: boolean): void {
         const disbandAck = {

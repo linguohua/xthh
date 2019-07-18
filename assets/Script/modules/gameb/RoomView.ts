@@ -326,7 +326,7 @@ export class RoomView {
             disbandView = this.component.addComponent(DisbandView);
         }
 
-        disbandView.saveRoomView(this.room, load, myInfo, playersInfo, disbandReq, disbandAck);
+        disbandView.showDisbandView(this.room, load, myInfo, playersInfo, disbandReq, disbandAck);
     }
 
     public updateReadyView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
