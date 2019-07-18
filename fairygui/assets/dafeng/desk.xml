@@ -8,7 +8,7 @@
     <image id="n35_jrlz" name="classBg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0" size="1136,640" hideByEditor="true">
       <gearDisplay controller="bgController" pages="0"/>
     </image>
-    <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44"/>
+    <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44" visible="false"/>
     <component id="n26_rh8w" name="checkReadyHandBtn" src="jmxy33" fileName="desk/check_ting_button.xml" xy="578,763" visible="false" blend="screen">
       <relation target="n29_qhzt" sidePair="left-left"/>
     </component>
@@ -20,26 +20,26 @@
     <component id="n20_fxwe" name="meldOpsPanel" src="jmxy2e" fileName="desk/meld_multi_ops.xml" xy="0,0" hideByEditor="true" visible="false"/>
     <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" hideByEditor="true" visible="false"/>
     <loader id="n27_rh8w" name="donate" xy="72,439" pivot="0.5,0.5" anchor="true" size="105,97" hideByEditor="true" visible="false"/>
-    <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596">
+    <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596" visible="false">
       <relation target="n29_qhzt" sidePair="left-left,bottom-bottom"/>
     </component>
     <component id="n12_fxwe" name="guizeBtn" src="jmxy26" fileName="desk/guize_button.xml" xy="100,-116" visible="false"/>
-    <component id="n30_x2fz" name="return2LobbyBtn" src="jmxy35" fileName="desk/return_lobby_btn.xml" xy="196,427" group="n34_jrlz"/>
-    <component id="n31_qly1" name="invite" src="jmxy37" fileName="desk/invite_button.xml" xy="480,427" group="n34_jrlz"/>
-    <component id="n19_fxwe" name="ready" src="jmxy2c" fileName="desk/ready_button.xml" xy="760,427" group="n34_jrlz"/>
+    <component id="n30_x2fz" name="return2LobbyBtn" src="jmxy35" fileName="desk/return_lobby_btn.xml" xy="196,427" group="n34_jrlz" visible="false"/>
+    <component id="n31_qly1" name="invite" src="jmxy37" fileName="desk/invite_button.xml" xy="480,427" group="n34_jrlz" visible="false"/>
+    <component id="n19_fxwe" name="ready" src="jmxy2c" fileName="desk/ready_button.xml" xy="760,427" group="n34_jrlz" visible="false"/>
     <group id="n34_jrlz" name="btn" xy="196,427" size="794,79" hideByEditor="true" advanced="true" collapsed="true">
       <relation target="n29_qhzt" sidePair="bottom-bottom"/>
     </group>
     <image id="n3_fxwe" name="n3" src="jmxyai" fileName="大丰麻将美术改版/2 游戏内/切图/fenquanbg.png" xy="15,-139"/>
     <component id="n21_fxwe" name="fengquan" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="33,-128" scale="0.4,0.4"/>
-    <component id="n38_jel2" name="gpsBtn" src="jel2m5" fileName="btn/gpsBtn.xml" xy="1034,79">
+    <component id="n38_jel2" name="gpsBtn" src="jel2m5" fileName="btn/gpsBtn.xml" xy="1034,79" visible="false">
       <relation target="n29_qhzt" sidePair="right-right"/>
     </component>
-    <component id="n40_jel2" name="recorderBtn" src="jel2m6" fileName="btn/recorderBtn.xml" xy="1027,329">
+    <component id="n40_jel2" name="recorderBtn" src="jel2m6" fileName="btn/recorderBtn.xml" xy="1027,329" visible="false">
       <relation target="n29_qhzt" sidePair="right-right"/>
     </component>
     <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="7,353" visible="false"/>
-    <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598">
+    <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598" visible="false">
       <relation target="n29_qhzt" sidePair="right-right,bottom-bottom"/>
     </component>
     <component id="n46_jel2" name="laiziCom" src="jel2md" fileName="compoment/laiziCom.xml" xy="510,5" visible="false">

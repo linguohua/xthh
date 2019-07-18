@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" opaque="false" designImage="ui://397phochlqn3fr" designImageAlpha="100">
   <displayList>
-    <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="57,263" hideByEditor="true"/>
-    <text id="n17_sskg" name="nameText" xy="19,267" size="103,25" fontSize="18" color="#fbb41d" align="center" vAlign="middle" autoSize="shrink" text=""/>
-    <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="9,180" hideByEditor="true"/>
-    <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="99,225" hideByEditor="true"/>
-    <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="79,180" hideByEditor="true"/>
-    <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="79,274" pivot="0.5,0.5" anchor="true" hideByEditor="true">
+    <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="57,263" hideByEditor="true" visible="false"/>
+    <text id="n17_sskg" name="nameText" xy="19,267" size="103,25" visible="false" fontSize="18" color="#fbb41d" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="9,180" hideByEditor="true" visible="false"/>
+    <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="99,225" hideByEditor="true" visible="false"/>
+    <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="79,180" hideByEditor="true" visible="false"/>
+    <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="79,274" pivot="0.5,0.5" anchor="true" hideByEditor="true" visible="false">
       <relation target="n2_fxwe" sidePair="right-right"/>
     </image>
-    <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="37,140" hideByEditor="true"/>
-    <text id="n15_rh8w" name="huaText" xy="72,148" size="40,20" hideByEditor="true" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
+    <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="37,140" hideByEditor="true" visible="false"/>
+    <text id="n15_rh8w" name="huaText" xy="72,148" size="40,20" hideByEditor="true" visible="false" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
     <component id="n9_fxwe" name="melds" src="jmxy17" fileName="desk/left/desk_meld.xml" xy="0,0" touchable="false"/>
     <component id="n0_fxwe" name="hands" src="jmxy18" fileName="desk/left/desk_hand.xml" xy="0,0" touchable="false"/>
     <component id="n1_fxwe" name="discards" src="jmxy1b" fileName="desk/left/desk_discard.xml" xy="201,90" size="105,335" touchable="false"/>
     <component id="n10_fxwe" name="flowers" src="jmxy1e" fileName="desk/left/desk_flower.xml" xy="184,156" touchable="false"/>
     <component id="n11_fxwe" name="lights" src="jmxy1f" fileName="desk/left/desk_light.xml" xy="0,0" touchable="false"/>
-    <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="139,177" hideByEditor="true"/>
+    <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="139,177" hideByEditor="true" visible="false"/>
     <component id="n18_jel2" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="169,202" visible="false"/>
     <graph id="n12_fxwe" name="aniPos" xy="185,243" pivot="0.5,0.5" size="4,0"/>
     <graph id="n14_rh8w" name="userInfoPos" xy="124,173" size="20,26" hideByEditor="true"/>

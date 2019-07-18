@@ -717,6 +717,7 @@
     <image id="q32bow" name="zm_tpdi.png" path="/_resource/z_桌面打牌/"/>
     <component id="drq7ox" name="desk_discard2.xml" path="/desk/mine/"/>
     <component id="drq7oy" name="desk_discard2.xml" path="/desk/dui/"/>
+    <image id="zxatoz" name="jbting.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
