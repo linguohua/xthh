@@ -90,8 +90,11 @@ export class HandResultView extends cc.Component {
 
     private countDownTime: number;
 
+    private winUserID: string = "";
+
     public showView(room: RoomInterface, msgHandOver: proto.casino.packet_table_score): void {
         this.eventTarget = new cc.EventTarget();
+        this.winUserID = "";
         this.room = room;
         // 提高消息队列的优先级为1
         if (!room.isReplayMode()) {
@@ -192,11 +195,11 @@ export class HandResultView extends cc.Component {
         TileImageMounter.mountTileImage(lastOneCom, this.msgHandOver.nextcard);
 
         this.result.visible = true;
-        if (this.msgHandOver.win_id === 0) {
+        if (this.winUserID === "") {
             // 慌庄
             this.lastOne.visible = false;
             this.result.url = `ui://dafeng/js_zi_lj`;
-        } else if (this.room.isMe(`${this.msgHandOver.win_id}`)) {
+        } else if (this.room.isMe(`${this.winUserID}`)) {
             // 赢了
             this.result.url = `ui://dafeng/js_zi_yl`;
             this.result.visible = false;
@@ -223,18 +226,6 @@ export class HandResultView extends cc.Component {
         this.date.text = CommonFunction.formatDate(date);
     }
 
-    //马牌列表显示
-    // private updateFakeList(titleList: number[]): void {
-    //     if (titleList.length > 0) {
-    //         for (let i = 0; i < titleList.length; i++) {
-    //             const title = titleList[i];
-
-    //             const oCardObj = this.fakes[i];
-    //             TileImageMounter.mountTileImage(oCardObj, title);
-    //             oCardObj.visible = true;
-    //         }
-    //     }
-    // }
     //更新玩家基本信息
     private updatePlayerInfoData(player: proto.casino.Iplayer_min, c: ViewGroup): void {
         //名字
@@ -286,6 +277,8 @@ export class HandResultView extends cc.Component {
                 const lastTile = tilesHand.pop();
                 const lNums: number[] = [lastTile];
                 tilesHand = lNums.concat(tilesHand);
+
+                this.winUserID = player.userID;
             }
         } else {
             this.sortHands(tilesHand, false);
@@ -398,40 +391,9 @@ export class HandResultView extends cc.Component {
         c.laiziCount.text = piaoLaizi;
         c.ruleText.text = opscoreString;
     }
-    //更新详细数据
-    // private updatePlayerScoreData(player: Player, c: ViewGroup): void {
-    //     const hot = proto.mahjong.HandOverType;
-    //     const playerScores = player.playerScore; //这是在 handleMsgHandOver里面保存进去的
-    //     let textScore = GameRules.getScoreStrs(this.room.roomType, playerScores);
 
-    //     if (playerScores.winType !== hot.enumHandOverType_None && playerScores.winType !== hot.enumHandOverType_Chucker) {
-    //         const greatWin = playerScores.greatWin;
-    //         if (greatWin !== null) { //&& greatWin.greatWinType !== greatWinType.enumGreatWinType_None) {
-    //             //大胡计分
-    //             const gs = GameRules.getGreatWinScoreStrs(this.room.roomType, greatWin);
-    //             textScore = `${textScore}${gs}`;
-    //             const pg = this.processGreatWin(greatWin);
-    //             textScore = `${textScore}${pg}  `;
-    //         } else {
-    //             //既然不是大胡，必然是小胡  小胡计分
-    //             const miniWin = playerScores.miniWin;
-    //             // let tt = "小胡";
-    //             // if (miniWin.miniWinType !== miniWinType.enumMiniWinType_None) {
-    //             const tt = this.processMiniWin(miniWin);
-    //             // }
-    //             textScore = `${textScore}${tt}`;
-    //         }
-    //         //这里需要作判断，只有roomType为 大丰的时候  才能显示家家庄
-    //         if (GameRules.haveJiaJiaZhuang(this.room.roomType) && this.room.markup !== undefined && this.room.markup > 0) {
-    //             textScore = `${textScore}家家庄x2  `;
-    //         }
-    //     }
-    //     textScore = `${textScore}${GameRules.getFakeListStrs(this.room.roomType, playerScores)}  `;
-    //     c.textPlayerScore.text = textScore;
-    // }
     //更新显示数据
     private updateAllData(): void {
-        this.updateRoomData();
         // const fakeList: number[] = [];
         for (let i = 0; i < this.msgHandOver.scores.length; i++) {
             const playerScore = this.msgHandOver.scores[i];
@@ -442,16 +404,8 @@ export class HandResultView extends cc.Component {
             let myScore = 0;
             if (this.msgHandOver.op > 0) {
                 myScore = playerScore.score;
-
-                //分数详情
-                // this.updatePlayerScoreData(playerScore, c);
-                //马牌
-                // if (GameRules.haveFakeListOfTitles(this.room.roomType) && playerScores.fakeList !== undefined) {
-                //     for (const fake of playerScores.fakeList) {
-                //         fakeList.push(fake);
-                //     }
-                // }
             }
+
             this.updatePlayerTileData(playerScore, c);
             //分数
             if (myScore > 0) {
@@ -466,28 +420,11 @@ export class HandResultView extends cc.Component {
             //显示马牌
             // this.updateFakeList(fakeList);
         }
+
+        // 需要计算出来玩家是赢了、输了、流局了再显示
+        this.updateRoomData();
     }
-    //处理大胡数据
-    // private processGreatWin(greatWin: proto.mahjong.IMsgPlayerScoreGreatWin): string {
-    //     return GameRules.getGreatWinStrs(this.room.roomType, greatWin);
-    // }
-    // //处理小胡数据
-    // private processMiniWin(miniWin: proto.mahjong.IMsgPlayerScoreMiniWin): string {
-    //     return GameRules.getMiniWinStrs(this.room.roomType, miniWin);
-    // }
 
-    // private initFakes(view: fgui.GComponent): fgui.GComponent[] {
-    //     const fakes: fgui.GComponent[] = [];
-    //     const fakeListNode = view.getChild("fakeList").asCom;
-    //     for (let i = 0; i < 13; i++) {
-    //         const cname = `n${i + 1}`;
-    //         const card = fakeListNode.getChild(cname).asCom;
-    //         card.visible = false;
-    //         fakes[i] = card;
-    //     }
-
-    //     return fakes;
-    // }
     private initHands(view: fgui.GComponent): fgui.GComponent[] {
         const hands: fgui.GComponent[] = [];
         const myHandTilesNode = view.getChild("hands").asCom;
