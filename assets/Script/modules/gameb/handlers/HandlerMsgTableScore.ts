@@ -57,7 +57,10 @@ export namespace HandlerMsgTableScore {
 
         const disband_type = reply.tdata.disband_type;
         if (disband_type !== null) {
-            room.loadGameOverResultView(reply);
+            // 还没开局，不弹大结算界面
+            if (reply.op !== null) {
+                room.loadGameOverResultView(reply);
+            }
         } else {
             await showHu(reply, room);
             await room.coWaitSeconds(2);
