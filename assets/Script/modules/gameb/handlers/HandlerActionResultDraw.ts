@@ -50,10 +50,11 @@ export namespace HandlerActionResultDraw {
                 player.playerView.huBtn.grayed = false;
             }
         }
-        Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
         const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
         if (isCanGang) {
+            Logger.debug(`player.notKongs  , ${player.notKongs} ;`);
             const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.melds, player.notKongs, reply.card);
+            Logger.debug(`can----gang  , ${gang} ;`);
             if (gang.length > 0) {
                 buttonMap = true;
                 player.canKongs = gang;

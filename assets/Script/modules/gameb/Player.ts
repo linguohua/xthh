@@ -559,6 +559,7 @@ export class Player {
             curCancelCard = this.host.lastDisCardTile;
             str = `${AgariIndex.tileId2Str(curCancelCard)}弃碰`;
         }
+        Logger.debug("curCancelType ---------------- : ", curCancelType);
         req2.cancel_type = curCancelType;
         req2.card = curCancelCard;
         //假如之前OP是捉铳

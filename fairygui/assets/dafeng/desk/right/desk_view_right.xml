@@ -6,7 +6,9 @@
     <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="1009,175" hideByEditor="true"/>
     <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="1099,220" hideByEditor="true"/>
     <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="1079,175" hideByEditor="true"/>
-    <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="1104,274" pivot="0.5,0.5" anchor="true" hideByEditor="true"/>
+    <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="1104,274" pivot="0.5,0.5" anchor="true" hideByEditor="true">
+      <relation target="n2_fxwe" sidePair="right-right"/>
+    </image>
     <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="1037,135" hideByEditor="true"/>
     <text id="n16_rh8w" name="huaText" xy="1068,142" size="40,20" hideByEditor="true" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
     <component id="n1_fxwe" name="discards" src="jmxy1v" fileName="desk/right/desk_discard.xml" xy="831,99" touchable="false"/>

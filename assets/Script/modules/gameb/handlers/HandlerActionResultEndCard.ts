@@ -23,7 +23,7 @@ export namespace HandlerActionResultEndCard {
         //增加新抽到的牌到手牌列表
         room.mAlgorithm.mahjongTotal_lower(le);
         //牌墙
-        room.tilesInWall = room.tilesInWall - le;
+        room.tilesInWall = 0; // room.tilesInWall - le;
         room.updateTilesInWallUI();
         if (reply.card !== 0) {
             const player = <Player>room.getMyPlayer();
