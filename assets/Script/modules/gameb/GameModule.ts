@@ -256,6 +256,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             // 显示准备界面
             this.room.updateReadView(table);
             this.room.onReadyButtonClick();
+        } else {
+            this.room.showRoomBtnsAndBgs();
         }
 
         if (reconnect) {

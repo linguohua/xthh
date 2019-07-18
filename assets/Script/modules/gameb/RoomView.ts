@@ -23,6 +23,13 @@ export class RoomView {
 
     private room: RoomInterface;
     private unityViewNode: fgui.GComponent;
+    private dbg: fgui.GObject;
+    private nameBg: fgui.GObject;
+    private anteBg: fgui.GObject;
+    private settingBtn: fgui.GObject;
+    private gpsBtn: fgui.GObject;
+    private recoredBtn: fgui.GObject;
+    private chatBtn: fgui.GObject;
     private readyButton: fgui.GButton;
     private inviteButton: fgui.GButton;
     private returnLobbyBtn: fgui.GButton;
@@ -347,6 +354,17 @@ export class RoomView {
         this.cancelCom.visible = isShow;
     }
 
+    // 默认隐藏这些按钮，发牌后再显示
+    public showBtnsAndBgs(): void {
+        this.chatBtn.visible = true;
+        this.gpsBtn.visible = true;
+        this.settingBtn.visible = true;
+        this.recoredBtn.visible = true;
+        this.dbg.visible = true;
+        this.nameBg.visible = true;
+        this.anteBg.visible = true;
+    }
+
     //解散房间按钮点击事件
     // private onDissolveClick(): void {
     //     // const msg = "确实要申请解散房间吗？";
@@ -424,11 +442,13 @@ export class RoomView {
         //     }
         // )
 
-        const chatBtn = this.unityViewNode.getChild("chatBtn");
+        this.chatBtn = this.unityViewNode.getChild("chatBtn");
+        this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
+        this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
         // chatBtn.onClick(this.onChatBtnClick, this);
 
-        const settingBtn = this.unityViewNode.getChild("settingBtn");
-        settingBtn.onClick(this.onSettingBtnClick, this);
+        this.settingBtn = this.unityViewNode.getChild("settingBtn");
+        this.settingBtn.onClick(this.onSettingBtnClick, this);
 
         const infoBtn = this.unityViewNode.getChild("guizeBtn");
         //infoBtn.visible = true;
@@ -509,6 +529,10 @@ export class RoomView {
         this.roomInfoText = player1.getChild("roomInfo");
         //剩牌
         this.tilesInWall = player1.getChild("tilesInWall");
+
+        this.nameBg = player1.getChild("bg4");
+        this.anteBg = player1.getChild("bg5");
+        this.dbg = this.unityViewNode.getChild("diBg");
     }
 
     //初始化房间状态事件
