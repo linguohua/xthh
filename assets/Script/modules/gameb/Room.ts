@@ -745,6 +745,12 @@ export class Room {
         //     }
         // }
     }
+    public setLanOfDiscard(isShow: boolean, tile?: number): void {
+        Object.keys(this.players).forEach((key: string) => {
+            const p = this.players[key];
+            p.playerView.setLanOfDiscard(isShow, tile);
+        });
+    }
     public showOrHideCancelCom(isShow: boolean, str: string = ""): void {
         this.roomView.showOrHideCancelCom(isShow, str);
     }

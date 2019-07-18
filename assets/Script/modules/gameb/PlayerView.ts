@@ -75,6 +75,7 @@ export class PlayerView {
     public huBtn: fgui.GButton;
     public gangBtn: fgui.GButton;
     private discards: fgui.GComponent[];
+    private discardLans: fgui.GObject[][] = [];
     private lights: fgui.GComponent[];
     private hands: fgui.GComponent[];
     private flowers: fgui.GComponent[];
@@ -164,7 +165,26 @@ export class PlayerView {
         //this.head.goldText.text = tostring(gold)
         //}
     }
-
+    public setLanOfDiscard(isShow: boolean, tile?: number): void {
+        // Logger.debug("setLanOfDiscard ------- tile : ", tile);
+        if (this.discardLans !== undefined && this.discardLans !== null) {
+            for (const discardLan of this.discardLans) {
+                if (discardLan !== undefined && discardLan !== null) {
+                    for (const t of discardLan) {
+                        t.visible = false;
+                    }
+                }
+            }
+            if (isShow && tile !== undefined && tile !== null) {
+                const ts = this.discardLans[tile];
+                if (ts !== undefined && ts !== null) {
+                    for (const t of ts) {
+                        t.visible = true;
+                    }
+                }
+            }
+        }
+    }
     public setLanOfHands(isShow: boolean, tile?: number): void {
         const handsClickCtrls = this.handsClickCtrls;
         for (const handsClickCtrl of handsClickCtrls) {
@@ -308,6 +328,7 @@ export class PlayerView {
         for (const d of discards) {
             d.visible = false;
         }
+        this.discardLans = [];
         const tilesDiscard = this.player.tilesDiscarded;
         //已经打出去的牌个数
         const tileCount = tilesDiscard.length;
@@ -329,6 +350,14 @@ export class PlayerView {
             TileImageMounter.mountTileImage(lastD, lastT);
             lastD.visible = true;
             lastD.getChild("laiziMask").visible = lastT === this.room.laiziID;
+            //打出牌 蓝色遮罩
+            const dsLs = this.discardLans[lastT];
+            if (dsLs === undefined || dsLs === null) {
+                this.discardLans[lastT] = [];
+            }
+            const lM = lastD.getChild("lanMask");
+            lM.visible = false;
+            this.discardLans[lastT].push(lM);
         }
 
         //如果是新打出的牌，给加一个箭头
@@ -934,6 +963,8 @@ export class PlayerView {
                 player.onPlayerDiscardTile(clickCtrl.tileID);
                 this.clearAllowedActionsView(false);
             }
+            //把桌面上一样的牌 取消标注
+            this.room.setLanOfDiscard(false);
         } else {
             const prevState = clickCtrl.isNormalState;
             clickCtrl.isNormalState = !clickCtrl.isNormalState;
@@ -952,10 +983,14 @@ export class PlayerView {
                         this.room.hideTingDataView();
                     }
                 }
+                //把桌面上一样的牌 标注一下
+                this.room.setLanOfDiscard(true, clickCtrl.tileID);
             } else {
                 //第二次点击 缩回去
                 this.restoreHandPositionAndClickCount(index);
                 this.room.hideTingDataView();
+                //把桌面上一样的牌 取消标注
+                this.room.setLanOfDiscard(false);
             }
         }
     }
@@ -1029,6 +1064,9 @@ export class PlayerView {
             TileImageMounter.mountTileImage(this.dragHand, this.handsClickCtrls[index].tileID);
             this.dragHand.getChild("ting").visible = this.handsClickCtrls[index].t.visible;
             attachEffect(dragGo);
+
+            //把桌面上一样的牌 标注
+            this.room.setLanOfDiscard(true, this.handsClickCtrls[index].tileID);
         };
         const moveFunction = () => {
             if (!enable) {
@@ -1063,6 +1101,8 @@ export class PlayerView {
                     this.clearAllowedActionsView(false);
                 }
             }
+            //把桌面上一样的牌 取消标注
+            this.room.setLanOfDiscard(false);
         };
         dragGo.on(fgui.Event.DRAG_START, stratFunction, this);
         dragGo.on(fgui.Event.DRAG_MOVE, moveFunction, this);
