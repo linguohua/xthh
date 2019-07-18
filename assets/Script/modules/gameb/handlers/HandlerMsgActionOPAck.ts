@@ -117,7 +117,16 @@ export namespace HandlerMsgActionOPAck {
             if (pAck.op === TypeOfOP.Guo) {                //假如没有操作
                 if (player.canKongs !== undefined && player.canKongs.length > 0) {
                     // player.notKongs = player.canKongs;
-                    player.notKongs.push(player.canKongs[0]);
+                    let have = false;
+                    for (const nokong of player.notKongs) {
+                        if (nokong === player.canKongs[0]) {
+                            have = true;
+                            break;
+                        }
+                    }
+                    if (!have) {
+                        player.notKongs.push(player.canKongs[0]);
+                    }
                     Logger.debug("----player.notKongs----------------------- ", player.notKongs);
                 }
                 if (player.isCanPong && room.lastDisCardTile !== 0) {

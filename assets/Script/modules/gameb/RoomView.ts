@@ -123,6 +123,7 @@ export class RoomView {
 
     public playZhuangAni(pos: fgui.GObject): void {
         this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_zhuang01`, this.zhuangPos.node);
+        Logger.debug("pos.node.position ", pos.node.position);
         this.zhuangPos.node.runAction(cc.moveTo(1, pos.node.position));
     }
 
