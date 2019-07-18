@@ -190,9 +190,11 @@ export class HandResultView extends cc.Component {
         TileImageMounter.mountTileImage(laiziCom, this.room.laiziID);
 
         // 显示最后一张牌
-        const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
-        this.lastOne.visible = true;
-        TileImageMounter.mountTileImage(lastOneCom, this.msgHandOver.nextcard);
+        if (this.msgHandOver.nextcard !== 0) {
+            const lastOneCom = this.lastOne.getChild("laiziCOm").asCom;
+            TileImageMounter.mountTileImage(lastOneCom, this.msgHandOver.nextcard);
+            this.lastOne.visible = true;
+        }
 
         this.result.visible = true;
         if (this.winUserID === "") {
@@ -272,12 +274,18 @@ export class HandResultView extends cc.Component {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 tilesHand = majong.sVecHuPai;
-                // Logger.debug("tilesHand:", tilesHand);
+                tilesHand.reverse();
 
-                const lastTile = tilesHand.pop();
-                const lNums: number[] = [lastTile];
-                tilesHand = lNums.concat(tilesHand);
+                // 将胡的牌从数组中去掉
+                const tilesLength = tilesHand.length;
+                for (let i = 0; i < tilesLength; i++) {
+                    if (tilesHand[i] === playerScore.hupai_card) {
+                        tilesHand.splice(i, 1);
+                        break;
+                    }
+                }
 
+                tilesHand.push(playerScore.hupai_card);
                 this.winUserID = player.userID;
             }
         } else {
@@ -320,15 +328,8 @@ export class HandResultView extends cc.Component {
         for (const oCardObj of c.cards) {
             oCardObj.visible = false;
         }
-        for (let i = tileCountInHand - 1; i >= 0; i--) {
+        for (let i = 0; i < tileCountInHand; i++) {
             const tiles = tilesHand[i];
-            //因为玩家有可能有两张一样的牌，所以要加一个变量来判断是否已处理
-            // if (lastTile === tiles && !last && isHu) {
-            //     last = true;
-            //     TileImageMounter.mountTileImage(c.cards[13], tiles);
-            //     c.cards[13].visible = true;
-            //     c.hu.visible = true;
-            // } else {
             n = n + 1;
             const oCardObj = c.cards[n];
             TileImageMounter.mountTileImage(oCardObj, tiles);
