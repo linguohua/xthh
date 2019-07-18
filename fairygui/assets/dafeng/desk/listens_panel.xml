@@ -4,7 +4,7 @@
     <image id="n11_fxwe" name="bg" src="jmxy2f" fileName="大丰麻将美术改版/2 游戏内/切图/hukk.png" xy="574,145" pivot="0.5,0" anchor="true" size="827,165" hideByEditor="true" visible="false">
       <relation target="n15_fxwe" sidePair="height-height,width-width"/>
     </image>
-    <list id="n15_fxwe" name="list" xy="191,348" pivot="0.5,0" size="772,108" layout="flow_hz" overflow="scroll" colGap="-8" lineItemCount="9" defaultItem="ui://397phochjmxy31" align="center" autoClearItems="true">
+    <list id="n15_fxwe" name="list" xy="183,349" pivot="0.5,0" size="772,108" layout="flow_hz" overflow="scroll" colGap="-8" lineItemCount="9" defaultItem="ui://397phochjmxy31" align="center" autoClearItems="true">
       <item/>
       <item/>
       <item/>
@@ -14,6 +14,6 @@
       <item/>
     </list>
     <text id="n16_fxwe" name="num" xy="517,154" size="105,34" hideByEditor="true" visible="false" fontSize="26" color="#fcdfbb" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#833330" strokeSize="2" text="5张"/>
-    <image id="n17_q32b" name="n17" src="q32bov" fileName="_resource/z_桌面打牌/zm_tpzi.png" xy="539,335"/>
+    <image id="n17_q32b" name="n17" src="q32bov" fileName="_resource/z_桌面打牌/zm_tpzi.png" xy="531,336"/>
   </displayList>
 </component>
