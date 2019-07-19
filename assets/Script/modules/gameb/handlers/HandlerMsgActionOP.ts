@@ -32,8 +32,8 @@ export namespace HandlerMsgActionOP {
             }
         }
         // Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
-        const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
-        if (isCanGang) {
+        const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
+        if (isCanGang || reply.card === room.laigenID) {
             const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
             if (gang.length > 0) {
                 buttonMap = true;
@@ -41,7 +41,7 @@ export namespace HandlerMsgActionOP {
                 player.playerView.gangBtn.grayed = false;
             }
         }
-        Logger.debug(`reply.card , ${reply.card} ; player.notPong ：, ${player.notPong}`);
+        // Logger.debug(`reply.card , ${reply.card} ; player.notPong ：, ${player.notPong}`);
         if (player.notPong !== reply.card) {
             const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
             if (peng.length > 0) {
