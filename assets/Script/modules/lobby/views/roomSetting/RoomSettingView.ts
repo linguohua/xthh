@@ -1,4 +1,4 @@
-import { Dialog, GResLoader } from "../../lcore/LCoreExports";
+import { Dialog, GResLoader, SoundMgr, DataStore, Logger } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
     switchBg(agree: number): void;
@@ -14,6 +14,9 @@ export class RoomSettingView extends cc.Component {
     private view: fgui.GComponent;
     private eventTarget: cc.EventTarget;
     private room: RoomInterface;
+
+    private musicBtnText: fgui.GObject;
+    private effectSoundBtnText: fgui.GObject;
     // private musicSlider: fgui.GSlider;
     // private soundSlider: fgui.GSlider;
 
@@ -48,6 +51,30 @@ export class RoomSettingView extends cc.Component {
 
         const btnExit = this.view.getChild("btnExit");
         btnExit.onClick(this.onDisbandBtnClick, this);
+
+        const effectSoundBtn = this.view.getChild("btnYX").asButton;
+        effectSoundBtn.onClick(this.onEffectSoundBtnClick, this);
+        this.effectSoundBtnText = effectSoundBtn.getChild("text");
+
+        const musicBtn = this.view.getChild("btnYY").asButton;
+        musicBtn.onClick(this.onMusicSoundBtnClick, this);
+        this.musicBtnText = musicBtn.getChild("text");
+
+        const effectsVolume = DataStore.getString("effectsVolume");
+        const musicVolume = DataStore.getString("musicVolume");
+        cc.audioEngine.setEffectsVolume(+effectsVolume);
+        cc.audioEngine.setMusicVolume(+musicVolume);
+        if (+effectsVolume > 0) {
+            this.effectSoundBtnText.text = "音效关";
+        } else {
+            this.effectSoundBtnText.text = "音效开";
+        }
+
+        if (+musicVolume > 0) {
+            this.musicBtnText.text = "音乐关";
+        } else {
+            this.musicBtnText.text = "音乐开";
+        }
 
         // const shutdownBtn = this.view.getChild("shutdownBtn");
         // shutdownBtn.onClick(this.onCloseClick, this);
@@ -103,6 +130,34 @@ export class RoomSettingView extends cc.Component {
     //     cc.audioEngine.setEffectsVolume(slider.value / 100);
     // }
 
+    // 音效开关
+    private onEffectSoundBtnClick(): void {
+        const effectVolume = cc.audioEngine.getEffectsVolume();
+        Logger.debug("onEffectSoundBtnClick,effectVolume:", effectVolume);
+        if (effectVolume > 0) {
+            cc.audioEngine.setEffectsVolume(0);
+            this.effectSoundBtnText.text = "音效开";
+            DataStore.setItem("effectsVolume", 0);
+        } else {
+            cc.audioEngine.setEffectsVolume(1);
+            this.effectSoundBtnText.text = "音效关";
+            DataStore.setItem("effectsVolume", 1);
+        }
+    }
+
+    // 音乐开关
+    private onMusicSoundBtnClick(): void {
+        const musicVolume = cc.audioEngine.getMusicVolume();
+        if (musicVolume > 0) {
+            cc.audioEngine.setMusicVolume(0);
+            this.musicBtnText.text = "音乐开";
+            DataStore.setItem("musicVolume", 0);
+        } else {
+            cc.audioEngine.setMusicVolume(1);
+            this.musicBtnText.text = "音乐关";
+            DataStore.setItem("musicVolume", 1);
+        }
+    }
     private onDisbandBtnClick(): void {
         //
         Dialog.showDialog("是否解散房间？", () => {
