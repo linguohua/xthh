@@ -13,7 +13,7 @@
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="909,55" hideByEditor="true" visible="false"/>
     <component id="n8_fxwe" name="hands" src="jmxys" fileName="desk/dui/desk_hand.xml" xy="0,1" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxyv" fileName="desk/dui/desk_flower.xml" xy="253,112" touchable="false"/>
-    <component id="n10_fxwe" name="melds" src="jmxyq" fileName="desk/dui/desk_meld.xml" xy="0,0" touchable="false"/>
+    <component id="n10_fxwe" name="melds" src="jmxyq" fileName="desk/dui/desk_meld.xml" xy="841,38" pivot="1,0.5" anchor="true" size="841,77" scale="0.75,0.75" touchable="false"/>
     <component id="n12_fxwe" name="lights" src="jmxyy" fileName="desk/dui/desk_light.xml" xy="1,0" touchable="false"/>
     <component id="n22_drq7" name="discards2" src="drq7oy" fileName="desk/dui/desk_discard2.xml" xy="372,148" visible="false"/>
     <component id="n6_fxwe" name="discards" src="jmxyz" fileName="desk/dui/desk_discard.xml" xy="372,148" visible="false" touchable="false"/>

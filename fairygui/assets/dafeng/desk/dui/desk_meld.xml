@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,150" opaque="false" designImage="ui://397phochlqn3fr" designImageAlpha="0">
   <displayList>
-    <graph id="n44_fxwe" name="meld1" xy="710,12" size="100,100" scale="0,0"/>
-    <graph id="n45_fxwe" name="meld2" xy="572,12" size="100,100" scale="0,0"/>
-    <graph id="n46_fxwe" name="meld3" xy="434,12" size="100,100" scale="0,0"/>
-    <graph id="n47_fxwe" name="meld4" xy="296,12" size="100,100" scale="0,0"/>
+    <component id="n48_ef0a" name="n1" src="tsg11h" fileName="mahjong_dui/mahjong_dui_meld_gang1.xml" pkg="l6hoa9ng" xy="653,12" pivot="1,0" size="190,75" visible="false"/>
+    <component id="n49_ef0a" name="n2" src="tsg11h" fileName="mahjong_dui/mahjong_dui_meld_gang1.xml" pkg="l6hoa9ng" xy="464,12" pivot="1,0" size="190,75" visible="false">
+      <relation target="n48_ef0a" sidePair="right-left"/>
+    </component>
+    <component id="n50_ef0a" name="n3" src="tsg11h" fileName="mahjong_dui/mahjong_dui_meld_gang1.xml" pkg="l6hoa9ng" xy="277,12" pivot="1,0" visible="false">
+      <relation target="n49_ef0a" sidePair="right-left"/>
+    </component>
+    <component id="n51_ef0a" name="n4" src="tsg11h" fileName="mahjong_dui/mahjong_dui_meld_gang1.xml" pkg="l6hoa9ng" xy="89,12" pivot="1,0" visible="false">
+      <relation target="n50_ef0a" sidePair="right-left"/>
+    </component>
   </displayList>
 </component>

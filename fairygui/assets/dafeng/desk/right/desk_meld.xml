@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="180,640" opaque="false" designImage="ui://397phochlqn3fr" designImageOffsetX="-955" designImageAlpha="100">
   <displayList>
-    <graph id="n19_fxwe" name="meld4" xy="23,145" size="0,0" visible="false"/>
-    <graph id="n20_fxwe" name="meld3" xy="23,225" size="0,0" visible="false"/>
-    <graph id="n21_fxwe" name="meld2" xy="23,305" size="0,0" visible="false"/>
-    <graph id="n22_fxwe" name="meld1" xy="23,385" size="0,0" visible="false"/>
+    <component id="n25_ef0a" name="n4" src="tsg11y" fileName="mahjong_right/mahjong_right_meld_gang1.xml" pkg="l6hoa9ng" xy="5,15" pivot="0,1" visible="false">
+      <relation target="n26_ef0a" sidePair="bottom-top"/>
+    </component>
+    <component id="n26_ef0a" name="n3" src="tsg11y" fileName="mahjong_right/mahjong_right_meld_gang1.xml" pkg="l6hoa9ng" xy="5,164" pivot="0,1" visible="false">
+      <relation target="n24_ef0a" sidePair="bottom-top"/>
+    </component>
+    <component id="n24_ef0a" name="n2" src="tsg11y" fileName="mahjong_right/mahjong_right_meld_gang1.xml" pkg="l6hoa9ng" xy="5,313" pivot="0,1" size="68,170" visible="false">
+      <relation target="n23_ef0a" sidePair="bottom-top"/>
+    </component>
+    <component id="n23_ef0a" name="n1" src="tsg11y" fileName="mahjong_right/mahjong_right_meld_gang1.xml" pkg="l6hoa9ng" xy="5,464" pivot="0,1" size="68,170" visible="false"/>
   </displayList>
 </component>

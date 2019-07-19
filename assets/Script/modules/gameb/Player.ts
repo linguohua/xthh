@@ -68,7 +68,7 @@ export class Player {
     public playerScore: number;
     public lastTile: number;
     public tilesDiscarded: number[];
-    public melds: protoHH.casino_xtsj.packet_sc_op_ack[];
+    public tilesMelds: protoHH.casino_xtsj.packet_sc_op_ack[];
     public tilesFlower: number[];
     public tilesHand: number[];
     public isRichi: boolean;
@@ -112,7 +112,7 @@ export class Player {
         //玩家打出的牌列表
         this.tilesDiscarded = [];
         //玩家的面子牌组列表
-        this.melds = [];
+        this.tilesMelds = [];
         //玩家的花牌列表
         this.tilesFlower = [];
 
@@ -238,7 +238,7 @@ export class Player {
         if (meld === null) {
             return;
         }
-        this.melds.push(meld);
+        this.tilesMelds.push(meld);
     }
     public addMeldOfCards(cards: number[]): void {
         //插入到队列尾部
@@ -277,13 +277,13 @@ export class Player {
     //增加多个落地面子牌组
     public addMelds(melds: protoHH.casino_xtsj.packet_sc_op_ack[]): void {
         for (const v of melds) {
-            this.melds.push(v);
+            this.tilesMelds.push(v);
         }
     }
 
     //获取一个落地面子牌组
     public getMeld(tileID: number, meldType: number): protoHH.casino_xtsj.packet_sc_op_ack {
-        for (const v of this.melds) {
+        for (const v of this.tilesMelds) {
             if (v.cards[0] === tileID && v.op === meldType) {
 
                 return v;
@@ -796,7 +796,7 @@ export class Player {
                     count++;
                 }
             }
-            for (const meld of this.melds) {
+            for (const meld of this.tilesMelds) {
                 if (meld.cards[0] === tile) {
                     count = count + 3;
                     if (meld.op === TypeOfOP.Kong && tile !== this.host.mAlgorithm.getMahjongFan()) {

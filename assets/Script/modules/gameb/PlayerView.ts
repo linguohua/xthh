@@ -55,6 +55,14 @@ const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
     // [mjproto.MeldType.enumMeldTypeSequence]: "chipeng",
     // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 };
+//落地牌组缩放
+const meldsScale: number[][] = [
+    [1, 1, 1, 1, 1], //没有杠
+    [0.9, 0.95, 0.95, 1], //1个杠
+    [0.85, 0.9, 0.95], //2个杠
+    [0.85, 0.9], //3个杠
+    [0.85] //4个杠
+];
 
 /**
  * 玩家
@@ -78,6 +86,8 @@ export class PlayerView {
     private discardLans: fgui.GObject[][] = [];
     private lights: fgui.GComponent[];
     private hands: fgui.GComponent[];
+    private melds: fgui.GComponent[];
+    private myMeldNode: fgui.GObject;
     private flowers: fgui.GComponent[];
     private handsOriginPos: PosCtrl[];
     private viewUnityNode: fgui.GComponent;
@@ -95,6 +105,7 @@ export class PlayerView {
     private dragHand: fgui.GComponent; //拖牌时 克隆的牌
     private msgTimerCB: Function;
     private isTwoPlayer: boolean = false;
+    private meldsViewScale = 0;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
         this.viewChairID = viewChairID;
@@ -125,6 +136,8 @@ export class PlayerView {
     public initCardLists(): void {
         //手牌列表
         this.initHands();
+        //落地牌
+        this.initMelds();
         //出牌列表
         this.initDiscards();
         //花牌列表
@@ -266,11 +279,20 @@ export class PlayerView {
 
     //隐藏面子牌组
     public hideMelds(): void {
-        const mymeldTilesNode = this.myView.getChild("melds").asCom;
-        for (let i = 0; i < 4; i++) {
-            const mm = mymeldTilesNode.getChild(`myMeld${i}`);
-            if (mm != null) {
-                mymeldTilesNode.removeChild(mm, true);
+        // const mymeldTilesNode = this.myView.getChild("melds").asCom;
+        // for (let i = 0; i < 4; i++) {
+        //     const mm = mymeldTilesNode.getChild(`myMeld${i}`);
+        //     if (mm != null) {
+        //         mymeldTilesNode.removeChild(mm, true);
+        //     }
+        // }
+        if (this.melds != null) {
+            for (const meld of this.melds) {
+                // meld.getChild("n1").visible = false;
+                // meld.getChild("n2").visible = false;
+                // meld.getChild("n3").visible = false;
+                // meld.getChild("n4").visible = false;
+                meld.visible = false;
             }
         }
     }
@@ -400,7 +422,7 @@ export class PlayerView {
     //显示对手玩家的手牌，对手玩家的手牌是暗牌显示
     public showHandsForOpponents(tileCountInHand: number): void {
         let t = tileCountInHand;
-        const melds = this.player.melds;
+        const melds = this.player.tilesMelds;
 
         const meldCount = melds.length;
         if ((meldCount * 3 + t) > 13) {
@@ -415,10 +437,32 @@ export class PlayerView {
             this.hands[i].visible = true;
         }
     }
-
     //显示面子牌组
     public showMelds(): void {
-        const ms = this.player.melds;
+        const ms = this.player.tilesMelds;
+        const length = ms.length;
+        let g = 0;
+        let p = 0;
+        for (let i = 0; i < length; i++) {
+            const mv = this.melds[i];
+            //根据面子牌挂载牌的图片
+            const meldData = ms[i];
+            // Logger.debug("根据面子牌挂载牌的图片 : ", meldData);
+            const isFour = this.mountMeldImage(mv, meldData);
+            if (isFour) {
+                g++;
+            } else {
+                p++;
+            }
+            mv.visible = true;
+        }
+        const o = meldsScale[g][p];
+        const v = (o) * this.meldsViewScale;
+        this.myMeldNode.setScale(v, v);
+    }
+    //显示面子牌组
+    public showMeldsOld(): void {
+        const ms = this.player.tilesMelds;
         const length = ms.length;
         const rm = MELD_COMPONENT_PREFIX[this.viewChairID - 1];
         //摆放牌
@@ -449,7 +493,7 @@ export class PlayerView {
     //显示面子牌组，暗杠需要特殊处理，如果是自己的暗杠，
     //则明牌显示前3张，第4张暗牌显示（以便和明杠区分）
     //如果是别人的暗杠，则全部暗牌显示
-    public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): void {
+    public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): boolean {
         const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
         let viewChairID = this.viewChairID;
         if (pp !== undefined && pp.chairID !== undefined && pp.chairID !== null) {
@@ -458,51 +502,43 @@ export class PlayerView {
         const t1 = meldView.getChild("n1").asCom;
         const t2 = meldView.getChild("n2").asCom;
         const t3 = meldView.getChild("n3").asCom;
+        const t4 = meldView.getChild("n4").asCom;
+        // t1.visible = true;
+        // t2.visible = true;
+        // t3.visible = true;
         let meldType = msgMeld.op;
-        // const mtProto = mjproto.MeldType;
-        // if (meldType === mtProto.enumMeldTypeSequence) {
-        // let chowTile = t1;
-        // if (msgMeld.tile1 === msgMeld.chowTile) {
-        //     chowTile = t1;
-        // } else if ((msgMeld.tile1 + 1) === msgMeld.chowTile) {
-        //     chowTile = t2;
-        // } else if ((msgMeld.tile1 + 2) === msgMeld.chowTile) {
-        //     chowTile = t3;
-        // }
-        // TileImageMounter.mountMeldEnableImage(t1, msgMeld.tile1, this.viewChairID);
-        // TileImageMounter.mountMeldEnableImage(t2, msgMeld.tile1 + 1, this.viewChairID);
-        // TileImageMounter.mountMeldEnableImage(t3, msgMeld.tile1 + 2, this.viewChairID);
-        // this.setMeldTileDirection(true, chowTile, viewChairID, this.viewChairID);
+
         const tile = msgMeld.cards[0];
+        TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
+        TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
+        TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
+        TileImageMounter.mountMeldEnableImage(t4, tile, this.viewChairID);
+
+        let width = 0;
+        let height = 0;
         if (tile === this.room.mAlgorithm.getMahjongFan()) {
             //赖根只有三张
             meldType = TypeOfOP.Pong;
         }
+        const jiantou2 = meldView.getChild("ts2");
+        const jiantou1 = meldView.getChild("ts1");
+        jiantou2.visible = false;
+        jiantou1.visible = false;
         if (meldType === TypeOfOP.Pong) {
-            TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
-            this.setMeldTileDirection(false, meldView, viewChairID, 1);
+            t4.visible = false;
+            width = meldView.getChild("size3").width;
+            height = meldView.getChild("size3").height;
+            this.setMeldTileDirection(jiantou2, viewChairID, 1);
         } else if (meldType === TypeOfOP.Kong) {
-            const t4 = meldView.getChild("n4").asCom;
-            TileImageMounter.mountMeldEnableImage(t1, tile, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t2, tile, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t3, tile, this.viewChairID);
-            TileImageMounter.mountMeldEnableImage(t4, tile, this.viewChairID);
-
-            this.setMeldTileDirection(false, meldView, viewChairID, 1);
-            //} else if (meldType === mtProto.enumMeldTypeConcealedKong) {
-            // const t4 = meldView.getChild("n4").asCom; //这个是暗牌显示 用于别的玩家暗杠
-            // const t0 = meldView.getChild("n0").asCom; //这个是明牌显示 自己暗杠 或者 回播的时候用的
-            // if (msgMeld.tile1 === undefined || msgMeld.tile1 >= mjproto.TileID.enumTid_MAX) {
-            //     t4.visible = true;
-            //     t0.visible = false;
-            // } else {
-            //     t4.visible = false;
-            //     t0.visible = true;
-            //     TileImageMounter.mountMeldEnableImage(t0, msgMeld.tile1, this.viewChairID);
-            // }
+            width = meldView.getChild("size4").width;
+            height = meldView.getChild("size4").height;
+            t4.visible = true;
+            this.setMeldTileDirection(jiantou1, viewChairID, 1);
         }
+        // meldView.visible = true;
+        meldView.setSize(width, height);
+
+        return t4.visible;
     }
 
     public hideFlowerOnHandTail(): void {
@@ -519,7 +555,7 @@ export class PlayerView {
 
     //为本人显示手牌，也即是1号playerView(prefab中的1号)//@param wholeMove 是否整体移动
     public showHandsForMe(wholeMove: boolean): void {
-        const melds = this.player.melds;
+        const melds = this.player.tilesMelds;
         const tileshand = this.player.tilesHand;
         const tileCountInHand = tileshand.length;
         const handsClickCtrls = this.handsClickCtrls;
@@ -581,7 +617,7 @@ export class PlayerView {
         this.hideLights();
 
         //先显示所有melds面子牌组
-        const melds = this.player.melds;
+        const melds = this.player.tilesMelds;
         const tileshand = this.player.tilesHand;
         this.showMelds();
         const tileCountInHand = tileshand.length;
@@ -904,9 +940,8 @@ export class PlayerView {
     }
 
     //设置面子牌的方向
-    private setMeldTileDirection(ischi: boolean, tileObj: fgui.GComponent, dir: number, viewChairID: number): void {
+    private setMeldTileDirection(image: fgui.GObject, dir: number, viewChairID: number): void {
         if (dir > 0 && viewChairID > 0) {
-            const image = tileObj.getChild("ts");
             if (image != null) {
                 const x = dir - viewChairID;
                 if (x === 1 || x === -3) {
@@ -1190,6 +1225,17 @@ export class PlayerView {
         this.discards = discards;
     }
 
+    private initMelds(): void {
+        this.melds = [];
+        const meldsView = this.myView.getChild("melds").asCom;
+        for (let i = 1; i < 5; i++) {
+            const meld = meldsView.getChild(`n${i}`).asCom;
+            this.melds.push(meld);
+            meld.visible = false;
+        }
+        this.meldsViewScale = meldsView.scaleX;
+        this.myMeldNode = meldsView;
+    }
     //手牌列表
     private initHands(): void {
         const hands: fgui.GComponent[] = [];

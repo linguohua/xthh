@@ -18,7 +18,14 @@ const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
     [TypeOfOP.Pong]: "chipeng"
     // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 };
-
+//落地牌组缩放
+const meldsScale: number[][] = [
+    [0.95, 0.95, 0.95, 0.95, 0.95], //没有杠
+    [0.85, 0.9, 0.9, 0.95], //1个杠
+    [0.8, 0.85, 0.9], //2个杠
+    [0.8, 0.85], //3个杠
+    [0.8] //4个杠
+];
 const hupaiType: { [key: number]: string } = {
     [1001]: "碰", //碰 这个没定义
     [1002]: "飘赖", //飘赖
@@ -51,6 +58,7 @@ class ViewGroup {
     public imageRoom: fgui.GObject;
     public cards: fgui.GComponent[];
     public melds: fgui.GComponent;
+    public meldsViewScale: number = 0;
     public textName: fgui.GObject;
     public nameBg: fgui.GObject;
     public textId: fgui.GObject;
@@ -268,7 +276,7 @@ export class HandResultView extends cc.Component {
         Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
-        const meldDatas = player.melds;
+        const meldDatas = player.tilesMelds;
         let tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);
         if (playerScore.hupai_card > 0) {
@@ -294,32 +302,34 @@ export class HandResultView extends cc.Component {
         }
         // const lastTile = player.lastTile; //玩家最后一张牌
         //吃碰杠牌
-        const rm = "mahjong_mine_meld_";
+        // const rm = "mahjong_mine_meld_";
         for (let i = 1; i <= 4; i++) {
-            const mm = c.melds.getChild(`myMeld${i}`);
-            if (mm !== undefined && mm !== null) {
-                c.melds.removeChild(mm, true);
-            }
+            const mm = c.melds.getChild(`n${i}`);
+            mm.visible = false;
+            // if (mm !== undefined && mm !== null) {
+            //     c.melds.removeChild(mm, true);
+            // }
         }
         meldDatas.sort((x: proto.casino_xtsj.packet_sc_op_ack, y: proto.casino_xtsj.packet_sc_op_ack) => {
             return x.cards[0] - y.cards[0];
         });
         //摆放牌
+        let g = 0;
+        let p = 0;
         for (let i = 0; i < meldDatas.length; i++) {
             const meldData = meldDatas[i];
-            const mv = c.melds.getChild(`meld${i + 1}`);
-            let meldType = meldData.op;
-            if (meldData.cards[0] === this.room.mAlgorithm.getMahjongFan()) {
-                //赖根只有三张
-                meldType = TypeOfOP.Pong;
+            const mv = c.melds.getChild(`n${i + 1}`).asCom;
+            const isFour = player.playerView.mountMeldImage(mv, meldData);
+            if (isFour) {
+                g++;
+            } else {
+                p++;
             }
-            const resName = `${rm}${MELD_COMPONENT_SUFFIX[meldType]}`;
-            const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
-            meldView.setPosition(mv.x, mv.y);
-            meldView.name = `myMeld${i}`;
-            c.melds.addChild(meldView);
-            player.playerView.mountMeldImage(meldView, meldData);
+            mv.visible = true;
         }
+        const o = meldsScale[g][p];
+        const v = (o) * c.meldsViewScale;
+        c.melds.setScale(v, v);
         //手牌
         let n = -1;
         // const last = false;
@@ -470,6 +480,7 @@ export class HandResultView extends cc.Component {
             contentGroupData.cards = this.initHands(group);
             //牌组
             contentGroupData.melds = group.getChild("melds").asCom;
+            contentGroupData.meldsViewScale = contentGroupData.melds.scaleX;
             //名字
             contentGroupData.textName = group.getChild("name");
             contentGroupData.nameBg = group.getChild("n23");

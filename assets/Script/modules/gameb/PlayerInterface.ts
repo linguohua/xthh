@@ -60,7 +60,7 @@ export interface PlayerInterface {
     tilesHand: number[];
     tilesFlower: number[];
     tilesDiscarded: number[];
-    melds: proto.casino_xtsj.packet_sc_op_ack[];
+    tilesMelds: proto.casino_xtsj.packet_sc_op_ack[];
     isRichi: boolean;
     waitDiscardReAction: boolean;
     onKongBtnClick: Function;

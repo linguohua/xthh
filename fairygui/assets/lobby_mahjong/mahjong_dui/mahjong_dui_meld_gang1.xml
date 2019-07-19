@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="135,70">
+<component size="190,75">
   <displayList>
-    <component id="n6_fxwe" name="n1" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="0,0" scale="0.4,0.4"/>
-    <component id="n7_fxwe" name="n2" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="34,0" scale="0.4,0.4"/>
-    <component id="n8_fxwe" name="n3" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="68,0" scale="0.4,0.4"/>
-    <component id="n9_fxwe" name="n4" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="102,0" scale="0.4,0.4"/>
-    <image id="n11_q32b" name="ts" src="q32b2d" fileName="_resource/z_桌面打牌/zm_icon_jt.png" xy="70,44" pivot="0.5,0.5" anchor="true"/>
+    <component id="n6_fxwe" name="n1" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="0,0" scale="0.55,0.55"/>
+    <component id="n7_fxwe" name="n2" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="47,0" scale="0.55,0.55"/>
+    <component id="n8_fxwe" name="n3" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="94,0" scale="0.55,0.55"/>
+    <component id="n9_fxwe" name="n4" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" xy="141,0" scale="0.55,0.55"/>
+    <image id="n13_ef0a" name="ts2" src="q32b2d" fileName="_resource/z_桌面打牌/zm_icon_jt.png" xy="75,60" pivot="0.5,0.5" anchor="true" visible="false"/>
+    <image id="n11_q32b" name="ts1" src="q32b2d" fileName="_resource/z_桌面打牌/zm_icon_jt.png" xy="95,59" pivot="0.5,0.5" anchor="true" visible="false"/>
+    <graph id="n12_ef0a" name="size3" xy="0,0" size="142,75" visible="false"/>
+    <graph id="n14_ef0a" name="size4" xy="-1,0" size="190,75" visible="false"/>
   </displayList>
 </component>
