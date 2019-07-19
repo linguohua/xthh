@@ -805,6 +805,10 @@ export class Room {
     public showRoomBtnsAndBgs(): void {
         this.roomView.showBtnsAndBgs();
     }
+
+    public enableVoiceBtn(isShow: boolean): void {
+        this.roomView.enableVoiceBtn(isShow);
+    }
     //播放背景音乐
     private playBgSound(): void {
         SoundMgr.playMusicAudio("gameb/music_hall", true);

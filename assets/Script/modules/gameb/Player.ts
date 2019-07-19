@@ -378,7 +378,11 @@ export class Player {
         //     }
         //     this.playSound("gameb/tile", effectName);
         // }
-        this.playSound("gameb", `mj_${tileID}`);
+        if (tileID === this.host.laiziID) {
+            this.playSound("gameb", `mj_piao`);
+        } else {
+            this.playSound("gameb", `mj_${tileID}`);
+        }
     }
 
     //绑定playerView

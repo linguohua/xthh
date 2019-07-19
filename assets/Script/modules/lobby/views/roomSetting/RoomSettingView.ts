@@ -1,10 +1,12 @@
-import { Dialog, GResLoader, SoundMgr, DataStore, Logger } from "../../lcore/LCoreExports";
+import { DataStore, Dialog, GResLoader, Logger } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
     switchBg(agree: number): void;
     onDissolveClicked(): void;
 
     onExitButtonClicked(): void;
+
+    enableVoiceBtn(isShow: boolean): void;
 }
 /**
  * 设置界面
@@ -52,7 +54,7 @@ export class RoomSettingView extends cc.Component {
         // bg.onClick(this.onCloseClick, this);
 
         const btnExit = this.view.getChild("btnExit");
-        btnExit.onClick(this.onDisbandBtnClick, this);
+        btnExit.onClick(this.onLeaveRoomClick, this);
 
         const disbandBtn = this.view.getChild("btnDisband");
         disbandBtn.onClick(this.onDisbandBtnClick, this);
@@ -121,11 +123,7 @@ export class RoomSettingView extends cc.Component {
     }
 
     private onVoiceBtnClick(): void {
-        if (this.voiceBtn.selected) {
-            // TODO: 关闭GPS
-        } else {
-            // TODO: 关闭GPS
-        }
+        this.room.enableVoiceBtn(this.voiceBtn.selected);
     }
 
     // 音效开关
@@ -156,6 +154,7 @@ export class RoomSettingView extends cc.Component {
 
     private onLeaveRoomClick(): void {
         Logger.debug("onLeaveRoomClick");
+        Dialog.prompt("牌局正在进行中...还是打完吧！");
     }
 
     private onDisbandBtnClick(): void {

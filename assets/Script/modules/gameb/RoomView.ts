@@ -9,6 +9,7 @@ import { PlayerView } from "./PlayerView";
 import { RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
+import { GpsView } from "../lobby/views/gps/GpsView";
 
 /**
  * 房间
@@ -365,6 +366,14 @@ export class RoomView {
         this.anteBg.visible = true;
     }
 
+    public enableVoiceBtn(isShow: boolean): void {
+        if (isShow) {
+            this.recoredBtn.enabled = true;
+        } else {
+            this.recoredBtn.enabled = false;
+        }
+    }
+
     //解散房间按钮点击事件
     // private onDissolveClick(): void {
     //     // const msg = "确实要申请解散房间吗？";
@@ -387,6 +396,18 @@ export class RoomView {
         }
         // roomRuleView.updateView(this.room.roomInfo.config);
         // TODO: 显示游戏规则
+    }
+
+    private onGPSBtnClick(): void {
+        Logger.debug("onGPSBtnClick");
+
+        let gpsView = this.component.getComponent(GpsView);
+        if (gpsView === null) {
+            gpsView = this.component.addComponent(GpsView);
+        }
+
+        const roomHost = this.room.getRoomHost();
+        gpsView.updateGpsView(this.room);
     }
 
     private onSettingBtnClick(): void {
@@ -445,6 +466,7 @@ export class RoomView {
         this.chatBtn = this.unityViewNode.getChild("chatBtn");
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
         this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
+        this.gpsBtn.onClick(this.onGPSBtnClick, this);
         // chatBtn.onClick(this.onChatBtnClick, this);
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");

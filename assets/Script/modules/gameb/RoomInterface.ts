@@ -156,4 +156,5 @@ export interface RoomInterface {
     updateReadView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void;
     setLanOfDiscard(isShow: boolean, tile?: number): void;
     showRoomBtnsAndBgs(): void;
+    enableVoiceBtn(isShow: boolean): void;
 }
