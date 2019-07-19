@@ -240,6 +240,7 @@ export class HandResultView extends cc.Component {
 
         if (this.room.isMe(`${player.id}`)) {
             c.nameBg.visible = true;
+            c.kuang.visible = true;
         }
         // c.textId.text = `ID:${userID}`;
         //房主
@@ -344,7 +345,6 @@ export class HandResultView extends cc.Component {
 
         if (playerScore.hupai_card > 0) {
             c.hu.visible = true;
-            c.kuang.visible = true;
         } else if (this.isTing(playerScore.curcards)) {
             c.ting.visible = true;
         }
