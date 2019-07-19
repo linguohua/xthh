@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="121,216" designImage="ui://ls4obr7jo570g9" designImageOffsetX="-9" designImageOffsetY="-398" designImageAlpha="0">
+<component size="121,407" designImage="ui://ls4obr7jo570g9" designImageOffsetX="-9" designImageOffsetY="-398" designImageAlpha="0">
   <displayList>
-    <image id="n0_o570" name="bg" src="o570ga" fileName="resource/s_设置/zm_szdi.png" xy="0,0" size="121,216"/>
-    <component id="n2_o570" name="btnYX" src="o570gc" fileName="resource/s_设置/btnYX.xml" xy="6,11"/>
-    <component id="n3_o570" name="btnYY" src="o570gd" fileName="resource/s_设置/btnYY.xml" xy="6,74"/>
-    <component id="n4_o570" name="btnExit" src="o570ge" fileName="resource/s_设置/btnExit.xml" xy="6,137"/>
+    <image id="n0_o570" name="bg" src="o570ga" fileName="resource/s_设置/zm_szdi.png" xy="0,0" size="121,407"/>
+    <component id="n2_o570" name="btnYX" src="o570gc" fileName="resource/s_设置/btnYX.xml" xy="6,203"/>
+    <component id="n3_o570" name="btnYY" src="o570gd" fileName="resource/s_设置/btnYY.xml" xy="6,265"/>
+    <component id="n4_o570" name="btnExit" src="o570ge" fileName="resource/s_设置/btnExit.xml" xy="6,329"/>
+    <component id="n8_itgx" name="btnVoice" src="itgxjc" fileName="resource/s_设置/btnVoice.xml" xy="6,141"/>
+    <component id="n9_itgx" name="btnDisband" src="itgxjf" fileName="resource/s_设置/btnDisband.xml" xy="6,77"/>
+    <component id="n10_itgx" name="btnGPS" src="itgxje" fileName="resource/s_设置/btnGps.xml" xy="6,12"/>
   </displayList>
 </component>

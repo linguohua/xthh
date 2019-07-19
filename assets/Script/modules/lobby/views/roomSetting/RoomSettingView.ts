@@ -15,8 +15,10 @@ export class RoomSettingView extends cc.Component {
     private eventTarget: cc.EventTarget;
     private room: RoomInterface;
 
-    private musicBtnText: fgui.GObject;
-    private effectSoundBtnText: fgui.GObject;
+    private musicBtn: fgui.GButton;
+    private effectSoundBtn: fgui.GButton;
+    private gpsBtn: fgui.GButton;
+    private voiceBtn: fgui.GButton;
     // private musicSlider: fgui.GSlider;
     // private soundSlider: fgui.GSlider;
 
@@ -52,69 +54,49 @@ export class RoomSettingView extends cc.Component {
         const btnExit = this.view.getChild("btnExit");
         btnExit.onClick(this.onDisbandBtnClick, this);
 
-        const effectSoundBtn = this.view.getChild("btnYX").asButton;
-        effectSoundBtn.onClick(this.onEffectSoundBtnClick, this);
-        this.effectSoundBtnText = effectSoundBtn.getChild("text");
+        const disbandBtn = this.view.getChild("btnDisband");
+        disbandBtn.onClick(this.onDisbandBtnClick, this);
 
-        const musicBtn = this.view.getChild("btnYY").asButton;
-        musicBtn.onClick(this.onMusicSoundBtnClick, this);
-        this.musicBtnText = musicBtn.getChild("text");
+        this.gpsBtn = this.view.getChild("btnGPS").asButton;
+        this.gpsBtn.onClick(this.onGpsBtnClick, this);
 
-        const effectsVolume = DataStore.getString("effectsVolume");
-        const musicVolume = DataStore.getString("musicVolume");
-        cc.audioEngine.setEffectsVolume(+effectsVolume);
-        cc.audioEngine.setMusicVolume(+musicVolume);
-        if (+effectsVolume > 0) {
-            this.effectSoundBtnText.text = "音效关";
+        this.voiceBtn = this.view.getChild("btnVoice").asButton;
+        this.voiceBtn.onClick(this.onVoiceBtnClick, this);
+
+        this.effectSoundBtn = this.view.getChild("btnYX").asButton;
+        this.effectSoundBtn.onClick(this.onEffectSoundBtnClick, this);
+
+        this.musicBtn = this.view.getChild("btnYY").asButton;
+        this.musicBtn.onClick(this.onMusicSoundBtnClick, this);
+        // this.musicBtnText = musicBtn.getChild("text");
+
+        const gps = DataStore.getString("effectsVolume", "0");
+        const voice = DataStore.getString("effectsVolume", "0");
+        const effectsVolume = DataStore.getString("effectsVolume", "0");
+        const musicVolume = DataStore.getString("musicVolume", "0");
+        if (+gps > 0) {
+            this.gpsBtn.selected = true;
         } else {
-            this.effectSoundBtnText.text = "音效开";
+            this.gpsBtn.selected = false;
+        }
+
+        if (+voice > 0) {
+            this.voiceBtn.selected = true;
+        } else {
+            this.voiceBtn.selected = false;
+        }
+
+        if (+effectsVolume > 0) {
+            this.effectSoundBtn.selected = true;
+        } else {
+            this.effectSoundBtn.selected = false;
         }
 
         if (+musicVolume > 0) {
-            this.musicBtnText.text = "音乐关";
+            this.musicBtn.selected = true;
         } else {
-            this.musicBtnText.text = "音乐开";
+            this.musicBtn.selected = false;
         }
-
-        // const shutdownBtn = this.view.getChild("shutdownBtn");
-        // shutdownBtn.onClick(this.onCloseClick, this);
-
-        // const exitBtn = this.view.getChild("exitBtn");
-        // exitBtn.onClick(this.onExitBtnClick, this);
-
-        // this.view.getController("isOwner").selectedIndex = isOwner ? 0 : 1;
-
-        // const disbandBtn = this.view.getChild("disbandBtn");
-        // disbandBtn.onClick(this.onDisbandBtnClick, this);
-
-        // const blueColorBtn = this.view.getChild("blueColorBtn");
-        // blueColorBtn.onClick(this.onBlueColorBtnClick, this);
-
-        // const classColorBtn = this.view.getChild("classColorBtn");
-        // classColorBtn.onClick(this.onClassColorBtnClick, this);
-
-        // const arrowBtn = this.view.getChild("arrowBtn");
-        // arrowBtn.onClick(this.onArrowBtnClick, this);
-
-        // let soundVolume = DataStore.getString("soundVolume");
-        // let musicVolume = DataStore.getString("musicVolume");
-
-        // this.soundSlider = this.view.getChild("soundSlider").asSlider;
-        // if (soundVolume === "") {
-        //     soundVolume = "50";
-        // }
-        // this.soundSlider.value = +soundVolume;
-        // this.soundSlider.on(fgui.Event.STATUS_CHANGED, this.onSoundSliderChanged, this);
-
-        // this.musicSlider = this.view.getChild("musicSlider").asSlider;
-        // if (musicVolume === "") {
-        //     musicVolume = "50";
-        // }
-        // this.musicSlider.value = +musicVolume;
-        // this.musicSlider.on(fgui.Event.STATUS_CHANGED, this.onMusicSliderChanged, this);
-
-        // //监听view 移出舞台。。。 保存音量
-        // this.view.on(fgui.Event.UNDISPLAY, this.saveData, this);
     }
     // private saveData(): void {
     //     DataStore.setItem("soundVolume", this.soundSlider.value.toString());
@@ -130,34 +112,52 @@ export class RoomSettingView extends cc.Component {
     //     cc.audioEngine.setEffectsVolume(slider.value / 100);
     // }
 
+    private onGpsBtnClick(): void {
+        if (this.gpsBtn.selected) {
+            // TODO: 关闭GPS
+        } else {
+            // TODO: 打开GPS
+        }
+    }
+
+    private onVoiceBtnClick(): void {
+        if (this.voiceBtn.selected) {
+            // TODO: 关闭GPS
+        } else {
+            // TODO: 关闭GPS
+        }
+    }
+
     // 音效开关
     private onEffectSoundBtnClick(): void {
         const effectVolume = cc.audioEngine.getEffectsVolume();
         Logger.debug("onEffectSoundBtnClick,effectVolume:", effectVolume);
-        if (effectVolume > 0) {
-            cc.audioEngine.setEffectsVolume(0);
-            this.effectSoundBtnText.text = "音效开";
-            DataStore.setItem("effectsVolume", 0);
-        } else {
+        if (this.effectSoundBtn.selected) {
             cc.audioEngine.setEffectsVolume(1);
-            this.effectSoundBtnText.text = "音效关";
             DataStore.setItem("effectsVolume", 1);
+        } else {
+            cc.audioEngine.setEffectsVolume(0);
+            DataStore.setItem("effectsVolume", 0);
         }
     }
 
     // 音乐开关
     private onMusicSoundBtnClick(): void {
         const musicVolume = cc.audioEngine.getMusicVolume();
-        if (musicVolume > 0) {
-            cc.audioEngine.setMusicVolume(0);
-            this.musicBtnText.text = "音乐开";
-            DataStore.setItem("musicVolume", 0);
-        } else {
+        Logger.debug("onMusicSoundBtnClick,musicVolume:", musicVolume);
+        if (this.musicBtn.selected) {
             cc.audioEngine.setMusicVolume(1);
-            this.musicBtnText.text = "音乐关";
             DataStore.setItem("musicVolume", 1);
+        } else {
+            cc.audioEngine.setMusicVolume(0);
+            DataStore.setItem("musicVolume", 0);
         }
     }
+
+    private onLeaveRoomClick(): void {
+        Logger.debug("onLeaveRoomClick");
+    }
+
     private onDisbandBtnClick(): void {
         //
         Dialog.showDialog("是否解散房间？", () => {

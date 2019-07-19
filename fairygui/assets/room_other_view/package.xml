@@ -72,6 +72,9 @@
     <component id="hsncj9" name="share_btn.xml" path="/ready/"/>
     <component id="wehqja" name="disband_room_btn.xml" path="/ready/"/>
     <component id="wehqjb" name="create_room_for_other.xml" path="/ready/"/>
+    <component id="itgxjc" name="btnVoice.xml" path="/resource/s_设置/"/>
+    <component id="itgxje" name="btnGps.xml" path="/resource/s_设置/"/>
+    <component id="itgxjf" name="btnDisband.xml" path="/resource/s_设置/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>

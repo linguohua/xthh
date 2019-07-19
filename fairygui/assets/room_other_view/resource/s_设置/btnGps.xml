@@ -5,10 +5,10 @@
     <image id="n0_o570" name="n0" src="o570gg" fileName="resource/s_设置/zm_szandi.png" xy="0,0" size="110,48">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n1_o570" name="text1" xy="0,4" size="110,44" fontSize="22" color="#e2ead8" align="center" vAlign="middle" autoSize="none" singleLine="true" text="音效开">
+    <text id="n1_o570" name="text1" xy="0,4" size="110,44" fontSize="22" color="#e2ead8" align="center" vAlign="middle" autoSize="none" singleLine="true" text="GPS开">
       <gearDisplay controller="button" pages="1"/>
     </text>
-    <text id="n2_itgx" name="text2" xy="0,4" size="110,44" fontSize="22" color="#e2ead8" align="center" vAlign="middle" autoSize="none" singleLine="true" text="音效关">
+    <text id="n2_itgx" name="text2" xy="0,4" size="110,44" fontSize="22" color="#e2ead8" align="center" vAlign="middle" autoSize="none" singleLine="true" text="GPS关">
       <gearDisplay controller="button" pages="0"/>
     </text>
   </displayList>

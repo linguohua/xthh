@@ -1,6 +1,6 @@
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
+import { Logger, SoundMgr, UserInfo, DataStore } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -189,6 +189,8 @@ export class Room {
         const roomView = new RoomView(this, view);
         this.roomView = roomView;
 
+        // 恢复上次设置的声音
+        this.setSound();
         this.playBgSound();
 
         if (this.roomInfo.play_total !== null) {
@@ -807,8 +809,18 @@ export class Room {
     private playBgSound(): void {
         SoundMgr.playMusicAudio("gameb/music_hall", true);
     }
+
     private stopBgSound(): void {
         SoundMgr.stopMusic();
+    }
+
+    // 恢复上次设置的音量
+    // 如果没设置过，则默认为0
+    private setSound(): void {
+        const musicVolume = DataStore.getString("musicVolume", "0");
+        cc.audioEngine.setMusicVolume(+musicVolume);
+        const effectsVolume = DataStore.getString("effectsVolume", "0");
+        cc.audioEngine.setEffectsVolume(+effectsVolume);
     }
     //重连 初始化 牌组
     private initCards(playerInfo: protoHH.casino.Itable_player, player: Player, isNewDiacard: boolean = false): void {
