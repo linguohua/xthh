@@ -805,7 +805,7 @@ export class Room {
     }
     //播放背景音乐
     private playBgSound(): void {
-        SoundMgr.playMusicAudio("gameb/game_matchBg", true);
+        SoundMgr.playMusicAudio("gameb/music_hall", true);
     }
     private stopBgSound(): void {
         SoundMgr.stopMusic();

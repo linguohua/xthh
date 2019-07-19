@@ -7,16 +7,41 @@ import { TypeOfOP } from "./PlayerInterface";
 import { PlayerView } from "./PlayerView";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
 // const playerInfoView = require "lobby/scripts/playerInfo/playerInfoView"
-const soundDef: { [key: number]: string } = {
-    // Chow = "chi",
-    // Ting = "ting",
-    [TypeOfOP.Pong]: "peng",
-    [TypeOfOP.Kong]: "gang",
-    [TypeOfOP.CHAOTIAN]: "hu", //被点炮
-    [TypeOfOP.Hu]: "zimo" //自摸
-    // Common = "effect_common"
-};
+// const soundDef: { [key: number]: string } = {
+//     // Chow = "chi",
+//     // Ting = "ting",
+//     [TypeOfOP.Pong]: "peng",
+//     [TypeOfOP.Kong]: "gang",
+//     [TypeOfOP.CHAOTIAN]: "hu", //被点炮
+//     [TypeOfOP.Hu]: "zimo" //自摸
+//     // Common = "effect_common"
+// };
+
 const eXTSJ_OP_TYPE = protoHH.casino_xtsj.eXTSJ_OP_TYPE;
+
+const soundDef: { [key: number]: string } = {
+    [1001]: "peng", //碰
+    [1002]: "飘赖", //飘赖
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DIANXIAO]: "dianxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "huitouxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "menxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "fangxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "piaolaizi",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG]: "zhuochong",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO]: "qiangxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOHOUCHONG]: "xiaohouchong",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_BEIQIANGXIAO]: "beiqiangxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHONG]: "fangchong",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RECHONG]: "rechong",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO]: "heimo",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO]: "ruanmo",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "heimo",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "ruanmo",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHAOTIAN]: "fangchaotian",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN]: "xiaochaotian",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN]: "dachaotian"
+};
+
 //特效文件定义
 const effectsDef: { [key: number]: string } = {
     [1001]: "Effect_ico_peng", //碰 这个没定义
@@ -330,29 +355,30 @@ export class Player {
             // this.playerView.hideHands();
             // this.playerView.showHandsForMe(false);
         }
-
+        Logger.debug("exposedResultAnimation:", t);
         //播放对应音效
-        this.playSound("gameb/operate", soundDef[t]);
+        this.playSound("gameb", `mj_${soundDef[t]}`);
         await this.playerView.playerOperationEffect(effectsDef[t], isWait);
     }
 
     //播放读牌音效
     public playReadTileSound(tileID: number): void {
-        const index = AgariIndex.tileId2ArtId(tileID);
-        const id = +index;
-        if (id >= 51 && id <= 58) {
-            // this.playSound("gameb/operate", "hua")
-        } else {
-            let effectName = `tile${id}`;
-            if (id === 11) {
-                // Math.newrandomseed()
-                effectName = `tile${id}_${1}`; //, id, Math.random(1, 2, 3));
-            } else if (id === 29) {
-                // math.newrandomseed()
-                effectName = `tile${id}_${1}`; // id, math.random(1, 2));
-            }
-            this.playSound("gameb/tile", effectName);
-        }
+        // const index = AgariIndex.tileId2ArtId(tileID);
+        // const id = +index;
+        // if (id >= 51 && id <= 58) {
+        //     // this.playSound("gameb/operate", "hua")
+        // } else {
+        //     let effectName = `tile${ id } `;
+        //     if (id === 11) {
+        //         // Math.newrandomseed()
+        //         effectName = `tile${ id } _${ 1 } `; //, id, Math.random(1, 2, 3));
+        //     } else if (id === 29) {
+        //         // math.newrandomseed()
+        //         effectName = `tile${ id } _${ 1 } `; // id, math.random(1, 2));
+        //     }
+        //     this.playSound("gameb/tile", effectName);
+        // }
+        this.playSound("gameb", `mj_${tileID}`);
     }
 
     //绑定playerView
@@ -549,15 +575,15 @@ export class Player {
         if (this.canKongs.length > 0 && this.isCanPong) {
             curCancelType = 2;
             curCancelCard = this.canKongs[0];
-            str = `${AgariIndex.tileId2Str(curCancelCard)}弃笑 ${AgariIndex.tileId2Str(curCancelCard)}弃碰`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)} 弃笑 ${AgariIndex.tileId2Str(curCancelCard)} 弃碰`;
         } else if (this.canKongs.length > 0) {
             curCancelType = 0;
             curCancelCard = this.canKongs[0];
-            str = `${AgariIndex.tileId2Str(curCancelCard)}弃笑`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)} 弃笑`;
         } else if (this.isCanPong) {
             curCancelType = 1;
             curCancelCard = this.host.lastDisCardTile;
-            str = `${AgariIndex.tileId2Str(curCancelCard)}弃碰`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)} 弃碰`;
         }
         Logger.debug("curCancelType ---------------- : ", curCancelType);
         req2.cancel_type = curCancelType;
@@ -704,7 +730,7 @@ export class Player {
     public onChatMsg(chatData: ChatData): void {
         if (chatData.buildinId !== undefined && chatData.buildinId !== "") {
             //播放快捷语音效
-            this.playSound("commonLanguage", `speak${chatData.buildinId}`);
+            this.playSound("gameb", `chat${chatData.buildinId} `);
         }
         this.playerView.showChatMsg(chatData.msg);
     }
@@ -789,9 +815,10 @@ export class Player {
         }
         let soundName = "";
         if (this.playerInfo.gender === 1) {
-            soundName = `${directory}/boy/${effectName}`;
+            // soundName = `${ directory } /boy/${ effectName } `;
+            soundName = `${directory} /${effectName}_m`;
         } else {
-            soundName = `${directory}/girl/${effectName}`;
+            soundName = `${directory}/${effectName}_w`;
         }
         SoundMgr.playEffectAudio(soundName);
     }
