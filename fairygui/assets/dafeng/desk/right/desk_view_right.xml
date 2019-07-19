@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" opaque="false" designImage="ui://397phochlqn3fr" designImageAlpha="100">
   <displayList>
-    <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="1079,264"/>
+    <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="1079,264" visible="false"/>
     <text id="n18_sskg" name="nameText" xy="1038,295" size="83,28" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
     <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="1009,175" hideByEditor="true"/>
     <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="1099,220" hideByEditor="true"/>

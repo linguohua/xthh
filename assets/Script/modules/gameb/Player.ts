@@ -327,8 +327,8 @@ export class Player {
     public async exposedResultAnimation(t: number, isWait?: boolean): Promise<void> {
         if (this.isMe()) {
             //隐藏牌组
-            this.playerView.hideHands();
-            this.playerView.showHandsForMe(false);
+            // this.playerView.hideHands();
+            // this.playerView.showHandsForMe(false);
         }
 
         //播放对应音效

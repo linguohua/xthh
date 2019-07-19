@@ -16,7 +16,7 @@ export namespace HandlerMsgActionOPAck {
         }
         player.addMeld(pAck);
         // player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
-        player.hand2UI(false); //手牌列表更新UI
+        player.hand2UI(true); //手牌列表更新UI
         const contributorPlayer = <Player>room.getPlayerByUserID(`${pAck.target_id}`);
         const a = pAck.cards[0];
         contributorPlayer.removeLatestDiscarded(a); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
