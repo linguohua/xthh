@@ -103,9 +103,9 @@ export class Player {
     // }
     public resetAllStatus(): void {
         this.canKongs = [];
-        this.cancelZhuochong = false;
         this.cancelZiMo = false;
         this.isCanPong = false;
+        this.mBSaveZCHFlag = false;
     }
 
     public resetForNewHand(): void {
@@ -118,6 +118,8 @@ export class Player {
 
         this.notPong = 0;
         this.notKongs = [];
+        this.cancelZhuochong = false;
+
         //是否起手听牌
         //TODO. 当玩家起手听牌时，当仅仅可以打牌操作时，自动打牌
         this.isRichi = false;
