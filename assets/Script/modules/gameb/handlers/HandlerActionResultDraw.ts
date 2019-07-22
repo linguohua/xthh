@@ -51,10 +51,8 @@ export namespace HandlerActionResultDraw {
             }
         }
         const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
-        if (isCanGang) {
-            Logger.debug(`player.notKongs  , ${player.notKongs} ;`);
+        if (isCanGang || reply.card === room.laigenID) {
             const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.tilesMelds, player.notKongs, reply.card);
-            Logger.debug(`can----gang  , ${gang} ;`);
             if (gang.length > 0) {
                 buttonMap = true;
                 player.canKongs = gang;

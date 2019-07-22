@@ -211,7 +211,7 @@ export class Room {
 
         this.players[player.userID] = player;
 
-        this.initCards(playerInfo, player);
+        // this.initCards(playerInfo, player);
 
     }
     // 创建自身的玩家对象    // 并绑定playerView
@@ -227,7 +227,7 @@ export class Room {
 
         this.myPlayer = player;
 
-        this.initCards(playerInfo, player);
+        // this.initCards(playerInfo, player);
     }
 
     public onReadyButtonClick(): void {
@@ -631,6 +631,16 @@ export class Room {
                 }
             }
         }
+        let cur_id = 0;
+        for (let i = 0; i < this.roomInfo.players.length; i++) {
+            const p = this.roomInfo.players[i];
+            if (this.roomInfo.cur_idx === i) {
+                cur_id = p.id;
+            }
+            const player = this.getPlayerByChairID(i);
+            this.initCards(p, player);
+        }
+        this.showCards(cur_id);
     }
 
     public updateRoom(table: protoHH.casino.Itable): void {
@@ -647,12 +657,16 @@ export class Room {
         this.resetForNewHand();
         this.cleanUI();
 
+        let cur_id: number = 0;
         for (let i = 0; i < table.players.length; i++) {
             const p = table.players[i];
+            if (table.cur_idx === i) {
+                cur_id = p.id;
+            }
             const player = this.getPlayerByChairID(i);
             this.initCards(p, player);
         }
-
+        this.showCards(cur_id);
         // if (table.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OP) {
         //     const player = <Player>this.getPlayerByUserID(`${table.target_id}`);
         //     this.setWaitingPlayer(player.chairID);
@@ -833,12 +847,12 @@ export class Room {
         if (playerInfo.curcards.length > 0) {
             player.addHandTiles(playerInfo.curcards);
             player.sortHands(false);
-            player.hand2UI(false);
+            // player.hand2UI(false);
         }
 
         if (playerInfo.outcards.length > 0) {
             player.addDiscardedTiles(playerInfo.outcards);
-            player.discarded2UI(isNewDiacard, false);
+            // player.discarded2UI(isNewDiacard, false);
 
             if (!this.mAlgorithm.getFlagPiao()) {
                 for (const outcard of playerInfo.outcards) {
@@ -864,8 +878,29 @@ export class Room {
                 const m = melds[k];
                 player.addMeld(m);
             }
-            player.hand2UI(false);
         }
+        // player.hand2UI(false);
+    }
+    private showCards(isNewDiacardId: number): void {
+        //删掉出牌列表里面 已经被碰 或者 杠的牌  免得重复
+        Object.keys(this.players).forEach((key: string) => {
+            const player = this.players[key];
+            const melds = player.tilesMelds;
+            for (const meld of melds) {
+                const tId = meld.target_id;
+                if (tId !== undefined && tId !== null) {
+                    const tP = this.getPlayerByUserID(`${tId}`);
+                    if (tP !== undefined && tP !== null) {
+                        tP.removeTileFromDiscard(meld.cards[0]);
+                    }
+                }
+            }
+        });
+        Object.keys(this.players).forEach((key: string) => {
+            const player = this.players[key];
+            player.discarded2UI(`${isNewDiacardId}` === key, false);
+            player.hand2UI(false);
+        });
     }
     private getMahjongLaveNumber(tile: number): number {
         //普通牌最大数量是4张，翻牌最大数量就是3张

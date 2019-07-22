@@ -740,7 +740,7 @@ export class PlayerView {
     //显示玩家头像
     public showPlayerInfo(playerInfo: PlayerInfo): void {
         this.head.headView.visible = true;
-        // this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
+        this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
 
         this.head.nameText.text = this.player.mNick;
         this.head.nameText.visible = true;

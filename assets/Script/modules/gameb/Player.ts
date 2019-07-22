@@ -103,7 +103,6 @@ export class Player {
     // }
     public resetAllStatus(): void {
         this.canKongs = [];
-        this.cancelZiMo = false;
         this.isCanPong = false;
         this.mBSaveZCHFlag = false;
     }
@@ -119,6 +118,7 @@ export class Player {
         this.notPong = 0;
         this.notKongs = [];
         this.cancelZhuochong = false;
+        this.cancelZiMo = false;
 
         //是否起手听牌
         //TODO. 当玩家起手听牌时，当仅仅可以打牌操作时，自动打牌
@@ -205,6 +205,23 @@ export class Player {
         }
     }
 
+    //从出牌列表中删除一张牌
+    public removeTileFromDiscard(tileID: number): boolean {
+        if (this.tilesDiscarded != null) {
+            for (let i = 0; i < this.tilesDiscarded.length; i++) {
+                if (this.tilesDiscarded.hasOwnProperty(i)) {
+                    const element = this.tilesDiscarded[i];
+                    if (element === tileID) {
+                        this.tilesDiscarded.splice(i, 1);
+
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
     //从打出的牌列表中移除最后一张
     //@param tileID 最后一张牌的id，用于assert
     public removeLatestDiscarded(tileID: number): void {
