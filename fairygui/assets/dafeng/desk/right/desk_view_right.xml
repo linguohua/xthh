@@ -22,5 +22,6 @@
     <graph id="n15_rh8w" name="userInfoPos" xy="533,193" size="20,26" hideByEditor="true" visible="false"/>
     <component id="n17_dtxt" name="qipao" src="jmxy14" fileName="qipao2.xml" xy="604,182" hideByEditor="true" visible="false"/>
     <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="859,147" visible="false"/>
+    <component id="n20_hz17" name="hand2" src="hz17p3" fileName="desk/right/desk_hand2.xml" xy="955,0" visible="false"/>
   </displayList>
 </component>

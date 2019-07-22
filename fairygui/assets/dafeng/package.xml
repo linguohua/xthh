@@ -719,6 +719,10 @@
     <component id="drq7oy" name="desk_discard2.xml" path="/desk/dui/"/>
     <component id="hsnchz" name="ready.xml" path="/" exported="true"/>
     <component id="hz17oz" name="scoreCom.xml" path="/"/>
+    <component id="hz17p0" name="desk_hand2.xml" path="/desk/mine/"/>
+    <component id="hz17p1" name="desk_hand2.xml" path="/desk/left/"/>
+    <component id="hz17p2" name="desk_hand2.xml" path="/desk/dui/"/>
+    <component id="hz17p3" name="desk_hand2.xml" path="/desk/right/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

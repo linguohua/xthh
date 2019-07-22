@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,150" opaque="false" designImage="ui://397phochlqn3fs" designImageAlpha="100">
+  <displayList>
+    <image id="n48_fxwe" name="n1" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="244,4" scale="0.5,0.5"/>
+    <image id="n49_fxwe" name="n2" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="287,4" scale="0.5,0.5"/>
+    <image id="n50_fxwe" name="n3" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="330,4" scale="0.5,0.5"/>
+    <image id="n51_fxwe" name="n4" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="372,4" scale="0.5,0.5"/>
+    <image id="n52_fxwe" name="n5" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="415,4" scale="0.5,0.5"/>
+    <image id="n53_fxwe" name="n6" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="458,4" scale="0.5,0.5"/>
+    <image id="n54_fxwe" name="n7" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="501,4" scale="0.5,0.5"/>
+    <image id="n55_fxwe" name="n8" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="543,4" scale="0.5,0.5"/>
+    <image id="n56_fxwe" name="n9" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="586,4" scale="0.5,0.5"/>
+    <image id="n57_fxwe" name="n10" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="629,4" scale="0.5,0.5"/>
+    <image id="n58_fxwe" name="n11" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="672,4" scale="0.5,0.5"/>
+    <image id="n59_fxwe" name="n12" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="715,4" scale="0.5,0.5"/>
+    <image id="n60_fxwe" name="n13" src="tsg10" fileName="image_bg/dui.png" pkg="l6hoa9ng" xy="758,4" scale="0.5,0.5"/>
+    <component id="n61_fxwe" name="n14" src="jmxyt" fileName="mahjong_dui/mahjong_dui_shu.xml" xy="187,4" hideByEditor="true" scale="0.9,0.9" visible="false"/>
+  </displayList>
+</component>

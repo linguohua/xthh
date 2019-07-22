@@ -12,16 +12,24 @@ const dealNum: number[] = [
  */
 export namespace HandlerMsgDeal {
 
-    const onPlayDealAni = async (room: RoomInterface, cards: number[]): Promise<void> => {
-        // const players = room.getPlayers();
-        //保存每一个玩家的牌列表
-        // const playersKeyArr = Object.keys(players);
-        // Logger.debug("保存每一个玩家的牌列表 ", cards);
+    const onPlayDealAni = async (room: RoomInterface, cards: number[], lordChairId: number): Promise<void> => {
+        const players = room.getPlayers();
+        const playersKeyArr = Object.keys(players);
+        const playerNum = playersKeyArr.length;
+        //按庄家第一的顺序排序
+        const playersArr: Player[] = [];
+        for (const key of playersKeyArr) {
+            const p = <Player>players[key];
+            const c = (p.chairID - lordChairId + playerNum) % playerNum;
+            playersArr[c] = p;
+        }
+
+        //发牌动画
         for (let i = 0; i < dealNum.length; i++) {
             const num = dealNum[i];
-            for (let j = 0; j < 4; j++) {
-                // for (const key of playersKeyArr) {
-                const p = <Player>room.getPlayerByChairID(j);
+            // for (let j = 0; j < 4; j++) {
+            for (const p of playersArr) {
+                // const p = <Player>room.getPlayerByChairID(j);
                 // const p = <Player>players[key];
                 if (p !== undefined && p !== null) {
                     if (p.isMe()) {
@@ -39,7 +47,14 @@ export namespace HandlerMsgDeal {
             }
         }
 
-
+        for (const p of playersArr) {
+            p.playerView.hideHands();
+            p.playerView.hand2.visible = true;
+        }
+        await room.coWaitSeconds(0.5);
+        for (const p of playersArr) {
+            p.playerView.hand2.visible = false;
+        }
     };
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const msgDeal = proto.casino_xtsj.packet_sc_start_play.decode(msgData);
@@ -71,22 +86,11 @@ export namespace HandlerMsgDeal {
         await room.coWaitSeconds(1);
 
         const players = room.getPlayers();
-        //保存每一个玩家的牌列表
+
         const playersKeyArr = Object.keys(players);
         let playerNum = 0;
-        // for (const key of playersKeyArr) {
-        //     const p = <Player>players[key];
-        //     if (p.isMe()) {
-        //         p.addHandTiles(msgDeal.cards);
-        //         p.sortHands(false);
-        //     } else {
-        //         p.tileCountInHand = 13;
-        //     }
-        //     p.hand2UI(false);
-        //     playerNum++;
-        // }
-        await onPlayDealAni(room, msgDeal.cards);
-
+        await onPlayDealAni(room, msgDeal.cards, player.chairID);
+        //显示牌
         for (const key of playersKeyArr) {
             const p = <Player>players[key];
             if (p.isMe()) {

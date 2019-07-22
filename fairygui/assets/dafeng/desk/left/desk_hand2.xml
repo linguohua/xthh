@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="180,640" opaque="false" designImage="ui://397phochlqn3fs" designImageAlpha="0">
+  <displayList>
+    <image id="n35_fxwe" name="n13" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,99" scale="0.8,0.8"/>
+    <image id="n34_fxwe" name="n12" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,122" scale="0.8,0.8"/>
+    <image id="n33_fxwe" name="n11" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,144" scale="0.8,0.8"/>
+    <image id="n32_fxwe" name="n10" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,167" scale="0.8,0.8"/>
+    <image id="n31_fxwe" name="n9" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,189" scale="0.8,0.8"/>
+    <image id="n30_fxwe" name="n8" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,212" scale="0.8,0.8"/>
+    <image id="n29_fxwe" name="n7" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,235" scale="0.8,0.8"/>
+    <image id="n28_fxwe" name="n6" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,257" scale="0.8,0.8"/>
+    <image id="n27_fxwe" name="n5" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,280" scale="0.8,0.8"/>
+    <image id="n26_fxwe" name="n4" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,303" scale="0.8,0.8"/>
+    <image id="n25_fxwe" name="n3" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,325" scale="0.8,0.8"/>
+    <image id="n24_fxwe" name="n2" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,348" scale="0.8,0.8"/>
+    <image id="n23_fxwe" name="n1" src="tsg11" fileName="image_bg/heng_fan.png" pkg="l6hoa9ng" xy="120,370" scale="0.8,0.8"/>
+    <component id="n36_fxwe" name="n14" src="jmxy19" fileName="mahjong_left/mahjong_left_shu.xml" xy="120,402" hideByEditor="true" visible="false"/>
+  </displayList>
+</component>

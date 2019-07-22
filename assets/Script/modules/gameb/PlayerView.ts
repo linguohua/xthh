@@ -78,6 +78,7 @@ export class PlayerView {
     public pengBtn: fgui.GButton;
     public huBtn: fgui.GButton;
     public gangBtn: fgui.GButton;
+    public hand2: fgui.GObject;
     private discards: fgui.GComponent[];
     private discardLans: fgui.GObject[][] = [];
     private lights: fgui.GComponent[];
@@ -144,6 +145,8 @@ export class PlayerView {
         this.initFlowers();
         //明牌列表
         this.initLights();
+        //发牌动画的盖牌
+        this.hand2 = this.myView.getChild("hand2").asCom;
     }
 
     //显示操作按钮

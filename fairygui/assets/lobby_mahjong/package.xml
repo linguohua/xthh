@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="l6hoa9ng" jpegQuality="80" compressPNG="true">
   <resources>
-    <image id="tsg10" name="dui.png" path="/image_bg/"/>
-    <image id="tsg11" name="heng_fan.png" path="/image_bg/" scale9grid="14,13,28,26"/>
+    <image id="tsg10" name="dui.png" path="/image_bg/" exported="true"/>
+    <image id="tsg11" name="heng_fan.png" path="/image_bg/" exported="true" scale9grid="14,13,28,26"/>
     <image id="tsg12" name="heng_zheng.png" path="/image_bg/"/>
     <image id="tsg13" name="wo.png" path="/image_bg/"/>
     <image id="tsg14" name="you.png" path="/image_bg/"/>
