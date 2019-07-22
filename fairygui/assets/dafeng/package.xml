@@ -717,6 +717,8 @@
     <image id="q32bow" name="zm_tpdi.png" path="/_resource/z_桌面打牌/"/>
     <component id="drq7ox" name="desk_discard2.xml" path="/desk/mine/"/>
     <component id="drq7oy" name="desk_discard2.xml" path="/desk/dui/"/>
+    <component id="hsnchz" name="ready.xml" path="/" exported="true"/>
+    <component id="hz17oz" name="scoreCom.xml" path="/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

@@ -442,7 +442,11 @@ export class Player {
         }
         this.mNick = nick;
     }
-
+    public piaoScore(num: number): void {
+        this.totalScores += num;
+        this.playerView.piaoScore(num);
+        this.playerView.showScore();
+    }
     public discardOutTileID(tileID: number): void {
         //从手牌移除
         this.removeTileFromHand(tileID);

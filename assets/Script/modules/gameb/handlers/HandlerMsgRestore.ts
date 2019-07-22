@@ -39,8 +39,6 @@ export namespace HandlerMsgRestore {
         room.updateTilesInWallUI();
         //TODO:根据风圈修改
         room.setRoundMask();
-        //TODO:修改庄家标志
-        // room.setBankerFlag();
         //清理吃牌界面
         room.cleanUI();
         //保存每一个玩家的牌列表

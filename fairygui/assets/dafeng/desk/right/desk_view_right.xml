@@ -3,14 +3,14 @@
   <displayList>
     <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="1079,264" visible="false"/>
     <text id="n18_sskg" name="nameText" xy="1038,295" size="83,28" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
-    <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="1009,175" hideByEditor="true"/>
-    <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="1099,220" hideByEditor="true"/>
-    <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="1079,175" hideByEditor="true"/>
+    <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="1009,175" hideByEditor="true" visible="false"/>
+    <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="1099,220" hideByEditor="true" visible="false"/>
+    <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="1079,175" hideByEditor="true" visible="false"/>
     <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="1104,274" pivot="0.5,0.5" anchor="true" hideByEditor="true">
       <relation target="n2_fxwe" sidePair="right-right"/>
     </image>
-    <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="1037,135" hideByEditor="true"/>
-    <text id="n16_rh8w" name="huaText" xy="1068,142" size="40,20" hideByEditor="true" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
+    <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="1037,135" hideByEditor="true" visible="false"/>
+    <text id="n16_rh8w" name="huaText" xy="1068,142" size="40,20" hideByEditor="true" visible="false" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
     <component id="n1_fxwe" name="discards" src="jmxy1v" fileName="desk/right/desk_discard.xml" xy="831,99" touchable="false"/>
     <component id="n8_fxwe" name="hands" src="jmxy1x" fileName="desk/right/desk_hand.xml" xy="955,0" touchable="false"/>
     <component id="n10_fxwe" name="melds" src="jmxy20" fileName="desk/right/desk_meld.xml" xy="994,472" pivot="0.5,1" anchor="true" size="78,640" scale="0.6,0.6" touchable="false"/>
@@ -21,5 +21,6 @@
     <component id="n14_g0pr" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="861,192" visible="false"/>
     <graph id="n15_rh8w" name="userInfoPos" xy="533,193" size="20,26" hideByEditor="true" visible="false"/>
     <component id="n17_dtxt" name="qipao" src="jmxy14" fileName="qipao2.xml" xy="604,182" hideByEditor="true" visible="false"/>
+    <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="859,147" visible="false"/>
   </displayList>
 </component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="130,150">
+  <displayList>
+    <text id="n0_hz17" name="lose" xy="0,105" size="129,45" font="ui://397phochtfg8n3" fontSize="0" align="center" vAlign="middle" autoSize="none" text=""/>
+    <text id="n1_hz17" name="win" xy="0,105" size="129,45" font="ui://397phochtfg8me" fontSize="0" align="center" vAlign="middle" autoSize="none" text=""/>
+    <graph id="n2_hz17" name="startPos" xy="0,105" size="9,10"/>
+    <graph id="n3_hz17" name="endPos" xy="0,50" size="9,10"/>
+  </displayList>
+</component>

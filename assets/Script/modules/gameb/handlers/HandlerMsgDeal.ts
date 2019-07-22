@@ -55,7 +55,6 @@ export namespace HandlerMsgDeal {
         room.setWaitingPlayer(player.chairID, msgDeal.time);
 
         room.bankerChairID = msgDeal.lord_id; //庄家
-        // room.setBankerFlag();
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);

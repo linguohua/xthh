@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://397phochlqn3fd" designImageAlpha="100">
-  <controller name="bgController" pages="0,经典,1,普蓝" selected="0"/>
+  <controller name="bgController" pages="0,经典,1,普蓝" selected="1"/>
   <displayList>
     <image id="n29_qhzt" name="blueBg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0" size="1136,640" hideByEditor="true">
       <gearDisplay controller="bgController" pages="1"/>

@@ -2,7 +2,7 @@
 <component size="1136,640" opaque="false" designImage="ui://397phochlqn3fr" designImageAlpha="100">
   <displayList>
     <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="57,263" hideByEditor="true" visible="false"/>
-    <text id="n17_sskg" name="nameText" xy="19,267" size="103,25" visible="false" fontSize="18" color="#fbb41d" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <text id="n17_sskg" name="nameText" xy="19,290" size="76,25" visible="false" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="shrink" text=""/>
     <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="9,180" hideByEditor="true" visible="false"/>
     <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="99,225" hideByEditor="true" visible="false"/>
     <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="79,180" hideByEditor="true" visible="false"/>
@@ -21,5 +21,6 @@
     <graph id="n12_fxwe" name="aniPos" xy="185,243" pivot="0.5,0.5" size="4,0"/>
     <graph id="n14_rh8w" name="userInfoPos" xy="124,173" size="20,26" hideByEditor="true"/>
     <component id="n16_dtxt" name="qipao" src="jmxy1i" fileName="qipao1.xml" xy="150,184" hideByEditor="true" visible="false"/>
+    <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="153,136" visible="false"/>
   </displayList>
 </component>

@@ -1,6 +1,6 @@
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { Logger, SoundMgr, UserInfo, DataStore } from "../lobby/lcore/LCoreExports";
+import { DataStore, Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -9,27 +9,13 @@ import { GameOverResultView } from "./GameOverResultView";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
 import { HandlerActionResultEndCard } from "./handlers/HandlerActionResultEndCard";
+import { HandlerActionScore } from "./handlers/HandlerActionScore";
 import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
 import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
-// import { HandlerActionResultNotify } from "./handlers/HandlerActionResultNotify";
-// import { HandlerMsg2Lobby } from "./handlers/HandlerMsg2Lobby";
-// import { HandlerMsgActionAllowed } from "./handlers/HandlerMsgActionAllowed";
 import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
 import { HandlerMsgTableDisband } from "./handlers/HandlerMsgTableDisband";
 import { HandlerMsgTableDisbandAck } from "./handlers/HandlerMsgTableDisbandAck";
 import { HandlerMsgTableDisbandReq } from "./handlers/HandlerMsgTableDisbandReq";
-// import { HandlerMsgDeleted } from "./handlers/HandlerMsgDeleted";
-// import { HandlerMsgDisbandNotify } from "./handlers/HandlerMsgDisbandNotify";
-// import { HandlerMsgDonate } from "./handlers/HandlerMsgDonate";
-// import { HandlerMsgGameOver } from "./handlers/HandlerMsgGameOver";
-// import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
-// import { HandlerMsgKickout } from "./handlers/HandlerMsgKickout";
-// import { HandlerMsgReActionAllowed } from "./handlers/HandlerMsgReActionAllowed";
-// import { HandlerMsgRestore } from "./handlers/HandlerMsgRestore";
-// import { HandlerMsgRoomUpdate } from "./handlers/HandlerMsgRoomUpdate";
-// import { HandlerMsgShowTips } from "./handlers/HandlerMsgShowTips";
-// import { HandlerMsgUpdateLocation } from "./handlers/HandlerMsgUpdateLocation";
-// import { HandlerMsgUpdatePropCfg } from "./handlers/HandlerMsgUpdatePropCfg";
 import { HandlerMsgTableEntry } from "./handlers/HandlerMsgTableEntry";
 import { HandlerMsgTableLeave } from "./handlers/HandlerMsgTableLeave";
 import { HandlerMsgTableManaged } from "./handlers/HandlerMsgTableManaged";
@@ -85,8 +71,8 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeXTHH.XTSJ_MSG_SC_OUTCARD_ACK]: HandlerActionResultDiscarded.onMsg, //出牌服务器回复
     [msgCodeXTHH.XTSJ_MSG_SC_OP_ACK]: HandlerMsgActionOPAck.onMsg, //操作服务器回复
     [msgCodeXTHH.XTSJ_MSG_SC_DRAWCARD]: HandlerActionResultDraw.onMsg, //抽牌
-    [msgCodeXTHH.XTSJ_MSG_SC_ENDCARD]: HandlerActionResultEndCard.onMsg //海底
-    // [msgCodeXTHH.XTSJ_MSG_SC_SCORE]: HandlerMsgTableScore.onMsg //结算
+    [msgCodeXTHH.XTSJ_MSG_SC_ENDCARD]: HandlerActionResultEndCard.onMsg, //海底
+    [msgCodeXTHH.XTSJ_MSG_SC_SCORE]: HandlerActionScore.onMsg //分数改变
 };
 
 //转换玩家chairid
@@ -374,14 +360,6 @@ export class Room {
     public cleanUI(): void {
         this.roomView.listensObj.visible = false;
         this.roomView.meldOpsPanel.visible = false;
-    }
-
-    //设置庄家标志
-    public setBankerFlag(): void {
-        Object.keys(this.players).forEach((key: string) => {
-            const v = this.players[key];
-            v.playerView.head.onUpdateBankerFlag(v.userID === `${this.bankerChairID}`, this.isContinuousBanker);
-        });
     }
 
     public setDiscardAble(isDiscardAble: boolean): void {
@@ -710,7 +688,6 @@ export class Room {
         this.bankerChairID = this.roomInfo.lord_id;
         const player = <Player>this.getPlayerByUserID(`${this.bankerChairID}`);
         this.roomView.playZhuangAni(player.playerView.head.bankerFlag);
-        // this.setBankerFlag();
         //压入自摸不自摸的标志
         this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
 

@@ -120,7 +120,6 @@ export interface RoomInterface {
     getMyPlayer(): PlayerInterface;
     getPlayers(): { [key: string]: PlayerInterface };
     setRoundMask(): void;
-    setBankerFlag(): void;
     updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void;
     showDonate(msgDonate: proto.mahjong.MsgDonate): void;
     showRoomNumber(): void;

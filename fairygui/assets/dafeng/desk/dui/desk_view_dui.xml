@@ -22,5 +22,6 @@
     <graph id="n15_rh8w" name="userInfoPos" xy="357,40" size="20,26" visible="false"/>
     <component id="n17_dtxt" name="qipao" src="jmxy14" fileName="qipao2.xml" xy="410,52" hideByEditor="true" visible="false"/>
     <component id="n20_jel2" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="511,70" hideByEditor="true" visible="false"/>
+    <component id="n23_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="499,5" visible="false"/>
   </displayList>
 </component>

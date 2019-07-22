@@ -9,7 +9,7 @@
     <graph id="n2_fxwe" name="pos" xy="45,44" pivot="0.5,0.5" anchor="true" size="8,9"/>
     <text id="n3_jel2" name="role" xy="20,0" size="41,21" visible="false" fontSize="16" color="#cc0033" align="center" vAlign="middle" autoSize="none" text="游客"/>
     <image id="n4_jel2" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="43,47" visible="false"/>
-    <text id="n6_jel2" name="nameText" xy="0,88" size="83,28" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
+    <text id="n6_jel2" name="nameText" xy="0,88" size="83,28" visible="false" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="天生打印机"/>
   </displayList>
   <Button/>
 </component>

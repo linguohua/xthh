@@ -29,11 +29,7 @@ class Head {
     public ting: fgui.GObject;
     public roomOwnerFlag: fgui.GObject;
     public bankerFlag: fgui.GObject;
-    public continuousBankerFlag: fgui.GObject;
-    public huaNode: fgui.GObject;
-    public huaNodeText: fgui.GObject;
     public nameText: fgui.GObject;
-    public onUpdateBankerFlag: (isBanker: boolean, isContinue: boolean) => void;
     public hideAll: Function;
 }
 
@@ -106,6 +102,10 @@ export class PlayerView {
     private msgTimerCB: Function;
     private isTwoPlayer: boolean = false;
     private meldsViewScale = 0;
+    private piaoScoreWin: fgui.GObject;
+    private piaoScoreLose: fgui.GObject;
+    private piaoScoreStartPos: cc.Vec2;
+    private piaoScoreEndPos: cc.Vec2;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
         this.viewChairID = viewChairID;
@@ -307,8 +307,6 @@ export class PlayerView {
                 f.visible = false;
             }
         }
-        this.head.huaNode.visible = false;
-        this.head.huaNodeText.visible = false;
     }
 
     //显示花牌，注意花牌需要是平放的
@@ -323,10 +321,6 @@ export class PlayerView {
         const tileCount = tilesFlower.length;
         //花牌挂载点个数
         const dCount = flowers.length;
-
-        this.head.huaNode.visible = true;
-        this.head.huaNodeText.visible = true;
-        this.head.huaNodeText.text = tileCount.toString();
 
         //从那张牌开始挂载，由于tileCount可能大于dCount
         //因此，需要选择tilesDiscarded末尾的dCount个牌显示即可
@@ -814,12 +808,40 @@ export class PlayerView {
             this.roomHost.component.scheduleOnce(this.msgTimerCB, 3);
         }
     }
+    public piaoScore(num: number): void {
+        if (num !== undefined && num !== 0) {
+            //飘字
+            if (num > 0) {
+                this.piaoScoreWin.node.position = this.piaoScoreStartPos;
+                this.piaoScoreWin.text = `+${num}`;
+                this.piaoScoreWin.node.runAction(cc.moveTo(1, this.piaoScoreEndPos));
+                const callBack = () => {
+                    this.piaoScoreWin.text = "";
+                };
+                this.roomHost.component.scheduleOnce(callBack, 1);
+            } else {
+                this.piaoScoreLose.node.position = this.piaoScoreStartPos;
+                this.piaoScoreLose.text = `${num}`;
+                this.piaoScoreLose.node.runAction(cc.moveTo(1, this.piaoScoreEndPos));
+                const callBack = () => {
+                    this.piaoScoreLose.text = "";
+                };
+                this.roomHost.component.scheduleOnce(callBack, 1);
+            }
+        }
+    }
+    public showScore(): void {
+        if (this.viewChairID === 1) {
+            this.head.nameText.text = `${this.player.mNick}:${this.player.totalScores}`;
+        } else {
+            this.head.nameText.text = `${this.player.totalScores}`;
+        }
+    }
     private hideChatMsg(): void {
         this.qipao.visible = false;
     }
 
     private initOtherView(): void {
-
         // this.aniPos = view.getChild("aniPos")
         this.userInfoPos = this.myView.getChild("userInfoPos");
 
@@ -830,6 +852,13 @@ export class PlayerView {
         //聊天气泡
         this.qipao = this.myView.getChild("qipao").asCom;
         this.qipaoText = this.qipao.getChild("text");
+        //分数飘字
+        const scoreCom = this.myView.getChild("scoreCom").asCom;
+        scoreCom.visible = true;
+        this.piaoScoreWin = scoreCom.getChild("win");
+        this.piaoScoreLose = scoreCom.getChild("lose");
+        this.piaoScoreStartPos = scoreCom.getChild("startPos").node.position;
+        this.piaoScoreEndPos = scoreCom.getChild("endPos").node.position;
     }
 
     //头像周边内容节点
@@ -854,32 +883,9 @@ export class PlayerView {
         //庄家标志
         head.bankerFlag = this.myView.getChild("zhuang");
         head.bankerFlag.visible = false;
-        head.continuousBankerFlag = this.myView.getChild("lianzhuang");
-        head.continuousBankerFlag.visible = false;
 
-        head.huaNode = this.myView.getChild("hua");
-        head.huaNode.visible = false;
-        head.huaNodeText = this.myView.getChild("huaText");
-        head.huaNodeText.visible = false;
         head.nameText = this.myView.getChild("nameText");
         head.nameText.visible = false;
-
-        //更新庄家UI
-        const updateBanker = (isBanker: boolean, isContinue: boolean): void => {
-            // if (isBanker) {
-            //     if (isContinue) {
-            //         head.bankerFlag.visible = false;
-            //         head.continuousBankerFlag.visible = true;
-            //     } else {
-            //         head.bankerFlag.visible = true;
-            //         head.continuousBankerFlag.visible = false;
-            //     }
-            // } else {
-            //     head.bankerFlag.visible = false;
-            //     head.continuousBankerFlag.visible = false;
-            // }
-        };
-        head.onUpdateBankerFlag = updateBanker;
 
         head.hideAll = (): void => {
             head.headView.visible = false;
@@ -887,9 +893,6 @@ export class PlayerView {
             head.ting.visible = false;
             head.roomOwnerFlag.visible = false;
             head.bankerFlag.visible = false;
-            head.continuousBankerFlag.visible = false;
-            head.huaNode.visible = false;
-            head.huaNodeText.visible = false;
             head.nameText.visible = false;
         };
 
@@ -927,11 +930,7 @@ export class PlayerView {
 
             this.showOwner();
             //开始玩之后 不显示名字 显示分数
-            if (this.viewChairID === 1) {
-                this.head.nameText.text = `${this.player.mNick}:${this.player.totalScores}`;
-            } else {
-                this.head.nameText.text = `${this.player.totalScores}`;
-            }
+            this.showScore();
         };
 
         const status = [];
