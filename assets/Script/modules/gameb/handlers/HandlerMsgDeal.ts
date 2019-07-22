@@ -19,11 +19,12 @@ export namespace HandlerMsgDeal {
         //播放庄动画 并等待
         if (room.bankerChairID === msgDeal.lord_id) {
             //连庄
-            await room.roomView.playAnimation("Effect_ico_lianzhuang", true);
+            room.roomView.playAnimation("Effect_ico_lianzhuang", true);
         } else if (room.bankerChairID !== -1) {
             //换庄
-            await room.roomView.playAnimation("Effect_ico_huanzhuang", true);
+            room.roomView.playAnimation("Effect_ico_huanzhuang", true);
         }
+        await room.coWaitSeconds(0.5);
         const player = <Player>room.getPlayerByUserID(msgDeal.lord_id.toString());
         room.roomView.playZhuangAni(player.playerView.head.bankerFlag);
         await room.coWaitSeconds(1);

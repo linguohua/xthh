@@ -404,6 +404,9 @@ export class PlayerView {
 
     //把打出的牌放大显示
     public enlargeDiscarded(discardTileId: number, waitDiscardReAction: boolean): void {
+        if (discardTileId === undefined || discardTileId === null || discardTileId <= 0) {
+            return;
+        }
         const discardTips = this.discardTips;
         const discardTipsTile = this.discardTipsTile;
         TileImageMounter.mountTileImage(discardTipsTile, discardTileId);

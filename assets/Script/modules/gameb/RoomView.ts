@@ -53,7 +53,8 @@ export class RoomView {
     private leftTime: number;
     private leftTimerCB: Function;
     private component: cc.Component;
-    private zhuangPos: fgui.GObject;
+    private zhuangAniNode: fgui.GObject;
+    private zhuangPos: cc.Vec2;
     private aniPos: fgui.GObject;
     private cancelCom: fgui.GComponent;
     private cancelComText: fgui.GObject;
@@ -130,9 +131,12 @@ export class RoomView {
     }
 
     public playZhuangAni(pos: fgui.GObject): void {
-        this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_zhuang01`, this.zhuangPos.node);
-        Logger.debug("pos.node.position ", pos.node.position);
-        this.zhuangPos.node.runAction(cc.moveTo(1, pos.node.position));
+        this.zhuangAniNode.node.position = this.zhuangPos;
+        this.zhuangAniNode.visible = true;
+        // this.zhuangAniNode.setPosition(this.zhuangPos.x, this.zhuangPos.y);
+        this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_zhuang01`, this.zhuangAniNode.node);
+        // Logger.debug("pos.node.position ", pos.node.position);
+        this.zhuangAniNode.node.runAction(cc.moveTo(1, pos.node.position));
     }
 
     public async playLaiAni(): Promise<void> {
@@ -209,7 +213,11 @@ export class RoomView {
     }
     public showRoomNumber(): void {
         // const room = this.room;
-        const num = `还有:${this.room.handNum - this.room.handStartted}局`;
+        const n = this.room.handNum - this.room.handStartted;
+        let num = `还有:${n}局`;
+        if (n <= 0) {
+            num = "最后一局";
+        }
         const s = `     `;
         const base = `底注:${this.room.roomInfo.base}`;
         const str = `${base}${s}${num}${s}`;
@@ -217,7 +225,7 @@ export class RoomView {
     }
     //显示出牌提示箭头
     public setArrowByParent(btn: fgui.GComponent): void {
-        if (btn === null) {
+        if (btn === undefined || btn === null) {
             //隐藏出牌提示箭头
             if (this.arrowObj !== undefined && this.arrowObj !== null) {
                 this.arrowObj.active = false;
@@ -538,7 +546,8 @@ export class RoomView {
         //道具
         this.donateMoveObj = this.unityViewNode.getChild("donate").asLoader;
         //庄家动画挂载节点
-        this.zhuangPos = this.unityViewNode.getChild("zhuangPos");
+        this.zhuangAniNode = this.unityViewNode.getChild("zhuangPos");
+        this.zhuangPos = this.zhuangAniNode.node.position;
         //其他动画挂载节点
         this.aniPos = this.unityViewNode.getChild("AniPos");
         //弃碰弃杠 提示
@@ -570,6 +579,8 @@ export class RoomView {
             this.cancelCom.visible = false;
             //等待状态重置上手牌遗留
             this.room.resetForNewHand();
+
+            this.zhuangAniNode.visible = false;
         };
 
         //房间空闲，客户端永远看不到这个状态
