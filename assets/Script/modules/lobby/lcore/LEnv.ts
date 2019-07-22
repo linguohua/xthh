@@ -63,6 +63,12 @@ export namespace LEnv {
 
     export const setRoomOptions = "/lobby/uuid/setRoomOptions";
 
+    export const qqmapGeoCoder = "https://apis.map.qq.com/ws/geocoder/v1/?location=";
+
+    export const qqmapDistance = "https://apis.map.qq.com/ws/distance/v1/?";
+
+    export const qqmapKey = "K77BZ-3KTWF-SB7JD-NRDP4-A2VX2-UTB7L";
+
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
         return str.replace(/{(\d+)}/g, (match, n) => {
             return (typeof args[n]) !== "undefined"

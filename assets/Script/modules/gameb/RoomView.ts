@@ -2,6 +2,7 @@ import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobb
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
+import { GpsView } from "../lobby/views/gps/GpsExports";
 import { ReadyView } from "../lobby/views/ready/ReadyExports";
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
 import { Player } from "./Player";
@@ -9,7 +10,6 @@ import { PlayerView } from "./PlayerView";
 import { RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-import { GpsView } from "../lobby/views/gps/GpsView";
 
 /**
  * 房间
@@ -414,8 +414,14 @@ export class RoomView {
             gpsView = this.component.addComponent(GpsView);
         }
 
-        const roomHost = this.room.getRoomHost();
-        gpsView.updateGpsView(this.room);
+        const ps = this.room.getPlayers();
+        const players: Player[] = [];
+        const keys = Object.keys(ps);
+        for (const key of keys) {
+            players.push(<Player>ps[key]);
+        }
+
+        gpsView.updateGpsView(this.room, players);
     }
 
     private onSettingBtnClick(): void {

@@ -43,6 +43,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private mAnimationMgr: AnimationMgr;
     private retry: boolean = false;
 
+    private isGpsOpen: boolean = false;
+
     public getLobbyModuleLoader(): GResLoader {
         return this.lm.loader;
     }
@@ -101,6 +103,12 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
 
+        this.openOrClostGps();
+        if (this.isGpsOpen && cc.sys.platform === cc.sys.WECHAT_GAME) {
+            this.getLocation();
+            this.component.schedule(this.getLocation, 1 * 60, cc.macro.REPEAT_FOREVER);
+        }
+
         if (args.jsonString === "replay") {
             // TODO: use correct parameters
             const chairID = 0;
@@ -136,6 +144,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
+        this.eventTarget.on("gpsChange", this.onGpsChange, this);
     }
 
     protected start(): void {
@@ -146,6 +155,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.unsubMsg();
 
         this.eventTarget.emit("destroy");
+        this.eventTarget.off("gpsChange");
+
+        this.component.unschedule(this.getLocation);
 
         fgui.GRoot.inst.removeChild(this.view);
         this.view.dispose();
@@ -524,5 +536,57 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             this.mq.pushMessage(msg);
         }
 
+    }
+
+    private getLocation(): void {
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            Logger.debug("platform not wechat, can't get location");
+
+            return;
+        }
+
+        if (!this.isGpsOpen) {
+            Logger.debug("gps is close");
+
+            return;
+        }
+
+        wx.getLocation({
+            type: 'wgs84',
+            success: (res: getLocationRes) => {
+                this.sendLocation2Server(res.latitude, res.longitude);
+                Logger.debug(`latitude:${res.latitude}, longitude:${res.longitude}, speed:${res.speed}, accuracy:${res.accuracy}`);
+            }
+        });
+
+        Logger.debug("getLocation");
+    }
+
+    private sendLocation2Server(latitude: number, longitude: number): void {
+        const playerID = DataStore.getString("playerID");
+        const req = new protoHH.casino.packet_coordinate({ player_id: +playerID, latitude: latitude, longitude: longitude });
+        const buf = protoHH.casino.packet_coordinate.encode(req);
+        this.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_COORDINATE);
+        // const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
+        // const buf = protoHH.casino.packet_table_ready.encode(req2);
+        // this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_READY);
+    }
+
+    private onGpsChange(): void {
+        this.openOrClostGps();
+        if (this.isGpsOpen) {
+            this.getLocation();
+        }
+    }
+
+    private openOrClostGps(): void {
+        const gps = DataStore.getString("gps", "0");
+        if (+gps > 0) {
+            this.isGpsOpen = true;
+        } else {
+            this.isGpsOpen = false;
+        }
+
+        Logger.debug("gps status:", gps);
     }
 }

@@ -23,6 +23,7 @@ import { HandlerMsgTablePause } from "./handlers/HandlerMsgTablePause";
 import { HandlerMsgTableReady } from "./handlers/HandlerMsgTableReady";
 import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
 import { HandlerMsgTableUpdate } from "./handlers/HandlerMsgTableUpdate";
+import { HandlerMsgUpdateCoordinate } from "./handlers/HandlerMsgUpdateCoordinate";
 import { HandResultView } from "./HandResultView";
 import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
@@ -54,6 +55,7 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     // [msgCodeEnum.OPUpdateLocation]: HandlerMsgUpdateLocation.onMsg,
     // [msgCodeEnum.OP2Lobby]: HandlerMsg2Lobby.onMsg,
     // [msgCodeEnum.OPUpdatePropCfg]: HandlerMsgUpdatePropCfg.onMsg
+    [msgCodeEnum.MSG_COORDINATE]: HandlerMsgUpdateCoordinate.onMsg, //玩家进入
     [msgCodeEnum.MSG_TABLE_ENTRY]: HandlerMsgTableEntry.onMsg, //玩家进入
     [msgCodeEnum.MSG_TABLE_READY]: HandlerMsgTableReady.onMsg, //准备
     [msgCodeEnum.MSG_TABLE_LEAVE]: HandlerMsgTableLeave.onMsg, //玩家离开

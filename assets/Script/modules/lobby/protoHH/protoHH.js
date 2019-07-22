@@ -8745,6 +8745,48 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     ]
                 },
                 {
+                    "name": "packet_coordinate",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "double",
+                            "name": "latitude",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "double",
+                            "name": "longitude",
+                            "id": 11
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "address",
+                            "id": 12
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "ip",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "ipaddress",
+                            "id": 21
+                        }
+                    ]
+                },
+                {
                     "name": "packet_ping",
                     "syntax": "proto2",
                     "fields": [

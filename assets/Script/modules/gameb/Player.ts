@@ -78,6 +78,7 @@ export class Player {
     public waitSkip: boolean;
     public state: number;
     public playerInfo: PlayerInfo;
+    public coordinate: protoHH.casino.coordinate;
     public waitDiscardReAction: boolean;
     public readyHandList: number[];
     public isGuoHuTips: boolean;

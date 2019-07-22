@@ -47,7 +47,7 @@ export class PlayerInfo {
 
     public constructor(playerIfo: protoHH.casino.Itable_player, chairID: number) {
         this.gender = playerIfo.sex;
-        this.headIconURI = "";
+        this.headIconURI = playerIfo.channel_head;
         this.ip = "";
         this.location = "";
         this.dfHands = 0;

@@ -3,7 +3,7 @@ import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 // import { GameRules } from "./GameRules";
 import { Player } from "./Player";
-import { TypeOfOP } from "./PlayerInterface";
+// import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
 import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
@@ -11,13 +11,13 @@ import { TileImageMounter } from "./TileImageMounter";
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 
 //面子牌组资源 后缀
-const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
-    [TypeOfOP.Kong]: "gang1",
-    // [mjproto.MeldType.enumMeldTypeExposedKong]: "gang1",
-    // [mjproto.MeldType.enumMeldTypeConcealedKong]: "gang2",
-    [TypeOfOP.Pong]: "chipeng"
-    // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
-};
+// const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
+//     [TypeOfOP.Kong]: "gang1",
+//     // [mjproto.MeldType.enumMeldTypeExposedKong]: "gang1",
+//     // [mjproto.MeldType.enumMeldTypeConcealedKong]: "gang2",
+//     [TypeOfOP.Pong]: "chipeng"
+//     // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
+// };
 //落地牌组缩放
 const meldsScale: number[][] = [
     [0.95, 0.95, 0.95, 0.95, 0.95], //没有杠

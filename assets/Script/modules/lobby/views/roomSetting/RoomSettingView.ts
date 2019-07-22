@@ -1,3 +1,4 @@
+import { RoomHost } from "../../interface/LInterfaceExports";
 import { DataStore, Dialog, GResLoader, Logger } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
@@ -7,6 +8,8 @@ export interface RoomInterface {
     onExitButtonClicked(): void;
 
     enableVoiceBtn(isShow: boolean): void;
+
+    getRoomHost(): RoomHost;
 }
 /**
  * 设置界面
@@ -72,7 +75,7 @@ export class RoomSettingView extends cc.Component {
         this.musicBtn.onClick(this.onMusicSoundBtnClick, this);
         // this.musicBtnText = musicBtn.getChild("text");
 
-        const gps = DataStore.getString("effectsVolume", "0");
+        const gps = DataStore.getString("gps", "0");
         const voice = DataStore.getString("effectsVolume", "0");
         const effectsVolume = DataStore.getString("effectsVolume", "0");
         const musicVolume = DataStore.getString("musicVolume", "0");
@@ -116,10 +119,17 @@ export class RoomSettingView extends cc.Component {
 
     private onGpsBtnClick(): void {
         if (this.gpsBtn.selected) {
-            // TODO: 关闭GPS
+            if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+                Dialog.prompt("在微信上打开，gps才生效");
+            }
+
+            DataStore.setItem("gps", 1);
+
         } else {
-            // TODO: 打开GPS
+            DataStore.setItem("gps", 0);
         }
+
+        this.room.getRoomHost().eventTarget.emit("gpsChange");
     }
 
     private onVoiceBtnClick(): void {

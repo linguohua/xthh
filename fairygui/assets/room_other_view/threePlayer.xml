@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1034,372">
-  <controller name="12Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
+  <controller name="12Ctrl" pages="0,灰色,1,绿色,2,红色" selected="2"/>
   <controller name="13Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <controller name="23Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <displayList>
@@ -72,7 +72,7 @@
     <text id="n70_im76" name="city2" xy="515,73" size="129,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
     <text id="n68_im76" name="city3" xy="23,75" size="113,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
     <text id="n82_bvbt" name="1_3_label" xy="209,100" size="122,29" rotation="45" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
-    <text id="n84_bvbt" name="1_3_label" xy="357,185" size="122,29" rotation="-45" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
-    <text id="n86_bvbt" name="1_3_label" xy="266,56" size="122,29" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n84_bvbt" name="1_2_label" xy="357,186" size="122,29" rotation="-45" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <text id="n86_bvbt" name="2_3_label" xy="266,56" size="122,29" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
   </displayList>
 </component>

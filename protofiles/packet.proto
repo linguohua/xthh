@@ -417,6 +417,16 @@ enum eRETURN_TYPE{
 	RETURN_HELPER_RECEIVE_ALL   = 4005;		//福利金已领完
 }
 
+message packet_coordinate{
+   optional uint32				player_id = 1;			// 玩家id
+   optional double		         latitude = 10;			// 纬度
+   optional double		        longitude = 11;			// 经度
+   optional string		      	  address = 12;			// 真实地址
+   optional string					   ip = 20;			//
+   optional string				ipaddress = 21;	// ipaddress
+}
+
+
 message packet_ping{
 	optional uint64 			now = 1; 			// 服务器当前时间
 }
