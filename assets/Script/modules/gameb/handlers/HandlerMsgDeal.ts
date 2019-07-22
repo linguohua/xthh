@@ -1,11 +1,46 @@
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface, roomStatus } from "../RoomInterface";
+import { Logger } from "../../lobby/lcore/Logger";
 
+//发牌个数
+const dealNum: number[] = [
+    4, 4, 4, 1
+];
 /**
  * 发牌处理
  */
 export namespace HandlerMsgDeal {
+
+    const onPlayDealAni = async (room: RoomInterface, cards: number[]): Promise<void> => {
+        // const players = room.getPlayers();
+        //保存每一个玩家的牌列表
+        // const playersKeyArr = Object.keys(players);
+        // Logger.debug("保存每一个玩家的牌列表 ", cards);
+        for (let i = 0; i < dealNum.length; i++) {
+            const num = dealNum[i];
+            for (let j = 0; j < 4; j++) {
+                // for (const key of playersKeyArr) {
+                const p = <Player>room.getPlayerByChairID(j);
+                // const p = <Player>players[key];
+                if (p !== undefined && p !== null) {
+                    if (p.isMe()) {
+                        p.addHandTiles(cards.splice(0, num));
+                    } else {
+                        if (p.tileCountInHand === undefined || p.tileCountInHand === null) {
+                            p.tileCountInHand = 0;
+                        }
+                        p.tileCountInHand += num;
+                    }
+                    p.playerView.showDeal();
+                    // p.hand2UI(false);
+                    await room.coWaitSeconds(0.3);
+                }
+            }
+        }
+
+
+    };
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const msgDeal = proto.casino_xtsj.packet_sc_start_play.decode(msgData);
         console.log("HandlerMsgDeal---------------- ", msgDeal);
@@ -39,13 +74,23 @@ export namespace HandlerMsgDeal {
         //保存每一个玩家的牌列表
         const playersKeyArr = Object.keys(players);
         let playerNum = 0;
+        // for (const key of playersKeyArr) {
+        //     const p = <Player>players[key];
+        //     if (p.isMe()) {
+        //         p.addHandTiles(msgDeal.cards);
+        //         p.sortHands(false);
+        //     } else {
+        //         p.tileCountInHand = 13;
+        //     }
+        //     p.hand2UI(false);
+        //     playerNum++;
+        // }
+        await onPlayDealAni(room, msgDeal.cards);
+
         for (const key of playersKeyArr) {
             const p = <Player>players[key];
             if (p.isMe()) {
-                p.addHandTiles(msgDeal.cards);
                 p.sortHands(false);
-            } else {
-                p.tileCountInHand = 13;
             }
             p.hand2UI(false);
             playerNum++;

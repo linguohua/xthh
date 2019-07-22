@@ -58,6 +58,7 @@ export interface PlayerInterface {
     readyHandList: number[];
     waitSkip: boolean;
     tilesHand: number[];
+    tileCountInHand: number;
     tilesFlower: number[];
     tilesDiscarded: number[];
     tilesMelds: proto.casino_xtsj.packet_sc_op_ack[];

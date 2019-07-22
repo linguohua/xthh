@@ -550,6 +550,26 @@ export class PlayerView {
         }
     }
 
+    public showDeal(): void {
+        if (this.player.isMe()) {
+            const tileshand = this.player.tilesHand;
+            // let j = 0;
+            for (let i = 0; i < tileshand.length; i++) {
+                const h = this.hands[12 - i];
+                const t = tileshand[i];
+                TileImageMounter.mountTileImage(h, t);
+                h.getChild("laiziMask").visible = t === this.room.laiziID;
+                h.getChild("laizi").visible = t === this.room.laiziID;
+                h.visible = true;
+                // j = j + 1;
+            }
+        } else {
+            for (let i = 0; i < this.player.tileCountInHand; i++) {
+                this.hands[12 - i].visible = true;
+            }
+        }
+    }
+
     //为本人显示手牌，也即是1号playerView(prefab中的1号)//@param wholeMove 是否整体移动
     public showHandsForMe(wholeMove: boolean): void {
         const melds = this.player.tilesMelds;
