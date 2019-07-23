@@ -812,3 +812,46 @@ message packet_table_disband_ack{
 	optional uint64		 table_id = 6;			// 桌子id
 
 }
+message casino_score{
+	required uint64				 id = 1;		// 唯一编号
+	required uint32	      casino_id = 2;		// 游戏类型
+	required uint32			room_id = 3;		// 房间id
+	required uint64		   table_id = 4;		// 桌子编号
+	optional uint32		  table_tag = 5;		// 桌子邀请码
+	optional uint32			  round = 6;		// 回合数
+	optional float			  score = 7;		// 积分
+	optional int32			  money = 8;		// 钱
+	optional uint32		  replay_id = 9;		// 重播id
+	optional uint64		create_time = 10;		// 创建时间
+}
+
+// 积分查询返回
+message packet_score_ack{
+   required uint32				ret = 1;		// 返回值
+   optional	uint32	      casino_id = 2;		//
+   repeated casino_score	 scores = 10;		// 奖励信息
+}
+
+message packet_score_time_req {
+	optional	uint32		casino_id = 2;		// 游戏类型积分查询(0为查询为查询所有积分类型)
+	optional	uint32			  day =	3;		// 查询天数
+}
+
+message packet_score_time_ack {
+   required uint32				ret = 1;		// 返回值
+   optional	uint32	      casino_id = 2;		//
+   repeated casino_score	 scores = 10;		// 奖励信息
+}
+
+// 回放请求
+message packet_replay_req{
+	required uint32    replay_id = 1; 			// 战报id
+}
+
+// 活动应答
+message packet_replay_ack{
+ required uint32			 ret = 1;			// 返回值
+ required uint32 	   replay_id = 2; 			// 战报id
+ optional uint32	  request_id = 3;			// 请求战报的玩家id
+ optional bytes 		  replay = 10; 			// 战报数据
+}

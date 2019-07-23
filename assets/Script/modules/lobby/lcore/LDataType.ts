@@ -1,4 +1,4 @@
-import { proto as protoHH} from "../protoHH/protoHH";
+import { proto as protoHH } from "../protoHH/protoHH";
 
 /**
  * 一些公用数据类型
@@ -59,6 +59,8 @@ export interface LobbyModuleInterface {
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;
     requetJoinRoom(roomNumber: string): void;
+    sendGameMsg(buf: ByteBuffer, code: number): void;
+    setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
 }
 
 export interface CreateRoomParams {

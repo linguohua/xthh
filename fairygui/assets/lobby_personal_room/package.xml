@@ -33,6 +33,8 @@
     <component id="lqn3v" name="fkRecordBtn.xml" path="/btn/"/>
     <component id="lqn3w" name="gameRecordBtn.xml" path="/btn/"/>
     <component id="gfgkx" name="radioBtnNotCenter.xml" path="/btn/"/>
+    <component id="kyp5y" name="recordCom.xml" path="/com/"/>
+    <component id="kyp5z" name="recordItem.xml" path="/com/"/>
   </resources>
   <publish name="lobby_personal_room"/>
 </packageDescription>

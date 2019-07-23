@@ -10435,6 +10435,180 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 6
                         }
                     ]
+                },
+                {
+                    "name": "casino_score",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint64",
+                            "name": "id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "casino_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "room_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "table_tag",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "round",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "float",
+                            "name": "score",
+                            "id": 7
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "money",
+                            "id": 8
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "replay_id",
+                            "id": 9
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "create_time",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_score_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "casino_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "casino_score",
+                            "name": "scores",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_score_time_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "casino_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "day",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_score_time_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "casino_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "casino_score",
+                            "name": "scores",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_replay_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "replay_id",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_replay_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "replay_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "request_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bytes",
+                            "name": "replay",
+                            "id": 10
+                        }
+                    ]
                 }
             ],
             "enums": [

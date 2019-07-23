@@ -53,6 +53,8 @@ export class NewRoomView extends cc.Component {
     private fkText: fgui.GTextField;
     private noEnoughFkText: fgui.GTextField;
     private createRoomBtn: fgui.GButton;
+    private recordList: fgui.GList;
+    private recordMsgs: protoHH.casino.Icasino_score[];
     public getView(): fgui.GComponent {
         return this.view;
     }
@@ -60,6 +62,7 @@ export class NewRoomView extends cc.Component {
     public showView(): void {
         // this.club = club;
         // this.quicklyCreateView = quicklyCreateView;
+        this.initHandler();
         this.initView();
         this.win.show();
     }
@@ -161,8 +164,19 @@ export class NewRoomView extends cc.Component {
         personalRoomTextx.text = "私人房";
 
         this.initPersonalRoom();
+        //战绩界面
+        const recordCom = this.view.getChild("recordCom").asCom;
+        this.recordList = recordCom.getChild("list").asList;
+        this.recordList.itemRenderer = (index: number, item: fgui.GObject) => {
+            this.renderRecordListItem(index, item);
+        };
     }
 
+    private initHandler(): void {
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onGameRecord, this);
+        lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK, this.onReplayAck, this);
+    }
     private initBoxRecord(): void {
         // TODO:
     }
@@ -173,7 +187,60 @@ export class NewRoomView extends cc.Component {
 
     private initGameRecord(): void {
         // TODO:
+        // Logger.debug("战绩--------------------");
+        const req2 = new protoHH.casino.packet_score_time_req();
+        req2.casino_id = 0; //固定
+        req2.day = 0; // 0~6 0当天 1昨天 2前天
+        const buf = protoHH.casino.packet_score_time_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_SCORE_TIME_REQ);
     }
+    private onGameRecord(msg: protoHH.casino.ProxyMessage): void {
+        const reply = protoHH.casino.packet_score_time_ack.decode(msg.Data);
+        Logger.debug("战绩--------------------reply: ", reply);
+        this.recordMsgs = [];
+        if (reply.scores !== undefined && reply.scores !== null && reply.scores.length > 0) {
+            for (const score of reply.scores) {
+                // const length = Object.keys(this.recordMsgs).length + 1;
+                // this.recordMsgs[length] = score;
+                this.recordMsgs.push(score);
+            }
+        }
+        this.recordList.numItems = this.recordMsgs.length;
+    }
+
+    private onReplayAck(msg: protoHH.casino.ProxyMessage): void {
+        const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
+        Logger.debug("回播--------------------reply: ", reply);
+    }
+
+    private renderRecordListItem(index: number, item: fgui.GObject): void {
+        const msg = this.recordMsgs[index];
+        const obj = item.asCom;
+
+        const date = new Date(msg.create_time.toNumber() * 1000);
+        const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+        const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
+        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
+        const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
+
+        obj.getChild("time").text = timeText;
+        obj.getChild("room").text = `${msg.table_tag}`;
+        obj.getChild("num").text = `${msg.round}`;
+        obj.getChild("score").text = `${msg.score}`;
+        obj.getChild("name").text = `仙桃晃晃`;
+        obj.getChild("id").text = `${msg.id}`;
+        obj.getChild("btn").asButton.onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
+    }
+    private onReplayBtnClick(rId: number): void {
+        const req2 = new protoHH.casino.packet_replay_req();
+        req2.replay_id = rId;
+        const buf = protoHH.casino.packet_replay_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
+    }
+
     private initPersonalRoom(): void {
         const personalRoomView = this.view.getChild("srfCom").asCom;
 

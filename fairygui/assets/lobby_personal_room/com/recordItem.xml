@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="863,70">
+  <displayList>
+    <text id="n0_kyp5" name="time" xy="-1,8" size="237,52" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="2019-11-10 12:12:99"/>
+    <text id="n5_kyp5" name="room" xy="236,8" size="101,52" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="123456"/>
+    <text id="n1_kyp5" name="num" xy="336,8" size="48,52" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="123"/>
+    <text id="n2_kyp5" name="score" xy="386,8" size="87,52" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="123456"/>
+    <text id="n3_kyp5" name="name" xy="474,8" size="128,52" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="仙桃晃晃"/>
+    <text id="n4_kyp5" name="id" xy="603,8" size="133,52" fontSize="22" color="#856d57" align="center" vAlign="middle" autoSize="none" text="123456789"/>
+    <component id="n6_kyp5" name="btn" src="b75to" fileName="btn/accessBtn.xml" xy="709,-2" scale="0.6,0.6"/>
+  </displayList>
+</component>
