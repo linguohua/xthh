@@ -23,5 +23,6 @@
     <component id="n16_dtxt" name="qipao" src="jmxy1i" fileName="qipao1.xml" xy="150,184" hideByEditor="true" visible="false"/>
     <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="153,136" visible="false"/>
     <component id="n20_hz17" name="hand2" src="hz17p1" fileName="desk/left/desk_hand2.xml" xy="2,1" visible="false"/>
+    <graph id="n21_kyp5" name="piaoAni" xy="553,317" size="17,16"/>
   </displayList>
 </component>

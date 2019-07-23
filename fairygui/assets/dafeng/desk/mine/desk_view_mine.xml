@@ -26,5 +26,6 @@
     <component id="n18_ooqz" name="qipao" src="jmxy1i" fileName="qipao1.xml" xy="366,420" hideByEditor="true" visible="false"/>
     <component id="n25_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="503,271" visible="false"/>
     <component id="n26_hz17" name="hand2" src="hz17p0" fileName="desk/mine/desk_hand2.xml" xy="-1,473" visible="false"/>
+    <graph id="n27_itd2" name="piaoAni" xy="553,518" size="17,16"/>
   </displayList>
 </component>

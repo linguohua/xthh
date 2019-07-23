@@ -93,6 +93,7 @@ export class PlayerView {
     private operationPanel: fgui.GComponent;
     private aniPos: fgui.GObject;
     private userInfoPos: fgui.GObject;
+    private piaoAni: fgui.GObject;
     private qipao: fgui.GComponent;
     private qipaoText: fgui.GObject;
     private alreadyShowNonDiscardAbleTips: boolean;
@@ -409,12 +410,12 @@ export class PlayerView {
 
         if (isPiao) {
             //因为出牌列表节点会缩小 得把飘赖效果放大。。。
-            const point = lastD.getChild("piaoPos");
-            point.scaleX = 1 / lastD.scaleX;
-            point.scaleY = 1 / lastD.scaleY;
+            // const point = lastD.getChild("piaoPos");
+            // point.scaleX = 1 / lastD.scaleX;
+            // point.scaleY = 1 / lastD.scaleY;
             // Logger.debug("point : ", point.scaleX);
 
-            this.playPiaoEffect(point.node);
+            this.playPiaoEffect(lastD);
         }
     }
 
@@ -826,8 +827,13 @@ export class PlayerView {
         }
     }
 
-    public async playPiaoEffect(node: cc.Node): Promise<void> {
-        await this.roomHost.animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, node);
+    public async playPiaoEffect(node: fgui.GObject): Promise<void> {
+        const xy = this.viewUnityNode.node.
+            convertToNodeSpaceAR(node.parent.node.convertToWorldSpaceAR(new cc.Vec2(node.x, node.y)));
+        xy.x += 20;
+        xy.y += 15;
+        this.piaoAni.node.position = xy;
+        await this.roomHost.animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, this.piaoAni.node);
     }
     //特效道具播放
     public playerDonateEffect(effectName: string): void {
@@ -902,6 +908,7 @@ export class PlayerView {
         // this.aniPos = view.getChild("aniPos")
         this.userInfoPos = this.myView.getChild("userInfoPos");
 
+        this.piaoAni = this.myView.getChild("piaoAni");
         //打出的牌放大显示
         this.discardTips = this.myView.getChild("discardTip").asCom;
         this.discardTipsTile = this.discardTips.getChild("card").asCom;

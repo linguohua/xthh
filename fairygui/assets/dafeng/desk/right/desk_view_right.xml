@@ -6,7 +6,7 @@
     <image id="n3_fxwe" name="owner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="1009,175" hideByEditor="true" visible="false"/>
     <image id="n4_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="1099,220" hideByEditor="true" visible="false"/>
     <image id="n5_fxwe" name="ting" src="jmxyn" fileName="大丰麻将美术改版/2 游戏内/切图/tb_ting.png" xy="1079,175" hideByEditor="true" visible="false"/>
-    <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="1104,274" pivot="0.5,0.5" anchor="true" hideByEditor="true">
+    <image id="n6_fxwe" name="zhuang" src="jmxyo" fileName="大丰麻将美术改版/2 游戏内/切图/tb_zhuang.png" xy="1104,274" pivot="0.5,0.5" anchor="true" hideByEditor="true" visible="false">
       <relation target="n2_fxwe" sidePair="right-right"/>
     </image>
     <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="1037,135" hideByEditor="true" visible="false"/>
@@ -16,12 +16,13 @@
     <component id="n10_fxwe" name="melds" src="jmxy20" fileName="desk/right/desk_meld.xml" xy="994,472" pivot="0.5,1" anchor="true" size="78,640" scale="0.6,0.6" touchable="false"/>
     <component id="n12_fxwe" name="lights" src="jmxy21" fileName="desk/right/desk_light.xml" xy="955,0" touchable="false"/>
     <component id="n11_fxwe" name="flowers" src="jmxy22" fileName="desk/right/desk_flower.xml" xy="917,155" touchable="false"/>
-    <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="965,215" hideByEditor="true"/>
+    <image id="n9_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="965,215" hideByEditor="true" visible="false"/>
     <graph id="n13_fxwe" name="aniPos" xy="935,243" pivot="0.5,0.5" size="0,0"/>
     <component id="n14_g0pr" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="861,192" visible="false"/>
     <graph id="n15_rh8w" name="userInfoPos" xy="533,193" size="20,26" hideByEditor="true" visible="false"/>
     <component id="n17_dtxt" name="qipao" src="jmxy14" fileName="qipao2.xml" xy="604,182" hideByEditor="true" visible="false"/>
     <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="859,147" visible="false"/>
     <component id="n20_hz17" name="hand2" src="hz17p3" fileName="desk/right/desk_hand2.xml" xy="955,0" visible="false"/>
+    <graph id="n21_itd2" name="piaoAni" xy="553,318" size="17,16"/>
   </displayList>
 </component>
