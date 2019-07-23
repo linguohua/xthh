@@ -81,6 +81,7 @@ export class PlayerView {
     public hand2: fgui.GObject;
     private discards: fgui.GComponent[];
     private discardLans: fgui.GObject[][] = [];
+    private meldLans: fgui.GObject[][] = [];
     private lights: fgui.GComponent[];
     private hands: fgui.GComponent[];
     private melds: fgui.GComponent[];
@@ -181,6 +182,7 @@ export class PlayerView {
         //this.head.goldText.text = tostring(gold)
         //}
     }
+    // tslint:disable-next-line:cyclomatic-complexity
     public setLanOfDiscard(isShow: boolean, tile?: number): void {
         // Logger.debug("setLanOfDiscard ------- tile : ", tile);
         if (this.discardLans !== undefined && this.discardLans !== null) {
@@ -193,6 +195,23 @@ export class PlayerView {
             }
             if (isShow && tile !== undefined && tile !== null && tile !== this.room.laiziID) {
                 const ts = this.discardLans[tile];
+                if (ts !== undefined && ts !== null) {
+                    for (const t of ts) {
+                        t.visible = true;
+                    }
+                }
+            }
+        }
+        if (this.meldLans !== undefined && this.meldLans !== null) {
+            for (const discardLan of this.meldLans) {
+                if (discardLan !== undefined && discardLan !== null) {
+                    for (const t of discardLan) {
+                        t.visible = false;
+                    }
+                }
+            }
+            if (isShow && tile !== undefined && tile !== null && tile !== this.room.laiziID) {
+                const ts = this.meldLans[tile];
                 if (ts !== undefined && ts !== null) {
                     for (const t of ts) {
                         t.visible = true;
@@ -439,6 +458,7 @@ export class PlayerView {
     }
     //显示面子牌组
     public showMelds(): void {
+        this.meldLans = [];
         const ms = this.player.tilesMelds;
         const length = ms.length;
         let g = 0;
@@ -448,13 +468,24 @@ export class PlayerView {
             //根据面子牌挂载牌的图片
             const meldData = ms[i];
             // Logger.debug("根据面子牌挂载牌的图片 : ", meldData);
-            const isFour = this.mountMeldImage(mv, meldData);
-            if (isFour) {
+            const arr = this.mountMeldImage(mv, meldData);
+            if (arr.length === 4) {
                 g++;
             } else {
                 p++;
             }
             mv.visible = true;
+            //落地牌组 蓝色遮罩
+            const lastT = meldData.cards[0];
+            const dsLs = this.meldLans[lastT];
+            if (dsLs === undefined || dsLs === null) {
+                this.meldLans[lastT] = [];
+            }
+            for (const a of arr) {
+                const lM = a.getChild("lanMask");
+                lM.visible = false;
+                this.meldLans[lastT].push(lM);
+            }
         }
         const o = meldsScale[g][p];
         const v = (o) * this.meldsViewScale;
@@ -493,7 +524,8 @@ export class PlayerView {
     //显示面子牌组，暗杠需要特殊处理，如果是自己的暗杠，
     //则明牌显示前3张，第4张暗牌显示（以便和明杠区分）
     //如果是别人的暗杠，则全部暗牌显示
-    public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): boolean {
+    public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): fgui.GComponent[] {
+
         const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
         let viewChairID = this.viewChairID;
         if (pp !== undefined && pp.chairID !== undefined && pp.chairID !== null) {
@@ -503,6 +535,7 @@ export class PlayerView {
         const t2 = meldView.getChild("n2").asCom;
         const t3 = meldView.getChild("n3").asCom;
         const t4 = meldView.getChild("n4").asCom;
+        const arr: fgui.GComponent[] = [t1, t2, t3];
         // t1.visible = true;
         // t2.visible = true;
         // t3.visible = true;
@@ -534,11 +567,12 @@ export class PlayerView {
             height = meldView.getChild("size4").height;
             t4.visible = true;
             this.setMeldTileDirection(jiantou1, viewChairID, 1);
+            arr.push(t4);
         }
         // meldView.visible = true;
         meldView.setSize(width, height);
 
-        return t4.visible;
+        return arr;
     }
 
     public hideFlowerOnHandTail(): void {
@@ -760,7 +794,7 @@ export class PlayerView {
     //显示玩家头像
     public showPlayerInfo(playerInfo: PlayerInfo): void {
         this.head.headView.visible = true;
-        this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
+        // this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
 
         this.head.nameText.text = this.player.mNick;
         this.head.nameText.visible = true;
