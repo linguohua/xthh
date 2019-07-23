@@ -42,7 +42,7 @@ export namespace HandlerMsgDeal {
                     }
                     p.playerView.showDeal();
                     // p.hand2UI(false);
-                    await room.coWaitSeconds(0.3);
+                    await room.coWaitSeconds(0.15);
                 }
             }
         }
@@ -51,7 +51,7 @@ export namespace HandlerMsgDeal {
             p.playerView.hideHands();
             p.playerView.hand2.visible = true;
         }
-        await room.coWaitSeconds(0.5);
+        await room.coWaitSeconds(0.3);
         for (const p of playersArr) {
             p.playerView.hand2.visible = false;
         }
