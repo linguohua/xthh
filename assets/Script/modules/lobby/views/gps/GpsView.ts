@@ -246,7 +246,7 @@ export class GpsView extends cc.Component {
             return;
         }
 
-        const url = `${LEnv.qqmapGeoCoder}${coordinate.latitude},${coordinate.longitude}&key=${LEnv.qqmapKey}&output=json`;
+        const url = `${LEnv.baiduMapApi}${coordinate.latitude},${coordinate.longitude}&ak=${LEnv.baiduAK}&output=json&coordtype=wgs84ll`;
         Logger.debug("url:", url);
 
         HTTP.hGet(
@@ -263,17 +263,17 @@ export class GpsView extends cc.Component {
                     errMsg = HTTP.hError(xhr);
 
                     if (errMsg === null) {
-                        Logger.debug("xhr.responseText:", xhr.responseText);
+                        // Logger.debug("xhr.responseText:", xhr.responseText);
                         const jsonObj = JSON.parse(xhr.responseText);
                         if (jsonObj.status !== 0) {
-                            Dialog.showDialog(jsonObj.message);
+                            Dialog.showDialog(`获取位置错误，状态码:${jsonObj.status}`);
                             obj.text = "未获取位置";
                             Logger.debug(`load user address error, status${jsonObj.status}, message:${jsonObj.message}`);
 
                             return;
                         }
 
-                        obj.text = jsonObj.result.address;
+                        obj.text = jsonObj.result.formatted_address;
                     }
                 }
 

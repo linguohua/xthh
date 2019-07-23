@@ -63,11 +63,9 @@ export namespace LEnv {
 
     export const setRoomOptions = "/lobby/uuid/setRoomOptions";
 
-    export const qqmapGeoCoder = "https://apis.map.qq.com/ws/geocoder/v1/?location=";
+    export const baiduAK = "v1jXiFzfwu0HVhnHL7zBStUvX1esPIWU";
 
-    export const qqmapDistance = "https://apis.map.qq.com/ws/distance/v1/?";
-
-    export const qqmapKey = "K77BZ-3KTWF-SB7JD-NRDP4-A2VX2-UTB7L";
+    export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
 
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
         return str.replace(/{(\d+)}/g, (match, n) => {
