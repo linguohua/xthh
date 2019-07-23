@@ -103,7 +103,7 @@ export class PlayerView {
     private dragHand: fgui.GComponent; //拖牌时 克隆的牌
     private msgTimerCB: Function;
     private isTwoPlayer: boolean = false;
-    private meldsViewScale = 0;
+    private meldsViewScale: number = 0;
     private piaoScoreWin: fgui.GObject;
     private piaoScoreLose: fgui.GObject;
     private piaoScoreStartPos: cc.Vec2;
@@ -1374,21 +1374,27 @@ export class PlayerView {
         this.gangBtn = this.operationPanel.getChild("gangBtn").asButton;
 
         this.skipBtn.onClick(() => { this.player.onSkipBtnClick(); }, this);
-        this.pengBtn.onClick(() => {
-            if (!this.pengBtn.grayed) {
-                this.player.onPongBtnClick();
-            }
-        }, this);
-        this.huBtn.onClick(() => {
-            if (!this.huBtn.grayed) {
-                this.player.onWinBtnClick();
-            }
-        }, this);
-        this.gangBtn.onClick(() => {
-            if (!this.gangBtn.grayed) {
-                this.player.onKongBtnClick();
-            }
-        }, this);
+        this.pengBtn.onClick(
+            () => {
+                if (!this.pengBtn.grayed) {
+                    this.player.onPongBtnClick();
+                }
+            },
+            this);
+        this.huBtn.onClick(
+            () => {
+                if (!this.huBtn.grayed) {
+                    this.player.onWinBtnClick();
+                }
+            },
+            this);
+        this.gangBtn.onClick(
+            () => {
+                if (!this.gangBtn.grayed) {
+                    this.player.onKongBtnClick();
+                }
+            },
+            this);
         // this.buttonList = this.operationPanel.getChild("buttonList").asList;
         // this.buttonList.itemRenderer = <(index: number, item: fgui.GComponent) => void>this.renderButtonListItem.bind(this);
         // this.buttonList.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onClickBtn(onClickItem.name); }, this);

@@ -78,7 +78,7 @@ export class Player {
     public waitSkip: boolean;
     public state: number;
     public playerInfo: PlayerInfo;
-    public coordinate: protoHH.casino.coordinate;
+    public coordinate: protoHH.casino.Icoordinate;
     public waitDiscardReAction: boolean;
     public readyHandList: number[];
     public isGuoHuTips: boolean;
@@ -442,6 +442,7 @@ export class Player {
             nick = `${nick.substring(0, 8)}...`;
         }
         this.mNick = nick;
+        this.coordinate = playerInfo.coord;
     }
     public piaoScore(num: number): void {
         this.totalScores += num;

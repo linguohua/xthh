@@ -27,6 +27,10 @@ const gpsPlayerNumberIndex: { [key: number]: number } = {
     [4]: 2
 };
 
+const twoPlayerPair: number[][] = [
+    [0, 1]
+];
+
 const threePlayerPair: number[][] = [
     [0, 1],
     [0, 2],
@@ -112,120 +116,34 @@ export class GpsView extends cc.Component {
     }
 
     private initDistanceView(): void {
-        if (this.players.length === 2) {
-            this.initTwoPlayerDistanceView();
-        } else if (this.players.length === 3) {
-            this.initThreePlayerDistanceView();
-        } else if (this.players.length === 4) {
-            this.initFourPlayerDistanceView();
-        }
-
+        this.initPlayerDistanceView();
     }
 
-    private initTwoPlayerDistanceView(): void {
-        const myPlayerID = DataStore.getString("playerID");
-        const distanceView = this.view.getChild("twoPlayer").asCom;
-        const distanceText = distanceView.getChild("1_3_label");
-        const ctrl12 = distanceView.getController("12Ctrl");
-        const warningText = distanceView.getChild("warningText");
-        warningText.visible = false;
-
-        for (const player of this.players) {
-            let viewCharID: number = 0;
-            if (`${player.playerInfo.userID}` === `${myPlayerID}`) {
-                viewCharID = 3;
-            } else {
-                viewCharID = 1;
-            }
-
-            // Logger.debug("player:", player);
-
-            const head = distanceView.getChild(`loader${viewCharID}`).asLoader;
-            const name = distanceView.getChild(`name${viewCharID}`);
-            const address = distanceView.getChild(`city${viewCharID}`);
-
-            CommonFunction.setHead(head, player.playerInfo.headIconURI, player.playerInfo.gender);
-            name.text = player.playerInfo.nick;
-
-            if (player.coordinate === undefined || player.coordinate === null) {
-                address.text = "未获取位置";
-            } else {
-                this.setAddress(player.coordinate, address);
-                // opponentAddress.text = this.getPlayerAddress(player.coordinate);
-            }
-
-        }
-
-        if (this.players[0].coordinate === undefined || this.players[0].coordinate === null) {
-            distanceText.text = "未知距离";
-            // 灰色
-            ctrl12.selectedIndex = 0;
-
-            return;
-        }
-
-        if (this.players[1].coordinate === undefined || this.players[1].coordinate === null) {
-            distanceText.text = "未知距离";
-            // 灰色
-            ctrl12.selectedIndex = 0;
-
-            return;
-        }
-
-        // 绿色
-        ctrl12.selectedIndex = 1;
-        // tslint:disable-next-line:no-any
-        // this.calculateDistance(this.players[0].coordinate, this.players[1].coordinate, (err: string, result: any) => {
-        //     if (err !== null) {
-        //         ctrl12.selectedIndex = 0;
-        //         Dialog.showDialog(err);
-
-        //         return;
-        //     }
-
-        //     if (result.status !== 0) {
-        //         ctrl12.selectedIndex = 0;
-        //         Dialog.showDialog(result.message);
-
-        //         return;
-        //     }
-
-        //     const element = result.result.elements[0];
-        //     const distance = element.distance;
-        //     if (distance > 1000) {
-        //         distanceText.text = `${distance / 1000}千米`;
-        //     } else {
-        //         distanceText.text = `${distance}米`;
-        //         if (distance < 100) {
-        //             warningText.text = "发现距离过近";
-        //             warningText.visible = true;
-        //             // 红色
-        //             ctrl12.selectedIndex = 2;
-        //         }
-        //     }
-
-        // });
-        const distance = this.calculateDistance(this.players[0].coordinate, this.players[1].coordinate);
-        if (distance > 1000) {
-            distanceText.text = `${distance / 1000}千米`;
-        } else {
-            distanceText.text = `${distance}米`;
-            if (distance < 100) {
-                warningText.text = "发现距离过近";
-                warningText.visible = true;
-
-                // 红色
-                ctrl12.selectedIndex = 2;
-            }
-        }
-    }
-
-    private initThreePlayerDistanceView(): void {
-        const distanceView = this.view.getChild("threePlayer").asCom;
-        const warningText = distanceView.getChild("warningText");
-        warningText.visible = false;
-
+    private initPlayerDistanceView(): void {
+        this.sortPlayer();
         const playerLength = this.players.length;
+
+        let playerPairNumber: number = 0;
+        let distanceView: fgui.GComponent = null;
+
+        if (playerLength === 2) {
+            playerPairNumber = twoPlayerPair.length;
+            distanceView = this.view.getChild("twoPlayer").asCom;
+        } else if (playerLength === 3) {
+            playerPairNumber = threePlayerPair.length;
+            distanceView = this.view.getChild("threePlayer").asCom;
+        } else if (playerLength === 4) {
+            playerPairNumber = fourPlayerPair.length;
+            distanceView = this.view.getChild("fourPlayer").asCom;
+        } else {
+            Logger.error("Unkonw player number:", playerLength);
+
+            return;
+        }
+
+        const warningText = distanceView.getChild("warningText");
+        warningText.visible = false;
+
         for (let i = 0; i < playerLength; i++) {
             const player = this.players[i];
 
@@ -236,7 +154,7 @@ export class GpsView extends cc.Component {
             CommonFunction.setHead(head, player.playerInfo.headIconURI, player.playerInfo.gender);
             name.text = player.playerInfo.nick;
 
-            if (player.coordinate === undefined || player.coordinate === null) {
+            if (player.coordinate === null || player.coordinate.latitude === null) {
                 address.text = "未获取位置";
             } else {
                 this.setAddress(player.coordinate, address);
@@ -245,7 +163,7 @@ export class GpsView extends cc.Component {
 
         }
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < playerPairNumber; i++) {
             const pair = threePlayerPair[i];
             const player1 = this.players[pair[0]];
             const player2 = this.players[pair[1]];
@@ -253,13 +171,13 @@ export class GpsView extends cc.Component {
             const ctrl = distanceView.getController(`${pair[0] + 1}${pair[1] + 1}Ctrl`);
             const name = `${pair[0] + 1}_${pair[1] + 1}_label`;
             const distanceText = distanceView.getChild(`${name}`);
-            if (player1.coordinate === undefined || player1.coordinate === null) {
+            if (player1.coordinate === null || player1.coordinate.latitude === null) {
                 distanceText.text = "未知距离";
                 ctrl.selectedIndex = 0;
                 continue;
             }
 
-            if (player2.coordinate === undefined || player2.coordinate === null) {
+            if (player2.coordinate === null || player2.coordinate.latitude === null) {
                 distanceText.text = "未知距离";
                 ctrl.selectedIndex = 0;
                 continue;
@@ -283,11 +201,6 @@ export class GpsView extends cc.Component {
             }
         }
 
-    }
-
-    private initFourPlayerDistanceView(): void {
-        const myPlayerID = DataStore.getString("playerID");
-        const distanceView = this.view.getChild("fourPlayer");
     }
 
     private onDisbandBtnClick(): void {
@@ -368,29 +281,42 @@ export class GpsView extends cc.Component {
             "text");
     }
 
-    private calculateDistance2(coordinate1: proto.casino.coordinate, coordinate2: proto.casino.coordinate, callback: Function): void {
-        Logger.debug(`calculateDistance, coordinate1:${coordinate1}, coordinate2:${coordinate2}`);
-
-        let url = `${LEnv.qqmapDistance}mode=straight&from=${coordinate1.latitude},${coordinate1.longitude}`;
-        url = `${url}&to=${coordinate2.latitude},${coordinate2.longitude}&key=${LEnv.qqmapKey}`;
-
-        Logger.debug("url:", url);
-
-        HTTP.hGet(this.eventTarget, url, (xhr: XMLHttpRequest, err: string) => {
-            let errMsg;
-            if (err !== null) {
-                callback(err, null);
-
-            } else {
-                errMsg = HTTP.hError(xhr);
-
-                if (errMsg === null) {
-                    const jsonObj = JSON.parse(xhr.responseText);
-                    callback(null, jsonObj);
-                }
+    // 将自己放在第一个
+    private sortPlayer(): void {
+        const myID = DataStore.getString("playerID");
+        const playerLength = this.players.length;
+        for (let i = 0; i < playerLength; i++) {
+            const p = this.players[i];
+            if (`${p.playerInfo.userID}` === `${myID}`) {
+                this.players.splice(i, 1);
+                this.players.unshift(p);
+                break;
             }
-
-        });
+        }
     }
+    // private calculateDistance2(coordinate1: proto.casino.coordinate, coordinate2: proto.casino.coordinate, callback: Function): void {
+    //     Logger.debug(`calculateDistance, coordinate1:${coordinate1}, coordinate2:${coordinate2}`);
+
+    //     let url = `${LEnv.qqmapDistance}mode=straight&from=${coordinate1.latitude},${coordinate1.longitude}`;
+    //     url = `${url}&to=${coordinate2.latitude},${coordinate2.longitude}&key=${LEnv.qqmapKey}`;
+
+    //     Logger.debug("url:", url);
+
+    //     HTTP.hGet(this.eventTarget, url, (xhr: XMLHttpRequest, err: string) => {
+    //         let errMsg;
+    //         if (err !== null) {
+    //             callback(err, null);
+
+    //         } else {
+    //             errMsg = HTTP.hError(xhr);
+
+    //             if (errMsg === null) {
+    //                 const jsonObj = JSON.parse(xhr.responseText);
+    //                 callback(null, jsonObj);
+    //             }
+    //         }
+
+    //     });
+    // }
 
 }
