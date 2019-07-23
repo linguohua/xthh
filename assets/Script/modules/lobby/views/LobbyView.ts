@@ -1,7 +1,7 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
+    DataStore, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 
 import { proto } from "../protoHH/protoHH";
@@ -88,6 +88,8 @@ export class LobbyView extends cc.Component {
         this.view = view;
         this.initView();
         this.testJoinGame();
+
+        SoundMgr.playMusicAudio("gameb/music_hall", true);
         // await this.startWebSocket();
 
         // TODO: 如果已经在房间，则拉进房间
@@ -95,6 +97,7 @@ export class LobbyView extends cc.Component {
 
     protected onDestroy(): void {
         this.isReconnect = false;
+        SoundMgr.stopMusic();
         // this.msgCenter.destory();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {

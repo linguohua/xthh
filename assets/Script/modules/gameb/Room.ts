@@ -179,7 +179,7 @@ export class Room {
 
         // 恢复上次设置的声音
         this.setSound();
-        this.playBgSound();
+        // this.playBgSound();
 
         if (this.roomInfo.play_total !== null) {
             this.handStartted = this.roomInfo.play_total;
@@ -803,9 +803,9 @@ export class Room {
         this.roomView.enableVoiceBtn(isShow);
     }
     //播放背景音乐
-    private playBgSound(): void {
-        SoundMgr.playMusicAudio("gameb/music_hall", true);
-    }
+    // private playBgSound(): void {
+    //     SoundMgr.playMusicAudio("gameb/music_hall", true);
+    // }
 
     private stopBgSound(): void {
         SoundMgr.stopMusic();
