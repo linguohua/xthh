@@ -88,4 +88,16 @@ export namespace Share {
             }
         });
     };
+
+    export const shareMyGame = (contentText: string, imgUrl: string, customParam?: string) => {
+        const cb1 = () => {
+            Logger.debug('share success');
+        };
+
+        const cb2 = () => {
+            Logger.debug('share fail');
+        };
+
+        WeiXinSDK.shareWeChat(cb1, cb2, contentText, imgUrl, customParam);
+    };
 }
