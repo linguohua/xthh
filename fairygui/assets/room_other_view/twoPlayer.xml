@@ -23,12 +23,12 @@
       <gearDisplay controller="12Ctrl" pages="2"/>
     </image>
     <loader id="n37_im76" name="loader1" xy="296,203" size="60,60" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
-    <loader id="n36_im76" name="loader3" xy="296,0" size="60,60" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
-    <text id="n60_im76" name="1_3_label" xy="266,129" size="122,29" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
+    <loader id="n36_im76" name="loader2" xy="296,0" size="60,60" url="ui://snwj6cnxjmxyj" align="center" vAlign="middle" fill="scale"/>
+    <text id="n60_im76" name="1_2_label" xy="266,129" size="122,29" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
     <text id="n65_im76" name="name1" xy="262,263" size="129,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
-    <text id="n67_im76" name="name3" xy="358,5" size="111,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
-    <text id="n66_im76" name="city1" xy="260,290" size="101,21" fontSize="12" color="#7b616a" vAlign="middle" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
-    <text id="n68_im76" name="city3" xy="358,32" size="101,21" fontSize="12" color="#7b616a" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <text id="n67_im76" name="name2" xy="358,5" size="111,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n66_im76" name="city1" xy="261,285" size="132,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
+    <text id="n68_im76" name="city2" xy="357,28" size="111,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
     <text id="n62_im76" name="warningText" xy="160,334" size="334,38" fontSize="26" color="#ed0d0d" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="发现未检测到位置的玩家"/>
   </displayList>
 </component>

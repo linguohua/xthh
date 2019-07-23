@@ -134,9 +134,9 @@
     <text id="n69_im76" name="name2" xy="522,277" size="129,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
     <text id="n67_im76" name="name3" xy="358,5" size="111,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
     <text id="n63_im76" name="name4" xy="2,277" size="129,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
-    <text id="n66_im76" name="city1" xy="260,224" size="129,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
-    <text id="n70_im76" name="city2" xy="520,304" size="129,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
-    <text id="n68_im76" name="city3" xy="358,32" size="113,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
-    <text id="n64_im76" name="city4" xy="0,305" size="129,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <text id="n66_im76" name="city1" xy="260,218" size="129,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
+    <text id="n70_im76" name="city2" xy="520,299" size="129,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
+    <text id="n68_im76" name="city3" xy="355,28" size="113,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
+    <text id="n64_im76" name="city4" xy="-1,299" size="129,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
   </displayList>
 </component>

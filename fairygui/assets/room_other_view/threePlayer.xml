@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1034,372">
-  <controller name="12Ctrl" pages="0,灰色,1,绿色,2,红色" selected="2"/>
+  <controller name="12Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <controller name="13Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <controller name="23Ctrl" pages="0,灰色,1,绿色,2,红色" selected="0"/>
   <displayList>
@@ -67,10 +67,10 @@
     <text id="n62_im76" name="warningText" xy="160,334" size="334,38" fontSize="26" color="#ed0d0d" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="发现未检测到位置的玩家"/>
     <text id="n65_im76" name="name1" xy="262,263" size="129,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
     <text id="n69_im76" name="name2" xy="517,46" size="129,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
-    <text id="n67_im76" name="name3" xy="23,48" size="111,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
-    <text id="n66_im76" name="city1" xy="260,290" size="129,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
-    <text id="n70_im76" name="city2" xy="515,73" size="129,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
-    <text id="n68_im76" name="city3" xy="23,75" size="113,25" fontSize="12" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="未获取到位置信息"/>
+    <text id="n67_im76" name="name3" xy="23,47" size="111,25" fontSize="16" color="#7b616a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="我喜欢鱼"/>
+    <text id="n66_im76" name="city1" xy="259,285" size="129,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
+    <text id="n70_im76" name="city2" xy="517,68" size="129,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
+    <text id="n68_im76" name="city3" xy="19,69" size="113,35" fontSize="12" color="#7b616a" align="center" vAlign="middle" leading="1" autoSize="none" autoClearText="true" text="广东省深圳市南山区科苑北10号"/>
     <text id="n82_bvbt" name="1_3_label" xy="209,100" size="122,29" rotation="45" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
     <text id="n84_bvbt" name="1_2_label" xy="357,186" size="122,29" rotation="-45" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
     <text id="n86_bvbt" name="2_3_label" xy="266,56" size="122,29" fontSize="18" color="#fef6e2" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="未知距离"/>
