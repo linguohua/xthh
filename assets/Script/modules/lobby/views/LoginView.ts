@@ -262,6 +262,7 @@ export class LoginView extends cc.Component {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
                     Logger.debug(err);
+                    Dialog.showDialog(err);
                 } else {
                     const reply = <{ servers: ServerCfg[] }>JSON.parse(xhr.responseText);
                     Logger.debug(reply);
@@ -493,12 +494,13 @@ export class LoginView extends cc.Component {
             const wxCode = <string>WeiXinSDK.getWxDataMap()[wxCodeStr];
             const wxUserData = <getUserInfoRes>WeiXinSDK.getWxDataMap()[wxUserInfoStr];
 
-            const wxLoginUrl = LEnv.cfmt(LEnv.wxLogin, "casino", wxCode);
+            const wxLoginUrl = LEnv.cfmt(`${LEnv.rootURL}${LEnv.wxLogin}`, "casino", wxCode);
             Logger.debug('wxloginUrl', wxLoginUrl);
 
             const requestData = {
                 avatar: wxUserData.userInfo.avatarUrl,
-                nickname: wxUserData.userInfo.nickName
+                nickname: wxUserData.userInfo.nickName,
+                gender: wxUserData.userInfo.gender
             };
 
             const jsonString = JSON.stringify(requestData);
@@ -509,6 +511,7 @@ export class LoginView extends cc.Component {
                 (xhr: XMLHttpRequest, err: string) => {
                     let errMsg = null;
                     if (err !== null) {
+                        this.button.show();
                         errMsg = `登录错误:${err}`;
                         Logger.debug(errMsg);
                         Dialog.showDialog(errMsg);
@@ -518,6 +521,7 @@ export class LoginView extends cc.Component {
 
                     errMsg = HTTP.hError(xhr);
                     if (errMsg !== null) {
+                        this.button.show();
                         Logger.debug(errMsg);
                         Dialog.showDialog(errMsg);
 
@@ -527,6 +531,7 @@ export class LoginView extends cc.Component {
                     Logger.debug("responseText:", xhr.responseText);
                     const reply = <WxLoginReply>JSON.parse(xhr.responseText);
                     if (reply.ret !== 0) {
+                        this.button.show();
                         errMsg = reply.msg;
                         Logger.debug(errMsg);
                         Dialog.showDialog(errMsg);
@@ -538,6 +543,8 @@ export class LoginView extends cc.Component {
                     this.fastLogin(null, reply).catch((reason) => {
                         Logger.debug(reason);
                     });
+
+                    this.button.show();
                 },
                 "text",
                 jsonString);

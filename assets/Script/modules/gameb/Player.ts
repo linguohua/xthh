@@ -433,7 +433,7 @@ export class Player {
             this.totalScores = this.playerInfo.scoreTotal;
         }
 
-        let nick = this.playerInfo.nick;
+        let nick = playerInfo.channel_nickname || this.playerInfo.nick;
         if (nick === undefined || nick === "") {
             nick = this.playerInfo.userID;
         }

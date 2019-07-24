@@ -139,7 +139,7 @@ export class ReadyView extends cc.Component {
             const player = players[i];
             if (player !== null && player.id !== null) {
                 const name = headView.getChild("name");
-                name.text = player.nickname;
+                name.text = player.channel_nickname || player.nickname;
                 name.visible = true;
                 const loader = headView.getChild("loader").asLoader;
                 CommonFunction.setHead(loader, player.channel_head, player.sex);

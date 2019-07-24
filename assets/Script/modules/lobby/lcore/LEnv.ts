@@ -67,7 +67,8 @@ export namespace LEnv {
 
     export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
 
-    export const wxLogin = "https://testyy.5206767.net/zyqp/user/h5login/withcode?app={0}&code={1}";
+    // tslint:disable-next-line:no-http-string
+    export const wxLogin = "/zyqp/user/h5login/withcode?app={0}&code={1}";
 
     export const shareUrl = "";
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
