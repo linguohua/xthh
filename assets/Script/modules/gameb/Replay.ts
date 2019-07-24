@@ -10,8 +10,8 @@ import { HandlerActionResultTriplet2Kong } from "./handlers/HandlerActionResultT
 import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
 import { Player } from "./Player";
 // import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
-import { proto } from "./proto/protoGame";
 import { RoomInterface } from "./RoomInterface";
+import { proto } from "../lobby/protoHH/protoHH";
 
 type ActionHandler = (srAction: proto.mahjong.ISRAction, x?: any) => Promise<void>; // tslint:disable-line:no-any
 
@@ -19,11 +19,11 @@ type ActionHandler = (srAction: proto.mahjong.ISRAction, x?: any) => Promise<voi
  * 回播
  */
 export class Replay {
-    public readonly msgHandRecord: proto.mahjong.SRMsgHandRecorder;
+    public readonly msgHandRecord: proto.casino.Itable_replay;
     private room: RoomInterface;
 
     private speed: number;
-    private actionStep: number;
+    private roundStep: number;
     private modalLayerColor: cc.Color;
     private btnResume: fgui.GObject;
     private btnPause: fgui.GObject;
@@ -37,7 +37,7 @@ export class Replay {
     // private latestDiscardedTile: number;
     private latestDiscardedPlayer: Player;
 
-    public constructor(msgHandRecord: proto.mahjong.SRMsgHandRecorder) {
+    public constructor(msgHandRecord: proto.casino.Itable_replay) {
 
         this.msgHandRecord = msgHandRecord;
     }
@@ -45,19 +45,19 @@ export class Replay {
     public async gogogo(room: RoomInterface): Promise<void> {
         Logger.debug("gogogogo");
         this.room = room;
-        const players = this.msgHandRecord.players;
-        players.forEach((p) => {
-            //先创建自己
-            if (p.userID === this.room.getRoomHost().user.userID) {
-                room.createMyPlayer(this.clonePlayer(p));
-            }
-        });
-        players.forEach((p) => {
-            //再创建其他人
-            if (p.userID !== this.room.getRoomHost().user.userID) {
-                room.createPlayerByInfo(this.clonePlayer(p));
-            }
-        });
+        // const players = this.msgHandRecord.players;
+        // players.forEach((p) => {
+        //     //先创建自己
+        //     if (p.userID === this.room.getRoomHost().user.userID) {
+        //         room.createMyPlayer(this.clonePlayer(p));
+        //     }
+        // });
+        // players.forEach((p) => {
+        //     //再创建其他人
+        //     if (p.userID !== this.room.getRoomHost().user.userID) {
+        //         room.createPlayerByInfo(this.clonePlayer(p));
+        //     }
+        // });
 
         // 挂载action处理handler，复用action result handlers
         this.armActionHandler();
@@ -66,7 +66,7 @@ export class Replay {
         const mq = new MsgQueue({});
         this.mq = mq;
 
-        this.actionStep = -1;
+        this.roundStep = -1;
 
         this.startStepTimer();
 
@@ -104,17 +104,17 @@ export class Replay {
         fgui.GRoot.inst.modalLayer.color = this.modalLayerColor;
     }
 
-    private clonePlayer(p: proto.mahjong.ISRMsgPlayerInfo): proto.mahjong.IMsgPlayerInfo {
-        return {
-            state: 0,
-            userID: p.userID,
-            chairID: p.chairID,
-            nick: p.nick,
-            gender: p.gender,
-            headIconURI: p.headIconURI,
-            avatarID: p.avatarID
-        };
-    }
+    // private clonePlayer(p: proto.mahjong.ISRMsgPlayerInfo): proto.mahjong.IMsgPlayerInfo {
+    //     return {
+    //         state: 0,
+    //         userID: p.userID,
+    //         chairID: p.chairID,
+    //         nick: p.nick,
+    //         gender: p.gender,
+    //         headIconURI: p.headIconURI,
+    //         avatarID: p.avatarID
+    //     };
+    // }
 
     private startStepTimer(): void {
         const cb = () => {
@@ -228,35 +228,36 @@ export class Replay {
 
     private async doReplayStep(): Promise<void> {
         const room = this.room;
-        if (this.actionStep === -1) {
+        if (this.roundStep === -1) {
             Logger.debug("Replay:doReplayStep, deal");
             // 重置房间
             room.resetForNewHand();
             // 发牌
             this.deal();
         } else {
-            const actionlist = this.msgHandRecord.actions;
-            if (this.actionStep >= actionlist.length) {
+            const roundlist = this.msgHandRecord.rounds;
+            if (this.roundStep >= roundlist.length) {
                 // 已经播放完成了
                 this.room.getRoomHost().component.unschedule(this.timerCb);
 
-                // 结算页面
-                await this.handOver();
+                // 结算页面 （总结算界面）
+                // await this.handOver();
                 this.win.bringToFront();
             } else {
-                const a = actionlist[this.actionStep];
+                const a = roundlist[this.roundStep];
+
                 if ((a.flags & proto.mahjong.SRFlags.SRUserReplyOnly) === 0) {
-                    await this.doAction(a, actionlist);
+                    await this.doAction(a, roundlist);
                 }
             }
         }
 
-        this.actionStep = this.actionStep + 1;
+        this.roundStep = this.roundStep + 1;
     }
 
     private async doAction(srAction: proto.mahjong.ISRAction, actionlist: proto.mahjong.ISRAction[]): Promise<void> {
         const room = this.room;
-        const i = this.actionStep;
+        const i = this.roundStep;
         const player = <Player>room.getPlayerByChairID(srAction.chairID);
         room.setWaitingPlayer(player.chairID);
 
