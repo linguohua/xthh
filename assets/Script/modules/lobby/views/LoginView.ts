@@ -14,6 +14,40 @@ interface ServerCfg {
     id: number;
 }
 
+interface LoginData {
+    openid: string;
+    unionid: string;
+    userid: number;
+    channel: string;
+    ticket: string;
+    servers: ServerCfg[];
+}
+interface WxLoginReply {
+    ret: number;
+    msg: string;
+    data: LoginData;
+}
+
+// interface fastLoginReply {
+//     app: string;
+//     channel: string;
+//     content: string;
+//     id: number;
+//     im_accid: string;
+//     im_token: string;
+//     phone: string;
+//     qq: string;
+//     ret: number;
+//     server_id: number;
+//     servers: ServerCfg[];
+//     share_type: 1;
+//     ticket: string;
+
+//     userid: string;
+//     ver: number;
+//     wx: string;
+// }
+
 /**
  * LoginView 登录界面
  */
@@ -231,7 +265,7 @@ export class LoginView extends cc.Component {
                 } else {
                     const reply = <{ servers: ServerCfg[] }>JSON.parse(xhr.responseText);
                     Logger.debug(reply);
-                    this.testFastLogin(reply.servers[0]).catch((reason) => {
+                    this.fastLogin(reply.servers[0]).catch((reason) => {
                         Logger.debug(reason);
                     });
                 }
@@ -287,7 +321,45 @@ export class LoginView extends cc.Component {
         };
     }
 
-    private async testFastLogin(serverCfg: ServerCfg): Promise<void> {
+    private constructWxLoginReq(wxLoginReply: WxLoginReply): protoHH.casino.packet_fast_login_req {
+        const devInfo = {
+            package: "com.zhongyou.hubei.casino.as",
+            platform: "",
+            language: "",
+            version: "",
+            build: "",
+            idfa: "",
+            idfv: "",
+            udid: "",
+            openudid: "",
+            mac: "00:00:00:00:00:00",
+            device: "iPhone",
+            device_version: "",
+            system: "iOS",
+            system_version: "10.3.3",
+            jailbreak: false,
+            sim: "",
+            phone: "",
+            imei: "",
+            imsi: "",
+            device_token: "",
+            ip: ""
+        };
+
+        return {
+            channel: wxLoginReply.data.channel,
+            ticket: wxLoginReply.data.ticket,
+            user_id: wxLoginReply.data.userid,
+            reconnect: false,
+            gdatacrc: 0xFFFFFFFF,
+            devinfo: devInfo,
+            pdatacrc: 0,
+            pay: "",
+            request_id: 0
+        };
+    }
+
+    private async fastLogin(serverCfg: ServerCfg, wxLoginReply?: WxLoginReply): Promise<void> {
         Logger.debug(serverCfg);
         const lmComponent = this.getComponent("LobbyModule");
         const lm = <LobbyModuleInterface>lmComponent;
@@ -296,11 +368,19 @@ export class LoginView extends cc.Component {
             return;
         }
 
+        let fastLoginReq = this.constructFastLoginReq();
+        let loginServerCfg: ServerCfg = serverCfg;
+
+        if (wxLoginReply !== undefined && wxLoginReply !== null) {
+            loginServerCfg = wxLoginReply.data.servers[0];
+            fastLoginReq = this.constructWxLoginReq(wxLoginReply);
+        }
+
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
-        const fastLoginReq = this.constructFastLoginReq();
-        const uriComp = encodeURIComponent(`${serverCfg.host}:${serverCfg.port}`);
+        const uriComp = encodeURIComponent(`${loginServerCfg.host}:${loginServerCfg.port}`);
         const url = `${LEnv.lobbyWebsocket}/game/uuid/ws/play?web=1&target=${uriComp}`;
         Logger.debug(url);
+        Logger.debug("fastLoginReq:", fastLoginReq);
         // LmsgCenter 绑定到LobbyModule
         const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, fastLoginReq);
         msgCenter.eventTarget.once("onFastLoginComplete", this.onFastLoginComplete, this);
@@ -339,11 +419,20 @@ export class LoginView extends cc.Component {
             }
         }
 
+        let nickName = fastLoginAck.pdata.data.nickname;
+        if (fastLoginAck.pdata.channel_nickname !== null && fastLoginAck.pdata.channel_nickname !== "") {
+            nickName = fastLoginAck.pdata.channel_nickname;
+        }
+
+        if (fastLoginAck.pdata.channel_head !== null) {
+            DataStore.setItem("avatarURL", fastLoginAck.pdata.channel_head);
+        }
+
         const gameConfigStr = JSON.stringify(fastLoginAck.config);
         const payDataStr = JSON.stringify(fastLoginAck.paydata);
 
         DataStore.setItem("userID", fastLoginAck.user_id);
-        DataStore.setItem("nickName", fastLoginAck.pdata.data.nickname);
+        DataStore.setItem("nickName", nickName);
         DataStore.setItem("gender", fastLoginAck.pdata.data.sex);
         DataStore.setItem("playerID", fastLoginAck.player_id);
         DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
@@ -355,6 +444,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem("payData", payDataStr);
 
     }
+
     private createWxBtn(): void {
         const btnSize = cc.size(this.weixinButton.width, this.weixinButton.height);
         const frameSize = cc.view.getFrameSize();
@@ -386,29 +476,32 @@ export class LoginView extends cc.Component {
 
         this.button.onTap((res: getUserInfoRes) => {
             this.button.hide();
+            Dialog.showWaiting();
             WeiXinSDK.login(<Function>this.wxLogin.bind(this));
         });
     }
     private wxLogin(result: boolean): void {
+        Dialog.hideWaiting();
         if (!result) {
             Logger.error("wxlogin error");
             this.button.show();
 
             return;
         } else {
-            const wxLoginUrl = `${LEnv.rootURL}${LEnv.wxLogin}`;
-            Logger.debug('wxloginUrl', wxLoginUrl);
-
             const wxCodeStr = 'wechatLCode';
             const wxUserInfoStr = 'wxUserInfo';
             const wxCode = <string>WeiXinSDK.getWxDataMap()[wxCodeStr];
             const wxUserData = <getUserInfoRes>WeiXinSDK.getWxDataMap()[wxUserInfoStr];
 
-            const wxLoginReq = new proto.lobby.MsgWxLogin();
-            wxLoginReq.code = wxCode;
-            wxLoginReq.iv = wxUserData.iv;
-            wxLoginReq.encrypteddata = wxUserData.encryptedData;
-            const body = proto.lobby.MsgWxLogin.encode(wxLoginReq).toArrayBuffer();
+            const wxLoginUrl = LEnv.cfmt(LEnv.wxLogin, "casino", wxCode);
+            Logger.debug('wxloginUrl', wxLoginUrl);
+
+            const requestData = {
+                avatar: wxUserData.userInfo.avatarUrl,
+                nickname: wxUserData.userInfo.nickName
+            };
+
+            const jsonString = JSON.stringify(requestData);
 
             HTTP.hPost(
                 this.eventTarget,
@@ -416,35 +509,38 @@ export class LoginView extends cc.Component {
                 (xhr: XMLHttpRequest, err: string) => {
                     let errMsg = null;
                     if (err !== null) {
-                        errMsg = `登录错误，错误码:${err}`;
-                    } else {
-                        errMsg = HTTP.hError(xhr);
-                        if (errMsg === null) {
-                            const data = <Uint8Array>xhr.response;
-                            // proto 解码登录结果
-                            const wxLoginReply = proto.lobby.MsgLoginReply.decode(data);
-                            if (wxLoginReply.result === 0) {
-                                Logger.debug("wx login ok, switch to lobbyview");
-                                this.saveWxLoginReply(wxLoginReply);
-                                this.showLobbyView();
-                            } else {
-                                // TODO: show error msg
-                                Logger.debug("wx login error, errCode:", wxLoginReply.result);
-                                // this.showLoginErrMsg(wxLoginReply.result);
-                            }
-                        }
+                        errMsg = `登录错误:${err}`;
+                        Logger.debug(errMsg);
+                        Dialog.showDialog(errMsg);
+
+                        return;
                     }
 
+                    errMsg = HTTP.hError(xhr);
                     if (errMsg !== null) {
-                        Logger.debug("wx login failed:", errMsg);
-                        // 显示错误对话框
-                        Dialog.showDialog(errMsg, () => {
-                            //
-                        });
+                        Logger.debug(errMsg);
+                        Dialog.showDialog(errMsg);
+
+                        return;
                     }
+
+                    Logger.debug("responseText:", xhr.responseText);
+                    const reply = <WxLoginReply>JSON.parse(xhr.responseText);
+                    if (reply.ret !== 0) {
+                        errMsg = reply.msg;
+                        Logger.debug(errMsg);
+                        Dialog.showDialog(errMsg);
+
+                        return;
+                    }
+
+                    Logger.debug(reply);
+                    this.fastLogin(null, reply).catch((reason) => {
+                        Logger.debug(reason);
+                    });
                 },
-                "arraybuffer",
-                body);
+                "text",
+                jsonString);
         }
     }
 }

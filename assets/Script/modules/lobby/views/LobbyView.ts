@@ -154,9 +154,14 @@ export class LobbyView extends cc.Component {
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
 
-        this.nameText.text = DataStore.getString("playerID");
+        this.nameText.text = DataStore.getString("nickName");
         this.beansText.text = DataStore.getString("beans");
         this.fkText.text = DataStore.getString("card");
+
+        const gender = DataStore.getString("gender", "");
+        const avatarURL = DataStore.getString("avatarURL", "");
+        const headLoader = this.view.getChild("iconLoader").asLoader;
+        CommonFunction.setHead(headLoader, avatarURL, +gender);
         // const userInfo = this.view.getChild("userInfo").asCom;
         // this.initInfoView(userInfo);
         // userInfo.onClick(this.openUserInfoView, this);

@@ -13,7 +13,7 @@ export namespace LEnv {
     export const gameHost = "wss://dfh5-develop.qianz.com"; // tslint:disable-line:no-http-string
     export const quicklyLogin = "/lobby/uuid/quicklyLogin";
     export const accountLogin = "/lobby/uuid/accountLogin";
-    export const wxLogin = "/lobby/uuid/wxLogin";
+    // export const wxLogin = "/lobby/uuid/wxLogin";
 
     export const wxShareInfo = '/lobby/uuid/getShareInfo';
     export const register = "/lobby/uuid/register";
@@ -67,7 +67,7 @@ export namespace LEnv {
 
     export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
 
-    export const shareContentText = "仙桃晃晃";
+    export const wxLogin = "https://testyy.5206767.net/zyqp/user/h5login/withcode?app={0}&code={1}";
 
     export const shareUrl = "";
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
