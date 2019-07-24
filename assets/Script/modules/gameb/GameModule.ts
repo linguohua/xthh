@@ -110,9 +110,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
 
         if (args.jsonString === "replay") {
+            Logger.debug("哈哈哈哈");
             // TODO: use correct parameters
             const chairID = 0;
-            await this.tryEnterReplayRoom(args.userInfo.userID, args.record, chairID);
+            await this.tryEnterReplayRoom(args.record, args.userInfo, chairID);
         } else {
             await this.tryEnterRoom(args.userInfo, args.joinRoomParams, args.createRoomParams);
         }
@@ -470,30 +471,29 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private async tryEnterReplayRoom(
-        myUserID: string,
         msgAccLoadReplayRecord: { replayRecordBytes: ByteBuffer; roomJSONConfig: string },
+        myUser: UserInfo,
         chairID: number): Promise<void> {
-
+        const table = protoHH.casino.table.decode(msgAccLoadReplayRecord.replayRecordBytes);
         // const msgHandRecord = proto.mahjong.SRMsgHandRecorder.decode(msgAccLoadReplayRecord.replayRecordBytes);
         // msgHandRecord.roomConfigID = msgAccLoadReplayRecord.roomJSONConfig;
 
         // Logger.debug(" sr-actions count:", msgHandRecord.actions.length);
         // // 如果不提供userID,则必须提供chairID，然后根据chairID获得userID
-        // let userID = myUserID;
-        // if (userID === null) {
-        //     Logger.debug(" userID is nil, use chairID to find userID");
-        //     msgHandRecord.players.forEach((p) => {
-        //         if (p.chairID === chairID) {
-        //             userID = p.userID;
-        //         }
-        //     });
-        // }
+        let userID = myUser.userID;
+        if (userID === null) {
+            Logger.debug(" userID is nil, use chairID to find userID");
+            const p = table.players[chairID];
+            if (p !== undefined) {
+                userID = `${p.id}`;
+            }
+        }
 
-        // if (userID === null || userID === undefined) {
-        //     Dialog.prompt("您输入的回放码不存在,或录像已过期!");
-        // }
+        if (userID === null || userID === undefined) {
+            Dialog.prompt("您输入的回放码不存在,或录像已过期!");
+        }
 
-        // Logger.debug(" tryEnterReplayRoom userID:", userID);
+        Logger.debug("table ---------**********--------- :", table);
         // this.mUser = { userID: userID };
         // const roomInfo = {
         //     roomID: "",
@@ -507,9 +507,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         //     lastActiveTime: 0
         // };
 
-        // const replay = new Replay(msgHandRecord);
-        // // 新建room和绑定roomView
-        // this.createRoom(this.user, roomInfo, replay);
+        // const replay = new Replay(table.replay);
+        // 新建room和绑定roomView
+        // this.createRoom(this.user, table, replay);
 
         // await replay.gogogo(this.room);
 

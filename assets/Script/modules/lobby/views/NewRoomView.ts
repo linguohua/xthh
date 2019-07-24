@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, Record } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 import { JoinRoom } from "./JoinRoom";
 
@@ -190,14 +190,14 @@ export class NewRoomView extends cc.Component {
         // Logger.debug("战绩--------------------");
         const req2 = new protoHH.casino.packet_score_time_req();
         req2.casino_id = 0; //固定
-        req2.day = 0; // 0~6 0当天 1昨天 2前天
+        req2.day = 1; // 0~6 0当天 1昨天 2前天
         const buf = protoHH.casino.packet_score_time_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_SCORE_TIME_REQ);
     }
     private onGameRecord(msg: protoHH.casino.ProxyMessage): void {
         const reply = protoHH.casino.packet_score_time_ack.decode(msg.Data);
-        Logger.debug("战绩--------------------reply: ", reply);
+        // Logger.debug("战绩--------------------reply: ", reply);
         this.recordMsgs = [];
         if (reply.scores !== undefined && reply.scores !== null && reply.scores.length > 0) {
             for (const score of reply.scores) {
@@ -210,8 +210,26 @@ export class NewRoomView extends cc.Component {
     }
 
     private onReplayAck(msg: protoHH.casino.ProxyMessage): void {
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
+
         const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
-        Logger.debug("回播--------------------reply: ", reply);
+        const record = new Record();
+        record.replayRecordBytes = reply.replay;
+        const params: GameModuleLaunchArgs = {
+            jsonString: "replay",
+            userInfo: myUser,
+            joinRoomParams: null,
+            createRoomParams: null,
+            record: record
+        };
+
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        this.win.hide();
+        this.destroy();
+
+        lm.switchToGame(params, "gameb");
     }
 
     private renderRecordListItem(index: number, item: fgui.GObject): void {
