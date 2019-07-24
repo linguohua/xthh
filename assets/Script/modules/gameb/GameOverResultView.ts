@@ -1,4 +1,4 @@
-import { CommonFunction } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Dialog } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 // import { Player } from "./Player";
@@ -349,18 +349,17 @@ export class GameOverResultView extends cc.Component {
 
         textData = `${textData}战绩连接：\n`;
 
-        wx.setClipboardData({
-            data: textData,
-            // tslint:disable-next-line:no-any
-            success: (res: any) => {
-                console.log(res.data);
-                // wx.getClipboardData({
-                //     success(res) {
-                //         console.log(res.data);
-                //     }
-                // });
-            }
-        });
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.setClipboardData({
+                data: textData,
+                // tslint:disable-next-line:no-any
+                success: (res: any) => {
+                    console.log(res.data);
+                }
+            });
+        } else {
+            Dialog.showDialog("web版没实现，请在微信小游戏上测试");
+        }
     }
 
     private resetPosition(): void {
