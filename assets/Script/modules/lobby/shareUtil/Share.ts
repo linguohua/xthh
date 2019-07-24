@@ -89,7 +89,7 @@ export namespace Share {
         });
     };
 
-    export const shareMyGame = (contentText: string, imgUrl: string, customParam?: string) => {
+    export const share = (contentText: string, imgUrl: string, customParam?: string) => {
         const cb1 = () => {
             Logger.debug('share success');
         };
@@ -99,5 +99,41 @@ export namespace Share {
         };
 
         WeiXinSDK.shareWeChat(cb1, cb2, contentText, imgUrl, customParam);
+    };
+
+    export const shareScreenshot = (contentText: string, customParam?: string) => {
+        const cb1 = () => {
+            Logger.debug('share success');
+        };
+
+        const cb2 = () => {
+            Logger.debug('share fail');
+        };
+
+        const canvas = cc.game.canvas;
+        const width = cc.winSize.width;
+        const height = cc.winSize.height;
+
+        Logger.debug(`canvas.width:${canvas.width}, canvas.heigth:${canvas.height},
+        cc.winSize.width:${cc.winSize.width}, cc.winSize.height:${cc.winSize.height}`);
+
+        canvas.toTempFilePath({
+            x: 0,
+            y: 0,
+            width: width,
+            height: height,
+            destWidth: 500,
+            destHeight: 400,
+            // tslint:disable-next-line:no-any
+            success: (res: any) => {
+                //.可以保存该截屏图片
+                Logger.debug(res);
+                WeiXinSDK.shareWeChat(cb1, cb2, contentText, res.tempFilePath, customParam);
+                // wx.shareAppMessage({
+                //     imageUrl: res.tempFilePath
+                // });
+            }
+        });
+
     };
 }

@@ -156,13 +156,13 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.eventTarget.emit("destroy");
         this.eventTarget.off("gpsChange");
+        this.lm.eventTarget.off("reconnect");
 
         this.component.unschedule(this.getLocation);
 
         fgui.GRoot.inst.removeChild(this.view);
         this.view.dispose();
 
-        this.lm.eventTarget.off("reconnect", this.onReconnect, this);
         this.lm.returnFromGame();
     }
 
@@ -518,9 +518,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     private async onReconnect(): Promise<void> {
         Logger.debug("onReconnect");
-        // const playerID = DataStore.getString("playerID");
+        if (this.mRoom.isGameOver) {
+            return;
+        }
 
-        // const myUser = { userID: `${playerID}` };
         Dialog.showWaiting();
 
         const joinRoomParams = {

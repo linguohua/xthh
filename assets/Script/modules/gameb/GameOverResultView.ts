@@ -72,6 +72,10 @@ export class GameOverResultView extends cc.Component {
 
         const backHallBtn = this.unityViewNode.getChild("backHallBtn");
         backHallBtn.onClick(this.onCloseButtonClick, this);
+
+        const copyRecordBtn = this.unityViewNode.getChild("copyRecordBtn");
+        copyRecordBtn.onClick(this.onCopyClick, this);
+
         const shanreBtn = this.unityViewNode.getChild("shanreBtn");
         shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
         shanreBtn.onClick(this.onShareButtonClick, this);
@@ -307,7 +311,56 @@ export class GameOverResultView extends cc.Component {
     }
 
     private onShareButtonClick(): void {
-        Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
+        Share.shareScreenshot("");
+        // Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
+    }
+
+    private onCopyClick(): void {
+        const table = this.msgGameOver.tdata;
+        let gameName = "";
+        if (table.room_id === 2100 || table.room_id === 2102) {
+            gameName = `仙桃晃晃`;
+        } else if (table.room_id === 2103) {
+            gameName = `三人两门`;
+        } else if (table.room_id === 2112) {
+            gameName = `两人两门`;
+        }
+
+        // tslint:disable-next-line:prefer-template
+        let textData = `房号：${table.tag} \n`
+            + `游戏：${gameName} \n`
+            + `局数：${table.play_total}  \n`
+            + `底注：${table.base} \n`
+            + `工会：${table.guild_id}\n`
+            + `游戏结果：\n`
+            + `----------------------- \n`;
+
+        const playrLength = this.msgGameOver.scores.length;
+        for (let i = 0; i < playrLength; i++) {
+            const score = this.msgGameOver.scores[i];
+            let sc = `${score.score_total}`;
+            if (score.score_total > 0) {
+                sc = `+${score.score_total}`;
+            }
+
+            textData = `${textData}${i + 1}、${score.data.nickname}(${score.data.id}) ${sc} \n`;
+        }
+        textData = `${textData} ----------------------- \n`;
+
+        textData = `${textData}战绩连接：\n`;
+
+        wx.setClipboardData({
+            data: textData,
+            // tslint:disable-next-line:no-any
+            success: (res: any) => {
+                console.log(res.data);
+                // wx.getClipboardData({
+                //     success(res) {
+                //         console.log(res.data);
+                //     }
+                // });
+            }
+        });
     }
 
     private resetPosition(): void {

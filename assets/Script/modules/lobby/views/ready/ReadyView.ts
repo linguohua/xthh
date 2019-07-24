@@ -52,7 +52,7 @@ export class ReadyView extends cc.Component {
 
     private userID: string;
 
-    private eventTarget: cc.EventTarget;
+    // private eventTarget: cc.EventTarget;
     private roomNumber: fgui.GObject;
     private permission: fgui.GObject;
     private ruleText: fgui.GObject;
@@ -105,7 +105,7 @@ export class ReadyView extends cc.Component {
     }
 
     protected onLoad(): void {
-        this.eventTarget = new cc.EventTarget();
+        // this.eventTarget = new cc.EventTarget();
     }
 
     protected updateView(players: protoHH.casino.Itable_player[]): void {
@@ -221,7 +221,18 @@ export class ReadyView extends cc.Component {
     private onShareBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
+            let text = "";
+            if (this.table.room_id === 2100 || this.table.room_id === 2102) {
+                text = `仙桃晃晃`;
+            } else if (this.table.room_id === 2103) {
+                text = `三人两门`;
+            } else if (this.table.room_id === 2112) {
+                text = `两人两门`;
+            }
+
+            text = `${text} 局数：${this.table.round}局\n`;
+            text = `${text}房间号：${this.table.tag}\n`;
+            Share.shareScreenshot(text, `roomNumber=${this.table.tag}`);
         }
     }
 

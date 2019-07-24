@@ -114,6 +114,7 @@ export class Room {
     public mAlgorithm: Algorithm;
     public isMySelfDisCard: boolean = false;
     public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
+    public isGameOver: boolean = false;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -214,7 +215,7 @@ export class Room {
         this.players[player.userID] = player;
 
         this.myPlayer = player;
-
+        Logger.debug("this.myPlayer:", this.myPlayer);
         // this.initCards(playerInfo, player);
     }
 
@@ -377,6 +378,8 @@ export class Room {
     }
 
     public loadGameOverResultView(msgGameOver: protoHH.casino.packet_table_score): void {
+        this.isGameOver = true;
+
         const view = this.host.component.addComponent(GameOverResultView);
         view.showView(this, msgGameOver);
     }
@@ -510,7 +513,7 @@ export class Room {
         this.host.sendBinary(msgAction, opCode);
     }
     public quit(): void {
-        this.stopBgSound();
+        // this.stopBgSound();
         this.host.quit();
     }
     public hideTingDataView(): void {
@@ -807,9 +810,9 @@ export class Room {
     //     SoundMgr.playMusicAudio("gameb/music_hall", true);
     // }
 
-    private stopBgSound(): void {
-        SoundMgr.stopMusic();
-    }
+    // private stopBgSound(): void {
+    //     SoundMgr.stopMusic();
+    // }
 
     // 恢复上次设置的音量
     // 如果没设置过，则默认为0

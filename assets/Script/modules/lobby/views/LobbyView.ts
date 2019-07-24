@@ -5,6 +5,7 @@ import {
 } from "../lcore/LCoreExports";
 
 import { proto } from "../protoHH/protoHH";
+import { Share } from "../shareUtil/ShareExports";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView } from "./ShopView";
 const { ccclass } = cc._decorator;
@@ -146,6 +147,9 @@ export class LobbyView extends cc.Component {
         const committeeBtn = this.view.getChild("committeeBtn");
         committeeBtn.onClick(this.onCommitteeBtnClick, this);
 
+        const shareBtn = this.view.getChild("shareBtn");
+        shareBtn.onClick(this.onShareBtnClick, this);
+
         this.nameText = this.view.getChild("nameText").asTextField;
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
@@ -205,6 +209,12 @@ export class LobbyView extends cc.Component {
 
     private onCommitteeBtnClick(): void {
         // TODO: 显示居委会界面
+    }
+
+    private onShareBtnClick(): void {
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            Share.shareScreenshot("");
+        }
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {

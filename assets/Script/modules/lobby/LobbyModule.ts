@@ -67,21 +67,22 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     }
 
     public requetJoinRoom(roomNumber: string): void {
+        Logger.debug("requetJoinRoom, roomNumber:", roomNumber);
+
         const joinRoomParams = {
             roomNumber: roomNumber
         };
 
-        // tslint:disable-next-line:align
-        this.enterGame(joinRoomParams);
+        this.enterGame(joinRoomParams, null);
     }
     public enterGame(joinRoomParams?: JoinRoomParams, creatRoomParams?: CreateRoomParams): void {
 
-        Dialog.hidePrompt();
+        // Dialog.hidePrompt();
 
         // 发消息給俱乐部页面，让俱乐部界面隐藏
-        this.eventTarget.emit("enterGameEvent");
+        // this.eventTarget.emit("enterGameEvent");
 
-        const myUserID = DataStore.getString("userID", "");
+        const myUserID = DataStore.getString("playerID", "");
         const myUser = { userID: myUserID };
         const modName = "gameb";
 

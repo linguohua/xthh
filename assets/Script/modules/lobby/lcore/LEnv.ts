@@ -67,6 +67,9 @@ export namespace LEnv {
 
     export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
 
+    export const shareContentText = "仙桃晃晃";
+
+    export const shareUrl = "";
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
         return str.replace(/{(\d+)}/g, (match, n) => {
             return (typeof args[n]) !== "undefined"

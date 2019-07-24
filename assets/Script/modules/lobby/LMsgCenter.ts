@@ -1,4 +1,4 @@
-import { Logger, MsgQueue, MsgType, WS, Dialog } from "./lcore/LCoreExports";
+import { Dialog, Logger, MsgQueue, MsgType, WS } from "./lcore/LCoreExports";
 import { proto } from "./protoHH/protoHH";
 
 export type GameMsgHandler = (msg: proto.casino.ProxyMessage) => void;

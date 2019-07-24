@@ -18,7 +18,7 @@ interface PlayerInfo {
 
 interface PlayerInterface {
     playerInfo: PlayerInfo;
-    coordinate: proto.casino.coordinate;
+    coordinate: proto.casino.Icoordinate;
 }
 
 const gpsPlayerNumberIndex: { [key: number]: number } = {
@@ -219,7 +219,7 @@ export class GpsView extends cc.Component {
         this.destroy();
     }
 
-    private calculateDistance(coordinate1: proto.casino.coordinate, coordinate2: proto.casino.coordinate): number {
+    private calculateDistance(coordinate1: proto.casino.Icoordinate, coordinate2: proto.casino.Icoordinate): number {
         Logger.debug(`coordinate1, lant:${coordinate1.latitude}, long:${coordinate1.longitude},
         coordinate2, lant:${coordinate2.latitude}, long:${coordinate2.longitude}`);
         const radLat1 = this.rad(coordinate1.latitude);
@@ -239,7 +239,7 @@ export class GpsView extends cc.Component {
         return d * Math.PI / 180;
     }
 
-    private setAddress(coordinate: proto.casino.coordinate, obj: fgui.GObject): void {
+    private setAddress(coordinate: proto.casino.Icoordinate, obj: fgui.GObject): void {
         if (coordinate === null || coordinate === undefined) {
             obj.text = "未获取位置";
 
