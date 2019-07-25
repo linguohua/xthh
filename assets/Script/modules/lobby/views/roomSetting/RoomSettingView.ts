@@ -117,19 +117,67 @@ export class RoomSettingView extends cc.Component {
     //     cc.audioEngine.setEffectsVolume(slider.value / 100);
     // }
 
+    // 0 关闭，1打开
+    private changeGps(openOrClose: number): void {
+        DataStore.setItem("gps", openOrClose);
+        this.room.getRoomHost().eventTarget.emit("gpsChange");
+
+        // 重新设置一遍按钮状态，避免状态不同步
+        if (openOrClose > 0) {
+            this.gpsBtn.selected = true;
+        } else {
+            this.gpsBtn.selected = false;
+        }
+    }
+
+    private authorizeLocation(): void {
+        Logger.debug("authorizeLocation");
+        wx.authorize({
+            scope: 'scope.userLocation',
+            success: () => {
+                // 用户已经同意小程序使用定位功能
+                this.changeGps(1);
+            },
+
+            // tslint:disable-next-line:no-any
+            fail: (err: any) => {
+                Logger.debug("authorizeLocation fail:", err);
+                // [右上角]-[关于]-[右上角]-[设置]
+                Dialog.showDialog("请前往小程序设置打开定位权限");
+
+                this.changeGps(0);
+            }
+        });
+    }
+
     private onGpsBtnClick(): void {
         if (this.gpsBtn.selected) {
             if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
                 Dialog.prompt("在微信上打开，gps才生效");
+                this.gpsBtn.selected = false;
+
+                return;
             }
 
-            DataStore.setItem("gps", 1);
+            wx.getSetting({
+                success: (res: getSettingRes) => {
+                    console.log(res);
+                    if (!res.authSetting['scope.userLocation']) {
+                        this.authorizeLocation();
+                    } else {
+                        this.changeGps(1);
+                    }
+                },
 
+                // tslint:disable-next-line:no-any
+                fail: (err: any) => {
+                    Logger.error("getSetting error:", err);
+                }
+            });
         } else {
-            DataStore.setItem("gps", 0);
+            this.changeGps(0);
         }
 
-        this.room.getRoomHost().eventTarget.emit("gpsChange");
     }
 
     private onVoiceBtnClick(): void {

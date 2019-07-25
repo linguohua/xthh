@@ -57,7 +57,7 @@ export class PlayerInfo {
         this.state = playerIfo.status;
         this.userID = playerIfo.id.toString();
         this.chairID = chairID;
-        this.nick = playerIfo.nickname;
+        this.nick = playerIfo.channel_nickname || playerIfo.nickname;
         this.scoreTotal = playerIfo.score_total;
         this.score = playerIfo.score;
     }

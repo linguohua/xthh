@@ -10,6 +10,7 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameError } from "./GameError";
 import { Replay } from "./Replay";
 import { msgHandlers, Room } from "./Room";
+import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;
 // const priorityMap: { [key: number]: number } = {
@@ -551,12 +552,19 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             return;
         }
 
+        // 先获取设置，判断是否已经开启位置功能
         wx.getLocation({
             type: 'wgs84',
             success: (res: getLocationRes) => {
                 this.sendLocation2Server(res.latitude, res.longitude);
                 Logger.debug(`latitude:${res.latitude}, longitude:${res.longitude}, speed:${res.speed}, accuracy:${res.accuracy}`);
+            },
+
+            // tslint:disable-next-line:no-any
+            fail: (err: any) => {
+                Logger.error("getLocation error:", err);
             }
+
         });
 
         Logger.debug("getLocation");
@@ -576,12 +584,14 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.openOrClostGps();
         if (this.isGpsOpen) {
             this.getLocation();
+        } else {
+            this.sendLocation2Server(null, null);
         }
     }
 
     private openOrClostGps(): void {
         const gps = DataStore.getString("gps", "0");
-        if (+gps > 0) {
+        if (+ gps > 0) {
             this.isGpsOpen = true;
         } else {
             this.isGpsOpen = false;

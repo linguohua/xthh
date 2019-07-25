@@ -8,10 +8,11 @@ import { RoomInterface } from "../RoomInterface";
  */
 export namespace HandlerMsgUpdateCoordinate {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
-        Logger.debug("HandlerMsgUpdateCoordinate");
         const coordinate = proto.casino.packet_coordinate.decode(msgData);
         const player = <Player>room.getPlayerByUserID(`${coordinate.player_id}`);
         player.coordinate = <proto.casino.coordinate>coordinate;
+
+        Logger.debug("HandlerMsgUpdateCoordinate:", coordinate);
         // player.coodinate = <proto.casino.coordinate>coordinate;
         // Logger.debug("HandlerMsgTableEntry----------------------- ", d);
         // room.createPlayerByInfo(d.pdata, d.idx);
