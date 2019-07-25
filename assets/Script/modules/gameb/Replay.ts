@@ -1,20 +1,44 @@
 import { Dialog, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
-import { HandlerActionResultChow } from "./handlers/HandlerActionResultChow";
+import { proto } from "../lobby/protoHH/protoHH";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
-import { HandlerActionResultKongConcealed } from "./handlers/HandlerActionResultKongConcealed";
-import { HandlerActionResultKongExposed } from "./handlers/HandlerActionResultKongExposed";
-import { HandlerActionResultPong } from "./handlers/HandlerActionResultPong";
-import { HandlerActionResultReadyHand } from "./handlers/HandlerActionResultReadyHand";
-import { HandlerActionResultTriplet2Kong } from "./handlers/HandlerActionResultTriplet2Kong";
-import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
+import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
+import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
+import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
 import { Player } from "./Player";
-// import { HandlerMsgHandOver } from "./handlers/HandlerMsgHandOver";
+import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
-import { proto } from "../lobby/protoHH/protoHH";
 
-type ActionHandler = (srAction: proto.mahjong.ISRAction, x?: any) => Promise<void>; // tslint:disable-line:no-any
-
+type ActionHandler = (srAction: proto.casino.Itable_op, x?: any) => Promise<void>; // tslint:disable-line:no-any
+enum actionType {
+    TABLE_OP_FORGET = 110, //弃操作
+    TABLE_OP_DRAWCARD = -1,	// 摸牌
+    TABLE_OP_OUTCARD = -2,	// 打牌
+    TABLE_OP_END = -3,	// 流局
+    TABLE_OP_BET = -4,   // 飘
+    TABLE_OP_JIALAIZI = -5,  // 架配子
+    TABLE_OP_PENG = 1,  	// 碰
+    TABLE_OP_GANG = 2,   	// 杠
+    TABLE_OP_HU = 3,  	// 胡
+    TABLE_OP_ZIMO = 4,  	// 自摸
+    TABLE_OP_CHAOTIAN = 5,  	//  朝天
+    TABLE_OP_BUZHUOCHONG = 6,  	//  不做冲
+    TABLE_OP_QIANGXIAO = 7,  	//  抢笑
+    TABLE_OP_CHI = 8,  	//  吃
+    DEF_XTSJ_REPLAY_OP_GANG_M = 1,  	//  明杠
+    DEF_XTSJ_REPLAY_OP_GANG_B = 2,  	//  补杠
+    DEF_XTSJ_REPLAY_OP_GANG_A = 3,  	// 暗杠
+    DEF_XTSJ_REPLAY_OP_PENG = 9,  	//  碰
+    DEF_XTSJ_REPLAY_OP_FORGET_PENG = 110,  	// 弃碰
+    DEF_XTSJ_REPLAY_OP_XIAOCHAOTIAN = 101,  	// 小朝天
+    DEF_XTSJ_REPLAY_OP_DACHAOTIAN = 102,  	//  大朝天
+    DEF_XTSJ_REPLAY_OP_ZHUOCHONG = 20,  	//  捉铳
+    DEF_XTSJ_REPLAY_OP_QIANGXIAO = 21,  	// 抢笑
+    DEF_XTSJ_REPLAY_OP_HEIMO = 40,  	//  黑摸
+    DEF_XTSJ_REPLAY_OP_RUANMO = 41,  	//  软摸
+    DEF_XTSJ_REPLAY_OP_HEIMOX2 = 50,  	//  黑摸
+    DEF_XTSJ_REPLAY_OP_RUANMOX2 = 51   // 软摸
+}
 /**
  * 回播
  */
@@ -24,6 +48,8 @@ export class Replay {
 
     private speed: number;
     private roundStep: number;
+    private round: proto.casino.Itable_round;
+    private actionStep: number;
     private modalLayerColor: cc.Color;
     private btnResume: fgui.GObject;
     private btnPause: fgui.GObject;
@@ -35,7 +61,6 @@ export class Replay {
     private timerCb: Function;
     private actionHandlers: { [key: number]: ActionHandler } = {};
     // private latestDiscardedTile: number;
-    private latestDiscardedPlayer: Player;
 
     public constructor(msgHandRecord: proto.casino.Itable_replay) {
 
@@ -66,7 +91,8 @@ export class Replay {
         const mq = new MsgQueue({});
         this.mq = mq;
 
-        this.roundStep = -1;
+        this.roundStep = 0;
+        this.actionStep = 0;
 
         this.startStepTimer();
 
@@ -211,311 +237,234 @@ export class Replay {
 
     private armActionHandler(): void {
         const handers: { [key: number]: ActionHandler } = {};
-        const actionType = proto.mahjong.ActionType;
 
-        handers[actionType.enumActionType_FirstReadyHand] = <ActionHandler>this.firstReadyHandActionHandler.bind(this);
-        handers[actionType.enumActionType_DISCARD] = <ActionHandler>this.discardedActionHandler.bind(this);
-        handers[actionType.enumActionType_DRAW] = <ActionHandler>this.drawActionHandler.bind(this);
-        handers[actionType.enumActionType_CHOW] = <ActionHandler>this.chowActionHandler.bind(this);
-        handers[actionType.enumActionType_PONG] = <ActionHandler>this.pongActionHandler.bind(this);
-        handers[actionType.enumActionType_KONG_Exposed] = <ActionHandler>this.kongExposedActionHandler.bind(this);
-        handers[actionType.enumActionType_KONG_Concealed] = <ActionHandler>this.kongConcealedActionHandler.bind(this);
-        handers[actionType.enumActionType_KONG_Triplet2] = <ActionHandler>this.triplet2KongActionHandler.bind(this);
-        handers[actionType.enumActionType_WIN_Chuck] = <ActionHandler>this.winChuckActionHandler.bind(this);
-        handers[actionType.enumActionType_WIN_SelfDrawn] = <ActionHandler>this.winSelfDrawActionHandler.bind(this);
+        handers[actionType.TABLE_OP_OUTCARD] = <ActionHandler>this.discardedActionHandler.bind(this);
+        handers[actionType.TABLE_OP_DRAWCARD] = <ActionHandler>this.drawActionHandler.bind(this);
+        handers[actionType.TABLE_OP_PENG] = <ActionHandler>this.opAckActionHandler.bind(this);
+        handers[actionType.TABLE_OP_GANG] = <ActionHandler>this.opAckActionHandler.bind(this);
+        handers[actionType.TABLE_OP_CHAOTIAN] = <ActionHandler>this.opAckActionHandler.bind(this);
+        handers[actionType.TABLE_OP_FORGET] = <ActionHandler>this.cancelOpAckActionHandler.bind(this);
+        handers[actionType.TABLE_OP_HU] = <ActionHandler>this.scoreActionHandler.bind(this);
+        handers[actionType.TABLE_OP_ZIMO] = <ActionHandler>this.scoreActionHandler.bind(this);
+        handers[actionType.TABLE_OP_QIANGXIAO] = <ActionHandler>this.scoreActionHandler.bind(this);
+        handers[actionType.TABLE_OP_END] = <ActionHandler>this.endeActionHandler.bind(this);
+
         this.actionHandlers = handers;
     }
 
     private async doReplayStep(): Promise<void> {
         const room = this.room;
-        if (this.roundStep === -1) {
-            Logger.debug("Replay:doReplayStep, deal");
-            // 重置房间
-            room.resetForNewHand();
-            // 发牌
-            this.deal();
+        const roundlist = this.msgHandRecord.rounds;
+        if (this.roundStep >= roundlist.length) {
+            // 已经播放完成了
+            this.room.getRoomHost().component.unschedule(this.timerCb);
+
+            // 结算页面 （总结算界面）
+            await this.handOver();
+            this.win.bringToFront();
         } else {
-            const roundlist = this.msgHandRecord.rounds;
-            if (this.roundStep >= roundlist.length) {
-                // 已经播放完成了
-                this.room.getRoomHost().component.unschedule(this.timerCb);
-
-                // 结算页面 （总结算界面）
-                // await this.handOver();
-                this.win.bringToFront();
+            const round = roundlist[this.roundStep];
+            // Logger.debug(`this.roundStep : ${this.roundStep},this.actionStep : ${this.actionStep}`);
+            if (this.actionStep === 0) {
+                this.round = round;
+                // 重置房间
+                room.resetForNewHand();
+                // 发牌
+                this.onPauseClick(); //先暂停定时器
+                await this.deal(round);
+                this.onResumeClick(); //启动定时器
+            }
+            // 进入op循环
+            const action = round.ops[this.actionStep];
+            if (action === undefined || action === null) {
+                this.roundStep++;
+                this.actionStep = 0;
             } else {
-                const a = roundlist[this.roundStep];
-
-                if ((a.flags & proto.mahjong.SRFlags.SRUserReplyOnly) === 0) {
-                    await this.doAction(a, roundlist);
-                }
+                await this.doAction(action);
+                this.actionStep++;
             }
         }
-
-        this.roundStep = this.roundStep + 1;
     }
 
-    private async doAction(srAction: proto.mahjong.ISRAction, actionlist: proto.mahjong.ISRAction[]): Promise<void> {
-        const room = this.room;
-        const i = this.roundStep;
-        const player = <Player>room.getPlayerByChairID(srAction.chairID);
-        room.setWaitingPlayer(player.chairID);
+    private async doAction(srAction: proto.casino.Itable_op): Promise<void> {
+        // const room = this.room;
+        // const i = this.roundStep;
+        // const player = <Player>room.getPlayerByChairID(srAction.chairID);
+        // room.setWaitingPlayer(player.chairID);
 
-        const h = this.actionHandlers[srAction.action];
+        const h = this.actionHandlers[srAction.op];
         if (h === undefined) {
-            Logger.debug("Replay, no action handler:", srAction.action);
+            Logger.debug("Replay, no action handler:", srAction.op);
 
             return;
         }
-
-        if (srAction.action === proto.mahjong.ActionType.enumActionType_DISCARD) {
-            const waitDiscardReAction = i < actionlist.length;
-            await h(srAction, waitDiscardReAction);
-        } else {
-            await h(srAction);
-        }
+        await h(srAction);
     }
 
-    private deal(): void {
-        const room = this.room;
-        // 房间状态改为playing
-        room.state = proto.mahjong.RoomState.SRoomPlaying;
-        room.onUpdateStatus(room.state);
+    private async deal(round: proto.casino.Itable_round): Promise<void> {
+        const dealData = new proto.casino_xtsj.packet_sc_start_play();
+        dealData.laizi = round.laizi;
+        dealData.fanpai = round.fanpai;
+        dealData.lord_id = round.lord_id;
+        dealData.cards = [this.roundStep];
+        dealData.time = 0;
 
-        const deals = this.msgHandRecord.deals;
-        // 保存一些房间属性
-        room.bankerChairID = this.msgHandRecord.bankerChairID;
-        // 是否连庄
-        room.isContinuousBanker = this.msgHandRecord.isContinuousBanker;
-        room.laiziID = this.msgHandRecord.windFlowerID;
+        const msgDeal = proto.casino_xtsj.packet_sc_start_play.encode(dealData);
+        await HandlerMsgDeal.onMsg(msgDeal, this.room);
+    }
+    private async discardedActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
+        Logger.debug("llwant, dfreplay, discarded");
 
-        // 所有玩家状态改为playing
-        const players = room.getPlayers();
-        Object.keys(players).forEach((key) => {
-            const p = <Player>players[key];
-            p.state = proto.mahjong.PlayerState.PSPlaying;
-            const onUpdate = p.playerView.onUpdateStatus[p.state];
-            onUpdate(room.state);
-        });
+        const data = new proto.casino_xtsj.packet_sc_outcard_ack();
+        data.player_id = srAction.player_id;
+        data.card = srAction.card;
 
-        // 根据风圈修改
-        room.setRoundMask();
+        const msg = proto.casino_xtsj.packet_sc_outcard_ack.encode(data);
 
-        let drawCount = 0;
-        // 保存每一个玩家的牌列表
-        deals.forEach((v) => {
-            const chairID = v.chairID;
-            const player = <Player>room.getPlayerByChairID(chairID);
-            drawCount = drawCount + v.tilesHand.length;
-            player.tilesHand = [];
-            // 填充手牌列表，所有人的手牌列表
-            player.addHandTiles(v.tilesHand);
-            // 填充花牌列表
-            player.addFlowerTiles(v.tilesFlower);
-        });
+        await HandlerActionResultDiscarded.onMsg(msg, this.room);
+    }
 
-        // 显示各个玩家的手牌（对手只显示暗牌）和花牌
-        Object.keys(players).forEach((key) => {
-            const p = <Player>players[key];
-            p.sortHands(false);
-            p.hand2UI(false);
-            p.flower2UI();
-        });
+    private async drawActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
+        Logger.debug("llwant, dfreplay, draw");
+        const data = new proto.casino_xtsj.packet_sc_drawcard();
+        data.player_id = srAction.player_id;
+        data.card = srAction.card;
+        data.time = 0;
 
-        room.tilesInWall = 144 - drawCount;
-        room.updateTilesInWallUI();
-        // 播放发牌动画，并使用coroutine等待动画完成
-        //room.roomView.dealAnimation(mySelf, player1, player2);
+        const msg = proto.casino_xtsj.packet_sc_drawcard.encode(data);
 
-        // 等待庄家出牌
-        const bankerPlayer = <Player>room.getPlayerByChairID(room.bankerChairID);
-        room.setWaitingPlayer(bankerPlayer.chairID);
+        await HandlerActionResultDraw.onMsg(msg, this.room);
+    }
+    private async endeActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
+        Logger.debug("llwant, dfreplay, end : ", srAction);
+        const pCards = srAction.params;
+
+        //播放动画
+        const le = this.room.roomInfo.players.length;
+        let effectName = "Effect_ico_zuihousizhang";
+        if (le === 2) {
+            effectName = "Effect_ico_zuihouerzhang";
+        } else if (le === 3) {
+            effectName = "Effect_ico_zuihousanzhang";
+        }
+        await this.room.roomView.playAnimation(effectName, true);
+
+        //增加新抽到的牌到手牌列表
+        this.room.mAlgorithm.mahjongTotal_lower(le);
+        //牌墙
+        this.room.tilesInWall = 0; // room.tilesInWall - le;
+        this.room.updateTilesInWallUI();
+
+        if (pCards.length > 0) {
+            for (const pCard of pCards) {
+                const player = <Player>this.room.getPlayerByUserID(`${pCard.player_id}`);
+                player.addHandTile(pCard.card);
+                player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
+                player.hand2UI(false);
+            }
+        }
+        await this.scoreActionHandler();
     }
 
     private async handOver(): Promise<void> {
-        // const room = <Room>this.host.room;
-        const handScoreBytes = this.msgHandRecord.handScore;
-        const msgHandOver: { continueAble?: boolean; endType?: number; scores?: proto.mahjong.MsgHandScore } = {};
-        msgHandOver.continueAble = false;
+        const msgGameOver = new proto.casino.packet_table_score();
+        msgGameOver.tdata = this.room.roomInfo;
+        //构建scores
+        const scores: proto.casino.player_score[] = [];
+        for (const ps of this.room.roomInfo.players) {
+            const score = new proto.casino.player_score();
+            const d = new proto.casino.player_min();
+            d.id = ps.id;
+            d.nickname = ps.nickname;
+            score.data = d;
 
-        if (handScoreBytes === null || handScoreBytes === undefined) {
-            msgHandOver.endType = proto.mahjong.HandOverType.enumHandOverType_None;
-        } else {
-            const handScore = proto.mahjong.MsgHandScore.decode(handScoreBytes);
-            let endType;
-            handScore.playerScores.forEach((s) => {
-                if (s.winType !== proto.mahjong.HandOverType.enumHandOverType_None
-                    && s.winType !== proto.mahjong.HandOverType.enumHandOverType_Chucker) {
-                    endType = s.winType;
-                }
-            });
-
-            msgHandOver.endType = endType;
-            msgHandOver.scores = handScore;
+            score.score_total = ps.score_total;
+            scores.push(score);
         }
+        msgGameOver.scores = scores;
 
-        // const players = this.room.getPlayers();
-        // Object.keys(players).forEach((key: string) => {
-        //     const p = <Player>players[key];
-        //     const len = p.tilesHand.length;
-        //     p.lastTile = p.tilesHand[len - 1]; // 保存最后一张牌，可能是胡牌。。。用于最后结算显示
-
-        // });
-
-        await HandlerMsgHandOver.onHandOver(<proto.mahjong.IMsgHandOver>msgHandOver, this.room);
+        this.room.loadGameOverResultView(msgGameOver);
     }
+    private async scoreActionHandler(): Promise<void> {
+        Logger.debug("llwant, dfreplay, scoreActionHandler");
+        this.onPauseClick();
+        const data = new proto.casino.packet_table_score();
+        //构建scores
+        const scores: proto.casino.player_score[] = [];
+        for (const rs of this.round.scores) {
+            const score = new proto.casino.player_score();
+            const d = new proto.casino.player_min();
+            d.id = rs.player_id;
+            score.data = d;
+            score.hupai_card = rs.hupai_card;
+            score.opscores = rs.opscores;
+            score.score_total = rs.score_total;
+            score.curcards = rs.curcards;
+            score.score = rs.score;
+            score.opscores = rs.opscores;
 
-    private async firstReadyHandActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, firstReadyHand");
-
-        const actionResultMsg = { targetChairID: srAction.chairID };
-        await HandlerActionResultReadyHand.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-    }
-
-    private async discardedActionHandler(srAction: proto.mahjong.ISRAction, waitDiscardReAction: boolean): Promise<void> {
-        Logger.debug("llwant, dfreplay, discarded");
-        const tiles = srAction.tiles;
-        // const discardTileId = tiles[0];
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionTile: tiles[0],
-            waitDiscardReAction: waitDiscardReAction
-        };
-
-        await HandlerActionResultDiscarded.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-
-        const room = this.room;
-        this.latestDiscardedPlayer = <Player>room.getPlayerByChairID(srAction.chairID);
-        // this.latestDiscardedTile = discardTileId;
-
-        if ((srAction.flags & proto.mahjong.SRFlags.SRRichi) !== 0) {
-            await this.firstReadyHandActionHandler(srAction);
+            scores.push(score);
         }
-    }
+        data.scores = scores;
+        data.tdata = this.room.roomInfo;
+        data.time = 0;
+        data.nextcard = this.round.nextcard;
+        data.op = 1; //先随便写一个 op>0 handresult 里面判断
+        const msg = proto.casino.packet_table_score.encode(data);
+        await HandlerMsgTableScore.onMsg(msg, this.room);
 
-    private async drawActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, draw");
-        const tiles = srAction.tiles;
-        const tilesFlower: number[] = [];
-        const len = tiles.length;
-        if (len > 1) {
-            for (let i = 0; i < len - 1; i++) {
-                tilesFlower.push(tiles[i]);
-            }
+        this.onResumeClick();
+    }
+    private async opAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
+        Logger.debug("llwant, dfreplay, opAckActionHandler");
+        const data = new proto.casino_xtsj.packet_sc_op_ack();
+        data.player_id = srAction.player_id;
+        data.op = srAction.op;
+        data.type = srAction.type;
+        data.target_id = srAction.target_id;
+        data.cards = srAction.cards;
+        const msg = proto.casino_xtsj.packet_sc_op_ack.encode(data);
+        await HandlerMsgActionOPAck.onMsg(msg, this.room);
+    }
+    private async cancelOpAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
+        Logger.debug("llwant, dfreplay, cancelOpAckActionHandler");
+        const data = new proto.casino_xtsj.packet_sc_op_ack();
+        data.player_id = srAction.player_id;
+        data.op = TypeOfOP.Guo;
+        data.type = srAction.type;
+        data.target_id = srAction.target_id;
+        data.cards = srAction.cards;
+        const msg = proto.casino_xtsj.packet_sc_op_ack.encode(data);
+        await HandlerMsgActionOPAck.onMsg(msg, this.room);
+        //TODO : 显示 弃操作
+        let str = this.room.getPlayerByUserID(`${srAction.player_id}`).mNick;
+        if (data.type === actionType.TABLE_OP_ZIMO) {
+            str = `${str}弃自摸`;
+        } else if (data.type === actionType.TABLE_OP_BUZHUOCHONG) {
+            str = `${str}弃捉铳`;
+        } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_GANG_M) {
+            str = `${str}弃点笑`;
+        } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_GANG_B) {
+            str = `${str}弃回头笑`;
+        } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_GANG_A) {
+            str = `${str}弃闷笑`;
+        } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_FORGET_PENG) {
+            str = `${str}弃碰`;
+        } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_XIAOCHAOTIAN) {
+            str = `${str}弃小朝天`;
+        } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_DACHAOTIAN) {
+            str = `${str}弃大朝天`;
         }
-
-        const drawTile = tiles[len - 1];
-        let drawCnt = len;
-        if (drawTile === proto.mahjong.TileID.enumTid_MAX + 1) {
-            drawCnt = drawCnt - 1;
-        }
-
-        const room = this.room;
-        const tilesInWall = room.tilesInWall - drawCnt;
-
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionTile: drawTile,
-            newFlowers: tilesFlower,
-            tilesInWall: tilesInWall
-        };
-
-        const player = <Player>room.getPlayerByChairID(srAction.chairID);
-        room.setWaitingPlayer(player.chairID);
-
-        await HandlerActionResultDraw.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, room);
+        this.room.showOrHideCancelCom(true, str);
     }
+    // private async winChuckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
+    //     Logger.debug("llwant, dfreplay, win chuck ");
+    //     const room = this.room;
+    //     const player = <Player>room.getPlayerByChairID(srAction.chairID);
+    //     player.addHandTile(srAction.tiles[0]);
+    // }
 
-    private async chowActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, chow");
-
-        const tiles = srAction.tiles;
-        const actionMeld = {
-            tile1: tiles[0],
-            chowTile: tiles[1],
-            meldType: proto.mahjong.MeldType.enumMeldTypeSequence,
-            contributor: this.latestDiscardedPlayer.chairID
-        };
-
-        const chowTileId = tiles[1];
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionMeld: actionMeld,
-            actionTile: chowTileId
-        };
-
-        await HandlerActionResultChow.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-    }
-
-    private async pongActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, pong");
-
-        const tiles = srAction.tiles;
-        const actionMeld = {
-            tile1: tiles[0],
-            meldType: proto.mahjong.MeldType.enumMeldTypeTriplet,
-            contributor: this.latestDiscardedPlayer.chairID
-        };
-
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionMeld: actionMeld
-        };
-
-        await HandlerActionResultPong.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-    }
-
-    private async kongExposedActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, kong-exposed");
-        const tiles = srAction.tiles;
-        const actionMeld = {
-            tile1: tiles[0],
-            meldType: proto.mahjong.MeldType.enumMeldTypeExposedKong,
-            contributor: this.latestDiscardedPlayer.chairID
-        };
-
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionMeld: actionMeld
-        };
-
-        await HandlerActionResultKongExposed.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-    }
-
-    private async kongConcealedActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, kong-concealed");
-        const tiles = srAction.tiles;
-        const kongTileId = tiles[0];
-
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionTile: kongTileId
-        };
-
-        await HandlerActionResultKongConcealed.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-    }
-
-    private async triplet2KongActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, triplet2kong");
-        const tiles = srAction.tiles;
-        const kongTileId = tiles[0];
-
-        const actionResultMsg = {
-            targetChairID: srAction.chairID,
-            actionTile: kongTileId
-        };
-
-        await HandlerActionResultTriplet2Kong.onMsg(<proto.mahjong.MsgActionResultNotify>actionResultMsg, this.room);
-    }
-
-    private async winChuckActionHandler(srAction: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, win chuck ");
-        const room = this.room;
-        const player = <Player>room.getPlayerByChairID(srAction.chairID);
-        player.addHandTile(srAction.tiles[0]);
-    }
-
-    private async winSelfDrawActionHandler(srAction?: proto.mahjong.ISRAction): Promise<void> {
-        Logger.debug("llwant, dfreplay, win self draw ");
-    }
+    // private async winSelfDrawActionHandler(srAction?: proto.casino.Itable_op): Promise<void> {
+    //     Logger.debug("llwant, dfreplay, win self draw ");
+    // }
 }

@@ -46,7 +46,8 @@ export enum TypeOfOP {
     DEF_XTSJ_OP_PENG = 1,                 // 碰
     DEF_XTSJ_OP_GANG_M = 2,                // 明杠
     DEF_XTSJ_OP_GANG_A = 3,                // 暗杠
-    DEF_XTSJ_OP_GANG_B = 4                   // 补杠
+    DEF_XTSJ_OP_GANG_B = 4,                   // 补杠
+    GUO_REPLAY = 110                   // 回播弃牌
 }
 /**
  * player 接口

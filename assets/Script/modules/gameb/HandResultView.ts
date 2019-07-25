@@ -559,7 +559,7 @@ export class HandResultView extends cc.Component {
         const play_total = this.msgHandOver.tdata.play_total;
         const round = this.msgHandOver.tdata.round;
         // if (this.msgHandOver.continueAble) {
-        if (play_total >= round) {
+        if (play_total >= round && !room.isReplayMode()) {
             this.room.loadGameOverResultView(this.msgHandOver);
         } else {
             this.room.resetForNewHand();

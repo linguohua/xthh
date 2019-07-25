@@ -505,6 +505,19 @@ export class Room {
         return this.replay !== undefined;
     }
 
+    public getReplayCardsOfChairId(roundId: number, cId: number): number[] {
+        if (this.replay !== undefined) {
+            const round = this.replay.msgHandRecord.rounds[roundId];
+            if (round !== undefined) {
+                const score = round.scores[cId];
+                if (score !== undefined) {
+                    return score.initcards;
+                }
+            }
+        }
+
+        return [];
+    }
     public getBankerChairID(): number {
         return this.bankerChairID;
     }
@@ -614,16 +627,18 @@ export class Room {
                 }
             }
         }
-        let cur_id = 0;
-        for (let i = 0; i < this.roomInfo.players.length; i++) {
-            const p = this.roomInfo.players[i];
-            if (this.roomInfo.cur_idx === i) {
-                cur_id = p.id;
+        if (!this.isReplayMode()) {
+            let cur_id = 0;
+            for (let i = 0; i < this.roomInfo.players.length; i++) {
+                const p = this.roomInfo.players[i];
+                if (this.roomInfo.cur_idx === i) {
+                    cur_id = p.id;
+                }
+                const player = this.getPlayerByChairID(i);
+                this.initCards(p, player);
             }
-            const player = this.getPlayerByChairID(i);
-            this.initCards(p, player);
+            this.showCards(cur_id);
         }
-        this.showCards(cur_id);
     }
 
     public updateRoom(table: protoHH.casino.Itable): void {

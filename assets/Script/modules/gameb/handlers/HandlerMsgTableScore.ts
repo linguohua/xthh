@@ -2,6 +2,7 @@ import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface, roomStatus } from "../RoomInterface";
+import { RoomRuleView } from "../RoomRuleView";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 /**
@@ -56,7 +57,7 @@ export namespace HandlerMsgTableScore {
         }
 
         const disband_type = reply.tdata.disband_type;
-        if (disband_type !== null) {
+        if (disband_type !== null && !room.isReplayMode()) {
             // 还没开局，不弹大结算界面
             if (reply.tdata.play_total !== null && reply.tdata.play_total > 0) {
                 room.loadGameOverResultView(reply);

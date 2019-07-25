@@ -25,6 +25,8 @@ export namespace HandlerActionResultDiscarded {
         if (isMe) {
             player.cancelZiMo = false;
             room.showOrHideCancelCom(false);
+            //清理界面
+            player.playerView.clearAllowedActionsView(false);
         }
         //清理吃牌界面
         room.cleanUI();

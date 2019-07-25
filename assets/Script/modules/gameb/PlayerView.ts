@@ -144,7 +144,7 @@ export class PlayerView {
         //出牌列表
         this.initDiscards();
         //花牌列表
-        this.initFlowers();
+        // this.initFlowers();
         //明牌列表
         this.initLights();
         //发牌动画的盖牌
@@ -591,7 +591,6 @@ export class PlayerView {
     public showDeal(): void {
         if (this.player.isMe()) {
             const tileshand = this.player.tilesHand;
-            // let j = 0;
             for (let i = 0; i < tileshand.length; i++) {
                 const h = this.hands[12 - i];
                 const t = tileshand[i];
@@ -599,11 +598,22 @@ export class PlayerView {
                 h.getChild("laiziMask").visible = t === this.room.laiziID;
                 h.getChild("laizi").visible = t === this.room.laiziID;
                 h.visible = true;
-                // j = j + 1;
             }
         } else {
-            for (let i = 0; i < this.player.tileCountInHand; i++) {
-                this.hands[12 - i].visible = true;
+            if (this.room.isReplayMode()) {
+                const tileshand = this.player.tilesHand;
+                for (let i = 0; i < tileshand.length; i++) {
+                    const h = this.lights[12 - i];
+                    const t = tileshand[i];
+                    TileImageMounter.mountTileImage(h, t);
+                    h.getChild("laiziMask").visible = t === this.room.laiziID;
+                    // h.getChild("laizi").visible = t === this.room.laiziID;
+                    h.visible = true;
+                }
+            } else {
+                for (let i = 0; i < this.player.tileCountInHand; i++) {
+                    this.hands[12 - i].visible = true;
+                }
             }
         }
     }

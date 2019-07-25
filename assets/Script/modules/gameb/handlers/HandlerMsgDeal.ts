@@ -22,33 +22,55 @@ export namespace HandlerMsgDeal {
             const p = <Player>players[key];
             const c = (p.chairID - lordChairId + playerNum) % playerNum;
             playersArr[c] = p;
+
+            if (room.isReplayMode()) {
+                p.tilesHand = [];
+                p.tileCountInHand = -1;
+            }
         }
 
         //发牌动画
-        for (let i = 0; i < dealNum.length; i++) {
-            const num = dealNum[i];
-            // for (let j = 0; j < 4; j++) {
-            for (const p of playersArr) {
-                // const p = <Player>room.getPlayerByChairID(j);
-                // const p = <Player>players[key];
-                if (p !== undefined && p !== null) {
-                    if (p.isMe()) {
-                        p.addHandTiles(cards.splice(0, num));
-                    } else {
-                        if (p.tileCountInHand === undefined || p.tileCountInHand === null) {
-                            p.tileCountInHand = 0;
-                        }
-                        p.tileCountInHand += num;
+        if (room.isReplayMode()) {
+            for (let i = 0; i < dealNum.length; i++) {
+                const num = dealNum[i];
+                for (const p of playersArr) {
+                    if (p !== undefined && p !== null) {
+                        const ccs = room.getReplayCardsOfChairId(cards[0], p.chairID);
+                        const cs = ccs.splice(0, num);
+                        p.addHandTiles(cs);
+                        p.playerView.showDeal();
+                        await room.coWaitSeconds(0.15);
                     }
-                    p.playerView.showDeal();
-                    // p.hand2UI(false);
-                    await room.coWaitSeconds(0.15);
+                }
+            }
+        } else {
+            for (let i = 0; i < dealNum.length; i++) {
+                const num = dealNum[i];
+                const cs = cards.splice(0, num);
+                for (const p of playersArr) {
+                    if (p !== undefined && p !== null) {
+                        p.addHandTiles(cs);
+                        // if (p.isMe()) {
+                        //     p.addHandTiles(cards.splice(0, num));
+                        // } else {
+                        //     if (p.tileCountInHand === undefined || p.tileCountInHand === null) {
+                        //         p.tileCountInHand = 0;
+                        //     }
+                        //     p.tileCountInHand += num;
+                        // }
+                        p.playerView.showDeal();
+                        await room.coWaitSeconds(0.15);
+                    }
                 }
             }
         }
 
         for (const p of playersArr) {
-            p.playerView.hideHands();
+            if (room.isReplayMode()) {
+                p.playerView.hideLights();
+            } else {
+                p.playerView.hideHands();
+            }
             p.playerView.hand2.visible = true;
         }
         await room.coWaitSeconds(0.3);
@@ -93,9 +115,9 @@ export namespace HandlerMsgDeal {
         //显示牌
         for (const key of playersKeyArr) {
             const p = <Player>players[key];
-            if (p.isMe()) {
-                p.sortHands(false);
-            }
+            // if (p.isMe()) {
+            p.sortHands(false);
+            // }
             p.hand2UI(false);
             playerNum++;
         }

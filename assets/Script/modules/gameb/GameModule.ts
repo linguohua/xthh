@@ -110,8 +110,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
 
         if (args.jsonString === "replay") {
-            Logger.debug("哈哈哈哈");
-            // TODO: use correct parameters
             const chairID = 0;
             await this.tryEnterReplayRoom(args.record, args.userInfo, chairID);
         } else {
@@ -491,10 +489,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (userID === null || userID === undefined) {
             Dialog.prompt("您输入的回放码不存在,或录像已过期!");
+            return;
         }
 
         Logger.debug("table ---------**********--------- :", table);
-        // this.mUser = { userID: userID };
+        this.mUser = { userID: userID };
         // const roomInfo = {
         //     roomID: "",
         //     roomNumber: msgHandRecord.roomNumber,
@@ -507,11 +506,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         //     lastActiveTime: 0
         // };
 
-        // const replay = new Replay(table.replay);
+        const replay = new Replay(table.replay);
         // 新建room和绑定roomView
-        // this.createRoom(this.user, table, replay);
+        this.createRoom(this.user, table, replay);
 
-        // await replay.gogogo(this.room);
+        await replay.gogogo(this.room);
 
         this.backToLobby();
     }

@@ -190,7 +190,7 @@ export class NewRoomView extends cc.Component {
         // Logger.debug("战绩--------------------");
         const req2 = new protoHH.casino.packet_score_time_req();
         req2.casino_id = 0; //固定
-        req2.day = 1; // 0~6 0当天 1昨天 2前天
+        req2.day = 0; // 0~6 0当天 1昨天 2前天
         const buf = protoHH.casino.packet_score_time_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_SCORE_TIME_REQ);
