@@ -1,4 +1,4 @@
-import * as nimSdk from './NIM_Web_NIM'
+// import * as nimSdk from './NIM_Web_NIM'
 import { Logger } from '../../lcore/LCoreExports';
 // import * as FriendCard from './../pages/FriendCard';
 /**
@@ -9,7 +9,7 @@ export class NimSDK {
     private account: string;
     private token: string;
 
-    private nimSDK: any;
+    // private nimSDK: any;
     public constructor(appKey: string, account: string, token: string) {
         this.appKey = appKey;
         this.account = account;
@@ -22,30 +22,30 @@ export class NimSDK {
             return;
         }
 
-        this.nimSDK = nimSdk.NIM.getInstance({
-            appKey: this.appKey,
-            account: this.account,
-            token: this.token,
-            onconnect: this.onConnect,
-            onwillreconnect: this.onWillReconnect,
-            ondisconnect: this.onDisconnect,
-            onerror: this.onError
-        });
+        // this.nimSDK = nimSdk.NIM.getInstance({
+        //     appKey: this.appKey,
+        //     account: this.account,
+        //     token: this.token,
+        //     onconnect: this.onConnect,
+        //     onwillreconnect: this.onWillReconnect,
+        //     ondisconnect: this.onDisconnect,
+        //     onerror: this.onError
+        // });
     }
 
-    private onConnect(): void {
+    protected onConnect(): void {
         Logger.debug("onConnect");
     }
 
-    private onWillReconnect(): void {
+    protected onWillReconnect(): void {
         Logger.debug("onWillReconnect");
     }
 
-    private onDisconnect(): void {
+    protected onDisconnect(): void {
         Logger.debug("onWillReconnect");
     }
 
-    private onError(): void {
+    protected onError(): void {
 
     }
 
