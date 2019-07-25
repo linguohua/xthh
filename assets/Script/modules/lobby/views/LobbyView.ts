@@ -91,6 +91,8 @@ export class LobbyView extends cc.Component {
         this.testJoinGame();
 
         SoundMgr.playMusicAudio("gameb/music_hall", true);
+
+        this.initNimSDK();
         // await this.startWebSocket();
 
         // TODO: 如果已经在房间，则拉进房间
@@ -259,5 +261,9 @@ export class LobbyView extends cc.Component {
     private onReconnectOk(): void {
         this.isReconnect = true;
         this.testJoinGame();
+    }
+
+    private initNimSDK(): void {
+
     }
 }

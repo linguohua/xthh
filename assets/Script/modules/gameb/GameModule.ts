@@ -10,7 +10,7 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameError } from "./GameError";
 import { Replay } from "./Replay";
 import { msgHandlers, Room } from "./Room";
-import { roomStatus } from "./RoomInterface";
+// import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;
 // const priorityMap: { [key: number]: number } = {

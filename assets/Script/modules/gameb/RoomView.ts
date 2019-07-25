@@ -1,6 +1,6 @@
-import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { ChatView } from "../lobby/views/chat/ChatExports";
+// import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
 import { GpsView } from "../lobby/views/gps/GpsExports";
 import { ReadyView } from "../lobby/views/ready/ReadyExports";
@@ -445,28 +445,29 @@ export class RoomView {
      * 聊天按钮点击事件
      */
     private onChatBtnClick(): void {
-        const load = this.room.getRoomHost().getLobbyModuleLoader();
-        if (load === null) {
-            Logger.debug("load === null");
-        }
+        Logger.debug("onChatBtnClick");
+        // const load = this.room.getRoomHost().getLobbyModuleLoader();
+        // if (load === null) {
+        //     Logger.debug("load === null");
+        // }
 
-        let chatView = this.component.getComponent(ChatView);
-        if (chatView === null) {
-            chatView = this.component.addComponent(ChatView);
-        }
+        // let chatView = this.component.getComponent(ChatView);
+        // if (chatView === null) {
+        //     chatView = this.component.addComponent(ChatView);
+        // }
 
-        const bg = this.unityViewNode.getChild("blueBg");
+        // const bg = this.unityViewNode.getChild("blueBg");
 
-        let width = bg.width;
+        // let width = bg.width;
 
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-            width = width + CommonFunction.IOS_ADAPTER_WIDTH;
-        }
+        // const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+        // if (newIPhone === "1") {
+        //     // i phone x 的黑边为 IOS_ADAPTER_WIDTH
+        //     width = width + CommonFunction.IOS_ADAPTER_WIDTH;
+        // }
 
-        const callBack: Function = <Function>this.room.showMsg.bind(this.room);
-        chatView.show(load, callBack, width);
+        // const callBack: Function = <Function>this.room.showMsg.bind(this.room);
+        // chatView.show(load, callBack, width);
     }
     /**
      * 初始化
@@ -483,7 +484,7 @@ export class RoomView {
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
         this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
-        // chatBtn.onClick(this.onChatBtnClick, this);
+        this.chatBtn.onClick(this.onChatBtnClick, this);
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");
         this.settingBtn.onClick(this.onSettingBtnClick, this);

@@ -28,25 +28,14 @@ interface WxLoginReply {
     data: LoginData;
 }
 
-// interface fastLoginReply {
-//     app: string;
-//     channel: string;
-//     content: string;
-//     id: number;
-//     im_accid: string;
-//     im_token: string;
-//     phone: string;
-//     qq: string;
-//     ret: number;
-//     server_id: number;
-//     servers: ServerCfg[];
-//     share_type: 1;
-//     ticket: string;
-
-//     userid: string;
-//     ver: number;
-//     wx: string;
-// }
+interface FastLoginReply {
+    ret: number;
+    channel: string;
+    im_accid: string;
+    im_token: string;
+    servers: ServerCfg[];
+    ticket: string;
+}
 
 /**
  * LoginView 登录界面
@@ -264,7 +253,15 @@ export class LoginView extends cc.Component {
                     Logger.debug(err);
                     Dialog.showDialog(err);
                 } else {
-                    const reply = <{ servers: ServerCfg[] }>JSON.parse(xhr.responseText);
+                    const reply = <FastLoginReply>JSON.parse(xhr.responseText);
+                    if (reply.ret !== 0) {
+                        Dialog.showDialog(`登录错误，错误码:${reply.ret}`);
+                        return
+                    }
+
+                    DataStore.setItem("imiccid", reply.im_accid);
+                    DataStore.setItem("imtoken", reply.im_token);
+
                     Logger.debug(reply);
                     this.fastLogin(reply.servers[0]).catch((reason) => {
                         Logger.debug(reason);
@@ -477,6 +474,7 @@ export class LoginView extends cc.Component {
 
         this.button.onTap((res: getUserInfoRes) => {
             this.button.hide();
+            // this.weixinButton.d
             Dialog.showWaiting();
             WeiXinSDK.login(<Function>this.wxLogin.bind(this));
         });
