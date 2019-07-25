@@ -170,6 +170,25 @@ export class NewRoomView extends cc.Component {
         this.recordList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderRecordListItem(index, item);
         };
+
+        //n天前的日期
+        for (let i = 0; i < 7; i++) {
+            const curDate = new Date();
+            const n = curDate.setDate(curDate.getDate() - i);
+            const date = new Date(n);
+            const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+            const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+            // const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
+            // const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
+            const timeText = `${month}/${day}`;
+            const btn = recordCom.getChild(`btn${i}`).asButton;
+            if (i === 0) {
+                btn.selected = true;
+            }
+            btn.getChild("n1").text = timeText;
+            btn.getChild("n2").text = timeText;
+            btn.onClick(() => { this.onScoreTimeBtnClick(i); }, this);
+        }
     }
 
     private initHandler(): void {
@@ -185,15 +204,18 @@ export class NewRoomView extends cc.Component {
         // TODO:
     }
 
-    private initGameRecord(): void {
-        // TODO:
-        // Logger.debug("战绩--------------------");
+    private onScoreTimeBtnClick(day: number): void {
         const req2 = new protoHH.casino.packet_score_time_req();
         req2.casino_id = 0; //固定
-        req2.day = 0; // 0~6 0当天 1昨天 2前天
+        req2.day = day; // 0~6 0当天 1昨天 2前天
         const buf = protoHH.casino.packet_score_time_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_SCORE_TIME_REQ);
+    }
+
+    private initGameRecord(): void {
+        // TODO:
+        this.onScoreTimeBtnClick(0);
     }
     private onGameRecord(msg: protoHH.casino.ProxyMessage): void {
         const reply = protoHH.casino.packet_score_time_ack.decode(msg.Data);

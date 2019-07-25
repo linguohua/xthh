@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="863,450">
+<component size="863,450" designImage="ui://shrzm3rckyp510" designImageOffsetX="-133" designImageOffsetY="-137">
+  <controller name="tag" pages="0,0,1,1,2,2,3,3,4,4,5,5,6,6" selected="6"/>
   <displayList>
-    <list id="n0_kyp5" name="list" xy="-1,14" size="864,429" overflow="scroll" defaultItem="ui://shrzm3rckyp5z" autoClearItems="true">
+    <image id="n25_kyp5" name="n25" src="ik119" fileName="resource/srf_di1.png" xy="1,55" size="862,396"/>
+    <list id="n0_kyp5" name="list" xy="3,110" size="867,330" overflow="scroll" defaultItem="ui://shrzm3rckyp5z" autoClearItems="true">
       <item/>
       <item/>
       <item/>
       <item/>
     </list>
+    <text id="n2_kyp5" name="n2" xy="149,10" size="53,35" fontSize="24" color="#856d57" bold="true" text="日期"/>
+    <text id="n5_kyp5" name="n5" xy="341,10" size="53,35" fontSize="24" color="#856d57" bold="true" text="局数"/>
+    <text id="n6_kyp5" name="n6" xy="419,10" size="53,35" fontSize="24" color="#856d57" bold="true" text="积分"/>
+    <text id="n7_kyp5" name="n7" xy="510,10" size="77,35" fontSize="24" color="#856d57" bold="true" text="游戏名"/>
+    <text id="n8_kyp5" name="n8" xy="636,10" size="80,35" fontSize="24" color="#856d57" bold="true" text="视频ID"/>
+    <text id="n9_kyp5" name="n9" xy="260,10" size="53,35" fontSize="24" color="#856d57" bold="true" text="房号"/>
+    <component id="n18_kyp5" name="btn6" src="kyp511" fileName="resource/Button1.xml" xy="2,55">
+      <Button controller="tag" page="0"/>
+    </component>
+    <component id="n19_kyp5" name="btn5" src="kyp512" fileName="resource/Button2.xml" xy="124,55">
+      <Button controller="tag" page="1"/>
+    </component>
+    <component id="n20_kyp5" name="btn4" src="kyp512" fileName="resource/Button2.xml" xy="247,55">
+      <Button controller="tag" page="2"/>
+    </component>
+    <component id="n21_kyp5" name="btn3" src="kyp512" fileName="resource/Button2.xml" xy="370,55">
+      <Button controller="tag" page="3"/>
+    </component>
+    <component id="n22_kyp5" name="btn2" src="kyp512" fileName="resource/Button2.xml" xy="493,55">
+      <Button controller="tag" page="4"/>
+    </component>
+    <component id="n23_kyp5" name="btn1" src="kyp512" fileName="resource/Button2.xml" xy="616,55">
+      <Button controller="tag" page="5"/>
+    </component>
+    <component id="n24_kyp5" name="btn0" src="kyp513" fileName="resource/Button3.xml" xy="739,55">
+      <Button checked="true" controller="tag" page="6"/>
+    </component>
   </displayList>
 </component>

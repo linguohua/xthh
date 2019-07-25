@@ -8,11 +8,11 @@
     <image id="ik116" name="srf_cjfj_xzdi.png" path="/resource/" scale="9grid" scale9grid="11,12,15,20"/>
     <image id="ik117" name="srf_cjfj_zi_jrfj.png" path="/resource/"/>
     <image id="ik118" name="srf_cjfj_zi_wyjf.png" path="/resource/"/>
-    <image id="ik119" name="srf_di1.png" path="/resource/"/>
+    <image id="ik119" name="srf_di1.png" path="/resource/" scale="9grid" scale9grid="12,14,5,5" gridTile="16"/>
     <image id="ik11a" name="srf_di2.png" path="/resource/" scale="9grid" scale9grid="13,8,5,16"/>
     <image id="ik11b" name="srf_srk.png" path="/resource/"/>
-    <image id="ik11c" name="srf_zjtj_yq1.png" path="/resource/"/>
-    <image id="ik11d" name="srf_zjtj_yq2.png" path="/resource/"/>
+    <image id="ik11c" name="srf_zjtj_yq1.png" path="/resource/" scale="9grid" scale9grid="15,27,3,7" gridTile="16"/>
+    <image id="ik11d" name="srf_zjtj_yq2.png" path="/resource/" scale="9grid" scale9grid="6,18,2,6" gridTile="16"/>
     <image id="ik11e" name="s_私人_加入房间.jpg" path="/design/"/>
     <image id="ik11f" name="s_私人_加入房间标注.jpg" path="/design/"/>
     <image id="ik11g" name="s_私人房-创建房间UI.jpg" path="/design/"/>
@@ -35,6 +35,13 @@
     <component id="gfgkx" name="radioBtnNotCenter.xml" path="/btn/"/>
     <component id="kyp5y" name="recordCom.xml" path="/com/"/>
     <component id="kyp5z" name="recordItem.xml" path="/com/"/>
+    <image id="kyp510" name="s_私人房-战绩统计.jpg" path="/resource/"/>
+    <component id="kyp511" name="Button1.xml" path="/resource/"/>
+    <component id="kyp512" name="Button2.xml" path="/resource/"/>
+    <component id="kyp513" name="Button3.xml" path="/resource/"/>
+    <image id="kyp514" name="ty_btn_lv.png" path="/resource/" scale="9grid" scale9grid="26,24,3,2" gridTile="16"/>
+    <component id="kyp515" name="huifang.xml" path="/resource/"/>
+    <image id="kyp516" name="Bitmap.png" path="/"/>
   </resources>
   <publish name="lobby_personal_room"/>
 </packageDescription>

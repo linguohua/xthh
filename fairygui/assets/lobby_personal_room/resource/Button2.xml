@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="123,55" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n0_kyp5" name="n0" src="ik11d" fileName="resource/srf_zjtj_yq2.png" xy="0,0" size="123,55">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n1_kyp5" name="n1" xy="24,9" size="81,38" fontSize="26" color="#ffefcf" bold="true" text="12/12">
+      <gearDisplay controller="button" pages="0"/>
+    </text>
+    <text id="n2_kyp5" name="n2" xy="24,9" size="81,38" fontSize="26" color="#b96013" bold="true" text="12/12">
+      <gearDisplay controller="button" pages="1"/>
+    </text>
+  </displayList>
+  <Button mode="Radio"/>
+</component>
