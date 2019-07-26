@@ -239,7 +239,7 @@ export class HandResultView extends cc.Component {
     //更新玩家基本信息
     private updatePlayerInfoData(player: proto.casino.Iplayer_min, c: ViewGroup): void {
         //名字
-        let name = player.nickname;
+        let name = player.channel_nickname || player.nickname;
         const userID = player.id;
         if (name == null || name === "") {
             name = `${userID}`;
