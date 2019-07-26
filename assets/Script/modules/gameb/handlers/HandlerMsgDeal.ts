@@ -89,8 +89,6 @@ export namespace HandlerMsgDeal {
         //局数
         room.handStartted++;
         room.showRoomNumber();
-        //房间状态
-        room.onUpdateStatus(roomStatus.onPlay);
         //播放开局动画 并等待
         await room.roomView.playAnimation("Effect_ico_kaiju", true);
         //播放庄动画 并等待
@@ -136,5 +134,7 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);
+        //房间状态
+        room.onUpdateStatus(roomStatus.onPlay);
     };
 }

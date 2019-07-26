@@ -98,7 +98,9 @@ export namespace HandlerActionResultDraw {
         if (player.isMe()) {
             room.isMySelfDisCard = true;
             player.cancelZhuochong = false;
-            room.setDiscardAble(!checkButton(room, player, reply));
+            if (!room.isReplayMode()) {
+                room.setDiscardAble(!checkButton(room, player, reply));
+            }
         } else {
             room.isMySelfDisCard = false;
         }
