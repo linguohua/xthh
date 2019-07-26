@@ -10,6 +10,10 @@
 	"permission": {
 		"scope.userLocation":{
 			"desc":"请允许定位"
+		},
+		"scope.record":{
+			"desc":"请允许录音"
 		}
+		
 	}
 }
