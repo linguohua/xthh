@@ -104,9 +104,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
 
-        this.openOrClostGps();
-        if (this.isGpsOpen && cc.sys.platform === cc.sys.WECHAT_GAME) {
-            this.getLocation();
+        this.checkGpsSetting();
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.component.schedule(this.getLocation, 1 * 60, cc.macro.REPEAT_FOREVER);
         }
 
@@ -490,6 +489,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (userID === null || userID === undefined) {
             Dialog.prompt("您输入的回放码不存在,或录像已过期!");
+
             return;
         }
 
@@ -581,7 +581,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private onGpsChange(): void {
-        this.openOrClostGps();
+        this.applyGpsSetting();
         if (this.isGpsOpen) {
             this.getLocation();
         } else {
@@ -589,7 +589,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
 
-    private openOrClostGps(): void {
+    private applyGpsSetting(): void {
         const gps = DataStore.getString("gps", "0");
         if (+ gps > 0) {
             this.isGpsOpen = true;
@@ -598,5 +598,31 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
 
         Logger.debug("gps status:", gps);
+    }
+
+    private checkGpsSetting(): void {
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            return;
+        }
+
+        wx.getSetting({
+            success: (res: getSettingRes) => {
+                console.log(res);
+                if (!res.authSetting['scope.userLocation']) {
+                    DataStore.setItem("gps", "0");
+                }
+
+                this.applyGpsSetting();
+
+                this.getLocation();
+            },
+
+            // tslint:disable-next-line:no-any
+            fail: (err: any) => {
+                Logger.error("getSetting error:", err);
+                DataStore.setItem("gps", "0");
+                this.applyGpsSetting();
+            }
+        });
     }
 }
