@@ -93,10 +93,7 @@ export class LobbyView extends cc.Component {
 
         SoundMgr.playMusicAudio("gameb/music_hall", true);
 
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            // 实例化云信语音sdk
-            this.initNimSDK();
-        }
+        this.initNimSDK();
         // await this.startWebSocket();
 
         // TODO: 如果已经在房间，则拉进房间
