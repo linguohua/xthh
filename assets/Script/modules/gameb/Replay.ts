@@ -1,4 +1,4 @@
-import { Dialog, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger, Message, MsgQueue, MsgType, DataStore } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
@@ -39,6 +39,7 @@ enum actionType {
     DEF_XTSJ_REPLAY_OP_HEIMOX2 = 50,  	//  黑摸
     DEF_XTSJ_REPLAY_OP_RUANMOX2 = 51   // 软摸
 }
+const speedArr: number[] = [2, 1, 0.5, 0.25, 0.125];
 /**
  * 回播
  */
@@ -47,6 +48,7 @@ export class Replay {
     private room: RoomInterface;
 
     private speed: number;
+    private speedIndex: number;
     private roundStep: number;
     private round: proto.casino.Itable_round;
     private actionStep: number;
@@ -54,8 +56,16 @@ export class Replay {
     private btnResume: fgui.GObject;
     private btnPause: fgui.GObject;
     private btnFast: fgui.GObject;
-    private btnSlow: fgui.GObject;
+    // private btnSlow: fgui.GObject;
+    private btnExit: fgui.GObject;
+    private btnReset: fgui.GObject;
+    private btnSetting: fgui.GObject;
+    private textNum: fgui.GObject;
+    private btnNext: fgui.GObject;
     private btnBack: fgui.GObject;
+    private btnYY: fgui.GButton;
+    private btnYX: fgui.GButton;
+    private settingView: fgui.GComponent;
     private win: fgui.Window;
     private mq: MsgQueue;
     private timerCb: Function;
@@ -86,7 +96,8 @@ export class Replay {
 
         // 挂载action处理handler，复用action result handlers
         this.armActionHandler();
-        this.speed = 0.5; //  默认速度, 每2秒一次
+        this.speed = 2; // 0.5; //  默认速度, 每2秒一次
+        this.speedIndex = 0;
 
         const mq = new MsgQueue({});
         this.mq = mq;
@@ -157,15 +168,43 @@ export class Replay {
     }
 
     private initControlView(view: fgui.GComponent): void {
-        this.btnResume = view.getChild("resume");
-        this.btnPause = view.getChild("pause");
-        this.btnFast = view.getChild("fast");
-        this.btnSlow = view.getChild("slow");
-        this.btnBack = view.getChild("back");
+        this.btnResume = view.getChild("resume"); //开始
+        this.btnPause = view.getChild("pause"); //暂停
+        this.btnFast = view.getChild("fast"); //加速 减速
+        this.btnReset = view.getChild("reset"); //重头开始
+        this.btnBack = view.getChild("back"); //上一局
+        this.btnNext = view.getChild("next"); //下一局
+
+        this.btnBack.grayed = true;
+        this.btnNext.grayed = true;
+
+        this.textNum = view.getChild("num"); //速度
+        this.textNum.text = "x1";
+        this.btnSetting = view.getChild("setting");
+
+        this.settingView = view.getChild("settingView").asCom;
+        this.btnExit = this.settingView.getChild("btnExit");
+        this.btnYY = this.settingView.getChild("btnYY").asButton;
+        this.btnYX = this.settingView.getChild("btnYX").asButton;
+        this.btnYY.onClick(this.onMusicSoundBtnClick, this);
+        this.btnYX.onClick(this.onEffectSoundBtnClick, this);
+        const effectsVolume = DataStore.getString("effectsVolume", "0");
+        const musicVolume = DataStore.getString("musicVolume", "0");
+        if (+effectsVolume > 0) {
+            this.btnYX.selected = true;
+        } else {
+            this.btnYX.selected = false;
+        }
+
+        if (+musicVolume > 0) {
+            this.btnYY.selected = true;
+        } else {
+            this.btnYY.selected = false;
+        }
 
         this.btnResume.visible = false;
-        this.btnBack.onClick(
-            this.onBackClick,
+        this.btnExit.onClick(
+            this.onExitClick,
             this);
 
         this.btnPause.onClick(
@@ -183,13 +222,49 @@ export class Replay {
             this
         );
 
-        this.btnSlow.onClick(
-            this.onSlowClick,
+        this.btnSetting.onClick(
+            this.onSettingClick,
+            this
+        );
+        this.btnNext.onClick(
+            this.onNextClick,
+            this
+        );
+        this.btnBack.onClick(
+            this.onBackClick,
+            this
+        );
+        this.btnReset.onClick(
+            this.onResetClick,
             this
         );
     }
+    // 音效开关
+    private onEffectSoundBtnClick(): void {
+        if (this.btnYX.selected) {
+            cc.audioEngine.setEffectsVolume(1);
+            DataStore.setItem("effectsVolume", 1);
+        } else {
+            cc.audioEngine.setEffectsVolume(0);
+            DataStore.setItem("effectsVolume", 0);
+        }
+    }
 
-    private onBackClick(): void {
+    // 音乐开关
+    private onMusicSoundBtnClick(): void {
+        if (this.btnYY.selected) {
+            cc.audioEngine.setMusicVolume(1);
+            DataStore.setItem("musicVolume", 1);
+        } else {
+            cc.audioEngine.setMusicVolume(0);
+            DataStore.setItem("musicVolume", 0);
+        }
+    }
+    private onSettingClick(): void {
+        this.settingView.visible = !this.settingView.visible;
+    }
+
+    private onExitClick(): void {
         const msg = new Message(MsgType.quit);
         this.mq.pushMessage(msg);
     }
@@ -199,7 +274,25 @@ export class Replay {
         this.btnResume.visible = true;
         this.room.getRoomHost().component.unschedule(this.timerCb);
     }
-
+    private onBackClick(): void {
+        //上一局
+        if (!this.btnBack.grayed && this.roundStep > 0) {
+            this.roundStep--;
+            this.actionStep = 0;
+        }
+    }
+    private onNextClick(): void {
+        //下一局
+        if (!this.btnNext.grayed && this.roundStep < this.msgHandRecord.rounds.length - 1) {
+            this.roundStep++;
+            this.actionStep = 0;
+        }
+    }
+    private onResetClick(): void {
+        //重头开始
+        this.roundStep = 0;
+        this.actionStep = 0;
+    }
     private onResumeClick(): void {
         this.btnPause.visible = true;
         this.btnResume.visible = false;
@@ -210,30 +303,35 @@ export class Replay {
     }
 
     private onFastClick(): void {
-        if (this.speed < 0.2) {
-            Logger.debug("fastest speed already");
-            Dialog.prompt("已经是最快速度");
-
-            return;
-        }
-
         this.room.getRoomHost().component.unschedule(this.timerCb);
-        this.speed = this.speed / 2;
+        if (this.speedIndex > 2) {
+            // Logger.debug("fastest speed already");
+            // Dialog.prompt("已经是最快速度");
+            this.speedIndex = 0;
+            // return;
+        } else {
+            this.speedIndex++;
+            // this.speed = this.speed / 2;
+        }
+        this.speed = speedArr[this.speedIndex];
+        this.textNum.text = `x${this.speedIndex + 1}`;
+
         this.startStepTimer();
+        Logger.debug("this.speed ： ", this.speed);
     }
 
-    private onSlowClick(): void {
-        if (this.speed > 3) {
-            Logger.debug("slowest speed already");
-            Dialog.prompt("已经是最慢速度");
+    // private onSlowClick(): void {
+    //     if (this.speed > 3) {
+    //         Logger.debug("slowest speed already");
+    //         Dialog.prompt("已经是最慢速度");
 
-            return;
-        }
+    //         return;
+    //     }
 
-        this.room.getRoomHost().component.unschedule(this.timerCb);
-        this.speed = this.speed * 2;
-        this.startStepTimer();
-    }
+    //     this.room.getRoomHost().component.unschedule(this.timerCb);
+    //     this.speed = this.speed * 2;
+    //     this.startStepTimer();
+    // }
 
     private armActionHandler(): void {
         const handers: { [key: number]: ActionHandler } = {};
@@ -264,7 +362,7 @@ export class Replay {
             this.win.bringToFront();
         } else {
             const round = roundlist[this.roundStep];
-            // Logger.debug(`this.roundStep : ${this.roundStep},this.actionStep : ${this.actionStep}`);
+            // Logger.debug(`this.roundStep : ${ this.roundStep }, this.actionStep : ${ this.actionStep } `);
             if (this.actionStep === 0) {
                 this.round = round;
                 // 重置房间
@@ -273,6 +371,9 @@ export class Replay {
                 this.onPauseClick(); //先暂停定时器
                 await this.deal(round);
                 this.onResumeClick(); //启动定时器
+
+                this.btnBack.grayed = this.roundStep === 0;
+                this.btnNext.grayed = this.roundStep >= roundlist.length - 1;
             }
             // 进入op循环
             const action = round.ops[this.actionStep];
@@ -287,11 +388,6 @@ export class Replay {
     }
 
     private async doAction(srAction: proto.casino.Itable_op): Promise<void> {
-        // const room = this.room;
-        // const i = this.roundStep;
-        // const player = <Player>room.getPlayerByChairID(srAction.chairID);
-        // room.setWaitingPlayer(player.chairID);
-
         const h = this.actionHandlers[srAction.op];
         if (h === undefined) {
             Logger.debug("Replay, no action handler:", srAction.op);
@@ -439,21 +535,21 @@ export class Replay {
         //TODO : 显示 弃操作
         let str = this.room.getPlayerByUserID(`${srAction.player_id}`).mNick;
         if (data.type === actionType.TABLE_OP_ZIMO) {
-            str = `${str}弃自摸`;
+            str = `${str} 弃自摸`;
         } else if (data.type === actionType.TABLE_OP_BUZHUOCHONG) {
-            str = `${str}弃捉铳`;
+            str = `${str} 弃捉铳`;
         } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_GANG_M) {
-            str = `${str}弃点笑`;
+            str = `${str} 弃点笑`;
         } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_GANG_B) {
-            str = `${str}弃回头笑`;
+            str = `${str} 弃回头笑`;
         } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_GANG_A) {
-            str = `${str}弃闷笑`;
+            str = `${str} 弃闷笑`;
         } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_FORGET_PENG) {
-            str = `${str}弃碰`;
+            str = `${str} 弃碰`;
         } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_XIAOCHAOTIAN) {
-            str = `${str}弃小朝天`;
+            str = `${str} 弃小朝天`;
         } else if (data.type === actionType.DEF_XTSJ_REPLAY_OP_DACHAOTIAN) {
-            str = `${str}弃大朝天`;
+            str = `${str} 弃大朝天`;
         }
         this.room.showOrHideCancelCom(true, str);
     }

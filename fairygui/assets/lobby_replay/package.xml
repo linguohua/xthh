@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="awenqlop" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="gtqh5" name="operations.xml" path="/" exported="true"/>
+    <component id="gtqh7" name="pause.xml" path="/"/>
+    <component id="gtqh8" name="resume.xml" path="/"/>
+    <component id="gtqh9" name="fast.xml" path="/"/>
+    <image id="be4ra" name="zm_hf_icon_jt2.png" path="/image/"/>
+    <image id="be4rb" name="zm_hf_icon_kj.png" path="/image/"/>
+    <image id="be4rc" name="zm_hf_icon_zt.png" path="/image/"/>
+    <image id="be4rd" name="zm_hfgnjdi.png" path="/image/" scale="9grid" scale9grid="35,7,2,2" gridTile="16"/>
+    <image id="be4re" name="zm_hf_icon_fh.png" path="/image/"/>
+    <image id="be4rf" name="zm_hf_icon_gb.png" path="/image/"/>
+    <image id="be4rg" name="zm_hf_icon_jt1.png" path="/image/"/>
+    <component id="be4rh" name="back.xml" path="/"/>
+    <component id="be4ri" name="reset.xml" path="/"/>
+    <component id="be4rj" name="next.xml" path="/"/>
+    <image id="be4rk" name="z_桌面牌局回放-标注.jpg" path="/image/"/>
+    <image id="be4rl" name="zm_icon_sz.png" path="/image/"/>
+    <component id="be4rs" name="setting.xml" path="/"/>
+    <component id="be4rn" name="settingView.xml" path="/" exported="true"/>
+    <image id="be4ro" name="zm_szdi.png" path="/resource/s_设置/" scale="9grid" scale9grid="31,5,62,4"/>
+    <component id="be4rp" name="btnYX.xml" path="/resource/s_设置/"/>
+    <image id="be4rq" name="zm_szandi.png" path="/resource/s_设置/" scale="9grid" scale9grid="8,8,16,16"/>
+    <component id="be4rt" name="btnYY.xml" path="/resource/s_设置/"/>
+    <component id="be4ru" name="btnExit.xml" path="/resource/s_设置/"/>
+    <image id="be4ry" name="zm_xxdi.png" path="/image/" scale="9grid" scale9grid="15,13,4,4" gridTile="16"/>
+  </resources>
+  <publish name="lobby_replay"/>
+</packageDescription>

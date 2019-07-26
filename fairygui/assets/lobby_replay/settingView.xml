@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="121,407" designImage="ui://awenqlopbe4rr" designImageOffsetX="-9" designImageOffsetY="-398" designImageAlpha="0">
+  <displayList>
+    <image id="n0_o570" name="bg" src="be4ro" fileName="resource/s_设置/zm_szdi.png" xy="0,192" size="121,214"/>
+    <component id="n2_o570" name="btnYX" src="be4rp" fileName="resource/s_设置/btnYX.xml" xy="6,203"/>
+    <component id="n3_o570" name="btnYY" src="be4rt" fileName="resource/s_设置/btnYY.xml" xy="6,265"/>
+    <component id="n4_o570" name="btnExit" src="be4ru" fileName="resource/s_设置/btnExit.xml" xy="6,329"/>
+  </displayList>
+</component>

@@ -195,7 +195,9 @@ export class RoomView {
 
     //设置当前房间所等待的操作玩家
     public setWaitingPlayer(playerView: PlayerView, time: number): void {
-        this.startDiscardCountdown(time);
+        if (time > 0) {
+            this.startDiscardCountdown(time);
+        }
         this.clearWaitingPlayer();
         const viewChairID = playerView.viewChairID;
         this.roundMarks[viewChairID].visible = true;

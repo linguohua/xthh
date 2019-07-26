@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://awenqlopbe4rk">
+  <displayList>
+    <image id="n2_gtqh" name="n2" src="be4rd" fileName="image/zm_hfgnjdi.png" xy="738,409" size="394,91"/>
+    <component id="n3_gtqh" name="fast" src="gtqh9" fileName="fast.xml" xy="1054,426"/>
+    <component id="n5_gtqh" name="pause" src="gtqh7" fileName="pause.xml" xy="941,421"/>
+    <component id="n6_gtqh" name="resume" src="gtqh8" fileName="resume.xml" xy="930,428" rotation="-90"/>
+    <component id="n7_gtqh" name="slow" src="gtqh9" fileName="fast.xml" xy="781,430" hideByEditor="true" visible="false" rotation="-180"/>
+    <component id="n8_be4r" name="reset" src="be4ri" fileName="reset.xml" xy="803,417"/>
+    <component id="n9_be4r" name="next" src="be4rj" fileName="next.xml" xy="990,425"/>
+    <component id="n10_be4r" name="back" src="be4rj" fileName="next.xml" xy="921,476" rotation="180"/>
+    <component id="n12_be4r" name="setting" src="be4rs" fileName="setting.xml" xy="7,597"/>
+    <component id="n13_be4r" name="settingView" src="be4rn" fileName="settingView.xml" xy="10,208" visible="false"/>
+    <image id="n14_be4r" name="n14" src="be4ry" fileName="image/zm_xxdi.png" xy="962,602" size="170,33"/>
+    <text id="n15_be4r" name="num" xy="974,605" size="37,31" fontSize="18" color="#def43a" autoSize="none" text="&#xA;"/>
+  </displayList>
+</component>
