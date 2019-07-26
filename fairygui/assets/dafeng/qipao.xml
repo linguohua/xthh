@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="67,83">
+  <displayList>
+    <image id="n10_jnmk" name="n10" src="lqn3hc" fileName="_resource/z_桌面打牌/zm_yylt_qp.png" xy="0,0"/>
+    <image id="n7_jnmk" name="n7" src="lqn3hd" fileName="_resource/z_桌面打牌/zm_yylt_qpx1.png" xy="26,17"/>
+    <image id="n8_jnmk" name="n8" src="lqn3he" fileName="_resource/z_桌面打牌/zm_yylt_qpx2.png" xy="21,25"/>
+    <image id="n9_jnmk" name="n9" src="lqn3hf" fileName="_resource/z_桌面打牌/zm_yylt_qpx3.png" xy="32,10"/>
+  </displayList>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Visible" target="n7_jnmk" value="false"/>
+    <item time="0" type="Visible" target="n8_jnmk" value="false"/>
+    <item time="0" type="Visible" target="n9_jnmk" value="false"/>
+    <item time="6" type="Visible" target="n8_jnmk" value="true"/>
+    <item time="12" type="Visible" target="n7_jnmk" value="true"/>
+    <item time="18" type="Visible" target="n9_jnmk" value="true"/>
+    <item time="24" type="Visible" target="n9_jnmk" value="false"/>
+    <item time="30" type="Visible" target="n7_jnmk" value="false"/>
+    <item time="36" type="Visible" target="n7_jnmk" value="true"/>
+    <item time="42" type="Visible" target="n9_jnmk" value="true"/>
+  </transition>
+</component>

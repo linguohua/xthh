@@ -753,6 +753,8 @@
     <component id="hsncj9" name="share_btn.xml" path="/readyView/ready/"/>
     <component id="wehqja" name="disband_room_btn.xml" path="/readyView/ready/"/>
     <component id="wehqjb" name="create_room_for_other.xml" path="/readyView/ready/"/>
+    <component id="n8map5" name="mike.xml" path="/" exported="true"/>
+    <component id="jnmkp6" name="qipao.xml" path="/" exported="true"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
