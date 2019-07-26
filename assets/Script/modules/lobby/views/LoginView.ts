@@ -256,10 +256,11 @@ export class LoginView extends cc.Component {
                     const reply = <FastLoginReply>JSON.parse(xhr.responseText);
                     if (reply.ret !== 0) {
                         Dialog.showDialog(`登录错误，错误码:${reply.ret}`);
-                        return
+
+                        return;
                     }
 
-                    DataStore.setItem("imiccid", reply.im_accid);
+                    DataStore.setItem("imaccid", reply.im_accid);
                     DataStore.setItem("imtoken", reply.im_token);
 
                     Logger.debug(reply);

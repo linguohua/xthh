@@ -66,6 +66,7 @@ export namespace LEnv {
     export const baiduAK = "v1jXiFzfwu0HVhnHL7zBStUvX1esPIWU";
 
     export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
+    export const yunxinAppKey = "f31690906e1428b3a6a1c9147580b3b7";
 
     // tslint:disable-next-line:no-http-string
     export const wxLogin = "/zyqp/user/h5login/withcode?app={0}&code={1}";

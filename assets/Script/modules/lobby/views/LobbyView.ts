@@ -1,9 +1,10 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, SoundMgr
+    DataStore, GameModuleLaunchArgs, KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 
+import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { NewRoomView } from "./NewRoomView";
@@ -92,7 +93,10 @@ export class LobbyView extends cc.Component {
 
         SoundMgr.playMusicAudio("gameb/music_hall", true);
 
-        this.initNimSDK();
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            // 实例化云信语音sdk
+            this.initNimSDK();
+        }
         // await this.startWebSocket();
 
         // TODO: 如果已经在房间，则拉进房间
@@ -264,6 +268,9 @@ export class LobbyView extends cc.Component {
     }
 
     private initNimSDK(): void {
-
+        const imaccid = DataStore.getString("imaccid");
+        const imtoken = DataStore.getString("imtoken");
+        const nimSDK = new NimSDK(LEnv.yunxinAppKey, imaccid, imtoken);
+        nimSDK.initNimSDK();
     }
 }
