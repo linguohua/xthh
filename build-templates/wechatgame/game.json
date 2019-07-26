@@ -1,0 +1,15 @@
+{
+    "deviceOrientation": "landscape",
+    "networkTimeout": {
+        "request": 5000,
+        "connectSocket": 5000,
+        "uploadFile": 5000,
+        "downloadFile": 5000
+    },
+    "subpackages": [],
+	"permission": {
+		"scope.userLocation":{
+			"desc":"请允许定位"
+		}
+	}
+}
