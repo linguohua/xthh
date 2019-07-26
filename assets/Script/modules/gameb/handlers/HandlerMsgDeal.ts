@@ -86,6 +86,11 @@ export namespace HandlerMsgDeal {
         room.showRoomBtnsAndBgs();
         //清理
         room.resetForNewHand();
+        //局数
+        room.handStartted++;
+        room.showRoomNumber();
+        //房间状态
+        room.onUpdateStatus(roomStatus.onPlay);
         //播放开局动画 并等待
         await room.roomView.playAnimation("Effect_ico_kaiju", true);
         //播放庄动画 并等待
@@ -121,7 +126,9 @@ export namespace HandlerMsgDeal {
             p.hand2UI(false);
             playerNum++;
         }
-
+        //牌墙 两个花色 72 张 每人13张 加上 一张翻拍
+        room.tilesInWall = 72 - ((playerNum * 13) + 1);
+        room.updateTilesInWallUI();
         //等待庄家出牌
         room.setWaitingPlayer(player.chairID, msgDeal.time);
 
@@ -129,13 +136,5 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);
         room.mAlgorithm.setMahjongFan(msgDeal.fanpai);
         room.mAlgorithm.setFlagPiao(false);
-        //局数
-        room.handStartted++;
-        room.showRoomNumber();
-        //牌墙 两个花色 72 张 每人13张 加上 一张翻拍
-        room.tilesInWall = 72 - ((playerNum * 13) + 1);
-        room.updateTilesInWallUI();
-        //房间状态
-        room.onUpdateStatus(roomStatus.onPlay);
     };
 }

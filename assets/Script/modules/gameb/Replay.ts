@@ -367,13 +367,14 @@ export class Replay {
                 this.round = round;
                 // 重置房间
                 room.resetForNewHand();
+                //初始化按钮状态
+                this.btnBack.grayed = this.roundStep === 0;
+                this.btnNext.grayed = this.roundStep >= roundlist.length - 1;
                 // 发牌
                 this.onPauseClick(); //先暂停定时器
                 await this.deal(round);
                 this.onResumeClick(); //启动定时器
 
-                this.btnBack.grayed = this.roundStep === 0;
-                this.btnNext.grayed = this.roundStep >= roundlist.length - 1;
             }
             // 进入op循环
             const action = round.ops[this.actionStep];

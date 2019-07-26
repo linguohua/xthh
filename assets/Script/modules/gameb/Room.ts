@@ -182,7 +182,7 @@ export class Room {
         this.setSound();
         // this.playBgSound();
 
-        if (this.roomInfo.play_total !== null) {
+        if (this.roomInfo.play_total !== null && !this.isReplayMode()) {
             this.handStartted = this.roomInfo.play_total;
         }
         this.showRoomNumber();
