@@ -1,6 +1,8 @@
 import { Logger } from '../../lcore/LCoreExports';
-// import NIM_Web_NIMJs from './NIM_Web_NIM.js';
-// import * as FriendCard from './../pages/FriendCard';
+// tslint:disable-next-line:no-require-imports
+import NIMWeb = require('./NIMWeb');
+// tslint:disable-next-line:no-require-imports
+import NIMWeixin = require('./NIMWeixin');
 /**
  * 网易云信SDK
  */
@@ -41,6 +43,7 @@ interface Team {
 }
 
 export class NimSDK {
+    public eventTarge: cc.EventTarget;
     private appKey: string;
     private account: string;
     private token: string;
@@ -48,10 +51,13 @@ export class NimSDK {
     private teamID: string;
     // tslint:disable-next-line:no-any
     private nimSDK: any;
+    // 用来订阅消息
     public constructor(appKey: string, account: string, token: string) {
         this.appKey = appKey;
         this.account = account;
         this.token = token;
+
+        this.eventTarge = new cc.EventTarget();
     }
 
     public initNimSDK(): void {
@@ -64,11 +70,11 @@ export class NimSDK {
         }
 
         // tslint:disable-next-line:no-require-imports
-        let nimSdk = require("./NIM_Web_NIM_v6.6.6.js");
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            // tslint:disable-next-line:no-require-imports
-            nimSdk = require("./NIM_Web_NIM_weixin_v6.6.6");
-        }
+        // let nimSdk = require("./NIM_Web.js");
+        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        //     // tslint:disable-next-line:no-require-imports
+        //     nimSdk = require("./NIM_Weixin.js");
+        // }
 
         const onConnect = () => {
             Logger.debug("NimSDK, onConnect");
@@ -79,8 +85,7 @@ export class NimSDK {
             Logger.debug("onCreateTeam");
         };
 
-        Logger.debug("nimSdk:", nimSdk);
-        this.nimSDK = nimSdk.getInstance({
+        const options = {
             appKey: this.appKey,
             account: this.account,
             token: this.token,
@@ -92,14 +97,23 @@ export class NimSDK {
             onsynccreateteam: onCreateTeam,
             onteammembers: this.onTeamMembers,
             onmsg: this.onMsg
-        });
+        };
+        // Logger.debug("nimSdk:", nimSdk);
+        // NIMWeb.getInstance()
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            // 微信版本sdk
+            this.nimSDK = NIMWeixin.getInstance(options);
+        } else {
+            // web版本sdk
+            this.nimSDK = NIMWeb.getInstance(options);
+        }
     }
 
     public disconnect(): void {
         this.nimSDK.disconnect();
     }
 
-    public createTeam(): void {
+    public createTeam(imaccids: string[]): void {
         if (this.nimSDK === undefined || this.nimSDK === null) {
             Logger.error("createTeam failed, this.nimSDK === undefined || this.nimSDK === null");
 
@@ -117,24 +131,15 @@ export class NimSDK {
 
             Logger.debug("createTeamDone:", obj);
             this.teamID = obj.team.teamId;
-            this.sendTeamMsg("haha", obj.team.teamId);
+            this.sendTeamMsg("haha");
         };
         Logger.debug("my account:", this.account);
-        // 创建普通群
-        // this.teamID = this.nimSDK.createTeam({
-        //     type: 'normal',
-        //     name: '普通群',
-        //     avatar: 'avatar',
-        //     accounts: [this.account],
-        //     ps: '我建了一个普通群',
-        //     done: createTeamDone
-        // });
 
         this.nimSDK.createTeam({
             type: 'normal',
             name: '普通群',
             avatar: 'avatar',
-            accounts: ['1'],
+            accounts: imaccids,
             ps: '我建了一个普通群',
             done: createTeamDone
         });
@@ -143,15 +148,9 @@ export class NimSDK {
 
     }
     // 先测试发文本，然后再测试发语音
-    public sendTeamMsg(msgContent: string, to: string): void {
+    public sendTeamMsg(msgContent: string): void {
         if (this.nimSDK === null || this.nimSDK === undefined) {
             Logger.error("this.nimSDK === null || this.nimSDK === undefined");
-
-            return;
-        }
-
-        if (to === "") {
-            Logger.error(`params msgContent:${msgContent}, to:${to}, require to`);
 
             return;
         }
@@ -160,11 +159,9 @@ export class NimSDK {
             Logger.debug("sendMsgDone");
         };
 
-        Logger.debug("sending msg to ", to);
-
         const msg = this.nimSDK.sendText({
             scene: 'team',
-            to: to,
+            to: this.teamID,
             text: msgContent,
             done: sendMsgDone
         });
@@ -173,15 +170,15 @@ export class NimSDK {
     }
 
     // tslint:disable-next-line:no-reserved-keywords
-    public sendFile(scene: string, type: string, to: string, wxFilePath: string): void {
+    public sendTeamAudio(wxFilePath: string): void {
         const sendMsgDone = () => {
             Logger.debug("sendMsgDone");
         };
 
         this.nimSDK.sendFile({
             scene: 'scene',
-            to: to,
-            type: type,
+            to: this.teamID,
+            type: "audio",
             wxFilePath: wxFilePath,
 
             uploadprogress: (obj: { total: number; loaded: number; percentage: number; percentageText: string }) => {
@@ -228,11 +225,11 @@ export class NimSDK {
 
     protected onMsg(msg: Message): void {
         Logger.debug("NimSDK.onMsg:", msg);
+        this.eventTarge.emit("onNimMsg", msg);
     }
 
     protected onCreateTeam(team: { team: Team }): void {
         Logger.debug("onCreateTeam:", team);
-        this.sendTeamMsg("this is test msg", this.teamID);
     }
     protected onTeamMembers(obj: {}): void {
         Logger.debug("onTeamMembers:", obj);

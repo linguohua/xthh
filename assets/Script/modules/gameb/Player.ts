@@ -834,6 +834,10 @@ export class Player {
         return count;
     }
 
+    public showOrHideVoiceImg(isShow: boolean): void {
+        this.playerView.showOrHideVoiceImg(isShow);
+    }
+
     // private myMahjong_setIcoTing(tile: number): boolean {
     //     return this.host.mAlgorithm.canTingPai(this.tilesHand, tile);
     // }

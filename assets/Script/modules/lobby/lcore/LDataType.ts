@@ -1,3 +1,4 @@
+import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 
 /**
@@ -55,6 +56,7 @@ export interface LobbyModuleInterface {
     loader: GResLoader;
     eventTarget: cc.EventTarget;
     msgCenter: MsgCenter;
+    nimSDK: NimSDK;
     returnFromGame(): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;

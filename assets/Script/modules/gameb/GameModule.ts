@@ -141,6 +141,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
 
+    public createTeam(): void {
+        // this.lm.nimSDK.createTeam();
+    }
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.eventTarget.on("gpsChange", this.onGpsChange, this);

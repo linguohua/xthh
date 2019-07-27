@@ -116,6 +116,7 @@ export class PlayerView {
     private piaoScoreLose: fgui.GObject;
     private piaoScoreStartPos: cc.Vec2;
     private piaoScoreEndPos: cc.Vec2;
+    private voice: fgui.GObject;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
         this.viewChairID = viewChairID;
@@ -931,6 +932,11 @@ export class PlayerView {
             this.head.nameText.text = `${this.player.totalScores}`;
         }
     }
+
+    // 显示获隐藏语音气泡
+    public showOrHideVoiceImg(isShow: boolean): void {
+        this.voice.visible = isShow;
+    }
     private hideChatMsg(): void {
         this.qipao.visible = false;
     }
@@ -947,6 +953,9 @@ export class PlayerView {
         //聊天气泡
         this.qipao = this.myView.getChild("qipao").asCom;
         this.qipaoText = this.qipao.getChild("text");
+
+        // 语音气泡
+        this.voice = this.myView.getChild("voice");
         //分数飘字
         const scoreCom = this.myView.getChild("scoreCom").asCom;
         scoreCom.visible = true;
@@ -954,6 +963,7 @@ export class PlayerView {
         this.piaoScoreLose = scoreCom.getChild("lose");
         this.piaoScoreStartPos = scoreCom.getChild("startPos").node.position;
         this.piaoScoreEndPos = scoreCom.getChild("endPos").node.position;
+
     }
 
     //头像周边内容节点

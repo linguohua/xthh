@@ -3,6 +3,7 @@
  */
 const { ccclass } = cc._decorator;
 import { GameModule } from "../gameb/GamebExports";
+import { NimSDK } from "./chanelSdk/nimSdk/NimSDK";
 import { GResLoaderImpl } from "./GResLoaderImpl";
 import { Dialog } from "./lcore/Dialog";
 import { DataStore, KeyConstants } from "./lcore/LCoreExports";
@@ -23,6 +24,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public eventTarget: cc.EventTarget;
 
     public msgCenter: MsgCenter;
+    public nimSDK: NimSDK;
     private gameNode: cc.Node;
     private gameLoader: GResLoaderImpl;
     private view: fgui.GObject;

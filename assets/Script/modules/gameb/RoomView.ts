@@ -58,6 +58,8 @@ export class RoomView {
     private aniPos: fgui.GObject;
     private cancelCom: fgui.GComponent;
     private cancelComText: fgui.GObject;
+    private mike: fgui.GObject;
+    // private isRecordOpen: boolean = false;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -482,6 +484,9 @@ export class RoomView {
 
         this.chatBtn = this.unityViewNode.getChild("chatBtn");
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
+        this.recoredBtn.on(fgui.Event.TOUCH_BEGIN, this.onVoiceBtnPress, this);
+        this.recoredBtn.on(fgui.Event.TOUCH_END, this.onVoiceBtnUp, this);
+
         this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
         this.chatBtn.onClick(this.onChatBtnClick, this);
@@ -512,6 +517,71 @@ export class RoomView {
         //     infoBtn.setPosition(infoBtn.x, infoBtn.y + 60);
         // }
 
+    }
+
+    // private onRecordSuccess(tempFilePath: string): void {
+    //     Logger.debug("onRecordSuccess, tempFilePath:", tempFilePath);
+    // }
+
+    // private startRecord(): void {
+    //     if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+    //         return;
+    //     }
+
+    //     wx.startRecord({
+    //         success: (result: { tempFilePath: string }) => {
+    //             this.onRecordSuccess(result.tempFilePath);
+    //         }
+    //     });
+
+    //     setTimeout(
+    //         () => {
+    //             this.mike.visible = false;
+    //             wx.stopRecord(); // 结束录音
+    //         },
+    //         10000);
+    // }
+
+    private onVoiceBtnPress(): void {
+        Logger.debug("onVoiceBtnPress");
+        this.mike.visible = true;
+        // if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+        //     Dialog.showDialog("微信上才可以录音");
+
+        //     return;
+        // }
+
+        // if (!this.isRecordOpen) {
+
+        //     wx.getSetting({
+        //         success: (res: getSettingRes) => {
+        //             console.log(res);
+        //             if (!res.authSetting['scope.userLocation']) {
+        //                 this.mike.visible = true;
+        //                 this.isRecordOpen = true;
+        //                 this.startRecord();
+        //             } else {
+        //                 Dialog.showDialog("请前往小程序设置打开录音功能");
+        //             }
+        //         },
+
+        //         // tslint:disable-next-line:no-any
+        //         fail: (err: any) => {
+        //             Logger.error("getSetting error:", err);
+        //         }
+        //     });
+        // } else {
+        //     this.startRecord();
+        // }
+    }
+
+    private onVoiceBtnUp(): void {
+        Logger.debug("onVoiceBtnUp");
+        this.mike.visible = false;
+
+        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        //     wx.stopRecord(); // 结束录音
+        // }
     }
     private onReadyButtonClick(): void {
         this.readyButton.visible = false;
@@ -573,6 +643,8 @@ export class RoomView {
         this.nameBg = player1.getChild("bg4");
         this.anteBg = player1.getChild("bg5");
         this.dbg = this.unityViewNode.getChild("diBg");
+
+        this.mike = this.unityViewNode.getChild("mike");
     }
 
     //初始化房间状态事件
