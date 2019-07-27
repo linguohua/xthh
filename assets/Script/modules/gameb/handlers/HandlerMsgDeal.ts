@@ -1,7 +1,6 @@
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface, roomStatus } from "../RoomInterface";
-import { Logger } from "../../lobby/lcore/Logger";
 
 //发牌个数
 const dealNum: number[] = [
@@ -30,8 +29,9 @@ export namespace HandlerMsgDeal {
         }
 
         //发牌动画
+        const dealNumLength = dealNum.length;
         if (room.isReplayMode()) {
-            for (let i = 0; i < dealNum.length; i++) {
+            for (let i = 0; i < dealNumLength; i++) {
                 const num = dealNum[i];
                 for (const p of playersArr) {
                     if (p !== undefined && p !== null) {
@@ -44,7 +44,7 @@ export namespace HandlerMsgDeal {
                 }
             }
         } else {
-            for (let i = 0; i < dealNum.length; i++) {
+            for (let i = 0; i < dealNumLength; i++) {
                 const num = dealNum[i];
                 const cs = cards.splice(0, num);
                 for (const p of playersArr) {

@@ -628,16 +628,16 @@ export class Room {
             }
         }
         if (!this.isReplayMode()) {
-            let cur_id = 0;
+            let curid = 0;
             for (let i = 0; i < this.roomInfo.players.length; i++) {
                 const p = this.roomInfo.players[i];
                 if (this.roomInfo.cur_idx === i) {
-                    cur_id = p.id;
+                    curid = p.id;
                 }
                 const player = this.getPlayerByChairID(i);
                 this.initCards(p, player);
             }
-            this.showCards(cur_id);
+            this.showCards(curid);
         }
     }
 
@@ -655,16 +655,16 @@ export class Room {
         this.resetForNewHand();
         this.cleanUI();
 
-        let cur_id: number = 0;
+        let curid: number = 0;
         for (let i = 0; i < table.players.length; i++) {
             const p = table.players[i];
             if (table.cur_idx === i) {
-                cur_id = p.id;
+                curid = p.id;
             }
             const player = this.getPlayerByChairID(i);
             this.initCards(p, player);
         }
-        this.showCards(cur_id);
+        this.showCards(curid);
         // if (table.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OP) {
         //     const player = <Player>this.getPlayerByUserID(`${table.target_id}`);
         //     this.setWaitingPlayer(player.chairID);
