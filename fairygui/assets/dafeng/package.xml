@@ -755,6 +755,7 @@
     <component id="wehqjb" name="create_room_for_other.xml" path="/readyView/ready/"/>
     <component id="n8map5" name="mike.xml" path="/" exported="true"/>
     <component id="jnmkp6" name="qipao.xml" path="/" exported="true"/>
+    <image id="6omkp7" name="jbting.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
