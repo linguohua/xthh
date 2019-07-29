@@ -4,7 +4,7 @@
   <displayList>
     <image id="n3_hsnc" name="n3" src="hsnci2" fileName="ready/z_准备界面/ty_btn_h1.png" xy="0,0" size="211,119"/>
     <image id="n4_hsnc" name="n4" src="hsnci6" fileName="ready/z_准备界面/zm_btn_zi_fxfh.png" xy="35,64"/>
-    <text id="n5_wehq" name="roomNumber" xy="12,18" size="185,39" font="ui://ls4obr7jhsnci0" fontSize="10" align="center" vAlign="middle" autoSize="none" text="999999"/>
+    <text id="n5_wehq" name="roomNumber" xy="12,18" size="185,39" font="ui://397phochhsnci0" fontSize="10" align="center" vAlign="middle" autoSize="none" text="999999"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

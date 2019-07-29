@@ -1,7 +1,8 @@
-import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, Dialog, Logger } from "../../lcore/LCoreExports";
-import { proto as protoHH } from "../../protoHH/protoHH";
-import { Share } from "../../shareUtil/ShareExports";
+import { CommonFunction, DataStore, Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { Share } from "../lobby/shareUtil/ShareExports";
+
+import { RoomHost } from "../lobby/interface/LInterfaceExports";
+import { proto as protoHH } from "../lobby/protoHH/protoHH";
 
 export interface RoomInterface {
     sendDisbandAgree(agree: boolean): void;
@@ -61,10 +62,8 @@ export class ReadyView extends cc.Component {
     private originPositions: cc.Vec2[] = [];
     public showReadyView(roomHost: RoomHost): void {
         this.host = roomHost;
-        const loader = roomHost.getLobbyModuleLoader();
         if (this.view === null || this.view === undefined) {
-            loader.fguiAddPackage("lobby/fui_room_other_view/room_other_view");
-            const view = fgui.UIPackage.createObject("room_other_view", "ready").asCom;
+            const view = fgui.UIPackage.createObject("dafeng", "ready").asCom;
 
             CommonFunction.setViewInCenter(view);
 
