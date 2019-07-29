@@ -226,13 +226,13 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
             (error) => {
                 Logger.debug(`lobby load, error:${error}`);
                 if (error == null) {
+                    this.filterProgress = 0;
                     this.onResLoadedCompleted();
                 }
             },
             (progress) => {
                 if (this.filterProgress > progress) {
-                    Logger.debug(`lobby load, this.progress:${this.filterProgress}, new progress = ${progress}`);
-
+                    // 加载大厅资源时，防止进度条往回跑
                     return;
                 }
                 this.filterProgress = progress;

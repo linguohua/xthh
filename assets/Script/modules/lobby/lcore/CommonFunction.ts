@@ -132,7 +132,6 @@ export namespace CommonFunction {
             // i phone x 的黑边为 IOS_ADAPTER_WIDTH
             x = (cc.winSize.width - IOS_ADAPTER_WIDTH) / 2 - (cc.winSize.height * 1136 / 640 / 2) + IOS_ADAPTER_WIDTH;
         }
-        Logger.debug("x = ", x);
 
         view.setPosition(-x, 0);
         setBgFullScreen(view);
