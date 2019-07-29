@@ -348,7 +348,7 @@ export class Player {
         const playerView = this.playerView;
         playerView.hideHands();
 
-        playerView.hand2Exposed(false);
+        playerView.hand2Exposed(false, true);
     }
 
     //把花牌列表显示到界面上

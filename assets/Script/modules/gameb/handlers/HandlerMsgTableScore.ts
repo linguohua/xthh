@@ -55,11 +55,11 @@ export namespace HandlerMsgTableScore {
                 player.hand2Exposed();
             }
         }
-
         const disband_type = reply.tdata.disband_type;
         if (disband_type !== null && !room.isReplayMode()) {
             // 还没开局，不弹大结算界面
             if (reply.tdata.play_total !== null && reply.tdata.play_total > 0) {
+                await room.coWaitSeconds(2);
                 room.loadGameOverResultView(reply);
             }
         } else {

@@ -295,6 +295,9 @@ export class PlayerView {
         if (this.lights != null) {
             for (const h of this.lights) {
                 h.visible = false;
+
+                const point = h.getChild("piaoPos");
+                point.visible = false;
             }
             if (this.viewChairID === 1 || this.viewChairID === 3) {
                 //改变x值
@@ -339,6 +342,9 @@ export class PlayerView {
                 // meld.getChild("n3").visible = false;
                 // meld.getChild("n4").visible = false;
                 meld.visible = false;
+                for (let i = 1; i < 5; i++) {
+                    meld.getChild(`n${i}`).asCom.getChild("piaoPos").visible = false;
+                }
             }
         }
     }
@@ -499,7 +505,7 @@ export class PlayerView {
         }
     }
     //显示面子牌组
-    public showMelds(): number {
+    public showMelds(isHu: boolean = false): number {
         this.meldLans = [];
         const ms = this.player.tilesMelds;
         const length = ms.length;
@@ -511,7 +517,7 @@ export class PlayerView {
             //根据面子牌挂载牌的图片
             const meldData = ms[i];
             // Logger.debug("根据面子牌挂载牌的图片 : ", meldData);
-            const arr = this.mountMeldImage(mv, meldData);
+            const arr = this.mountMeldImage(mv, meldData, isHu);
             // if (arr.length === 4) {
             //     g++;
             // } else {
@@ -570,7 +576,8 @@ export class PlayerView {
     //显示面子牌组，暗杠需要特殊处理，如果是自己的暗杠，
     //则明牌显示前3张，第4张暗牌显示（以便和明杠区分）
     //如果是别人的暗杠，则全部暗牌显示
-    public mountMeldImage(meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack): fgui.GComponent[] {
+    public mountMeldImage(
+        meldView: fgui.GComponent, msgMeld: protoHH.casino_xtsj.packet_sc_op_ack, isHu: boolean = false): fgui.GComponent[] {
 
         const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
         let viewChairID = this.viewChairID;
@@ -617,6 +624,14 @@ export class PlayerView {
         }
         // meldView.visible = true;
         meldView.setSize(width, height);
+
+        if (isHu) {
+            for (const a of arr) {
+                const point = a.getChild("piaoPos");
+                this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, point.node);
+                point.visible = true;
+            }
+        }
 
         return arr;
     }
@@ -735,14 +750,14 @@ export class PlayerView {
     }
 
     //把手牌摊开，包括对手的暗杠牌，用于一手牌结束时
-    public hand2Exposed(wholeMove: boolean): void {
+    public hand2Exposed(wholeMove: boolean, isHu: boolean = false): void {
         //不需要手牌显示了，全部摊开
         this.hideLights();
 
         //先显示所有melds面子牌组
         const melds = this.player.tilesMelds;
         const tileshand = this.player.tilesHand;
-        const num = this.showMelds();
+        const num = this.showMelds(isHu);
         const tileCountInHand = tileshand.length;
 
         let begin = 0;
@@ -766,6 +781,11 @@ export class PlayerView {
         for (let i = begin; i < endd; i++) {
             const light = this.lights[j];
             TileImageMounter.mountTileImage(light, tileshand[i]);
+            if (isHu) {
+                const point = light.getChild("piaoPos");
+                this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, point.node);
+                point.visible = true;
+            }
             light.visible = true;
             j = j + 1;
         }
