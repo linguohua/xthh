@@ -83,7 +83,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.lm.eventTarget.on("reconnect", this.onReconnect, this);
 
         if (this.lm.nimSDK !== undefined) {
-            this.lm.nimSDK.eventTarge.on("onNimMsg", this.onNimMsg, this);
+            this.lm.nimSDK.eventTarget.on("onNimMsg", this.onNimMsg, this);
         }
 
         // 加载游戏界面
