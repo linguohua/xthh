@@ -116,8 +116,13 @@ export namespace Share {
 
         Logger.debug(`canvas.width:${canvas.width}, canvas.heigth:${canvas.height},
         cc.winSize.width:${cc.winSize.width}, cc.winSize.height:${cc.winSize.height}`);
+        // 为了去掉警告
+        interface MyCanvas extends HTMLCanvasElement {
+            toTempFilePath: Function;
+        }
 
-        canvas.toTempFilePath({
+        const myCanvas = <MyCanvas>canvas;
+        myCanvas.toTempFilePath({
             x: 0,
             y: 0,
             width: width,

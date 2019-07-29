@@ -385,10 +385,11 @@ interface RecordOnErrorCallBack {
 
 interface getRecorderManagerOpts {
   start: (options: RecordStartOpts) => void;
+  stop: () => void;
   onStart: ReturnCallBack;
   onPause: ReturnCallBack;
   onStop: (res: RecordOnStopCallBack) => void;
-  onFrameRecorded: (res: onFrameRecordedRes) => void;
+  onFrameRecorded: (res: onFrameRecordedCallBack) => void;
   onError: (res: RecordOnErrorCallBack) => void;
 }
 

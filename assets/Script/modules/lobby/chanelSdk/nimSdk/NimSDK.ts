@@ -69,13 +69,6 @@ export class NimSDK {
             return;
         }
 
-        // tslint:disable-next-line:no-require-imports
-        // let nimSdk = require("./NIM_Web.js");
-        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-        //     // tslint:disable-next-line:no-require-imports
-        //     nimSdk = require("./NIM_Weixin.js");
-        // }
-
         const onConnect = () => {
             Logger.debug("NimSDK, onConnect");
             // this.createTeam();
@@ -98,8 +91,7 @@ export class NimSDK {
             onteammembers: this.onTeamMembers,
             onmsg: this.onMsg
         };
-        // Logger.debug("nimSdk:", nimSdk);
-        // NIMWeb.getInstance()
+
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             // 微信版本sdk
             this.nimSDK = NIMWeixin.getInstance(options);

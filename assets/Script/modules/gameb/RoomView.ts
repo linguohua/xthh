@@ -60,6 +60,7 @@ export class RoomView {
     private cancelComText: fgui.GObject;
     private mike: fgui.GObject;
     // private isRecordOpen: boolean = false;
+    private recordManager: getRecorderManagerOpts;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -83,6 +84,10 @@ export class RoomView {
 
         this.initTingData();
         this.initMeldsPanel();
+
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            this.initRecordManager();
+        }
     }
     /**
      * 操作ui
@@ -544,7 +549,24 @@ export class RoomView {
 
     private onVoiceBtnPress(): void {
         Logger.debug("onVoiceBtnPress");
-        this.mike.visible = true;
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            Dialog.showDialog("微信上才可以录音");
+
+            return;
+        }
+
+        // const options = {
+        //     duration: 60000,
+        //     sampleRate: 44100,
+        //     numberOfChannels: 1,
+        //     encodeBitRate: 192000,
+        //     format: 'aac',
+        //     frameSize: 50
+        // };
+
+        // Logger.debug("this.recordManager:", this.recordManager);
+        this.recordManager.start({});
+        // this.mike.visible = true;
         // if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
         //     Dialog.showDialog("微信上才可以录音");
 
@@ -577,11 +599,11 @@ export class RoomView {
 
     private onVoiceBtnUp(): void {
         Logger.debug("onVoiceBtnUp");
-        this.mike.visible = false;
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            return;
+        }
 
-        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-        //     wx.stopRecord(); // 结束录音
-        // }
+        this.recordManager.stop();
     }
     private onReadyButtonClick(): void {
         this.readyButton.visible = false;
@@ -770,5 +792,45 @@ export class RoomView {
         // // this.room.sendActionMsg(actionMsgBuf);
         // this.playerViews[1].hideOperationButtons();
         // this.meldOpsPanel.visible = false;
+    }
+
+    private initRecordManager(): void {
+        Logger.debug("initRecordManager");
+
+        const recorderManager = wx.getRecorderManager();
+        this.recordManager = recorderManager;
+
+        const onStart = () => {
+            Logger.debug("onStart");
+            this.mike.visible = true;
+        };
+
+        const onPause = () => {
+            Logger.debug("onPause");
+        };
+
+        const onStop = (res: RecordOnStopRes) => {
+            Logger.debug("onStop:", res);
+            this.mike.visible = false;
+            this.sendVoice(res.tempFilePath);
+        };
+
+        const onFrameRecorded = (res: onFrameRecordedRes) => {
+            Logger.debug("onFrameRecorded:", res);
+        };
+
+        const onError = (res: RecordOnErrorRes) => {
+            Logger.debug("onError:", res);
+        };
+
+        recorderManager.onStart(onStart);
+        recorderManager.onPause(onPause);
+        recorderManager.onStop(onStop);
+        recorderManager.onFrameRecorded(onFrameRecorded);
+        recorderManager.onError(onError);
+    }
+
+    private sendVoice(tempFilePath: string): void {
+        this.room.getRoomHost();
     }
 }

@@ -125,6 +125,26 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
 
+    /**
+     * 发送语音
+     * @param tempFilePath 微信语音文件路径
+     */
+    public sendVoice(tempFilePath: string): void {
+        if (this.lm === undefined || this.lm === null) {
+            Logger.debug("sendVoice failed, this.lm === undefined || this.lm === null");
+
+            return;
+        }
+
+        if (this.lm.nimSDK === undefined || this.lm.nimSDK === null) {
+            Logger.debug("this.lm.nimSDK === undefined || this.lm.nimSDK === null");
+
+            return;
+        }
+
+        this.lm.nimSDK.sendTeamAudio(tempFilePath);
+    }
+
     public quit(): void {
         if (this.mq !== undefined && this.mq !== null) {
             this.mq.pushQuit();
