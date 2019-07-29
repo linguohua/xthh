@@ -2,8 +2,14 @@ import { CommonFunction, DataStore, LobbyModuleInterface, Logger } from "../lcor
 import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
-
 const beanChannel = "android_h5";
+
+export enum TabType {
+
+    FK = 0,
+    Dou = 1
+
+}
 /**
  * 用户信息页面
  */
@@ -19,6 +25,14 @@ export class ShopView extends cc.Component {
     private beanItemList: fgui.GList;
     private beanPayCfgs: protoHH.casino.Ipay[];
     // private cardPayCfgs: protoHH.casino.Ipay[];
+
+    public showView(page: TabType): void {
+        this.win.show();
+
+        const tabCtrl = this.view.getController("tab");
+
+        tabCtrl.selectedIndex = page;
+    }
 
     protected onLoad(): void {
 
@@ -50,7 +64,7 @@ export class ShopView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-        this.win.show();
+        // this.win.show();
 
         this.initView();
     }

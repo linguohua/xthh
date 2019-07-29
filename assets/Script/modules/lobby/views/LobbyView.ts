@@ -8,7 +8,7 @@ import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { NewRoomView } from "./NewRoomView";
-import { ShopView } from "./ShopView";
+import { ShopView, TabType } from "./ShopView";
 const { ccclass } = cc._decorator;
 
 /**
@@ -156,6 +156,12 @@ export class LobbyView extends cc.Component {
         const shareBtn = this.view.getChild("shareBtn");
         shareBtn.onClick(this.onShareBtnClick, this);
 
+        const addDou = this.view.getChild("addBtn1");
+        addDou.onClick(this.onAddDouBtnClick, this);
+
+        const addFK = this.view.getChild("addBtn2");
+        addFK.onClick(this.onAddFKBtnClick, this);
+
         this.nameText = this.view.getChild("nameText").asTextField;
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
@@ -192,6 +198,16 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
     }
 
+    private onAddDouBtnClick(): void {
+        const view = this.addComponent(ShopView);
+        view.showView(TabType.Dou);
+    }
+
+    private onAddFKBtnClick(): void {
+        const view = this.addComponent(ShopView);
+        view.showView(TabType.FK);
+    }
+
     private onFriendClick(): void {
         // TODO: 显示好友界面
     }
@@ -211,7 +227,8 @@ export class LobbyView extends cc.Component {
     }
 
     private onShopBtnClick(): void {
-        this.addComponent(ShopView);
+        const view = this.addComponent(ShopView);
+        view.showView(TabType.Dou);
     }
 
     private onQuestBtnClick(): void {
