@@ -52,14 +52,20 @@ const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
     // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 };
 //落地牌组缩放
-const meldsScale: number[][] = [
-    [1, 1, 1, 1, 1], //没有杠
-    [0.9, 0.95, 0.95, 1], //1个杠
-    [0.85, 0.9, 0.95], //2个杠
-    [0.85, 0.9], //3个杠
-    [0.85] //4个杠
-];
+// const meldsScale: number[][] = [
+//     [1, 1, 1, 1, 1], //没有杠
+//     [0.9, 0.95, 0.95, 1], //1个杠
+//     [0.85, 0.9, 0.95], //2个杠
+//     [0.85, 0.9], //3个杠
+//     [0.85] //4个杠
+// ];
 
+const handsPos: number[][] = [
+    [0, -180, -1, -50, 0, -1, -80, -50, -120, -130, -100, -20, 20, -120, -80, -20, 20], //1号2万玩家 x
+    [0, 30, -1, 50, 20, -1, 30, 10, -10, 30, 10, -10, -35, 10, -10, -30, -55], //2号玩家 y
+    [0, 100, -1, 20, 0, -1, 50, 20, -10, 70, 40, 10, -30, 70, 30, 0, -40],  //3号2万玩家 x
+    [0, -40, -1, -40, -30, -1, -40, -20, 0, -40, -20, 0, 20, -20, 0, 20, 40] //4号玩家 y
+];
 /**
  * 玩家
  */
@@ -84,6 +90,7 @@ export class PlayerView {
     private meldLans: fgui.GObject[][] = [];
     private lights: fgui.GComponent[];
     private hands: fgui.GComponent[];
+    private myHandTilesNode: fgui.GComponent;
     private melds: fgui.GComponent[];
     private myMeldNode: fgui.GObject;
     private flowers: fgui.GComponent[];
@@ -462,19 +469,21 @@ export class PlayerView {
         this.meldLans = [];
         const ms = this.player.tilesMelds;
         const length = ms.length;
-        let g = 0;
-        let p = 0;
+        // let g = 0;
+        // let p = 0;
+        let num = 0;
         for (let i = 0; i < length; i++) {
             const mv = this.melds[i];
             //根据面子牌挂载牌的图片
             const meldData = ms[i];
             // Logger.debug("根据面子牌挂载牌的图片 : ", meldData);
             const arr = this.mountMeldImage(mv, meldData);
-            if (arr.length === 4) {
-                g++;
-            } else {
-                p++;
-            }
+            // if (arr.length === 4) {
+            //     g++;
+            // } else {
+            //     p++;
+            // }
+            num += arr.length;
             mv.visible = true;
             //落地牌组 蓝色遮罩
             const lastT = meldData.cards[0];
@@ -488,9 +497,21 @@ export class PlayerView {
                 this.meldLans[lastT].push(lM);
             }
         }
-        const o = meldsScale[g][p];
-        const v = (o) * this.meldsViewScale;
-        this.myMeldNode.setScale(v, v);
+        //重新设置 手牌位置
+        let pos = handsPos[this.viewChairID - 1][num];
+        if (num === 12 && this.melds.length === 4) {
+            pos = handsPos[this.viewChairID - 1][1]; //特殊位置
+        }
+        if (this.viewChairID === 1 || this.viewChairID === 3) {
+            //改变x值
+            this.myHandTilesNode.x = pos;
+        } else {
+            //改变y值
+            this.myHandTilesNode.y = pos;
+        }
+        // const o = meldsScale[g][p];
+        // const v = (o) * this.meldsViewScale;
+        // this.myMeldNode.setScale(v, v);
     }
     //显示面子牌组
     public showMeldsOld(): void {
@@ -1317,11 +1338,11 @@ export class PlayerView {
         const hands: fgui.GComponent[] = [];
         const handsOriginPos: PosCtrl[] = [];
         const handsClickCtrls: ClickCtrl[] = [];
-        const myHandTilesNode = this.myView.getChild("hands").asCom;
+        this.myHandTilesNode = this.myView.getChild("hands").asCom;
         //const resName = ""
         const isMe = this.viewChairID === 1;
         for (let i = 0; i < 14; i++) {
-            const card = myHandTilesNode.getChild(`n${i + 1}`).asCom;
+            const card = this.myHandTilesNode.getChild(`n${i + 1}`).asCom;
 
             if (isMe) {
                 card.name = i.toString(); //把手牌按钮对应的序号记忆，以便点击时可以识别
@@ -1339,7 +1360,7 @@ export class PlayerView {
             handsClickCtrls[i] = cc;
 
             if (isMe) {
-                this.dragHand = myHandTilesNode.getChild("dragHand").asCom;
+                this.dragHand = this.myHandTilesNode.getChild("dragHand").asCom;
                 card.onClick(
                     () => {
                         this.onHandTileBtnClick(i);

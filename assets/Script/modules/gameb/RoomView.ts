@@ -147,9 +147,9 @@ export class RoomView {
         this.laigenTile.node.position = this.laigenTilePos2.node.position;
         this.laiziCom.visible = true;
 
-        this.laigenTile.node.runAction(cc.moveTo(1, this.laigenTilePos1.node.position));
-        await this.room.coWaitSeconds(0.5);
-        this.laiziTile.node.runAction(cc.moveTo(1, this.laiziTilePos1.node.position));
+        this.laigenTile.node.runAction(cc.moveTo(0.5, this.laigenTilePos1.node.position));
+        await this.room.coWaitSeconds(0.25);
+        this.laiziTile.node.runAction(cc.moveTo(0.5, this.laiziTilePos1.node.position));
     }
 
     // 播放动画

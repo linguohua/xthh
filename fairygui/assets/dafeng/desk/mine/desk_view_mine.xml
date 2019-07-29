@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" opaque="false" designImage="ui://397phochlqn3fs" designImageAlpha="100">
+<component size="1136,640" opaque="false" designImageAlpha="100">
   <displayList>
     <component id="n0_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="600,801" hideByEditor="true" visible="false"/>
     <text id="n15_rh8w" name="huaText" xy="437,760" size="40,28" hideByEditor="true" visible="false" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
@@ -14,18 +14,18 @@
     <image id="n4_fxwe" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="119,619" pivot="0.5,0.5" anchor="true" hideByEditor="true" visible="false"/>
     <image id="n5_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="367,748" hideByEditor="true" visible="false"/>
     <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="246,716" hideByEditor="true" visible="false"/>
-    <component id="n9_fxwe" name="melds" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="0,528" pivot="0,0.5" anchor="true" scale="0.9,0.9" touchable="false"/>
+    <component id="n9_fxwe" name="melds" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="-10,528" pivot="0,0.5" anchor="true" scale="0.9,0.9" touchable="false"/>
     <component id="n24_drq7" name="discards2" src="drq7ox" fileName="desk/mine/desk_discard2.xml" xy="365,330" visible="false"/>
     <component id="n6_fxwe" name="discards" src="jmxy1l" fileName="desk/mine/desk_discard.xml" xy="365,330" visible="false" touchable="false"/>
     <component id="n10_fxwe" name="flowers" src="jmxy1n" fileName="desk/mine/desk_flower.xml" xy="255,432" touchable="false"/>
-    <component id="n7_fxwe" name="hands" src="jmxy1o" fileName="desk/mine/desk_hand.xml" xy="0,471"/>
     <component id="n11_fxwe" name="lights" src="jmxy1s" fileName="desk/mine/desk_light.xml" xy="0,471" touchable="false"/>
+    <component id="n7_fxwe" name="hands" src="jmxy1o" fileName="desk/mine/desk_hand.xml" xy="0,471"/>
     <graph id="n12_fxwe" name="aniPos" xy="557,416" pivot="0.5,0.5" size="0,0"/>
     <component id="n19_jel2" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="509,330" hideByEditor="true" visible="false"/>
     <graph id="n14_rh8w" name="userInfoPos" xy="183,704" size="20,26"/>
     <component id="n18_ooqz" name="qipao" src="jmxy1i" fileName="qipao1.xml" xy="366,420" hideByEditor="true" visible="false"/>
     <component id="n25_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="503,271" visible="false"/>
-    <component id="n26_hz17" name="hand2" src="hz17p0" fileName="desk/mine/desk_hand2.xml" xy="-1,473" visible="false"/>
+    <component id="n26_hz17" name="hand2" src="hz17p0" fileName="desk/mine/desk_hand2.xml" xy="-1,473" hideByEditor="true" visible="false"/>
     <graph id="n27_itd2" name="piaoAni" xy="553,518" size="17,16"/>
   </displayList>
 </component>

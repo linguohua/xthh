@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" opaque="false" designImage="ui://397phochlqn3fr" designImageAlpha="100">
+<component size="1136,640" opaque="false" designImageAlpha="100">
   <displayList>
     <component id="n2_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="57,263" hideByEditor="true" visible="false"/>
     <text id="n17_sskg" name="nameText" xy="19,290" size="76,25" visible="false" fontSize="16" color="#80c347" align="center" vAlign="middle" autoSize="shrink" text=""/>
@@ -17,12 +17,12 @@
     <component id="n10_fxwe" name="flowers" src="jmxy1e" fileName="desk/left/desk_flower.xml" xy="184,156" touchable="false"/>
     <component id="n11_fxwe" name="lights" src="jmxy1f" fileName="desk/left/desk_light.xml" xy="0,0" touchable="false"/>
     <image id="n8_fxwe" name="ready" src="jmxy10" fileName="大丰麻将美术改版/2 游戏内/切图/z_准备开始gps/ok.png" xy="139,177" hideByEditor="true" visible="false"/>
-    <component id="n18_jel2" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="169,202" visible="false"/>
+    <component id="n18_jel2" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="169,202" hideByEditor="true" visible="false"/>
     <graph id="n12_fxwe" name="aniPos" xy="185,243" pivot="0.5,0.5" size="4,0"/>
     <graph id="n14_rh8w" name="userInfoPos" xy="124,173" size="20,26" hideByEditor="true"/>
     <component id="n16_dtxt" name="qipao" src="jmxy1i" fileName="qipao1.xml" xy="150,184" hideByEditor="true" visible="false"/>
     <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="153,136" visible="false"/>
-    <component id="n20_hz17" name="hand2" src="hz17p1" fileName="desk/left/desk_hand2.xml" xy="2,1" visible="false"/>
+    <component id="n20_hz17" name="hand2" src="hz17p1" fileName="desk/left/desk_hand2.xml" xy="2,1" hideByEditor="true" visible="false"/>
     <graph id="n21_kyp5" name="piaoAni" xy="553,317" size="17,16"/>
   </displayList>
 </component>

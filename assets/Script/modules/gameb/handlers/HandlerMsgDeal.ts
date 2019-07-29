@@ -108,7 +108,7 @@ export namespace HandlerMsgDeal {
         room.laiziID = msgDeal.laizi;
         room.laigenID = msgDeal.fanpai;
         room.roomView.playLaiAni();
-        await room.coWaitSeconds(1);
+        await room.coWaitSeconds(0.5);
 
         const players = room.getPlayers();
 
