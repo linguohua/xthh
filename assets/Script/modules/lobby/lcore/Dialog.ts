@@ -102,6 +102,7 @@ export class Dialog {
         if (yesCb2 !== null) {
             Logger.debug("showDialog, callBackOK valid");
             yesBtn.visible = true;
+            yesBtn.x = 423;
             yesBtn.onClick(
                 () => {
                     Dialog.inst.dlgWin.hide();
@@ -126,6 +127,7 @@ export class Dialog {
                 undefined);
         } else {
             noBtn.visible = false;
+            yesBtn.x = 568;
         }
 
         Dialog.inst.dlgWin.show();
