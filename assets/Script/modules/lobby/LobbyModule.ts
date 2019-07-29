@@ -29,6 +29,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
     private loginView: LoginView;
 
+    private filterProgress: number = 0;
+
     private readonly adaptivePhones: string[] = ["iPhone X", "iPhone XS", "iPhone XR", "iPhone XS Max"];
 
     public cleanupGRoot(): void {
@@ -226,6 +228,12 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                 }
             },
             (progress) => {
+                if (this.filterProgress > progress) {
+                    Logger.debug(`lobby load, this.progress:${this.filterProgress}, new progress = ${progress}`);
+
+                    return;
+                }
+                this.filterProgress = progress;
                 this.loginView.updateProgressBar(progress);
             });
     }
