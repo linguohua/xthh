@@ -7,7 +7,6 @@ interface PropData {
     id: number;
 }
 interface RoomInterface {
-    sendDonate(donateId: number, toChairID: number): void;
 }
 interface PlayerInfo {
     userID: string;

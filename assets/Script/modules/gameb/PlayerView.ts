@@ -91,6 +91,7 @@ export class PlayerView {
     private lights: fgui.GComponent[];
     private hands: fgui.GComponent[];
     private myHandTilesNode: fgui.GComponent;
+    private myLightilesNode: fgui.GComponent;
     private melds: fgui.GComponent[];
     private myMeldNode: fgui.GObject;
     private flowers: fgui.GComponent[];
@@ -100,7 +101,6 @@ export class PlayerView {
     private operationPanel: fgui.GComponent;
     private aniPos: fgui.GObject;
     private userInfoPos: fgui.GObject;
-    private piaoAni: fgui.GObject;
     private qipao: fgui.GComponent;
     private qipaoText: fgui.GObject;
     private alreadyShowNonDiscardAbleTips: boolean;
@@ -296,6 +296,13 @@ export class PlayerView {
             for (const h of this.lights) {
                 h.visible = false;
             }
+            if (this.viewChairID === 1 || this.viewChairID === 3) {
+                //改变x值
+                this.myLightilesNode.x = handsPos[this.viewChairID - 1][0];
+            } else {
+                //改变y值
+                this.myLightilesNode.y = handsPos[this.viewChairID - 1][0];
+            }
         }
     }
 
@@ -304,6 +311,14 @@ export class PlayerView {
         if (this.hands != null) {
             for (const h of this.hands) {
                 h.visible = false;
+            }
+
+            if (this.viewChairID === 1 || this.viewChairID === 3) {
+                //改变x值
+                this.myHandTilesNode.x = handsPos[this.viewChairID - 1][0];
+            } else {
+                //改变y值
+                this.myHandTilesNode.y = handsPos[this.viewChairID - 1][0];
             }
         }
     }
@@ -423,7 +438,12 @@ export class PlayerView {
             // point.scaleY = 1 / lastD.scaleY;
             // Logger.debug("point : ", point.scaleX);
 
-            this.playPiaoEffect(lastD);
+            // const xy = this.room.roomView.unityViewNode.node.
+            //     convertToNodeSpaceAR(lastD.parent.node.convertToWorldSpaceAR(lastD.node.position));
+            const xy = lastD.node.position;
+            xy.x += 20;
+            xy.y += 15;
+            this.room.roomView.playPiaoEffect(xy);
         }
     }
 
@@ -459,14 +479,27 @@ export class PlayerView {
         }
 
         //melds面子牌组
-        this.showMelds();
+        const num = this.showMelds();
 
         for (let i = 0; i < t; i++) {
             this.hands[i].visible = true;
         }
+
+        //重新设置 手牌位置
+        let pos = handsPos[this.viewChairID - 1][num];
+        if (num === 12 && this.melds.length === 4) {
+            pos = handsPos[this.viewChairID - 1][1]; //特殊位置
+        }
+        if (this.viewChairID === 1 || this.viewChairID === 3) {
+            //改变x值
+            this.myHandTilesNode.x = pos;
+        } else {
+            //改变y值
+            this.myHandTilesNode.y = pos;
+        }
     }
     //显示面子牌组
-    public showMelds(): void {
+    public showMelds(): number {
         this.meldLans = [];
         const ms = this.player.tilesMelds;
         const length = ms.length;
@@ -498,18 +531,8 @@ export class PlayerView {
                 this.meldLans[lastT].push(lM);
             }
         }
-        //重新设置 手牌位置
-        let pos = handsPos[this.viewChairID - 1][num];
-        if (num === 12 && this.melds.length === 4) {
-            pos = handsPos[this.viewChairID - 1][1]; //特殊位置
-        }
-        if (this.viewChairID === 1 || this.viewChairID === 3) {
-            //改变x值
-            this.myHandTilesNode.x = pos;
-        } else {
-            //改变y值
-            this.myHandTilesNode.y = pos;
-        }
+
+        return num;
         // const o = meldsScale[g][p];
         // const v = (o) * this.meldsViewScale;
         // this.myMeldNode.setScale(v, v);
@@ -677,7 +700,7 @@ export class PlayerView {
         }
 
         //melds面子牌组
-        this.showMelds();
+        const num = this.showMelds();
 
         let j = 0;
         for (let i = begin; i < endd; i++) {
@@ -696,6 +719,19 @@ export class PlayerView {
             // }
             j = j + 1;
         }
+
+        //重新设置 手牌位置
+        let pos = handsPos[this.viewChairID - 1][num];
+        if (num === 12 && this.melds.length === 4) {
+            pos = handsPos[this.viewChairID - 1][1]; //特殊位置
+        }
+        if (this.viewChairID === 1 || this.viewChairID === 3) {
+            //改变x值
+            this.myHandTilesNode.x = pos;
+        } else {
+            //改变y值
+            this.myHandTilesNode.y = pos;
+        }
     }
 
     //把手牌摊开，包括对手的暗杠牌，用于一手牌结束时
@@ -706,7 +742,7 @@ export class PlayerView {
         //先显示所有melds面子牌组
         const melds = this.player.tilesMelds;
         const tileshand = this.player.tilesHand;
-        this.showMelds();
+        const num = this.showMelds();
         const tileCountInHand = tileshand.length;
 
         let begin = 0;
@@ -732,6 +768,19 @@ export class PlayerView {
             TileImageMounter.mountTileImage(light, tileshand[i]);
             light.visible = true;
             j = j + 1;
+        }
+
+        //重新设置 手牌位置
+        let pos = handsPos[this.viewChairID - 1][num];
+        if (num === 12 && this.melds.length === 4) {
+            pos = handsPos[this.viewChairID - 1][1]; //特殊位置
+        }
+        if (this.viewChairID === 1 || this.viewChairID === 3) {
+            //改变x值
+            this.myLightilesNode.x = pos;
+        } else {
+            //改变y值
+            this.myLightilesNode.y = pos;
         }
     }
 
@@ -859,14 +908,6 @@ export class PlayerView {
         }
     }
 
-    public async playPiaoEffect(node: fgui.GObject): Promise<void> {
-        const xy = this.viewUnityNode.node.
-            convertToNodeSpaceAR(node.parent.node.convertToWorldSpaceAR(new cc.Vec2(node.x, node.y)));
-        xy.x += 20;
-        xy.y += 15;
-        this.piaoAni.node.position = xy;
-        await this.roomHost.animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, this.piaoAni.node);
-    }
     //特效道具播放
     public playerDonateEffect(effectName: string): void {
         this.roomHost.animationMgr.play(`lobby/prefabs/donate/${effectName}`, this.head.headView.node);
@@ -944,8 +985,6 @@ export class PlayerView {
     private initOtherView(): void {
         // this.aniPos = view.getChild("aniPos")
         this.userInfoPos = this.myView.getChild("userInfoPos");
-
-        this.piaoAni = this.myView.getChild("piaoAni");
         //打出的牌放大显示
         this.discardTips = this.myView.getChild("discardTip").asCom;
         this.discardTipsTile = this.discardTips.getChild("card").asCom;
@@ -1307,9 +1346,9 @@ export class PlayerView {
     //明牌列表
     private initLights(): void {
         const lights: fgui.GComponent[] = [];
-        const myLightTilesNode = this.myView.getChild("lights").asCom;
+        this.myLightilesNode = this.myView.getChild("lights").asCom;
         for (let i = 0; i < 14; i++) {
-            const h = myLightTilesNode.getChild(`n${i + 1}`).asCom;
+            const h = this.myLightilesNode.getChild(`n${i + 1}`).asCom;
             lights[i] = h;
         }
         this.lights = lights;

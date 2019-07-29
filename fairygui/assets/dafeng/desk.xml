@@ -51,5 +51,6 @@
     <graph id="n52_q32b" name="laiComPos1" xy="3,3" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n53_q32b" name="laiComPos2" xy="511,3" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <component id="n54_xjn0" name="mike" src="n8map5" fileName="mike.xml" xy="481,203" visible="false"/>
+    <graph id="n55_cqve" name="piaoAni" xy="558,316" size="17,16"/>
   </displayList>
 </component>

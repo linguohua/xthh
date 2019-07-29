@@ -21,9 +21,8 @@ export class RoomView {
     public donateMoveObj: fgui.GLoader;
     public tilesInWall: fgui.GObject;
     public statusHandlers: Function[];
-
+    public unityViewNode: fgui.GComponent;
     private room: RoomInterface;
-    private unityViewNode: fgui.GComponent;
     private dbg: fgui.GObject;
     private nameBg: fgui.GObject;
     private anteBg: fgui.GObject;
@@ -61,6 +60,7 @@ export class RoomView {
     private mike: fgui.GObject;
     // private isRecordOpen: boolean = false;
     private recordManager: getRecorderManagerOpts;
+    private piaoAni: fgui.GObject;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -137,6 +137,10 @@ export class RoomView {
         // )
     }
 
+    public async playPiaoEffect(xy: cc.Vec2): Promise<void> {
+        this.piaoAni.node.position = xy;
+        await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, this.piaoAni.node);
+    }
     public playZhuangAni(pos: fgui.GObject): void {
         this.zhuangAniNode.node.position = this.zhuangPos;
         this.zhuangAniNode.visible = true;
@@ -614,6 +618,8 @@ export class RoomView {
         // 风圈和当前操作玩家指示箭头roundMarkArrow
         const roundMarks: fgui.GObject[] = [];
         this.roundMarkView = this.unityViewNode.getChild("roundMask").asCom;
+
+        this.piaoAni = this.unityViewNode.getChild("piaoAni");
         for (let i = 1; i <= 4; i++) {
             const roundMark = this.roundMarkView.getChild(`n${i}`);
             roundMarks[i] = roundMark;

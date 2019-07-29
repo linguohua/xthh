@@ -128,7 +128,7 @@ export namespace HandlerMsgActionOPAck {
                     if (!have) {
                         player.notKongs.push(player.canKongs[0]);
                     }
-                    Logger.debug("----player.notKongs----------------------- ", player.notKongs);
+                    // Logger.debug("----player.notKongs----------------------- ", player.notKongs);
                 }
                 if (player.isCanPong && room.lastDisCardTile !== 0) {
                     player.notPong = room.lastDisCardTile;

@@ -11,10 +11,10 @@ export namespace HandlerMsg2Lobby {
 
         const roomInfo = room.roomInfo;
         const roomInfoData = {
-            roomID: roomInfo.roomID,
-            roomNumber: roomInfo.roomNumber,
-            config: roomInfo.config,
-            gameServerID: roomInfo.gameServerID
+            roomID: roomInfo.room_id,
+            roomNumber: roomInfo.tag
+            // config: roomInfo.config,
+            // gameServerID: roomInfo.gameServerID
         };
 
         const roomInfoDataStr = JSON.stringify(roomInfoData);

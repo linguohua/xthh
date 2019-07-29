@@ -4,7 +4,6 @@ import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { Algorithm } from "./Algorithm";
 import { PlayerInterface } from "./PlayerInterface";
-import { proto } from "./proto/protoGame";
 /**
  * 房间状态
  */
@@ -66,11 +65,13 @@ export class PlayerInfo {
 }
 
 export interface RoomViewInterface {
+    unityViewNode: fgui.GComponent;
     stopDiscardCountdown(): void;
     clearWaitingPlayer(): void;
     playAnimation(effectName: string, isWait?: boolean): Promise<void>;
     playZhuangAni(pos: fgui.GObject): void;
     playLaiAni(): void;
+    playPiaoEffect(pos: cc.Vec2): Promise<void>;
 }
 
 /**
@@ -83,7 +84,6 @@ export interface RoomInterface {
     readonly handNum: number;
     mAlgorithm: Algorithm;
     isDisband: boolean;
-    scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
     state: number;
     ownerID: string;
     handStartted: number;
@@ -122,9 +122,7 @@ export interface RoomInterface {
     getMyPlayer(): PlayerInterface;
     getPlayers(): { [key: string]: PlayerInterface };
     setRoundMask(): void;
-    updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void;
-    showDonate(msgDonate: proto.mahjong.MsgDonate): void;
-    showRoomNumber(): void;
+    updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void; showRoomNumber(): void;
     removePlayer(chairID: string): void;
     createMyPlayer(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     createPlayerByInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
@@ -147,7 +145,6 @@ export interface RoomInterface {
     getPlayerInfoByChairID(chairID: number): PlayerInfo;
 
     getMyPlayerInfo(): PlayerInfo;
-    sendDonate(donateId: number, toChairID: number): void;
 
     onReturnLobbyBtnClick(): void;
     showMsg(chatData: ChatData): void;

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="400,100" opaque="false" designImageOffsetX="-372" designImageOffsetY="-148" designImageAlpha="100">
+<component size="1136,640" opaque="false" designImageOffsetX="-372" designImageOffsetY="-148" designImageAlpha="100">
   <displayList>
-    <component id="n103_fxwe" name="n10" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="-50,0" scale="0.51,0.51" visible="false"/>
-    <component id="n104_fxwe" name="n9" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="-5,0" scale="0.51,0.51" visible="false"/>
-    <component id="n105_fxwe" name="n8" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="40,0" scale="0.51,0.51" visible="false"/>
-    <component id="n106_fxwe" name="n7" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="85,0" scale="0.51,0.51" visible="false"/>
-    <component id="n107_fxwe" name="n6" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="130,0" scale="0.51,0.51" visible="false"/>
-    <component id="n108_fxwe" name="n5" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="175,0" scale="0.51,0.51" visible="false"/>
-    <component id="n109_fxwe" name="n4" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="220,0" scale="0.51,0.51" visible="false"/>
-    <component id="n110_fxwe" name="n3" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="265,0" scale="0.51,0.51" visible="false"/>
-    <component id="n111_fxwe" name="n2" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="310,0" scale="0.51,0.51" visible="false"/>
-    <component id="n112_fxwe" name="n1" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="355,0" scale="0.51,0.51" visible="false"/>
-    <component id="n93_fxwe" name="n20" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="-50,55" size="0,122" scale="0.51,0.46" visible="false"/>
-    <component id="n94_fxwe" name="n19" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="-5,55" scale="0.51,0.46" visible="false"/>
-    <component id="n95_fxwe" name="n18" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="40,55" scale="0.51,0.46" visible="false"/>
-    <component id="n96_fxwe" name="n17" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="85,55" scale="0.51,0.46" visible="false"/>
-    <component id="n97_fxwe" name="n16" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="130,55" scale="0.51,0.46" visible="false"/>
-    <component id="n98_fxwe" name="n15" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="175,55" scale="0.51,0.46" visible="false"/>
-    <component id="n99_fxwe" name="n14" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="220,55" scale="0.51,0.46" visible="false"/>
-    <component id="n100_fxwe" name="n13" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="265,55" scale="0.51,0.46" visible="false"/>
-    <component id="n101_fxwe" name="n12" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="310,55" scale="0.51,0.46" visible="false"/>
-    <component id="n102_fxwe" name="n11" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="355,55" scale="0.51,0.46" visible="false"/>
+    <component id="n103_fxwe" name="n10" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="346,139" scale="0.51,0.51" visible="false"/>
+    <component id="n104_fxwe" name="n9" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="391,139" scale="0.51,0.51" visible="false"/>
+    <component id="n105_fxwe" name="n8" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="436,139" scale="0.51,0.51" visible="false"/>
+    <component id="n106_fxwe" name="n7" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="481,139" scale="0.51,0.51" visible="false"/>
+    <component id="n107_fxwe" name="n6" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="526,139" scale="0.51,0.51" visible="false"/>
+    <component id="n108_fxwe" name="n5" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="571,139" scale="0.51,0.51" visible="false"/>
+    <component id="n109_fxwe" name="n4" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="616,139" scale="0.51,0.51" visible="false"/>
+    <component id="n110_fxwe" name="n3" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="661,139" scale="0.51,0.51" visible="false"/>
+    <component id="n111_fxwe" name="n2" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="706,139" scale="0.51,0.51" visible="false"/>
+    <component id="n112_fxwe" name="n1" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="751,139" scale="0.51,0.51" visible="false"/>
+    <component id="n93_fxwe" name="n20" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="346,194" size="0,122" scale="0.51,0.46" visible="false"/>
+    <component id="n94_fxwe" name="n19" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="391,194" scale="0.51,0.46" visible="false"/>
+    <component id="n95_fxwe" name="n18" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="436,194" scale="0.51,0.46" visible="false"/>
+    <component id="n96_fxwe" name="n17" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="481,194" scale="0.51,0.46" visible="false"/>
+    <component id="n97_fxwe" name="n16" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="526,194" scale="0.51,0.46" visible="false"/>
+    <component id="n98_fxwe" name="n15" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="571,194" scale="0.51,0.46" visible="false"/>
+    <component id="n99_fxwe" name="n14" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="616,194" scale="0.51,0.46" visible="false"/>
+    <component id="n100_fxwe" name="n13" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="661,194" scale="0.51,0.46" visible="false"/>
+    <component id="n101_fxwe" name="n12" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="706,194" scale="0.51,0.46" visible="false"/>
+    <component id="n102_fxwe" name="n11" src="tsg129" fileName="mahjong_dui/mahjong_dui_luo.xml" pkg="l6hoa9ng" xy="751,194" scale="0.51,0.46" visible="false"/>
   </displayList>
 </component>

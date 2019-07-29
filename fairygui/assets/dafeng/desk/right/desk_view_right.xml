@@ -11,7 +11,7 @@
     </image>
     <image id="n7_fxwe" name="hua" src="jmxym" fileName="大丰麻将美术改版/2 游戏内/切图/huabg.png" xy="1037,135" hideByEditor="true" visible="false"/>
     <text id="n16_rh8w" name="huaText" xy="1068,142" size="40,20" hideByEditor="true" visible="false" fontSize="18" color="#fbb41d" autoSize="none" strokeColor="#011a26" text="12"/>
-    <component id="n1_fxwe" name="discards" src="jmxy1v" fileName="desk/right/desk_discard.xml" xy="831,99" touchable="false"/>
+    <component id="n1_fxwe" name="discards" src="jmxy1v" fileName="desk/right/desk_discard.xml" xy="0,0" touchable="false"/>
     <component id="n8_fxwe" name="hands" src="jmxy1x" fileName="desk/right/desk_hand.xml" xy="955,0" touchable="false"/>
     <component id="n10_fxwe" name="melds" src="jmxy20" fileName="desk/right/desk_meld.xml" xy="994,472" pivot="0.5,1" anchor="true" size="78,640" scale="0.6,0.6" touchable="false"/>
     <component id="n12_fxwe" name="lights" src="jmxy21" fileName="desk/right/desk_light.xml" xy="955,0" touchable="false"/>

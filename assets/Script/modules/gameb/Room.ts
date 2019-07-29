@@ -28,7 +28,6 @@ import { HandlerMsgUpdateCoordinate } from "./handlers/HandlerMsgUpdateCoordinat
 import { HandResultView } from "./HandResultView";
 import { Player } from "./Player";
 import { PlayerInterface } from "./PlayerInterface";
-import { proto } from "./proto/protoGame";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
@@ -93,7 +92,6 @@ export class Room {
     public readonly myUser: UserInfo;
     public roomInfo: protoHH.casino.Itable;
     public readonly host: RoomHost;
-    public scoreRecords: proto.mahjong.IMsgRoomHandScoreRecord[];
     public state: number;
     public ownerID: string;
     public handStartted: number = 0;
@@ -246,7 +244,7 @@ export class Room {
     }
     public onReturnLobbyBtnClick(): void {
 
-        this.sendMsg(proto.mahjong.MessageCode.OP2Lobby);
+        // this.sendMsg(proto.mahjong.MessageCode.OP2Lobby);
 
     }
 
@@ -306,7 +304,7 @@ export class Room {
     }
 
     public onExitButtonClicked(): void {
-        this.sendMsg(proto.mahjong.MessageCode.OPPlayerLeaveRoom);
+        // this.sendMsg(proto.mahjong.MessageCode.OPPlayerLeaveRoom);
     }
 
     //处理玩家申请解散请求
@@ -395,109 +393,6 @@ export class Room {
             const v = this.players[key];
             v.hideDiscardedTips();
         });
-    }
-
-    public sendDonate(donateId: number, toChairID: number): void {
-        // 1：鲜花    2：啤酒    3：鸡蛋    4：拖鞋
-        // 8：献吻    7：红酒    6：大便    5：拳头
-        const chairID = this.myPlayer.chairID;
-
-        const msgDonate = new proto.mahjong.MsgDonate();
-        msgDonate.fromChairID = chairID;
-        msgDonate.toChairID = toChairID;
-        msgDonate.itemID = donateId;
-
-        const actionMsgBuf = proto.mahjong.MsgDonate.encode(msgDonate);
-        this.sendMsg(proto.mahjong.MessageCode.OPDonate, actionMsgBuf);
-    }
-
-    // 显示道具动画
-    public showDonate(msgDonate: proto.mahjong.MsgDonate): void {
-        // Logger.debug("显示道具动画 msgDonate : ", msgDonate);
-        if (msgDonate != null) {
-            const itemID = msgDonate.itemID;
-            const oCurOpObj = this.roomView.donateMoveObj;
-            // this.roomView.donateMoveObj.node.clone .cloneNode();
-            const fromPlayer = this.getPlayerByChairID(msgDonate.fromChairID);
-            const toPlayer = this.getPlayerByChairID(msgDonate.toChairID);
-            if (fromPlayer == null || toPlayer == null) {
-                Logger.debug("llwant, fromPlayer || toPlayer is null...");
-
-                return;
-            }
-            const fromPos = fromPlayer.playerView.head.headView.node.position;
-            const toPos = toPlayer.playerView.head.headView.node.position;
-            let sprite = "";
-            let effobjSUB = "";
-            let sound = "";
-            const handTypeMap = [
-                () => {
-                    sprite = "dj_meigui";
-                    effobjSUB = "Effect_baojv_hua";
-                    sound = "daoju_hua";
-                },
-                () => {
-                    sprite = "dj_ganbei";
-                    effobjSUB = "Effect_daojv_jiubei";
-                    sound = "daoju_pijiu";
-                },
-                () => {
-                    sprite = "dj_jd";
-                    effobjSUB = "Effect_daojv_jidan";
-                    sound = "daoju_jidan";
-                },
-                () => {
-                    sprite = "dj_tuoxie";
-                    effobjSUB = "Effect_daojv_tuoxie";
-                    sound = "daoju_tuoxie";
-                },
-                () => {
-                    sprite = "dj_qj";
-                    effobjSUB = "Effect_daojv_quanji";
-                    sound = "daoju_quanji";
-                },
-                () => {
-                    sprite = "dj_bb";
-                    effobjSUB = "Effect_daojv_shiren";
-                    sound = "daoju_shiren";
-                },
-                () => {
-                    sprite = "dj_hj";
-                    effobjSUB = "Effect_daojv_hongjiu";
-                    sound = "daoju_hongjiu";
-                },
-                () => {
-                    sprite = "dj_mmd";
-                    effobjSUB = "Effect_daojv_zui";
-                    sound = "daoju_zui";
-                }
-            ];
-
-            const fn = handTypeMap[itemID - 1];
-            fn();
-            if (sprite == null || effobjSUB == null) {
-                Logger.debug("llwant, sprite || effobjSUB is null...");
-
-                return;
-            }
-            oCurOpObj.node.position = fromPos;
-            oCurOpObj.url = `ui://lobby_player_info/${sprite}`;
-            oCurOpObj.visible = true;
-            //飞动画
-            const moveAnimation = cc.moveTo(1, toPos);
-            oCurOpObj.node.runAction(moveAnimation);
-            const callBack = () => {
-                //飞完之后 关闭oCurOpObj
-                oCurOpObj.visible = false;
-                //播放特效
-                toPlayer.playerView.playerDonateEffect(effobjSUB);
-                //播放声音
-                if (sound !== "") {
-                    SoundMgr.playEffectAudio(`daoju/${sound}`);
-                }
-            };
-            this.getRoomHost().component.scheduleOnce(callBack, 1);
-        }
     }
     //roomview 接口
     public setArrowByParent(d: fgui.GComponent): void {
