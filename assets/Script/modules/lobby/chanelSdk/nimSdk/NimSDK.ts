@@ -70,7 +70,7 @@ interface Team {
 }
 
 export class NimSDK {
-    public eventTarge: cc.EventTarget;
+    public eventTarget: cc.EventTarget;
     private appKey: string;
     private account: string;
     private token: string;
@@ -79,14 +79,14 @@ export class NimSDK {
     // tslint:disable-next-line:no-any
     private nimSDK: any;
 
-    private teams: Team[];
+    private teams: Team[] = [];
     // 用来订阅消息
     public constructor(appKey: string, account: string, token: string) {
         this.appKey = appKey;
         this.account = account;
         this.token = token;
 
-        this.eventTarge = new cc.EventTarget();
+        this.eventTarget = new cc.EventTarget();
     }
 
     public initNimSDK(): void {
@@ -103,12 +103,33 @@ export class NimSDK {
             // this.createTeam();
         };
 
-        const onCreateTeam = () => {
+        const onWillReconnect = () => {
+            this.onWillReconnect();
+        };
+
+        const onDisconnect = () => {
+            this.onDisconnect();
+        };
+
+        const onError = () => {
+            this.onError();
+        };
+
+        const onCreateTeam = (team: { team: Team }) => {
             Logger.debug("onCreateTeam");
+            this.onCreateTeam(team);
+        };
+
+        const onTeamMembers = (obj: { teamId: string; members: [] }) => {
+            this.onTeamMembers(obj);
         };
 
         const onTeams = (res: {}) => {
             Logger.debug("onTeams:", res);
+        };
+
+        const onMsg = (msg: NIMMessage) => {
+            this.onMsg(msg);
         };
 
         const options = {
@@ -117,13 +138,13 @@ export class NimSDK {
             token: this.token,
             transports: ['websocket'],
             onconnect: onConnect,
-            onwillreconnect: this.onWillReconnect,
-            ondisconnect: this.onDisconnect,
-            onerror: this.onError,
+            onwillreconnect: onWillReconnect,
+            ondisconnect: onDisconnect,
+            onerror: onError,
             onsynccreateteam: onCreateTeam,
-            onteammembers: this.onTeamMembers,
+            onteammembers: onTeamMembers,
             onteams: onTeams,
-            onmsg: this.onMsg
+            onmsg: onMsg
         };
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -155,14 +176,17 @@ export class NimSDK {
             }
         }
 
+        Logger.debug("imaccids:", imaccids);
+
         // tslint:disable-next-line:no-any
         const createTeamDone = (error: any, obj: { team: Team }) => {
-            Logger.debug(`create team ${obj.team.teamId}, name:${obj.team.name} success`);
             if (error !== undefined && error !== null) {
                 Logger.debug("createTeamDone, error:", error);
 
                 return;
             }
+
+            Logger.debug(`create team ${obj.team.teamId}, name:${obj.team.name} success`);
 
             const indexOfTeam = this.teams.indexOf(obj.team);
             if (indexOfTeam > 0) {
@@ -176,17 +200,16 @@ export class NimSDK {
         };
         Logger.debug("my account:", this.account);
 
+        // const accids: string[] = [];
+
         this.nimSDK.createTeam({
             type: 'normal',
             name: roomNumber,
             avatar: 'avatar',
-            accounts: imaccids,
+            accounts: ["1"],
             ps: '我建了一个普通群',
             done: createTeamDone
         });
-
-        Logger.debug("this.teamID:", this.teamID);
-
     }
     // 先测试发文本，然后再测试发语音
     public sendTeamMsg(msgContent: string): void {
@@ -266,7 +289,7 @@ export class NimSDK {
 
     protected onMsg(msg: NIMMessage): void {
         Logger.debug("NimSDK.onMsg:", msg);
-        this.eventTarge.emit("onNimMsg", msg);
+        this.eventTarget.emit("onNimMsg", msg);
     }
 
     protected onCreateTeam(team: { team: Team }): void {
