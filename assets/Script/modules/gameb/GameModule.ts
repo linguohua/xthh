@@ -1,3 +1,4 @@
+import { NIMMessage, NimSDK } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import {
     AnimationMgr, CommonFunction,
     CreateRoomParams, DataStore,
@@ -49,6 +50,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     public getLobbyModuleLoader(): GResLoader {
         return this.lm.loader;
     }
+
+    public getNimSDK(): NimSDK {
+        return this.lm.nimSDK;
+    }
+
     public get room(): Room {
         return this.mRoom;
     }
@@ -75,6 +81,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.loader = args.loader;
 
         this.lm.eventTarget.on("reconnect", this.onReconnect, this);
+
+        if (this.lm.nimSDK !== undefined) {
+            this.lm.nimSDK.eventTarge.on("onNimMsg", this.onNimMsg, this);
+        }
 
         // 加载游戏界面
         this.loader.fguiAddPackage("lobby/fui_lobby_mahjong/lobby_mahjong");
@@ -161,9 +171,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
 
-    public createTeam(): void {
-        // this.lm.nimSDK.createTeam();
-    }
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.eventTarget.on("gpsChange", this.onGpsChange, this);
@@ -245,6 +252,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             const createRoomAck = await this.waitCreateRoom(createRoomParams);
             if (createRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = createRoomAck.tdata;
+                // 同时创建群组，用来发送语音
+                this.createTeam(`${createRoomAck.tdata.tag}`);
                 Logger.debug("create new room");
             } else {
                 Logger.error("doEnterRoom, creat room failed:", createRoomAck);
@@ -440,6 +449,13 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.mq.pushMessage(msg);
     }
 
+    private onNimMsg(msg: NIMMessage): void {
+        Logger.debug("msg:", msg);
+
+        if (this.mRoom !== null) {
+            this.mRoom.onNimMsg(msg);
+        }
+    }
     private async showEnterRoomError(code: number): Promise<void> {
         const msg = GameError.getErrorString(code);
         Logger.warn("enter mRoom failed, server return error：", msg);
@@ -647,5 +663,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                 this.applyGpsSetting();
             }
         });
+    }
+
+    private createTeam(roomNumber: string): void {
+        const imaccid = DataStore.getString("imaccid");
+        const imaccids: string[] = [imaccid];
+        this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
     }
 }

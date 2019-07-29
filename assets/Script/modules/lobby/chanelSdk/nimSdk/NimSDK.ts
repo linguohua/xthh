@@ -6,12 +6,39 @@ import NIMWeixin = require('./NIMWeixin');
 /**
  * 网易云信SDK
  */
-
-interface Message {
+export interface NIMFile {
+    name: string;
+    size: number;
+    md5: number;
+    url: string;
+    ext: string;
+    dur: number;
+}
+export interface NIMMessage {
     scene: string;
+    // tslint:disable-next-line:no-reserved-keywords
+    from: string;
+    fromNick: string;
+    to: string;
+    time: number;
     // tslint:disable-next-line:no-reserved-keywords
     type: number;
     msg: object;
+    target: string;
+
+    file: NIMFile;
+
+    // scene: 消息场景
+    // from: 消息发送方, 帐号或群id
+    // fromNick: 消息发送方的昵称
+    // fromClientType: 发送方的设备类型
+    // fromDeviceId: 发送端设备id
+    // to: 消息接收方, 帐号或群id
+    // time: 时间戳
+    // type: 消息类型
+    // sessionId: 消息所属的会话对象的ID
+    // target: 聊天对象, 账号或者群id
+    // flow: 消息的流向
 }
 
 interface Team {
@@ -51,6 +78,8 @@ export class NimSDK {
     private teamID: string;
     // tslint:disable-next-line:no-any
     private nimSDK: any;
+
+    private teams: Team[];
     // 用来订阅消息
     public constructor(appKey: string, account: string, token: string) {
         this.appKey = appKey;
@@ -78,6 +107,10 @@ export class NimSDK {
             Logger.debug("onCreateTeam");
         };
 
+        const onTeams = (res: {}) => {
+            Logger.debug("onTeams:", res);
+        };
+
         const options = {
             appKey: this.appKey,
             account: this.account,
@@ -89,6 +122,7 @@ export class NimSDK {
             onerror: this.onError,
             onsynccreateteam: onCreateTeam,
             onteammembers: this.onTeamMembers,
+            onteams: onTeams,
             onmsg: this.onMsg
         };
 
@@ -105,31 +139,46 @@ export class NimSDK {
         this.nimSDK.disconnect();
     }
 
-    public createTeam(imaccids: string[]): void {
+    public createTeam(imaccids: string[], roomNumber: string): void {
         if (this.nimSDK === undefined || this.nimSDK === null) {
             Logger.error("createTeam failed, this.nimSDK === undefined || this.nimSDK === null");
 
             return;
         }
 
+        // 判断这个房间是否已经存在群
+        for (const team of this.teams) {
+            if (team.name === roomNumber) {
+                Logger.debug(`team ${roomNumber} have been exist`);
+
+                return;
+            }
+        }
+
         // tslint:disable-next-line:no-any
         const createTeamDone = (error: any, obj: { team: Team }) => {
-            Logger.debug("createTeamDone");
+            Logger.debug(`create team ${obj.team.teamId}, name:${obj.team.name} success`);
             if (error !== undefined && error !== null) {
                 Logger.debug("createTeamDone, error:", error);
 
                 return;
             }
 
-            Logger.debug("createTeamDone:", obj);
-            this.teamID = obj.team.teamId;
-            this.sendTeamMsg("haha");
+            const indexOfTeam = this.teams.indexOf(obj.team);
+            if (indexOfTeam > 0) {
+                Logger.error(`team ${obj.team.teamId} ${obj.team.name} have been exist`);
+            }
+
+            this.teams.push(obj.team);
+            // Logger.debug("createTeamDone:", obj);
+            // this.teamID = obj.team.teamId;
+            // this.sendTeamMsg("haha");
         };
         Logger.debug("my account:", this.account);
 
         this.nimSDK.createTeam({
             type: 'normal',
-            name: '普通群',
+            name: roomNumber,
             avatar: 'avatar',
             accounts: imaccids,
             ps: '我建了一个普通群',
@@ -215,7 +264,7 @@ export class NimSDK {
         Logger.debug("NimSDK onError");
     }
 
-    protected onMsg(msg: Message): void {
+    protected onMsg(msg: NIMMessage): void {
         Logger.debug("NimSDK.onMsg:", msg);
         this.eventTarge.emit("onNimMsg", msg);
     }
@@ -223,7 +272,7 @@ export class NimSDK {
     protected onCreateTeam(team: { team: Team }): void {
         Logger.debug("onCreateTeam:", team);
     }
-    protected onTeamMembers(obj: {}): void {
-        Logger.debug("onTeamMembers:", obj);
+    protected onTeamMembers(obj: { teamId: string; members: [] }): void {
+        Logger.debug(`onTeamMembers, teamID:${obj.teamId}, members:${obj.members}`);
     }
 }

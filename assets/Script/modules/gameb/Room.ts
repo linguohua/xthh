@@ -1,4 +1,5 @@
 
+import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { DataStore, Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
@@ -139,6 +140,11 @@ export class Room {
         } else {
             Logger.debug("room has no handler for msg, ops:", msg.Ops);
         }
+    }
+
+    public onNimMsg(msg: NIMMessage): void {
+        Logger.debug("msg:", msg);
+        // TODO: 给用户分发消息
     }
 
     public getPlayerByChairID(chairID: number): Player {

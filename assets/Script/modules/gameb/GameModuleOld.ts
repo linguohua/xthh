@@ -415,25 +415,25 @@ export class GameModuleOld extends cc.Component implements GameModuleInterface {
         }
 
         Logger.debug(" tryEnterReplayRoom userID:", userID);
-        this.mUser = { userID: userID };
-        const roomInfo = {
-            roomID: "",
-            roomNumber: msgHandRecord.roomNumber,
-            config: msgAccLoadReplayRecord.roomJSONConfig,
-            gameServerID: "",
-            state: 1,
-            roomConfigID: msgHandRecord.roomConfigID,
-            timeStamp: "",
-            handStartted: msgHandRecord.handNum,
-            lastActiveTime: 0
-        };
+        // this.mUser = { userID: userID };
+        // const roomInfo = {
+        //     roomID: "",
+        //     roomNumber: msgHandRecord.roomNumber,
+        //     config: msgAccLoadReplayRecord.roomJSONConfig,
+        //     gameServerID: "",
+        //     state: 1,
+        //     roomConfigID: msgHandRecord.roomConfigID,
+        //     timeStamp: "",
+        //     handStartted: msgHandRecord.handNum,
+        //     lastActiveTime: 0
+        // };
 
-        const replay = new Replay(msgHandRecord);
-        // 新建room和绑定roomView
-        this.createRoom(this.user, roomInfo, replay);
+        // const replay = new Replay(msgHandRecord);
+        // // 新建room和绑定roomView
+        // this.createRoom(this.user, roomInfo, replay);
 
-        await replay.gogogo(this.room);
+        // await replay.gogogo(this.room);
 
-        this.backToLobby();
+        // this.backToLobby();
     }
 }

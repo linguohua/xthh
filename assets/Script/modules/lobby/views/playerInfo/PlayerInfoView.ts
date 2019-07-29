@@ -64,8 +64,7 @@ export class PlayerInfoView extends cc.Component {
 
             if (this.onMessageFunc === null) {
                 this.lobbyModule = <LobbyModuleInterface>this.node.getParent().getComponent("LobbyModule");
-                this.onMessageFunc = this.lobbyModule.eventTarget.on(`${proto.lobby.MessageCode.OPChat}`, this.onMessage, this);
-            }
+                                                  }
 
             Logger.debug("showUserInfoView view is nil");
         }
