@@ -6,7 +6,7 @@ import { GameModule } from "../gameb/GamebExports";
 import { NimSDK } from "./chanelSdk/nimSdk/NimSDK";
 import { GResLoaderImpl } from "./GResLoaderImpl";
 import { Dialog } from "./lcore/Dialog";
-import { DataStore, KeyConstants } from "./lcore/LCoreExports";
+import { DataStore } from "./lcore/LCoreExports";
 import {
     CreateRoomParams, GameModuleInterface, GameModuleLaunchArgs, JoinRoomParams,
     LobbyModuleInterface, MsgCenter
@@ -32,8 +32,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     private loginView: LoginView;
 
     private filterProgress: number = 0;
-
-    private readonly adaptivePhones: string[] = ["iPhone X", "iPhone XS", "iPhone XR", "iPhone XS Max"];
 
     public cleanupGRoot(): void {
         const children = fgui.GRoot.inst._children;
@@ -187,30 +185,27 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     protected onLoad(): void {
 
         // 默认值
-        DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+        // DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        //     wx.getSystemInfo({
+        //         success: (res) => {
+        //             Logger.debug("wx.getSystemInfo res = ", res);
+        //             const model = res.model;
 
-        Logger.debug("cc.winSize = ", cc.winSize);
+        //             for (const name of this.adaptivePhones) {
+        //                 const result = model.indexOf(name);
+        //                 Logger.debug(`model.indexOf(${name}) = `, result);
+        //                 if (result !== -1) {
+        //                     DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+        //                 }
+        //             }
 
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            wx.getSystemInfo({
-                success: (res) => {
-                    Logger.debug("wx.getSystemInfo res = ", res);
-                    const model = res.model;
-
-                    for (const name of this.adaptivePhones) {
-                        const result = model.indexOf(name);
-                        Logger.debug(`model.indexOf(${name}) = `, result);
-                        if (result !== -1) {
-                            DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
-                        }
-                    }
-
-                    if (this.adaptivePhones.indexOf(model) !== -1) {
-                        DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
-                    }
-                }
-            });
-        }
+        //             if (this.adaptivePhones.indexOf(model) !== -1) {
+        //                 DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+        //             }
+        //         }
+        //     });
+        // }
 
     }
 

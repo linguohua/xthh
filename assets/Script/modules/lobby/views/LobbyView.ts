@@ -24,6 +24,8 @@ export class LobbyView extends cc.Component {
 
     private fkText: fgui.GTextField;
 
+    private marqueeAction: cc.Action = null;
+
     private isReconnect: boolean = false;
 
     private wxShowCallBackFunction: (res: showRes) => void;
@@ -77,10 +79,10 @@ export class LobbyView extends cc.Component {
         bg3.width = bg.width;
         bg3.setPosition(-x, bg3.y);
 
-        // 兼容跑马灯文字
-        const announcementText = view.getChild('announcementText');
-        announcementText.width = bg.width;
-        announcementText.setPosition(-x, announcementText.y);
+        const announcementText = this.view.getChild('announcementText');
+
+        Logger.debug("cc.winSize.width = ", cc.winSize.width);
+        announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
 
         this.view = view;
         this.initView();
@@ -202,11 +204,14 @@ export class LobbyView extends cc.Component {
 
     private onFriendClick(): void {
         // TODO: 显示好友界面
+        // this.showMarquee("");
+
     }
 
     private openEmailClick(): void {
         // TODO: 显示邮件界面
-        // Dialog.prompt("我草---------------");
+        this.showMarquee("测试发送公告");
+
     }
 
     private onCreateRoom(): void {
@@ -283,5 +288,43 @@ export class LobbyView extends cc.Component {
         nimSDK.initNimSDK();
 
         this.lm.nimSDK = nimSDK;
+    }
+
+    private showMarquee(announcement: string): void {
+
+        if (this.marqueeAction !== null) {
+            Logger.debug("已经存在Action---------------------");
+
+            return;
+        }
+
+        const announcementText = this.view.getChild('announcementText');
+
+        announcementText.text = announcement;
+
+        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+        announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
+
+        const xPos = announcementText.node.x;
+        const yPos = announcementText.node.y;
+
+        const pos = this.view.getChild('pos');
+
+        let duration = announcementText.width * 0.005;
+        Logger.debug("duration = ", duration);
+
+        if (duration < 10) {
+            duration = 15;
+        }
+
+        const action1 = cc.moveTo(duration, pos.node.x - 100, pos.node.y);
+        const action3 = cc.callFunc(() => {
+            announcementText.node.setPosition(xPos, yPos);
+            this.marqueeAction = null;
+        });
+
+        const action0 = cc.sequence(action1, action3);
+        this.marqueeAction = announcementText.node.runAction(action0);
+
     }
 }
