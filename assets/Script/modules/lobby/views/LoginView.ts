@@ -66,7 +66,7 @@ export class LoginView extends cc.Component {
         loader.fguiAddPackage("launch/fui_login/lobby_login");
         const view = fgui.UIPackage.createObject("lobby_login", "login").asCom;
 
-        let x = CommonFunction.setViewInCenter(view);
+        const x = CommonFunction.setViewInCenter(view);
 
         const bg = view.getChild('bg');
         CommonFunction.setBgFullScreenSize(bg);
