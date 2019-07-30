@@ -112,7 +112,7 @@ export class HandResultView extends cc.Component {
         loader.fguiAddPackage("gameb/dafeng");
         const view = fgui.UIPackage.createObject("dafeng", "hand_result").asCom;
 
-        CommonFunction.setBaseViewInCenter(view);
+        CommonFunction.setViewInCenter(view);
 
         const bg = view.getChild('bg');
         CommonFunction.setBgFullScreenSize(bg);

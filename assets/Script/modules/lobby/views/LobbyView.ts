@@ -61,7 +61,7 @@ export class LobbyView extends cc.Component {
 
         fgui.GRoot.inst.addChild(view);
 
-        let x = CommonFunction.setBaseViewInCenter(view);
+        let x = CommonFunction.setViewInCenter(view);
         this.view = view;
 
         const bg = this.view.getChild('bg');

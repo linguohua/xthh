@@ -93,7 +93,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         const view = fgui.UIPackage.createObject("dafeng", "desk").asCom;
         fgui.GRoot.inst.addChild(view);
 
-        let x = CommonFunction.setBaseViewInCenter(view);
+        let x = CommonFunction.setViewInCenter(view);
 
         let bg = view.getChild("blueBg");
         CommonFunction.setBgFullScreenSize(bg);
