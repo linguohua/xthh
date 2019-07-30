@@ -25,6 +25,6 @@
     <component id="n23_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="499,5" visible="false"/>
     <component id="n24_hz17" name="hand2" src="hz17p2" fileName="desk/dui/desk_hand2.xml" xy="1,2" hideByEditor="true" visible="false"/>
     <graph id="n25_itd2" name="piaoAni" xy="553,318" size="17,16"/>
-    <component id="n26_jnmk" name="n26" src="jnmkp6" fileName="qipao.xml" xy="933,96" visible="false" rotation="90"/>
+    <component id="n26_jnmk" name="voice" src="jnmkp6" fileName="qipao.xml" xy="933,96" visible="false" rotation="90"/>
   </displayList>
 </component>

@@ -16,5 +16,7 @@ export interface RoomHost {
     sendBinary(buf: ByteBuffer, code: number): void;
     getLobbyModuleLoader(): GResLoader;
     addMember2Team(imaccids: string[]): void;
+    dismissAllTeam(): void;
+    createTeam(imaccids: string[], roomNumber: string): void;
     sendVoice(tempFilePath: string): void;
 }

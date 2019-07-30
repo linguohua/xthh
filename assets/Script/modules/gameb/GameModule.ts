@@ -167,11 +167,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
 
-    // public dismissTeam(): void {
-    // this.lm.nimSDK.dismissAllTeam(() => {
-    //     Logger.debug("dismissAllTeam done");
-    // });
-    // }
+    public dismissAllTeam(): void {
+        this.lm.nimSDK.dismissAllTeam(() => {
+            Logger.debug("dismissAllTeam done");
+        });
+    }
 
     public addMember2Team(imaccids: string[]): void {
         if (this.lm.nimSDK === null) {
@@ -181,6 +181,13 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
 
         this.lm.nimSDK.addMembers(imaccids);
+    }
+
+    public createTeam(imaccids: string[], roomNumber: string): void {
+        // const imaccid = DataStore.getString("imaccid");
+        // const roomNumber = this.mRoom.roomInfo.tag;
+        // const imaccids: string[] = [];
+        this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
     }
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
@@ -264,7 +271,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             if (createRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
                 table = createRoomAck.tdata;
                 // 同时创建群组，用来发送语音
-                this.createTeam(`${createRoomAck.tdata.tag}`);
+                // this.createTeam(`${createRoomAck.tdata.tag}`);
                 Logger.debug("create new room");
             } else {
                 Logger.error("doEnterRoom, creat room failed:", createRoomAck);
@@ -676,9 +683,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         });
     }
 
-    private createTeam(roomNumber: string): void {
-        const imaccid = DataStore.getString("imaccid");
-        const imaccids: string[] = [imaccid];
-        this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
-    }
+    // private createTeam(roomNumber: string): void {
+    //     // const imaccid = DataStore.getString("imaccid");
+    //     const imaccids: string[] = [];
+    //     this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
+    // }
 }

@@ -1,4 +1,4 @@
-import { Logger } from '../../lcore/LCoreExports';
+import { DataStore, Logger } from '../../lcore/LCoreExports';
 // tslint:disable-next-line:no-require-imports
 import NIMWeb = require('./NIMWeb');
 // tslint:disable-next-line:no-require-imports
@@ -22,7 +22,7 @@ export interface NIMMessage {
     to: string;
     time: number;
     // tslint:disable-next-line:no-reserved-keywords
-    type: number;
+    type: string;
     msg: object;
     target: string;
 
@@ -159,6 +159,11 @@ export class NimSDK {
         this.nimSDK.disconnect();
     }
 
+    /**
+     *  创建群组用来发送牌局内的消息
+     * @param imaccids 群用户ID
+     * @param roomNumber 房间号
+     */
     public createTeam(imaccids: string[], roomNumber: string): void {
         if (this.nimSDK === undefined || this.nimSDK === null) {
             Logger.error("createTeam failed, this.nimSDK === undefined || this.nimSDK === null");
@@ -184,17 +189,22 @@ export class NimSDK {
         // Logger.debug("my account:", this.account);
 
         // const accids: string[] = [];
+
+        const options = {
+            type: 'normal',
+            name: roomNumber,
+            avatar: 'avatar',
+            accounts: imaccids,
+            ps: '我建了一个普通群',
+            done: createTeamDone
+        };
+
+        this.nimSDK.createTeam(options);
         // 先删除所有群组，再创建群
-        this.dismissAllTeam(() => {
-            this.nimSDK.createTeam({
-                type: 'normal',
-                name: roomNumber,
-                avatar: 'avatar',
-                accounts: ["1"],
-                ps: '我建了一个普通群',
-                done: createTeamDone
-            });
-        });
+        // this.dismissAllTeam(() => {
+        //     Logger.debug("options:", options);
+        //     this.nimSDK.createTeam(options);
+        // });
 
     }
     // 先测试发文本，然后再测试发语音
@@ -221,12 +231,59 @@ export class NimSDK {
 
     // tslint:disable-next-line:no-reserved-keywords
     public sendTeamAudio(wxFilePath: string): void {
-        const sendMsgDone = () => {
-            Logger.debug("sendMsgDone");
+        if (this.myTeam === null || this.myTeam === undefined) {
+
+            const onGetTeams = (error: {}, teams: Team[]) => {
+                if (error !== null) {
+                    Logger.debug("sendTeamAudio failed, get teams error:", error);
+
+                    return;
+                }
+
+                if (teams.length === 0) {
+                    Logger.debug("sendTeamAudio failed, teams.length === 0");
+
+                    return;
+                }
+
+                const imaccid = DataStore.getString("imaccid", "");
+                // 寻找第一个群来发送消息
+                for (const team of teams) {
+                    if (team.owner === imaccid) {
+                        this.myTeam = team;
+                        this.sendFile(wxFilePath);
+
+                        break;
+                    }
+                }
+            };
+
+            this.nimSDK.getTeams({
+                done: onGetTeams
+            });
+        } else {
+            this.sendFile(wxFilePath);
+        }
+
+    }
+
+    public sendFile(wxFilePath: string): void {
+        if (this.myTeam === null || this.myTeam === undefined) {
+            Logger.debug("this.myTeam === null || this.myTeam === undefined");
+
+            return;
+        }
+
+        const sendMsgDone = (error: {}, msg: NIMMessage) => {
+            if (error !== null) {
+                Logger.debug("send msg error:", error);
+            } else {
+                this.onMsg(msg);
+            }
         };
 
         this.nimSDK.sendFile({
-            scene: 'scene',
+            scene: 'team',
             to: this.myTeam.teamId,
             type: "audio",
             wxFilePath: wxFilePath,
@@ -293,6 +350,8 @@ export class NimSDK {
             return;
         }
 
+        const imaccid = DataStore.getString("imaccid", "");
+
         const dismissTeamDone = (error: {}, obj: {}) => {
             if (error !== null) {
                 Logger.debug("dismissTeamDone failed:", error);
@@ -312,6 +371,11 @@ export class NimSDK {
             }
 
             for (const team of teams) {
+                // 只能解散自己创建的房间，别人的解散不了
+                if (team.owner !== imaccid) {
+                    continue;
+                }
+
                 this.nimSDK.dismissTeam({
                     teamId: team.teamId,
                     done: dismissTeamDone
@@ -347,8 +411,13 @@ export class NimSDK {
 
     protected onTeams(res: Team[]): void {
         Logger.debug("NimSDK onTeams:", res);
-        if (res.length > 0) {
-            this.myTeam = res[0];
+        const myImaccid = DataStore.getString("imaccid");
+        for (const team of res) {
+            if (team.owner === myImaccid) {
+                this.myTeam = team;
+                Logger.debug("sync team ok, teamid:", this.myTeam.teamId);
+                break;
+            }
         }
     }
 

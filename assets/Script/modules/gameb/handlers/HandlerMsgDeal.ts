@@ -1,5 +1,7 @@
+import { DataStore, Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
+import { PlayerInterface } from "../PlayerInterface";
 import { RoomInterface, roomStatus } from "../RoomInterface";
 
 //发牌个数
@@ -10,7 +12,6 @@ const dealNum: number[] = [
  * 发牌处理
  */
 export namespace HandlerMsgDeal {
-
     const onPlayDealAni = async (room: RoomInterface, cards: number[], lordChairId: number): Promise<void> => {
         const players = room.getPlayers();
         const playersKeyArr = Object.keys(players);
@@ -78,10 +79,29 @@ export namespace HandlerMsgDeal {
             p.playerView.hand2.visible = false;
         }
     };
+
+    const getPlayerImaccids = (players: { [key: string]: PlayerInterface }): string[] => {
+        const imaccids: string[] = [];
+        const myImaccid = DataStore.getString("imaccid");
+        const keys = Object.keys(players);
+        Logger.debug("getPlayerImaccids, keys:", keys);
+        for (const key of keys) {
+            const player = <Player>players[key];
+            if (player.playerInfo.imaccid !== myImaccid) {
+                imaccids.push(player.playerInfo.imaccid);
+            }
+        }
+
+        return imaccids;
+    };
+
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const msgDeal = proto.casino_xtsj.packet_sc_start_play.decode(msgData);
         console.log("HandlerMsgDeal---------------- ", msgDeal);
         room.getRoomHost().eventTarget.emit("onDeal");
+
+        const imaccids = getPlayerImaccids(room.getPlayers());
+        room.getRoomHost().createTeam(imaccids, `${room.roomInfo.tag}`);
         // 显示默认隐藏的view
         room.showRoomBtnsAndBgs();
         //清理
@@ -114,7 +134,6 @@ export namespace HandlerMsgDeal {
 
         const playersKeyArr = Object.keys(players);
         let playerNum = 0;
-        const imaccids: string[] = [];
         await onPlayDealAni(room, msgDeal.cards, player.chairID);
         //显示牌
         for (const key of playersKeyArr) {
@@ -124,8 +143,6 @@ export namespace HandlerMsgDeal {
             // }
             p.hand2UI(false);
             playerNum++;
-
-            imaccids.push(p.playerInfo.imaccid);
         }
         //牌墙 两个花色 72 张 每人13张 加上 一张翻拍
         room.tilesInWall = 72 - ((playerNum * 13) + 1);
@@ -139,7 +156,5 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setFlagPiao(false);
         //房间状态
         room.onUpdateStatus(roomStatus.onPlay);
-
-        room.getRoomHost().addMember2Team(imaccids);
     };
 }

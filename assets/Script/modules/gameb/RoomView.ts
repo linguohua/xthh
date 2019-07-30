@@ -62,6 +62,8 @@ export class RoomView {
     private recordManager: getRecorderManagerOpts;
     private piaoAni: fgui.GObject;
 
+    private startPosition: cc.Vec2 = null;
+
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
         this.unityViewNode = view;
@@ -474,6 +476,7 @@ export class RoomView {
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
         this.recoredBtn.on(fgui.Event.TOUCH_BEGIN, this.onVoiceBtnPress, this);
         this.recoredBtn.on(fgui.Event.TOUCH_END, this.onVoiceBtnUp, this);
+        this.recoredBtn.on(fgui.Event.TOUCH_MOVE, this.onVoiceBtnMove, this);
 
         this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
@@ -538,13 +541,16 @@ export class RoomView {
     //         10000);
     // }
 
-    private onVoiceBtnPress(): void {
+    private onVoiceBtnPress(event: cc.Event.EventTouch): void {
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Dialog.showDialog("微信上才可以录音");
 
             return;
         }
+
+        const touches: cc.Event.EventTouch[] = event.getTouches();
+        this.startPosition = touches[0].getLocation();
 
         // const options = {
         //     duration: 60000,
@@ -557,40 +563,33 @@ export class RoomView {
 
         // Logger.debug("this.recordManager:", this.recordManager);
         this.recordManager.start({});
-        // this.mike.visible = true;
-        // if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
-        //     Dialog.showDialog("微信上才可以录音");
 
-        //     return;
-        // }
-
-        // if (!this.isRecordOpen) {
-
-        //     wx.getSetting({
-        //         success: (res: getSettingRes) => {
-        //             console.log(res);
-        //             if (!res.authSetting['scope.userLocation']) {
-        //                 this.mike.visible = true;
-        //                 this.isRecordOpen = true;
-        //                 this.startRecord();
-        //             } else {
-        //                 Dialog.showDialog("请前往小程序设置打开录音功能");
-        //             }
-        //         },
-
-        //         // tslint:disable-next-line:no-any
-        //         fail: (err: any) => {
-        //             Logger.error("getSetting error:", err);
-        //         }
-        //     });
-        // } else {
-        //     this.startRecord();
-        // }
     }
 
-    private onVoiceBtnUp(): void {
+    private onVoiceBtnMove(): void {
+        Logger.debug("onVoiceBtnMove");
+    }
+
+    private onVoiceBtnUp(event: cc.Event.EventTouch): void {
         Logger.debug("onVoiceBtnUp");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            Logger.debug("cc.sys.platform !== cc.sys.WECHAT_GAME");
+
+            return;
+        }
+
+        if (this.startPosition === null) {
+            Logger.debug("this.startPosition === null");
+
+            return;
+        }
+
+        const touches: cc.Event.EventTouch[] = event.getTouches();
+        const endPosition = touches[0].getLocation();
+        Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
+        if (endPosition.y - this.startPosition.y > 3) {
+            Dialog.prompt("取消发送");
+
             return;
         }
 

@@ -850,29 +850,45 @@ export class Player {
     }
 
     public onNimMsg(msg: NIMMessage): void {
+        Logger.debug("Player.onNimMsg");
+        if (msg.type !== "audio") {
+            Logger.debug("msg type:", msg.type);
+
+            return;
+        }
         this.nimMsgs.push(msg);
 
         this.playVoicMsg();
     }
     private playVoicMsg(): void {
         if (this.nimMsgs.length < 0) {
+            Logger.debug("playVoicMsg failed, this.nimMsgs.length < 0");
+
             return;
         }
 
         // 目前只支持微信播放
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            Logger.debug("playVoicMsg failed, cc.sys.platform !== cc.sys.WECHAT_GAME");
+
             return;
         }
 
-        if (this.audioContext.src !== null && this.audioContext.src !== undefined) {
+        if ((this.audioContext.currentTime !== null && this.audioContext.duration !== null)
+            && (this.audioContext.currentTime < this.audioContext.duration)) {
+            Logger.debug(`playVoicMsg failed, currentTime:${this.audioContext.currentTime} < duration:${this.audioContext.duration}`);
+
             return;
         }
 
         const msg = this.nimMsgs.shift();
+        Logger.debug("msg.file.url:", msg.file);
 
         this.audioContext.src = msg.file.url;
 
         this.audioContext.play();
+
+        Logger.debug("play audio");
     }
 
     // private myMahjong_setIcoTing(tile: number): boolean {
@@ -900,24 +916,24 @@ export class Player {
 
     private initAudio(): void {
         const onPlayer = () => {
-            Logger.debug("onPlayer");
+            Logger.debug("audioContext.onPlayer");
             this.playerView.showOrHideVoiceImg(true);
         };
 
         const onPause = () => {
-            Logger.debug("onPause");
+            Logger.debug("audioContext.onPause");
         };
 
         const onEnd = () => {
+            Logger.debug("audioContext.onEnd");
             if (this.nimMsgs.length > 0) {
                 this.playVoicMsg();
             } else {
-                this.audioContext.src = null;
                 this.playerView.showOrHideVoiceImg(false);
+                this.audioContext.src = "";
                 Logger.debug("player voice end");
             }
         };
-
         this.audioContext.onPlay(onPlayer);
         this.audioContext.onPause(onPause);
         this.audioContext.onEnded(onEnd);

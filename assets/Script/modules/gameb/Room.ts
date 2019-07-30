@@ -141,7 +141,7 @@ export class Room {
     }
 
     public onNimMsg(msg: NIMMessage): void {
-        Logger.debug("msg:", msg);
+        Logger.debug("room.onNimMsg:", msg);
         const fromWho: string = msg.from;
         const player = this.getPlayerByImID(fromWho);
         player.onNimMsg(msg);
