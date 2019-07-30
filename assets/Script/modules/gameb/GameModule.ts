@@ -174,6 +174,12 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     // }
 
     public addMember2Team(imaccids: string[]): void {
+        if (this.lm.nimSDK === null) {
+            Logger.debug("addMember2Team failed,this.lm.nimSDK === null");
+
+            return;
+        }
+
         this.lm.nimSDK.addMembers(imaccids);
     }
     protected onLoad(): void {

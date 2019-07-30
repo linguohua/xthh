@@ -263,6 +263,8 @@ export class NimSDK {
 
         if (this.myTeam === null) {
             Logger.error("this.myTeam === null");
+
+            return;
         }
 
         const addTeamMembersDone = (err: {}, obj: {}) => {

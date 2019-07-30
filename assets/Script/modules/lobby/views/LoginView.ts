@@ -38,6 +38,7 @@ interface FastLoginReply {
     servers: ServerCfg[];
     ticket: string;
     id: number;
+    userid: string;
 }
 
 /**
@@ -226,10 +227,19 @@ export class LoginView extends cc.Component {
         this.eventTarget = new cc.EventTarget();
     }
     protected testHTTPLogin(): void {
+        let openudid = DataStore.getString("openudid", "");
+        if (openudid === "") {
+            const now = Date.now();
+            const random = Math.random() * 100000;
+            openudid = md5(`${now}${random}`);
+
+            Logger.debug("constructFastLoginReq new openudid:", openudid);
+        }
+
         const req = {
             app: "casino",
             channel: "mac",
-            openudid: "00000000-3ff8-9c77-ce04-7c1b00000000",
+            openudid: openudid,
             nickname: "abc",
             ticket: 0,
             sign: ""
@@ -271,16 +281,7 @@ export class LoginView extends cc.Component {
             reqString);
     }
 
-    private constructFastLoginReq(userID: number): protoHH.casino.packet_fast_login_req {
-        let openudid = DataStore.getString("openudid", "");
-        if (openudid === "") {
-            const now = Date.now();
-            const random = Math.random() * 100000;
-            openudid = md5(`${now}${random}`);
-
-            Logger.debug("constructFastLoginReq new openudid:", openudid);
-        }
-
+    private constructFastLoginReq(userID: number, openudid: string): protoHH.casino.packet_fast_login_req {
         const devInfo = {
             package: "com.zhongyou.hubei.casino.as",
             platform: "",
@@ -373,7 +374,7 @@ export class LoginView extends cc.Component {
             fastLoginReq = this.constructWxLoginReq(wxLoginReply);
         } else if (fastLoginReply !== undefined && fastLoginReply !== null) {
             loginServerCfg = fastLoginReply.servers[0];
-            fastLoginReq = this.constructFastLoginReq(fastLoginReply.id);
+            fastLoginReq = this.constructFastLoginReq(fastLoginReply.id, fastLoginReply.userid);
         }
 
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
