@@ -837,6 +837,6 @@ export class RoomView {
     }
 
     private sendVoice(tempFilePath: string): void {
-        this.room.getRoomHost();
+        this.room.getRoomHost().sendVoice(tempFilePath);
     }
 }

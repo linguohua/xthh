@@ -122,7 +122,9 @@ export interface RoomInterface {
     getMyPlayer(): PlayerInterface;
     getPlayers(): { [key: string]: PlayerInterface };
     setRoundMask(): void;
-    updateDisbandVoteView(disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void; showRoomNumber(): void;
+    updateDisbandVoteView(
+        disbandReq: protoHH.casino.packet_table_disband_req,
+        disbandAck: protoHH.casino.packet_table_disband_ack): void; showRoomNumber(): void;
     removePlayer(chairID: string): void;
     createMyPlayer(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     createPlayerByInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void;

@@ -1,3 +1,4 @@
+import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -91,12 +92,22 @@ export class Player {
     public mBSaveZCHFlag: boolean = false; //可以捉铳
     public totalScores: number = 0;
     public mNick: string = "";
+
+    public readonly audioContext: createInnerAudioContextOpts;
+    public nimMsgs: NIMMessage[] = [];
+
+    // private isPlayingVoice: boolean = false;
     // private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
         this.userID = userID;
         this.chairID = chairID;
         this.host = host;
         this.resetForNewHand();
+
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            this.audioContext = wx.createInnerAudioContext();
+            this.initAudio();
+        }
     }
 
     // public isMyUserId(userID: string): boolean {
@@ -838,6 +849,32 @@ export class Player {
         this.playerView.showOrHideVoiceImg(isShow);
     }
 
+    public onNimMsg(msg: NIMMessage): void {
+        this.nimMsgs.push(msg);
+
+        this.playVoicMsg();
+    }
+    private playVoicMsg(): void {
+        if (this.nimMsgs.length < 0) {
+            return;
+        }
+
+        // 目前只支持微信播放
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            return;
+        }
+
+        if (this.audioContext.src !== null && this.audioContext.src !== undefined) {
+            return;
+        }
+
+        const msg = this.nimMsgs.shift();
+
+        this.audioContext.src = msg.file.url;
+
+        this.audioContext.play();
+    }
+
     // private myMahjong_setIcoTing(tile: number): boolean {
     //     return this.host.mAlgorithm.canTingPai(this.tilesHand, tile);
     // }
@@ -859,6 +896,31 @@ export class Player {
     private myDiscardAction(tileID: number): void {
         this.discardOutTileID(tileID);
         this.playerView.enlargeDiscarded(tileID, true);
+    }
+
+    private initAudio(): void {
+        const onPlayer = () => {
+            Logger.debug("onPlayer");
+            this.playerView.showOrHideVoiceImg(true);
+        };
+
+        const onPause = () => {
+            Logger.debug("onPause");
+        };
+
+        const onEnd = () => {
+            if (this.nimMsgs.length > 0) {
+                this.playVoicMsg();
+            } else {
+                this.audioContext.src = null;
+                this.playerView.showOrHideVoiceImg(false);
+                Logger.debug("player voice end");
+            }
+        };
+
+        this.audioContext.onPlay(onPlayer);
+        this.audioContext.onPause(onPause);
+        this.audioContext.onEnded(onEnd);
     }
 
     // private discardToDeskOfMe(discardTileId: number): void {

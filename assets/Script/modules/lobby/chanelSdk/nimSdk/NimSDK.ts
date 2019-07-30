@@ -75,11 +75,12 @@ export class NimSDK {
     private account: string;
     private token: string;
 
-    private teamID: string;
     // tslint:disable-next-line:no-any
     private nimSDK: any;
 
-    private teams: Team[] = [];
+    // private teams: Team[] = [];
+
+    private myTeam: Team = null;
     // 用来订阅消息
     public constructor(appKey: string, account: string, token: string) {
         this.appKey = appKey;
@@ -99,16 +100,15 @@ export class NimSDK {
         }
 
         const onConnect = () => {
-            Logger.debug("NimSDK, onConnect");
-            // this.createTeam();
+            this.onConnect();
         };
 
-        const onWillReconnect = () => {
-            this.onWillReconnect();
+        const onWillReconnect = (obj: {}) => {
+            this.onWillReconnect(obj);
         };
 
-        const onDisconnect = () => {
-            this.onDisconnect();
+        const onDisconnect = (res: {}) => {
+            this.onDisconnect(res);
         };
 
         const onError = () => {
@@ -116,7 +116,6 @@ export class NimSDK {
         };
 
         const onCreateTeam = (team: { team: Team }) => {
-            Logger.debug("onCreateTeam");
             this.onCreateTeam(team);
         };
 
@@ -124,8 +123,8 @@ export class NimSDK {
             this.onTeamMembers(obj);
         };
 
-        const onTeams = (res: {}) => {
-            Logger.debug("onTeams:", res);
+        const onTeams = (res: Team[]) => {
+            this.onTeams(res);
         };
 
         const onMsg = (msg: NIMMessage) => {
@@ -167,16 +166,8 @@ export class NimSDK {
             return;
         }
 
-        // 判断这个房间是否已经存在群
-        for (const team of this.teams) {
-            if (team.name === roomNumber) {
-                Logger.debug(`team ${roomNumber} have been exist`);
-
-                return;
-            }
-        }
-
         Logger.debug("imaccids:", imaccids);
+        Logger.debug("my account:", this.account);
 
         // tslint:disable-next-line:no-any
         const createTeamDone = (error: any, obj: { team: Team }) => {
@@ -186,30 +177,25 @@ export class NimSDK {
                 return;
             }
 
-            Logger.debug(`create team ${obj.team.teamId}, name:${obj.team.name} success`);
+            this.myTeam = obj.team;
 
-            const indexOfTeam = this.teams.indexOf(obj.team);
-            if (indexOfTeam > 0) {
-                Logger.error(`team ${obj.team.teamId} ${obj.team.name} have been exist`);
-            }
-
-            this.teams.push(obj.team);
-            // Logger.debug("createTeamDone:", obj);
-            // this.teamID = obj.team.teamId;
-            // this.sendTeamMsg("haha");
+            Logger.debug("createTeamDone:", obj.team);
         };
-        Logger.debug("my account:", this.account);
+        // Logger.debug("my account:", this.account);
 
         // const accids: string[] = [];
-
-        this.nimSDK.createTeam({
-            type: 'normal',
-            name: roomNumber,
-            avatar: 'avatar',
-            accounts: ["1"],
-            ps: '我建了一个普通群',
-            done: createTeamDone
+        // 先删除所有群组，再创建群
+        this.dismissAllTeam(() => {
+            this.nimSDK.createTeam({
+                type: 'normal',
+                name: roomNumber,
+                avatar: 'avatar',
+                accounts: ["1"],
+                ps: '我建了一个普通群',
+                done: createTeamDone
+            });
         });
+
     }
     // 先测试发文本，然后再测试发语音
     public sendTeamMsg(msgContent: string): void {
@@ -225,7 +211,7 @@ export class NimSDK {
 
         const msg = this.nimSDK.sendText({
             scene: 'team',
-            to: this.teamID,
+            to: this.myTeam.teamId,
             text: msgContent,
             done: sendMsgDone
         });
@@ -241,7 +227,7 @@ export class NimSDK {
 
         this.nimSDK.sendFile({
             scene: 'scene',
-            to: this.teamID,
+            to: this.myTeam.teamId,
             type: "audio",
             wxFilePath: wxFilePath,
 
@@ -268,6 +254,76 @@ export class NimSDK {
         });
     }
 
+    public addMembers(members: string[]): void {
+        if (this.nimSDK === null) {
+            Logger.error("this.nimSDK === null");
+
+            return;
+        }
+
+        if (this.myTeam === null) {
+            Logger.error("this.myTeam === null");
+        }
+
+        const addTeamMembersDone = (err: {}, obj: {}) => {
+            if (err !== null) {
+                Logger.debug("addTeamMembersDone failed, err:", err);
+
+                return;
+            }
+
+            Logger.debug("addTeamMembersDone:", obj);
+        };
+
+        this.nimSDK.addTeamMembers({
+            teamId: this.myTeam.teamId,
+            accounts: members,
+            ps: 'hello world',
+            custom: '',
+            done: addTeamMembersDone
+        });
+        // this.nimSDK.
+    }
+    public dismissAllTeam(onDone: Function): void {
+        if (this.nimSDK === null) {
+            Logger.error("this.nimSDK === null");
+
+            return;
+        }
+
+        const dismissTeamDone = (error: {}, obj: {}) => {
+            if (error !== null) {
+                Logger.debug("dismissTeamDone failed:", error);
+
+                return;
+            }
+
+            Logger.debug("dismissTeamDone, team:", obj);
+        };
+
+        const onGetTeams = (error: {}, teams: Team[]) => {
+            if (error !== null) {
+                Logger.debug("dismissAllTeam, get teams failed:", error);
+                onDone(error);
+
+                return;
+            }
+
+            for (const team of teams) {
+                this.nimSDK.dismissTeam({
+                    teamId: team.teamId,
+                    done: dismissTeamDone
+                });
+            }
+
+            onDone(null);
+        };
+
+        this.nimSDK.getTeams({
+            done: onGetTeams
+        });
+    }
+
     protected onConnect(): void {
         Logger.debug("NimSDK onConnect");
 
@@ -275,16 +331,23 @@ export class NimSDK {
         Logger.debug("this:", this);
     }
 
-    protected onWillReconnect(): void {
-        Logger.debug("NimSDK onWillReconnect");
+    protected onWillReconnect(obj: {}): void {
+        Logger.debug("NimSDK onWillReconnect", obj);
     }
 
-    protected onDisconnect(): void {
-        Logger.debug("NimSDK onWillReconnect");
+    protected onDisconnect(res: {}): void {
+        Logger.debug("NimSDK onDisconnect:", res);
     }
 
     protected onError(): void {
         Logger.debug("NimSDK onError");
+    }
+
+    protected onTeams(res: Team[]): void {
+        Logger.debug("NimSDK onTeams:", res);
+        if (res.length > 0) {
+            this.myTeam = res[0];
+        }
     }
 
     protected onMsg(msg: NIMMessage): void {
@@ -292,10 +355,11 @@ export class NimSDK {
         this.eventTarget.emit("onNimMsg", msg);
     }
 
-    protected onCreateTeam(team: { team: Team }): void {
-        Logger.debug("onCreateTeam:", team);
+    protected onCreateTeam(obj: { team: Team }): void {
+        this.myTeam = obj.team;
+        Logger.debug("NimSDK onCreateTeam:", obj);
     }
     protected onTeamMembers(obj: { teamId: string; members: [] }): void {
-        Logger.debug(`onTeamMembers, teamID:${obj.teamId}, members:${obj.members}`);
+        Logger.debug(`NimSDK onTeamMembers, teamID:${obj.teamId}, members:${obj.members}`);
     }
 }

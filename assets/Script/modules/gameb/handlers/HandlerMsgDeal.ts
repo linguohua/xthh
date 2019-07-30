@@ -114,6 +114,7 @@ export namespace HandlerMsgDeal {
 
         const playersKeyArr = Object.keys(players);
         let playerNum = 0;
+        const imaccids: string[] = [];
         await onPlayDealAni(room, msgDeal.cards, player.chairID);
         //显示牌
         for (const key of playersKeyArr) {
@@ -123,6 +124,8 @@ export namespace HandlerMsgDeal {
             // }
             p.hand2UI(false);
             playerNum++;
+
+            imaccids.push(p.playerInfo.imaccid);
         }
         //牌墙 两个花色 72 张 每人13张 加上 一张翻拍
         room.tilesInWall = 72 - ((playerNum * 13) + 1);
@@ -136,5 +139,7 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setFlagPiao(false);
         //房间状态
         room.onUpdateStatus(roomStatus.onPlay);
+
+        room.getRoomHost().addMember2Team(imaccids);
     };
 }

@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
+import { DataStore, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -142,7 +142,9 @@ export class Room {
 
     public onNimMsg(msg: NIMMessage): void {
         Logger.debug("msg:", msg);
-        // TODO: 给用户分发消息
+        const fromWho: string = msg.from;
+        const player = this.getPlayerByImID(fromWho);
+        player.onNimMsg(msg);
     }
 
     public getPlayerByChairID(chairID: number): Player {
@@ -449,6 +451,17 @@ export class Room {
         return this.players[charID];
     }
 
+    public getPlayerByImID(imaccid: string): Player {
+        const keys = Object.keys(this.players);
+        for (const key of keys) {
+            const player = this.players[key];
+            if (player.playerInfo.imaccid === imaccid) {
+                return player;
+            }
+        }
+
+        return null;
+    }
     public getMyPlayer(): PlayerInterface {
         return this.myPlayer;
     }
@@ -721,6 +734,7 @@ export class Room {
     public enableVoiceBtn(isShow: boolean): void {
         this.roomView.enableVoiceBtn(isShow);
     }
+
     //播放背景音乐
     // private playBgSound(): void {
     //     SoundMgr.playMusicAudio("gameb/music_hall", true);

@@ -171,6 +171,15 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
 
+    // public dismissTeam(): void {
+    // this.lm.nimSDK.dismissAllTeam(() => {
+    //     Logger.debug("dismissAllTeam done");
+    // });
+    // }
+
+    public addMember2Team(imaccids: string[]): void {
+        this.lm.nimSDK.addMembers(imaccids);
+    }
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.eventTarget.on("gpsChange", this.onGpsChange, this);

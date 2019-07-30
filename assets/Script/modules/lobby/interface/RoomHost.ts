@@ -1,5 +1,3 @@
-
-import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
 import { AnimationMgr, GResLoader, UserInfo } from "../lcore/LCoreExports";
 
 /**
@@ -17,5 +15,6 @@ export interface RoomHost {
     loader: GResLoader;
     sendBinary(buf: ByteBuffer, code: number): void;
     getLobbyModuleLoader(): GResLoader;
-    getNimSDK(): NimSDK;
+    addMember2Team(imaccids: string[]): void;
+    sendVoice(tempFilePath: string): void;
 }

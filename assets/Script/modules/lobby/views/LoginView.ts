@@ -20,6 +20,8 @@ interface LoginData {
     userid: number;
     channel: string;
     ticket: string;
+    im_accid: string;
+    im_token: string;
     servers: ServerCfg[];
 }
 interface WxLoginReply {
@@ -35,6 +37,7 @@ interface FastLoginReply {
     im_token: string;
     servers: ServerCfg[];
     ticket: string;
+    id: number;
 }
 
 /**
@@ -264,7 +267,7 @@ export class LoginView extends cc.Component {
                     DataStore.setItem("imtoken", reply.im_token);
 
                     Logger.debug(reply);
-                    this.fastLogin(reply.servers[0]).catch((reason) => {
+                    this.fastLogin(reply, null).catch((reason) => {
                         Logger.debug(reason);
                     });
                 }
@@ -273,7 +276,7 @@ export class LoginView extends cc.Component {
             reqString);
     }
 
-    private constructFastLoginReq(): protoHH.casino.packet_fast_login_req {
+    private constructFastLoginReq(userID: number): protoHH.casino.packet_fast_login_req {
         let openudid = DataStore.getString("openudid", "");
         if (openudid === "") {
             const now = Date.now();
@@ -310,7 +313,7 @@ export class LoginView extends cc.Component {
         return {
             channel: "mac",
             ticket: "",
-            user_id: 1094151,
+            user_id: userID,
             reconnect: false,
             gdatacrc: 0xFFFFFFFF,
             devinfo: devInfo,
@@ -358,8 +361,8 @@ export class LoginView extends cc.Component {
         };
     }
 
-    private async fastLogin(serverCfg: ServerCfg, wxLoginReply?: WxLoginReply): Promise<void> {
-        Logger.debug(serverCfg);
+    private async fastLogin(fastLoginReply: FastLoginReply, wxLoginReply?: WxLoginReply): Promise<void> {
+        Logger.debug(fastLoginReply);
         const lmComponent = this.getComponent("LobbyModule");
         const lm = <LobbyModuleInterface>lmComponent;
 
@@ -367,12 +370,15 @@ export class LoginView extends cc.Component {
             return;
         }
 
-        let fastLoginReq = this.constructFastLoginReq();
-        let loginServerCfg: ServerCfg = serverCfg;
+        let fastLoginReq = null;
+        let loginServerCfg: ServerCfg = null;
 
         if (wxLoginReply !== undefined && wxLoginReply !== null) {
             loginServerCfg = wxLoginReply.data.servers[0];
             fastLoginReq = this.constructWxLoginReq(wxLoginReply);
+        } else if (fastLoginReply !== undefined && fastLoginReply !== null) {
+            loginServerCfg = fastLoginReply.servers[0];
+            fastLoginReq = this.constructFastLoginReq(fastLoginReply.id);
         }
 
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
@@ -537,6 +543,9 @@ export class LoginView extends cc.Component {
 
                         return;
                     }
+
+                    DataStore.setItem("imaccid", reply.data.im_accid);
+                    DataStore.setItem("imtoken", reply.data.im_token);
 
                     Logger.debug(reply);
                     this.fastLogin(null, reply).catch((reason) => {
