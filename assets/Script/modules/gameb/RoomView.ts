@@ -457,28 +457,7 @@ export class RoomView {
      */
     private onChatBtnClick(): void {
         Logger.debug("onChatBtnClick");
-        // const load = this.room.getRoomHost().getLobbyModuleLoader();
-        // if (load === null) {
-        //     Logger.debug("load === null");
-        // }
 
-        // let chatView = this.component.getComponent(ChatView);
-        // if (chatView === null) {
-        //     chatView = this.component.addComponent(ChatView);
-        // }
-
-        // const bg = this.unityViewNode.getChild("blueBg");
-
-        // let width = bg.width;
-
-        // const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        // if (newIPhone === "1") {
-        //     // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-        //     width = width + CommonFunction.IOS_ADAPTER_WIDTH;
-        // }
-
-        // const callBack: Function = <Function>this.room.showMsg.bind(this.room);
-        // chatView.show(load, callBack, width);
     }
     /**
      * 初始化
@@ -501,6 +480,14 @@ export class RoomView {
         this.chatBtn.onClick(this.onChatBtnClick, this);
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");
+
+        // const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
+
+        // if (newIPhone === "1") {
+        //     //
+        //     //this.settingBtn.setPosition(this.settingBtn.x + CommonFunction.IOS_ADAPTER_WIDTH, this.settingBtn.y);
+        // }
+
         this.settingBtn.onClick(this.onSettingBtnClick, this);
 
         const infoBtn = this.unityViewNode.getChild("guizeBtn");
@@ -747,7 +734,7 @@ export class RoomView {
         this.meldOpsPanel = this.unityViewNode.getChild("meldOpsPanel").asCom;
         this.multiOpsObj = this.meldOpsPanel.getChild("list").asList;
         this.multiOpsObj.itemRenderer = <(index: number, item: fgui.GComponent) => void>this.renderMultiOpsListItem.bind(this);
-        this.multiOpsObj.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onMeldOpsClick(onClickItem.name); }, this);
+        this.multiOpsObj.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onMeldOpsClick(); }, this);
         const cancelBtn = this.meldOpsPanel.getChild("cancelBtn");
         const cancelOnClick = () => {
             this.meldOpsPanel.visible = false;
@@ -756,7 +743,7 @@ export class RoomView {
         cancelBtn.onClick(cancelOnClick, this);
     }
 
-    private renderMultiOpsListItem(index: number, obj: fgui.GComponent): void {
+    private renderMultiOpsListItem(): void {
         // const meld = this.multiOpsDataList[index];
         // obj.name = index.toString();
         // let add = 0;
@@ -778,7 +765,7 @@ export class RoomView {
         // obj.visible = true;
     }
 
-    private onMeldOpsClick(index: string): void {
+    private onMeldOpsClick(): void {
         // const data = this.multiOpsDataList[+index];
         // const actionMsg = new proto.mahjong.MsgPlayerAction();
         // actionMsg.qaIndex = this.actionMsg.qaIndex;

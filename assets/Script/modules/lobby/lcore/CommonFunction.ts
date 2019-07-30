@@ -1,13 +1,8 @@
-import { DataStore } from "./DataStore";
-import { KeyConstants } from "./KeyConstants";
-import { Logger } from "./Logger";
-
 /**
  * 公共函数类
  */
 export namespace CommonFunction {
 
-    export const IOS_ADAPTER_WIDTH = 55;
     /**
      * 设置头像
      */
@@ -46,11 +41,6 @@ export namespace CommonFunction {
     export const setBaseViewInCenter = (view: fgui.GObject): number => {
         //
         let x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-            x = (cc.winSize.width - IOS_ADAPTER_WIDTH) / 2 - (cc.winSize.height * 1136 / 640 / 2) + IOS_ADAPTER_WIDTH;
-        }
 
         view.setPosition(x, view.y);
 
@@ -96,17 +86,9 @@ export namespace CommonFunction {
         const realWidth = node.width * srcScaleForShowAll;
         const realHeight = node.height * srcScaleForShowAll;
 
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        //Logger.debug("DataStore.getString newIPhone = ", newIPhone)
-        let offset = 0;
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-            offset = offset + IOS_ADAPTER_WIDTH;
-        }
-
         // 2. 基于第一步的数据，再做节点宽高重置
         node.width = node.width *
-            (cc.view.getCanvasSize().width / realWidth) - offset;
+            (cc.view.getCanvasSize().width / realWidth);
         node.height = node.height *
             (cc.view.getCanvasSize().height / realHeight);
 
@@ -126,12 +108,8 @@ export namespace CommonFunction {
      * @param view mask 节点
      */
     export const setBgFullScreenSize = (view: fgui.GObject): void => {
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        let x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 IOS_ADAPTER_WIDTH
-            x = (cc.winSize.width - IOS_ADAPTER_WIDTH) / 2 - (cc.winSize.height * 1136 / 640 / 2) + IOS_ADAPTER_WIDTH;
-        }
+
+        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
 
         view.setPosition(-x, 0);
         setBgFullScreen(view);

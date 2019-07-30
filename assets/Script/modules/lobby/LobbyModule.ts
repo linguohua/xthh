@@ -187,12 +187,24 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     protected onLoad(): void {
 
         // 默认值
-        DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "0");
+        DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+
+        Logger.debug("cc.winSize = ", cc.winSize);
+
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.getSystemInfo({
                 success: (res) => {
                     Logger.debug("wx.getSystemInfo res = ", res);
                     const model = res.model;
+
+                    for (const name of this.adaptivePhones) {
+                        const result = model.indexOf(name);
+                        Logger.debug(`model.indexOf(${name}) = `, result);
+                        if (result !== -1) {
+                            DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
+                        }
+                    }
+
                     if (this.adaptivePhones.indexOf(model) !== -1) {
                         DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
                     }

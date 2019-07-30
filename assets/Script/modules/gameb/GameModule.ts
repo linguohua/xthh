@@ -3,7 +3,7 @@ import {
     AnimationMgr, CommonFunction,
     CreateRoomParams, DataStore,
     Dialog, GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams,
-    KeyConstants, LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
+    LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
@@ -94,14 +94,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         fgui.GRoot.inst.addChild(view);
 
         let x = CommonFunction.setBaseViewInCenter(view);
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为  CommonFunction.IOS_ADAPTER_WIDTH
-            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
-        }
-        let bg = view.getChild("blueBg");
 
+        let bg = view.getChild("blueBg");
         CommonFunction.setBgFullScreenSize(bg);
+
         bg = view.getChild("classBg");
         CommonFunction.setBgFullScreenSize(bg);
 

@@ -56,7 +56,6 @@ export class GameOverResultView extends cc.Component {
         CommonFunction.setViewInCenter(viewObj);
 
         const mask = viewObj.getChild("mask");
-
         CommonFunction.setBgFullScreenSize(mask);
 
         this.unityViewNode = viewObj;

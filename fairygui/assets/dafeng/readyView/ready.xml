@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://ls4obr7jhsncj4" designImageAlpha="100">
   <displayList>
-    <image id="n23_hsnc" name="bg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0" aspect="true"/>
+    <image id="n23_hsnc" name="bg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0" hideByEditor="true" aspect="true" visible="false"/>
     <component id="n24_hsnc" name="head0" src="hsnci1" fileName="readyView/ready/head_button.xml" xy="140,145" size="146,183"/>
     <component id="n25_hsnc" name="head1" src="hsnci1" fileName="readyView/ready/head_button.xml" xy="378,145" size="146,183"/>
     <component id="n26_hsnc" name="head2" src="hsnci1" fileName="readyView/ready/head_button.xml" xy="613,146" size="146,183"/>
     <component id="n27_hsnc" name="head3" src="hsnci1" fileName="readyView/ready/head_button.xml" xy="850,145" size="146,183"/>
-    <image id="n6_hsnc" name="n6" src="hsncib" fileName="readyView/ready/z_准备界面/zm_di2.png" xy="457,0" size="254,66"/>
+    <image id="n6_hsnc" name="n6" src="hsncib" fileName="readyView/ready/z_准备界面/zm_di2.png" xy="457,0" size="254,66" hideByEditor="true"/>
     <image id="n34_hsnc" name="n34" src="hsncid" fileName="readyView/ready/z_准备界面/zm_zi_srf.png" xy="503,8"/>
     <image id="n33_hsnc" name="n33" src="hsncie" fileName="readyView/ready/z_准备界面/zm_zi_xthh.png" xy="530,73"/>
     <image id="n15_hsnc" name="n15" src="hsnci5" fileName="readyView/ready/z_准备界面/zm_bj.jpg" xy="0,420" size="1136,100" hideByEditor="true">

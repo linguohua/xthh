@@ -1,5 +1,5 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
-import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, HTTP, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
 import { proto } from "../proto/protoLobby";
 // tslint:disable-next-line:no-require-imports
@@ -68,11 +68,6 @@ export class LoginView extends cc.Component {
 
         let x = CommonFunction.setBaseViewInCenter(view);
 
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 CommonFunction.IOS_ADAPTER_WIDTH
-            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
-        }
         const bg = view.getChild('bg');
         CommonFunction.setBgFullScreenSize(bg);
 
@@ -479,7 +474,7 @@ export class LoginView extends cc.Component {
             }
         });
 
-        this.button.onTap((res: getUserInfoRes) => {
+        this.button.onTap(() => {
             this.button.hide();
             // this.weixinButton.d
             Dialog.showWaiting();

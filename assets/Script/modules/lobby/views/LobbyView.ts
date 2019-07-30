@@ -1,7 +1,7 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, GameModuleLaunchArgs, KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr
+    DataStore, GameModuleLaunchArgs, LEnv, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 
 import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
@@ -64,11 +64,6 @@ export class LobbyView extends cc.Component {
         let x = CommonFunction.setBaseViewInCenter(view);
         this.view = view;
 
-        const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-        if (newIPhone === "1") {
-            // i phone x 的黑边为 CommonFunction.IOS_ADAPTER_WIDTH
-            x = x - CommonFunction.IOS_ADAPTER_WIDTH;
-        }
         const bg = this.view.getChild('bg');
         CommonFunction.setBgFullScreenSize(bg);
 
