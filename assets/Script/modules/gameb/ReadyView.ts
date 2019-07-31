@@ -57,7 +57,10 @@ export class ReadyView {
     private ruleText: fgui.GObject;
     private anteText: fgui.GObject;
     private tips: fgui.GObject;
+
     private originPositions: cc.Vec2[] = [];
+
+    private countDownTime: number;
 
     public showReadyView(roomHost: RoomHost, view: fgui.GComponent): void {
         this.host = roomHost;
@@ -112,8 +115,9 @@ export class ReadyView {
             this.disbandRoomBtn.visible = true;
         }
 
-        const disbandTime = this.getDisbandTime();
-        this.tips.text = `（${disbandTime}）后, 牌友还没到齐，牌局将自动解散，并退还房卡！`;
+        const text = this.getCountDownText();
+
+        this.tips.text = text;
         this.roomNumber.text = `${this.table.tag}`;
         this.anteText.text = `底注：${this.table.base}       总共：${this.table.round}局`;
         this.ruleText.text = `一赖到底，飘赖子有奖，笑翻倍`;
@@ -174,13 +178,20 @@ export class ReadyView {
         // 10 分钟后自动解散房间
         //this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
 
-        this.host.component.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
+        this.countDownTime = 10 * 60;
+        this.countDownTime = 30;
+
+        this.host.component.unschedule(this.countDownFunc);
+        const func = () => {
+            this.countDownFunc();
+        };
+        this.host.component.schedule(func, 1, cc.macro.REPEAT_FOREVER);
 
     }
 
     protected onHide(): void {
         this.view.visible = false;
-        this.host.component.unschedule(this.schedule2DisbandRoom);
+        this.host.component.unschedule(this.countDownFunc);
     }
 
     private onLeaveRoomBtnClick(): void {
@@ -266,16 +277,43 @@ export class ReadyView {
         this.headViews[1].setPosition(this.originPositions[2].x, this.originPositions[2].y);
     }
 
-    private schedule2DisbandRoom(): void {
-        this.disbandRoom();
+    private countDownFunc(): void {
+        this.countDownTime = this.countDownTime - 1;
+        if (this.countDownTime <= 0) {
+            this.host.component.unschedule(this.countDownFunc);
+
+            this.disbandRoom();
+
+            return;
+        }
+
+        const text = this.getCountDownText();
+
+        this.tips.text = text;
     }
 
-    private getDisbandTime(): string {
-        const nowTime = Math.ceil(Date.now());
-        const disbandTime = new Date();
-        disbandTime.setTime(nowTime + 10 * 60 * 1000);
+    private getCountDownText(): string {
+        let min = this.countDownTime / 60;
 
-        return `${disbandTime.getHours()}: ${disbandTime.getMinutes()} `;
+        if (min < 1 && min >= 0.5) {
+            min = 0;
+        }
+        const minutesText = min > 9 ? min.toFixed(0) : `0${min.toFixed(0)}`;
+        const sec = this.countDownTime % 60;
+        const secondsText = sec > 9 ? sec.toFixed(0) : `0${sec.toFixed(0)}`;
+        const text = `${minutesText}:${secondsText}`;
+
+        const btnText = `后, 牌友还没到齐，牌局将自动解散，并退还房卡！`;
+
+        return `(${text}) ${btnText}`;
     }
+
+    // private getDisbandTime(): string {
+    //     const nowTime = Math.ceil(Date.now());
+    //     const disbandTime = new Date();
+    //     disbandTime.setTime(nowTime + 10 * 60 * 1000);
+
+    //     return `${disbandTime.getHours()}: ${disbandTime.getMinutes()} `;
+    // }
 
 }
