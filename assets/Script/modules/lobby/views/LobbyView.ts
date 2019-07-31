@@ -26,7 +26,7 @@ export class LobbyView extends cc.Component {
 
     private marqueeAction: cc.Action = null;
 
-    private marqueeTimer: number = null;
+    //private marqueeTimer: number = null;
 
     private isReconnect: boolean = false;
 

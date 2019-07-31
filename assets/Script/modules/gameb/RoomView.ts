@@ -67,6 +67,7 @@ export class RoomView {
     private readonly moveDistance: number = 50;
 
     private lastRecordTime: number = 0;
+    private readyView: ReadyView;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -365,14 +366,20 @@ export class RoomView {
     }
 
     public updateReadyView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
-        let readyView = this.component.getComponent(ReadyView);
-        if (readyView === undefined || readyView == null) {
-            readyView = this.component.addComponent(ReadyView);
+        // let readyView = this.component.getComponent(ReadyView);
+        // if (readyView === undefined || readyView == null) {
+        //     readyView = this.component.addComponent(ReadyView);
+        // }
+
+        const view = this.unityViewNode.getChild("readyView").asCom;
+
+        if (this.readyView === undefined || this.readyView === null) {
+            this.readyView = new ReadyView();
         }
 
         // const load = this.room.getRoomHost().getLobbyModuleLoader();
         const roomHost = this.room.getRoomHost();
-        readyView.updateReadyView(roomHost, table, players);
+        this.readyView.updateReadyView(roomHost, table, view, players);
     }
 
     public showOrHideCancelCom(isShow: boolean, str: string): void {

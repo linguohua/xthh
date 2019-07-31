@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="211,119" pivot="0.5,0.5" extention="Button">
+<component size="211,119" pivot="0.5,0.5" extention="Button" designImage="ui://ls4obr7jhsncj4" designImageOffsetX="-875" designImageOffsetY="-435" designImageAlpha="100">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n3_hsnc" name="n3" src="hsnci2" fileName="ready/z_准备界面/ty_btn_h1.png" xy="0,0" size="211,119"/>
-    <image id="n4_hsnc" name="n4" src="hsnci6" fileName="ready/z_准备界面/zm_btn_zi_fxfh.png" xy="35,64"/>
-    <text id="n5_wehq" name="roomNumber" xy="12,18" size="185,39" font="ui://397phochhsnci0" fontSize="10" align="center" vAlign="middle" autoSize="none" text="999999"/>
+    <image id="n3_hsnc" name="n3" src="hsnci2" fileName="readyView/ready/z_准备界面/ty_btn_h1.png" xy="1,0" size="211,117"/>
+    <image id="n4_hsnc" name="n4" src="hsnci6" fileName="readyView/ready/z_准备界面/zm_btn_zi_fxfh.png" xy="36,64"/>
+    <text id="n5_wehq" name="roomNumber" xy="9,18" size="196,39" font="ui://397phochhsnci0" fontSize="11" align="center" vAlign="middle" letterSpacing="-1" autoSize="none" singleLine="true" autoClearText="true" text="999999"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

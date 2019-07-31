@@ -34,11 +34,9 @@ export class DisBandPlayerInfo {
 /**
  * 解散页面
  */
-export class ReadyView extends cc.Component {
+export class ReadyView {
 
     private view: fgui.GComponent;
-
-    private win: fgui.Window;
 
     private leaveBtn: fgui.GButton;
     private forOtherBtn: fgui.GButton;
@@ -60,38 +58,33 @@ export class ReadyView extends cc.Component {
     private anteText: fgui.GObject;
     private tips: fgui.GObject;
     private originPositions: cc.Vec2[] = [];
-    public showReadyView(roomHost: RoomHost): void {
+
+    public showReadyView(roomHost: RoomHost, view: fgui.GComponent): void {
         this.host = roomHost;
-        if (this.view === null || this.view === undefined) {
-            const view = fgui.UIPackage.createObject("dafeng", "ready").asCom;
 
-            CommonFunction.setViewInCenter(view);
-
-            const bg = view.getChild("bg");
-            CommonFunction.setBgFullScreenSize(bg);
-
-            roomHost.eventTarget.once("onDeal", this.onDeal, this);
-            roomHost.eventTarget.once("leave", this.onLeave, this);
-
+        if (view !== null) {
             this.view = view;
-            const win = new fgui.Window();
-            win.contentPane = view;
-            win.modal = true;
-
-            this.win = win;
-
-            this.win.show();
-
-            this.initView();
         }
+
+        const bg = view.getChild("bg");
+        CommonFunction.setBgFullScreenSize(bg);
+
+        roomHost.eventTarget.once("onDeal", this.onDeal, this);
+        roomHost.eventTarget.once("leave", this.onLeave, this);
+        this.view.visible = true;
+
+        this.initView();
+
     }
 
-    public updateReadyView(roomHost: RoomHost, table: protoHH.casino.Itable, ps?: protoHH.casino.Itable_player[]): void {
+    public updateReadyView(roomHost: RoomHost, table: protoHH.casino.Itable
+        // tslint:disable-next-line:align
+        , view: fgui.GComponent, ps?: protoHH.casino.Itable_player[]): void {
         // 注意：table中的playrs不是最新的，新的player通过参数传进来
         // 后面可以分开或者抽取出来
         this.table = table;
         if (this.view === null || this.view === undefined) {
-            this.showReadyView(roomHost);
+            this.showReadyView(roomHost, view);
         }
 
         let players = ps;
@@ -101,10 +94,6 @@ export class ReadyView extends cc.Component {
 
         this.updateView(players);
 
-    }
-
-    protected onLoad(): void {
-        // this.eventTarget = new cc.EventTarget();
     }
 
     protected updateView(players: protoHH.casino.Itable_player[]): void {
@@ -183,13 +172,15 @@ export class ReadyView extends cc.Component {
         this.tips = this.view.getChild("tips");
 
         // 10 分钟后自动解散房间
-        this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
+        //this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
+
+        this.host.component.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
+
     }
 
-    protected onDestroy(): void {
-        this.view.dispose();
-        this.win.hide();
-        this.win.dispose();
+    protected onHide(): void {
+        this.view.visible = false;
+        this.host.component.unschedule(this.schedule2DisbandRoom);
     }
 
     private onLeaveRoomBtnClick(): void {
@@ -236,13 +227,13 @@ export class ReadyView extends cc.Component {
     }
 
     private onDeal(): void {
-        this.destroy();
+        this.onHide();
     }
 
     // 自己退出房间
     private onLeave(): void {
         this.host.quit();
-        this.destroy();
+        this.onHide();
     }
 
     private disbandRoom(): void {
