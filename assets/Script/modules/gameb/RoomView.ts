@@ -62,7 +62,11 @@ export class RoomView {
     private recordManager: getRecorderManagerOpts;
     private piaoAni: fgui.GObject;
 
-    private startPosition: cc.Vec2 = null;
+    private recordStartPosition: cc.Vec2 = null;
+    private recordEndPosition: cc.Vec2 = null;
+    private readonly moveDistance: number = 50;
+
+    private lastRecordTime: number = 0;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -475,8 +479,8 @@ export class RoomView {
         this.chatBtn = this.unityViewNode.getChild("chatBtn");
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
         this.recoredBtn.on(fgui.Event.TOUCH_BEGIN, this.onVoiceBtnPress, this);
+
         this.recoredBtn.on(fgui.Event.TOUCH_END, this.onVoiceBtnUp, this);
-        this.recoredBtn.on(fgui.Event.TOUCH_MOVE, this.onVoiceBtnMove, this);
 
         this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
@@ -541,7 +545,7 @@ export class RoomView {
     //         10000);
     // }
 
-    private onVoiceBtnPress(event: cc.Event.EventTouch): void {
+    private onVoiceBtnPress(event: fgui.Event): void {
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Dialog.showDialog("微信上才可以录音");
@@ -549,8 +553,14 @@ export class RoomView {
             return;
         }
 
-        const touches: cc.Event.EventTouch[] = event.getTouches();
-        this.startPosition = touches[0].getLocation();
+        if (Date.now() - this.lastRecordTime < 1000) {
+            Dialog.prompt("1秒内不能重复录音");
+
+            return;
+        }
+
+        // const touches: cc.Event.EventTouch[] = event.getTouches();
+        this.recordStartPosition = event.touch.getLocation();
 
         // const options = {
         //     duration: 60000,
@@ -566,11 +576,7 @@ export class RoomView {
 
     }
 
-    private onVoiceBtnMove(): void {
-        Logger.debug("onVoiceBtnMove");
-    }
-
-    private onVoiceBtnUp(event: cc.Event.EventTouch): void {
+    private onVoiceBtnUp(event: fgui.Event): void {
         Logger.debug("onVoiceBtnUp");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Logger.debug("cc.sys.platform !== cc.sys.WECHAT_GAME");
@@ -578,20 +584,8 @@ export class RoomView {
             return;
         }
 
-        if (this.startPosition === null) {
-            Logger.debug("this.startPosition === null");
-
-            return;
-        }
-
-        const touches: cc.Event.EventTouch[] = event.getTouches();
-        const endPosition = touches[0].getLocation();
-        Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
-        if (endPosition.y - this.startPosition.y > 3) {
-            Dialog.prompt("取消发送");
-
-            return;
-        }
+        this.recordEndPosition = event.touch.getLocation();
+        // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
         this.recordManager.stop();
     }
@@ -803,7 +797,15 @@ export class RoomView {
 
         const onStop = (res: RecordOnStopRes) => {
             Logger.debug("onStop:", res);
+
             this.mike.visible = false;
+            if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
+                Dialog.prompt("取消发送");
+
+                return;
+            }
+
+            this.lastRecordTime = Date.now();
             this.sendVoice(res.tempFilePath);
         };
 

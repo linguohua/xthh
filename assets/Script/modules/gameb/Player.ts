@@ -874,21 +874,30 @@ export class Player {
             return;
         }
 
-        if ((this.audioContext.currentTime !== null && this.audioContext.duration !== null)
-            && (this.audioContext.currentTime < this.audioContext.duration)) {
-            Logger.debug(`playVoicMsg failed, currentTime:${this.audioContext.currentTime} < duration:${this.audioContext.duration}`);
+        if (this.audioContext.currentTime != null && this.audioContext.currentTime !== undefined
+            && this.audioContext.duration !== null && this.audioContext.duration !== undefined
+            && !this.audioContext.paused && this.audioContext.currentTime < this.audioContext.duration) {
+            Logger.debug(`playVoicMsg failed, paused:${this.audioContext.pause}
+             currentTime:${this.audioContext.currentTime} < duration:${this.audioContext.duration}`);
 
             return;
         }
 
+        // if (this.audioContext.paused) {
+        //     Logger.debug("playVoicMsg resum audio player");
+        //     this.audioContext.seek(this.audioContext.currentTime);
+        //     this.audioContext.autoplay = true;
+
+        //     return;
+        // }
+
         const msg = this.nimMsgs.shift();
-        Logger.debug("msg.file.url:", msg.file);
+
+        Logger.debug("start play audio:", msg.file.name);
 
         this.audioContext.src = msg.file.url;
-
-        this.audioContext.play();
-
-        Logger.debug("play audio");
+        this.audioContext.autoplay = true;
+        // this.audioContext.play();
     }
 
     // private myMahjong_setIcoTing(tile: number): boolean {
@@ -924,6 +933,13 @@ export class Player {
             Logger.debug("audioContext.onPause");
         };
 
+        const onStop = () => {
+            Logger.debug("audioContext.onStop");
+            this.playerView.showOrHideVoiceImg(false);
+            this.audioContext.src = "";
+
+        };
+
         const onEnd = () => {
             Logger.debug("audioContext.onEnd");
             if (this.nimMsgs.length > 0) {
@@ -936,6 +952,7 @@ export class Player {
         };
         this.audioContext.onPlay(onPlayer);
         this.audioContext.onPause(onPause);
+        this.audioContext.onStop(onStop);
         this.audioContext.onEnded(onEnd);
     }
 
