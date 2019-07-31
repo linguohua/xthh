@@ -26,6 +26,8 @@ export class LobbyView extends cc.Component {
 
     private marqueeAction: cc.Action = null;
 
+    private marqueeTimer: number = null;
+
     private isReconnect: boolean = false;
 
     private wxShowCallBackFunction: (res: showRes) => void;
@@ -210,7 +212,7 @@ export class LobbyView extends cc.Component {
 
     private openEmailClick(): void {
         // TODO: 显示邮件界面
-        this.showMarquee("测试发送公告");
+        this.showMarquee("测试发送公告asdasd测试发送试发送公告asdasd");
 
     }
 
@@ -297,8 +299,8 @@ export class LobbyView extends cc.Component {
 
             return;
         }
-
         const announcementText = this.view.getChild('announcementText');
+        const pos = this.view.getChild('pos');
 
         announcementText.text = announcement;
 
@@ -308,8 +310,20 @@ export class LobbyView extends cc.Component {
         const xPos = announcementText.node.x;
         const yPos = announcementText.node.y;
 
-        const pos = this.view.getChild('pos');
+        // 方案：setInterval
+        // const handler = () => {
+        //     //
+        //     announcementText.setPosition(announcementText.node.x - 1, announcementText.y);
 
+        //     if (announcementText.node.x < pos.node.x) {
+        //         announcementText.node.setPosition(xPos, yPos);
+        //         clearInterval(this.marqueeTimer);
+        //     }
+        // };
+
+        // this.marqueeTimer = setInterval(handler, 1);
+
+        // 方案：moveTo
         let duration = announcementText.width * 0.005;
         Logger.debug("duration = ", duration);
 
@@ -327,4 +341,5 @@ export class LobbyView extends cc.Component {
         this.marqueeAction = announcementText.node.runAction(action0);
 
     }
+
 }
