@@ -329,10 +329,13 @@ export class GameOverResultView extends cc.Component {
         let textData = `房号：${table.tag} \n`
             + `游戏：${gameName} \n`
             + `局数：${table.play_total}  \n`
-            + `底注：${table.base} \n`
-            + `工会：${table.guild_id}\n`
-            + `游戏结果：\n`
-            + `----------------------- \n`;
+            + `底注：${table.base} \n`;
+
+        if (table.guild_id !== null) {
+            textData = `${textData}工会：${table.guild_id}\n`;
+        }
+
+        textData = `${textData}游戏结果：\n----------------------- \n`;
 
         const playrLength = this.msgGameOver.scores.length;
         for (let i = 0; i < playrLength; i++) {
@@ -346,7 +349,9 @@ export class GameOverResultView extends cc.Component {
         }
         textData = `${textData} ----------------------- \n`;
 
-        textData = `${textData}战绩连接：\n`;
+        if (this.msgGameOver.replay_id !== null) {
+            textData = `${textData}战绩连接：\n`;
+        }
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.setClipboardData({

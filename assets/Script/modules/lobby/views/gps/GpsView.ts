@@ -257,7 +257,8 @@ export class GpsView extends cc.Component {
                 let errMsg;
                 if (err !== null) {
                     errMsg = `错误码: ${err} `;
-                    Dialog.showDialog(errMsg);
+                    obj.text = "未获取位置";
+                    Dialog.prompt("网络错误，获取用户位置失败!");
 
                 } else {
                     errMsg = HTTP.hError(xhr);
@@ -266,9 +267,10 @@ export class GpsView extends cc.Component {
                         // Logger.debug("xhr.responseText:", xhr.responseText);
                         const jsonObj = JSON.parse(xhr.responseText);
                         if (jsonObj.status !== 0) {
-                            Dialog.showDialog(`获取位置错误，状态码:${jsonObj.status}`);
+                            // Dialog.showDialog(`获取位置错误，状态码:${jsonObj.status}`);
+                            Dialog.prompt(`获取位置错误，状态码: ${jsonObj.status}`);
                             obj.text = "未获取位置";
-                            Logger.debug(`load user address error, status${jsonObj.status}, message:${jsonObj.message}`);
+                            Logger.debug(`load user address error, status${jsonObj.status}, message: ${jsonObj.message}`);
 
                             return;
                         }
@@ -295,10 +297,10 @@ export class GpsView extends cc.Component {
         }
     }
     // private calculateDistance2(coordinate1: proto.casino.coordinate, coordinate2: proto.casino.coordinate, callback: Function): void {
-    //     Logger.debug(`calculateDistance, coordinate1:${coordinate1}, coordinate2:${coordinate2}`);
+    //     Logger.debug(`calculateDistance, coordinate1: ${ coordinate1 }, coordinate2: ${ coordinate2 }`);
 
-    //     let url = `${LEnv.qqmapDistance}mode=straight&from=${coordinate1.latitude},${coordinate1.longitude}`;
-    //     url = `${url}&to=${coordinate2.latitude},${coordinate2.longitude}&key=${LEnv.qqmapKey}`;
+    //     let url = `${ LEnv.qqmapDistance }mode = straight & from=${ coordinate1.latitude }, ${ coordinate1.longitude }`;
+    //     url = `${ url } & to=${ coordinate2.latitude }, ${ coordinate2.longitude } & key=${ LEnv.qqmapKey }`;
 
     //     Logger.debug("url:", url);
 
