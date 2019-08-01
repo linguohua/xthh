@@ -42,6 +42,7 @@ interface AppOpts {
   onLaunch?: AppLaunchShowFunc;
   onShow?: AppLaunchShowFunc;
   onHide?: ZeroParamVoidFunc;
+  onAudioInterruptionEnd?: ZeroParamVoidFunc;
   onError?: (msg: string) => void;
 
   [key: string]: any;
@@ -690,6 +691,7 @@ interface MediaAPIs {
   createLivePlayerContext: (domid: string) => createLivePlayerContextOpts;
   createLivePusherContext: () => createLivePusherContextOpts;
   loadFontFace: (options: loadFontFaceOpts) => void;
+  onAudioInterruptionEnd: (callback: ReturnCallBack) => void;
 }
 
 // File APIs
