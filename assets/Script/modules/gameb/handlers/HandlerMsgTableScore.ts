@@ -2,7 +2,7 @@ import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface, roomStatus } from "../RoomInterface";
-import { RoomRuleView } from "../RoomRuleView";
+import { Algorithm } from "../Algorithm";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 /**

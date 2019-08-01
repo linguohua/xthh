@@ -61,9 +61,9 @@ const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
 // ];
 
 const handsPos: number[][] = [
-    [0, -180, -1, -50, 0, -1, -80, -50, -120, -130, -100, -20, 20, -120, -80, -20, 20], //1号2万玩家 x
+    [0, -180, -1, -50, 0, -1, -80, -50, 10, -130, -100, -20, 20, -120, -80, -20, 20], //1号2万玩家 x
     [0, 30, -1, 50, 20, -1, 30, 10, -10, 30, 10, -10, -35, 10, -10, -30, -55], //2号玩家 y
-    [0, 100, -1, 20, 0, -1, 50, 20, -10, 70, 40, 10, -30, 70, 30, 0, -40],  //3号2万玩家 x
+    [0, 100, -1, 20, 0, -1, 50, 20, -20, 70, 40, 10, -30, 70, 30, 0, -40],  //3号2万玩家 x
     [0, -40, -1, -40, -30, -1, -40, -20, 0, -40, -20, 0, 20, -20, 0, 20, 40] //4号玩家 y
 ];
 /**
@@ -493,7 +493,7 @@ export class PlayerView {
 
         //重新设置 手牌位置
         let pos = handsPos[this.viewChairID - 1][num];
-        if (num === 12 && this.melds.length === 4) {
+        if (num === 12 && melds.length === 4) {
             pos = handsPos[this.viewChairID - 1][1]; //特殊位置
         }
         if (this.viewChairID === 1 || this.viewChairID === 3) {
@@ -628,6 +628,10 @@ export class PlayerView {
         if (isHu) {
             for (const a of arr) {
                 const point = a.getChild("piaoPos");
+                // const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
+                // meldView.setPosition(mv.x, mv.y);
+                // meldView.name = `myMeld${i}`;
+                // mymeldTilesNode.addChild(meldView);
                 this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, point.node);
                 point.visible = true;
             }
@@ -737,7 +741,7 @@ export class PlayerView {
 
         //重新设置 手牌位置
         let pos = handsPos[this.viewChairID - 1][num];
-        if (num === 12 && this.melds.length === 4) {
+        if (num === 12 && melds.length === 4) {
             pos = handsPos[this.viewChairID - 1][1]; //特殊位置
         }
         if (this.viewChairID === 1 || this.viewChairID === 3) {
@@ -792,7 +796,7 @@ export class PlayerView {
 
         //重新设置 手牌位置
         let pos = handsPos[this.viewChairID - 1][num];
-        if (num === 12 && this.melds.length === 4) {
+        if (num === 12 && melds.length === 4) {
             pos = handsPos[this.viewChairID - 1][1]; //特殊位置
         }
         if (this.viewChairID === 1 || this.viewChairID === 3) {

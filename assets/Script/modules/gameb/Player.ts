@@ -238,10 +238,12 @@ export class Player {
     //@param tileID 最后一张牌的id，用于assert
     public removeLatestDiscarded(tileID: number): void {
         //从队列尾部删除
-
-        const removed = this.tilesDiscarded.pop();
-        if (removed !== tileID) {
-            Logger.debug("llwant, removed.", removed, ",expected.", tileID);
+        if (this.tilesDiscarded.length > 0) {
+            const removed = this.tilesDiscarded.pop();
+            if (removed !== tileID) {
+                this.tilesDiscarded.push(removed);
+                Logger.debug("llwant, removed.", removed, ",expected.", tileID);
+            }
         }
     }
 
@@ -347,6 +349,8 @@ export class Player {
     public hand2Exposed(): void {
         const playerView = this.playerView;
         playerView.hideHands();
+
+        this.host.mAlgorithm.canHuPai_def(this.tilesHand); //排序 胡牌的人
 
         playerView.hand2Exposed(false, true);
     }

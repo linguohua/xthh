@@ -683,25 +683,26 @@ export class Algorithm {
         return sVecHuPai;
     }
     //判断是否胡牌 参数: 用于检查的有效并且排序（从小到大）过的牌组(mahjong))
-    public canHuPai_def(mahjongs: number[]): ArrayClass_c {
+    public canHuPai_def(mahjongs: number[]): number[] {
         const sVecHuPai: number[] = [];
         const array = this.getArrayDef_Pai_Lai(mahjongs);
-        const a = new ArrayClass_c();
-        a.bHuPai = false;
-        a.sVecHuPai = sVecHuPai;
+        // const a = new ArrayClass_c();
+        // a.bHuPai = false;
+        // a.sVecHuPai = sVecHuPai;
         if (array.sVecLai.length > 1) {
-            return a;
+            return [];
         }
+        this.defMahjongSort_stb(array.sVecPai);
 
         const sVecJiang: number[] = [];
         const bHuPai = this.checkHuPai(array.sVecPai, array.sVecLai, false, sVecHuPai, sVecJiang);
         if (bHuPai) {
             this.push_back(sVecHuPai, sVecJiang, 1, 2);
         }
-        a.bHuPai = bHuPai;
-        a.sVecHuPai = sVecHuPai;
+        // a.bHuPai = bHuPai;
+        // a.sVecHuPai = sVecHuPai;
 
-        return a;
+        return sVecHuPai;
     }
 
     // 会去除杠的牌,判断能否胡牌
