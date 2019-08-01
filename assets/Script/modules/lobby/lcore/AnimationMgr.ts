@@ -14,7 +14,7 @@ interface AnimationHolder {
     prefab?: cc.Prefab;
     prefabName?: string;
 }
-
+const huoEff = "lobby/prefabs/huanghuang/Effect_ico_majiang"; //不加入数组的特效 因为要创建很多个
 /**
  * 简单的动画管理，主要是cache
  */
@@ -113,11 +113,13 @@ export class AnimationMgr {
                     holderNew.node = cc.instantiate(res);
                     holderNew.prefab = res;
                     holderNew.prefabName = prefabName;
-
-                    this.map[prefabName] = holderNew;
+                    if (prefabName !== huoEff) {
+                        this.map[prefabName] = holderNew;
+                    }
                     onCompleted(null, holderNew);
                 }
             });
         }
     }
+
 }

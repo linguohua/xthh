@@ -296,8 +296,7 @@ export class PlayerView {
             for (const h of this.lights) {
                 h.visible = false;
 
-                const huoPos = h.getChild("huo");
-                huoPos.visible = false;
+                h.getChild("huo").visible = false;
             }
             if (this.viewChairID === 1 || this.viewChairID === 3) {
                 //改变x值
@@ -343,7 +342,7 @@ export class PlayerView {
                 // meld.getChild("n4").visible = false;
                 meld.visible = false;
                 for (let i = 1; i < 5; i++) {
-                    meld.getChild(`n${i}`).asCom.getChild("piaoPos").visible = false;
+                    meld.getChild(`n${i}`).asCom.getChild("huo").visible = false;
                 }
             }
         }
@@ -621,12 +620,11 @@ export class PlayerView {
         Logger.debug("isHu ------------- ", isHu);
         if (isHu) {
             for (const a of arr) {
-                const huoPos = a.getChild("huo");
+                a.getChild("huo").visible = true;
                 // const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
                 // meldView.setPosition(mv.x, mv.y);
                 // meldView.name = `myMeld${i}`;
                 // mymeldTilesNode.addChild(meldView);
-                huoPos.visible = true;
             }
         }
 
@@ -772,17 +770,19 @@ export class PlayerView {
                 light.visible = true;
                 begin = 1;
             }
+            if (isHu) {
+                light.getChild("huo").visible = true;
+            }
         }
 
         let j = 0;
         for (let i = begin; i < endd; i++) {
             const light = this.lights[j];
             TileImageMounter.mountTileImage(light, tileshand[i]);
-            if (isHu) {
-                const huoPos = light.getChild("huo");
-                huoPos.visible = true;
-            }
             light.visible = true;
+            if (isHu) {
+                light.getChild("huo").visible = true;
+            }
             j = j + 1;
         }
 
