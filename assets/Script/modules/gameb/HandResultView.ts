@@ -372,7 +372,7 @@ export class HandResultView extends cc.Component {
     private setHandsAndMeldPosition(c: ViewGroup): void {
         const handsNode = c.cardsNode;
         const meldsNode = c.melds;
-        let convertToNodeSpaceARxPos;
+        let convertToNodeSpaceARxPos = 0;
 
         for (let i = 0; i < 4; i++) {
             const element = meldsNode._children[i];
@@ -384,7 +384,10 @@ export class HandResultView extends cc.Component {
             }
         }
 
-        handsNode.node.x = convertToNodeSpaceARxPos - 40;
+        if (convertToNodeSpaceARxPos !== 0) {
+            handsNode.node.x = convertToNodeSpaceARxPos - 40;
+        }
+
     }
 
     private setOpscore(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
