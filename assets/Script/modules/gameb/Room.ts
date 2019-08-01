@@ -99,9 +99,9 @@ export class Room {
     public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public isGameOver: boolean = false;
     public readonly audioContext: createInnerAudioContextOpts;
-    private nimMsgs: NIMMessage[] = [];
 
-    private currentPlayMsg: NIMMessage = null;
+    public currentPlayMsg: NIMMessage = null;
+    public nimMsgs: NIMMessage[] = [];
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -142,6 +142,7 @@ export class Room {
         }
 
         this.nimMsgs.push(msg);
+        Logger.debug("this.nimMsgs.length:", this.nimMsgs.length);
         this.playVoicMsg();
         // const fromWho: string = msg.from;
         // const player = this.getPlayerByImID(fromWho);
@@ -835,8 +836,8 @@ export class Room {
     }
 
     private playVoicMsg(): void {
-        if (this.nimMsgs.length < 0) {
-            Logger.debug("playVoicMsg failed, this.nimMsgs.length < 0");
+        if (this.nimMsgs.length <= 0) {
+            Logger.debug("playVoicMsg failed, this.nimMsgs.length <s 0");
 
             return;
         }
@@ -848,11 +849,8 @@ export class Room {
             return;
         }
 
-        if (this.audioContext.currentTime != null && this.audioContext.currentTime !== undefined
-            && this.audioContext.duration !== null && this.audioContext.duration !== undefined
-            && !this.audioContext.paused && this.audioContext.currentTime < this.audioContext.duration) {
-            Logger.debug(`playVoicMsg failed, paused:${this.audioContext.pause}
-             currentTime:${this.audioContext.currentTime} < duration:${this.audioContext.duration}`);
+        if (this.currentPlayMsg !== null) {
+            Logger.debug(`this.currentPlayMsg !== null`);
 
             return;
         }
@@ -860,15 +858,18 @@ export class Room {
         const msg = this.nimMsgs.shift();
         this.currentPlayMsg = msg;
 
-        Logger.debug("start play audio:", msg.file.name);
+        Logger.debug(`left ${this.nimMsgs.length}, start player ${msg.file.name}`);
 
         this.audioContext.src = msg.file.url;
+
+        // 起定时器来关闭音频
+
         this.audioContext.autoplay = true;
         // this.audioContext.play();
     }
 
     private initAudioPlayer(): void {
-        const onPlayer = () => {
+        const onPlay = () => {
             Logger.debug("audioContext.onPlayer");
             this.showOrHideVoiceImg(true);
             // this.playerView.showOrHideVoiceImg(true);
@@ -881,6 +882,7 @@ export class Room {
         const onStop = () => {
             Logger.debug("audioContext.onStop");
             this.showOrHideVoiceImg(false);
+            this.currentPlayMsg = null;
             // this.playerView.showOrHideVoiceImg(false);
             // this.audioContext.src = "";
 
@@ -903,10 +905,23 @@ export class Room {
             Logger.debug("player voice end");
         };
 
-        this.audioContext.onPlay(onPlayer);
+        const onError = () => {
+            Logger.debug("audioContext.onError");
+            this.showOrHideVoiceImg(false);
+            this.currentPlayMsg = null;
+        };
+
+        const onAudioInterruptionBegin = () => {
+            Logger.debug("onAudioInterruptionBegin");
+        };
+
+        this.audioContext.onPlay(onPlay);
         this.audioContext.onPause(onPause);
         this.audioContext.onStop(onStop);
         this.audioContext.onEnded(onEnd);
+        this.audioContext.onError(onError);
+
+        wx.onAudioInterruptionEnd(onAudioInterruptionBegin);
     }
 
     private showOrHideVoiceImg(isShow: boolean): void {

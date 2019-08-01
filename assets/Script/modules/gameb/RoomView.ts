@@ -566,7 +566,12 @@ export class RoomView {
             return;
         }
 
-        // const touches: cc.Event.EventTouch[] = event.getTouches();
+        if (this.room.currentPlayMsg !== null) {
+            Dialog.prompt("正在播放，不能录音");
+
+            return;
+        }
+
         this.recordStartPosition = event.touch.getLocation();
 
         // const options = {

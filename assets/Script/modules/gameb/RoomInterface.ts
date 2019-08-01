@@ -1,4 +1,5 @@
 
+import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -97,6 +98,7 @@ export interface RoomInterface {
     isMySelfDisCard: boolean;
     quit: Function;
     lastDisCardTile: number;
+    currentPlayMsg: NIMMessage;
     // 获取RoomHost
     getRoomHost(): RoomHost;
     isMe(userID: string): boolean;
