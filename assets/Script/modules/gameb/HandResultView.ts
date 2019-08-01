@@ -19,13 +19,13 @@ const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 //     // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 // };
 //落地牌组缩放
-const meldsScale: number[][] = [
-    [0.95, 0.95, 0.95, 0.95, 0.95], //没有杠
-    [0.85, 0.9, 0.9, 0.95], //1个杠
-    [0.8, 0.85, 0.9], //2个杠
-    [0.8, 0.85], //3个杠
-    [0.8] //4个杠
-];
+// const meldsScale: number[][] = [
+//     [0.95, 0.95, 0.95, 0.95, 0.95], //没有杠
+//     [0.85, 0.9, 0.9, 0.95], //1个杠
+//     [0.8, 0.85, 0.9], //2个杠
+//     [0.8, 0.85], //3个杠
+//     [0.8] //4个杠
+// ];
 const hupaiType: { [key: number]: string } = {
     [1001]: "碰", //碰 这个没定义
     [1002]: "飘赖", //飘赖
@@ -312,21 +312,21 @@ export class HandResultView extends cc.Component {
             return x.cards[0] - y.cards[0];
         });
         //摆放牌
-        let g = 0;
-        let p = 0;
+        // let g = 0;
+        // let p = 0;
         for (let i = 0; i < meldDatas.length; i++) {
-            const meldData = meldDatas[i];
+            //const meldData = meldDatas[i];
             const mv = c.melds.getChild(`n${i + 1}`).asCom;
-            const isFour = player.playerView.mountMeldImage(mv, meldData);
-            if (isFour) {
-                g++;
-            } else {
-                p++;
-            }
+            //const isFour = player.playerView.mountMeldImage(mv, meldData);
+            // if (isFour) {
+            //     g++;
+            // } else {
+            //     p++;
+            // }
             mv.visible = true;
         }
-        const o = meldsScale[g][p];
-        const v = (o) * c.meldsViewScale;
+        //const o = meldsScale[g][p];
+        //const v = (o) * c.meldsViewScale;
         //c.melds.setScale(v, v);
         //手牌
         let n = -1;
