@@ -24,7 +24,7 @@ const soundDef: { [key: number]: string } = {
     [1002]: "飘赖", //飘赖
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DIANXIAO]: "dianxiao",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "huitouxiao",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "menxiao",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "mengxiao",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "fangxiao",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "piaolaizi",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG]: "zhuochong",
