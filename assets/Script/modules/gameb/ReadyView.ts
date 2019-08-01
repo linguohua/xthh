@@ -282,7 +282,7 @@ export class ReadyView {
         if (this.countDownTime <= 0) {
             this.host.component.unschedule(this.countDownFunc);
 
-            this.disbandRoom();
+            // this.disbandRoom();
 
             return;
         }
