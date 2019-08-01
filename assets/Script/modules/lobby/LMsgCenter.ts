@@ -256,7 +256,7 @@ export class LMsgCenter {
     }
 
     private onServerPing(msg: proto.casino.ProxyMessage): void {
-        Logger.debug("onServerPing:", Math.ceil(Date.now() / 1000));
+        // Logger.debug("onServerPing:", Math.ceil(Date.now() / 1000));
         const pingPacket = proto.casino.packet_ping.decode(msg.Data);
         this.serverTime = pingPacket.now;
 

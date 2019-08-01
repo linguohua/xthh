@@ -497,7 +497,7 @@ export class LoginView extends cc.Component {
             const wxCode = <string>WeiXinSDK.getWxDataMap()[wxCodeStr];
             const wxUserData = <getUserInfoRes>WeiXinSDK.getWxDataMap()[wxUserInfoStr];
 
-            const wxLoginUrl = LEnv.cfmt(`${LEnv.rootURL}${LEnv.wxLogin}`, "casino", wxCode);
+            const wxLoginUrl = LEnv.cfmt(`${LEnv.rootURL}${LEnv.wxLogin}`, "h5casino", wxCode);
             Logger.debug('wxloginUrl', wxLoginUrl);
 
             const requestData = {

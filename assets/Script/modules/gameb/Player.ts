@@ -1,4 +1,3 @@
-import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -93,9 +92,6 @@ export class Player {
     public totalScores: number = 0;
     public mNick: string = "";
 
-    public readonly audioContext: createInnerAudioContextOpts;
-    public nimMsgs: NIMMessage[] = [];
-
     // private isPlayingVoice: boolean = false;
     // private flagsTing: boolean;
     public constructor(userID: string, chairID: number, host: RoomInterface) {
@@ -103,11 +99,6 @@ export class Player {
         this.chairID = chairID;
         this.host = host;
         this.resetForNewHand();
-
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            this.audioContext = wx.createInnerAudioContext();
-            this.initAudio();
-        }
     }
 
     // public isMyUserId(userID: string): boolean {
@@ -859,56 +850,45 @@ export class Player {
         this.playerView.showOrHideVoiceImg(isShow);
     }
 
-    public onNimMsg(msg: NIMMessage): void {
-        Logger.debug("Player.onNimMsg");
-        if (msg.type !== "audio") {
-            Logger.debug("msg type:", msg.type);
+    // private playVoicMsg(): void {
+    //     if (this.nimMsgs.length < 0) {
+    //         Logger.debug("playVoicMsg failed, this.nimMsgs.length < 0");
 
-            return;
-        }
-        this.nimMsgs.push(msg);
+    //         return;
+    //     }
 
-        this.playVoicMsg();
-    }
-    private playVoicMsg(): void {
-        if (this.nimMsgs.length < 0) {
-            Logger.debug("playVoicMsg failed, this.nimMsgs.length < 0");
+    //     // 目前只支持微信播放
+    //     if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+    //         Logger.debug("playVoicMsg failed, cc.sys.platform !== cc.sys.WECHAT_GAME");
 
-            return;
-        }
+    //         return;
+    //     }
 
-        // 目前只支持微信播放
-        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
-            Logger.debug("playVoicMsg failed, cc.sys.platform !== cc.sys.WECHAT_GAME");
+    //     if (this.audioContext.currentTime != null && this.audioContext.currentTime !== undefined
+    //         && this.audioContext.duration !== null && this.audioContext.duration !== undefined
+    //         && !this.audioContext.paused && this.audioContext.currentTime < this.audioContext.duration) {
+    //         Logger.debug(`playVoicMsg failed, paused:${this.audioContext.pause}
+    //          currentTime:${this.audioContext.currentTime} < duration:${this.audioContext.duration}`);
 
-            return;
-        }
+    //         return;
+    //     }
 
-        if (this.audioContext.currentTime != null && this.audioContext.currentTime !== undefined
-            && this.audioContext.duration !== null && this.audioContext.duration !== undefined
-            && !this.audioContext.paused && this.audioContext.currentTime < this.audioContext.duration) {
-            Logger.debug(`playVoicMsg failed, paused:${this.audioContext.pause}
-             currentTime:${this.audioContext.currentTime} < duration:${this.audioContext.duration}`);
+    //     // if (this.audioContext.paused) {
+    //     //     Logger.debug("playVoicMsg resum audio player");
+    //     //     this.audioContext.seek(this.audioContext.currentTime);
+    //     //     this.audioContext.autoplay = true;
 
-            return;
-        }
+    //     //     return;
+    //     // }
 
-        // if (this.audioContext.paused) {
-        //     Logger.debug("playVoicMsg resum audio player");
-        //     this.audioContext.seek(this.audioContext.currentTime);
-        //     this.audioContext.autoplay = true;
+    //     const msg = this.nimMsgs.shift();
 
-        //     return;
-        // }
+    //     Logger.debug("start play audio:", msg.file.name);
 
-        const msg = this.nimMsgs.shift();
-
-        Logger.debug("start play audio:", msg.file.name);
-
-        this.audioContext.src = msg.file.url;
-        this.audioContext.autoplay = true;
-        // this.audioContext.play();
-    }
+    //     this.audioContext.src = msg.file.url;
+    //     this.audioContext.autoplay = true;
+    //     // this.audioContext.play();
+    // }
 
     // private myMahjong_setIcoTing(tile: number): boolean {
     //     return this.host.mAlgorithm.canTingPai(this.tilesHand, tile);
@@ -931,39 +911,6 @@ export class Player {
     private myDiscardAction(tileID: number): void {
         this.discardOutTileID(tileID);
         this.playerView.enlargeDiscarded(tileID, true);
-    }
-
-    private initAudio(): void {
-        const onPlayer = () => {
-            Logger.debug("audioContext.onPlayer");
-            this.playerView.showOrHideVoiceImg(true);
-        };
-
-        const onPause = () => {
-            Logger.debug("audioContext.onPause");
-        };
-
-        const onStop = () => {
-            Logger.debug("audioContext.onStop");
-            this.playerView.showOrHideVoiceImg(false);
-            this.audioContext.src = "";
-
-        };
-
-        const onEnd = () => {
-            Logger.debug("audioContext.onEnd");
-            if (this.nimMsgs.length > 0) {
-                this.playVoicMsg();
-            } else {
-                this.playerView.showOrHideVoiceImg(false);
-                this.audioContext.src = "";
-                Logger.debug("player voice end");
-            }
-        };
-        this.audioContext.onPlay(onPlayer);
-        this.audioContext.onPause(onPause);
-        this.audioContext.onStop(onStop);
-        this.audioContext.onEnded(onEnd);
     }
 
     // private discardToDeskOfMe(discardTileId: number): void {
