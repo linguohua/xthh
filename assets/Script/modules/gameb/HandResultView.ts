@@ -56,6 +56,8 @@ class ViewGroup {
     public group: fgui.GComponent;
     public imageIcon: fgui.GObject;
     public imageRoom: fgui.GObject;
+
+    public cardsNode: fgui.GComponent;
     public cards: fgui.GComponent[];
     public melds: fgui.GComponent;
     public meldsViewScale: number = 0;
@@ -267,6 +269,7 @@ export class HandResultView extends cc.Component {
         }
     }
     //更新牌数据
+    // tslint:disable-next-line:max-func-body-length
     private updatePlayerTileData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
         Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
@@ -324,7 +327,7 @@ export class HandResultView extends cc.Component {
         }
         const o = meldsScale[g][p];
         const v = (o) * c.meldsViewScale;
-        c.melds.setScale(v, v);
+        //c.melds.setScale(v, v);
         //手牌
         let n = -1;
         // const last = false;
@@ -348,6 +351,8 @@ export class HandResultView extends cc.Component {
             // }
         }
 
+        this.setHandsAndMeldPosition(c);
+
         if (playerScore.hupai_card > 0) {
             c.hu.visible = true;
         } else if (this.isTing(playerScore.curcards)) {
@@ -362,6 +367,24 @@ export class HandResultView extends cc.Component {
         if (playerScore.data.id === this.room.bankerChairID) {
             c.zhuang.visible = true;
         }
+    }
+
+    private setHandsAndMeldPosition(c: ViewGroup): void {
+        const handsNode = c.cardsNode;
+        const meldsNode = c.melds;
+        let convertToNodeSpaceARxPos;
+
+        for (let i = 0; i < 4; i++) {
+            const element = meldsNode._children[i];
+
+            if (element.visible === true) {
+                const position = element.parent.parent.node.
+                    convertToNodeSpaceAR(element.parent.node.convertToWorldSpaceAR(new cc.Vec2(element.x, element.y)));
+                convertToNodeSpaceARxPos = position.x + element.width;
+            }
+        }
+
+        handsNode.node.x = convertToNodeSpaceARxPos - 40;
     }
 
     private setOpscore(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
@@ -473,6 +496,9 @@ export class HandResultView extends cc.Component {
             contentGroupData.imageRoom.visible = false;
             //手牌
             contentGroupData.cards = this.initHands(group);
+
+            //手牌节点
+            contentGroupData.cardsNode = group.getChild("hands").asCom;
             //牌组
             contentGroupData.melds = group.getChild("melds").asCom;
             contentGroupData.meldsViewScale = contentGroupData.melds.scaleX;

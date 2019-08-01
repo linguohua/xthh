@@ -14,8 +14,10 @@
     <text id="n18_tfg8" name="text_win" xy="1003,79" pivot="0.5,0" size="72,45" scale="0.7,0.7" font="ui://397phochtfg8me" fontSize="0" color="#784819" align="center" vAlign="middle" bold="true" singleLine="true" autoClearText="true" text="+7"/>
     <graph id="n9_e27g" name="aniPos" xy="515,61" size="0,0"/>
     <text id="n10_fxwe" name="score" xy="161,6" size="688,33" fontSize="24" color="#fff3a1" align="center" vAlign="middle" autoSize="none" bold="true" strokeColor="#734305" singleLine="true" text=""/>
-    <component id="n12_fxwe" name="hands" src="jmxy1s" fileName="desk/mine/desk_light.xml" xy="96,4" scale="0.64,0.58"/>
-    <component id="n13_fxwe" name="melds" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="9,-6" scale="0.73,0.64"/>
+    <component id="n12_fxwe" name="handsA" src="jmxy1s" fileName="desk/mine/desk_light.xml" xy="96,4" hideByEditor="true" scale="0.64,0.58" visible="false"/>
+    <component id="n13_fxwe" name="meldsA" src="jmxy1m" fileName="desk/mine/desk_meld.xml" xy="36,-8" hideByEditor="true" scale="0.73,0.64" visible="false"/>
+    <component id="n29_octp" name="melds" src="octpp9" fileName="desk/mine/desk_meld_hand_result_1.xml" xy="42,6" scale="0.73,0.64"/>
+    <component id="n28_octp" name="hands" src="octpp8" fileName="desk/mine/desk_light_hand_result.xml" xy="42,6" scale="0.64,0.58"/>
     <image id="n14_fxwe" name="hu" src="lqn3lz" fileName="_resource/j_结算/js_zi_hu.png" xy="1011,11" visible="false"/>
     <image id="n25_im76" name="ting" src="lqn3m2" fileName="_resource/j_结算/js_zi_ting.png" xy="1011,11" hideByEditor="true" visible="false"/>
     <image id="n16_fxwe" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="-5,66"/>

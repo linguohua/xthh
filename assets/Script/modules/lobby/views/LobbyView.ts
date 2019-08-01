@@ -58,8 +58,6 @@ export class LobbyView extends cc.Component {
         const loader = lm.loader;
 
         loader.fguiAddPackage("lobby/fui/lobby_main");
-        // 加载共用背景包
-        loader.fguiAddPackage("lobby/fui_bg/lobby_bg_package");
 
         const view = fgui.UIPackage.createObject("lobby_main", "Main").asCom;
 

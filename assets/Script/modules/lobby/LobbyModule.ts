@@ -251,6 +251,9 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         // 增加一些房间内用到的大厅package，注意数量不能太多，会影响加载速度
         this.loader.fguiAddPackage("lobby/fui_create_room/lobby_personal_room");
 
+        // 加载共用背景包
+        this.loader.fguiAddPackage("lobby/fui_bg/lobby_bg_package");
+
         this.loginView.updateCompleted();
     }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,110" opaque="false" designImage="ui://397phochjmxyr" designImageAlpha="0">
+  <displayList>
+    <component id="n25_ef0a" name="n1" src="tsg11t" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" pkg="l6hoa9ng" xy="0,0" size="272,110" visible="false"/>
+    <component id="n26_ef0a" name="n2" src="tsg11t" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" pkg="l6hoa9ng" xy="273,0" visible="false">
+      <relation target="n25_ef0a" sidePair="left-right"/>
+    </component>
+    <component id="n27_ef0a" name="n3" src="tsg11t" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" pkg="l6hoa9ng" xy="545,0" visible="false">
+      <relation target="n26_ef0a" sidePair="left-right"/>
+    </component>
+    <component id="n28_ef0a" name="n4" src="tsg11t" fileName="mahjong_mine/mahjong_mine_meld_gang1.xml" pkg="l6hoa9ng" xy="818,0" size="273,110" visible="false">
+      <relation target="n27_ef0a" sidePair="left-right"/>
+    </component>
+  </displayList>
+</component>

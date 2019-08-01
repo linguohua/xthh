@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,122" opaque="false" designImage="ui://397phochlqn3fs" designImageOffsetY="-471" designImageAlpha="0">
+  <displayList>
+    <component id="n28_fxwe" name="n13" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="933,1" scale="0.9,0.9" visible="false"/>
+    <component id="n29_fxwe" name="n12" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="855,0" scale="0.9,0.9" visible="false"/>
+    <component id="n30_fxwe" name="n11" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="777,0" scale="0.9,0.9" visible="false"/>
+    <component id="n31_fxwe" name="n10" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="699,0" scale="0.9,0.9" visible="false"/>
+    <component id="n32_fxwe" name="n9" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="621,0" scale="0.9,0.9" visible="false"/>
+    <component id="n33_fxwe" name="n8" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="544,0" scale="0.9,0.9" visible="false"/>
+    <component id="n34_fxwe" name="n7" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="466,0" scale="0.9,0.9" visible="false"/>
+    <component id="n35_fxwe" name="n6" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="388,0" scale="0.9,0.9" visible="false"/>
+    <component id="n36_fxwe" name="n5" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="310,0" scale="0.9,0.9" visible="false"/>
+    <component id="n37_fxwe" name="n4" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="233,0" scale="0.9,0.9" visible="false"/>
+    <component id="n38_fxwe" name="n3" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="155,0" scale="0.9,0.9" visible="false"/>
+    <component id="n39_fxwe" name="n2" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="77,0" scale="0.9,0.9" visible="false"/>
+    <component id="n40_fxwe" name="n1" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="0,0" scale="0.9,0.9" visible="false"/>
+    <component id="n41_fxwe" name="n14" src="tsg11r" fileName="mahjong_mine/mahjong_mine_luo.xml" pkg="l6hoa9ng" xy="1031,0" scale="0.9,0.9" visible="false"/>
+  </displayList>
+</component>
