@@ -8,5 +8,6 @@
     <image id="n8_ef0a" name="lanMask" src="ef0a2e" fileName="_resource/z_桌面打牌/zm_mjlzzz_l.png" xy="1,0" size="65,57" hideByEditor="true" visible="false" blend="multiply"/>
     <graph id="n3_fxwe" name="pos" xy="36,1" pivot="0.5,0.5" anchor="true" size="18,15"/>
     <graph id="n6_wxwu" name="piaoPos" xy="38,19" pivot="0.5,0.5" anchor="true" size="2,2" hideByEditor="true" scale="0.5,0.5" visible="false" rotation="90"/>
+    <component id="n10_cqve" name="huo" src="cqve2f" fileName="huo_com.xml" xy="67,0" scale="0.6,0.5" rotation="90"/>
   </displayList>
 </component>

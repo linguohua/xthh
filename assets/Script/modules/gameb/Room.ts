@@ -39,22 +39,6 @@ type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 const msgCodeEnum = protoHH.casino.eMSG_TYPE;
 const msgCodeXTHH = protoHH.casino_xtsj.eXTSJ_MSG_TYPE;
 export const msgHandlers: { [key: number]: msgHandler } = {
-    // [msgCodeEnum.OPActionAllowed]: HandlerMsgActionAllowed.onMsg,
-    // [msgCodeEnum.OPReActionAllowed]: HandlerMsgReActionAllowed.onMsg,
-    // [msgCodeEnum.OPActionResultNotify]: HandlerActionResultNotify.onMsg,
-    // [msgCodeEnum.OPDeal]: HandlerMsgDeal.onMsg,
-    // [msgCodeEnum.OPHandOver]: HandlerMsgHandOver.onMsg,
-    // [msgCodeEnum.OPRoomUpdate]: HandlerMsgRoomUpdate.onMsg,
-    // [msgCodeEnum.OPRestore]: HandlerMsgRestore.onMsg,
-    // [msgCodeEnum.OPRoomDeleted]: HandlerMsgDeleted.onMsg,
-    // [msgCodeEnum.OPRoomShowTips]: HandlerMsgShowTips.onMsg,
-    // [msgCodeEnum.OPGameOver]: HandlerMsgGameOver.onMsg,
-    // [msgCodeEnum.OPDisbandNotify]: HandlerMsgDisbandNotify.onMsg,
-    // [msgCodeEnum.OPKickout]: HandlerMsgKickout.onMsg,
-    // [msgCodeEnum.OPDonate]: HandlerMsgDonate.onMsg,
-    // [msgCodeEnum.OPUpdateLocation]: HandlerMsgUpdateLocation.onMsg,
-    // [msgCodeEnum.OP2Lobby]: HandlerMsg2Lobby.onMsg,
-    // [msgCodeEnum.OPUpdatePropCfg]: HandlerMsgUpdatePropCfg.onMsg
     [msgCodeEnum.MSG_COORDINATE]: HandlerMsgUpdateCoordinate.onMsg, //玩家进入
     [msgCodeEnum.MSG_TABLE_ENTRY]: HandlerMsgTableEntry.onMsg, //玩家进入
     [msgCodeEnum.MSG_TABLE_READY]: HandlerMsgTableReady.onMsg, //准备

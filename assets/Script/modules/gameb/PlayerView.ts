@@ -296,8 +296,8 @@ export class PlayerView {
             for (const h of this.lights) {
                 h.visible = false;
 
-                const point = h.getChild("piaoPos");
-                point.visible = false;
+                const huoPos = h.getChild("huo");
+                huoPos.visible = false;
             }
             if (this.viewChairID === 1 || this.viewChairID === 3) {
                 //改变x值
@@ -351,9 +351,6 @@ export class PlayerView {
 
     //隐藏花牌列表
     public hideFlowers(): void {
-        if (!GameRules.haveFlower(this.room.roomType)) {
-            return;
-        }
         if (this.flowers != null) {
             for (const f of this.flowers) {
                 f.visible = false;
@@ -363,9 +360,6 @@ export class PlayerView {
 
     //显示花牌，注意花牌需要是平放的
     public showFlowers(): void {
-        if (!GameRules.haveFlower(this.room.roomType)) {
-            return;
-        }
         const tilesFlower = this.player.tilesFlower;
         const flowers = this.flowers;
 
@@ -624,16 +618,15 @@ export class PlayerView {
         }
         // meldView.visible = true;
         meldView.setSize(width, height);
-
+        Logger.debug("isHu ------------- ", isHu);
         if (isHu) {
             for (const a of arr) {
-                const point = a.getChild("piaoPos");
+                const huoPos = a.getChild("huo");
                 // const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
                 // meldView.setPosition(mv.x, mv.y);
                 // meldView.name = `myMeld${i}`;
                 // mymeldTilesNode.addChild(meldView);
-                this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, point.node);
-                point.visible = true;
+                huoPos.visible = true;
             }
         }
 
@@ -786,9 +779,8 @@ export class PlayerView {
             const light = this.lights[j];
             TileImageMounter.mountTileImage(light, tileshand[i]);
             if (isHu) {
-                const point = light.getChild("piaoPos");
-                this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, point.node);
-                point.visible = true;
+                const huoPos = light.getChild("huo");
+                huoPos.visible = true;
             }
             light.visible = true;
             j = j + 1;
@@ -1373,6 +1365,9 @@ export class PlayerView {
         this.myLightilesNode = this.myView.getChild("lights").asCom;
         for (let i = 0; i < 14; i++) {
             const h = this.myLightilesNode.getChild(`n${i + 1}`).asCom;
+            const huoPos = h.getChild("huo").asCom;
+            this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, huoPos.getChild("n0").node);
+            huoPos.visible = false;
             lights[i] = h;
         }
         this.lights = lights;
@@ -1402,6 +1397,12 @@ export class PlayerView {
             const meld = meldsView.getChild(`n${i}`).asCom;
             this.melds.push(meld);
             meld.visible = false;
+            for (let j = 1; j < 5; j++) {
+                const tile = meld.getChild(`n${j}`).asCom;
+                const huoPos = tile.getChild("huo").asCom;
+                this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, huoPos.getChild("n0").node);
+                huoPos.visible = false;
+            }
         }
         this.meldsViewScale = meldsView.scaleX;
         this.myMeldNode = meldsView;

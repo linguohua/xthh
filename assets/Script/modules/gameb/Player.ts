@@ -350,8 +350,14 @@ export class Player {
         const playerView = this.playerView;
         playerView.hideHands();
 
-        this.host.mAlgorithm.canHuPai_def(this.tilesHand); //排序 胡牌的人
-
+        const newTiles1 = this.host.mAlgorithm.canHuPai_def(this.tilesHand); //排序 胡牌的人
+        // Logger.debug("this.tilesHand : ", this.tilesHand);
+        const newTiles2: number[] = [];
+        for (let i = newTiles1.length - 1; i >= 0; i--) {
+            newTiles2.push(newTiles1[i]);
+        }
+        // newTiles2.push(newTiles1[newTiles1.length - 1]);
+        this.tilesHand = newTiles2;
         playerView.hand2Exposed(false, true);
     }
 
@@ -390,7 +396,7 @@ export class Player {
             // this.playerView.hideHands();
             // this.playerView.showHandsForMe(false);
         }
-        Logger.debug("exposedResultAnimation:", t);
+        // Logger.debug("exposedResultAnimation:", t);
         //播放对应音效
         this.playSound("gameb", `mj_${soundDef[t]}`);
         await this.playerView.playerOperationEffect(effectsDef[t], isWait);
