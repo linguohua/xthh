@@ -315,9 +315,9 @@ export class HandResultView extends cc.Component {
         // let g = 0;
         // let p = 0;
         for (let i = 0; i < meldDatas.length; i++) {
-            //const meldData = meldDatas[i];
+            const meldData = meldDatas[i];
             const mv = c.melds.getChild(`n${i + 1}`).asCom;
-            //const isFour = player.playerView.mountMeldImage(mv, meldData);
+            player.playerView.mountMeldImage(mv, meldData);
             // if (isFour) {
             //     g++;
             // } else {
@@ -381,6 +381,7 @@ export class HandResultView extends cc.Component {
                 const position = element.parent.parent.node.
                     convertToNodeSpaceAR(element.parent.node.convertToWorldSpaceAR(new cc.Vec2(element.x, element.y)));
                 convertToNodeSpaceARxPos = position.x + element.width;
+
             }
         }
 
