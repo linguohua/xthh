@@ -800,6 +800,18 @@ export class RoomView {
 
         const onPause = () => {
             Logger.debug("onPause");
+            this.mike.visible = false;
+            this.recordManager.stop();
+        };
+
+        const onResume = () => {
+            Logger.debug("onResume");
+        };
+
+        const onInterruptionBegin = () => {
+            Logger.debug("onInterruptionBegin");
+            this.mike.visible = false;
+            this.recordManager.stop();
         };
 
         const onStop = (res: RecordOnStopRes) => {
@@ -822,11 +834,14 @@ export class RoomView {
 
         const onError = (res: RecordOnErrorRes) => {
             Logger.debug("onError:", res);
+            this.mike.visible = false;
         };
 
         recorderManager.onStart(onStart);
         recorderManager.onPause(onPause);
+        recorderManager.onResume(onResume);
         recorderManager.onStop(onStop);
+        recorderManager.onInterruptionBegin(onInterruptionBegin);
         recorderManager.onFrameRecorded(onFrameRecorded);
         recorderManager.onError(onError);
     }

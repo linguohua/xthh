@@ -388,6 +388,8 @@ interface getRecorderManagerOpts {
   stop: () => void;
   onStart: ReturnCallBack;
   onPause: ReturnCallBack;
+  onResume: ReturnCallBack;
+  onInterruptionBegin: ReturnCallBack;
   onStop: (res: RecordOnStopCallBack) => void;
   onFrameRecorded: (res: onFrameRecordedCallBack) => void;
   onError: (res: RecordOnErrorCallBack) => void;

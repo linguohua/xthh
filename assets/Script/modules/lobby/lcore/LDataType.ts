@@ -48,6 +48,8 @@ export interface MsgCenter {
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
 
     removeGameMsgHandler(code: number): void;
+
+    getServerTime(): number;
 }
 /**
  * 大厅模块

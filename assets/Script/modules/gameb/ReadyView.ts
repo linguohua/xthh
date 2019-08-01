@@ -178,8 +178,9 @@ export class ReadyView {
         // 10 分钟后自动解散房间
         //this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
 
-        this.countDownTime = 10 * 60;
-        this.countDownTime = 30;
+        // this.countDownTime = 10 * 60;
+        const serverTime = this.host.getServerTime();
+        this.countDownTime = this.table.quit_time.toNumber() - serverTime;
 
         this.host.component.unschedule(this.countDownFunc);
         const func = () => {
@@ -278,11 +279,11 @@ export class ReadyView {
     }
 
     private countDownFunc(): void {
-        this.countDownTime = this.countDownTime - 1;
+        const serverTime = this.host.getServerTime();
+        this.countDownTime = this.table.quit_time.toNumber() - serverTime;
+
         if (this.countDownTime <= 0) {
             this.host.component.unschedule(this.countDownFunc);
-
-            // this.disbandRoom();
 
             return;
         }
@@ -294,14 +295,20 @@ export class ReadyView {
 
     private getCountDownText(): string {
         let min = this.countDownTime / 60;
+        const hour = min / 60;
+        min = min % 60;
+        const sec = this.countDownTime % 60;
 
         if (min < 1 && min >= 0.5) {
             min = 0;
         }
+        const hourText = hour > 9 ? hour.toFixed(0) : `0${hour.toFixed(0)}`;
         const minutesText = min > 9 ? min.toFixed(0) : `0${min.toFixed(0)}`;
-        const sec = this.countDownTime % 60;
         const secondsText = sec > 9 ? sec.toFixed(0) : `0${sec.toFixed(0)}`;
-        const text = `${minutesText}:${secondsText}`;
+        let text = `${minutesText}:${secondsText}`;
+        if (hour > 0) {
+            text = `${hourText}:${text}`;
+        }
 
         const btnText = `后, 牌友还没到齐，牌局将自动解散，并退还房卡！`;
 

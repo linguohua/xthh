@@ -19,4 +19,5 @@ export interface RoomHost {
     dismissAllTeam(): void;
     createTeam(imaccids: string[], roomNumber: string): void;
     sendVoice(tempFilePath: string): void;
+    getServerTime(): number;
 }

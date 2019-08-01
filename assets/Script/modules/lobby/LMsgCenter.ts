@@ -1,4 +1,6 @@
 import { Dialog, Logger, MsgQueue, MsgType, WS } from "./lcore/LCoreExports";
+// tslint:disable-next-line:no-require-imports
+// import long = require("./protobufjs/long");
 import { proto } from "./protoHH/protoHH";
 
 export type GameMsgHandler = (msg: proto.casino.ProxyMessage) => void;
@@ -27,6 +29,8 @@ export class LMsgCenter {
 
     private gmsgHandlers: { [key: number]: GameMsgHandlerHolder } = {};
 
+    private serverTime: Long;
+    private localTimeDiff: number = 0;
     // private lobbyModule: LobbyModuleInterface;
 
     public constructor(url: string, component: cc.Component, fastLoginReq: proto.casino.packet_fast_login_req) {
@@ -103,6 +107,10 @@ export class LMsgCenter {
         if (u !== undefined) {
             this.gmsgHandlers[code] = undefined;
         }
+    }
+
+    public getServerTime(): number {
+        return Math.ceil(Date.now() / 1000) - this.localTimeDiff;
     }
 
     private async connectServer(): Promise<void> {
@@ -230,6 +238,7 @@ export class LMsgCenter {
         const fastLoginReply = proto.casino.packet_fast_login_ack.decode(msg.Data);
         console.log(fastLoginReply);
 
+        this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this);
         this.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PING, this.onServerPing, this);
 
         this.eventTarget.emit("onFastLoginComplete", fastLoginReply);
@@ -237,8 +246,22 @@ export class LMsgCenter {
         Dialog.hideWaiting();
     }
 
+    private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
+        const playerJoinAck = proto.casino.packet_player_join_ack.decode(msg.Data);
+
+        this.serverTime = playerJoinAck.now;
+        this.localTimeDiff = Math.ceil((Date.now() / 1000)) - this.serverTime.toNumber();
+
+        this.eventTarget.emit("onJoinGameAck", playerJoinAck);
+    }
+
     private onServerPing(msg: proto.casino.ProxyMessage): void {
+        Logger.debug("onServerPing:", Math.ceil(Date.now() / 1000));
         const pingPacket = proto.casino.packet_ping.decode(msg.Data);
+        this.serverTime = pingPacket.now;
+
+        this.localTimeDiff = Math.ceil(Date.now() / 1000) - this.serverTime.toNumber();
+
         const pongProp = {
             now: pingPacket.now
         };
@@ -246,4 +269,25 @@ export class LMsgCenter {
         const buf = proto.casino.packet_pong.encode(new proto.casino.packet_pong(pongProp));
         this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PONG);
     }
+
+    // private onServerPong(msg: proto.casino.ProxyMessage): void {
+    //     Logger.debug("onServerPong");
+    //     const pongPacket = proto.casino.packet_pong.decode(msg.Data);
+
+    //     this.serverTime = pongPacket.now;
+    //     Logger.debug("this.serverTime:", this.serverTime);
+
+    //     this.localTimeDiff = (Date.now() / 1000) - this.serverTime.toNumber();
+    // }
+
+    // private sendPong(): void {
+    //     Logger.debug("sendPong:", Date.now());
+    //     const nowTime: number = Math.ceil(Date.now() / 1000);
+    //     const pongProp = {
+    //         now: new long(nowTime)
+    //     };
+
+    //     const buf = proto.casino.packet_pong.encode(new proto.casino.packet_pong(pongProp));
+    //     this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PONG);
+    // }
 }

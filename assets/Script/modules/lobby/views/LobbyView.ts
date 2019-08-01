@@ -187,7 +187,8 @@ export class LobbyView extends cc.Component {
     }
 
     private testJoinGame(): void {
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
+        // this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
+        this.lm.msgCenter.eventTarget.on("onJoinGameAck", this.onJoinGameAck, this);
 
         const req2 = new proto.casino.packet_player_join_req({});
         const buf = proto.casino.packet_player_join_req.encode(req2);
@@ -244,9 +245,9 @@ export class LobbyView extends cc.Component {
         }
     }
 
-    private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
+    private onJoinGameAck(ack: proto.casino.packet_player_join_ack): void {
         console.log("onJoinGameAck");
-        const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
+        // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
 
         if (this.isReconnect) {
             this.lm.eventTarget.emit("reconnect");
@@ -261,7 +262,7 @@ export class LobbyView extends cc.Component {
         Logger.debug("Aready in room, tableID:", tableID);
         // Dialog.showDialog("已经在房间, 正在进入房间");
 
-        const myUser = { userID: `${reply.player_id}` };
+        const myUser = { userID: `${ack.player_id}` };
 
         const joinRoomParams = {
             tableID: tableID

@@ -189,6 +189,16 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // const imaccids: string[] = [];
         this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
     }
+
+    public getServerTime(): number {
+        if (this.lm.msgCenter !== null) {
+            return this.lm.msgCenter.getServerTime();
+        } else {
+            Logger.error("getServerTime faild, this.lm.msgCenter === null");
+
+            return Date.now() / 1000;
+        }
+    }
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.eventTarget.on("gpsChange", this.onGpsChange, this);

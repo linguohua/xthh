@@ -232,7 +232,7 @@ export class GpsView extends cc.Component {
         s = Math.round(s * 10000) / 10000;
         Logger.debug("calculateDistance, distance:", s);
 
-        return s;
+        return Math.ceil(s);
     }
 
     private rad(d: number): number {
