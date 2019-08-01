@@ -237,7 +237,7 @@ export class LoginView extends cc.Component {
         }
 
         const req = {
-            app: "casino",
+            app: "h5casino",
             channel: "mac",
             openudid: openudid,
             nickname: "abc",
