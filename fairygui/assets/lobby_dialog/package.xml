@@ -6,6 +6,10 @@
     <component id="93ta8" name="prompt.xml" path="/" exported="true"/>
     <image id="93ta9" name="z_桌面-解散房间提示1.jpg" path="/design/"/>
     <component id="93taa" name="okBtn.xml" path="/"/>
+    <component id="rnfub" name="reconnectDialog.xml" path="/" exported="true"/>
+    <component id="rnfuc" name="rolling.xml" path="/" exported="true"/>
+    <image id="rnfud" name="ty_loading.png" path="/resource/"/>
+    <component id="rnfue" name="reConnectBtn.xml" path="/"/>
   </resources>
   <publish name="lobby_dialog"/>
 </packageDescription>

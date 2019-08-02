@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" anchor="true">
+  <controller name="retry" pages="0,正在连接,1,请重连" selected="0"/>
+  <displayList>
+    <image id="n8_rnfu" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640"/>
+    <image id="n2_zqjk" name="bg" src="ik11b" fileName="resource/ty_tips1.png" pkg="snwj6cnx" xy="349,288" size="409,65"/>
+    <text id="n3_zqjk" name="text" xy="406,302" size="278,35" fontSize="24" color="#d73f3a" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="网络断开，正在重连">
+      <gearText controller="retry" pages="1" values="连接失败，请手动尝试" default="网络断开，正在重连"/>
+    </text>
+    <component id="n5_rnfu" name="reConnectBtn" src="rnfue" fileName="reConnectBtn.xml" xy="674,298" size="89,54" scale="0.8,0.8">
+      <gearDisplay controller="retry" pages="1"/>
+    </component>
+    <component id="n6_rnfu" name="n6" src="rnfuc" fileName="rolling.xml" xy="377,300" scale="0.5,0.5"/>
+  </displayList>
+</component>

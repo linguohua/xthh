@@ -211,8 +211,9 @@ export class LobbyView extends cc.Component {
 
     private openEmailClick(): void {
         // TODO: 显示邮件界面
-        this.showMarquee("测试发送公告asdasd测试发送试发送公告asdasd");
+        //this.showMarquee("测试发送公告asdasd测试发送试发送公告asdasd");
 
+        //Dialog.showReconnectDialog();
     }
 
     private onCreateRoom(): void {

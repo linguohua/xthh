@@ -13,6 +13,10 @@ export class Dialog {
     public dlgView: fgui.GComponent;
     public dlgWin: fgui.Window;
 
+    public reConnectDlgView: fgui.GComponent;
+
+    public reConnectDlgWin: fgui.Window;
+
     public waitWin: fgui.Window;
 
     public progressBarWin: fgui.Window;
@@ -218,5 +222,47 @@ export class Dialog {
         if (Dialog.inst.progressBarWin !== undefined) {
             Dialog.inst.progressBarWin.hide();
         }
+    }
+
+    public static showReconnectDialog(): void {
+        if (Dialog.inst.reConnectDlgView === undefined) {
+            Logger.debug("showDialog view is null, create new");
+            if (!Dialog.inst.packageLoaded) {
+                Dialog.inst.loader.fguiAddPackage("lobby/fui_dialog/lobby_dialog");
+                Dialog.inst.packageLoaded = true;
+            }
+
+            const view = fgui.UIPackage.createObject("lobby_dialog", "reconnectDialog").asCom;
+            CommonFunction.setViewInCenter(view);
+
+            // const btn = view.getChild("reConnectBtn");
+            // btn.onClick(() => {
+            //     Dialog.hideReconnectDialog();
+            //     // tslint:disable-next-line:align
+            // }, this);
+
+            const mask = view.getChild("mask");
+            CommonFunction.setBgFullScreenSize(mask);
+
+            const win = new fgui.Window();
+            win.modal = true;
+            win.contentPane = view;
+            Dialog.inst.reConnectDlgView = view;
+            Dialog.inst.reConnectDlgWin = win;
+        }
+
+        const btnCtrl = Dialog.inst.reConnectDlgView.getController("retry");
+        btnCtrl.selectedIndex = 0;
+
+        Dialog.inst.reConnectDlgWin.show();
+
+    }
+
+    public static hideReconnectDialog(): void {
+        if (Dialog.inst.reConnectDlgWin === undefined) {
+            return;
+        }
+
+        Dialog.inst.reConnectDlgWin.hide();
     }
 }
