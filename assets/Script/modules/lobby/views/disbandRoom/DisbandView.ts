@@ -183,7 +183,7 @@ export class DisbandView extends cc.Component {
         if (disbandReq !== null) {
             const nick = this.getPlayerNickByID(`${disbandReq.player_id}`);
             const nameText = this.view.getChild("name");
-            nameText.text = nick;
+            nameText.text = CommonFunction.nameFormatWithCount(nick, 6);
 
             const gameConfigStr = DataStore.getString("gameConfig");
             const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);

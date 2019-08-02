@@ -34,6 +34,19 @@ export namespace CommonFunction {
         return x;
     };
 
+    export const nameFormatWithCount = (str: string, count: number, tag: string = "..."): string => {
+        if (str === undefined || str === null) {
+            return "";
+        }
+        if (str.length > count) {
+
+            return `${str.substring(0, count)}${tag}`;
+        }
+
+        return str;
+    };
+
+
     /**
      * 根据大小 拉长高宽
      * @param node 节点

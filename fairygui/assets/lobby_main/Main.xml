@@ -30,10 +30,10 @@
     <component id="n36_u4cz" name="addBtn2" src="u4cz1a" fileName="btn/addBtn.xml" xy="577,15"/>
     <component id="n20_u4cz" name="tipTextCom" src="u4cz14" fileName="tipTextCom.xml" xy="10,496"/>
     <loader id="n29_u4cz" name="iconLoader" xy="8,8" size="60,60" url="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83er5prllVA37yiac4Vv8ZAXwbg0Zicibn6ZjsgJ4ha0hmFBY8MUTRMnRTmSlvzPd8XJZzd0icuyGoiakj4A/132" align="center" vAlign="middle" fill="scale"/>
-    <text id="n30_u4cz" name="nameText" xy="69,28" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学"/>
+    <text id="n30_u4cz" name="nameText" xy="69,26" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学"/>
     <text id="n31_u4cz" name="douText" xy="285,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
     <text id="n32_u4cz" name="fkText" xy="480,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
-    <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="59,30" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
+    <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="62,30" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
     <text id="n37_octp" name="pos" xy="0,98" pivot="0,0.5" anchor="true" size="10,30" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" text=""/>
   </displayList>
   <transition name="t0">

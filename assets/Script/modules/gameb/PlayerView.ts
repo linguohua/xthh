@@ -894,7 +894,7 @@ export class PlayerView {
         this.head.headView.visible = true;
         // this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
 
-        this.head.nameText.text = this.player.mNick;
+        this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 10);
         this.head.nameText.visible = true;
         //头像
         CommonFunction.setHead(this.head.headLoader, playerInfo.headIconURI, playerInfo.gender);

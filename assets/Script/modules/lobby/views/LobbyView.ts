@@ -160,7 +160,7 @@ export class LobbyView extends cc.Component {
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
 
-        this.nameText.text = DataStore.getString("nickName");
+        this.nameText.text = CommonFunction.nameFormatWithCount(DataStore.getString("nickName"), 6);
         this.beansText.text = DataStore.getString("beans");
         this.fkText.text = DataStore.getString("card");
 
