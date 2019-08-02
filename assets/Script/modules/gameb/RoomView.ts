@@ -572,6 +572,7 @@ export class RoomView {
             return;
         }
 
+        this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
         // const options = {
@@ -596,6 +597,7 @@ export class RoomView {
             return;
         }
 
+        this.mike.visible = false;
         this.recordEndPosition = event.touch.getLocation();
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
@@ -800,12 +802,12 @@ export class RoomView {
 
         const onStart = () => {
             Logger.debug("recordManager.onStart");
-            this.mike.visible = true;
+            // this.mike.visible = true;
         };
 
         const onPause = () => {
             Logger.debug("recordManager.onPause");
-            this.mike.visible = false;
+            // this.mike.visible = false;
             this.recordManager.stop();
         };
 
@@ -815,14 +817,13 @@ export class RoomView {
 
         const onInterruptionBegin = () => {
             Logger.debug("recordManager.onInterruptionBegin");
-            this.mike.visible = false;
+            // this.mike.visible = false;
             this.recordManager.stop();
         };
 
         const onStop = (res: RecordOnStopRes) => {
             Logger.debug("recordManager.onStop:", res);
-
-            this.mike.visible = false;
+            // this.mike.visible = false;
             if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
                 Dialog.prompt("取消发送");
 
@@ -839,7 +840,8 @@ export class RoomView {
 
         const onError = (res: RecordOnErrorRes) => {
             Logger.debug("onError:", res);
-            this.mike.visible = false;
+            Dialog.prompt("录制失败!");
+            // this.mike.visible = false;
         };
 
         recorderManager.onStart(onStart);

@@ -281,7 +281,6 @@ export class ReadyView {
     private countDownFunc(): void {
         const serverTime = this.host.getServerTime();
         this.countDownTime = this.table.quit_time.toNumber() - serverTime;
-        Logger.debug("countDownFunc.countDownTime:", this.countDownTime);
         if (this.countDownTime <= 0) {
             this.host.component.unschedule(this.countDownFunc);
 
@@ -294,7 +293,6 @@ export class ReadyView {
     }
 
     private getCountDownText(): string {
-        Logger.debug("getCountDownText.countDownTime:", this.countDownTime);
         let min = Math.floor(this.countDownTime / 60);
         const hour = Math.floor(min / 60);
         min = min % 60;

@@ -55,4 +55,18 @@ export namespace SoundMgr {
     export const stopMusic = (): void => {
         cc.audioEngine.stopMusic();
     };
+
+    /**
+     * 暂停音乐
+     */
+    export const pauseMusic = (): void => {
+        cc.audioEngine.pauseMusic();
+    };
+
+    /**
+     * 恢复音乐
+     */
+    export const resumeMusic = (): void => {
+        cc.audioEngine.resumeMusic();
+    };
 }
