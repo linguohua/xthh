@@ -115,6 +115,8 @@ export class ReadyView {
             this.disbandRoomBtn.visible = true;
         }
 
+        const serverTime = this.host.getServerTime();
+        this.countDownTime = this.table.quit_time.toNumber() - serverTime;
         const text = this.getCountDownText();
 
         this.tips.text = text;
@@ -179,8 +181,6 @@ export class ReadyView {
         //this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);
 
         // this.countDownTime = 10 * 60;
-        const serverTime = this.host.getServerTime();
-        this.countDownTime = this.table.quit_time.toNumber() - serverTime;
 
         this.host.component.unschedule(this.countDownFunc);
         const func = () => {
@@ -281,7 +281,7 @@ export class ReadyView {
     private countDownFunc(): void {
         const serverTime = this.host.getServerTime();
         this.countDownTime = this.table.quit_time.toNumber() - serverTime;
-
+        Logger.debug("countDownFunc.countDownTime:", this.countDownTime);
         if (this.countDownTime <= 0) {
             this.host.component.unschedule(this.countDownFunc);
 
@@ -294,8 +294,9 @@ export class ReadyView {
     }
 
     private getCountDownText(): string {
-        let min = this.countDownTime / 60;
-        const hour = min / 60;
+        Logger.debug("getCountDownText.countDownTime:", this.countDownTime);
+        let min = Math.floor(this.countDownTime / 60);
+        const hour = Math.floor(min / 60);
         min = min % 60;
         const sec = this.countDownTime % 60;
 
