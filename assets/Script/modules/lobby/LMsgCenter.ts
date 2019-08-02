@@ -60,11 +60,10 @@ export class LMsgCenter {
             if (!this.retry) {
                 loop = false;
             } else {
-                Logger.trace(`Wait 3 seconds to retry, connectErrorCount:${this.connectErrorCount}`);
+                Logger.trace(`Wait ${this.connectErrorCount} seconds to retry`);
 
-                Dialog.prompt("网络断开，正在重连");
-                Dialog.showWaiting();
-                await this.waitSecond();
+                Dialog.showReconnectDialog();
+                await this.waitSecond(this.connectErrorCount);
             }
         }
     }
@@ -159,13 +158,13 @@ export class LMsgCenter {
         await this.pumpMsg();
     }
 
-    private async waitSecond(): Promise<void> {
+    private async waitSecond(seconds: number): Promise<void> {
         return new Promise<void>((resolve, _) => {
             this.component.scheduleOnce(
                 () => {
                     resolve();
                 },
-                3);
+                seconds);
         });
     }
 
@@ -244,6 +243,7 @@ export class LMsgCenter {
         this.eventTarget.emit("onFastLoginComplete", fastLoginReply);
 
         Dialog.hideWaiting();
+        Dialog.hideReconnectDialog();
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {

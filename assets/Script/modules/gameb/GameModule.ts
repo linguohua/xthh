@@ -311,6 +311,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (table === null) {
             Dialog.hideWaiting();
+            Dialog.hideReconnectDialog();
 
             return;
         }
@@ -323,7 +324,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         } else {
             this.mRoom.updateRoom(table);
             reconnect = true;
-            Dialog.hideWaiting();
+            Dialog.hideReconnectDialog();
         }
 
         // this.mRoom.showOrHideReadyButton(!reconnect);
@@ -593,7 +594,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             return;
         }
 
-        Dialog.showWaiting();
+        Dialog.showReconnectDialog();
 
         const joinRoomParams = {
             tableID: `${this.mRoom.roomInfo.id}`
