@@ -135,8 +135,13 @@ export class ReadyView {
             const player = players[i];
             if (player !== null && player.id !== null) {
                 const name = headView.getChild("name");
+                let nameStr = "";
+                if (player.channel_nickname !== undefined && player.channel_nickname !== null && player.channel_nickname !== "") {
+                    nameStr = player.channel_nickname;
+                } else {
+                    nameStr = player.nickname;
+                }
 
-                const nameStr = player.channel_nickname || player.nickname;
                 name.text = CommonFunction.nameFormatWithCount(nameStr, 6);
                 name.visible = true;
                 const loader = headView.getChild("loader").asLoader;

@@ -58,7 +58,12 @@ export class PlayerInfo {
         this.state = playerIfo.status;
         this.userID = playerIfo.id.toString();
         this.chairID = chairID;
-        this.nick = playerIfo.channel_nickname || playerIfo.nickname;
+
+        if (playerIfo.channel_nickname !== undefined && playerIfo.channel_nickname !== null && playerIfo.channel_nickname !== "") {
+            this.nick = playerIfo.channel_nickname;
+        } else {
+            this.nick = playerIfo.nickname;
+        }
         this.scoreTotal = playerIfo.score_total;
         this.score = playerIfo.score;
         this.imaccid = playerIfo.im_accid;

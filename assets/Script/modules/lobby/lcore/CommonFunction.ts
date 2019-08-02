@@ -46,7 +46,6 @@ export namespace CommonFunction {
         return str;
     };
 
-
     /**
      * 根据大小 拉长高宽
      * @param node 节点
