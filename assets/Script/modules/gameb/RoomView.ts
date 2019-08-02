@@ -193,7 +193,7 @@ export class RoomView {
 
         //清理定时器
         this.component.unschedule(this.leftTimerCB);
-        // 12秒，就从11到0
+        // 下发的时间是12秒，就从11到0
         if (time > 0) {
             time = time - 1;
         }
