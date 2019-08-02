@@ -298,6 +298,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                 DataStore.setItem("tableID", "");
 
                 Logger.debug("re-enter room");
+            } else if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
+                Logger.debug("joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID");
+
+                return;
             } else {
                 Logger.error("doEnterRoom, join room failed:", joinRoomAck);
 

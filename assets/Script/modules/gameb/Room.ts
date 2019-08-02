@@ -606,7 +606,7 @@ export class Room {
         //设置弃杠弃碰
         let myPlayerInfo: protoHH.casino.Itable_player;
         for (const p of this.roomInfo.players) {
-            if (`${p.id}` === this.myUser.userID) {
+            if (`${p.id}` === `${this.myUser.userID}`) {
                 myPlayerInfo = p;
             }
         }
