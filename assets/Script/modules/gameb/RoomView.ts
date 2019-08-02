@@ -193,13 +193,18 @@ export class RoomView {
 
         //清理定时器
         this.component.unschedule(this.leftTimerCB);
+        // 12秒，就从11到0
+        if (time > 0) {
+            time = time - 1;
+        }
         this.leftTime = time;
+        this.countDownText.text = `${this.leftTime}`;
         //起定时器
         this.component.schedule(
             this.leftTimerCB,
             1,
             cc.macro.REPEAT_FOREVER,
-            1);
+            0);
     }
 
     public countDownCallBack(): void {
