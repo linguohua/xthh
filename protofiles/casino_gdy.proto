@@ -1,0 +1,183 @@
+﻿//option optimize_for = LITE_RUNTIME;				// �Ż��ٶ�
+//option optimize_for = SPEED;
+option optimize_for = CODE_SIZE;					// �Ż���С
+package casino_gdy;
+
+// �ɵ�����Ϸ״̬
+enum eGDY_STATUS{
+	GDY_STATUS_STOP					= 0;	// ֹͣ��Ϸ״̬
+	GDY_STATUS_DEAL					= 1;	// ����״̬
+	GDY_STATUS_OUTCARD				= 2;	// ��ҳ��ƽ׶�
+	GDY_STATUS_OP					= 3;	// ��Ҳ����׶�
+	GDY_STATUS_HUPAI				= 4;	// ��Һ��ƽ׶�
+	GDY_STATUS_ENDCARD				= 5;	// ���4���Ƴ���
+	GDY_STATUS_SCORE				= 10;	// ����״̬
+}
+
+enum eGDY_MSG_TYPE{
+	GDY_MSG_SC_STARTPLAY			= 2002;	// ��ʼ��Ϸ
+	GDY_MSG_SC_SCORE				= 2010;	// ����״̬
+	GDY_MSG_SC_DRAWCARD				= 2100;	// �������(�����������ͻ���)
+	GDY_MSG_SC_ENDCARD				= 2105;	// ����
+	GDY_MSG_CS_OUTCARD_REQ			= 2110; // ��ҷ��ͳ�������
+	GDY_MSG_SC_OUTCARD_ACK			= 2111;	// ��ҳ���Ӧ��
+
+	GDY_MSG_SC_OP					= 2120;	// ������ѯ����Ҳ���
+	GDY_MSG_CS_OP_REQ				= 2121;	// ��Ҳ���Ӧ��
+	GDY_MSG_SC_OP_ACK				= 2122;	// ��Ҳ������
+
+	GDY_MSG_CS_CANCELCARD_REQ		= 2131;	// ��Ҳ���ĳ��������
+
+
+	GDY_MSG_SC_RECONNECT			= 2200;	// ����������͵ȴ�����
+}
+
+enum eGDY_OP_TYPE{
+	GDY_OP_TYPE_DIANXIAO			= 1;	// ��Ц
+	GDY_OP_TYPE_HUITOUXIAO			= 2;	// ��ͷЦ
+	GDY_OP_TYPE_MENGXIAO			= 3;	// ��Ц
+
+	GDY_OP_TYPE_FANGXIAO			= 9;	// ��Ц
+	GDY_OP_TYPE_PIAOLAIZI			= 10;	// Ʈ���
+
+	GDY_OP_TYPE_ZHUOCHONG			= 20;	// ׽�(������)
+	GDY_OP_TYPE_QIANGXIAO			= 21;	// ��Ц
+	GDY_OP_TYPE_XIAOHOUCHONG		= 22;	// Ц���
+	GDY_OP_TYPE_BEIQIANGXIAO		= 23;	// ����Ц(ֻ��ͳ��)
+
+	GDY_OP_TYPE_FANGCHONG			= 30;	// ���
+	GDY_OP_TYPE_RECHONG				= 31;	// ���
+
+	GDY_OP_TYPE_HEIMO				= 40;	// ����
+	GDY_OP_TYPE_RUANMO				= 41;	// ����
+
+	GDY_OP_TYPE_HEIMOX2				= 50;	// ����x2
+	GDY_OP_TYPE_RUANMOX2			= 51;	// ����x2
+
+	GDY_OP_TYPE_FANGCHAOTIAN		= 100;	// �ų���
+	GDY_OP_TYPE_XIAOCHAOTIAN		= 101;	// С����(��Ц) (GDY_OP_TYPE_FANGCHAOTIAN)
+	GDY_OP_TYPE_DACHAOTIAN			= 102;	// ����(��Ц)
+
+}
+// �������
+message player_dice{
+	required uint32			player_id = 1;
+	repeated int32				dices = 10;
+}
+
+// ��ʼ��(����)
+message packet_sc_start_play{
+	required uint32				 time = 1;		// ��������ʱ��(10��,����û�ӷ����ͬʱʹ�ø�ʱ��)
+	optional uint32		   	  player_id = 2;	// ���id(�������id)
+	optional int32			   fanpai = 4;		// ����
+	optional int32			    laizi = 5;		// �����
+	optional uint64		 table_id = 6;				// ����id
+	required int32		      lord_id = 10;		// ׯ��id
+	repeated int32		        cards = 20;		// ����
+	repeated player_dice	    dices = 100;	// ���ҡ����ɸ��
+}
+
+// ������ƴ���
+message packet_sc_drawcard{
+	required uint32				   time = 1;	// ʱ��(10��)
+	required uint32		   	  player_id = 2;	// ���id
+
+	optional int32				   card = 3;	// �������ƣ���������������Զ��-1,0��ʾ��
+}
+
+// ��ҳ������
+message packet_sc_endcard{
+	required uint32				   time = 1;	// ʱ��(3��)
+	required uint32		   	  player_id = 2;	// ���id
+	optional int32				   card = 3;	// �������ƣ���������������Զ��-1,0��ʾ��
+	optional uint64			   table_id = 6;				// ����id
+	optional bool				  hupai = 10;	// �Ƿ����
+}
+
+message player_score{
+	required uint32			  player_id = 1;
+	optional uint64			    table_id = 6;				// ����id
+	optional float			   score_add = 10;
+	optional float			   score_cur = 11;
+	optional float			 score_total = 12;
+}
+
+// ��Ҵ��ƻ�û���
+message packet_sc_score{
+	required uint32			 player_id = 2;		// ���id
+	optional int32				  type = 5;		// ����
+	optional uint64			  table_id = 6;				// ����id
+	repeated player_score		scores = 10;	// ����
+}
+
+// ��ҳ���
+message packet_cs_outcard_req{
+	optional uint32		    player_id = 2;		// ���id
+	optional int32				 card = 3;		// �������
+}
+
+message packet_sc_outcard_ack{
+	required uint32		   	player_id = 2;		// ���id
+	optional int32				 card = 3;		// �������
+	optional uint64			 table_id = 6;				// ����id
+}
+
+// ��Ҳ���ѯ��(�ܣ�������?)
+message packet_sc_op{
+	required uint32				 time = 1;		// ����ʱ��
+	required uint32		   	player_id = 2;		// ���id
+	optional uint32			target_id = 5;		// �����������
+	optional uint64		     table_id = 6;		// ����id
+	optional int32				 card = 10;		// Ҫ��������
+}
+
+// ��Ҳ�������
+message packet_cs_op_req{
+	optional uint32		    player_id = 2;		// ���id
+	optional int32				   op = 3;		// ����
+	optional int32		  cancel_type = 7[default = -1];	// ȡ������
+}
+
+message packet_sc_op_ack{
+	required uint32		   	player_id = 2;		// ��ҳ���
+	optional int32				   op = 3;		// ����
+	optional int32				 type = 4;		// ����������
+	optional uint32			target_id = 5;		// �����������
+	optional uint64			 table_id = 6;		// ����id
+	optional int32		  cancel_type = 7[default = -1];	// ȡ������
+	repeated int32			    cards = 10;		// ����Ŀ���
+}
+
+// ���ȡ���Ƹ�
+message packet_cs_cancelcard_req{
+	required int32				 card = 2;		// Ҫȡ���ܵ���
+	optional uint32		    player_id = 3;		// ���id
+	optional uint32				 type = 4;		// ȡ������0:ȡ������,1ȡ�����ƣ�2���ܶ�ȡ��
+}
+
+
+// ����������͵ȴ�����
+message packet_sc_reconnect{
+	required uint32				status = 1;		// ��ǰ״̬
+	required uint32				  time = 2;		// ʱ��(���¿�ʼʱ��)
+	required uint32		     player_id = 3;		// ���id
+	optional uint32			 target_id = 5;		// �����������
+	optional int32				  card = 10;	// �������ƣ���������������Զ��-1,0��ʾ��
+	optional bool			  pailaizi = 20;	// �Ƿ�Ʈ������
+	optional uint32					op = 30;	// ֮ǰ���ϲ���
+}
+
+message gdy_gang_score{
+	required uint32		     player_id = 1;		// ���id
+	optional float			     score = 10;	// ����
+}
+
+message gdy_gang_group{
+	repeated gdy_gang_score		scores = 1;
+}
+
+message gdy_gang{
+	required uint32		       gang_id = 1;
+	repeated gdy_gang_group		groups = 2;
+}
+
