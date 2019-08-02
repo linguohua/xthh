@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="248,322" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n4_nfh4" name="itemBg" src="tfg84" fileName="resource/cz_diban.png" xy="0,5" size="248,317"/>
+    <image id="n5_nfh4" name="bgDing" src="tfg82" fileName="resource/cz_di2.png" xy="35,4" size="181,35"/>
+    <image id="n6_nfh4" name="bgSC" src="tfg80" fileName="resource/cz_bq_scsb.png" xy="9,0" visible="false"/>
+    <image id="n7_nfh4" name="bgTime" src="tfg8e" fileName="resource/cz_xsg.png" xy="45,209" visible="false"/>
+    <component id="n8_nfh4" name="buyBtn" src="tfg8o" fileName="btn/buyBtn.xml" xy="55,233"/>
+    <text id="n9_nfh4" name="countText" xy="46,7" size="157,34" fontSize="24" color="#fffac8" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="100张房卡"/>
+    <text id="n10_nfh4" name="scText" xy="12,10" size="21,80" visible="false" fontSize="18" color="#fff449" align="center" leading="-3" letterSpacing="1" autoSize="none" text="首充双倍"/>
+    <text id="n11_nfh4" name="giveMore" xy="46,44" size="157,34" visible="false" fontSize="18" color="#eb5e00" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="多赠2张房卡"/>
+    <loader id="n12_nfh4" name="loader" xy="60,74" pivot="0.5,0" size="124,116" url="ui://l6hq6c41tfg88" align="center" vAlign="middle" fill="scale" autoSize="true"/>
+    <text id="n13_nfh4" name="time1" xy="70,207" size="137,28" visible="false" fontSize="18" color="#ea0303" vAlign="middle" leading="0" autoSize="none" singleLine="true" autoClearText="true" text="限时购: 8:55:45&#xA;"/>
+  </displayList>
+  <Button/>
+</component>
