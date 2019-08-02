@@ -1,10 +1,10 @@
-import { Dialog, Logger, Message, MsgQueue, MsgType, DataStore } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
-import { HandlerActionResultDiscardedA } from "./handlers/HandlerActionResultDiscardedA";
-import { HandlerActionResultDrawA } from "./handlers/HandlerActionResultDrawA";
-import { HandlerMsgActionOPAckA } from "./handlers/HandlerMsgActionOPAckA";
-import { HandlerMsgDealA } from "./handlers/HandlerMsgDealA";
-import { HandlerMsgTableScoreA } from "./handlers/HandlerMsgTableScoreA";
+import { HandlerActionResultDiscardedA } from "./handlersA/HandlerActionResultDiscardedA";
+import { HandlerActionResultDrawA } from "./handlersA/HandlerActionResultDrawA";
+import { HandlerMsgActionOPAckA } from "./handlersA/HandlerMsgActionOPAckA";
+import { HandlerMsgDealA } from "./handlersA/HandlerMsgDealA";
+import { HandlerMsgTableScoreA } from "./handlersA/HandlerMsgTableScoreA";
 import { PlayerA } from "./PlayerA";
 import { TypeOfOP } from "./PlayerInterfaceA";
 import { RoomInterfaceA } from "./RoomInterfaceA";

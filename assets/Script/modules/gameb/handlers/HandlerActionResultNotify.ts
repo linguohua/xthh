@@ -1,6 +1,6 @@
 // import { Logger } from "../../lobby/lcore/LCoreExports";
-import { proto } from "../proto/protoGame";
-import { RoomInterface } from "../RoomInterface";
+// import { proto } from "../proto/protoGame";
+// import { RoomInterface } from "../RoomInterface";
 // import { HandlerActionResultChow } from "./HandlerActionResultChow";
 // import { HandlerActionResultDiscarded } from "./HandlerActionResultDiscarded";
 // import { HandlerActionResultDraw } from "./HandlerActionResultDraw";
@@ -27,23 +27,23 @@ import { RoomInterface } from "../RoomInterface";
  * 响应服务器动作结果通知
  */
 export namespace HandlerActionResultNotify {
-    export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
-        const actionResultMsg = proto.mahjong.MsgActionResultNotify.decode(msgData);
-        const action = actionResultMsg.action;
-        // const handler = actionHandlers[action];
+    // export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
+    //     const actionResultMsg = proto.mahjong.MsgActionResultNotify.decode(msgData);
+    //     const action = actionResultMsg.action;
+    // const handler = actionHandlers[action];
 
-        // if (handler !== undefined) {
-        //     await handler(actionResultMsg, room);
-        // } else {
-        //     Logger.debug("HandlerActionResultNotify failed, no action handler for:", action);
-        // }
+    // if (handler !== undefined) {
+    //     await handler(actionResultMsg, room);
+    // } else {
+    //     Logger.debug("HandlerActionResultNotify failed, no action handler for:", action);
+    // }
 
-        // 起手听牌比较特殊，因为服务器是每收到一个起手听，立即广播给其他人
-        // 因此如果本玩家还处于选择起手听状态，那么不应该把操作面板关闭
-        // 其他情况，既然本人或者其他用户做出了选择，那么应该确保操作面板是关闭的
-        if (action === proto.mahjong.ActionType.enumActionType_FirstReadyHand) {
-            // local myPlayer = room.myPlayer
-            // myPlayer.playerView:hideOperationButtons()
-        }
-    };
+    // 起手听牌比较特殊，因为服务器是每收到一个起手听，立即广播给其他人
+    // 因此如果本玩家还处于选择起手听状态，那么不应该把操作面板关闭
+    // 其他情况，既然本人或者其他用户做出了选择，那么应该确保操作面板是关闭的
+    // if (action === proto.mahjong.ActionType.enumActionType_FirstReadyHand) {
+    //     // local myPlayer = room.myPlayer
+    //     // myPlayer.playerView:hideOperationButtons()
+    // }
+    // };
 }
