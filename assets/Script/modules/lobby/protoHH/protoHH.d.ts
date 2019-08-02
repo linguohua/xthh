@@ -1,4 +1,321 @@
 export namespace proto {
+	export namespace casino_gdy {
+		enum eGDY_STATUS {
+			GDY_STATUS_STOP = 0,
+			GDY_STATUS_DEAL = 1,
+			GDY_STATUS_OUTCARD = 2,
+			GDY_STATUS_OP = 3,
+			GDY_STATUS_HUPAI = 4,
+			GDY_STATUS_ENDCARD = 5,
+			GDY_STATUS_SCORE = 10,
+		}
+
+		enum eGDY_MSG_TYPE {
+			GDY_MSG_SC_STARTPLAY = 2002,
+			GDY_MSG_SC_SCORE = 2010,
+			GDY_MSG_SC_DRAWCARD = 2100,
+			GDY_MSG_SC_ENDCARD = 2105,
+			GDY_MSG_CS_OUTCARD_REQ = 2110,
+			GDY_MSG_SC_OUTCARD_ACK = 2111,
+			GDY_MSG_SC_OP = 2120,
+			GDY_MSG_CS_OP_REQ = 2121,
+			GDY_MSG_SC_OP_ACK = 2122,
+			GDY_MSG_CS_CANCELCARD_REQ = 2131,
+			GDY_MSG_SC_RECONNECT = 2200,
+		}
+
+		enum eGDY_OP_TYPE {
+			GDY_OP_TYPE_DIANXIAO = 1,
+			GDY_OP_TYPE_HUITOUXIAO = 2,
+			GDY_OP_TYPE_MENGXIAO = 3,
+			GDY_OP_TYPE_FANGXIAO = 9,
+			GDY_OP_TYPE_PIAOLAIZI = 10,
+			GDY_OP_TYPE_ZHUOCHONG = 20,
+			GDY_OP_TYPE_QIANGXIAO = 21,
+			GDY_OP_TYPE_XIAOHOUCHONG = 22,
+			GDY_OP_TYPE_BEIQIANGXIAO = 23,
+			GDY_OP_TYPE_FANGCHONG = 30,
+			GDY_OP_TYPE_RECHONG = 31,
+			GDY_OP_TYPE_HEIMO = 40,
+			GDY_OP_TYPE_RUANMO = 41,
+			GDY_OP_TYPE_HEIMOX2 = 50,
+			GDY_OP_TYPE_RUANMOX2 = 51,
+			GDY_OP_TYPE_FANGCHAOTIAN = 100,
+			GDY_OP_TYPE_XIAOCHAOTIAN = 101,
+			GDY_OP_TYPE_DACHAOTIAN = 102,
+		}
+
+		interface Iplayer_dice {
+			player_id: number;
+			dices?: number[];
+		}
+
+		class player_dice implements Iplayer_dice {
+			public player_id: number;
+			public dices: number[];
+			constructor(properties?: casino_gdy.Iplayer_dice);
+			public static encode(message: player_dice): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): player_dice;
+		}
+
+		interface Ipacket_sc_start_play {
+			time: number;
+			player_id?: number;
+			fanpai?: number;
+			laizi?: number;
+			table_id?: Long;
+			lord_id: number;
+			cards?: number[];
+			dices?: casino_gdy.Iplayer_dice[];
+		}
+
+		class packet_sc_start_play implements Ipacket_sc_start_play {
+			public time: number;
+			public player_id: number;
+			public fanpai: number;
+			public laizi: number;
+			public table_id: Long;
+			public lord_id: number;
+			public cards: number[];
+			public dices: casino_gdy.Iplayer_dice[];
+			constructor(properties?: casino_gdy.Ipacket_sc_start_play);
+			public static encode(message: packet_sc_start_play): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_start_play;
+		}
+
+		interface Ipacket_sc_drawcard {
+			time: number;
+			player_id: number;
+			card?: number;
+		}
+
+		class packet_sc_drawcard implements Ipacket_sc_drawcard {
+			public time: number;
+			public player_id: number;
+			public card: number;
+			constructor(properties?: casino_gdy.Ipacket_sc_drawcard);
+			public static encode(message: packet_sc_drawcard): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_drawcard;
+		}
+
+		interface Ipacket_sc_endcard {
+			time: number;
+			player_id: number;
+			card?: number;
+			table_id?: Long;
+			hupai?: boolean;
+		}
+
+		class packet_sc_endcard implements Ipacket_sc_endcard {
+			public time: number;
+			public player_id: number;
+			public card: number;
+			public table_id: Long;
+			public hupai: boolean;
+			constructor(properties?: casino_gdy.Ipacket_sc_endcard);
+			public static encode(message: packet_sc_endcard): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_endcard;
+		}
+
+		interface Iplayer_score {
+			player_id: number;
+			table_id?: Long;
+			score_add?: number;
+			score_cur?: number;
+			score_total?: number;
+		}
+
+		class player_score implements Iplayer_score {
+			public player_id: number;
+			public table_id: Long;
+			public score_add: number;
+			public score_cur: number;
+			public score_total: number;
+			constructor(properties?: casino_gdy.Iplayer_score);
+			public static encode(message: player_score): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): player_score;
+		}
+
+		interface Ipacket_sc_score {
+			player_id: number;
+			type?: number;
+			table_id?: Long;
+			scores?: casino_gdy.Iplayer_score[];
+		}
+
+		class packet_sc_score implements Ipacket_sc_score {
+			public player_id: number;
+			public type: number;
+			public table_id: Long;
+			public scores: casino_gdy.Iplayer_score[];
+			constructor(properties?: casino_gdy.Ipacket_sc_score);
+			public static encode(message: packet_sc_score): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_score;
+		}
+
+		interface Ipacket_cs_outcard_req {
+			player_id?: number;
+			card?: number;
+		}
+
+		class packet_cs_outcard_req implements Ipacket_cs_outcard_req {
+			public player_id: number;
+			public card: number;
+			constructor(properties?: casino_gdy.Ipacket_cs_outcard_req);
+			public static encode(message: packet_cs_outcard_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_outcard_req;
+		}
+
+		interface Ipacket_sc_outcard_ack {
+			player_id: number;
+			card?: number;
+			table_id?: Long;
+		}
+
+		class packet_sc_outcard_ack implements Ipacket_sc_outcard_ack {
+			public player_id: number;
+			public card: number;
+			public table_id: Long;
+			constructor(properties?: casino_gdy.Ipacket_sc_outcard_ack);
+			public static encode(message: packet_sc_outcard_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_outcard_ack;
+		}
+
+		interface Ipacket_sc_op {
+			time: number;
+			player_id: number;
+			target_id?: number;
+			table_id?: Long;
+			card?: number;
+		}
+
+		class packet_sc_op implements Ipacket_sc_op {
+			public time: number;
+			public player_id: number;
+			public target_id: number;
+			public table_id: Long;
+			public card: number;
+			constructor(properties?: casino_gdy.Ipacket_sc_op);
+			public static encode(message: packet_sc_op): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_op;
+		}
+
+		interface Ipacket_cs_op_req {
+			player_id?: number;
+			op?: number;
+			card?: number;
+			cancel_type?: number;
+		}
+
+		class packet_cs_op_req implements Ipacket_cs_op_req {
+			public player_id: number;
+			public op: number;
+			public card: number;
+			public cancel_type: number;
+			constructor(properties?: casino_gdy.Ipacket_cs_op_req);
+			public static encode(message: packet_cs_op_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_op_req;
+		}
+
+		interface Ipacket_sc_op_ack {
+			player_id: number;
+			op?: number;
+			type?: number;
+			target_id?: number;
+			table_id?: Long;
+			cancel_type?: number;
+			cards?: number[];
+		}
+
+		class packet_sc_op_ack implements Ipacket_sc_op_ack {
+			public player_id: number;
+			public op: number;
+			public type: number;
+			public target_id: number;
+			public table_id: Long;
+			public cancel_type: number;
+			public cards: number[];
+			constructor(properties?: casino_gdy.Ipacket_sc_op_ack);
+			public static encode(message: packet_sc_op_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_op_ack;
+		}
+
+		interface Ipacket_cs_cancelcard_req {
+			card: number;
+			player_id?: number;
+			type?: number;
+		}
+
+		class packet_cs_cancelcard_req implements Ipacket_cs_cancelcard_req {
+			public card: number;
+			public player_id: number;
+			public type: number;
+			constructor(properties?: casino_gdy.Ipacket_cs_cancelcard_req);
+			public static encode(message: packet_cs_cancelcard_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_cancelcard_req;
+		}
+
+		interface Ipacket_sc_reconnect {
+			status: number;
+			time: number;
+			player_id: number;
+			target_id?: number;
+			card?: number;
+			pailaizi?: boolean;
+			op?: number;
+		}
+
+		class packet_sc_reconnect implements Ipacket_sc_reconnect {
+			public status: number;
+			public time: number;
+			public player_id: number;
+			public target_id: number;
+			public card: number;
+			public pailaizi: boolean;
+			public op: number;
+			constructor(properties?: casino_gdy.Ipacket_sc_reconnect);
+			public static encode(message: packet_sc_reconnect): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_reconnect;
+		}
+
+		interface Igdy_gang_score {
+			player_id: number;
+			score?: number;
+		}
+
+		class gdy_gang_score implements Igdy_gang_score {
+			public player_id: number;
+			public score: number;
+			constructor(properties?: casino_gdy.Igdy_gang_score);
+			public static encode(message: gdy_gang_score): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): gdy_gang_score;
+		}
+
+		interface Igdy_gang_group {
+			scores?: casino_gdy.Igdy_gang_score[];
+		}
+
+		class gdy_gang_group implements Igdy_gang_group {
+			public scores: casino_gdy.Igdy_gang_score[];
+			constructor(properties?: casino_gdy.Igdy_gang_group);
+			public static encode(message: gdy_gang_group): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): gdy_gang_group;
+		}
+
+		interface Igdy_gang {
+			gang_id: number;
+			groups?: casino_gdy.Igdy_gang_group[];
+		}
+
+		class gdy_gang implements Igdy_gang {
+			public gang_id: number;
+			public groups: casino_gdy.Igdy_gang_group[];
+			constructor(properties?: casino_gdy.Igdy_gang);
+			public static encode(message: gdy_gang): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): gdy_gang;
+		}
+
+	}
 	export namespace casino_xtsj {
 		enum eXTSJ_STATUS {
 			XTSJ_STATUS_STOP = 0,
@@ -203,7 +520,6 @@ export namespace proto {
 		interface Ipacket_cs_op_req {
 			player_id?: number;
 			op?: number;
-			type?: number;
 			card?: number;
 			cancel_type?: number;
 		}
@@ -211,7 +527,6 @@ export namespace proto {
 		class packet_cs_op_req implements Ipacket_cs_op_req {
 			public player_id: number;
 			public op: number;
-			public type: number;
 			public card: number;
 			public cancel_type: number;
 			constructor(properties?: casino_xtsj.Ipacket_cs_op_req);

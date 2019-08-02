@@ -3,7 +3,7 @@ exports.proto = require("protobuf").newBuilder({})['import']({
     "syntax": "proto2",
     "messages": [
         {
-            "name": "casino_xtsj",
+            "name": "casino_gdy",
             "fields": [],
             "syntax": "proto2",
             "options": {
@@ -305,8 +305,657 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "rule": "optional",
                             "type": "int32",
+                            "name": "card",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "cancel_type",
+                            "id": 7,
+                            "options": {
+                                "default": -1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_op_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "op",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
                             "name": "type",
                             "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "target_id",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "cancel_type",
+                            "id": 7,
+                            "options": {
+                                "default": -1
+                            }
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "int32",
+                            "name": "cards",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_cs_cancelcard_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "type",
+                            "id": 4
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_reconnect",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "status",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "time",
+                            "id": 2
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "target_id",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "pailaizi",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "op",
+                            "id": 30
+                        }
+                    ]
+                },
+                {
+                    "name": "gdy_gang_score",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "float",
+                            "name": "score",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "gdy_gang_group",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "gdy_gang_score",
+                            "name": "scores",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "gdy_gang",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "gang_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "gdy_gang_group",
+                            "name": "groups",
+                            "id": 2
+                        }
+                    ]
+                }
+            ],
+            "enums": [
+                {
+                    "name": "eGDY_STATUS",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "GDY_STATUS_STOP",
+                            "id": 0
+                        },
+                        {
+                            "name": "GDY_STATUS_DEAL",
+                            "id": 1
+                        },
+                        {
+                            "name": "GDY_STATUS_OUTCARD",
+                            "id": 2
+                        },
+                        {
+                            "name": "GDY_STATUS_OP",
+                            "id": 3
+                        },
+                        {
+                            "name": "GDY_STATUS_HUPAI",
+                            "id": 4
+                        },
+                        {
+                            "name": "GDY_STATUS_ENDCARD",
+                            "id": 5
+                        },
+                        {
+                            "name": "GDY_STATUS_SCORE",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "eGDY_MSG_TYPE",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "GDY_MSG_SC_STARTPLAY",
+                            "id": 2002
+                        },
+                        {
+                            "name": "GDY_MSG_SC_SCORE",
+                            "id": 2010
+                        },
+                        {
+                            "name": "GDY_MSG_SC_DRAWCARD",
+                            "id": 2100
+                        },
+                        {
+                            "name": "GDY_MSG_SC_ENDCARD",
+                            "id": 2105
+                        },
+                        {
+                            "name": "GDY_MSG_CS_OUTCARD_REQ",
+                            "id": 2110
+                        },
+                        {
+                            "name": "GDY_MSG_SC_OUTCARD_ACK",
+                            "id": 2111
+                        },
+                        {
+                            "name": "GDY_MSG_SC_OP",
+                            "id": 2120
+                        },
+                        {
+                            "name": "GDY_MSG_CS_OP_REQ",
+                            "id": 2121
+                        },
+                        {
+                            "name": "GDY_MSG_SC_OP_ACK",
+                            "id": 2122
+                        },
+                        {
+                            "name": "GDY_MSG_CS_CANCELCARD_REQ",
+                            "id": 2131
+                        },
+                        {
+                            "name": "GDY_MSG_SC_RECONNECT",
+                            "id": 2200
+                        }
+                    ]
+                },
+                {
+                    "name": "eGDY_OP_TYPE",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "GDY_OP_TYPE_DIANXIAO",
+                            "id": 1
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_HUITOUXIAO",
+                            "id": 2
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_MENGXIAO",
+                            "id": 3
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_FANGXIAO",
+                            "id": 9
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_PIAOLAIZI",
+                            "id": 10
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_ZHUOCHONG",
+                            "id": 20
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_QIANGXIAO",
+                            "id": 21
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_XIAOHOUCHONG",
+                            "id": 22
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_BEIQIANGXIAO",
+                            "id": 23
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_FANGCHONG",
+                            "id": 30
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_RECHONG",
+                            "id": 31
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_HEIMO",
+                            "id": 40
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_RUANMO",
+                            "id": 41
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_HEIMOX2",
+                            "id": 50
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_RUANMOX2",
+                            "id": 51
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_FANGCHAOTIAN",
+                            "id": 100
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_XIAOCHAOTIAN",
+                            "id": 101
+                        },
+                        {
+                            "name": "GDY_OP_TYPE_DACHAOTIAN",
+                            "id": 102
+                        }
+                    ]
+                }
+            ],
+            "isNamespace": true
+        },
+        {
+            "name": "casino_xtsj",
+            "fields": [],
+            "syntax": "proto2",
+            "options": {
+                "optimize_for": "CODE_SIZE"
+            },
+            "messages": [
+                {
+                    "name": "player_dice",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "int32",
+                            "name": "dices",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_start_play",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "time",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "fanpai",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "laizi",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "required",
+                            "type": "int32",
+                            "name": "lord_id",
+                            "id": 10
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "int32",
+                            "name": "cards",
+                            "id": 20
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "player_dice",
+                            "name": "dices",
+                            "id": 100
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_drawcard",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "time",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_endcard",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "time",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "hupai",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "player_score",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "float",
+                            "name": "score_add",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "float",
+                            "name": "score_cur",
+                            "id": 11
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "float",
+                            "name": "score_total",
+                            "id": 12
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_score",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "type",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "player_score",
+                            "name": "scores",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_cs_outcard_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_outcard_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_sc_op",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "time",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "target_id",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "card",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_cs_op_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "op",
+                            "id": 3
                         },
                         {
                             "rule": "optional",

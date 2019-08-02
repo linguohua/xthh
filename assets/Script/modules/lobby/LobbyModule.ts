@@ -2,6 +2,7 @@
  * lobby 模块入口
  */
 const { ccclass } = cc._decorator;
+import { GameModuleA } from "../gamea/GamebExportsA";
 import { GameModule } from "../gameb/GamebExports";
 import { NimSDK } from "./chanelSdk/nimSdk/NimSDK";
 import { GResLoaderImpl } from "./GResLoaderImpl";
@@ -151,10 +152,17 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                             const gameNode = new cc.Node(moduleName);
                             this.node.addChild(gameNode);
                             this.gameNode = gameNode;
-                            const gmc = this.gameNode.addComponent(GameModule);
-                            const gm = <GameModuleInterface>gmc;
-                            // 启动游戏流程
-                            gm.launch(params);
+                            if (params.roomId === 2100) {
+                                const gmc = this.gameNode.addComponent(GameModuleA);
+                                const gm = <GameModuleInterface>gmc;
+                                // 启动游戏流程
+                                gm.launch(params);
+                            } else {
+                                const gmc = this.gameNode.addComponent(GameModule);
+                                const gm = <GameModuleInterface>gmc;
+                                // 启动游戏流程
+                                gm.launch(params);
+                            }
                             break;
                         default:
                     }

@@ -97,6 +97,7 @@ export interface GameModuleLaunchArgs {
     lm?: LobbyModuleInterface;
 
     record: Record;
+    roomId?: number;
 }
 
 /**

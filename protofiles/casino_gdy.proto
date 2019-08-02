@@ -1,175 +1,176 @@
-ï»¿//option optimize_for = LITE_RUNTIME;				// ï¿½Å»ï¿½ï¿½Ù¶ï¿½
+//option optimize_for = LITE_RUNTIME;				// ÓÅ»¯ËÙ¶È
 //option optimize_for = SPEED;
-option optimize_for = CODE_SIZE;					// ï¿½Å»ï¿½ï¿½ï¿½Ð¡
+option optimize_for = CODE_SIZE;					// ÓÅ»¯´óÐ¡
 package casino_gdy;
 
-// ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½Ï·×´Ì¬
+// ¸ÉµÉÑÛÓÎÏ·×´Ì¬
 enum eGDY_STATUS{
-	GDY_STATUS_STOP					= 0;	// Í£Ö¹ï¿½ï¿½Ï·×´Ì¬
-	GDY_STATUS_DEAL					= 1;	// ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	GDY_STATUS_OUTCARD				= 2;	// ï¿½ï¿½Ò³ï¿½ï¿½Æ½×¶ï¿½
-	GDY_STATUS_OP					= 3;	// ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½×¶ï¿½
-	GDY_STATUS_HUPAI				= 4;	// ï¿½ï¿½Òºï¿½ï¿½Æ½×¶ï¿½
-	GDY_STATUS_ENDCARD				= 5;	// ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½
-	GDY_STATUS_SCORE				= 10;	// ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	GDY_STATUS_STOP					= 0;	// Í£Ö¹ÓÎÏ·×´Ì¬
+	GDY_STATUS_DEAL					= 1;	// ·¢ÅÆ×´Ì¬
+	GDY_STATUS_OUTCARD				= 2;	// Íæ¼Ò³öÅÆ½×¶Î
+	GDY_STATUS_OP					= 3;	// Íæ¼Ò²Ù×÷½×¶Î
+	GDY_STATUS_HUPAI				= 4;	// Íæ¼ÒºúÅÆ½×¶Î
+	GDY_STATUS_ENDCARD				= 5;	// ×îºó4ÕÅÅÆ³¯Ìì
+	GDY_STATUS_SCORE				= 10;	// »ý·Ö×´Ì¬
 }
 
 enum eGDY_MSG_TYPE{
-	GDY_MSG_SC_STARTPLAY			= 2002;	// ï¿½ï¿½Ê¼ï¿½ï¿½Ï·
-	GDY_MSG_SC_SCORE				= 2010;	// ï¿½ï¿½ï¿½ï¿½×´Ì¬
-	GDY_MSG_SC_DRAWCARD				= 2100;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½)
-	GDY_MSG_SC_ENDCARD				= 2105;	// ï¿½ï¿½ï¿½ï¿½
-	GDY_MSG_CS_OUTCARD_REQ			= 2110; // ï¿½ï¿½Ò·ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	GDY_MSG_SC_OUTCARD_ACK			= 2111;	// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
+	GDY_MSG_SC_STARTPLAY			= 2002;	// ¿ªÊ¼ÓÎÏ·	
+	GDY_MSG_SC_SCORE				= 2010;	// »ý·Ö×´Ì¬	
+	GDY_MSG_SC_DRAWCARD				= 2100;	// Íæ¼ÒÃþÅÆ(·þÎñÆ÷·¢Íù¿Í»§¶Ë)
+	GDY_MSG_SC_ENDCARD				= 2105;	// ³¯Ìì
+	GDY_MSG_CS_OUTCARD_REQ			= 2110; // Íæ¼Ò·¢ËÍ³öÅÆÃüÁî	
+	GDY_MSG_SC_OUTCARD_ACK			= 2111;	// Íæ¼Ò³öÅÆÓ¦´ð
 
-	GDY_MSG_SC_OP					= 2120;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½
-	GDY_MSG_CS_OP_REQ				= 2121;	// ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
-	GDY_MSG_SC_OP_ACK				= 2122;	// ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GDY_MSG_SC_OP					= 2120;	// ·þÎñÆ÷Ñ¯ÎÊÍæ¼Ò²Ù×÷
+	GDY_MSG_CS_OP_REQ				= 2121;	// Íæ¼Ò²Ù×÷Ó¦´ð
+	GDY_MSG_SC_OP_ACK				= 2122;	// Íæ¼Ò²Ù×÷½á¹û
 
-	GDY_MSG_CS_CANCELCARD_REQ		= 2131;	// ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	GDY_MSG_CS_CANCELCARD_REQ		= 2131;	// Íæ¼Ò²»¸ÜÄ³ÕÅÅÆÇëÇó
 
 
-	GDY_MSG_SC_RECONNECT			= 2200;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½
+	GDY_MSG_SC_RECONNECT			= 2200;	// Íæ¼ÒÖØÁ¬ºó·¢ËÍµÈ´ý²Ù×÷
 }
 
 enum eGDY_OP_TYPE{
-	GDY_OP_TYPE_DIANXIAO			= 1;	// ï¿½ï¿½Ð¦
-	GDY_OP_TYPE_HUITOUXIAO			= 2;	// ï¿½ï¿½Í·Ð¦
-	GDY_OP_TYPE_MENGXIAO			= 3;	// ï¿½ï¿½Ð¦
+	GDY_OP_TYPE_DIANXIAO			= 1;	// µãÐ¦	
+	GDY_OP_TYPE_HUITOUXIAO			= 2;	// »ØÍ·Ð¦	
+	GDY_OP_TYPE_MENGXIAO			= 3;	// ÃÆÐ¦		
 
-	GDY_OP_TYPE_FANGXIAO			= 9;	// ï¿½ï¿½Ð¦
-	GDY_OP_TYPE_PIAOLAIZI			= 10;	// Æ®ï¿½ï¿½ï¿½
+	GDY_OP_TYPE_FANGXIAO			= 9;	// ·ÅÐ¦
+	GDY_OP_TYPE_PIAOLAIZI			= 10;	// Æ®ñ®×Ó
 
-	GDY_OP_TYPE_ZHUOCHONG			= 20;	// ×½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
-	GDY_OP_TYPE_QIANGXIAO			= 21;	// ï¿½ï¿½Ð¦
-	GDY_OP_TYPE_XIAOHOUCHONG		= 22;	// Ð¦ï¿½ï¿½ï¿½
-	GDY_OP_TYPE_BEIQIANGXIAO		= 23;	// ï¿½ï¿½ï¿½ï¿½Ð¦(Ö»ï¿½ï¿½Í³ï¿½ï¿½)
+	GDY_OP_TYPE_ZHUOCHONG			= 20;	// ×½ï¥(ÎÞÀµ×Ó)
+	GDY_OP_TYPE_QIANGXIAO			= 21;	// ÇÀÐ¦
+	GDY_OP_TYPE_XIAOHOUCHONG		= 22;	// Ð¦ºóï¥
+	GDY_OP_TYPE_BEIQIANGXIAO		= 23;	// ±»ÇÀÐ¦(Ö»×öÍ³¼Æ)
 
-	GDY_OP_TYPE_FANGCHONG			= 30;	// ï¿½ï¿½ï¿½
-	GDY_OP_TYPE_RECHONG				= 31;	// ï¿½ï¿½ï¿½
+	GDY_OP_TYPE_FANGCHONG			= 30;	// ·Åï¥
+	GDY_OP_TYPE_RECHONG				= 31;	// ÈÈï¥
 
-	GDY_OP_TYPE_HEIMO				= 40;	// ï¿½ï¿½ï¿½ï¿½
-	GDY_OP_TYPE_RUANMO				= 41;	// ï¿½ï¿½ï¿½ï¿½
+	GDY_OP_TYPE_HEIMO				= 40;	// ºÚÃþ
+	GDY_OP_TYPE_RUANMO				= 41;	// ÈíÃþ
 
-	GDY_OP_TYPE_HEIMOX2				= 50;	// ï¿½ï¿½ï¿½ï¿½x2
-	GDY_OP_TYPE_RUANMOX2			= 51;	// ï¿½ï¿½ï¿½ï¿½x2
+	GDY_OP_TYPE_HEIMOX2				= 50;	// ºÚÃþx2
+	GDY_OP_TYPE_RUANMOX2			= 51;	// ÈíÃþx2
 
-	GDY_OP_TYPE_FANGCHAOTIAN		= 100;	// ï¿½Å³ï¿½ï¿½ï¿½
-	GDY_OP_TYPE_XIAOCHAOTIAN		= 101;	// Ð¡ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ð¦) (GDY_OP_TYPE_FANGCHAOTIAN)
-	GDY_OP_TYPE_DACHAOTIAN			= 102;	// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ð¦)
+	GDY_OP_TYPE_FANGCHAOTIAN		= 100;	// ·Å³¯Ìì
+	GDY_OP_TYPE_XIAOCHAOTIAN		= 101;	// Ð¡³¯Ìì(µãÐ¦) (GDY_OP_TYPE_FANGCHAOTIAN)
+	GDY_OP_TYPE_DACHAOTIAN			= 102;	// ´ó³¯Ìì(ÃÆÐ¦)
 
 }
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// Íæ¼Ò÷»×Ó
 message player_dice{
 	required uint32			player_id = 1;
 	repeated int32				dices = 10;
 }
 
-// ï¿½ï¿½Ê¼ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
+// ¿ªÊ¼Íæ(·¢ÅÆ)
 message packet_sc_start_play{
-	required uint32				 time = 1;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½(10ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ó·ï¿½ï¿½ï¿½ï¿½Í¬Ê±Ê¹ï¿½Ã¸ï¿½Ê±ï¿½ï¿½)
-	optional uint32		   	  player_id = 2;	// ï¿½ï¿½ï¿½id(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id)
-	optional int32			   fanpai = 4;		// ï¿½ï¿½ï¿½ï¿½
-	optional int32			    laizi = 5;		// ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional uint64		 table_id = 6;				// ï¿½ï¿½ï¿½ï¿½id
-	required int32		      lord_id = 10;		// ×¯ï¿½ï¿½id
-	repeated int32		        cards = 20;		// ï¿½ï¿½ï¿½ï¿½
-	repeated player_dice	    dices = 100;	// ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½É¸ï¿½ï¿½
+	required uint32				 time = 1;		// ¶¯»­²¥·ÅÊ±¼ä(10Ãë,ËùÓÐÃ»¼Ó·ÖÍæ¼ÒÍ¬Ê±Ê¹ÓÃ¸ÄÊ±¼ä)
+	optional uint32		   	  player_id = 2;	// Íæ¼Òid(½ÓÊÜÍæ¼Òid)
+	optional int32			   fanpai = 4;		// ·­ÅÆ
+	optional int32			    laizi = 5;		// ñ®×ÓÅÆ
+	optional uint64		 table_id = 6;				// ×À×Óid
+	required int32		      lord_id = 10;		// ×¯¼Òid
+	repeated int32		        cards = 20;		// ¿¨ÅÆ
+	repeated player_dice	    dices = 100;	// Íæ¼ÒÒ¡³öµÄÉ¸×Ó
 }
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ´ï¿½ï¿½ï¿½
+// Íæ¼ÒÃþÅÆ´òÅÆ
 message packet_sc_drawcard{
-	required uint32				   time = 1;	// Ê±ï¿½ï¿½(10ï¿½ï¿½)
-	required uint32		   	  player_id = 2;	// ï¿½ï¿½ï¿½id
+	required uint32				   time = 1;	// Ê±¼ä(10Ãë)
+	required uint32		   	  player_id = 2;	// Íæ¼Òid
 
-	optional int32				   card = 3;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½-1,0ï¿½ï¿½Ê¾ï¿½ï¿½
+	optional int32				   card = 3;	// Ãþµ½µÄÅÆ£¨±ðÈËÃþµ½µÄÅÆÓÀÔ¶ÊÇ-1,0±êÊ¾£©
 }
 
-// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// Íæ¼Ò³¯Ìì´òÅÆ
 message packet_sc_endcard{
-	required uint32				   time = 1;	// Ê±ï¿½ï¿½(3ï¿½ï¿½)
-	required uint32		   	  player_id = 2;	// ï¿½ï¿½ï¿½id
-	optional int32				   card = 3;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½-1,0ï¿½ï¿½Ê¾ï¿½ï¿½
-	optional uint64			   table_id = 6;				// ï¿½ï¿½ï¿½ï¿½id
-	optional bool				  hupai = 10;	// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+	required uint32				   time = 1;	// Ê±¼ä(3Ãë)
+	required uint32		   	  player_id = 2;	// Íæ¼Òid
+	optional int32				   card = 3;	// Ãþµ½µÄÅÆ£¨±ðÈËÃþµ½µÄÅÆÓÀÔ¶ÊÇ-1,0±êÊ¾£©
+	optional uint64			   table_id = 6;				// ×À×Óid
+	optional bool				  hupai = 10;	// ÊÇ·ñºúÅÆ
 }
 
 message player_score{
-	required uint32			  player_id = 1;
-	optional uint64			    table_id = 6;				// ï¿½ï¿½ï¿½ï¿½id
+	required uint32			  player_id = 1;	
+	optional uint64			    table_id = 6;				// ×À×Óid
 	optional float			   score_add = 10;
 	optional float			   score_cur = 11;
 	optional float			 score_total = 12;
 }
 
-// ï¿½ï¿½Ò´ï¿½ï¿½Æ»ï¿½Ã»ï¿½ï¿½ï¿½
+// Íæ¼Ò´òÅÆ»ñµÃ»ý·Ö
 message packet_sc_score{
-	required uint32			 player_id = 2;		// ï¿½ï¿½ï¿½id
-	optional int32				  type = 5;		// ï¿½ï¿½ï¿½ï¿½
-	optional uint64			  table_id = 6;				// ï¿½ï¿½ï¿½ï¿½id
-	repeated player_score		scores = 10;	// ï¿½ï¿½ï¿½ï¿½
+	required uint32			 player_id = 2;		// Íæ¼Òid
+	optional int32				  type = 5;		// ÀàÐÍ
+	optional uint64			  table_id = 6;				// ×À×Óid
+	repeated player_score		scores = 10;	// ÅÆ×é
 }
 
-// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½
+// Íæ¼Ò³öÅÆ
 message packet_cs_outcard_req{
-	optional uint32		    player_id = 2;		// ï¿½ï¿½ï¿½id
-	optional int32				 card = 3;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-}
+	optional uint32		    player_id = 2;		// Íæ¼Òid
+	optional int32				 card = 3;		// ´ò³öµÄÅÆ
+} 
 
-message packet_sc_outcard_ack{
-	required uint32		   	player_id = 2;		// ï¿½ï¿½ï¿½id
-	optional int32				 card = 3;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional uint64			 table_id = 6;				// ï¿½ï¿½ï¿½ï¿½id
-}
+message packet_sc_outcard_ack{	
+	required uint32		   	player_id = 2;		// Íæ¼Òid
+	optional int32				 card = 3;		// ´ò³öµÄÅÆ
+	optional uint64			 table_id = 6;				// ×À×Óid
+} 
 
-// ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½(ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?)
+// Íæ¼Ò²Ù×÷Ñ¯ÎÊ(¸Ü£¬Åö£¬ºú?)
 message packet_sc_op{
-	required uint32				 time = 1;		// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
-	required uint32		   	player_id = 2;		// ï¿½ï¿½ï¿½id
-	optional uint32			target_id = 5;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional uint64		     table_id = 6;		// ï¿½ï¿½ï¿½ï¿½id
-	optional int32				 card = 10;		// Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-}
+	required uint32				 time = 1;		// ³ÖÐøÊ±¼ä
+	required uint32		   	player_id = 2;		// Íæ¼Òid
+	optional uint32			target_id = 5;		// ²Ù×÷¶ÔÏóÍæ¼Ò
+	optional uint64		     table_id = 6;		// ×À×Óid
+	optional int32				 card = 10;		// Òª²Ù×÷µÄÅÆ
+} 
 
-// ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// Íæ¼Ò²Ù×÷·´À¡
 message packet_cs_op_req{
-	optional uint32		    player_id = 2;		// ï¿½ï¿½ï¿½id
-	optional int32				   op = 3;		// ï¿½ï¿½ï¿½ï¿½
-	optional int32		  cancel_type = 7[default = -1];	// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-}
+	optional uint32		    player_id = 2;		// Íæ¼Òid
+	optional int32				   op = 3;		// ²Ù×÷
+	optional int32				 card = 6;		// Òª²Ù×÷µÄÅÆ
+	optional int32		  cancel_type = 7[default = -1];	// È¡ÏûÀàÐÍ
+} 
 
-message packet_sc_op_ack{
-	required uint32		   	player_id = 2;		// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½
-	optional int32				   op = 3;		// ï¿½ï¿½ï¿½ï¿½
-	optional int32				 type = 4;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional uint32			target_id = 5;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional uint64			 table_id = 6;		// ï¿½ï¿½ï¿½ï¿½id
-	optional int32		  cancel_type = 7[default = -1];	// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	repeated int32			    cards = 10;		// ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
-}
+message packet_sc_op_ack{	
+	required uint32		   	player_id = 2;		// Íæ¼Ò³öÅÆ
+	optional int32				   op = 3;		// ²Ù×÷
+	optional int32				 type = 4;		// ²Ù×÷×ÓÀàÐÍ
+	optional uint32			target_id = 5;		// ²Ù×÷¶ÔÏóÍæ¼Ò
+	optional uint64			 table_id = 6;		// ×À×Óid
+	optional int32		  cancel_type = 7[default = -1];	// È¡ÏûÀàÐÍ
+	repeated int32			    cards = 10;		// ´ò³öµÄ¿¨ÅÆ
+} 
 
-// ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Æ¸ï¿½
+// Íæ¼ÒÈ¡ÏûÅÆ¸Ü
 message packet_cs_cancelcard_req{
-	required int32				 card = 2;		// ÒªÈ¡ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½
-	optional uint32		    player_id = 3;		// ï¿½ï¿½ï¿½id
-	optional uint32				 type = 4;		// È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0:È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,1È¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½2ï¿½ï¿½ï¿½Ü¶ï¿½È¡ï¿½ï¿½
+	required int32				 card = 2;		// ÒªÈ¡Ïû¸ÜµÄÅÆ
+	optional uint32		    player_id = 3;		// Íæ¼Òid
+	optional uint32				 type = 4;		// È¡ÏûÀàÐÍ0:È¡Ïû¸ÜÅÆ,1È¡ÏûÅöÅÆ£¬2Åö¸Ü¶¼È¡Ïû
 }
 
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍµÈ´ï¿½ï¿½ï¿½ï¿½ï¿½
+// Íæ¼ÒÖØÁ¬ºó·¢ËÍµÈ´ý²Ù×÷
 message packet_sc_reconnect{
-	required uint32				status = 1;		// ï¿½ï¿½Ç°×´Ì¬
-	required uint32				  time = 2;		// Ê±ï¿½ï¿½(ï¿½ï¿½ï¿½Â¿ï¿½Ê¼Ê±ï¿½ï¿½)
-	required uint32		     player_id = 3;		// ï¿½ï¿½ï¿½id
-	optional uint32			 target_id = 5;		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional int32				  card = 10;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½-1,0ï¿½ï¿½Ê¾ï¿½ï¿½
-	optional bool			  pailaizi = 20;	// ï¿½Ç·ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	optional uint32					op = 30;	// Ö®Ç°ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½
+	required uint32				status = 1;		// µ±Ç°×´Ì¬
+	required uint32				  time = 2;		// Ê±¼ä(ÖØÐÂ¿ªÊ¼Ê±¼ä)
+	required uint32		     player_id = 3;		// Íæ¼Òid
+	optional uint32			 target_id = 5;		// ²Ù×÷¶ÔÏóÍæ¼Ò
+	optional int32				  card = 10;	// Ãþµ½µÄÅÆ£¨±ðÈËÃþµ½µÄÅÆÓÀÔ¶ÊÇ-1,0±êÊ¾£©
+	optional bool			  pailaizi = 20;	// ÊÇ·ñÆ®¹ýÀµ×Ó
+	optional uint32					op = 30;	// Ö®Ç°µÄÀÏ²Ù×÷
 }
 
 message gdy_gang_score{
-	required uint32		     player_id = 1;		// ï¿½ï¿½ï¿½id
-	optional float			     score = 10;	// ï¿½ï¿½ï¿½ï¿½
+	required uint32		     player_id = 1;		// Íæ¼Òid
+	optional float			     score = 10;	// »ý·Ö
 }
 
 message gdy_gang_group{

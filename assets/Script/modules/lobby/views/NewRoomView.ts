@@ -20,6 +20,12 @@ interface MyGame {
 
 }
 
+const gameModule: { [key: number]: string } = {
+    [2100]: "gamea", //仙桃晃晃
+    [2103]: "gameb", //三人两门
+    [2112]: "gameb" //两人两门
+};
+
 const myGames: MyGame[] = [{ casinoID: 2, roomID: 2100, name: "仙桃晃晃" },
 { casinoID: 16, roomID: 2103, name: "三人两门" }, { casinoID: 16, roomID: 2112, name: "两人两门" }];
 
@@ -605,7 +611,8 @@ export class NewRoomView extends cc.Component {
             userInfo: myUser,
             joinRoomParams: null,
             createRoomParams: createRoomParams,
-            record: null
+            record: null,
+            roomId: roomID
         };
 
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -614,7 +621,6 @@ export class NewRoomView extends cc.Component {
         this.destroy();
 
         lm.switchToGame(params, "gameb");
-
     }
 
     private saveConfig(): void {

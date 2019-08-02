@@ -135,8 +135,7 @@ message packet_sc_op{
 message packet_cs_op_req{
 	optional uint32		    player_id = 2;		// 玩家id
 	optional int32				   op = 3;		// 操作
-	optional int32				 type = 4;		// 操作类型
-	optional int32				 card = 6;		// 待操作的牌
+	optional int32				 card = 6;		// 要操作的牌
 	optional int32		  cancel_type = 7[default = -1];	// 取消类型
 } 
 
