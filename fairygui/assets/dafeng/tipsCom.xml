@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="544,65">
+  <displayList>
+    <image id="n60_j2i5" name="tipsBg" src="ik11b" fileName="resource/ty_tips1.png" pkg="snwj6cnx" xy="272,33" pivot="0.5,0.5" anchor="true" size="544,65"/>
+    <text id="n61_j2i5" name="tipsText" xy="272,33" pivot="0.5,0.5" anchor="true" size="509,35" fontSize="24" color="#d73f3a" align="center" vAlign="middle" singleLine="true" autoClearText="true" text="你的牌友已离开，(10：00)后，将自动解散房间"/>
+  </displayList>
+</component>

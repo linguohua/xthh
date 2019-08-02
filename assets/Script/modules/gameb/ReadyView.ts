@@ -62,6 +62,8 @@ export class ReadyView {
 
     private countDownTime: number;
 
+    private countDownSchedule: Function;
+
     public showReadyView(roomHost: RoomHost, view: fgui.GComponent): void {
         this.host = roomHost;
 
@@ -182,17 +184,17 @@ export class ReadyView {
 
         // this.countDownTime = 10 * 60;
 
-        this.host.component.unschedule(this.countDownFunc);
-        const func = () => {
+        this.host.component.unschedule(this.countDownSchedule);
+        this.countDownSchedule = () => {
             this.countDownFunc();
         };
-        this.host.component.schedule(func, 1, cc.macro.REPEAT_FOREVER);
+        this.host.component.schedule(this.countDownSchedule, 1, cc.macro.REPEAT_FOREVER);
 
     }
 
     protected onHide(): void {
         this.view.visible = false;
-        this.host.component.unschedule(this.countDownFunc);
+        this.host.component.unschedule(this.countDownSchedule);
     }
 
     private onLeaveRoomBtnClick(): void {
@@ -282,7 +284,8 @@ export class ReadyView {
         const serverTime = this.host.getServerTime();
         this.countDownTime = this.table.quit_time.toNumber() - serverTime;
         if (this.countDownTime <= 0) {
-            this.host.component.unschedule(this.countDownFunc);
+            this.host.component.unschedule(this.countDownSchedule);
+            //this.disbandRoom();
 
             return;
         }
