@@ -1,4 +1,4 @@
-import { Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
@@ -572,6 +572,7 @@ export class RoomView {
             return;
         }
 
+        SoundMgr.pauseMusic();
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
@@ -597,6 +598,7 @@ export class RoomView {
             return;
         }
 
+        SoundMgr.resumeMusic();
         this.mike.visible = false;
         this.recordEndPosition = event.touch.getLocation();
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
