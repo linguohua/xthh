@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="86,48" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+<component size="86,62" extention="Button" designImage="ui://397phochlqn3f7" designImageOffsetX="-1049" designImageOffsetY="-50" designImageAlpha="0">
+  <controller name="state" pages="0,关闭,1,开启" selected="1"/>
   <displayList>
-    <image id="n0_jel2" src="lqn3gn" name="n0" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <image id="n0_jel2" name="n0" src="lqn3gn" fileName="_resource/z_桌面打牌/zm_icon_dw.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_j2i5" name="n3" src="j2i5pc" fileName="_resource/z_桌面打牌/zm_wkq.png" xy="28,39">
+      <gearDisplay controller="state" pages="0"/>
     </image>
   </displayList>
+  <Button/>
 </component>
