@@ -758,8 +758,6 @@
     <image id="6omkp7" name="jbting.png" path="/_resource/z_桌面打牌/"/>
     <component id="octpp8" name="desk_light_hand_result.xml" path="/desk/mine/"/>
     <component id="octpp9" name="desk_meld_hand_result_1.xml" path="/desk/mine/"/>
-    <component id="j2i5pa" name="tipsCom.xml" path="/"/>
-    <image id="j2i5pc" name="zm_wkq.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>
