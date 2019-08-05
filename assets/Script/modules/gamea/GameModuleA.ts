@@ -8,9 +8,9 @@ import {
 // tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { GameErrorA } from "./GameErrorA";
-import { ReplayA } from "./ReplayA";
-import { msgHandlers, RoomA } from "./RoomA";
+import { GameErrorA as GameError } from "./GameErrorA";
+import { ReplayA as Replay } from "./ReplayA";
+import { msgHandlers, RoomA as Room } from "./RoomA";
 // import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;
@@ -37,7 +37,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     private connectErrorCount: number = 0;
     // private retry: boolean = false;
     // private forceExit: boolean = false;
-    private mRoom: RoomA;
+    private mRoom: Room;
     private lm: LobbyModuleInterface;
     private mUser: UserInfo;
     private mJoinRoomParams: JoinRoomParams;
@@ -55,7 +55,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         return this.lm.nimSDK;
     }
 
-    public get room(): RoomA {
+    public get room(): Room {
         return this.mRoom;
     }
 
@@ -288,25 +288,32 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
                 await this.showEnterRoomError(createRoomAck.ret);
             }
         } else if (joinRoomParams !== undefined && joinRoomParams !== null) {
+            table = joinRoomParams.table;
+            reconnect = joinRoomParams.reconnect;
             // 加入房间
-            const joinRoomAck = await this.waitJoinRoom(joinRoomParams);
-            //如果当前轮到别人出牌。。。joinRoomAck 先不写。。。 不知道怎么写
-            if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                table = joinRoomAck.tdata;
-                reconnect = joinRoomAck.reconnect;
+            // const joinRoomAck = await this.waitJoinRoom(joinRoomParams);
+            // //如果当前轮到别人出牌。。。joinRoomAck 先不写。。。 不知道怎么写
+            // if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+            //     table = joinRoomAck.tdata;
+            //     reconnect = joinRoomAck.reconnect;
 
-                DataStore.setItem("tableID", "");
+            //     DataStore.setItem("tableID", "");
 
-                Logger.debug("re-enter room");
-            } else {
-                Logger.error("doEnterRoom, join room failed:", joinRoomAck);
+            //     Logger.debug("re-enter room");
+            // } else if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
+            //     Logger.debug("joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID");
 
-                await this.showEnterRoomError(joinRoomAck.ret);
-            }
+            //     return;
+            // } else {
+            //     Logger.error("doEnterRoom, join room failed:", joinRoomAck);
+
+            //     await this.showEnterRoomError(joinRoomAck.ret);
+            // }
         }
 
         if (table === null) {
             Dialog.hideWaiting();
+            Dialog.hideReconnectDialog();
 
             return;
         }
@@ -319,7 +326,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         } else {
             this.mRoom.updateRoom(table);
             reconnect = true;
-            Dialog.hideWaiting();
+            Dialog.hideReconnectDialog();
         }
 
         // this.mRoom.showOrHideReadyButton(!reconnect);
@@ -384,57 +391,56 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    private joinRoomReq(joinRoomParams: JoinRoomParams): void {
-        let tableID = long.ZERO;
-        if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
-            tableID = long.fromString(joinRoomParams.tableID, true);
-        }
+    // private joinRoomReq(): void {
+    //     let tableID = long.ZERO;
+    //     if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
+    //         tableID = long.fromString(joinRoomParams.tableID, true);
+    //     }
 
-        let roomNumberInt: number = 0;
-        if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
-            roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
-        }
+    //     let roomNumberInt: number = 0;
+    //     if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
+    //         roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
+    //     }
 
-        const playerID = DataStore.getString("playerID");
-        const req = {
-            player_id: +playerID,
-            table_id: tableID,
-            tag: roomNumberInt
-        };
+    //     const playerID = DataStore.getString("playerID");
+    //     const req = {
+    //         player_id: +playerID,
+    //         table_id: long.ZERO
+    //     };
 
-        const req2 = new protoHH.casino.packet_table_join_req(req);
-        const buf = protoHH.casino.packet_table_join_req.encode(req2);
-        this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-    }
+    //     const req2 = new protoHH.casino.packet_table_join_req(req);
+    //     const buf = protoHH.casino.packet_table_join_req.encode(req2);
+    //     this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+    // }
 
-    private async waitJoinRoom(joinRoomParams: JoinRoomParams): Promise<protoHH.casino.packet_table_join_ack> {
-        this.joinRoomReq(joinRoomParams);
+    // private async waitJoinRoom(joinRoomParams: JoinRoomParams): Promise<protoHH.casino.packet_table_join_ack> {
+    //     this.joinRoomReq(joinRoomParams);
 
-        this.blockNormal();
-        const msg = await this.mq.waitMsg();
-        this.unblockNormal();
-        if (msg.mt === MsgType.wsData) {
-            const pmsg = <protoHH.casino.ProxyMessage>msg.data;
+    //     this.blockNormal();
+    //     const msg = await this.mq.waitMsg();
+    //     this.unblockNormal();
+    //     if (msg.mt === MsgType.wsData) {
+    //         const pmsg = <protoHH.casino.ProxyMessage>msg.data;
 
-            if (pmsg.Ops === protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK) {
+    //         if (pmsg.Ops === protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK) {
 
-                return protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
-            } else {
-                Logger.error("Wait msg not join room ack");
-            }
-        } else {
-            Logger.error("expected normal websocket msg, but got:", msg);
-        }
+    //             return protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
+    //         } else {
+    //             Logger.error("Wait msg not join room ack");
+    //         }
+    //     } else {
+    //         Logger.error("expected normal websocket msg, but got:", msg);
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     private createRoom(
         myUser: UserInfo,
         roomInfo: protoHH.casino.Itable,
-        rePlay?: ReplayA): void {
+        rePlay?: Replay): void {
         //
-        this.mRoom = new RoomA(myUser, roomInfo, this, rePlay);
+        this.mRoom = new Room(myUser, roomInfo, this, rePlay);
         this.mRoom.loadRoomView(this.view);
 
         // 创建玩家
@@ -485,7 +491,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         }
     }
     private async showEnterRoomError(code: number): Promise<void> {
-        const msg = GameErrorA.getErrorString(code);
+        const msg = GameError.getErrorString(code);
         Logger.warn("enter mRoom failed, server return error：", msg);
 
         return new Promise<void>((resolve, _) => {
@@ -574,7 +580,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         //     lastActiveTime: 0
         // };
 
-        const replay = new ReplayA(table.replay);
+        const replay = new Replay(table.replay);
         // 新建room和绑定roomView
         this.createRoom(this.user, table, replay);
 
@@ -589,13 +595,13 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             return;
         }
 
-        Dialog.showWaiting();
+        Dialog.showReconnectDialog();
 
         const joinRoomParams = {
             tableID: `${this.mRoom.roomInfo.id}`
         };
 
-        this.mJoinRoomParams = joinRoomParams;
+        // this.mJoinRoomParams = joinRoomParams;
         this.mCreateRoomParams = null;
         // await this.doEnterRoom(myUser, joinRoomParams, null);
 

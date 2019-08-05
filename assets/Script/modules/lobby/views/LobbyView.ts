@@ -198,7 +198,7 @@ export class LobbyView extends cc.Component {
     }
 
     private joinTable(tableID: long): void {
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ, this.onJoinTableAck, this); // 加入桌子
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this); // 加入桌子
 
         const playerID = DataStore.getString("playerID");
         const req = {

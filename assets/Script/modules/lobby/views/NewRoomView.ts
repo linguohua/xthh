@@ -22,11 +22,11 @@ interface MyGame {
 
 }
 
-const gameModule: { [key: number]: string } = {
-    [2100]: "gamea", //仙桃晃晃
-    [2103]: "gameb", //三人两门
-    [2112]: "gameb" //两人两门
-};
+// const gameModule: { [key: number]: string } = {
+//     [2100]: "gamea", //仙桃晃晃
+//     [2103]: "gameb", //三人两门
+//     [2112]: "gameb" //两人两门
+// };
 
 const myGames: MyGame[] = [{ casinoID: 2, roomID: 2100, name: "仙桃晃晃" },
 { casinoID: 16, roomID: 2103, name: "三人两门" }, { casinoID: 16, roomID: 2112, name: "两人两门" }];
@@ -677,8 +677,6 @@ export class NewRoomView extends cc.Component {
             reconnect: joinRoomAck.reconnect
         };
 
-        Logger.debug("joinRoomParams:", joinRoomParams);
-
         const params: GameModuleLaunchArgs = {
             jsonString: "",
             userInfo: myUser,
@@ -687,6 +685,8 @@ export class NewRoomView extends cc.Component {
             record: null,
             roomId: joinRoomAck.tdata.room_id
         };
+
+        Logger.debug("GameModuleLaunchArgs:", params);
 
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
 

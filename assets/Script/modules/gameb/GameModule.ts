@@ -6,7 +6,7 @@ import {
     LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
-import long = require("../lobby/protobufjs/long");
+// import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameError } from "./GameError";
 import { Replay } from "./Replay";
@@ -391,27 +391,27 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    private joinRoomReq(): void {
-        // let tableID = long.ZERO;
-        // if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
-        //     tableID = long.fromString(joinRoomParams.tableID, true);
-        // }
+    // private joinRoomReq(): void {
+    //     let tableID = long.ZERO;
+    //     if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
+    //         tableID = long.fromString(joinRoomParams.tableID, true);
+    //     }
 
-        // let roomNumberInt: number = 0;
-        // if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
-        //     roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
-        // }
+    //     let roomNumberInt: number = 0;
+    //     if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
+    //         roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
+    //     }
 
-        const playerID = DataStore.getString("playerID");
-        const req = {
-            player_id: +playerID,
-            table_id: long.ZERO
-        };
+    //     const playerID = DataStore.getString("playerID");
+    //     const req = {
+    //         player_id: +playerID,
+    //         table_id: long.ZERO
+    //     };
 
-        const req2 = new protoHH.casino.packet_table_join_req(req);
-        const buf = protoHH.casino.packet_table_join_req.encode(req2);
-        this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-    }
+    //     const req2 = new protoHH.casino.packet_table_join_req(req);
+    //     const buf = protoHH.casino.packet_table_join_req.encode(req2);
+    //     this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+    // }
 
     // private async waitJoinRoom(joinRoomParams: JoinRoomParams): Promise<protoHH.casino.packet_table_join_ack> {
     //     this.joinRoomReq(joinRoomParams);
