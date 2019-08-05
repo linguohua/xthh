@@ -746,7 +746,9 @@ export class Room {
         //
         this.roomView.hideGamePauseTips();
     }
-
+    public onBgClick(): void {
+        this.myPlayer.playerView.onBgClick();
+    }
     //播放背景音乐
     // private playBgSound(): void {
     //     SoundMgr.playMusicAudio("gameb/music_hall", true);
