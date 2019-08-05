@@ -171,13 +171,13 @@ export class GpsView extends cc.Component {
             const ctrl = distanceView.getController(`${pair[0] + 1}${pair[1] + 1}Ctrl`);
             const name = `${pair[0] + 1}_${pair[1] + 1}_label`;
             const distanceText = distanceView.getChild(`${name}`);
-            if (player1.coordinate === null || player1.coordinate.latitude === null) {
+            if (player1.coordinate === null || player1.coordinate.latitude === null || player1.coordinate.latitude === 0) {
                 distanceText.text = "未知距离";
                 ctrl.selectedIndex = 0;
                 continue;
             }
 
-            if (player2.coordinate === null || player2.coordinate.latitude === null) {
+            if (player2.coordinate === null || player2.coordinate.latitude === null || player2.coordinate.latitude === 0) {
                 distanceText.text = "未知距离";
                 ctrl.selectedIndex = 0;
                 continue;
