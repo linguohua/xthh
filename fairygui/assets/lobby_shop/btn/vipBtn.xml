@@ -5,7 +5,7 @@
     <image id="n0_tfg8" name="n0" src="ik110" fileName="resource/ty_btn_c.png" pkg="snwj6cnx" xy="0,0" size="124,54">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n1_tfg8" name="n1" xy="18,10" size="92,34" fontSize="22" color="#fffac8" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="VIP特权"/>
+    <text id="n1_tfg8" name="n1" xy="18,10" size="91,34" fontSize="22" color="#fffac8" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="VIP特权"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="1.10"/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

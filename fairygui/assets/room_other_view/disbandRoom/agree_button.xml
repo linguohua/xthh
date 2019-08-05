@@ -5,5 +5,5 @@
     <image id="n3_rhc4" name="n3" src="b75tg" fileName="resource/ty_btn_cd.png" pkg="snwj6cnx" xy="0,0" size="187,72"/>
     <text id="n4_93ta" name="n4" xy="51,18" size="93,41" fontSize="28" color="#fef6e2" align="center" vAlign="middle" letterSpacing="9" autoSize="none" bold="true" text="同意"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="1.10"/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

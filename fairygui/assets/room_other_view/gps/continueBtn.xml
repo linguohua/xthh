@@ -5,5 +5,5 @@
     <image id="n3_rhc4" name="n3" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="187,72"/>
     <text id="n4_93ta" name="n4" xy="30,18" size="127,41" fontSize="28" color="#f7fec0" align="center" vAlign="middle" autoSize="none" bold="true" text="继续游戏"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="1.10"/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

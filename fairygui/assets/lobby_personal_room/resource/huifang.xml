@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="93,46" extention="Button">
+<component size="93,46" pivot="0.5,0.5" extention="Button">
   <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
     <image id="n0_kyp5" name="n0" src="kyp514" fileName="resource/ty_btn_lv.png" xy="0,0" size="93,46">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n1_kyp5" name="n1" xy="22,6" size="50,34" fontSize="22" color="#f7fec0" bold="true" text="回放"/>
+    <text id="n1_kyp5" name="n1" xy="22,6" size="49,34" fontSize="22" color="#f7fec0" bold="true" text="回放"/>
   </displayList>
-  <Button/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

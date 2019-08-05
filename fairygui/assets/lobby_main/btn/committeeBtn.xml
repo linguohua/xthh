@@ -7,5 +7,5 @@
     </image>
     <image id="n1_u4cz" name="redDot" src="u4cz15" fileName="resource/ty_hd.png" xy="40,-2" visible="false"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="1.10"/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

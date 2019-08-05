@@ -47,8 +47,8 @@
     <component id="n46_jel2" name="laiziCom" src="jel2md" fileName="compoment/laiziCom.xml" xy="510,5" visible="false">
       <relation target="n29_qhzt" sidePair="left-left,top-top"/>
     </component>
-    <graph id="n47_lop0" name="zhuangPos" xy="568,320" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n48_lop0" name="AniPos" xy="568,300" pivot="0.5,0.5" anchor="true" size="18,28"/>
+    <graph id="n47_lop0" name="zhuangPos" xy="568,320" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <component id="n51_jgmt" name="cancelCom" src="jgmtop" fileName="cancelCom.xml" xy="365,428" visible="false"/>
     <graph id="n52_q32b" name="laiComPos1" xy="3,3" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n53_q32b" name="laiComPos2" xy="511,3" pivot="0.5,0.5" anchor="true" size="18,28"/>

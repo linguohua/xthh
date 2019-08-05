@@ -7,5 +7,5 @@
     </image>
     <text id="n2_h8zv" name="text" xy="-1,2" size="92,81" font="Microsoft YaHei" fontSize="60" color="#0957a1" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="3"/>
   </displayList>
-  <Button downEffect="scale" downEffectValue="1.10"/>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>
