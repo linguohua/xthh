@@ -5,11 +5,12 @@ import {
 } from "../lcore/LCoreExports";
 
 import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
+// tslint:disable-next-line:no-require-imports
+import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
-import long = require("../protobufjs/long");
 const { ccclass } = cc._decorator;
 
 /**
@@ -203,10 +204,10 @@ export class LobbyView extends cc.Component {
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
-            table_id: tableID,
+            table_id: tableID
         };
 
-        Logger.debug("joinTable, req:", req)
+        Logger.debug("joinTable, req:", req);
 
         const req2 = new proto.casino.packet_table_join_req(req);
         const buf = proto.casino.packet_table_join_req.encode(req2);
@@ -287,8 +288,8 @@ export class LobbyView extends cc.Component {
         // Dialog.showDialog("已经在房间, 正在进入房间");
 
         const tableID = long.fromString(tableIDString, true);
-        Logger.debug("tableID", tableID)
-        this.joinTable(tableID)
+        Logger.debug("tableID", tableID);
+        this.joinTable(tableID);
         // const myUser = { userID: `${ack.player_id}` };
 
         // const joinRoomParams = {
@@ -307,7 +308,7 @@ export class LobbyView extends cc.Component {
     }
 
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
-        Logger.debug("onJoinTableAck")
+        Logger.debug("onJoinTableAck");
 
         const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
