@@ -1,4 +1,4 @@
-import { DataStore, Dialog, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
+import { DataStore, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { HandlerActionResultDiscardedA } from "./handlersA/HandlerActionResultDiscardedA";
 import { HandlerActionResultDrawA } from "./handlersA/HandlerActionResultDrawA";

@@ -74,6 +74,8 @@ export class RoomView {
     private gamePauseSchedule: Function;
     private gamePauseTime: number;
 
+    private startRecordTime: number;
+
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
         this.unityViewNode = view;
@@ -641,7 +643,7 @@ export class RoomView {
             return;
         }
 
-        SoundMgr.pauseMusic();
+        // SoundMgr.pauseMusic();
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
@@ -667,7 +669,7 @@ export class RoomView {
             return;
         }
 
-        SoundMgr.resumeMusic();
+        // SoundMgr.resumeMusic();
         this.mike.visible = false;
         this.recordEndPosition = event.touch.getLocation();
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
@@ -875,6 +877,7 @@ export class RoomView {
 
         const onStart = () => {
             Logger.debug("recordManager.onStart");
+            this.startRecordTime = Date.now();
             // this.mike.visible = true;
         };
 
@@ -903,6 +906,13 @@ export class RoomView {
                 return;
             }
 
+            if (Date.now() - this.startRecordTime < 1000) {
+                Logger.debug("record time small than 1 second");
+                Dialog.prompt("录制要小于1秒");
+
+                return;
+            }
+
             this.lastRecordTime = Date.now();
             this.sendVoice(res.tempFilePath);
         };
@@ -913,7 +923,7 @@ export class RoomView {
 
         const onError = (res: RecordOnErrorRes) => {
             Logger.debug("onError:", res);
-            Dialog.prompt("录制失败!");
+            // Dialog.prompt("录制失败!");
             // this.mike.visible = false;
         };
 
