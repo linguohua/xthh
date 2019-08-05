@@ -9,6 +9,7 @@ import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
+import long = require("../protobufjs/long");
 const { ccclass } = cc._decorator;
 
 /**
@@ -40,7 +41,8 @@ export class LobbyView extends cc.Component {
             const roomNumber = query[rKey];
             // 点别人的邀请链接 第一次进游戏 走这里
             if (roomNumber !== undefined && roomNumber !== null) {
-                this.lm.requetJoinRoom(roomNumber);
+                // this.lm.requetJoinRoom(roomNumber);
+                // TODO:请求加入房间
             }
 
             this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
@@ -122,7 +124,9 @@ export class LobbyView extends cc.Component {
         const roomNumber = res.query[rKey];
         if (roomNumber !== undefined && roomNumber !== null) {
             // Logger.debug("wxShowCallBack : ", this);
-            this.lm.requetJoinRoom(roomNumber);
+            // this.lm.requetJoinRoom(roomNumber);
+            // TODO: 加入房间
+
         }
     }
     private initView(): void {
@@ -193,6 +197,27 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
     }
 
+    private joinTable(tableID: long): void {
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ, this.onJoinTableAck, this); // 加入桌子
+
+        const playerID = DataStore.getString("playerID");
+        const req = {
+            player_id: +playerID,
+            table_id: tableID,
+        };
+
+        Logger.debug("joinTable, req:", req)
+
+        const req2 = new proto.casino.packet_table_join_req(req);
+        const buf = proto.casino.packet_table_join_req.encode(req2);
+        if (this.lm !== undefined) {
+            this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+        } else {
+            Logger.error("this.lm === undefined");
+        }
+
+    }
+
     private onAddDouBtnClick(): void {
         const view = this.addComponent(ShopView);
         view.showView(TabType.Dou);
@@ -253,29 +278,65 @@ export class LobbyView extends cc.Component {
             this.isReconnect = false;
         }
 
-        const tableID = DataStore.getString("tableID", "");
-        if (tableID === "") {
+        const tableIDString = DataStore.getString("tableID", "");
+        if (tableIDString === "") {
             return;
         }
 
-        Logger.debug("Aready in room, tableID:", tableID);
+        Logger.debug("Aready in room, tableID:", tableIDString);
         // Dialog.showDialog("已经在房间, 正在进入房间");
 
-        const myUser = { userID: `${ack.player_id}` };
+        const tableID = long.fromString(tableIDString, true);
+        Logger.debug("tableID", tableID)
+        this.joinTable(tableID)
+        // const myUser = { userID: `${ack.player_id}` };
+
+        // const joinRoomParams = {
+        //     tableID: tableID
+        // };
+
+        // const params: GameModuleLaunchArgs = {
+        //     jsonString: "",
+        //     userInfo: myUser,
+        //     joinRoomParams: null,
+        //     createRoomParams: null,
+        //     record: null
+        // };
+
+        // this.lm.switchToGame(params, "gameb");
+    }
+
+    private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
+        Logger.debug("onJoinTableAck")
+
+        const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
+        if (joinRoomAck.ret !== 0) {
+            Logger.error("onJoinTableAck, join room faile:", joinRoomAck.ret);
+
+            return;
+        }
+
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
 
         const joinRoomParams = {
-            tableID: tableID
+            table: joinRoomAck.tdata,
+            reconnect: joinRoomAck.reconnect
         };
+
+        Logger.debug("joinRoomParams:", joinRoomParams);
 
         const params: GameModuleLaunchArgs = {
             jsonString: "",
             userInfo: myUser,
             joinRoomParams: joinRoomParams,
             createRoomParams: null,
-            record: null
+            record: null,
+            roomId: joinRoomAck.tdata.room_id
         };
 
-        this.lm.switchToGame(params, "gameb");
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.switchToGame(params, "gameb");
     }
 
     private onReconnectOk(): void {

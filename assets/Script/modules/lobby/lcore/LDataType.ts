@@ -62,7 +62,7 @@ export interface LobbyModuleInterface {
     returnFromGame(): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;
-    requetJoinRoom(roomNumber: string): void;
+    requetJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void;
     sendGameMsg(buf: ByteBuffer, code: number): void;
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
 }
@@ -81,8 +81,8 @@ export interface CreateRoomParams {
 }
 
 export interface JoinRoomParams {
-    tableID?: string;
-    roomNumber?: string;
+    table: protoHH.casino.Itable;
+    reconnect: boolean;
 }
 
 /**

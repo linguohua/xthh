@@ -69,11 +69,12 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         // this.eventTarget.emit(`onClubViewShow`);
     }
 
-    public requetJoinRoom(roomNumber: string): void {
-        Logger.debug("requetJoinRoom, roomNumber:", roomNumber);
+    public requetJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void {
+        Logger.debug("requetJoinRoom");
 
         const joinRoomParams = {
-            roomNumber: roomNumber
+            table: table,
+            reconnect: reconnect
         };
 
         this.enterGame(joinRoomParams, null);
@@ -152,7 +153,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                             const gameNode = new cc.Node(moduleName);
                             this.node.addChild(gameNode);
                             this.gameNode = gameNode;
-                            if (params.roomId === 2100) {
+                            if (params.roomId === 2100 || params.roomId === 2102) {
                                 const gmc = this.gameNode.addComponent(GameModuleA);
                                 const gm = <GameModuleInterface>gmc;
                                 // 启动游戏流程

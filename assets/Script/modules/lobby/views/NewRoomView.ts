@@ -99,7 +99,7 @@ export class NewRoomView extends cc.Component {
         // this.win.hide();
         // this.destroy();
 
-        // lm.switchToGame(params, "gameb");
+        // lm.switchToGame(params, "gameb");s
 
         const playerID = DataStore.getString("playerID");
         const req = {
@@ -663,12 +663,18 @@ export class NewRoomView extends cc.Component {
 
     private onJoinTableAck(msg: protoHH.casino.ProxyMessage): void {
         const joinRoomAck = protoHH.casino.packet_table_join_ack.decode(msg.Data);
+        if (joinRoomAck.ret !== 0) {
+            Logger.debug("onJoinTableAck, join room faile:", joinRoomAck.ret);
+
+            return;
+        }
 
         const playerID = DataStore.getString("playerID");
         const myUser = { userID: playerID };
 
         const joinRoomParams = {
-            roomNumber: `${joinRoomAck.tdata.tag}`
+            table: joinRoomAck.tdata,
+            reconnect: joinRoomAck.reconnect
         };
 
         Logger.debug("joinRoomParams:", joinRoomParams);
