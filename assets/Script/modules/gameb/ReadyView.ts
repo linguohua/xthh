@@ -217,7 +217,7 @@ export class ReadyView {
 
     private onDisbandBtnClick(): void {
         Logger.debug("onDisbandBtnClick");
-        Dialog.showDialog("确定要解散当前的牌局吗？", () => {
+        Dialog.showDialog("确定要解散当前的牌局吗？解散将退还您房卡！", () => {
 
             this.disbandRoom();
             // tslint:disable-next-line:align
