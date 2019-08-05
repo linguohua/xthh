@@ -334,8 +334,8 @@ export class RoomViewA {
 
     public switchBg(index: number): void {
         //
-        const bgController = this.unityViewNode.getController("bgController");
-        bgController.selectedIndex = index;
+        // const bgController = this.unityViewNode.getController("bgController");
+        // bgController.selectedIndex = index;
     }
 
     public updateDisbandVoteView(

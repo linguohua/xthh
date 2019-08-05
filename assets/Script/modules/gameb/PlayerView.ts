@@ -117,7 +117,7 @@ export class PlayerView {
     private piaoScoreStartPos: cc.Vec2;
     private piaoScoreEndPos: cc.Vec2;
     private voice: fgui.GObject;
-    private isCanRestoreHands: boolean = true;
+    // private isCanRestoreHands: boolean = true;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
         this.viewChairID = viewChairID;
@@ -877,15 +877,6 @@ export class PlayerView {
         // }
     }
 
-    public onBgClick(): void {
-        // Logger.debug("sd sd asd sahd  +++++++++++++++++++++++++++++++");
-        if (!this.isCanRestoreHands) {
-            this.isCanRestoreHands = true;
-
-            return;
-        }
-        this.restoreHandsPositionAndClickCount(-1);
-    }
     //还原所有手牌到它初始化时候的位置，并把clickCount重置为0
     public restoreHandsPositionAndClickCount(index: number): void {
         for (let i = 0; i < 14; i++) {
@@ -1179,7 +1170,7 @@ export class PlayerView {
 
             if (prevState) {
                 //第一次点击 弹起
-                this.isCanRestoreHands = false;
+                // this.isCanRestoreHands = false;
                 this.restoreHandsPositionAndClickCount(index);
                 this.moveHandUp(index);
                 if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {

@@ -95,11 +95,12 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         const x = CommonFunction.setViewInCenter(view);
 
-        let bg = view.getChild("blueBg");
+        const bg = view.getChild("blueBg");
         CommonFunction.setBgFullScreenSize(bg);
 
-        bg = view.getChild("classBg");
-        CommonFunction.setBgFullScreenSize(bg);
+        // bg = view.getChild("classBg");
+        // CommonFunction.setBgFullScreenSize(bg);
+        bg.onClick(() => { this.room.onBgClick(); }, this);
 
         // 兼容底部背景
         const diBg = view.getChild('diBg');

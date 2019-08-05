@@ -747,7 +747,7 @@ export class Room {
         this.roomView.hideGamePauseTips();
     }
     public onBgClick(): void {
-        this.myPlayer.playerView.onBgClick();
+        this.myPlayer.playerView.restoreHandsPositionAndClickCount(-1);
     }
     //播放背景音乐
     // private playBgSound(): void {

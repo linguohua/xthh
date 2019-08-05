@@ -747,6 +747,9 @@ export class RoomA {
     //     SoundMgr.stopMusic();
     // }
 
+    public onBgClick(): void {
+        this.myPlayer.playerView.restoreHandsPositionAndClickCount(-1);
+    }
     // 恢复上次设置的音量
     // 如果没设置过，则默认为0
     private setSound(): void {
