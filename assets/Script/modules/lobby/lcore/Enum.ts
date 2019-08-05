@@ -25,14 +25,14 @@ export namespace Enum {
      * 渠道配置
      */
     export enum CHANNEL_TYPE {
-        /**
-         * 微信
-         */
-        WEIXIN = 104,
 
-        /**
-         * 头条
-         */
-        TOUTIAO = 107
+        UNKNOWN = "0",
+
+        VISITOR = "1",
+
+        WECHAT = "2",
+
+        PHONE = "3",
+        TOUTIAO = "4"
     }
 }

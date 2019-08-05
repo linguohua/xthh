@@ -6,6 +6,8 @@ export namespace KeyConstants {
 
     export const TOKEN = "token";
     export const USER_ID = "userID";
+
+    export const CHANNEL = "loginChannel";
     export const NICK_NAME = "nickName";
     export const ROOM_INFO_DATA = "roomInfoData";
 

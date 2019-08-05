@@ -1,4 +1,7 @@
-import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, Record } from "../lcore/LCoreExports";
+import {
+    CommonFunction, DataStore,
+    Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, Record
+} from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
@@ -340,6 +343,8 @@ export class NewRoomView extends cc.Component {
             this.playerRequireRadioBtns[i].getChild("text").text = `${playerRequires[i]}`;
         }
 
+        this.checkChannel();
+
         const gameTypeRadioBtnSelectIndex = this.defaultConfig.gameTypeRadioBtnIndex;
         this.gameTypeRadioBtns[gameTypeRadioBtnSelectIndex].selected = true;
 
@@ -400,6 +405,15 @@ export class NewRoomView extends cc.Component {
             this.noEnoughFkText.visible = true;
             this.createRoomBtn.grayed = true;
             this.createRoomBtn._touchDisabled = true;
+        }
+    }
+
+    private checkChannel(): void {
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+
+        if (channel === Enum.CHANNEL_TYPE.WECHAT) {
+            this.joinRadioBtns[1].grayed = true;
+            this.joinRadioBtns[1]._touchDisabled = true;
         }
     }
 

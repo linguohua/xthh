@@ -1,7 +1,6 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
-import { CommonFunction, DataStore, Dialog, HTTP, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
-import { proto } from "../proto/protoLobby";
 // tslint:disable-next-line:no-require-imports
 import { proto as protoHH } from "../protoHH/protoHH";
 import { md5 } from "../utility/md5";
@@ -146,64 +145,6 @@ export class LoginView extends cc.Component {
 
     public onPhoneLoginBtnClick(): void {
         Logger.debug("onPhoneLoginBtnClick");
-    }
-    public saveWxLoginReply(wxLoginReply: proto.lobby.MsgLoginReply): void {
-
-        DataStore.setItem("token", wxLoginReply.token);
-        const roomInfo = wxLoginReply.lastRoomInfo;
-        DataStore.setItem("RoomInfoData", "");
-        if (roomInfo !== undefined && roomInfo !== null) {
-            const roomInfoData = {
-                roomID: roomInfo.roomID,
-                roomNumber: roomInfo.roomNumber,
-                config: roomInfo.config,
-                gameServerID: roomInfo.gameServerID
-            };
-
-            const roomInfoDataStr = JSON.stringify(roomInfoData);
-            DataStore.setItem("RoomInfoData", roomInfoDataStr);
-        }
-
-        const userInfo = wxLoginReply.userInfo;
-        DataStore.setItem("userID", userInfo.userID);
-        DataStore.setItem("nickName", userInfo.nickName);
-        DataStore.setItem("gender", userInfo.gender);
-        DataStore.setItem("province", userInfo.province);
-        DataStore.setItem("city", userInfo.city);
-        DataStore.setItem("diamond", userInfo.diamond);
-        DataStore.setItem("country", userInfo.country);
-        DataStore.setItem("headImgUrl", userInfo.headImgUrl);
-        DataStore.setItem("phone", userInfo.phone);
-    }
-
-    public saveQuicklyLoginReply(quicklyLoginReply: proto.lobby.MsgQuicklyLoginReply): void {
-        DataStore.setItem("account", quicklyLoginReply.account);
-        DataStore.setItem("token", quicklyLoginReply.token);
-
-        const roomInfo = quicklyLoginReply.lastRoomInfo;
-        DataStore.setItem("RoomInfoData", "");
-        if (roomInfo !== undefined && roomInfo !== null) {
-            const roomInfoData = {
-                roomID: roomInfo.roomID,
-                roomNumber: roomInfo.roomNumber,
-                config: roomInfo.config,
-                gameServerID: roomInfo.gameServerID
-            };
-
-            const roomInfoDataStr = JSON.stringify(roomInfoData);
-            DataStore.setItem("RoomInfoData", roomInfoDataStr);
-        }
-
-        const userInfo = quicklyLoginReply.userInfo;
-        DataStore.setItem("userID", userInfo.userID);
-        DataStore.setItem("nickName", userInfo.nickName);
-        DataStore.setItem("gender", userInfo.gender);
-        DataStore.setItem("province", userInfo.province);
-        DataStore.setItem("city", userInfo.city);
-        DataStore.setItem("diamond", userInfo.diamond);
-        DataStore.setItem("country", userInfo.country);
-        DataStore.setItem("headImgUrl", userInfo.headImgUrl);
-        DataStore.setItem("phone", userInfo.phone);
     }
 
     public showLobbyView(): void {
@@ -444,6 +385,16 @@ export class LoginView extends cc.Component {
         DataStore.setItem("gameConfig", gameConfigStr);
         DataStore.setItem("payData", payDataStr);
 
+        if (fastLoginAck.channel === "mac") {
+            // 游客登录标志
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.VISITOR);
+        } else if (fastLoginAck.channel === "weixin") {
+            // 微信登录标志
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.WECHAT);
+        } else {
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.UNKNOWN);
+        }
+
     }
 
     private createWxBtn(): void {
@@ -475,7 +426,7 @@ export class LoginView extends cc.Component {
             }
         });
 
-        this.button.onTap((res: getUserInfoRes) => {
+        this.button.onTap(() => {
             if (this.button !== null && this.button !== undefined) {
                 this.button.hide();
             }
@@ -545,7 +496,7 @@ export class LoginView extends cc.Component {
                     DataStore.setItem("imaccid", reply.data.im_accid);
                     DataStore.setItem("imtoken", reply.data.im_token);
 
-                    Logger.debug(reply);
+                    Logger.debug("reply =", reply);
                     this.fastLogin(null, reply).catch((reason) => {
                         Logger.debug(reason);
                     });
