@@ -1127,17 +1127,17 @@ export class PlayerView {
         const handsClickCtrls = this.handsClickCtrls;
         const clickCtrl = handsClickCtrls[index];
         const player = this.player;
-        if (!clickCtrl.isDiscardable) {
-            //不可以出牌
-            if (clickCtrl.isGray) {
-                if (!this.alreadyShowNonDiscardAbleTips) {
-                    Dialog.prompt("本轮不能出与该牌组合的牌，请选择其他牌");
-                    this.alreadyShowNonDiscardAbleTips = true;
-                }
-            }
+        // if (!clickCtrl.isDiscardable) {
+        //     //不可以出牌
+        //     if (clickCtrl.isGray) {
+        //         if (!this.alreadyShowNonDiscardAbleTips) {
+        //             Dialog.prompt("本轮不能出与该牌组合的牌，请选择其他牌");
+        //             this.alreadyShowNonDiscardAbleTips = true;
+        //         }
+        //     }
 
-            return;
-        }
+        //     return;
+        // }
 
         const prevClickTime = this.lastClickTime;
         this.lastClickTime = this.roomHost.timeElapsed;
@@ -1155,7 +1155,7 @@ export class PlayerView {
         if (isDoubleClick) {
             //双击 直接出牌
             //判断可否出牌
-            if (player.waitSkip) {
+            if (player.waitSkip || !clickCtrl.isDiscardable) {
                 this.restoreHandsPositionAndClickCount(-1);
                 this.room.hideTingDataView();
             } else {
@@ -1233,6 +1233,7 @@ export class PlayerView {
             clickCtrl = handsClickCtrls[index];
 
             return clickCtrl.isDiscardable && !player.waitSkip;
+            // return !player.waitSkip;
         };
         //检测拖动范围时候合法
         const pointIsInRect = (x: number, y: number) => {
