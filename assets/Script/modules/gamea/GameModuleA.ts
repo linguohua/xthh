@@ -6,11 +6,12 @@ import {
     LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
-import long = require("../lobby/protobufjs/long");
+// import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { GameErrorA as GameError } from "./GameErrorA";
 import { ReplayA as Replay } from "./ReplayA";
 import { msgHandlers, RoomA as Room } from "./RoomA";
+import long = require("../lobby/protobufjs/long");
 // import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;
@@ -291,25 +292,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         } else if (joinRoomParams !== undefined && joinRoomParams !== null) {
             table = joinRoomParams.table;
             reconnect = joinRoomParams.reconnect;
-            // 加入房间
-            // const joinRoomAck = await this.waitJoinRoom(joinRoomParams);
-            // //如果当前轮到别人出牌。。。joinRoomAck 先不写。。。 不知道怎么写
-            // if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-            //     table = joinRoomAck.tdata;
-            //     reconnect = joinRoomAck.reconnect;
-
-            //     DataStore.setItem("tableID", "");
-
-            //     Logger.debug("re-enter room");
-            // } else if (joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
-            //     Logger.debug("joinRoomAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID");
-
-            //     return;
-            // } else {
-            //     Logger.error("doEnterRoom, join room failed:", joinRoomAck);
-
-            //     await this.showEnterRoomError(joinRoomAck.ret);
-            // }
         }
 
         if (table === null) {
@@ -392,49 +374,49 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    // private joinRoomReq(): void {
-    //     let tableID = long.ZERO;
-    //     if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
-    //         tableID = long.fromString(joinRoomParams.tableID, true);
-    //     }
+    private joinRoomReq(tableID: long): void {
+        // let tableID = long.ZERO;
+        // if (joinRoomParams.tableID !== undefined && joinRoomParams.tableID !== "") {
+        //     tableID = long.fromString(joinRoomParams.tableID, true);
+        // }
 
-    //     let roomNumberInt: number = 0;
-    //     if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
-    //         roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
-    //     }
+        // let roomNumberInt: number = 0;
+        // if (joinRoomParams.roomNumber !== undefined && joinRoomParams.roomNumber !== "") {
+        //     roomNumberInt = parseInt(joinRoomParams.roomNumber, 10);
+        // }
 
-    //     const playerID = DataStore.getString("playerID");
-    //     const req = {
-    //         player_id: +playerID,
-    //         table_id: long.ZERO
-    //     };
+        const playerID = DataStore.getString("playerID");
+        const req = {
+            player_id: +playerID,
+            table_id: tableID
+        };
 
-    //     const req2 = new protoHH.casino.packet_table_join_req(req);
-    //     const buf = protoHH.casino.packet_table_join_req.encode(req2);
-    //     this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-    // }
+        const req2 = new protoHH.casino.packet_table_join_req(req);
+        const buf = protoHH.casino.packet_table_join_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+    }
 
-    // private async waitJoinRoom(joinRoomParams: JoinRoomParams): Promise<protoHH.casino.packet_table_join_ack> {
-    //     this.joinRoomReq(joinRoomParams);
+    private async waitJoinRoom(tableID: long): Promise<protoHH.casino.packet_table_join_ack> {
+        this.joinRoomReq(tableID);
 
-    //     this.blockNormal();
-    //     const msg = await this.mq.waitMsg();
-    //     this.unblockNormal();
-    //     if (msg.mt === MsgType.wsData) {
-    //         const pmsg = <protoHH.casino.ProxyMessage>msg.data;
+        this.blockNormal();
+        const msg = await this.mq.waitMsg();
+        this.unblockNormal();
+        if (msg.mt === MsgType.wsData) {
+            const pmsg = <protoHH.casino.ProxyMessage>msg.data;
 
-    //         if (pmsg.Ops === protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK) {
+            if (pmsg.Ops === protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK) {
 
-    //             return protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
-    //         } else {
-    //             Logger.error("Wait msg not join room ack");
-    //         }
-    //     } else {
-    //         Logger.error("expected normal websocket msg, but got:", msg);
-    //     }
+                return protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
+            } else {
+                Logger.error("Wait msg not join room ack");
+            }
+        } else {
+            Logger.error("expected normal websocket msg, but got:", msg);
+        }
 
-    //     return null;
-    // }
+        return null;
+    }
 
     private createRoom(
         myUser: UserInfo,
@@ -598,13 +580,21 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         Dialog.showReconnectDialog();
 
+        const joinTableAck = await this.waitJoinRoom(this.mRoom.roomInfo.id)
+        if (joinTableAck.ret !== 0) {
+            Logger.error("onReconnect, join table faild:", joinTableAck.ret);
+            this.quit();
+
+            return;
+        }
+
         const joinRoomParams = {
-            tableID: `${this.mRoom.roomInfo.id}`
+            table: joinTableAck.tdata,
+            reconnect: joinTableAck.reconnect
         };
 
-        // this.mJoinRoomParams = joinRoomParams;
+        this.mJoinRoomParams = joinRoomParams;
         this.mCreateRoomParams = null;
-        // await this.doEnterRoom(myUser, joinRoomParams, null);
 
         if (this.mq !== undefined && this.mq !== null) {
             const msg = new Message(MsgType.wsClosed);
