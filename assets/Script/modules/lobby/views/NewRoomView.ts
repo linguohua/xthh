@@ -1,4 +1,6 @@
 import { CommonFunction, DataStore, GameModuleLaunchArgs, LobbyModuleInterface, Logger, Record } from "../lcore/LCoreExports";
+// tslint:disable-next-line:no-require-imports
+import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
 import { JoinRoom } from "./JoinRoom";
 
@@ -61,6 +63,7 @@ export class NewRoomView extends cc.Component {
     private createRoomBtn: fgui.GButton;
     private recordList: fgui.GList;
     private recordMsgs: protoHH.casino.Icasino_score[];
+    private lm: LobbyModuleInterface;
     public getView(): fgui.GComponent {
         return this.view;
     }
@@ -74,29 +77,44 @@ export class NewRoomView extends cc.Component {
     }
 
     public joinRoom(roomNumber: string): void {
+        // const playerID = DataStore.getString("playerID");
+        // const myUser = { userID: playerID };
+
+        // const joinRoomParams = {
+        //     roomNumber: roomNumber
+        // };
+
+        // Logger.debug("joinRoomParams:", joinRoomParams);
+
+        // const params: GameModuleLaunchArgs = {
+        //     jsonString: "",
+        //     userInfo: myUser,
+        //     joinRoomParams: joinRoomParams,
+        //     createRoomParams: null,
+        //     record: null
+        // };
+
+        // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        // this.win.hide();
+        // this.destroy();
+
+        // lm.switchToGame(params, "gameb");
+
         const playerID = DataStore.getString("playerID");
-        const myUser = { userID: playerID };
-
-        const joinRoomParams = {
-            roomNumber: roomNumber
+        const req = {
+            player_id: +playerID,
+            table_id: long.ZERO,
+            tag: +roomNumber
         };
 
-        Logger.debug("joinRoomParams:", joinRoomParams);
+        const req2 = new protoHH.casino.packet_table_join_req(req);
+        const buf = protoHH.casino.packet_table_join_req.encode(req2);
 
-        const params: GameModuleLaunchArgs = {
-            jsonString: "",
-            userInfo: myUser,
-            joinRoomParams: joinRoomParams,
-            createRoomParams: null,
-            record: null
-        };
-
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-
-        this.win.hide();
-        this.destroy();
-
-        lm.switchToGame(params, "gameb");
+        if (this.lm !== undefined) {
+            this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+        }
+        // this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
 
     }
 
@@ -199,8 +217,10 @@ export class NewRoomView extends cc.Component {
 
     private initHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        this.lm = lm;
         lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onGameRecord, this);
         lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK, this.onReplayAck, this);
+        lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
     }
     private initBoxRecord(): void {
         // TODO:
@@ -639,6 +659,35 @@ export class NewRoomView extends cc.Component {
 
     private onCloseClick(): void {
         this.destroy();
+    }
+
+    private onJoinTableAck(msg: protoHH.casino.ProxyMessage): void {
+        const joinRoomAck = protoHH.casino.packet_table_join_ack.decode(msg.Data);
+
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
+
+        const joinRoomParams = {
+            roomNumber: `${joinRoomAck.tdata.tag}`
+        };
+
+        Logger.debug("joinRoomParams:", joinRoomParams);
+
+        const params: GameModuleLaunchArgs = {
+            jsonString: "",
+            userInfo: myUser,
+            joinRoomParams: joinRoomParams,
+            createRoomParams: null,
+            record: null,
+            roomId: joinRoomAck.tdata.room_id
+        };
+
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        this.win.hide();
+        this.destroy();
+
+        lm.switchToGame(params, "gameb");
     }
 
 }
