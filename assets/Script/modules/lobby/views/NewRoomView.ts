@@ -412,7 +412,7 @@ export class NewRoomView extends cc.Component {
     private checkChannel(): void {
         const channel = DataStore.getString(KeyConstants.CHANNEL);
 
-        if (channel === Enum.CHANNEL_TYPE.WECHAT) {
+        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
             this.joinRadioBtns[1].grayed = true;
             this.joinRadioBtns[1]._touchDisabled = true;
         }
