@@ -188,7 +188,9 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         // const imaccid = DataStore.getString("imaccid");
         // const roomNumber = this.mRoom.roomInfo.tag;
         // const imaccids: string[] = [];
-        this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
+        if (this.lm.nimSDK !== undefined && this.lm.nimSDK !== null) {
+            this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
+        }
     }
 
     public getServerTime(): number {

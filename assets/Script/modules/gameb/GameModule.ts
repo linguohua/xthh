@@ -169,9 +169,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     public dismissAllTeam(): void {
-        this.lm.nimSDK.dismissAllTeam(() => {
-            Logger.debug("dismissAllTeam done");
-        });
+        if (this.lm.nimSDK !== undefined && this.lm.nimSDK !== null) {
+            this.lm.nimSDK.dismissAllTeam(() => {
+                Logger.debug("dismissAllTeam done");
+            });
+        }
     }
 
     public addMember2Team(imaccids: string[]): void {
@@ -188,7 +190,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // const imaccid = DataStore.getString("imaccid");
         // const roomNumber = this.mRoom.roomInfo.tag;
         // const imaccids: string[] = [];
-        this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
+        if (this.lm.nimSDK !== undefined && this.lm.nimSDK !== null) {
+            this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
+        }
     }
 
     public getServerTime(): number {
