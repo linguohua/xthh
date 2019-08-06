@@ -1,4 +1,5 @@
 import { NIMMessage, NimSDK } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
+import { GameError } from "../lobby/errorCode/ErrorCodeExports";
 import {
     AnimationMgr, CommonFunction,
     CreateRoomParams, DataStore,
@@ -8,7 +9,6 @@ import {
 // tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { GameError } from "./GameError";
 import { Replay } from "./Replay";
 import { msgHandlers, Room } from "./Room";
 // import { roomStatus } from "./RoomInterface";

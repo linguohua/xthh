@@ -1,9 +1,9 @@
-import { proto } from "../lobby/protoHH/protoHH";
+import { proto } from "../protoHH/protoHH";
 const errCode = proto.casino.eRETURN_TYPE;
 /**
  * 大厅错误码
  */
-export namespace GameErrorA {
+export namespace GameError {
 
     const errMsg: { [key: number]: string } = {
         [errCode.RETURN_SUCCEEDED]: "成功",

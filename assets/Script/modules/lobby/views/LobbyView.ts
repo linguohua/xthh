@@ -1,10 +1,11 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import {
     CommonFunction,
-    DataStore, GameModuleLaunchArgs, LEnv, LobbyModuleInterface, Logger, SoundMgr
+    DataStore, Dialog, GameModuleLaunchArgs, LEnv, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 
 import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
+import { GameError } from "../errorCode/ErrorCodeExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
@@ -274,11 +275,15 @@ export class LobbyView extends cc.Component {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
 
+        // 如果是在房间内重连，则发通知让房间重连恢复
         if (this.isReconnect) {
             this.lm.eventTarget.emit("reconnect");
             this.isReconnect = false;
+
+            return;
         }
 
+        // 如果是登录进入房间，已经在房间则拉回房间
         const tableIDString = DataStore.getString("tableID", "");
         if (tableIDString === "") {
             return;
@@ -290,21 +295,6 @@ export class LobbyView extends cc.Component {
         const tableID = long.fromString(tableIDString, true);
         Logger.debug("tableID", tableID);
         this.joinTable(tableID);
-        // const myUser = { userID: `${ack.player_id}` };
-
-        // const joinRoomParams = {
-        //     tableID: tableID
-        // };
-
-        // const params: GameModuleLaunchArgs = {
-        //     jsonString: "",
-        //     userInfo: myUser,
-        //     joinRoomParams: null,
-        //     createRoomParams: null,
-        //     record: null
-        // };
-
-        // this.lm.switchToGame(params, "gameb");
     }
 
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
@@ -313,6 +303,9 @@ export class LobbyView extends cc.Component {
         const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
             Logger.error("onJoinTableAck, join room faile:", joinRoomAck.ret);
+
+            const errMsg = GameError.getErrorString(joinRoomAck.ret);
+            Dialog.showDialog(errMsg);
 
             return;
         }
@@ -340,7 +333,7 @@ export class LobbyView extends cc.Component {
         lm.switchToGame(params, "gameb");
     }
 
-    private onReconnectOk(): void {
+    private onReconnectOk(fastLoginReply: proto.casino.packet_fast_login_ack): void {
         this.isReconnect = true;
         this.testJoinGame();
     }

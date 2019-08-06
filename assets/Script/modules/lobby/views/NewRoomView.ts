@@ -1,6 +1,7 @@
+import { GameError } from "../errorCode/ErrorCodeExports";
 import {
     CommonFunction, DataStore,
-    Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, Record
+    Dialog, Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, Record
 } from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
@@ -683,6 +684,8 @@ export class NewRoomView extends cc.Component {
         const joinRoomAck = protoHH.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
             Logger.debug("onJoinTableAck, join room faile:", joinRoomAck.ret);
+            const errMsg = GameError.getErrorString(joinRoomAck.ret);
+            Dialog.showDialog(errMsg);
 
             return;
         }
