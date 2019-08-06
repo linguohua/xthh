@@ -121,8 +121,11 @@ export class Room {
     }
 
     public onDestroy(): void {
-        // 消耗实例
-        this.audioContext.destroy();
+        // 消耗实例,只在微信上跑这个实例不为空
+        if (this.audioContext !== undefined && this.audioContext !== null) {
+            this.audioContext.destroy();
+            Logger.debug("destroy audioContext");
+        }
     }
     public getRoomHost(): RoomHost {
         return this.host;
