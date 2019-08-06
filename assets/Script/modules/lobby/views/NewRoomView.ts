@@ -581,8 +581,12 @@ export class NewRoomView extends cc.Component {
 
         if (myCardInt >= needCard) {
             this.noEnoughFkText.visible = false;
+            this.createRoomBtn.grayed = false;
+            this.createRoomBtn._touchDisabled = false;
         } else {
             this.noEnoughFkText.visible = true;
+            this.createRoomBtn.grayed = true;
+            this.createRoomBtn._touchDisabled = true;
         }
     }
 
