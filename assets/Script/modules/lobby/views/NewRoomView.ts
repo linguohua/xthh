@@ -684,8 +684,9 @@ export class NewRoomView extends cc.Component {
         const joinRoomAck = protoHH.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
             Logger.debug("onJoinTableAck, join room faile:", joinRoomAck.ret);
-            const errMsg = GameError.getErrorString(joinRoomAck.ret);
-            Dialog.showDialog(errMsg);
+
+            const err = GameError.getErrorString(joinRoomAck.ret);
+            Dialog.prompt(err);
 
             return;
         }
