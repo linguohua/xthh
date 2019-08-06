@@ -120,6 +120,10 @@ export class Room {
         }
     }
 
+    public onDestroy(): void {
+        // 消耗实例
+        this.audioContext.destroy();
+    }
     public getRoomHost(): RoomHost {
         return this.host;
     }
