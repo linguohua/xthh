@@ -48,10 +48,10 @@ export namespace HandlerMsgTableScoreA {
             const player = <PlayerA>room.getPlayerByUserID(`${score.data.id}`);
             //胡牌的人才 摊牌
             if (score.hupai_card > 0) {
-                if (!player.isMe()) {
-                    player.tilesHand = curcards;
-                }
-                player.hand2Exposed();
+                // if (!player.isMe()) {
+                //     player.tilesHand = curcards;
+                // }
+                player.hand2Exposed(curcards);
             }
         }
         const disband_type = reply.tdata.disband_type;
