@@ -65,6 +65,7 @@ export interface LobbyModuleInterface {
     requetJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void;
     sendGameMsg(buf: ByteBuffer, code: number): void;
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
+    isGameModuleExist(): boolean;
 }
 
 export interface CreateRoomParams {

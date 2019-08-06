@@ -35,23 +35,6 @@ export class LobbyView extends cc.Component {
 
     private wxShowCallBackFunction: (res: showRes) => void;
 
-    protected start(): void {
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            //TODO : 目前只有微信 先用这个判断 后面要提取出来判断各种平台
-            const query = WeiXinSDK.getLaunchOption();
-            const rKey = "roomNumber";
-            const roomNumber = query[rKey];
-            // 点别人的邀请链接 第一次进游戏 走这里
-            if (roomNumber !== undefined && roomNumber !== null) {
-                this.joinTableReq(null, +roomNumber);
-            }
-
-            this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
-            // 点别人的邀请链接 原来就在游戏内 走这里
-            wx.onShow(this.wxShowCallBackFunction);
-        }
-    }
-
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -93,10 +76,10 @@ export class LobbyView extends cc.Component {
 
         SoundMgr.playMusicAudio("gameb/music_hall", true);
 
+        this.setLaunchCallBack();
         this.initNimSDK();
-        // await this.startWebSocket();
 
-        // TODO: 如果已经在房间，则拉进房间
+        this.setLaunchCallBack();
     }
 
     protected onDestroy(): void {
@@ -121,6 +104,7 @@ export class LobbyView extends cc.Component {
     // }
 
     private wxShowCallBack(res: showRes): void {
+        Logger.debug("wxShowCallBack");
         const rKey = "roomNumber";
         const roomNumber = res.query[rKey];
         if (roomNumber !== undefined && roomNumber !== null) {
@@ -289,6 +273,17 @@ export class LobbyView extends cc.Component {
         // 如果是登录进入房间，已经在房间则拉回房间
         const tableIDString = DataStore.getString("tableID", "");
         if (tableIDString === "") {
+            // 检查是不是分享进来的
+            if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+                const query = WeiXinSDK.getLaunchOption();
+                const rKey = "roomNumber";
+                const roomNumber = query[rKey];
+                Logger.debug(`share from wx, room number:${roomNumber}`);
+                if (roomNumber !== undefined && roomNumber !== null) {
+                    this.joinTableReq(null, +roomNumber);
+                }
+            }
+
             return;
         }
 
@@ -305,10 +300,10 @@ export class LobbyView extends cc.Component {
 
         const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
-            Logger.error("onJoinTableAck, join room faile:", joinRoomAck.ret);
-
-            const errMsg = GameError.getErrorString(joinRoomAck.ret);
-            Dialog.showDialog(errMsg);
+            if (!this.lm.isGameModuleExist()) {
+                const errMsg = GameError.getErrorString(joinRoomAck.ret);
+                Dialog.showDialog(errMsg);
+            }
 
             return;
         }
@@ -400,4 +395,11 @@ export class LobbyView extends cc.Component {
 
     }
 
+    private setLaunchCallBack(): void {
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
+            // 点别人的邀请链接 原来就在游戏内 走这里
+            wx.onShow(this.wxShowCallBackFunction);
+        }
+    }
 }

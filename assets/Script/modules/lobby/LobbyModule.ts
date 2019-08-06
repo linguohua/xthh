@@ -191,6 +191,9 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         }
     }
 
+    public isGameModuleExist(): boolean {
+        return this.gameNode !== undefined;
+    }
     protected onLoad(): void {
 
         // 默认值
