@@ -43,8 +43,7 @@ export class LobbyView extends cc.Component {
             const roomNumber = query[rKey];
             // 点别人的邀请链接 第一次进游戏 走这里
             if (roomNumber !== undefined && roomNumber !== null) {
-                // this.lm.requetJoinRoom(roomNumber);
-                // TODO:请求加入房间
+                this.joinTableReq(null, +roomNumber);
             }
 
             this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
@@ -126,8 +125,7 @@ export class LobbyView extends cc.Component {
         const roomNumber = res.query[rKey];
         if (roomNumber !== undefined && roomNumber !== null) {
             // Logger.debug("wxShowCallBack : ", this);
-            // this.lm.requetJoinRoom(roomNumber);
-            // TODO: 加入房间
+            this.joinTableReq(null, +roomNumber);
 
         }
     }
@@ -199,14 +197,19 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_REQ);
     }
 
-    private joinTable(tableID: long): void {
+    private joinTableReq(tableID: long, roomNumber?: number): void {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this); // 加入桌子
 
         const playerID = DataStore.getString("playerID");
-        const req = {
-            player_id: +playerID,
-            table_id: tableID
-        };
+        const req = new proto.casino.packet_table_join_req();
+        req.player_id = +playerID;
+        if (tableID !== null) {
+            req.table_id = tableID;
+        }
+
+        if (roomNumber !== undefined && roomNumber !== null) {
+            req.tag = roomNumber;
+        }
 
         Logger.debug("joinTable, req:", req);
 
@@ -294,7 +297,7 @@ export class LobbyView extends cc.Component {
 
         const tableID = long.fromString(tableIDString, true);
         Logger.debug("tableID", tableID);
-        this.joinTable(tableID);
+        this.joinTableReq(tableID);
     }
 
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
