@@ -342,7 +342,16 @@ export class RoomViewA {
         disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         //
 
+        if (disbandReq !== null && disbandReq.disband_time.toNumber() === 0) {
+            // 断线回来，如果有人拒绝，服务器还是会发送指令下来，但是disband_time为0
+            return;
+        }
+
         let disbandView = this.component.getComponent(DisbandView);
+        if (disbandView === undefined || disbandView == null) {
+            disbandView = this.component.addComponent(DisbandView);
+        }
+
 
         const myPlayerInfo = this.room.getMyPlayerInfo();
         const myInfo = new DisBandPlayerInfo(myPlayerInfo.userID, myPlayerInfo.chairID, myPlayerInfo.nick);
@@ -357,10 +366,6 @@ export class RoomViewA {
         });
 
         const load = this.room.getRoomHost().getLobbyModuleLoader();
-
-        if (disbandView === undefined || disbandView == null) {
-            disbandView = this.component.addComponent(DisbandView);
-        }
 
         disbandView.showDisbandView(this.room, load, myInfo, playersInfo, disbandReq, disbandAck);
     }

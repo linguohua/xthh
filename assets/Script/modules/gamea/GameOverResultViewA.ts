@@ -103,28 +103,25 @@ export class GameOverResultViewA extends cc.Component {
         this.dateText.text = CommonFunction.formatDate(new Date());
     }
     //更新玩家基本信息
+    //更新玩家基本信息
     private updatePlayerInfoData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
-        //名字
-        let name = playerScore.data.nickname;
-        const userID = playerScore.data.id;
-        if (name == null || name === "") {
-            name = userID.toString();
+
+        let nameStr = "";
+        if (playerScore.data.channel_nickname !== undefined &&
+            playerScore.data.channel_nickname !== null && playerScore.data.channel_nickname !== "") {
+            nameStr = playerScore.data.channel_nickname;
+        } else {
+            nameStr = playerScore.data.nickname;
         }
-        c.textName.text = name;
+
+        c.textName.text = CommonFunction.nameFormatWithCount(nameStr, 6);
+
+        const iconLoader = c.imageIcon.asCom.getChild("n1").asLoader;
+        CommonFunction.setHead(iconLoader, playerScore.data.channel_head, playerScore.data.sex);
+
+        const userID = playerScore.data.id;
         c.textId.text = `ID:${userID}`;
-        //房主
-        // c.imageRoom.visible = playerScore.isMe();
-        //庄家
-        // c.zhuang.visible = this.room.bankerChairID === playerScore;
-        //头像
     }
-    //设置大赢家标志
-    // private setDYJEffect(c: ViewGroup): void {
-    //     //大赢家动效
-    //     if (c !== null) {
-    //         this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_zi_dayingjia`, c.aniPos.node);
-    //     }
-    // }
     //更新玩家分数信息
     private updatePlayerScoreData(playerScore: proto.casino.Iplayer_score, c: ViewGroup, p: proto.casino.Itable_player): void {
         const score = playerScore.score_total;
@@ -345,7 +342,15 @@ export class GameOverResultViewA extends cc.Component {
                 sc = `+${score.score_total}`;
             }
 
-            textData = `${textData}${i + 1}、${score.data.nickname}(${score.data.id}) ${sc} \n`;
+            let nameStr = "";
+            if (score.data.channel_nickname !== undefined &&
+                score.data.channel_nickname !== null && score.data.channel_nickname !== "") {
+                nameStr = score.data.channel_nickname;
+            } else {
+                nameStr = score.data.nickname;
+            }
+
+            textData = `${textData}${i + 1}、${nameStr}(${score.data.id}) ${sc} \n`;
         }
         textData = `${textData} ----------------------- \n`;
 
