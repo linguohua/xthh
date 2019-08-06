@@ -1,8 +1,11 @@
+import { RoomHost } from "../../interface/LInterfaceExports";
 import { CommonFunction, DataStore, GResLoader, Logger } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 
 export interface RoomInterface {
+    getRoomHost(): RoomHost;
     sendDisbandAgree(agree: boolean): void;
+
 }
 /**
  * 包装精简的用户信息，
@@ -53,6 +56,10 @@ export class DisbandView extends cc.Component {
 
     private playerList: fgui.GComponent[];
 
+    private countDownSchedule: Function;
+
+    private startDisbandTime: number = 0;
+
     public showDisbandView(room: RoomInterface, loader: GResLoader
         // tslint:disable-next-line:align
         , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[],
@@ -61,6 +68,9 @@ export class DisbandView extends cc.Component {
         this.myInfo = myInfo;
         this.room = room;
         this.playersInfo = playersInfo;
+        if (disbandReq !== null) {
+            this.startDisbandTime = disbandReq.disband_time.toNumber();
+        }
         this.disbandReq = disbandReq;
         this.disbandAck = disbandAck;
 
@@ -106,7 +116,7 @@ export class DisbandView extends cc.Component {
 
         // 如果有人拒绝了，则关闭解散框
         if (this.disbandAck !== null && !this.disbandAck.disband) {
-            this.unschedule(this.disbandCountDown);
+            this.unschedule(this.countDownSchedule);
 
             this.destroy();
 
@@ -120,25 +130,30 @@ export class DisbandView extends cc.Component {
         this.win.dispose();
     }
 
-    private disbandCountDown(): void {
+    private countDownFunc(): void {
+        const serverTime = this.room.getRoomHost().getServerTime();
 
-        this.leftTime = this.leftTime - 1;
-        this.myCountDownTxt.text = `${this.leftTime}`;
+        const gameConfigStr = DataStore.getString("gameConfig");
+        const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
+        const disbandTime = gameConfig.table_disband_time;
+        this.leftTime = this.startDisbandTime + disbandTime - serverTime;
 
-        if (this.leftTime <= 0) {
-            this.unschedule(this.disbandCountDown);
+        Logger.debug("this.leftTime  = ", this.leftTime);
+        if (this.leftTime < 0) {
+            this.unschedule(this.countDownSchedule);
+
+            return;
         }
+
+        this.myCountDownTxt.text = this.leftTime.toString();
     }
 
     private onRefuseBtnClicked(): void {
         this.showButtons(false);
         this.room.sendDisbandAgree(false);
-
-        // this.unschedule(this.disbandCountDown);
     }
 
     private onAgreeBtnClicked(): void {
-        // this.unschedule(this.disbandCountDown);
 
         if (this.isDisbandDone === true) {
             this.destroy();
@@ -185,17 +200,21 @@ export class DisbandView extends cc.Component {
             const nameText = this.view.getChild("name");
             nameText.text = CommonFunction.nameFormatWithCount(nick, 6);
 
-            const gameConfigStr = DataStore.getString("gameConfig");
-            const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
-            const disbandTime = gameConfig.table_disband_time;
+            //const gameConfigStr = DataStore.getString("gameConfig");
+            //const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
+            //const disbandTime = gameConfig.table_disband_time;
 
             // TODO: 暂时写死，这里需要用同步服务器时间
-            this.leftTime = disbandTime;
+            //this.leftTime = disbandTime;
             // const nowTime = Date.now() / 1000;
 
             // this.leftTime = disbandTime - (nowTime - disbandReq.disband_time.toNumber())
+            this.countDownFunc();
+            this.countDownSchedule = () => {
+                this.countDownFunc();
+            };
 
-            this.schedule(this.disbandCountDown, 1, cc.macro.REPEAT_FOREVER);
+            this.schedule(this.countDownSchedule, 1, cc.macro.REPEAT_FOREVER);
         }
 
         for (let i = 0; i < this.playersInfo.length; i++) {

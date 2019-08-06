@@ -361,6 +361,11 @@ export class Room {
         this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_ACK);
     }
 
+    public getHost(): RoomHost {
+
+        return this.host;
+    }
+
     public getRoomConfig(): void {
         // if (this.config != null) {
         //     return this.config
