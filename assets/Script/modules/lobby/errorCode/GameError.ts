@@ -51,7 +51,7 @@ export namespace GameError {
         [errCode.RETURN_NOTENOUGH_RED]: " 红包不足       ",
         [errCode.RETURN_NOTENOUGH_BEAN]: "欢乐豆不足      ",
 
-        [errCode.RETURN_FULL]: "房间人数已满",
+        [errCode.RETURN_FULL]: "您要进入的房间已经人满喽!",
         [errCode.RETURN_FULL_GOLD]: " 游戏币已满",
         [errCode.RETURN_FULL_MONEY]: " 充值币已满 ",
 
