@@ -18,14 +18,12 @@ export namespace HandlerMsgTableLeave {
         }
         room.updateReadView(room.roomInfo, players);
 
-        const playerID = `${d.player_id}`;
-        if (room.isMe(playerID)) {
+        const player = <Player>room.getPlayerByChairID(d.idx);
+        if (player.isMe()) {
             room.getRoomHost().eventTarget.emit("leave");
         } else {
-            const player = <Player>room.getPlayerByUserID(playerID);
             player.unbindView();
-            room.removePlayer(playerID);
+            room.removePlayer(player.userID);
         }
-
     };
 }
