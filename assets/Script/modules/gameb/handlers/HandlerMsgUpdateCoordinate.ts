@@ -1,4 +1,4 @@
-import { Dialog, Logger } from "../../lobby/lcore/LCoreExports";
+import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface } from "../RoomInterface";
@@ -12,7 +12,6 @@ export namespace HandlerMsgUpdateCoordinate {
         const player = <Player>room.getPlayerByUserID(`${coordinate.player_id}`);
         player.coordinate = <proto.casino.coordinate>coordinate;
 
-        Dialog.hideWaiting();
         Logger.debug("HandlerMsgUpdateCoordinate:", coordinate);
         // player.coodinate = <proto.casino.coordinate>coordinate;
         // Logger.debug("HandlerMsgTableEntry----------------------- ", d);

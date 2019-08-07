@@ -613,7 +613,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         const buf = protoHH.casino.packet_coordinate.encode(req);
         this.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_COORDINATE);
 
-        Dialog.showWaiting();
         // const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
         // const buf = protoHH.casino.packet_table_ready.encode(req2);
         // this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_READY);
