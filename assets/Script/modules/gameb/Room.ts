@@ -808,8 +808,8 @@ export class Room {
             // player.hand2UI(false);
         }
 
-        player.mPiaoCount = 0;
         if (playerInfo.outcards.length > 0) {
+            player.mPiaoCount = 0;
             player.addDiscardedTiles(playerInfo.outcards);
             // player.discarded2UI(isNewDiacard, false);
 

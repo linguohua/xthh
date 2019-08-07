@@ -60,7 +60,7 @@ export namespace HandlerActionResultDiscarded {
                 if (myPlayer.notPong !== reply.card) {
                     const peng = room.mAlgorithm.canPeng_WithOther(myPlayer.tilesHand, reply.card);
                     if (peng.length > 0) {
-                        str = `碰牌/`;
+                        str = `碰牌`;
                     }
                 }
                 const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
@@ -68,18 +68,18 @@ export namespace HandlerActionResultDiscarded {
                     const gang = room.mAlgorithm.canGang_WithOther(myPlayer.tilesHand, reply.card);
                     if (gang.length > 0) {
                         if (reply.card === room.laigenID) {
-                            str = `${str}小朝天`;
+                            str = `${str} 小朝天`;
                         } else {
-                            str = `${str}点笑`;
+                            str = `${str} 点笑`;
                         }
                     }
                 }
 
                 if (room.isReplayMode()) {
                     const backPlayer = <Player>room.getBackPlayer(player.chairID);
-                    Dialog.prompt(`【${player.mNick}】飘赖N次，【${backPlayer.mNick}】限制【碰牌/点笑/小朝天】`);
+                    Dialog.prompt(`【${player.mNick}】飘赖${player.mPiaoCount}次，【${backPlayer.mNick}】限制【碰牌/点笑/小朝天】`);
                 } else {
-                    Dialog.prompt(`下家飘赖N次，限制【${str}】`);
+                    Dialog.prompt(`下家飘赖${player.mPiaoCount}次，限制【${str}】`);
                 }
             }
         }
