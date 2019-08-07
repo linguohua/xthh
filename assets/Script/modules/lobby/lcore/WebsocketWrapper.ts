@@ -21,6 +21,7 @@ export class WebsocketWrapper {
     public onEnd: Function;
     public onMessage: Function;
     public onOpen: Function;
+    public onError: Function;
 
     /**
      * 真正的websocket
@@ -68,6 +69,8 @@ export class WebsocketWrapper {
         ws.onerror = (ev: Event) => {
             die();
             Logger.debug("ws error:", ev);
+
+            this.onError(this);
         };
 
         ws.onmessage = (ev: MessageEvent) => {

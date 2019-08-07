@@ -52,6 +52,11 @@ export class WS {
             this.events.push(new Message(MsgType.wsOpen));
             this.roll();
         };
+
+        this.ww.onError = () => {
+            this.events.push(new Message(MsgType.wsError));
+            this.roll();
+        };
     }
 
     /**
