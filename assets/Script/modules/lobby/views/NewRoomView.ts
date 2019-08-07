@@ -632,10 +632,7 @@ export class NewRoomView extends cc.Component {
         const personalRoomView = this.view.getChild("srfCom").asCom;
         const otherBtn = personalRoomView.getChild("otherBtn").asButton;
 
-        const piaoLaiLimit = otherBtn.selected ? 1 : 0;
-
-        Logger.debug("piaoLaiLimit = ", piaoLaiLimit);
-
+        const flag = otherBtn.selected ? 1 : 0;
         const myGame = myGames[gameTypeRadioBtnIndex];
 
         let roomID = myGame.roomID;
@@ -649,7 +646,7 @@ export class NewRoomView extends cc.Component {
             base: anteRadioBtnIndex,
             round: roundRadioBtnIndex,
             allowJoin: joinRadioBtnIndex,
-            piaoLaiLimit: piaoLaiLimit
+            flag: flag
         };
 
         Logger.debug("createRoomParams:", createRoomParams);

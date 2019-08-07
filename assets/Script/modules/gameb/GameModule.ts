@@ -346,7 +346,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             room_id: createRoomParams.roomID,
             base: createRoomParams.base,
             round: createRoomParams.round,
-            join: createRoomParams.allowJoin
+            join: createRoomParams.allowJoin,
+            flag: createRoomParams.flag
         };
 
         Logger.debug("testCreateRoom, req:", req);

@@ -79,6 +79,8 @@ export interface CreateRoomParams {
     round: number;
     // 对应packet_table_create_req中的join
     allowJoin: number;
+    // 对应packet_table_create_req中的join
+    flag: number;
 }
 
 export interface JoinRoomParams {
