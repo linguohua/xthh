@@ -42,6 +42,7 @@
     <image id="kyp514" name="ty_btn_lv.png" path="/resource/" scale="9grid" scale9grid="26,24,3,2" gridTile="16"/>
     <component id="kyp515" name="huifang.xml" path="/resource/"/>
     <image id="kyp516" name="Bitmap.png" path="/"/>
+    <image id="c07l17" name="s_私人房-创建房间提示I标注.jpg" path="/design/"/>
   </resources>
   <publish name="lobby_personal_room"/>
 </packageDescription>

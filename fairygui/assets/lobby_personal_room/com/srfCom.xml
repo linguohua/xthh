@@ -15,72 +15,77 @@
     <image id="n14_ik11" name="bg5" src="ik113" fileName="resource/srf_cjfj_bt.png" xy="379,0" size="293,43"/>
     <image id="n51_b75t" name="bg6" src="ik114" fileName="resource/srf_cjfj_di1.png" xy="450,391" size="240,35"/>
     <image id="n15_ik11" name="title2" src="ik118" fileName="resource/srf_cjfj_zi_wyjf.png" xy="458,2"/>
+    <image id="n58_c07l" name="bgOther" src="ik114" fileName="resource/srf_cjfj_di1.png" xy="230,332" size="622,36"/>
     <image id="n52_b75t" name="fk" src="b75tr" fileName="resource/ty_icon_fk.png" xy="454,388"/>
     <text id="n13_ik11" name="text1" xy="30,163" size="131,58" font="Microsoft YaHei" fontSize="22" color="#856d57" align="center" vAlign="middle" leading="1" autoSize="none" text="加入到朋友&#xA; 组织的牌局!"/>
     <text id="n17_b75t" name="type" xy="235,61" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局类型 :"/>
-    <text id="n18_b75t" name="baseScore" xy="234,122" size="121,37" font="Microsoft YaHei" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="游戏底注 :"/>
-    <text id="n19_b75t" name="round" xy="235,183" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="房间局数 :"/>
-    <text id="n20_b75t" name="premission" xy="235,245" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="允许进入 :"/>
-    <text id="n21_b75t" name="playerNumber" xy="235,305" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局人数 :"/>
+    <text id="n18_b75t" name="baseScore" xy="234,117" size="121,37" font="Microsoft YaHei" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="游戏底注 :"/>
+    <text id="n19_b75t" name="round" xy="235,173" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="房间局数 :"/>
+    <text id="n20_b75t" name="premission" xy="235,230" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="允许进入 :"/>
+    <text id="n21_b75t" name="playerNumber" xy="235,285" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局人数 :"/>
+    <text id="n56_c07l" name="other" xy="236,335" size="163,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="none" bold="true" singleLine="true" text="其       他："/>
     <text id="n22_b75t" name="neededText" xy="234,391" size="196,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" bold="true" singleLine="true" text="需要/拥有房卡数 :"/>
+    <text id="n59_c07l" name="otherText" xy="426,337" size="206,35" fontSize="24" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="none" singleLine="true" text="上家锁牌  ( 飘3/4  )"/>
     <text id="n53_b75t" name="fkText" xy="503,392" size="181,35" fontSize="24" color="#fef6e2" vAlign="middle" autoSize="none" bold="true" text="1/9"/>
     <text id="n55_b75t" name="noEnoughFk" xy="579,394" size="107,33" fontSize="24" color="#e74513" vAlign="middle" autoSize="none" bold="true" text="房卡不足"/>
     <component id="n27_b75t" name="accessBtn" src="b75to" fileName="btn/accessBtn.xml" xy="7,372" size="187,72"/>
     <component id="n29_b75t" name="createRoomBtn" src="b75tp" fileName="btn/createRoomBtn.xml" xy="721,371"/>
-    <component id="n30_b75t" name="type0" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="363,56">
+    <component id="n30_b75t" name="type0" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="363,55">
       <Button checked="true" controller="type" page="0"/>
     </component>
-    <component id="n31_b75t" name="type1" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="535,56">
+    <component id="n31_b75t" name="type1" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="535,55">
       <relation target="n30_b75t" sidePair="top-top,left-left"/>
       <Button controller="type" page="1"/>
     </component>
-    <component id="n32_b75t" name="type2" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="703,56">
+    <component id="n32_b75t" name="type2" src="gfgkx" fileName="btn/radioBtnNotCenter.xml" xy="703,55">
       <relation target="n30_b75t" sidePair="top-top,left-left"/>
       <Button controller="type" page="2"/>
     </component>
-    <component id="n36_b75t" name="baseScore0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,117">
+    <component id="n36_b75t" name="baseScore0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,112">
       <Button checked="true" controller="baseScore" page="0"/>
     </component>
-    <component id="n37_b75t" name="baseScore1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,117">
+    <component id="n37_b75t" name="baseScore1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,112">
       <relation target="n36_b75t" sidePair="top-top,left-left"/>
       <Button controller="baseScore" page="1"/>
     </component>
-    <component id="n38_b75t" name="baseScore2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,117">
+    <component id="n38_b75t" name="baseScore2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,112">
       <relation target="n36_b75t" sidePair="top-top,left-left"/>
       <Button controller="baseScore" page="2"/>
     </component>
-    <component id="n39_b75t" name="round0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,178">
+    <component id="n39_b75t" name="round0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,167">
       <Button checked="true" controller="round" page="0"/>
     </component>
-    <component id="n40_b75t" name="round1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,178">
+    <component id="n40_b75t" name="round1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,167">
       <relation target="n39_b75t" sidePair="top-top,left-left"/>
       <Button controller="round" page="1"/>
     </component>
-    <component id="n41_b75t" name="round2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,178">
+    <component id="n41_b75t" name="round2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,167">
       <relation target="n39_b75t" sidePair="top-top,left-left"/>
       <Button controller="round" page="2"/>
     </component>
-    <component id="n42_b75t" name="permission0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,239">
+    <component id="n42_b75t" name="permission0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,224">
       <Button checked="true" controller="permission" page="0"/>
     </component>
-    <component id="n43_b75t" name="permission1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,239">
+    <component id="n43_b75t" name="permission1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,224">
       <relation target="n42_b75t" sidePair="top-top,left-left"/>
       <Button controller="permission" page="1"/>
     </component>
-    <component id="n44_b75t" name="permission2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,239">
+    <component id="n44_b75t" name="permission2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,224">
       <relation target="n42_b75t" sidePair="top-top,left-left"/>
       <Button controller="permission" page="2"/>
     </component>
-    <component id="n45_b75t" name="playerNumber0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,299">
+    <component id="n45_b75t" name="playerNumber0" src="b75tq" fileName="btn/radioBtn.xml" xy="363,280">
       <Button checked="true" controller="playerNumber" page="0"/>
     </component>
-    <component id="n46_b75t" name="playerNumber1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,299">
+    <component id="n46_b75t" name="playerNumber1" src="b75tq" fileName="btn/radioBtn.xml" xy="534,280">
       <relation target="n45_b75t" sidePair="top-top,left-left"/>
       <Button controller="playerNumber" page="1"/>
     </component>
-    <component id="n47_b75t" name="playerNumber2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,299">
+    <component id="n47_b75t" name="playerNumber2" src="b75tq" fileName="btn/radioBtn.xml" xy="702,280">
       <relation target="n45_b75t" sidePair="top-top,left-left"/>
       <Button controller="playerNumber" page="2"/>
     </component>
+    <component id="n57_c07l" name="otherBtn" src="c07lq" fileName="commonBtn/gouBtn.xml" pkg="snwj6cnx" xy="379,330"/>
+    <component id="n60_c07l" name="wenhaoBtn" src="c07lr" fileName="commonBtn/wenhaoBtn.xml" pkg="snwj6cnx" xy="670,335"/>
   </displayList>
 </component>

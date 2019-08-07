@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="34,34" extention="Button" designImage="ui://shrzm3rcc07l17" designImageOffsetX="-807" designImageOffsetY="-467" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_c07l" name="n0" src="c07lp" fileName="resource/ty_icon_wh.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_c07l" name="n2" src="ik11b" fileName="resource/ty_tips1.png" xy="-432,-70" size="590,71" group="n4_c07l">
+      <relation target="n3_c07l" sidePair="height-height,width-width"/>
+    </image>
+    <text id="n3_c07l" name="text" xy="-400,-51" size="532,34" group="n4_c07l" fontSize="22" color="#dc6500" align="center" vAlign="middle" singleLine="true" text="自己飘赖3或4次时，上家将会被限制碰、点笑和小朝天"/>
+    <group id="n4_c07l" name="tips" xy="-432,-70" size="589,70" advanced="true">
+      <gearDisplay controller="button" pages="1"/>
+    </group>
+  </displayList>
+  <Button/>
+</component>

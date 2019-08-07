@@ -352,7 +352,6 @@ export class RoomViewA {
             disbandView = this.component.addComponent(DisbandView);
         }
 
-
         const myPlayerInfo = this.room.getMyPlayerInfo();
         const myInfo = new DisBandPlayerInfo(myPlayerInfo.userID, myPlayerInfo.chairID, myPlayerInfo.nick);
         const players = this.room.getPlayers();
