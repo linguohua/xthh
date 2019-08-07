@@ -150,6 +150,8 @@ export class LMsgCenter {
             return;
         }
 
+        // 清零记数器
+        this.connectErrorCount = 0;
         Logger.trace("LMsgCenter connect success");
 
         // 发送fastLogin结果
