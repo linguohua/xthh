@@ -743,6 +743,17 @@ export class RoomA {
         this.roomView.enableVoiceBtn(isShow);
     }
 
+
+    public showGamePauseTips(timeStamp: number): void {
+        //
+        this.roomView.showGamePauseTips(timeStamp);
+    }
+
+    public hideGamePauseTips(): void {
+        //
+        this.roomView.hideGamePauseTips();
+    }
+
     //播放背景音乐
     // private playBgSound(): void {
     //     SoundMgr.playMusicAudio("gameb/music_hall", true);

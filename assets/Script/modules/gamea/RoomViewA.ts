@@ -69,6 +69,13 @@ export class RoomViewA {
     private lastRecordTime: number = 0;
     private readyView: ReadyViewA;
 
+    private gamePauseTipsCom: fgui.GComponent;
+
+    private gamePauseSchedule: Function;
+    private gamePauseTime: number;
+
+    private startRecordTime: number;
+
     public constructor(room: RoomInterfaceA, view: fgui.GComponent) {
         this.room = room;
         this.unityViewNode = view;
@@ -412,6 +419,63 @@ export class RoomViewA {
         }
     }
 
+    public showGamePauseTips(timeStamp: number): void {
+        //
+        //this.roomView.showGamePauseTips();
+
+        this.gamePauseTipsCom.visible = true;
+        const roomHost = this.room.getRoomHost();
+        this.gamePauseCountDownFunc(timeStamp);
+
+        roomHost.component.unschedule(this.gamePauseSchedule);
+        this.gamePauseSchedule = () => {
+            this.gamePauseCountDownFunc(timeStamp);
+        };
+        roomHost.component.schedule(this.gamePauseSchedule, 1, cc.macro.REPEAT_FOREVER);
+    }
+
+    public hideGamePauseTips(): void {
+        const roomHost = this.room.getRoomHost();
+        //this.roomView.hideGamePauseTips();
+        this.gamePauseTipsCom.visible = false;
+        roomHost.component.unschedule(this.gamePauseSchedule);
+    }
+
+    private gamePauseCountDownFunc(timeStamp: number): void {
+        const roomHost = this.room.getRoomHost();
+        const serverTime = roomHost.getServerTime();
+        this.gamePauseTime = timeStamp - serverTime;
+        Logger.debug("gamePauseCountDownFunc-----------------------------------  this.gamePauseTime");
+        if (this.gamePauseTime <= 0) {
+            roomHost.component.unschedule(this.gamePauseSchedule);
+            //this.disbandRoom();
+            Logger.debug("gamePauseCountDownFunc----------------------------------- done");
+
+            return;
+        }
+        const text = this.getCountDownText();
+        this.gamePauseTipsCom.getChild("tipsText").text = text;
+    }
+
+    private getCountDownText(): string {
+        let min = Math.floor(this.gamePauseTime / 60);
+        const hour = Math.floor(min / 60);
+        min = min % 60;
+        const sec = this.gamePauseTime % 60;
+
+        if (min < 1 && min >= 0.5) {
+            min = 0;
+        }
+        const hourText = hour > 9 ? hour.toFixed(0) : `0${hour.toFixed(0)}`;
+        const minutesText = min > 9 ? min.toFixed(0) : `0${min.toFixed(0)}`;
+        const secondsText = sec > 9 ? sec.toFixed(0) : `0${sec.toFixed(0)}`;
+        let text = `${minutesText}:${secondsText}`;
+        if (hour > 0) {
+            text = `${hourText}:${text}`;
+        }
+
+        return `你的牌友已离开，(${text})后，将自动解散房间！`;
+    }
     //解散房间按钮点击事件
     // private onDissolveClick(): void {
     //     // const msg = "确实要申请解散房间吗？";
@@ -671,6 +735,8 @@ export class RoomViewA {
         this.dbg = this.unityViewNode.getChild("diBg");
 
         this.mike = this.unityViewNode.getChild("mike");
+
+        this.gamePauseTipsCom = this.unityViewNode.getChild("tipsCom").asCom;
     }
 
     //初始化房间状态事件

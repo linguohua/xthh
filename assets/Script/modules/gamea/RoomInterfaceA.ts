@@ -160,4 +160,7 @@ export interface RoomInterfaceA {
     showRoomBtnsAndBgs(): void;
     enableVoiceBtn(isShow: boolean): void;
     getReplayCardsOfChairId(roundId: number, cId: number): number[];
+
+    showGamePauseTips(timeStamp: number): void;
+    hideGamePauseTips(): void;
 }
