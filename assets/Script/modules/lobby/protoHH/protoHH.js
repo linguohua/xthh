@@ -10504,6 +10504,12 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "rule": "optional",
                             "type": "uint32",
+                            "name": "devote",
+                            "id": 8
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
                             "name": "round",
                             "id": 3
                         },

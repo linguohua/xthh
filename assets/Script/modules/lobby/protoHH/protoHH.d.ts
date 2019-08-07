@@ -4772,6 +4772,7 @@ export namespace proto {
 			casino_id: number;
 			room_id?: number;
 			base?: number;
+			devote?: number;
 			round?: number;
 			join?: number;
 			player_id?: number;
@@ -4783,6 +4784,7 @@ export namespace proto {
 			public casino_id: number;
 			public room_id: number;
 			public base: number;
+			public devote: number;
 			public round: number;
 			public join: number;
 			public player_id: number;

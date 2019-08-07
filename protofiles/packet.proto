@@ -669,6 +669,7 @@ message packet_table_create_req{
 	required uint32		 casino_id = 2;			// 游戏id
 	optional uint32	  	   room_id = 1;			// 房间id
 	optional uint32		      base = 10;		// 底注
+	optional uint32         devote = 8;			//贡献 传入序号 序号
 	optional uint32		     round = 3;			// 房间回合数
 	optional uint32			  join = 4;			// 房间允许加入模式
 	optional uint32		 player_id = 5;
