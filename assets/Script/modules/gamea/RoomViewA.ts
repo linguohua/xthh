@@ -195,13 +195,20 @@ export class RoomViewA {
 
         //清理定时器
         this.component.unschedule(this.leftTimerCB);
-        this.leftTime = time;
+        // 下发的时间是12秒，就从11到0
+
+        let operationTime = time;
+        if (operationTime > 0) {
+            operationTime = operationTime - 1;
+        }
+        this.leftTime = operationTime;
+        this.countDownText.text = `${this.leftTime}`;
         //起定时器
         this.component.schedule(
             this.leftTimerCB,
             1,
             cc.macro.REPEAT_FOREVER,
-            1);
+            0);
     }
 
     public countDownCallBack(): void {
