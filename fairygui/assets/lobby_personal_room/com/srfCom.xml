@@ -85,7 +85,12 @@
       <relation target="n45_b75t" sidePair="top-top,left-left"/>
       <Button controller="playerNumber" page="2"/>
     </component>
-    <component id="n57_c07l" name="otherBtn" src="c07lq" fileName="commonBtn/gouBtn.xml" pkg="snwj6cnx" xy="379,330"/>
+    <component id="n57_c07l" name="otherBtn" src="c07lq" fileName="commonBtn/gouBtn.xml" pkg="snwj6cnx" xy="379,330" touchable="false" grayed="true">
+      <gearLook controller="playerNumber" pages="0" values="1,0,1,0" default="1,0,0,1"/>
+    </component>
     <component id="n60_c07l" name="wenhaoBtn" src="c07lr" fileName="commonBtn/wenhaoBtn.xml" pkg="snwj6cnx" xy="670,335"/>
+    <graph id="n62_c07l" name="space" xy="379,330" size="40,40">
+      <gearDisplay controller="playerNumber" pages="0"/>
+    </graph>
   </displayList>
 </component>

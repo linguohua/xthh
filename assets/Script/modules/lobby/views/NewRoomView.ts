@@ -320,6 +320,9 @@ export class NewRoomView extends cc.Component {
         const accessBtn = personalRoomView.getChild("accessBtn").asButton;
         accessBtn.onClick(this.onEnterBtnClick, this);
 
+        const space = personalRoomView.getChild("space");
+        space.onClick(this.onSpaceBtnClick, this);
+
         for (let i = 0; i < 3; i++) {
             this.gameTypeRadioBtns[i] = personalRoomView.getChild(`type${i}`).asButton;
             this.gameTypeRadioBtns[i].onClick(this.onGameTypeRadioBtnClick, this);
@@ -510,6 +513,10 @@ export class NewRoomView extends cc.Component {
         joiRoomView.show(this);
 
     }
+    private onSpaceBtnClick(): void {
+        //
+        Dialog.prompt("两人玩法不能增加此限制");
+    }
 
     private onGameTypeSelect(index: number): void {
         const myGame = myGames[index];
@@ -560,6 +567,12 @@ export class NewRoomView extends cc.Component {
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         this.onGameTypeSelect(gameTypeRadioBtnSelectIndex);
 
+        if (gameTypeRadioBtnSelectIndex === 2) {
+            const personalRoomView = this.view.getChild("srfCom").asCom;
+            const otherBtn = personalRoomView.getChild("otherBtn").asButton;
+            otherBtn.selected = false;
+        }
+
     }
 
     private onRoundRadioBtnClick(ev: fgui.Event): void {
@@ -594,12 +607,17 @@ export class NewRoomView extends cc.Component {
     private onPlayerRequireBtnClick(ev: fgui.Event): void {
         const playerRequireRadioBtnSelectIndex = <number>ev.initiator.data;
         const gameTypeRadiBtnIndex = this.getGameTypeRadioBtnSelectIndex();
+
         if (playerRequireRadioBtnSelectIndex === 0) {
             if (gameTypeRadiBtnIndex === 1) {
                 const index: number = 0;
                 this.gameTypeRadioBtns[index].selected = true;
                 this.onGameTypeSelect(index);
             }
+
+            const personalRoomView = this.view.getChild("srfCom").asCom;
+            const otherBtn = personalRoomView.getChild("otherBtn").asButton;
+            otherBtn.selected = false;
         }
 
         if (playerRequireRadioBtnSelectIndex === 1) {
