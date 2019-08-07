@@ -27,7 +27,9 @@ export class RoomViewA {
     private nameBg: fgui.GObject;
     private anteBg: fgui.GObject;
     private settingBtn: fgui.GObject;
-    private gpsBtn: fgui.GObject;
+    private gpsBtn: fgui.GButton;
+    private gpsUnOpen: fgui.GObject;
+
     private recoredBtn: fgui.GObject;
     private chatBtn: fgui.GObject;
     private readyButton: fgui.GButton;
@@ -73,8 +75,6 @@ export class RoomViewA {
 
     private gamePauseSchedule: Function;
     private gamePauseTime: number;
-
-    private startRecordTime: number;
 
     public constructor(room: RoomInterfaceA, view: fgui.GComponent) {
         this.room = room;
@@ -448,6 +448,10 @@ export class RoomViewA {
         roomHost.component.unschedule(this.gamePauseSchedule);
     }
 
+    public showOrHideGpsTag(isShow: boolean): void {
+        this.gpsUnOpen.visible = isShow;
+    }
+
     private gamePauseCountDownFunc(timeStamp: number): void {
         const roomHost = this.room.getRoomHost();
         const serverTime = roomHost.getServerTime();
@@ -564,7 +568,8 @@ export class RoomViewA {
 
         this.recoredBtn.on(fgui.Event.TOUCH_END, this.onVoiceBtnUp, this);
 
-        this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
+        this.gpsBtn = this.unityViewNode.getChild("gpsBtn").asButton;
+        this.gpsUnOpen = this.gpsBtn.getChild("n3");
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
         this.chatBtn.onClick(this.onChatBtnClick, this);
 

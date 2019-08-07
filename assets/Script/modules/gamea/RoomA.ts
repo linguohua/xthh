@@ -120,6 +120,14 @@ export class RoomA {
         }
     }
 
+    public onDestroy(): void {
+        // 消耗实例,只在微信上跑这个实例不为空
+        if (this.audioContext !== undefined && this.audioContext !== null) {
+            this.audioContext.destroy();
+            Logger.debug("destroy audioContext");
+        }
+    }
+
     public getRoomHost(): RoomHost {
         return this.host;
     }
@@ -743,7 +751,6 @@ export class RoomA {
         this.roomView.enableVoiceBtn(isShow);
     }
 
-
     public showGamePauseTips(timeStamp: number): void {
         //
         this.roomView.showGamePauseTips(timeStamp);
@@ -766,6 +773,11 @@ export class RoomA {
     public onBgClick(): void {
         this.myPlayer.playerView.restoreHandsPositionAndClickCount(-1);
     }
+
+    public showOrHideGpsTag(isShow: boolean): void {
+        this.roomView.showOrHideGpsTag(isShow);
+    }
+
     // 恢复上次设置的音量
     // 如果没设置过，则默认为0
     private setSound(): void {

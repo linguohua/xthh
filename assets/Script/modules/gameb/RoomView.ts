@@ -1,4 +1,4 @@
-import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
@@ -27,7 +27,8 @@ export class RoomView {
     private nameBg: fgui.GObject;
     private anteBg: fgui.GObject;
     private settingBtn: fgui.GObject;
-    private gpsBtn: fgui.GObject;
+    private gpsBtn: fgui.GButton;
+    private gpsUnOpen: fgui.GObject;
     private recoredBtn: fgui.GObject;
     private chatBtn: fgui.GObject;
     private readyButton: fgui.GButton;
@@ -448,6 +449,10 @@ export class RoomView {
         roomHost.component.unschedule(this.gamePauseSchedule);
     }
 
+    public showOrHideGpsTag(isShow: boolean): void {
+        this.gpsUnOpen.visible = isShow;
+    }
+
     private gamePauseCountDownFunc(timeStamp: number): void {
         const roomHost = this.room.getRoomHost();
         const serverTime = roomHost.getServerTime();
@@ -565,8 +570,9 @@ export class RoomView {
 
         this.recoredBtn.on(fgui.Event.TOUCH_END, this.onVoiceBtnUp, this);
 
-        this.gpsBtn = this.unityViewNode.getChild("gpsBtn");
+        this.gpsBtn = this.unityViewNode.getChild("gpsBtn").asButton;
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
+        this.gpsUnOpen = this.gpsBtn.getChild("n3");
         this.chatBtn.onClick(this.onChatBtnClick, this);
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");

@@ -761,6 +761,10 @@ export class Room {
     public onBgClick(): void {
         this.myPlayer.playerView.restoreHandsPositionAndClickCount(-1);
     }
+
+    public showOrHideGpsTag(isShow: boolean): void {
+        this.roomView.showOrHideGpsTag(isShow);
+    }
     //播放背景音乐
     // private playBgSound(): void {
     //     SoundMgr.playMusicAudio("gameb/music_hall", true);
