@@ -39,6 +39,7 @@ export namespace HandlerActionResultDiscardedA {
         if (isPiao) {
             // await player.exposedResultAnimation(1002, true);
             room.mAlgorithm.setFlagPiao(true);
+            player.mPiaoCount++;
         }
     };
 }

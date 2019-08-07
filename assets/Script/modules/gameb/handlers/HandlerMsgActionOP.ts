@@ -31,23 +31,34 @@ export namespace HandlerMsgActionOP {
                 player.playerView.huBtn.grayed = false;
             }
         }
+        const nextPlayer = <Player>room.getNextPlayer(player.chairID);
+        const isSuoPiao = room.roomInfo.flag === 1 && room.roomInfo.players.length > 2 && nextPlayer.mPiaoCount > 2;
+
         // Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
         const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
         if (isCanGang || reply.card === room.laigenID) {
             const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
             if (gang.length > 0) {
-                buttonMap = true;
-                player.canKongs = gang;
-                player.playerView.gangBtn.grayed = false;
+                if (isSuoPiao) {
+                    Logger.debug("下家飘赖 锁上杠了");
+                } else {
+                    buttonMap = true;
+                    player.canKongs = gang;
+                    player.playerView.gangBtn.grayed = false;
+                }
             }
         }
         // Logger.debug(`reply.card , ${reply.card} ; player.notPong ：, ${player.notPong}`);
         if (player.notPong !== reply.card) {
             const peng = room.mAlgorithm.canPeng_WithOther(player.tilesHand, reply.card);
             if (peng.length > 0) {
-                buttonMap = true;
-                player.isCanPong = true;
-                player.playerView.pengBtn.grayed = false;
+                if (isSuoPiao) {
+                    Logger.debug("下家飘赖 锁上碰了");
+                } else {
+                    buttonMap = true;
+                    player.isCanPong = true;
+                    player.playerView.pengBtn.grayed = false;
+                }
             }
         }
         if (buttonMap) {

@@ -503,7 +503,8 @@ message game_config{
   optional uint32	 guild_close_cost = 14[default = 5];	// 公会关闭房卡消耗
 
   repeated game_round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
-  repeated game_room_base   groombases = 101;				//自建房抵住
+	repeated game_room_base   groombases = 101;				//自建房抵住
+	repeated game_devote_cost  gdevotecosts = 102;			//贡献值
 
   optional uint32       gdy_endcard = 1000[default = 4];//
   optional uint32       gdy_gangcard = 1001[default = 5];//

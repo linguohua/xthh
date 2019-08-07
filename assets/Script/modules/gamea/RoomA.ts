@@ -494,6 +494,15 @@ export class RoomA {
         return this.players;
     }
 
+    public getNextPlayer(chairID: number): PlayerA {
+        let nextChairId = chairID + 1;
+        if (nextChairId === this.roomInfo.players.length) {
+            nextChairId = 0;
+        }
+
+        return this.getPlayerByChairID(nextChairId);
+    }
+
     public setRoundMask(): void {
         this.roomView.setRoundMask();
     }

@@ -91,6 +91,7 @@ export class Player {
     public mBSaveZCHFlag: boolean = false; //可以捉铳
     public totalScores: number = 0;
     public mNick: string = "";
+    public mPiaoCount: number = 0;
 
     // private isPlayingVoice: boolean = false;
     // private flagsTing: boolean;
@@ -123,6 +124,7 @@ export class Player {
         this.cancelZhuochong = false;
         this.cancelZiMo = false;
 
+        this.mPiaoCount = 0;
         //是否起手听牌
         //TODO. 当玩家起手听牌时，当仅仅可以打牌操作时，自动打牌
         this.isRichi = false;
