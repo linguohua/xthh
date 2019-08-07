@@ -153,8 +153,6 @@ export class HandResultViewA extends cc.Component {
         this.countDown = againBtn.getChild("n1");
         this.countDown.text = `${msgHandOver.time} ${btnText}`;
 
-        const infoBtn = this.unityViewNode.getChild("guizeBtn");
-        infoBtn.onClick(this.onRoomRuleBtnClick, this);
         const shanreBtn = this.unityViewNode.getChild("shanreBtn");
         shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
         shanreBtn.onClick(this.onShareButtonClick, this);
@@ -547,15 +545,7 @@ export class HandResultViewA extends cc.Component {
     private onShareButtonClick(): void {
         Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
     }
-    private onRoomRuleBtnClick(): void {
-        let roomRuleView = this.getComponent(RoomRuleViewA);
 
-        if (roomRuleView === undefined || roomRuleView == null) {
-            roomRuleView = this.addComponent(RoomRuleViewA);
-        }
-        // roomRuleView.updateView(this.room.roomInfo.config);
-        // TODO: 显示游戏规则
-    }
     // 玩家点击“继续”按钮，注意如果牌局结束，此按钮是“大结算”
     private onAgainButtonClick(): void {
         Logger.debug("onAgainButtonClick");

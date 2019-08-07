@@ -638,6 +638,8 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCreateRoomBtnClick(): void {
+        // 当存在弹窗时，立刻dispose弹窗
+        Dialog.hidePrompt();
         const playerID = DataStore.getString("playerID");
         const myUser = { userID: playerID };
 

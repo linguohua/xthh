@@ -16,13 +16,10 @@
     <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596" visible="false">
       <relation target="n14_fxwe" sidePair="left-left"/>
     </component>
-    <component id="n12_fxwe" name="guizeBtn" src="jmxy26" fileName="desk/guize_button.xml" xy="100,-116" visible="false"/>
     <component id="n30_x2fz" name="return2LobbyBtn" src="jmxy35" fileName="desk/return_lobby_btn.xml" xy="196,427" group="n34_jrlz" visible="false"/>
     <component id="n31_qly1" name="invite" src="jmxy37" fileName="desk/invite_button.xml" xy="480,427" group="n34_jrlz" visible="false"/>
     <component id="n19_fxwe" name="ready" src="jmxy2c" fileName="desk/ready_button.xml" xy="760,427" group="n34_jrlz" visible="false"/>
     <group id="n34_jrlz" name="btn" xy="196,427" size="794,79" hideByEditor="true" advanced="true" collapsed="true"/>
-    <image id="n3_fxwe" name="n3" src="jmxyai" fileName="大丰麻将美术改版/2 游戏内/切图/fenquanbg.png" xy="15,-139"/>
-    <component id="n21_fxwe" name="fengquan" src="jmxy1p" fileName="mahjong_mine/mahjong_mine_shu.xml" xy="33,-128" scale="0.4,0.4"/>
     <component id="n38_jel2" name="gpsBtn" src="jel2m5" fileName="btn/gpsBtn.xml" xy="1034,79" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>

@@ -501,16 +501,6 @@ export class RoomViewA {
     //     // )
     // }
 
-    private onRoomRuleBtnClick(): void {
-        let roomRuleView = this.component.getComponent(RoomRuleViewA);
-
-        if (roomRuleView === undefined || roomRuleView == null) {
-            roomRuleView = this.component.addComponent(RoomRuleViewA);
-        }
-        // roomRuleView.updateView(this.room.roomInfo.config);
-        // TODO: 显示游戏规则
-    }
-
     private onGPSBtnClick(): void {
         Logger.debug("onGPSBtnClick");
 
@@ -583,10 +573,6 @@ export class RoomViewA {
         // }
 
         this.settingBtn.onClick(this.onSettingBtnClick, this);
-
-        const infoBtn = this.unityViewNode.getChild("guizeBtn");
-        //infoBtn.visible = true;
-        infoBtn.onClick(this.onRoomRuleBtnClick, this);
 
         this.readyButton = this.unityViewNode.getChild("ready").asButton;
         this.readyButton.visible = false;

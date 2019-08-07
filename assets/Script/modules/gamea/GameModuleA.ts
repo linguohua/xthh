@@ -253,7 +253,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         }
 
         if (this.mRoom !== null) {
-            this.mRoom.onDestroy();
             this.mRoom = null;
         }
 
