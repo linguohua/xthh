@@ -281,11 +281,10 @@ export class HandResultViewA extends cc.Component {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 tilesHand = majong.sVecHuPai;
-                tilesHand.reverse();
 
                 // 将胡的牌从数组中去掉
                 const tilesLength = tilesHand.length;
-                for (let i = 0; i < tilesLength; i++) {
+                for (let i = tilesLength - 1; i >= 0; i++) {
                     if (tilesHand[i] === playerScore.hupai_card) {
                         tilesHand.splice(i, 1);
                         break;
@@ -312,28 +311,16 @@ export class HandResultViewA extends cc.Component {
             return x.cards[0] - y.cards[0];
         });
         //摆放牌
-        // let g = 0;
-        // let p = 0;
         for (let i = 0; i < meldDatas.length; i++) {
             const meldData = meldDatas[i];
             const mv = c.melds.getChild(`n${i + 1}`).asCom;
             player.playerView.mountMeldImage(mv, meldData);
-            // if (isFour) {
-            //     g++;
-            // } else {
-            //     p++;
-            // }
             mv.visible = true;
         }
-        //const o = meldsScale[g][p];
-        //const v = (o) * c.meldsViewScale;
-        //c.melds.setScale(v, v);
+
         //手牌
         let n = -1;
-        // const last = false;
-        // const meldCount = meldDatas.length;
         const tileCountInHand = tilesHand.length;
-        // const isHu = (meldCount * 3 + tileCountInHand) > 13;
         for (const oCardObj of c.cards) {
             oCardObj.visible = false;
         }
@@ -341,6 +328,10 @@ export class HandResultViewA extends cc.Component {
             const tiles = tilesHand[i];
             n = n + 1;
             const oCardObj = c.cards[n];
+            if (i === tileCountInHand - 1 && tileCountInHand < 14 && playerScore.hupai_card > 0) {
+
+                oCardObj.setPosition(oCardObj.node.x + 20, oCardObj.node.y);
+            }
             TileImageMounterA.mountTileImage(oCardObj, tiles);
             if (tiles === this.room.laiziID) {
                 oCardObj.getChild("laiziMask").visible = true;

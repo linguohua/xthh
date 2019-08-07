@@ -286,11 +286,6 @@ export class HandResultView extends cc.Component {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 tilesHand = majong.sVecHuPai;
-                Logger.debug("tilesHand:", tilesHand);
-                Logger.debug("huacards:", playerScore.huacards);
-                Logger.debug("cards:", playerScore.cards);
-                Logger.debug("select cards:", playerScore.selcards);
-                // tilesHand.reverse();
 
                 // 将胡的牌从数组中去掉
                 const tilesLength = tilesHand.length;
