@@ -111,6 +111,9 @@ export class LoginView extends cc.Component {
         this.progressBar = this.viewNode.getChild("progress").asProgress;
         this.progressText = this.viewNode.getChild("progressText").asTextField;
 
+        const version = this.viewNode.getChild("versionLab");
+        version.text = LEnv.VER_STR;
+
         this.loginBtn.visible = false;
         this.weixinButton.visible = false;
         this.phoneLoginBtn.visible = false;
