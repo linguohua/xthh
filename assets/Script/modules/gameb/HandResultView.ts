@@ -275,9 +275,8 @@ export class HandResultView extends cc.Component {
         }
     }
     //更新牌数据
-    // tslint:disable-next-line:max-func-body-length
     private updatePlayerTileData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
-        Logger.debug("playerScore ----------------------- ： ", playerScore);
+        // Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
         const meldDatas = player.tilesMelds;
@@ -287,11 +286,15 @@ export class HandResultView extends cc.Component {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 tilesHand = majong.sVecHuPai;
-                tilesHand.reverse();
+                Logger.debug("tilesHand:", tilesHand);
+                Logger.debug("huacards:", playerScore.huacards);
+                Logger.debug("cards:", playerScore.cards);
+                Logger.debug("select cards:", playerScore.selcards);
+                // tilesHand.reverse();
 
                 // 将胡的牌从数组中去掉
                 const tilesLength = tilesHand.length;
-                for (let i = 0; i < tilesLength; i++) {
+                for (let i = tilesLength - 1; i >= 0; i--) {
                     if (tilesHand[i] === playerScore.hupai_card) {
                         tilesHand.splice(i, 1);
                         break;
@@ -304,42 +307,24 @@ export class HandResultView extends cc.Component {
         } else {
             this.sortHands(tilesHand, false);
         }
-        // const lastTile = player.lastTile; //玩家最后一张牌
-        //吃碰杠牌
-        // const rm = "mahjong_mine_meld_";
+
         for (let i = 1; i <= 4; i++) {
             const mm = c.melds.getChild(`n${i}`);
             mm.visible = false;
-            // if (mm !== undefined && mm !== null) {
-            //     c.melds.removeChild(mm, true);
-            // }
         }
         meldDatas.sort((x: proto.casino_xtsj.packet_sc_op_ack, y: proto.casino_xtsj.packet_sc_op_ack) => {
             return x.cards[0] - y.cards[0];
         });
         //摆放牌
-        // let g = 0;
-        // let p = 0;
         for (let i = 0; i < meldDatas.length; i++) {
             const meldData = meldDatas[i];
             const mv = c.melds.getChild(`n${i + 1}`).asCom;
             player.playerView.mountMeldImage(mv, meldData);
-            // if (isFour) {
-            //     g++;
-            // } else {
-            //     p++;
-            // }
             mv.visible = true;
         }
-        //const o = meldsScale[g][p];
-        //const v = (o) * c.meldsViewScale;
-        //c.melds.setScale(v, v);
         //手牌
         let n = -1;
-        // const last = false;
-        // const meldCount = meldDatas.length;
         const tileCountInHand = tilesHand.length;
-        // const isHu = (meldCount * 3 + tileCountInHand) > 13;
         for (const oCardObj of c.cards) {
             oCardObj.visible = false;
         }
@@ -347,6 +332,11 @@ export class HandResultView extends cc.Component {
             const tiles = tilesHand[i];
             n = n + 1;
             const oCardObj = c.cards[n];
+            // 空格
+            if (i === tileCountInHand - 1 && tileCountInHand < 14 && playerScore.hupai_card > 0) {
+
+                oCardObj.setPosition(oCardObj.node.x + 20, oCardObj.node.y);
+            }
             TileImageMounter.mountTileImage(oCardObj, tiles);
             if (tiles === this.room.laiziID) {
                 oCardObj.getChild("laiziMask").visible = true;
