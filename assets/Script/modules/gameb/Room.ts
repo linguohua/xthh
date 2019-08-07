@@ -230,7 +230,7 @@ export class Room {
         this.players[player.userID] = player;
 
         this.myPlayer = player;
-        Logger.debug("this.myPlayer:", this.myPlayer);
+        // Logger.debug("this.myPlayer:", this.myPlayer);
         // this.initCards(playerInfo, player);
     }
 
