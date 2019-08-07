@@ -97,10 +97,9 @@ export class HandResultView extends cc.Component {
     private aniPos: fgui.GObject;
     private result: fgui.GLoader;
     private contentGroup: ViewGroup[];
-
-    private countDownTime: number;
-
     private winUserID: string = "";
+
+    private stopTime: number;
 
     public showView(room: RoomInterface, msgHandOver: proto.casino.packet_table_score): void {
         this.eventTarget = new cc.EventTarget();
@@ -169,7 +168,7 @@ export class HandResultView extends cc.Component {
 
         // 这个是看lua代码加上
         const timeLeft = 3;
-        this.countDownTime = msgHandOver.time - timeLeft;
+        this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
         this.unschedule(this.countDownAgian);
         this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
 
@@ -600,8 +599,8 @@ export class HandResultView extends cc.Component {
     }
 
     private countDownAgian(): void {
-        this.countDownTime = this.countDownTime - 1;
-        if (this.countDownTime <= 0) {
+        const countDownTime = this.stopTime - this.room.getRoomHost().getServerTime();
+        if (countDownTime <= 0) {
             this.unschedule(this.countDownAgian);
 
             this.onAgainButtonClick();
@@ -613,7 +612,7 @@ export class HandResultView extends cc.Component {
         if (this.msgHandOver.tdata.play_total === this.msgHandOver.tdata.round) {
             btnText = `查看积分`;
         }
-        this.countDown.text = `${this.countDownTime} ${btnText}`;
+        this.countDown.text = `${countDownTime} ${btnText}`;
     }
 
     private isTing(handTiles: number[]): boolean {
