@@ -161,4 +161,5 @@ export interface RoomInterfaceA {
     enableVoiceBtn(isShow: boolean): void;
     getReplayCardsOfChairId(roundId: number, cId: number): number[];
     getNextPlayer(chairID: number): PlayerInterfaceA;
+    getBackPlayer(chairID: number): PlayerInterfaceA;
 }

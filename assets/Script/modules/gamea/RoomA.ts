@@ -502,6 +502,14 @@ export class RoomA {
 
         return this.getPlayerByChairID(nextChairId);
     }
+    public getBackPlayer(chairID: number): PlayerA {
+        let backChairId = chairID - 1;
+        if (backChairId === -1) {
+            backChairId = this.roomInfo.players.length - 1;
+        }
+
+        return this.getPlayerByChairID(backChairId);
+    }
 
     public setRoundMask(): void {
         this.roomView.setRoundMask();
@@ -805,17 +813,19 @@ export class RoomA {
             // player.hand2UI(false);
         }
 
+        player.mPiaoCount = 0;
         if (playerInfo.outcards.length > 0) {
             player.addDiscardedTiles(playerInfo.outcards);
             // player.discarded2UI(isNewDiacard, false);
 
-            if (!this.mAlgorithm.getFlagPiao()) {
-                for (const outcard of playerInfo.outcards) {
-                    if (outcard === this.roomInfo.laizi) {
-                        this.mAlgorithm.setFlagPiao(true);
-                    }
+            // if (!this.mAlgorithm.getFlagPiao()) {
+            for (const outcard of playerInfo.outcards) {
+                if (outcard === this.roomInfo.laizi) {
+                    this.mAlgorithm.setFlagPiao(true);
+                    player.mPiaoCount++;
                 }
             }
+            // }
         }
 
         if (playerInfo.groups.length > 0) {

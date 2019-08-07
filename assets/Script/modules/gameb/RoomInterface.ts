@@ -169,4 +169,5 @@ export interface RoomInterface {
     showGamePauseTips(timeStamp: number): void;
     hideGamePauseTips(): void;
     getNextPlayer(chairID: number): PlayerInterface;
+    getBackPlayer(chairID: number): PlayerInterface;
 }
