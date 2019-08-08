@@ -10,8 +10,8 @@
     <component id="n14_fxwe" name="player1" src="jmxy1k" fileName="desk/mine/desk_view_mine.xml" xy="0,0"/>
     <component id="n24_fxwe" name="roundMask" src="jmxy2u" fileName="desk/round_mask.xml" xy="533,227"/>
     <component id="n20_fxwe" name="meldOpsPanel" src="jmxy2e" fileName="desk/meld_multi_ops.xml" xy="0,0" hideByEditor="true" visible="false"/>
+    <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" visible="false"/>
     <component id="n60_j2i5" name="tipsCom" src="j2i5pa" fileName="tipsCom.xml" xy="296,379" visible="false"/>
-    <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" hideByEditor="true" visible="false"/>
     <loader id="n27_rh8w" name="donate" xy="72,439" pivot="0.5,0.5" anchor="true" size="105,97" hideByEditor="true" visible="false"/>
     <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596" visible="false">
       <relation target="n14_fxwe" sidePair="left-left"/>
