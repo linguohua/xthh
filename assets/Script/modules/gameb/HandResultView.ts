@@ -5,6 +5,7 @@ import { Share } from "../lobby/shareUtil/ShareExports";
 import { Player } from "./Player";
 // import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
+// import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
