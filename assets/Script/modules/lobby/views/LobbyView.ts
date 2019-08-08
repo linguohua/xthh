@@ -270,6 +270,19 @@ export class LobbyView extends cc.Component {
             return;
         }
 
+        // 如果是登录进入房间，已经在房间则拉回房间
+        const tableIDString = DataStore.getString("tableID", "");
+        if (tableIDString !== "") {
+            Logger.debug("Aready in room, tableID:", tableIDString);
+
+            const tableID = long.fromString(tableIDString, true);
+            this.joinTableReq(tableID);
+
+            DataStore.setItem("tableID", "");
+
+            return;
+        }
+
         // 如果是从分享进来，则拉进房间
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             if (this.roomNumberFromShare !== "" && this.roomNumberFromShare !== undefined && this.roomNumberFromShare !== null) {
@@ -279,22 +292,6 @@ export class LobbyView extends cc.Component {
                 return;
             }
         }
-
-        // 如果是登录进入房间，已经在房间则拉回房间
-        const tableIDString = DataStore.getString("tableID", "");
-        if (tableIDString === "") {
-            Logger.debug("tableIDString is empty");
-
-            return;
-        }
-
-        Logger.debug("Aready in room, tableID:", tableIDString);
-        // Dialog.showDialog("已经在房间, 正在进入房间");
-
-        const tableID = long.fromString(tableIDString, true);
-        this.joinTableReq(tableID);
-
-        DataStore.setItem("tableID", "");
     }
 
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {

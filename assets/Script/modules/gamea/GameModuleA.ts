@@ -375,13 +375,13 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    private joinRoomReq(roomNumber: number): void {
+    private joinRoomReq(table: protoHH.casino.Itable): void {
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
 
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
-            tag: roomNumber
+            talbe_id: table.id
         };
 
         const req2 = new protoHH.casino.packet_table_join_req(req);
@@ -572,7 +572,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         Dialog.showReconnectDialog();
 
-        this.joinRoomReq(this.mRoom.roomInfo.tag);
+        this.joinRoomReq(this.mRoom.roomInfo);
     }
 
     private getLocation(): void {
