@@ -313,6 +313,8 @@ export class HandResultView extends cc.Component {
             const meldData = meldDatas[i];
             const mv = c.melds.getChild(`n${i + 1}`).asCom;
             player.playerView.mountMeldImage(mv, meldData);
+            mv.getChild("ts1").visible = false;
+            mv.getChild("ts2").visible = false;
             mv.visible = true;
         }
         //手牌

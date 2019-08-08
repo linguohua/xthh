@@ -651,7 +651,7 @@ export class Room {
         //显示庄家
         this.bankerChairID = this.roomInfo.lord_id;
         const player = <Player>this.getPlayerByUserID(`${this.bankerChairID}`);
-        this.roomView.playZhuangAni(player.playerView.head.bankerFlag);
+        this.roomView.playZhuangAni(player.playerView.head.bankerFlag, 0.6);
         //压入自摸不自摸的标志
         this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
 

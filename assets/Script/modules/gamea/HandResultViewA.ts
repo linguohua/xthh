@@ -5,7 +5,7 @@ import { Share } from "../lobby/shareUtil/ShareExports";
 import { PlayerA } from "./PlayerA";
 // import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterfaceA } from "./RoomInterfaceA";
-import { RoomRuleViewA } from "./RoomRuleViewA";
+// import { RoomRuleViewA } from "./RoomRuleViewA";
 import { TileImageMounterA } from "./TileImageMounterA";
 
 const eGDY_OP_TYPE = proto.casino_gdy.eGDY_OP_TYPE;
@@ -282,7 +282,7 @@ export class HandResultViewA extends cc.Component {
 
                 // 将胡的牌从数组中去掉
                 const tilesLength = tilesHand.length;
-                for (let i = tilesLength - 1; i >= 0; i++) {
+                for (let i = tilesLength - 1; i >= 0; i--) {
                     if (tilesHand[i] === playerScore.hupai_card) {
                         tilesHand.splice(i, 1);
                         break;
@@ -313,6 +313,8 @@ export class HandResultViewA extends cc.Component {
             const meldData = meldDatas[i];
             const mv = c.melds.getChild(`n${i + 1}`).asCom;
             player.playerView.mountMeldImage(mv, meldData);
+            mv.getChild("ts1").visible = false;
+            mv.getChild("ts2").visible = false;
             mv.visible = true;
         }
 

@@ -258,7 +258,7 @@ export class LobbyView extends cc.Component {
         }
     }
 
-    // 相当于游戏的入口，没次重连都跑这里来
+    // 相当于游戏的入口，每次重连都跑这里来
     private onJoinGameAck(ack: proto.casino.packet_player_join_ack): void {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
@@ -274,15 +274,16 @@ export class LobbyView extends cc.Component {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             if (this.roomNumberFromShare !== "" && this.roomNumberFromShare !== undefined && this.roomNumberFromShare !== null) {
                 this.joinTableReq(null, +this.roomNumberFromShare);
-                this.roomNumberFromShare == "";
+                this.roomNumberFromShare = "";
+
+                return;
             }
         }
-
 
         // 如果是登录进入房间，已经在房间则拉回房间
         const tableIDString = DataStore.getString("tableID", "");
         if (tableIDString === "") {
-            Logger.debug("tableIDString is empty")
+            Logger.debug("tableIDString is empty");
 
             return;
         }

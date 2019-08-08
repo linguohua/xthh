@@ -320,13 +320,13 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             this.room.onReadyButtonClick();
         } else {
             this.room.showRoomBtnsAndBgs();
-        }
 
-        if (reconnect) {
-            this.mRoom.restrorePlayerOperation();
-            // 重连后弹解散对话框
-            if (table.disband_id !== null && table.disband_time !== null) {
-                this.mRoom.showDisbandVoteForRecconect(table.disband_id, table.disband_time);
+            if (reconnect) {
+                this.mRoom.restrorePlayerOperation();
+                // 重连后弹解散对话框
+                if (table.disband_id !== null && table.disband_time !== null) {
+                    this.mRoom.showDisbandVoteForRecconect(table.disband_id, table.disband_time);
+                }
             }
         }
 
@@ -376,11 +376,13 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     }
 
     // 请求加入房间
-    private joinRoomReq(tableID: long): void {
+    private joinRoomReq(roomNumber: number): void {
+        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
+
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
-            table_id: tableID
+            tag: roomNumber
         };
 
         const req2 = new protoHH.casino.packet_table_join_req(req);
@@ -410,7 +412,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     private subMsg(): void {
         // 只有gameModule用到
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onMsg, this); // 创建房间
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
 
         // room 用到
         const keys = Object.keys(msgHandlers);
@@ -572,7 +573,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         Dialog.showReconnectDialog();
 
-        this.joinRoomReq(this.mRoom.roomInfo.id);
+        this.joinRoomReq(this.mRoom.roomInfo.tag);
     }
 
     private getLocation(): void {

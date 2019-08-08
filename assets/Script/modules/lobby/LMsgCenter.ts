@@ -116,7 +116,7 @@ export class LMsgCenter {
     }
 
     public isWebSocketClose(): boolean {
-        return this.ws !== null;
+        return this.ws == null;
     }
 
     private async connectServer(): Promise<void> {
