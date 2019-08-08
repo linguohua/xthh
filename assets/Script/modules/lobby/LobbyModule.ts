@@ -110,7 +110,9 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
             return;
         }
 
-        Dialog.showProgress();
+        //Dialog.showProgress();
+
+        Dialog.showWaiting();
 
         // 资源加载
         if (this.gameLoader !== undefined && this.gameLoader.name !== moduleName) {
@@ -133,7 +135,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
             (error) => {
                 Logger.debug(`gamea load, error:${error}`);
 
-                Dialog.hideProgress();
+                Dialog.hideWaiting();
 
                 // 隐藏大厅窗口
                 this.view = fgui.GRoot.inst.getChildAt(0);
@@ -170,7 +172,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                 }
             },
             (progress) => {
-                Dialog.updateProgress(progress);
+                Logger.debug("load progress   = ", (progress * 100).toFixed(0))
+                //Dialog.updateProgress(progress);
             }
         );
     }
