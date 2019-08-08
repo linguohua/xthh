@@ -156,13 +156,13 @@ export class RoomView {
         this.piaoAni.node.position = xy;
         await this.room.getRoomHost().animationMgr.coPlay(`lobby/prefabs/huanghuang/Effect_ico_piaolai`, this.piaoAni.node);
     }
-    public playZhuangAni(pos: fgui.GObject): void {
+    public playZhuangAni(pos: fgui.GObject, time: number): void {
         this.zhuangAniNode.node.position = this.zhuangPos;
         this.zhuangAniNode.visible = true;
         // this.zhuangAniNode.setPosition(this.zhuangPos.x, this.zhuangPos.y);
         this.room.getRoomHost().animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_zhuang01`, this.zhuangAniNode.node);
         // Logger.debug("pos.node.position ", pos.node.position);
-        this.zhuangAniNode.node.runAction(cc.moveTo(1, pos.node.position));
+        this.zhuangAniNode.node.runAction(cc.moveTo(time, pos.node.position));
     }
 
     public async playLaiAni(): Promise<void> {
@@ -173,9 +173,9 @@ export class RoomView {
         this.laigenTile.node.position = this.laigenTilePos2.node.position;
         this.laiziCom.visible = true;
 
-        this.laigenTile.node.runAction(cc.moveTo(0.5, this.laigenTilePos1.node.position));
+        this.laigenTile.node.runAction(cc.moveTo(0.7, this.laigenTilePos1.node.position));
         await this.room.coWaitSeconds(0.25);
-        this.laiziTile.node.runAction(cc.moveTo(0.5, this.laiziTilePos1.node.position));
+        this.laiziTile.node.runAction(cc.moveTo(0.7, this.laiziTilePos1.node.position));
     }
 
     // 播放动画

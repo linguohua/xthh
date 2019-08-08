@@ -70,7 +70,7 @@ export interface RoomViewInterface {
     stopDiscardCountdown(): void;
     clearWaitingPlayer(): void;
     playAnimation(effectName: string, isWait?: boolean): Promise<void>;
-    playZhuangAni(pos: fgui.GObject): void;
+    playZhuangAni(pos: fgui.GObject, time: number): void;
     playLaiAni(): void;
     playPiaoEffect(pos: cc.Vec2): Promise<void>;
 }

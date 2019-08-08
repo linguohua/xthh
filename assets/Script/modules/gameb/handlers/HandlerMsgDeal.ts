@@ -120,15 +120,16 @@ export namespace HandlerMsgDeal {
             room.roomView.playAnimation("Effect_ico_huanzhuang", true);
         }
         await room.coWaitSeconds(0.5);
+        const time = 0.6; //飞庄动画时间
         const player = <Player>room.getPlayerByUserID(msgDeal.lord_id.toString());
-        room.roomView.playZhuangAni(player.playerView.head.bankerFlag);
-        await room.coWaitSeconds(1);
+        room.roomView.playZhuangAni(player.playerView.head.bankerFlag, time);
+        await room.coWaitSeconds(time);
 
         //播放定赖动画 并等待
         room.laiziID = msgDeal.laizi;
         room.laigenID = msgDeal.fanpai;
         room.roomView.playLaiAni();
-        await room.coWaitSeconds(0.5);
+        // await room.coWaitSeconds(0.5);
 
         const players = room.getPlayers();
 

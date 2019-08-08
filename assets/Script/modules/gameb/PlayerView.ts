@@ -464,7 +464,7 @@ export class PlayerView {
             () => {
                 discardTips.visible = false;
             },
-            1);
+            0.5);
         // }
     }
 
