@@ -122,6 +122,13 @@ export class DisbandView extends cc.Component {
 
             return;
         }
+
+        if (this.disbandReq !== null && this.disbandReq.disband_time.toNumber() === 0) {
+            this.unschedule(this.countDownSchedule);
+            this.destroy();
+
+            return;
+        }
     }
 
     protected onDestroy(): void {
