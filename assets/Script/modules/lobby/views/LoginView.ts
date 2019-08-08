@@ -181,7 +181,7 @@ export class LoginView extends cc.Component {
         }
 
         const req = {
-            app: "h5casino",
+            app: LEnv.app,
             channel: "mac",
             openudid: openudid,
             nickname: "abc",
@@ -451,7 +451,7 @@ export class LoginView extends cc.Component {
             const wxCode = <string>WeiXinSDK.getWxDataMap()[wxCodeStr];
             const wxUserData = <getUserInfoRes>WeiXinSDK.getWxDataMap()[wxUserInfoStr];
 
-            const wxLoginUrl = LEnv.cfmt(`${LEnv.rootURL}${LEnv.wxLogin}`, "h5casino", wxCode);
+            const wxLoginUrl = LEnv.cfmt(`${LEnv.rootURL}${LEnv.wxLogin}`, LEnv.app, wxCode);
             Logger.debug('wxloginUrl', wxLoginUrl);
 
             const requestData = {

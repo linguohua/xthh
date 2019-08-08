@@ -2,7 +2,7 @@
  * lobby 配置
  */
 export namespace LEnv {
-    export const VER_STR: string = "v1.0.080701";
+    export const VER_STR: string = "v1.0.080801";
 
     // updateQuery = "/lobby/upgrade/query",
     export const updateQuery: string = "/lobby/uuid/upgradeQuery";
@@ -67,6 +67,7 @@ export namespace LEnv {
 
     export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
     export const yunxinAppKey = "f31690906e1428b3a6a1c9147580b3b7";
+    export const app = "h5casino";
 
     // tslint:disable-next-line:no-http-string
     export const wxLogin = "/zyqp/user/h5login/withcode?app={0}&code={1}";
