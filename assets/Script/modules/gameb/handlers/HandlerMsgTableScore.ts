@@ -62,8 +62,11 @@ export namespace HandlerMsgTableScore {
                 room.loadGameOverResultView(reply);
             }
         } else {
+            Logger.debug("showHu----------------------- ");
             await showHu(reply, room);
+            Logger.debug("coWaitSeconds----------------------- ");
             await room.coWaitSeconds(2);
+            Logger.debug("coWaitSeconds----------------------- 2");
             // 显示手牌输赢结果
             room.loadHandResultView(reply);
         }
