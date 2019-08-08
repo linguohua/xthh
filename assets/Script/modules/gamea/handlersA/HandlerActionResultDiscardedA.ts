@@ -73,11 +73,13 @@ export namespace HandlerActionResultDiscardedA {
                         }
                     }
                 }
-                if (room.isReplayMode()) {
-                    const backPlayer = <PlayerA>room.getBackPlayer(player.chairID);
-                    Dialog.prompt(`【${player.mNick}】飘赖${player.mPiaoCount}次，【${backPlayer.mNick}】限制【碰牌/点笑/小朝天】`);
-                } else {
-                    Dialog.prompt(`下家飘赖${player.mPiaoCount}次，限制【${str}】`);
+                if (str !== "") {
+                    if (room.isReplayMode()) {
+                        // const backPlayer = <PlayerA>room.getBackPlayer(player.chairID);
+                        Dialog.prompt(`【${nextPlayer.mNick}】飘赖${nextPlayer.mPiaoCount}次，【${myPlayer.mNick}】限制【碰牌/点笑/小朝天】`);
+                    } else {
+                        Dialog.prompt(`下家飘赖${nextPlayer.mPiaoCount}次，限制【${str}】`);
+                    }
                 }
             }
         }

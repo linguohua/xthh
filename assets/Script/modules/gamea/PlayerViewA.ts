@@ -616,7 +616,7 @@ export class PlayerViewA {
         }
         // meldView.visible = true;
         meldView.setSize(width, height);
-        Logger.debug("isHu ------------- ", isHu);
+        // Logger.debug("isHu ------------- ", isHu);
         if (isHu) {
             for (const a of arr) {
                 a.getChild("huo").visible = true;
@@ -763,10 +763,12 @@ export class PlayerViewA {
             if (wholeMove) {
                 TileImageMounterA.mountTileImage(light, tileshand[tileCountInHand - 1]);
                 light.visible = true;
+                light.getChild("laiziMask").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
                 endd = tileCountInHand - 1;
             } else {
                 TileImageMounterA.mountTileImage(light, tileshand[0]);
                 light.visible = true;
+                light.getChild("laiziMask").visible = tileshand[0] === this.room.laiziID;
                 begin = 1;
             }
             if (isHu) {
@@ -779,6 +781,7 @@ export class PlayerViewA {
             const light = this.lights[j];
             TileImageMounterA.mountTileImage(light, tileshand[i]);
             light.visible = true;
+            light.getChild("laiziMask").visible = tileshand[i] === this.room.laiziID;
             if (isHu) {
                 light.getChild("huo").visible = true;
             }

@@ -84,7 +84,7 @@ export namespace HandlerMsgDeal {
         const imaccids: string[] = [];
         const myImaccid = DataStore.getString("imaccid");
         const keys = Object.keys(players);
-        Logger.debug("getPlayerImaccids, keys:", keys);
+        // Logger.debug("getPlayerImaccids, keys:", keys);
         for (const key of keys) {
             const player = <Player>players[key];
             if (player.playerInfo.imaccid !== myImaccid) {
