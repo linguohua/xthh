@@ -170,10 +170,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                         default:
                     }
                 }
-            },
-            (progress) => {
-                Logger.debug("load progress   = ", (progress * 100).toFixed(0))
-                //Dialog.updateProgress(progress);
             }
         );
     }

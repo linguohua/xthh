@@ -1,5 +1,5 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Logger } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ClickCtrl, PlayerInterfaceA, playerStatus, TypeOfOP } from "./PlayerInterfaceA";
 import { PlayerInfo, RoomInterfaceA } from "./RoomInterfaceA";
