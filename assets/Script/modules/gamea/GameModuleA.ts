@@ -7,7 +7,7 @@ import {
     LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
-import long = require("../lobby/protobufjs/long");
+// import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ReplayA as Replay } from "./ReplayA";
 import { msgHandlers, RoomA as Room } from "./RoomA";
@@ -495,14 +495,10 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     }
 
     private async tryEnterReplayRoom(
-        msgAccLoadReplayRecord: { replayRecordBytes: ByteBuffer; roomJSONConfig: string },
+        record: protoHH.casino.Itable,
         myUser: UserInfo,
         chairID: number): Promise<void> {
-        const table = protoHH.casino.table.decode(msgAccLoadReplayRecord.replayRecordBytes);
-        // const msgHandRecord = proto.mahjong.SRMsgHandRecorder.decode(msgAccLoadReplayRecord.replayRecordBytes);
-        // msgHandRecord.roomConfigID = msgAccLoadReplayRecord.roomJSONConfig;
-
-        // Logger.debug(" sr-actions count:", msgHandRecord.actions.length);
+        const table = record;
         // // 如果不提供userID,则必须提供chairID，然后根据chairID获得userID
         let userID = myUser.userID;
         if (userID === null) {

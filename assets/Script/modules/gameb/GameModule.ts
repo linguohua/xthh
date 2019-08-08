@@ -499,10 +499,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private async tryEnterReplayRoom(
-        msgAccLoadReplayRecord: { replayRecordBytes: ByteBuffer; roomJSONConfig: string },
+        record: protoHH.casino.Itable,
         myUser: UserInfo,
         chairID: number): Promise<void> {
-        const table = protoHH.casino.table.decode(msgAccLoadReplayRecord.replayRecordBytes);
+        const table = record;
+        // const table = protoHH.casino.table.decode(msgAccLoadReplayRecord.replayRecordBytes);
         // const msgHandRecord = proto.mahjong.SRMsgHandRecorder.decode(msgAccLoadReplayRecord.replayRecordBytes);
         // msgHandRecord.roomConfigID = msgAccLoadReplayRecord.roomJSONConfig;
 

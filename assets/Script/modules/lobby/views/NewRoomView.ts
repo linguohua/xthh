@@ -1,7 +1,7 @@
 import { GameError } from "../errorCode/ErrorCodeExports";
 import {
     CommonFunction, DataStore,
-    Dialog, Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, Record
+    Dialog, Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
 } from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
@@ -266,14 +266,13 @@ export class NewRoomView extends cc.Component {
         const myUser = { userID: playerID };
 
         const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
-        const record = new Record();
-        record.replayRecordBytes = reply.replay;
+        const table = protoHH.casino.table.decode(reply.replay);
         const params: GameModuleLaunchArgs = {
             jsonString: "replay",
             userInfo: myUser,
             joinRoomParams: null,
             createRoomParams: null,
-            record: record
+            record: table
         };
 
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");

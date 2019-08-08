@@ -101,7 +101,7 @@ export interface GameModuleLaunchArgs {
     loader?: GResLoader;
     lm?: LobbyModuleInterface;
 
-    record: Record;
+    record: protoHH.casino.Itable;
     roomId?: number;
 }
 
