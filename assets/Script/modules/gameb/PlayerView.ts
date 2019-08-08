@@ -1,7 +1,6 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { CommonFunction } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { GameRules } from "./GameRules";
 import { ClickCtrl, PlayerInterface, playerStatus, TypeOfOP } from "./PlayerInterface";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
 import { TileImageMounter } from "./TileImageMounter";

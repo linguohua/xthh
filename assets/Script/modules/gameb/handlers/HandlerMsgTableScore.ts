@@ -1,4 +1,4 @@
-import { Logger } from "../../lobby/lcore/LCoreExports";
+import { Logger, Dialog } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface, roomStatus } from "../RoomInterface";
@@ -60,6 +60,8 @@ export namespace HandlerMsgTableScore {
             if (reply.tdata.play_total !== null && reply.tdata.play_total > 0) {
                 await room.coWaitSeconds(2);
                 room.loadGameOverResultView(reply);
+            } else {
+                await Dialog.coShowDialog("房间已解散", true, false);
             }
         } else {
             Logger.debug("showHu----------------------- ");

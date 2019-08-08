@@ -1,4 +1,4 @@
-import { Logger, Message, MsgQueue, MsgType, DataStore } from "../lobby/lcore/LCoreExports";
+import { Logger, Message, MsgQueue, MsgType, DataStore, CommonFunction } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
 import { HandlerActionResultDraw } from "./handlers/HandlerActionResultDraw";
@@ -116,6 +116,8 @@ export class Replay {
         this.room.getRoomHost().loader.fguiAddPackage("lobby/fui_replay/lobby_replay");
         const view = fgui.UIPackage.createObject("lobby_replay", "operations").asCom;
         const win = new fgui.Window();
+
+        CommonFunction.setViewInCenter(view);
         win.contentPane = view;
         win.modal = true;
 
