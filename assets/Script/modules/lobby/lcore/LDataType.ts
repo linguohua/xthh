@@ -50,6 +50,8 @@ export interface MsgCenter {
     removeGameMsgHandler(code: number): void;
 
     getServerTime(): number;
+
+    isWebSocketClose(): boolean;
 }
 /**
  * 大厅模块

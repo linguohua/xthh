@@ -29,9 +29,8 @@ export class LobbyView extends cc.Component {
 
     private marqueeAction: cc.Action = null;
 
+    private roomNumberFromShare: string = "";
     //private marqueeTimer: number = null;
-
-    private isReconnect: boolean = false;
 
     private wxShowCallBackFunction: (res: showRes) => void;
 
@@ -76,14 +75,12 @@ export class LobbyView extends cc.Component {
 
         SoundMgr.playMusicAudio("gameb/music_hall", true);
 
-        this.setLaunchCallBack();
         this.initNimSDK();
 
         this.setLaunchCallBack();
     }
 
     protected onDestroy(): void {
-        this.isReconnect = false;
         SoundMgr.stopMusic();
         // this.msgCenter.destory();
 
@@ -108,8 +105,11 @@ export class LobbyView extends cc.Component {
         const rKey = "roomNumber";
         const roomNumber = res.query[rKey];
         if (roomNumber !== undefined && roomNumber !== null) {
-            // Logger.debug("wxShowCallBack : ", this);
-            this.joinTableReq(null, +roomNumber);
+            if (!this.lm.msgCenter.isWebSocketClose()) {
+                this.joinTableReq(null, +roomNumber);
+            } else {
+                this.roomNumberFromShare = roomNumber;
+            }
 
         }
     }
@@ -258,31 +258,31 @@ export class LobbyView extends cc.Component {
         }
     }
 
+    // 相当于游戏的入口，没次重连都跑这里来
     private onJoinGameAck(ack: proto.casino.packet_player_join_ack): void {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
 
         // 如果是在房间内重连，则发通知让房间重连恢复
-        if (this.isReconnect) {
+        if (this.lm.isGameModuleExist()) {
             this.lm.eventTarget.emit("reconnect");
-            this.isReconnect = false;
 
             return;
         }
 
+        // 如果是从分享进来，则拉进房间
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            if (this.roomNumberFromShare !== "" && this.roomNumberFromShare !== undefined && this.roomNumberFromShare !== null) {
+                this.joinTableReq(null, +this.roomNumberFromShare);
+                this.roomNumberFromShare == "";
+            }
+        }
+
+
         // 如果是登录进入房间，已经在房间则拉回房间
         const tableIDString = DataStore.getString("tableID", "");
         if (tableIDString === "") {
-            // 检查是不是分享进来的
-            if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-                const query = WeiXinSDK.getLaunchOption();
-                const rKey = "roomNumber";
-                const roomNumber = query[rKey];
-                Logger.debug(`share from wx, room number:${roomNumber}`);
-                if (roomNumber !== undefined && roomNumber !== null) {
-                    this.joinTableReq(null, +roomNumber);
-                }
-            }
+            Logger.debug("tableIDString is empty")
 
             return;
         }
@@ -291,8 +291,9 @@ export class LobbyView extends cc.Component {
         // Dialog.showDialog("已经在房间, 正在进入房间");
 
         const tableID = long.fromString(tableIDString, true);
-        Logger.debug("tableID", tableID);
         this.joinTableReq(tableID);
+
+        DataStore.setItem("tableID", "");
     }
 
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
@@ -300,6 +301,8 @@ export class LobbyView extends cc.Component {
 
         const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
+            Logger.debug("onJoinTableAck, failed:", joinRoomAck.ret);
+
             if (!this.lm.isGameModuleExist()) {
                 const errMsg = GameError.getErrorString(joinRoomAck.ret);
                 Dialog.showDialog(errMsg);
@@ -332,7 +335,6 @@ export class LobbyView extends cc.Component {
     }
 
     private onReconnectOk(fastLoginReply: proto.casino.packet_fast_login_ack): void {
-        this.isReconnect = true;
         this.testJoinGame();
     }
 
@@ -400,6 +402,11 @@ export class LobbyView extends cc.Component {
             this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
             // 点别人的邀请链接 原来就在游戏内 走这里
             wx.onShow(this.wxShowCallBackFunction);
+
+            const query = WeiXinSDK.getLaunchOption();
+            const rKey = "roomNumber";
+            this.roomNumberFromShare = query[rKey];
+            Logger.debug(`share from wx, room number:${this.roomNumberFromShare}`);
         }
     }
 }

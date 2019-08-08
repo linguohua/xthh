@@ -81,9 +81,12 @@ export class LMsgCenter {
         const pm = new proto.casino.ProxyMessage(pmp);
         const buf2 = proto.casino.ProxyMessage.encode(pm);
         const ab = buf2.toArrayBuffer();
-        this.ws.ww.send(ab);
 
-        // Logger.debug("sendGameMsg, length:", ab.byteLength)
+        if (this.ws !== null) {
+            this.ws.ww.send(ab);
+        } else {
+            Logger.error("this.ws === null");
+        }
     }
 
     public setGameMsgHandler(code: number, h: GameMsgHandler, target: object): void {
@@ -110,6 +113,10 @@ export class LMsgCenter {
 
     public getServerTime(): number {
         return Math.ceil(Date.now() / 1000) - this.localTimeDiff;
+    }
+
+    public isWebSocketClose(): boolean {
+        return this.ws !== null;
     }
 
     private async connectServer(): Promise<void> {
