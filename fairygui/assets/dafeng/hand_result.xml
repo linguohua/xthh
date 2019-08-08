@@ -16,7 +16,6 @@
     <component id="n11_fxwe" name="player3" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,333"/>
     <component id="n12_fxwe" name="player4" src="jmxy42" fileName="handResult/hand_result_player.xml" xy="8,447"/>
     <component id="n16_ra97" name="fakeList" src="jmxy1o" fileName="desk/mine/desk_hand.xml" xy="785,539" scale="0.35,0.35"/>
-    <component id="n18_ra97" name="guizeBtn" src="jmxy26" fileName="desk/guize_button.xml" xy="872,730"/>
     <text id="n19_tfg8" name="dizhuText" xy="44,571" size="168,35" fontSize="18" color="#6fe330" vAlign="middle" autoSize="none" singleLine="true" text="底注：1&#xA;"/>
     <loader id="n23_tfg8" name="loader" xy="580,1" pivot="0.5,0" anchor="true" size="165,109" visible="false" url="ui://397phochlqn3m3" align="center" vAlign="middle" fill="scale" autoSize="true"/>
   </displayList>
