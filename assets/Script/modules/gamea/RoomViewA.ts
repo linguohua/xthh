@@ -8,7 +8,7 @@ import { PlayerA } from "./PlayerA";
 import { PlayerViewA } from "./PlayerViewA";
 import { ReadyViewA } from "./ReadyViewA";
 import { RoomInterfaceA, roomStatus, TingPai } from "./RoomInterfaceA";
-import { RoomRuleViewA } from "./RoomRuleViewA";
+
 import { TileImageMounterA } from "./TileImageMounterA";
 
 /**
@@ -17,7 +17,6 @@ import { TileImageMounterA } from "./TileImageMounterA";
 export class RoomViewA {
     public playerViews: PlayerViewA[];
     public listensObj: fgui.GComponent;
-    public meldOpsPanel: fgui.GComponent;
     public donateMoveObj: fgui.GLoader;
     public tilesInWall: fgui.GObject;
     public statusHandlers: Function[];
@@ -32,9 +31,6 @@ export class RoomViewA {
 
     private recoredBtn: fgui.GObject;
     private chatBtn: fgui.GObject;
-    private readyButton: fgui.GButton;
-    private inviteButton: fgui.GButton;
-    private returnLobbyBtn: fgui.GButton;
     private roomInfoText: fgui.GObject;
     private roundMarkView: fgui.GComponent;
     private roundMarks: fgui.GObject[];
@@ -97,21 +93,10 @@ export class RoomViewA {
         this.initOtherView();
 
         this.initTingData();
-        this.initMeldsPanel();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.initRecordManager();
         }
-    }
-    /**
-     * 操作ui
-     */
-    public showOrHideReadyButton(isShow: boolean): void {
-        this.readyButton.visible = isShow;
-        // this.returnLobbyBtn.visible = isShow;
-        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-        //     this.inviteButton.visible = isShow;
-        // }
     }
 
     //响应玩家点击左上角的退出按钮以及后退事件
@@ -564,34 +549,7 @@ export class RoomViewA {
         this.chatBtn.onClick(this.onChatBtnClick, this);
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");
-
-        // const newIPhone = DataStore.getString(KeyConstants.ADAPTIVE_PHONE_KEY);
-
-        // if (newIPhone === "1") {
-        //     //
-        //     //this.settingBtn.setPosition(this.settingBtn.x + CommonFunction.IOS_ADAPTER_WIDTH, this.settingBtn.y);
-        // }
-
         this.settingBtn.onClick(this.onSettingBtnClick, this);
-
-        this.readyButton = this.unityViewNode.getChild("ready").asButton;
-        this.readyButton.visible = false;
-        this.readyButton.onClick(this.onReadyButtonClick, this);
-
-        this.inviteButton = this.unityViewNode.getChild("invite").asButton;
-        this.inviteButton.visible = false;
-        this.inviteButton.onClick(this.room.onInviteButtonClick, this.room);
-
-        this.returnLobbyBtn = this.unityViewNode.getChild("return2LobbyBtn").asButton;
-        this.returnLobbyBtn.visible = false;
-        this.returnLobbyBtn.onClick(this.room.onReturnLobbyBtnClick, this.room);
-
-        // 调整微信版本的按钮位置
-        // if (CC_WECHATGAME) {
-        //     Logger.debug("init wechat game button position");
-        //     settingBtn.setPosition(settingBtn.x, settingBtn.y + 60);
-        //     infoBtn.setPosition(infoBtn.x, infoBtn.y + 60);
-        // }
 
     }
 
@@ -668,10 +626,6 @@ export class RoomViewA {
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
         this.recordManager.stop();
-    }
-    private onReadyButtonClick(): void {
-        this.readyButton.visible = false;
-        this.room.onReadyButtonClick();
     }
 
     private initOtherView(): void {
@@ -801,65 +755,6 @@ export class RoomViewA {
         num.text = `${tingPai.num}`;
         TileImageMounterA.mountTileImage(t, tingPai.card);
         t.getChild("laiziMask").visible = tingPai.card === this.room.laiziID;
-    }
-
-    //面子牌选择面板
-    private initMeldsPanel(): void {
-        // const meldMap = {}
-        this.meldOpsPanel = this.unityViewNode.getChild("meldOpsPanel").asCom;
-        this.multiOpsObj = this.meldOpsPanel.getChild("list").asList;
-        this.multiOpsObj.itemRenderer = <(index: number, item: fgui.GComponent) => void>this.renderMultiOpsListItem.bind(this);
-        this.multiOpsObj.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onMeldOpsClick(); }, this);
-        const cancelBtn = this.meldOpsPanel.getChild("cancelBtn");
-        const cancelOnClick = () => {
-            this.meldOpsPanel.visible = false;
-            this.playerViews[1].showButton();
-        };
-        cancelBtn.onClick(cancelOnClick, this);
-    }
-
-    private renderMultiOpsListItem(): void {
-        // const meld = this.multiOpsDataList[index];
-        // obj.name = index.toString();
-        // let add = 0;
-        // let num = 4;
-        // if (meld.meldType === mjproto.MeldType.enumMeldTypeSequence) {
-        //     //吃的时候exp是3，所以第4个牌可以隐藏起来
-        //     obj.getChild("n4").visible = false;
-        //     add = 1;
-        //     num = 3;
-        // }
-        // let a = 0;
-        // for (let i = 1; i <= num; i++) {
-        //     const oCurCard = obj.getChild(`n${i}`).asCom;
-        //     TileImageMounter.mountTileImage(oCurCard, meld.tile1 + a);
-        //     oCurCard.visible = true;
-        //     a += add;
-        // }
-
-        // obj.visible = true;
-    }
-
-    private onMeldOpsClick(): void {
-        // const data = this.multiOpsDataList[+index];
-        // const actionMsg = new proto.mahjong.MsgPlayerAction();
-        // actionMsg.qaIndex = this.actionMsg.qaIndex;
-        // actionMsg.action = this.actionMsg.action;
-        // actionMsg.tile = this.actionMsg.tile;
-        // actionMsg.meldType = data.meldType;
-        // actionMsg.meldTile1 = data.tile1;
-        // if (data.meldType === mjproto.MeldType.enumMeldTypeConcealedKong) {
-        //     actionMsg.tile = data.tile1;
-        //     actionMsg.action = mjproto.ActionType.enumActionType_KONG_Concealed;
-        // } else if (data.meldType === mjproto.MeldType.enumMeldTypeTriplet2Kong) {
-        //     actionMsg.tile = data.tile1;
-        //     actionMsg.action = mjproto.ActionType.enumActionType_KONG_Triplet2;
-        // }
-
-        // const actionMsgBuf = proto.mahjong.MsgPlayerAction.encode(actionMsg);
-        // // this.room.sendActionMsg(actionMsgBuf);
-        // this.playerViews[1].hideOperationButtons();
-        // this.meldOpsPanel.visible = false;
     }
 
     private initRecordManager(): void {

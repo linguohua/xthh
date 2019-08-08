@@ -115,8 +115,7 @@ export interface RoomInterface {
 
     showTingDataView(tingP: TingPai[]): void;
     hideTingDataView(): void;
-    onReadyButtonClick(): void;
-    onInviteButtonClick(): void;
+
     resetForNewHand(): void;
     isListensObjVisible(): boolean;
 
@@ -135,7 +134,6 @@ export interface RoomInterface {
     removePlayer(chairID: string): void;
     createMyPlayer(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     createPlayerByInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
-    showOrHideReadyButton(isShow: boolean): void;
     onUpdateStatus(state: number): void;
 
     loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void;
@@ -155,7 +153,6 @@ export interface RoomInterface {
 
     getMyPlayerInfo(): PlayerInfo;
 
-    onReturnLobbyBtnClick(): void;
     showMsg(chatData: ChatData): void;
     setDiscardAble(isDiscardAble: boolean): void;
     myMahjong_showTingGroup(tile: number): TingPai[];
@@ -170,4 +167,6 @@ export interface RoomInterface {
     hideGamePauseTips(): void;
     getNextPlayer(chairID: number): PlayerInterface;
     getBackPlayer(chairID: number): PlayerInterface;
+
+    onReadyButtonClick(): void;
 }

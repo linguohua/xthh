@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://397phochlqn3fd" designImageAlpha="100">
+<component size="1136,640" designImage="ui://397phochlqn3fd" designImageAlpha="0">
   <displayList>
     <component id="n61_tebr" name="blueBg" src="tebrpd" fileName="bg_btn.xml" xy="0,0" size="1136,640"/>
     <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44" visible="false"/>
-    <component id="n26_rh8w" name="checkReadyHandBtn" src="jmxy33" fileName="desk/check_ting_button.xml" xy="578,763" visible="false" blend="screen"/>
     <component id="n17_fxwe" name="player4" src="jmxy16" fileName="desk/left/desk_view_left.xml" xy="0,0"/>
     <component id="n16_fxwe" name="player3" src="jmxyk" fileName="desk/dui/desk_view_dui.xml" xy="0,0"/>
     <component id="n15_fxwe" name="player2" src="jmxy1u" fileName="desk/right/desk_view_right.xml" xy="0,0"/>
@@ -16,20 +15,16 @@
     <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596" visible="false">
       <relation target="n14_fxwe" sidePair="left-left"/>
     </component>
-    <component id="n30_x2fz" name="return2LobbyBtn" src="jmxy35" fileName="desk/return_lobby_btn.xml" xy="196,427" group="n34_jrlz" visible="false"/>
-    <component id="n31_qly1" name="invite" src="jmxy37" fileName="desk/invite_button.xml" xy="480,427" group="n34_jrlz" visible="false"/>
-    <component id="n19_fxwe" name="ready" src="jmxy2c" fileName="desk/ready_button.xml" xy="760,427" group="n34_jrlz" visible="false"/>
-    <group id="n34_jrlz" name="btn" xy="196,427" size="794,79" hideByEditor="true" advanced="true" collapsed="true"/>
     <component id="n38_jel2" name="gpsBtn" src="jel2m5" fileName="btn/gpsBtn.xml" xy="1034,79" visible="false">
+      <relation target="n15_fxwe" sidePair="right-right"/>
+    </component>
+    <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>
     <component id="n40_jel2" name="recorderBtn" src="jel2m6" fileName="btn/recorderBtn.xml" xy="1027,329" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>
     <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="7,353" visible="false"/>
-    <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598" visible="false">
-      <relation target="n15_fxwe" sidePair="right-right"/>
-    </component>
     <component id="n46_jel2" name="laiziCom" src="jel2md" fileName="compoment/laiziCom.xml" xy="510,5" visible="false"/>
     <graph id="n48_lop0" name="AniPos" xy="568,300" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n47_lop0" name="zhuangPos" xy="568,320" pivot="0.5,0.5" anchor="true" size="18,28"/>

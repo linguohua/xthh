@@ -316,7 +316,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             Dialog.hideReconnectDialog();
         }
 
-        // this.mRoom.showOrHideReadyButton(!reconnect);
         if (table.status === null) {
             // 显示准备界面
             this.room.updateReadView(table);

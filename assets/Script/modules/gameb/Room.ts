@@ -235,10 +235,6 @@ export class Room {
     }
 
     public onReadyButtonClick(): void {
-        // const gm = new proto.mahjong.GameMessage();
-        // gm.Ops = proto.mahjong.MessageCode.OPPlayerReady;
-        // const buf = proto.mahjong.GameMessage.encode(gm);
-        // this.host.sendBinary(buf);
 
         const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
         const buf = protoHH.casino.packet_table_ready.encode(req2);
@@ -252,11 +248,6 @@ export class Room {
             Share.ShareMediaType.Image,
             Share.ShareDestType.Friend,
             `roomNumber=${this.roomInfo.tag}`);
-    }
-    public onReturnLobbyBtnClick(): void {
-
-        // this.sendMsg(proto.mahjong.MessageCode.OP2Lobby);
-
     }
 
     // 根据玩家的chairID获得相应的playerViewChairID    // 注意服务器的chairID是由0开始
@@ -382,7 +373,6 @@ export class Room {
     //关闭吃牌，杠牌，听牌详情
     public cleanUI(): void {
         this.roomView.listensObj.visible = false;
-        this.roomView.meldOpsPanel.visible = false;
     }
 
     public setDiscardAble(isDiscardAble: boolean): void {
@@ -515,9 +505,7 @@ export class Room {
     public showRoomNumber(): void {
         this.roomView.showRoomNumber();
     }
-    public showOrHideReadyButton(isShow: boolean): void {
-        this.roomView.showOrHideReadyButton(isShow);
-    }
+
     public onUpdateStatus(state: number): void {
         this.roomView.onUpdateStatus(state);
     }
