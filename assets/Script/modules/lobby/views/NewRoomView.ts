@@ -6,6 +6,7 @@ import {
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
+import { InputReplayIdView } from "./InputReplayIdView";
 import { JoinRoom } from "./JoinRoom";
 
 const { ccclass } = cc._decorator;
@@ -194,6 +195,9 @@ export class NewRoomView extends cc.Component {
         this.initPersonalRoom();
         //战绩界面
         const recordCom = this.view.getChild("recordCom").asCom;
+        const recordBtn = recordCom.getChild("recordBtn").asButton;
+
+        recordBtn.onClick(this.onInputRecordIdBtnClick, this);
         this.recordList = recordCom.getChild("list").asList;
         this.recordList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderRecordListItem(index, item);
@@ -269,21 +273,26 @@ export class NewRoomView extends cc.Component {
         const myUser = { userID: playerID };
 
         const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
-        const table = protoHH.casino.table.decode(reply.replay);
-        const params: GameModuleLaunchArgs = {
-            jsonString: "replay",
-            userInfo: myUser,
-            joinRoomParams: null,
-            createRoomParams: null,
-            record: table
-        };
+        if (reply.replay !== undefined && reply.replay !== null) {
+            const table = protoHH.casino.table.decode(reply.replay);
+            const params: GameModuleLaunchArgs = {
+                jsonString: "replay",
+                userInfo: myUser,
+                joinRoomParams: null,
+                createRoomParams: null,
+                record: table
+            };
 
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
 
-        this.win.hide();
-        this.destroy();
+            this.win.hide();
+            this.destroy();
 
-        lm.switchToGame(params, "gameb");
+            lm.switchToGame(params, "gameb");
+        } else {
+            Dialog.showDialog("reply.replay === null");
+        }
+
     }
 
     private renderRecordListItem(index: number, item: fgui.GObject): void {
@@ -506,6 +515,13 @@ export class NewRoomView extends cc.Component {
 
     private onPersonalRoomBtn(): void {
         this.initPersonalRoom();
+    }
+
+    private onInputRecordIdBtnClick(): void {
+        Logger.debug("onEnterBtnClick");
+
+        const joiRoomView = this.addComponent(InputReplayIdView);
+        joiRoomView.show();
     }
 
     private onEnterBtnClick(): void {

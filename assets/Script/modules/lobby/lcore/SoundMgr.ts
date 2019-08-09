@@ -17,17 +17,14 @@ export namespace SoundMgr {
                 return;
             }
             // setEffectsVolume在微信上有问题，待以后cocos版本更新看下在改
-            Logger.debug("before playEffect, cc.audioEngine.getEffectsVolume() = ", cc.audioEngine.getEffectsVolume());
             if (cc.audioEngine.getEffectsVolume() > 0) {
 
                 const num = cc.audioEngine.playEffect(<cc.AudioClip>result, loop);
-                Logger.debug("after playEffect, cc.audioEngine.getEffectsVolume() = ", cc.audioEngine.getEffectsVolume());
                 if (callBack !== undefined) {
                     callBack(num);
                 }
             }
             // const num = cc.audioEngine.playEffect(<cc.AudioClip>result, loop);
-            // Logger.debug("after playEffect, cc.audioEngine.getEffectsVolume() = ", cc.audioEngine.getEffectsVolume());
             // if (callBack !== undefined) {
             //     callBack(num);
             // }

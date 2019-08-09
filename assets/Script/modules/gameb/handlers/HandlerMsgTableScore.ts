@@ -1,4 +1,4 @@
-import { Logger, Dialog } from "../../lobby/lcore/LCoreExports";
+import { Dialog, Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { Player } from "../Player";
 import { RoomInterface, roomStatus } from "../RoomInterface";

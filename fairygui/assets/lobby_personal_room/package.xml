@@ -43,6 +43,7 @@
     <component id="kyp515" name="huifang.xml" path="/resource/"/>
     <image id="kyp516" name="Bitmap.png" path="/"/>
     <image id="c07l17" name="s_私人房-创建房间提示I标注.jpg" path="/design/"/>
+    <component id="ztsl18" name="recordBtn.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_personal_room"/>
 </packageDescription>

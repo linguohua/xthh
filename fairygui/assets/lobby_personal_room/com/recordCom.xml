@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="863,450" designImage="ui://shrzm3rckyp510" designImageOffsetX="-133" designImageOffsetY="-137">
-  <controller name="tag" pages="0,0,1,1,2,2,3,3,4,4,5,5,6,6" selected="6"/>
+  <controller name="tag" pages="0,0,1,1,2,2,3,3,4,4,5,5,6,6" selected="0"/>
   <displayList>
     <image id="n25_kyp5" name="n25" src="ik119" fileName="resource/srf_di1.png" xy="1,55" size="862,396"/>
     <list id="n0_kyp5" name="list" xy="3,110" size="867,330" overflow="scroll" defaultItem="ui://shrzm3rckyp5z" autoClearItems="true">
@@ -16,7 +16,7 @@
     <text id="n8_kyp5" name="n8" xy="636,10" size="80,35" fontSize="24" color="#856d57" bold="true" text="视频ID"/>
     <text id="n9_kyp5" name="n9" xy="260,10" size="53,35" fontSize="24" color="#856d57" bold="true" text="房号"/>
     <component id="n18_kyp5" name="btn6" src="kyp511" fileName="resource/Button1.xml" xy="2,55">
-      <Button controller="tag" page="0"/>
+      <Button checked="true" controller="tag" page="0"/>
     </component>
     <component id="n19_kyp5" name="btn5" src="kyp512" fileName="resource/Button2.xml" xy="124,55">
       <Button controller="tag" page="1"/>
@@ -34,7 +34,8 @@
       <Button controller="tag" page="5"/>
     </component>
     <component id="n24_kyp5" name="btn0" src="kyp513" fileName="resource/Button3.xml" xy="739,55">
-      <Button checked="true" controller="tag" page="6"/>
+      <Button controller="tag" page="6"/>
     </component>
+    <component id="n27_ztsl" name="recordBtn" src="ztsl18" fileName="btn/recordBtn.xml" xy="4,-7"/>
   </displayList>
 </component>

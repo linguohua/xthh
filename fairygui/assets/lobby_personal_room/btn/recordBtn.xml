@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="123,55" pivot="0.5,0.5" extention="Button" designImage="ui://shrzm3rckyp510" designImageOffsetX="-137" designImageOffsetY="-130" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_ztsl" name="n0" src="ik110" fileName="resource/ty_btn_c.png" pkg="snwj6cnx" xy="0,0" size="123,55">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n1_ztsl" name="n1" xy="16,10" size="92,32" fontSize="21" color="#fef6e2" align="center" vAlign="middle" letterSpacing="1" bold="true" singleLine="true" text="录像回放"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
