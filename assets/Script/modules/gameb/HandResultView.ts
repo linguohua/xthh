@@ -287,17 +287,22 @@ export class HandResultView extends cc.Component {
 
                 this.sortHands(hupaiArray.sBarray, false);
                 // 将胡的牌从数组中去掉
+                let isFind = false;
                 const tilesLength = hupaiArray.sBarray.length;
                 for (let i = 0; i < tilesLength; i++) {
                     if (hupaiArray.sBarray[i] === playerScore.hupai_card) {
                         hupaiArray.sBarray.splice(i, 1);
+                        isFind = true;
                         break;
                     }
                 }
 
                 tilesHand = hupaiArray.sParray.concat(hupaiArray.sBarray);
 
-                tilesHand.push(playerScore.hupai_card);
+                if (isFind) {
+                    tilesHand.push(playerScore.hupai_card);
+                }
+
                 this.winUserID = player.userID;
             }
         } else {
