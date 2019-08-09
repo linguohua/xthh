@@ -7,7 +7,7 @@ import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
 import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
 import { Player } from "./Player";
 import { TypeOfOP } from "./PlayerInterface";
-import { RoomInterface } from "./RoomInterface";
+import { RoomInterface, roomStatus } from "./RoomInterface";
 
 type ActionHandler = (srAction: proto.casino.Itable_op, x?: any) => Promise<void>; // tslint:disable-line:no-any
 enum actionType {
@@ -69,6 +69,7 @@ export class Replay {
     private win: fgui.Window;
     private mq: MsgQueue;
     private timerCb: Function;
+    private isPause: boolean = false;
     private actionHandlers: { [key: number]: ActionHandler } = {};
     // private latestDiscardedTile: number;
 
@@ -274,6 +275,7 @@ export class Replay {
     private onPauseClick(): void {
         this.btnPause.visible = false;
         this.btnResume.visible = true;
+        this.isPause = true;
         this.room.getRoomHost().component.unschedule(this.timerCb);
     }
     private onBackClick(): void {
@@ -298,6 +300,7 @@ export class Replay {
     private onResumeClick(): void {
         this.btnPause.visible = true;
         this.btnResume.visible = false;
+        this.isPause = false;
         this.startStepTimer();
 
         const msg = new Message(MsgType.replay);
@@ -305,35 +308,19 @@ export class Replay {
     }
 
     private onFastClick(): void {
-        this.room.getRoomHost().component.unschedule(this.timerCb);
         if (this.speedIndex > 2) {
-            // Logger.debug("fastest speed already");
-            // Dialog.prompt("已经是最快速度");
             this.speedIndex = 0;
-            // return;
         } else {
             this.speedIndex++;
-            // this.speed = this.speed / 2;
         }
         this.speed = speedArr[this.speedIndex];
         this.textNum.text = `x${this.speedIndex + 1}`;
-
-        this.startStepTimer();
-        Logger.debug("this.speed ： ", this.speed);
+        if (!this.isPause) {
+            this.room.getRoomHost().component.unschedule(this.timerCb);
+            this.startStepTimer();
+        }
+        // Logger.debug("this.speed ： ", this.speed);
     }
-
-    // private onSlowClick(): void {
-    //     if (this.speed > 3) {
-    //         Logger.debug("slowest speed already");
-    //         Dialog.prompt("已经是最慢速度");
-
-    //         return;
-    //     }
-
-    //     this.room.getRoomHost().component.unschedule(this.timerCb);
-    //     this.speed = this.speed * 2;
-    //     this.startStepTimer();
-    // }
 
     private armActionHandler(): void {
         const handers: { [key: number]: ActionHandler } = {};
@@ -357,11 +344,11 @@ export class Replay {
         const roundlist = this.msgHandRecord.rounds;
         if (this.roundStep >= roundlist.length) {
             // 已经播放完成了
-            this.room.getRoomHost().component.unschedule(this.timerCb);
+            this.onPauseClick();
 
             // 结算页面 （总结算界面）
             await this.handOver();
-            this.win.bringToFront();
+            // this.win.bringToFront();
         } else {
             const round = roundlist[this.roundStep];
             // Logger.debug(`this.roundStep : ${ this.roundStep }, this.actionStep : ${ this.actionStep } `);
@@ -384,7 +371,9 @@ export class Replay {
                 this.roundStep++;
                 this.actionStep = 0;
             } else {
+                this.onPauseClick(); //先暂停定时器
                 await this.doAction(action);
+                this.onResumeClick(); //启动定时器
                 this.actionStep++;
             }
         }
@@ -412,7 +401,7 @@ export class Replay {
         await HandlerMsgDeal.onMsg(msgDeal, this.room);
     }
     private async discardedActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
-        Logger.debug("llwant, dfreplay, discarded");
+        // Logger.debug("llwant, dfreplay, discarded");
 
         const data = new proto.casino_xtsj.packet_sc_outcard_ack();
         data.player_id = srAction.player_id;
@@ -424,7 +413,7 @@ export class Replay {
     }
 
     private async drawActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
-        Logger.debug("llwant, dfreplay, draw");
+        // Logger.debug("llwant, dfreplay, draw");
         const data = new proto.casino_xtsj.packet_sc_drawcard();
         data.player_id = srAction.player_id;
         data.card = srAction.card;
@@ -435,7 +424,7 @@ export class Replay {
         await HandlerActionResultDraw.onMsg(msg, this.room);
     }
     private async endeActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
-        Logger.debug("llwant, dfreplay, end : ", srAction);
+        // Logger.debug("llwant, dfreplay, end : ", srAction);
         const pCards = srAction.params;
 
         //播放动画
@@ -483,10 +472,13 @@ export class Replay {
         msgGameOver.scores = scores;
 
         this.room.loadGameOverResultView(msgGameOver);
+
+        await this.room.coWaitSeconds(2);
+        this.room.getRoomHost().eventTarget.emit("closeGameOverResult");
     }
     private async scoreActionHandler(): Promise<void> {
-        Logger.debug("llwant, dfreplay, scoreActionHandler");
-        this.onPauseClick();
+        // Logger.debug("llwant, dfreplay, scoreActionHandler");
+        // this.onPauseClick();
         const data = new proto.casino.packet_table_score();
         //构建scores
         const scores: proto.casino.player_score[] = [];
@@ -512,7 +504,9 @@ export class Replay {
         const msg = proto.casino.packet_table_score.encode(data);
         await HandlerMsgTableScore.onMsg(msg, this.room);
 
-        this.onResumeClick();
+        await this.room.coWaitSeconds(2);
+        this.room.getRoomHost().eventTarget.emit("closeHandResult");
+        // this.onResumeClick();
     }
     private async opAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
         Logger.debug("llwant, dfreplay, opAckActionHandler");
