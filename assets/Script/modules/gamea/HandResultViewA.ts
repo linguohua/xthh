@@ -117,6 +117,8 @@ export class HandResultViewA extends cc.Component {
         const bg = view.getChild('bg');
         CommonFunction.setBgFullScreenSize(bg);
 
+        this.room.getRoomHost().eventTarget.on("closeHandResult", this.closeHandResultView, this);
+
         this.unityViewNode = view;
         const win = new fgui.Window();
         win.contentPane = view;
@@ -605,5 +607,14 @@ export class HandResultViewA extends cc.Component {
         }
 
         return false;
+    }
+
+    private closeHandResultView(): void {
+        Logger.debug("closeHandResult");
+
+        this.eventTarget.emit("destroy");
+        this.destroy();
+        this.win.hide();
+        this.win.dispose();
     }
 }

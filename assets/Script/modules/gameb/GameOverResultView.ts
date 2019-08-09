@@ -1,4 +1,4 @@
-import { CommonFunction, Dialog } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 // import { Player } from "./Player";
@@ -57,6 +57,8 @@ export class GameOverResultView extends cc.Component {
 
         const mask = viewObj.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
+
+        this.room.getRoomHost().eventTarget.on("closeGameOverResult", this.closeGameOverResultView, this);
 
         this.unityViewNode = viewObj;
         const win = new fgui.Window();
@@ -391,5 +393,14 @@ export class GameOverResultView extends cc.Component {
 
         this.contentGroup[0].group.setPosition(originPositions[1].x, originPositions[1].y);
         this.contentGroup[1].group.setPosition(originPositions[2].x, originPositions[2].y);
+    }
+
+    private closeGameOverResultView(): void {
+        Logger.debug("closeGameOverResultView");
+
+        this.eventTarget.emit("destroy");
+        this.destroy();
+        this.win.hide();
+        this.win.dispose();
     }
 }
