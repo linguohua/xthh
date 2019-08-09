@@ -32,7 +32,7 @@ export namespace HandlerMsgActionOP {
             }
         }
         // Logger.debug(`room.tilesInWall  , ${room.tilesInWall} ; players ：, ${room.roomInfo.players.length}`);
-        const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
+        const isCanGang = room.tilesInWall > room.roomInfo.players.length; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
         if (isCanGang || reply.card === room.laigenID) {
             const gang = room.mAlgorithm.canGang_WithOther(player.tilesHand, reply.card);
             if (gang.length > 0) {

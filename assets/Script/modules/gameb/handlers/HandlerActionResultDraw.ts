@@ -50,7 +50,7 @@ export namespace HandlerActionResultDraw {
                 player.playerView.huBtn.grayed = false;
             }
         }
-        const isCanGang = room.tilesInWall > room.roomInfo.players.length + 1; //最后几张不可杠
+        const isCanGang = room.tilesInWall > room.roomInfo.players.length; //最后几张不可杠
         if (isCanGang || reply.card === room.laigenID) {
             const gang = room.mAlgorithm.haveGang_WithMe(player.tilesHand, player.tilesMelds, player.notKongs, reply.card);
             if (gang.length > 0) {

@@ -56,7 +56,7 @@ export namespace HandlerMsgActionOPAck {
             contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
         }
         // player.sortHands(false); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
-        player.hand2UI(false); //手牌列表更新UI
+        player.hand2UI(true); //手牌列表更新UI
     };
     const kong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): number => {
         if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_DIANXIAO || pAck.type === OP_TYPE.XTSJ_OP_TYPE_MENGXIAO ||
