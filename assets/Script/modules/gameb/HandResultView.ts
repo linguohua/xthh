@@ -98,7 +98,6 @@ export class HandResultView extends cc.Component {
     private result: fgui.GLoader;
     private contentGroup: ViewGroup[];
     private winUserID: string = "";
-
     private stopTime: number;
 
     public showView(room: RoomInterface, msgHandOver: proto.casino.packet_table_score): void {
@@ -150,7 +149,6 @@ export class HandResultView extends cc.Component {
         const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
-        this.countDown.text = `${msgHandOver.time} ${btnText}`;
 
         const shanreBtn = this.unityViewNode.getChild("shanreBtn");
         shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
@@ -167,6 +165,8 @@ export class HandResultView extends cc.Component {
         // 这个是看lua代码加上
         const timeLeft = 3;
         this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
+
+        this.countDownAgian();
         this.unschedule(this.countDownAgian);
         this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
 
