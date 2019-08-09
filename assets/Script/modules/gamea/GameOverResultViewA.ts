@@ -58,8 +58,6 @@ export class GameOverResultViewA extends cc.Component {
         const mask = viewObj.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
 
-        this.room.getRoomHost().eventTarget.on("closeGameOverResult", this.closeGameOverResultView, this);
-
         this.unityViewNode = viewObj;
         const win = new fgui.Window();
         win.contentPane = viewObj;
@@ -85,6 +83,7 @@ export class GameOverResultViewA extends cc.Component {
             backHallBtn.visible = false;
             copyRecordBtn.visible = false;
             shanreBtn.visible = false;
+            this.room.getRoomHost().eventTarget.once("closeGameOverResult", this.closeGameOverResultView, this);
         }
         //更新数据
         this.updateAllData();

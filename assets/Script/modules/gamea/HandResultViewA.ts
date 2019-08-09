@@ -117,8 +117,6 @@ export class HandResultViewA extends cc.Component {
         const bg = view.getChild('bg');
         CommonFunction.setBgFullScreenSize(bg);
 
-        this.room.getRoomHost().eventTarget.on("closeHandResult", this.closeHandResultView, this);
-
         this.unityViewNode = view;
         const win = new fgui.Window();
         win.contentPane = view;
@@ -160,6 +158,7 @@ export class HandResultViewA extends cc.Component {
         if (room.isReplayMode()) {
             againBtn.visible = false;
             shanreBtn.visible = false;
+            this.room.getRoomHost().eventTarget.once("closeHandResult", this.closeHandResultView, this);
         } else {
             const timeLeft = 3;
             this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
