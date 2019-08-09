@@ -79,12 +79,18 @@ export class GameOverResultView extends cc.Component {
         shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
         shanreBtn.onClick(this.onShareButtonClick, this);
 
+        if (room.isReplayMode()) {
+            backHallBtn.visible = false;
+            copyRecordBtn.visible = false;
+            shanreBtn.visible = false;
+        }
         //更新数据
         this.updateAllData();
 
         this.resetPosition();
 
         this.win.show();
+
     }
 
     //更新房间相关数据
