@@ -370,9 +370,9 @@ export class ReplayA {
                 this.roundStep++;
                 this.actionStep = 0;
             } else {
-                this.onPauseClick(); //先暂停定时器
+                // this.onPauseClick(); //先暂停定时器
                 await this.doAction(action);
-                this.onResumeClick(); //启动定时器
+                // this.onResumeClick(); //启动定时器
                 this.actionStep++;
             }
         }
@@ -477,7 +477,7 @@ export class ReplayA {
     }
     private async scoreActionHandler(): Promise<void> {
         // Logger.debug("llwant, dfreplay, scoreActionHandler");
-        // this.onPauseClick();
+        this.onPauseClick();
         const data = new proto.casino.packet_table_score();
         //构建scores
         const scores: proto.casino.player_score[] = [];
@@ -505,7 +505,7 @@ export class ReplayA {
 
         await this.room.coWaitSeconds(2);
         this.room.getRoomHost().eventTarget.emit("closeHandResult");
-        // this.onResumeClick();
+        this.onResumeClick();
     }
     private async opAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
         Logger.debug("llwant, dfreplay, opAckActionHandler");

@@ -434,7 +434,7 @@ export class HandResultView extends cc.Component {
             //玩家基本信息
             this.updatePlayerInfoData(playerScore.data, c);
             let myScore = 0;
-            if (this.msgHandOver.op > 0) {
+            if (this.msgHandOver.op > 0 && playerScore.score !== null) {
                 myScore = playerScore.score;
             }
 
