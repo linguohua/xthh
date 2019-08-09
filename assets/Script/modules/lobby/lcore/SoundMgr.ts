@@ -1,3 +1,5 @@
+import { Logger } from "./Logger";
+
 /**
  * 音效管理
  */
@@ -14,9 +16,12 @@ export namespace SoundMgr {
 
                 return;
             }
+            Logger.debug("before playEffect, cc.audioEngine.getEffectsVolume() = ", cc.audioEngine.getEffectsVolume());
             const num = cc.audioEngine.playEffect(<cc.AudioClip>result, loop);
+            Logger.debug("after playEffect, cc.audioEngine.getEffectsVolume() = ", cc.audioEngine.getEffectsVolume());
             if (callBack !== undefined) {
                 callBack(num);
+
             }
         });
     };

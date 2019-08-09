@@ -168,6 +168,15 @@ export class Dialog {
         });
     }
 
+    public static isShowWaiting(): boolean {
+
+        if (Dialog.inst.waitWin === undefined) {
+            return false;
+        }
+
+        return Dialog.inst.waitWin.visible;
+    }
+
     public static showWaiting(): void {
         if (Dialog.inst.waitWin === undefined) {
             Dialog.inst.loader.fguiAddPackage("lobby/fui_lobby_progress_bar/lobby_progress_bar");

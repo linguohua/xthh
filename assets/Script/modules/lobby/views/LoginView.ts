@@ -154,6 +154,7 @@ export class LoginView extends cc.Component {
         this.destroy();
         this.win.hide();
         this.win.dispose();
+        Dialog.hideDialog();
 
         this.addComponent(LobbyView);
     }
@@ -434,6 +435,10 @@ export class LoginView extends cc.Component {
                 this.button.hide();
             }
             // this.weixinButton.d
+            if (Dialog.isShowWaiting()) {
+                // 防止连续点击
+                return;
+            }
             Dialog.showWaiting();
             WeiXinSDK.login(<Function>this.wxLogin.bind(this));
         });
