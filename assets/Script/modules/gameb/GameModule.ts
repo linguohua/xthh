@@ -574,7 +574,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             return;
         }
 
-        if (this.mRoom.replay !== undefined && this.mRoom.replay !== null) {
+        if (this.mRoom.isReplayMode()) {
             return;
         }
 

@@ -158,18 +158,17 @@ export class HandResultViewA extends cc.Component {
         if (room.isReplayMode()) {
             againBtn.visible = false;
             shanreBtn.visible = false;
+        } else {
+            const timeLeft = 3;
+            this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
+
+            this.countDownAgian();
+            this.unschedule(this.countDownAgian);
+            this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
         }
 
         //更新数据
         this.updateAllData();
-
-        // 这个是看lua代码加上
-        const timeLeft = 3;
-        this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
-
-        this.countDownAgian();
-        this.unschedule(this.countDownAgian);
-        this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
 
         this.win.show();
     }
