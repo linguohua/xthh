@@ -46,7 +46,7 @@ const fourPlayerPair: number[][] = [
     [2, 3]
 ];
 
-const EARTH_RADIUS = 6378.137; //地球半径,单位千米
+// const EARTH_RADIUS = 6378.137; //地球半径,单位千米
 /**
  * 解散页面
  */
@@ -220,19 +220,61 @@ export class GpsView extends cc.Component {
     }
 
     private calculateDistance(coordinate1: proto.casino.Icoordinate, coordinate2: proto.casino.Icoordinate): number {
-        Logger.debug(`coordinate1, lant:${coordinate1.latitude}, long:${coordinate1.longitude},
-        coordinate2, lant:${coordinate2.latitude}, long:${coordinate2.longitude}`);
-        const radLat1 = this.rad(coordinate1.latitude);
-        const radLat2 = this.rad(coordinate2.latitude);
-        const a = radLat1 - radLat2;
-        const b = this.rad(coordinate1.longitude) - this.rad(coordinate2.longitude);
-        let s = Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
-            Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2))) * 2;
-        s = s * EARTH_RADIUS;
-        s = Math.round(s * 10000) / 10000;
-        Logger.debug("calculateDistance, distance:", s);
+        if (coordinate1 === null || coordinate1 === undefined) {
+            return 0;
+        }
 
-        return Math.ceil(s);
+        if (coordinate2 === null || coordinate2 === undefined) {
+            return 0;
+        }
+
+        const earthRadius = 6378137;  // 赤道半径(单位m)
+        let radLat1 = this.rad(coordinate1.latitude);
+        let radLat2 = this.rad(coordinate2.latitude);
+        let radLon1 = this.rad(coordinate1.longitude);
+        let radLon2 = this.rad(coordinate2.longitude);
+
+        if (radLat1 < 0) {
+            radLat1 = Math.PI / 2 + Math.abs(radLat1) // south
+        }
+
+        if (radLat1 > 0) {
+            radLat1 = Math.PI / 2 - Math.abs(radLat1) // north
+        }
+
+        if (radLon1 < 0) {
+            radLon1 = Math.PI * 2 - Math.abs(radLon1) // west
+        }
+
+        if (radLat2 < 0) {
+            radLat2 = Math.PI / 2 + Math.abs(radLat2) // south
+        }
+
+        if (radLat2 > 0) {
+            radLat2 = Math.PI / 2 - Math.abs(radLat2) // north
+        }
+
+        if (radLon2 < 0) {
+            radLon2 = Math.PI * 2 - Math.abs(radLon2) // west
+        }
+
+        const x1 = earthRadius * Math.cos(radLon1) * Math.sin(radLat1)
+        const y1 = earthRadius * Math.sin(radLon1) * Math.sin(radLat1)
+        const z1 = earthRadius * Math.cos(radLat1)
+
+        const x2 = earthRadius * Math.cos(radLon2) * Math.sin(radLat2)
+        const y2 = earthRadius * Math.sin(radLon2) * Math.sin(radLat2)
+        const z2 = earthRadius * Math.cos(radLat2)
+
+        const d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2))
+
+        //余弦定理求夹角
+        const theta =
+            Math.acos(
+                (earthRadius * earthRadius + earthRadius * earthRadius - d * d) / (2 * earthRadius * earthRadius)
+            )
+        const dist = theta * earthRadius
+        return dist
     }
 
     private rad(d: number): number {
@@ -296,6 +338,7 @@ export class GpsView extends cc.Component {
             }
         }
     }
+
     // private calculateDistance2(coordinate1: proto.casino.coordinate, coordinate2: proto.casino.coordinate, callback: Function): void {
     //     Logger.debug(`calculateDistance, coordinate1: ${ coordinate1 }, coordinate2: ${ coordinate2 }`);
 
