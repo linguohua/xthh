@@ -63,7 +63,10 @@ export namespace HandlerMsgTableScore {
                 await room.coWaitSeconds(2);
                 room.loadGameOverResultView(reply);
             } else {
-                await Dialog.coShowDialog("房间已解散", true, false);
+                if (disband_type === 2) {
+                    Dialog.prompt("超时太久，自动解散！");
+                    await room.coWaitSeconds(2);
+                }
             }
         } else {
             await showHu(reply, room);

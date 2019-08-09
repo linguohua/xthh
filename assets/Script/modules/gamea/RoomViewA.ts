@@ -440,7 +440,6 @@ export class RoomViewA {
         const roomHost = this.room.getRoomHost();
         const serverTime = roomHost.getServerTime();
         this.gamePauseTime = timeStamp - serverTime;
-        Logger.debug("gamePauseCountDownFunc-----------------------------------  this.gamePauseTime");
         if (this.gamePauseTime <= 0) {
             roomHost.component.unschedule(this.gamePauseSchedule);
             //this.disbandRoom();
