@@ -139,6 +139,7 @@ export class PlayerView {
     private piaoScoreStartPos: cc.Vec2;
     private piaoScoreEndPos: cc.Vec2;
     private voice: fgui.GObject;
+    private huoArray: fgui.GObject[];
     // private isCanRestoreHands: boolean = true;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
         this.room = room;
@@ -646,7 +647,9 @@ export class PlayerView {
         // Logger.debug("isHu ------------- ", isHu);
         if (isHu) {
             for (const a of arr) {
-                a.getChild("huo").visible = true;
+                const huo = a.getChild("huo");
+                huo.visible = true;
+                this.huoArray.push(huo);
                 // const meldView = fgui.UIPackage.createObject("lobby_mahjong", resName).asCom;
                 // meldView.setPosition(mv.x, mv.y);
                 // meldView.name = `myMeld${i}`;
@@ -772,6 +775,9 @@ export class PlayerView {
 
     //把手牌摊开，包括对手的暗杠牌，用于一手牌结束时
     public hand2Exposed(wholeMove: boolean, isHu: boolean = false): void {
+        if (isHu) {
+            this.huoArray = [];
+        }
         //不需要手牌显示了，全部摊开
         this.hideLights();
 
@@ -785,24 +791,23 @@ export class PlayerView {
         let endd = tileCountInHand;
 
         const meldCount = melds.length;
+        let light13;
         if ((meldCount * 3 + tileCountInHand) > 13) {
-            const light = this.lights[13];
+            light13 = this.lights[13];
             if (wholeMove) {
-                TileImageMounter.mountTileImage(light, tileshand[tileCountInHand - 1]);
-                light.getChild("laiziMask").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
-                light.visible = true;
+                TileImageMounter.mountTileImage(light13, tileshand[tileCountInHand - 1]);
+                light13.getChild("laiziMask").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
+                light13.visible = true;
                 endd = tileCountInHand - 1;
             } else {
-                TileImageMounter.mountTileImage(light, tileshand[0]);
-                light.getChild("laiziMask").visible = tileshand[0] === this.room.laiziID;
-                light.visible = true;
+                TileImageMounter.mountTileImage(light13, tileshand[0]);
+                light13.getChild("laiziMask").visible = tileshand[0] === this.room.laiziID;
+                light13.visible = true;
                 begin = 1;
-            }
-            if (isHu) {
-                light.getChild("huo").visible = true;
             }
         }
 
+        const huoArrayTem: fgui.GObject[] = [];
         let j = 0;
         for (let i = begin; i < endd; i++) {
             const light = this.lights[j];
@@ -810,9 +815,22 @@ export class PlayerView {
             light.visible = true;
             light.getChild("laiziMask").visible = tileshand[i] === this.room.laiziID;
             if (isHu) {
-                light.getChild("huo").visible = true;
+                const huo = light.getChild("huo");
+                huo.visible = true;
+                huoArrayTem.push(huo);
             }
             j = j + 1;
+        }
+        if (huoArrayTem.length > 0) {
+            //反序
+            for (let i = huoArrayTem.length - 1; i >= 0; i--) {
+                this.huoArray.push(huoArrayTem[i]);
+            }
+        }
+        if (light13 !== undefined && light13 !== null && isHu) {
+            const huo = light13.getChild("huo");
+            huo.visible = true;
+            this.huoArray.push(huo);
         }
 
         //重新设置 手牌位置
@@ -841,6 +859,17 @@ export class PlayerView {
             //改变y值
             this.myLightilesNode.y = pos;
         }
+    }
+
+    public async hideHuoArray(): Promise<void> {
+        if (this.huoArray.length > 0) {
+            for (const huo of this.huoArray) {
+                huo.visible = false;
+                await this.room.coWaitSeconds(0.05);
+            }
+        }
+
+        this.huoArray = [];
     }
 
     //清除掉由于服务器发下来allowed actions而导致显示出来的view//例如吃椪杠操作面板等等

@@ -43,6 +43,7 @@ export namespace HandlerMsgTableScoreA {
         const reply = proto.casino.packet_table_score.decode(msgData);
         Logger.debug("HandlerMsgTableScore----------------------- ", reply);
         //摊牌
+        let huPlayer: PlayerA = null;
         for (const score of reply.scores) {
             const curcards = score.curcards;
             const player = <PlayerA>room.getPlayerByUserID(`${score.data.id}`);
@@ -52,6 +53,7 @@ export namespace HandlerMsgTableScoreA {
                 //     player.tilesHand = curcards;
                 // }
                 player.hand2Exposed(curcards);
+                huPlayer = player;
             }
         }
         const disband_type = reply.tdata.disband_type;
@@ -64,11 +66,11 @@ export namespace HandlerMsgTableScoreA {
                 await Dialog.coShowDialog("房间已解散", true, false);
             }
         } else {
-            Logger.debug("showHu----------------------- ");
             await showHu(reply, room);
-            Logger.debug("coWaitSeconds----------------------- ");
-            await room.coWaitSeconds(2);
-            Logger.debug("coWaitSeconds-----------------------2 ");
+            await room.coWaitSeconds(1);
+            if (huPlayer !== null) {
+                await huPlayer.playerView.hideHuoArray();
+            }
             // 显示手牌输赢结果
             room.loadHandResultView(reply);
         }
