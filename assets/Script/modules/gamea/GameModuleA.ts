@@ -566,6 +566,10 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             return;
         }
 
+        if (this.mRoom.replay !== undefined && this.mRoom.replay !== null) {
+            return;
+        }
+
         Dialog.showReconnectDialog();
 
         this.joinRoomReq(this.mRoom.roomInfo);
