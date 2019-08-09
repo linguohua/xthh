@@ -235,46 +235,43 @@ export class GpsView extends cc.Component {
         let radLon2 = this.rad(coordinate2.longitude);
 
         if (radLat1 < 0) {
-            radLat1 = Math.PI / 2 + Math.abs(radLat1) // south
+            radLat1 = Math.PI / 2 + Math.abs(radLat1); // south
         }
 
         if (radLat1 > 0) {
-            radLat1 = Math.PI / 2 - Math.abs(radLat1) // north
+            radLat1 = Math.PI / 2 - Math.abs(radLat1); // north
         }
 
         if (radLon1 < 0) {
-            radLon1 = Math.PI * 2 - Math.abs(radLon1) // west
+            radLon1 = Math.PI * 2 - Math.abs(radLon1); // west
         }
 
         if (radLat2 < 0) {
-            radLat2 = Math.PI / 2 + Math.abs(radLat2) // south
+            radLat2 = Math.PI / 2 + Math.abs(radLat2); // south
         }
 
         if (radLat2 > 0) {
-            radLat2 = Math.PI / 2 - Math.abs(radLat2) // north
+            radLat2 = Math.PI / 2 - Math.abs(radLat2); // north
         }
 
         if (radLon2 < 0) {
-            radLon2 = Math.PI * 2 - Math.abs(radLon2) // west
+            radLon2 = Math.PI * 2 - Math.abs(radLon2); // west
         }
 
-        const x1 = earthRadius * Math.cos(radLon1) * Math.sin(radLat1)
-        const y1 = earthRadius * Math.sin(radLon1) * Math.sin(radLat1)
-        const z1 = earthRadius * Math.cos(radLat1)
+        const x1 = earthRadius * Math.cos(radLon1) * Math.sin(radLat1);
+        const y1 = earthRadius * Math.sin(radLon1) * Math.sin(radLat1);
+        const z1 = earthRadius * Math.cos(radLat1);
 
-        const x2 = earthRadius * Math.cos(radLon2) * Math.sin(radLat2)
-        const y2 = earthRadius * Math.sin(radLon2) * Math.sin(radLat2)
-        const z2 = earthRadius * Math.cos(radLat2)
+        const x2 = earthRadius * Math.cos(radLon2) * Math.sin(radLat2);
+        const y2 = earthRadius * Math.sin(radLon2) * Math.sin(radLat2);
+        const z2 = earthRadius * Math.cos(radLat2);
 
-        const d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2))
+        const d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 
         //余弦定理求夹角
-        const theta =
-            Math.acos(
-                (earthRadius * earthRadius + earthRadius * earthRadius - d * d) / (2 * earthRadius * earthRadius)
-            )
-        const dist = theta * earthRadius
-        return dist
+        const theta = Math.acos((earthRadius * earthRadius + earthRadius * earthRadius - d * d) / (earthRadius * earthRadius * 2));
+
+        return theta * earthRadius;
     }
 
     private rad(d: number): number {
