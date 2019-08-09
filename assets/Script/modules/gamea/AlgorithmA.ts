@@ -395,29 +395,29 @@ export class AlgorithmA {
         array.sParray = [];
         array.sBarray = [];
 
-        let find_idx = 0;
+        let find_idx = -1;
         for (let i = 0; i < size; i++) {
             if (sArray[i] === mahjong) {
                 find_idx = i;
                 break;
             }
         }
-        if (find_idx !== 0) {
+        if (find_idx !== -1) {
             const mod = find_idx % 3
             let b_idx = 0;
             let e_idx = 0;
             if (mod == 0) {
-                b_idx = find_idx - 2;
-                e_idx = find_idx;
-            } else if (mod == 1) {
                 b_idx = find_idx;
                 e_idx = find_idx + 2;
-            } else {
+            } else if (mod == 1) {
                 b_idx = find_idx - 1;
                 e_idx = find_idx + 1;
+            } else {
+                b_idx = find_idx - 2;
+                e_idx = find_idx;
             }
-            if (e_idx > size) {
-                e_idx = size;
+            if (e_idx > size - 1) {
+                e_idx = size - 1;
             }
             for (let i = 0; i < size; i++) {
                 if (i >= b_idx && i <= e_idx) {
