@@ -381,7 +381,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
-            talbe_id: table.id
+            table_id: table.id
         };
 
         const req2 = new protoHH.casino.packet_table_join_req(req);
