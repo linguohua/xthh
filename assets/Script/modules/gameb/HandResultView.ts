@@ -283,16 +283,19 @@ export class HandResultView extends cc.Component {
         if (playerScore.hupai_card > 0) {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
-                tilesHand = majong.sVecHuPai;
+                const hupaiArray = this.room.mAlgorithm.getArray_hupai(majong.sVecHuPai, playerScore.hupai_card);
 
+                this.sortHands(hupaiArray.sBarray, false);
                 // 将胡的牌从数组中去掉
-                const tilesLength = tilesHand.length;
-                for (let i = tilesLength - 1; i >= 0; i--) {
-                    if (tilesHand[i] === playerScore.hupai_card) {
-                        tilesHand.splice(i, 1);
+                const tilesLength = hupaiArray.sBarray.length;
+                for (let i = 0; i < tilesLength; i++) {
+                    if (hupaiArray.sBarray[i] === playerScore.hupai_card) {
+                        hupaiArray.sBarray.splice(i, 1);
                         break;
                     }
                 }
+
+                tilesHand = hupaiArray.sParray.concat(hupaiArray.sBarray);
 
                 tilesHand.push(playerScore.hupai_card);
                 this.winUserID = player.userID;

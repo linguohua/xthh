@@ -381,7 +381,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     // 请求加入房间
     private joinRoomReq(table: protoHH.casino.Itable): void {
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
-
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
@@ -577,6 +576,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         Dialog.showReconnectDialog();
 
+        Logger.debug("this.mRoom.roomInfo:", this.mRoom.roomInfo);
         this.joinRoomReq(this.mRoom.roomInfo);
     }
 
