@@ -258,6 +258,9 @@ export class NewRoomView extends cc.Component {
                 this.recordMsgs.push(score);
             }
         }
+        if (this.recordMsgs.length === 0) {
+            Dialog.prompt("没有您最近的战绩记录！")
+        }
         this.recordList.numItems = this.recordMsgs.length;
     }
 
