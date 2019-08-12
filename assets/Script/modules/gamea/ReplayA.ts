@@ -293,24 +293,30 @@ export class ReplayA {
     private onBackClick(): void {
         //上一局
         if (!this.btnBack.grayed && this.roundStep > 0) {
+            this.room.getRoomHost().component.unschedule(this.timerCb);
             this.roundStep--;
             this.actionStep = 0;
+            this.startStepTimer();
         }
     }
     private onNextClick(): void {
         //下一局
         if (!this.btnNext.grayed && this.roundStep < this.msgHandRecord.rounds.length - 1) {
+            this.room.getRoomHost().component.unschedule(this.timerCb);
             this.roundStep++;
             this.actionStep = 0;
+            this.startStepTimer();
         }
     }
     private onResetClick(): void {
         if (this.btnReset.grayed) {
             return;
         }
+        this.room.getRoomHost().component.unschedule(this.timerCb);
         //重头开始
         this.roundStep = 0;
         this.actionStep = 0;
+        this.startStepTimer();
     }
     private onResumeClick(isForce: boolean = false): void {
         if (this.btnResume.grayed && !isForce) {
@@ -370,10 +376,9 @@ export class ReplayA {
         if (this.roundStep >= roundlist.length) {
             // 已经播放完成了
             this.onPauseClick(true);
-
             // 结算页面 （总结算界面）
             await this.handOver();
-            this.isPause = true; //解开锁 为了能重新看
+            this.setGrayBtn(false);
             // this.win.bringToFront();
         } else {
             const round = roundlist[this.roundStep];
