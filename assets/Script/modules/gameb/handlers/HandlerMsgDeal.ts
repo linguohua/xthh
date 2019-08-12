@@ -99,7 +99,8 @@ export namespace HandlerMsgDeal {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const msgDeal = proto.casino_xtsj.packet_sc_start_play.decode(msgData);
         console.log("HandlerMsgDeal---------------- ", msgDeal);
-        room.getRoomHost().eventTarget.emit("onDeal");
+        // room.getRoomHost().eventTarget.emit("onDeal");
+        room.roomView.showOrHideReadyView(false);
 
         const imaccids = getPlayerImaccids(room.getPlayers());
         room.getRoomHost().createTeam(imaccids, `${room.roomInfo.tag}`);

@@ -389,6 +389,12 @@ export class RoomView {
         this.readyView.updateReadyView(roomHost, table, view, players);
     }
 
+    public showOrHideReadyView(isShow: boolean): void {
+        if (this.readyView !== null && this.readyView !== null) {
+            this.readyView.showOrHideReadyView(isShow);
+        }
+    }
+
     public showOrHideCancelCom(isShow: boolean, str: string): void {
         if (isShow) {
             this.cancelComText.text = str;

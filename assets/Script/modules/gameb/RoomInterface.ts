@@ -78,6 +78,7 @@ export interface RoomViewInterface {
     playZhuangAni(pos: fgui.GObject, time: number): void;
     playLaiAni(): void;
     playPiaoEffect(pos: cc.Vec2): Promise<void>;
+    showOrHideReadyView(isShow: boolean): void;
 }
 
 /**
