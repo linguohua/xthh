@@ -340,6 +340,10 @@ export class HandResultViewA extends cc.Component {
 
                 oCardObj.setPosition(oCardObj.node.x + 20, oCardObj.node.y);
             }
+            if (n > 14 || n < 0) {
+                Logger.error(`set hand cards error, n =  ${n},i = ${i}`);
+            }
+
             TileImageMounterA.mountTileImage(oCardObj, tiles);
             if (tiles === this.room.laiziID) {
                 oCardObj.getChild("laiziMask").visible = true;

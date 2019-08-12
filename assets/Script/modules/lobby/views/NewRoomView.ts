@@ -67,6 +67,9 @@ export class NewRoomView extends cc.Component {
     private noEnoughFkText: fgui.GTextField;
     private createRoomBtn: fgui.GButton;
     private recordList: fgui.GList;
+
+    private replayTable: { [key: string]: protoHH.casino.table } = {};
+
     private recordMsgs: protoHH.casino.Icasino_score[];
     private lm: LobbyModuleInterface;
     public getView(): fgui.GComponent {
@@ -253,7 +256,6 @@ export class NewRoomView extends cc.Component {
     }
     private onGameRecord(msg: protoHH.casino.ProxyMessage): void {
         const reply = protoHH.casino.packet_score_time_ack.decode(msg.Data);
-        // Logger.debug("战绩--------------------reply: ", reply);
         this.recordMsgs = [];
         if (reply.scores !== undefined && reply.scores !== null && reply.scores.length > 0) {
             for (const score of reply.scores) {
@@ -269,31 +271,25 @@ export class NewRoomView extends cc.Component {
     }
 
     private onReplayAck(msg: protoHH.casino.ProxyMessage): void {
-        const playerID = DataStore.getString("playerID");
-        const myUser = { userID: playerID };
 
         const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
-        if (reply.replay !== undefined && reply.replay !== null) {
-            const table = protoHH.casino.table.decode(reply.replay);
-            const params: GameModuleLaunchArgs = {
-                jsonString: "replay",
-                userInfo: myUser,
-                joinRoomParams: null,
-                createRoomParams: null,
-                record: table,
-                roomId: table.room_id
-            };
 
-            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-
-            this.win.hide();
-            this.destroy();
-
-            lm.switchToGame(params, "gameb");
+        let table;
+        if (reply.replay !== undefined && reply.replay !== null && reply.replay_id > 10000) {
+            table = protoHH.casino.table.decode(reply.replay);
         } else {
-            Dialog.showDialog("reply.replay === null");
+            Dialog.prompt(`操作频繁,请${reply.replay_id}秒后尝试`);
+
+            return;
         }
 
+        const replayId = reply.replay_id;
+        const replayInMap = this.replayTable[replayId];
+        if (replayInMap === undefined || replayInMap === null || replayId > 10000) {
+            this.replayTable[replayId] = table;
+        }
+
+        this.showReplay(table);
     }
 
     private renderRecordListItem(index: number, item: fgui.GObject): void {
@@ -313,14 +309,53 @@ export class NewRoomView extends cc.Component {
         obj.getChild("score").text = `${msg.score}`;
         obj.getChild("name").text = `仙桃晃晃`;
         obj.getChild("id").text = `${msg.replay_id}`;
+        obj.getChild("btn").asButton.offClick(undefined, undefined);
         obj.getChild("btn").asButton.onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
     }
     private onReplayBtnClick(rId: number): void {
-        const req2 = new protoHH.casino.packet_replay_req();
-        req2.replay_id = rId;
-        const buf = protoHH.casino.packet_replay_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
+
+        const table = this.replayTable[rId];
+
+        if (table === undefined || table === null) {
+            const req2 = new protoHH.casino.packet_replay_req();
+            req2.replay_id = rId;
+            const buf = protoHH.casino.packet_replay_req.encode(req2);
+            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
+        } else {
+            this.showReplay(table);
+        }
+    }
+
+    private showReplay(table: protoHH.casino.table): void {
+
+        const playerID = DataStore.getString("playerID");
+        const myUser = { userID: playerID };
+
+        if (table !== undefined && table !== null) {
+            const params: GameModuleLaunchArgs = {
+                jsonString: "replay",
+                userInfo: myUser,
+                joinRoomParams: null,
+                createRoomParams: null,
+                record: table,
+                roomId: table.room_id
+            };
+
+            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            lm.eventTarget.on(`onGameSubRecordShow`, this.onGameReturn, this);
+
+            this.win.hide();
+            //this.destroy();
+
+            lm.switchToGame(params, "gameb");
+        } else {
+            Dialog.showDialog("reply.replay === null");
+        }
+    }
+
+    private onGameReturn(): void {
+        this.win.show();
     }
 
     private initPersonalRoom(): void {
@@ -657,8 +692,6 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCreateRoomBtnClick(): void {
-        // 当存在弹窗时，立刻dispose弹窗
-        Dialog.hidePrompt();
         const playerID = DataStore.getString("playerID");
         const myUser = { userID: playerID };
 

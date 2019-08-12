@@ -65,7 +65,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         fgui.GRoot.inst.addChild(this.view);
 
         // this.eventTarget.emit(`checkRoomInfo`);
-        // this.eventTarget.emit(`onGameSubRecordShow`);
+        this.eventTarget.emit(`onGameSubRecordShow`);
         // this.eventTarget.emit(`onClubViewShow`);
     }
 
@@ -109,8 +109,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
             return;
         }
-
-        //Dialog.showProgress();
+        // 当存在弹窗时，立刻dispose弹窗
+        Dialog.hidePrompt();
 
         Dialog.showWaiting();
 
