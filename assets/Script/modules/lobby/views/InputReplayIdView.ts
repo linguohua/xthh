@@ -80,9 +80,6 @@ export class InputReplayIdView extends cc.Component {
     private onResetBtnClick(): void {
         Logger.debug("onResetBtnClick");
         this.numbers.text = "";
-
-        this.okBtn.grayed = true;
-        this.okBtn._touchDisabled = true;
     }
 
     private onBackBtnClick(): void {
@@ -90,21 +87,12 @@ export class InputReplayIdView extends cc.Component {
         const len = this.numbers.text.length;
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
-            this.okBtn.grayed = true;
-            this.okBtn._touchDisabled = true;
         }
     }
 
     private onInputButton(input: number): void {
         Logger.debug(`onInputButton, input:${input}`);
         this.numbers.text = `${this.numbers.text}${input}`;
-        // if (this.numbers.text.length < 6) {
-        //     this.okBtn.grayed = true;
-        //     this.okBtn._touchDisabled = true;
-        // } else {
-        //     this.okBtn.grayed = false;
-        //     this.okBtn._touchDisabled = false;
-        // }
     }
 
     private onOkBtnClick(): void {
