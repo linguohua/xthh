@@ -152,7 +152,7 @@ export namespace HandlerMsgDeal {
         room.tilesInWall = 72 - ((playerNum * 13) + 1);
         room.updateTilesInWallUI();
         //等待庄家出牌
-        room.setWaitingPlayer(player.chairID, msgDeal.time);
+        // room.setWaitingPlayer(player.chairID, msgDeal.time);
 
         room.bankerChairID = msgDeal.lord_id; //庄家
         room.mAlgorithm.setMahjongLaiZi(msgDeal.laizi);

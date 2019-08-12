@@ -198,9 +198,11 @@ export class RoomViewA {
 
     public countDownCallBack(): void {
         this.leftTime -= 1;
-        this.countDownText.text = `${this.leftTime}`;
         if (this.leftTime <= 0) {
             this.component.unschedule(this.leftTimerCB);
+            this.countDownText.text = `${0}`;
+        } else {
+            this.countDownText.text = `${this.leftTime}`;
         }
     }
 
