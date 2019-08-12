@@ -608,7 +608,8 @@ export class RoomA {
     /**
      * 断线重连恢复用户的操作
      */
-    public restrorePlayerOperation(): void {
+    public restorePlayerOperation(): void {
+        Logger.debug("restorePlayerOperation");
         this.onUpdateStatus(roomStatus.onPlay);
         //剩牌
         this.tilesInWall = this.roomInfo.cardcount;

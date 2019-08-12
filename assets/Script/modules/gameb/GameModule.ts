@@ -324,7 +324,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             this.room.showRoomBtnsAndBgs();
 
             if (reconnect) {
-                this.mRoom.restrorePlayerOperation();
+                this.mRoom.restorePlayerOperation();
                 // 重连后弹解散对话框
                 if (table.disband_id !== null && table.disband_time !== null) {
                     this.mRoom.showDisbandVoteForRecconect(table.disband_id, table.disband_time);
