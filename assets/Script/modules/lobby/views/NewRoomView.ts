@@ -280,7 +280,8 @@ export class NewRoomView extends cc.Component {
                 userInfo: myUser,
                 joinRoomParams: null,
                 createRoomParams: null,
-                record: table
+                record: table,
+                roomId: table.room_id
             };
 
             const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
