@@ -615,6 +615,14 @@ export class Room {
         //显示癞子
         this.laiziID = this.roomInfo.laizi;
         this.laigenID = this.roomInfo.fanpai;
+
+        // 处理刚好在小结算的时候恢复牌局
+        if (this.laiziID === 0 && this.laigenID === 0 && this.roomInfo.play_total > 0) {
+            const replay = this.roomInfo.replay.rounds[this.roomInfo.play_total - 1];
+            this.laiziID = replay.laizi;
+            this.laigenID = replay.fanpai;
+        }
+
         this.setRoundMask();
         //设置癞子 赖根
         this.mAlgorithm.setMahjongLaiZi(this.roomInfo.laizi);
