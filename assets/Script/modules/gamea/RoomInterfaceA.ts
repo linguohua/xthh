@@ -156,7 +156,8 @@ export interface RoomInterfaceA {
     setLanOfDiscard(isShow: boolean, tile?: number): void;
     showRoomBtnsAndBgs(): void;
     enableVoiceBtn(isShow: boolean): void;
-    getReplayCardsOfChairId(roundId: number, cId: number): number[];
+    getReplayCardsOfChairId(cId: number): number[];
+    initReplayCardsOfChairId(roundId: number): void;
     showGamePauseTips(timeStamp: number): void;
     hideGamePauseTips(): void;
     getNextPlayer(chairID: number): PlayerInterfaceA;

@@ -99,7 +99,7 @@ export class GameOverResultViewA extends cc.Component {
         // const x = this.aniPos.x
         // const y = this.aniPos.y
         // animation.play("animations/Effects_jiemian_paijvzongjiesuan.prefab", this.unityViewNode, x, y, true)
-        this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_zi_jiesuan`, this.aniPos.node);
+        // this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_zi_jiesuan`, this.aniPos.node);
         //日期时间
         // const date = os.date("%Y-%m-%d %H:%M:%S")
         // this.textTime.text = date

@@ -71,6 +71,7 @@ export class Player {
     public tilesMelds: protoHH.casino_xtsj.packet_sc_op_ack[];
     public tilesFlower: number[];
     public tilesHand: number[];
+    public replayTilesHand: number[];
     public isRichi: boolean;
     public tileCountInHand: number;
     public playerView: PlayerView;

@@ -32,11 +32,12 @@ export namespace HandlerMsgDeal {
         //发牌动画
         const dealNumLength = dealNum.length;
         if (room.isReplayMode()) {
+            room.initReplayCardsOfChairId(cards[0]); //克隆牌组
             for (let i = 0; i < dealNumLength; i++) {
                 const num = dealNum[i];
                 for (const p of playersArr) {
                     if (p !== undefined && p !== null) {
-                        const ccs = room.getReplayCardsOfChairId(cards[0], p.chairID);
+                        const ccs = room.getReplayCardsOfChairId(p.chairID);
                         const cs = ccs.splice(0, num);
                         p.addHandTiles(cs);
                         p.playerView.showDeal();
@@ -107,7 +108,9 @@ export namespace HandlerMsgDeal {
         //清理
         room.resetForNewHand();
         //局数
-        room.handStartted++;
+        if (!room.isReplayMode()) {
+            room.handStartted++;
+        }
         room.showRoomNumber();
         //播放开局动画 并等待
         await room.roomView.playAnimation("Effect_ico_kaiju", true);

@@ -273,9 +273,9 @@ export class PlayerView {
         // const y = this.head.pos.y
         // const ani = animation.play("animations/Effects_UI_touxiang.prefab", this.head.headView, x, y, true);
         // ani.setVisible(isShow)
-        if (isShow) {
-            this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/Effect_UI_touxiang`, this.head.pos.node);
-        }
+        // if (isShow) {
+        //     this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/Effect_UI_touxiang`, this.head.pos.node);
+        // }
         this.head.pos.visible = isShow;
     }
 

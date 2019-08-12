@@ -411,16 +411,34 @@ export class Room {
     public isReplayMode(): boolean {
         return this.replay !== undefined;
     }
-
-    public getReplayCardsOfChairId(roundId: number, cId: number): number[] {
+    public initReplayCardsOfChairId(roundId: number): void {
         if (this.replay !== undefined) {
             const round = this.replay.msgHandRecord.rounds[roundId];
             if (round !== undefined) {
-                const score = round.scores[cId];
-                if (score !== undefined) {
-                    return score.initcards;
-                }
+                Object.keys(this.players).forEach((key: string) => {
+                    const cards: number[] = [];
+                    const p = this.players[key];
+                    const score = round.scores[p.chairID];
+                    if (score !== undefined) {
+                        for (const c of score.initcards) {
+                            cards.push(c);
+                        }
+                    }
+                    p.replayTilesHand = cards;
+                });
             }
+        }
+    }
+    public getReplayCardsOfChairId(cId: number): number[] {
+        if (this.replay !== undefined) {
+            // const round = this.replay.msgHandRecord.rounds[roundId];
+            // if (round !== undefined) {
+            //     const score = round.scores[cId];
+            //     if (score !== undefined) {
+            //         return score.initcards;
+            //     }
+            // }
+            return this.getPlayerByChairID(cId).replayTilesHand;
         }
 
         return [];
@@ -450,10 +468,10 @@ export class Room {
 
         return this.players[userID];
     }
-    public getPlayerByCharID(charID: number): Player {
+    // public getPlayerByCharID(charID: number): Player {
 
-        return this.players[charID];
-    }
+    //     return this.players[charID];
+    // }
 
     public getPlayerByImID(imaccid: string): Player {
         const keys = Object.keys(this.players);
@@ -655,6 +673,10 @@ export class Room {
         const curPlayerInfo = this.roomInfo.players[this.roomInfo.cur_idx];
         if (this.roomInfo.status === protoHH.casino_xtsj.eXTSJ_STATUS.XTSJ_STATUS_OUTCARD) {
             const lastTile = curPlayerInfo.curcards[curPlayerInfo.curcards.length - 1];
+            if (lastTile !== 0) {
+                //有抽牌的话 要把牌墙的牌 加1 因为抽牌handler里面会减一
+                this.tilesInWall++;
+            }
             this.myPlayer.removeTileFromHand(lastTile);
             const m = new protoHH.casino_xtsj.packet_sc_drawcard();
             m.time = this.roomInfo.time;

@@ -122,6 +122,7 @@ export class ReplayA {
 
         this.win = win;
         this.initControlView(view);
+        this.setGrayBtn(true);
         this.win.show();
 
         let loop = true;
@@ -209,12 +210,16 @@ export class ReplayA {
             this);
 
         this.btnPause.onClick(
-            this.onPauseClick,
+            () => {
+                this.onPauseClick(false);
+            },
             this
         );
 
         this.btnResume.onClick(
-            this.onResumeClick,
+            () => {
+                this.onResumeClick(false);
+            },
             this
         );
 
@@ -266,11 +271,20 @@ export class ReplayA {
     }
 
     private onExitClick(): void {
+        if (this.btnExit.grayed) {
+            return;
+        }
         const msg = new Message(MsgType.quit);
         this.mq.pushMessage(msg);
     }
 
-    private onPauseClick(): void {
+    private onPauseClick(isForce: boolean = false): void {
+        if (this.btnPause.grayed && !isForce) {
+            return;
+        }
+        if (isForce) {
+            this.setGrayBtn(true);
+        }
         this.btnPause.visible = false;
         this.btnResume.visible = true;
         this.isPause = true;
@@ -291,11 +305,20 @@ export class ReplayA {
         }
     }
     private onResetClick(): void {
+        if (this.btnReset.grayed) {
+            return;
+        }
         //重头开始
         this.roundStep = 0;
         this.actionStep = 0;
     }
-    private onResumeClick(): void {
+    private onResumeClick(isForce: boolean = false): void {
+        if (this.btnResume.grayed && !isForce) {
+            return;
+        }
+        if (isForce) {
+            this.setGrayBtn(false);
+        }
         this.btnPause.visible = true;
         this.btnResume.visible = false;
         this.isPause = false;
@@ -306,6 +329,9 @@ export class ReplayA {
     }
 
     private onFastClick(): void {
+        if (this.btnFast.grayed) {
+            return;
+        }
         if (this.speedIndex > 2) {
             this.speedIndex = 0;
         } else {
@@ -343,26 +369,23 @@ export class ReplayA {
         const roundlist = this.msgHandRecord.rounds;
         if (this.roundStep >= roundlist.length) {
             // 已经播放完成了
-            this.onPauseClick();
+            this.onPauseClick(true);
 
             // 结算页面 （总结算界面）
             await this.handOver();
+            this.isPause = true; //解开锁 为了能重新看
             // this.win.bringToFront();
         } else {
             const round = roundlist[this.roundStep];
-            // Logger.debug(`this.roundStep : ${ this.roundStep }, this.actionStep : ${ this.actionStep } `);
             if (this.actionStep === 0) {
                 this.round = round;
                 // 重置房间
                 room.resetForNewHand();
-                //初始化按钮状态
-                this.btnBack.grayed = this.roundStep === 0;
-                this.btnNext.grayed = this.roundStep >= roundlist.length - 1;
                 // 发牌
-                this.onPauseClick(); //先暂停定时器
+                this.onPauseClick(true); //先暂停定时器
+                room.handStartted = this.roundStep + 1; //局数要从这里保存进去
                 await this.deal(round);
-                this.onResumeClick(); //启动定时器
-
+                this.onResumeClick(true); //启动定时器
             }
             // 进入op循环
             const action = round.ops[this.actionStep];
@@ -370,9 +393,7 @@ export class ReplayA {
                 this.roundStep++;
                 this.actionStep = 0;
             } else {
-                // this.onPauseClick(); //先暂停定时器
                 await this.doAction(action);
-                // this.onResumeClick(); //启动定时器
                 this.actionStep++;
             }
         }
@@ -386,6 +407,20 @@ export class ReplayA {
             return;
         }
         await h(srAction);
+    }
+
+    private setGrayBtn(isGray: boolean): void {
+        this.btnResume.grayed = isGray; //开始
+        this.btnPause.grayed = isGray; //暂停
+        this.btnFast.grayed = isGray; //加速 减速
+        this.btnReset.grayed = isGray; //重头开始
+        if (!isGray) {
+            this.btnBack.grayed = this.roundStep === 0;
+            this.btnNext.grayed = this.roundStep >= this.msgHandRecord.rounds.length - 1;
+        } else {
+            this.btnBack.grayed = true; //上一局
+            this.btnNext.grayed = true; //下一局
+        }
     }
 
     private async deal(round: proto.casino.Itable_round): Promise<void> {
@@ -424,6 +459,7 @@ export class ReplayA {
     }
     private async endeActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
         // Logger.debug("llwant, dfreplay, end : ", srAction);
+        this.onPauseClick(true);
         const pCards = srAction.params;
 
         //播放动画
@@ -451,6 +487,7 @@ export class ReplayA {
             }
         }
         await this.scoreActionHandler();
+        this.onResumeClick(true);
     }
 
     private async handOver(): Promise<void> {
@@ -477,7 +514,7 @@ export class ReplayA {
     }
     private async scoreActionHandler(): Promise<void> {
         // Logger.debug("llwant, dfreplay, scoreActionHandler");
-        this.onPauseClick();
+        this.onPauseClick(true);
         const data = new proto.casino.packet_table_score();
         //构建scores
         const scores: proto.casino.player_score[] = [];
@@ -505,7 +542,7 @@ export class ReplayA {
 
         await this.room.coWaitSeconds(2);
         this.room.getRoomHost().eventTarget.emit("closeHandResult");
-        this.onResumeClick();
+        this.onResumeClick(true);
     }
     private async opAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
         Logger.debug("llwant, dfreplay, opAckActionHandler");
