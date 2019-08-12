@@ -502,15 +502,18 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         myUser: UserInfo,
         chairID: number): Promise<void> {
         const table = record;
-        // const table = protoHH.casino.table.decode(msgAccLoadReplayRecord.replayRecordBytes);
-        // const msgHandRecord = proto.mahjong.SRMsgHandRecorder.decode(msgAccLoadReplayRecord.replayRecordBytes);
-        // msgHandRecord.roomConfigID = msgAccLoadReplayRecord.roomJSONConfig;
-
-        // Logger.debug(" sr-actions count:", msgHandRecord.actions.length);
         // // 如果不提供userID,则必须提供chairID，然后根据chairID获得userID
         let userID = myUser.userID;
-        if (userID === null) {
-            Logger.debug(" userID is nil, use chairID to find userID");
+        let isFind = false;
+        if (userID !== null) {
+            for (const player of table.players) {
+                if (player !== undefined && userID === `${player.id}`) {
+                    isFind = true;
+                    break;
+                }
+            }
+        }
+        if (!isFind) {
             const p = table.players[chairID];
             if (p !== undefined) {
                 userID = `${p.id}`;

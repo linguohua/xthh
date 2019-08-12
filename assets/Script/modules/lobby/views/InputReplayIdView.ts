@@ -110,6 +110,9 @@ export class InputReplayIdView extends cc.Component {
     private onOkBtnClick(): void {
         const num = this.numbers.text;
         if (num !== undefined && num !== null && num !== "") {
+            this.win.hide();
+            this.destroy();
+
             const req2 = new proto.casino.packet_replay_req();
             req2.replay_id = +num;
             const buf = proto.casino.packet_replay_req.encode(req2);
