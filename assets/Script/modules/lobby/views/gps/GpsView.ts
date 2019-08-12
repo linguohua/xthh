@@ -188,9 +188,9 @@ export class GpsView extends cc.Component {
 
             const distance = this.calculateDistance(player1.coordinate, player2.coordinate);
             if (distance > 1000) {
-                distanceText.text = `${distance / 1000}千米`;
+                distanceText.text = `${Math.floor(distance / 1000)}千米`;
             } else {
-                distanceText.text = `${distance}米`;
+                distanceText.text = `${distance} 米`;
                 if (distance < 100) {
                     warningText.text = "发现距离过近";
                     warningText.visible = true;
@@ -271,7 +271,7 @@ export class GpsView extends cc.Component {
         //余弦定理求夹角
         const theta = Math.acos((earthRadius * earthRadius + earthRadius * earthRadius - d * d) / (earthRadius * earthRadius * 2));
 
-        return theta * earthRadius;
+        return Math.ceil(theta * earthRadius);
     }
 
     private rad(d: number): number {
