@@ -1,5 +1,6 @@
 
-import { CommonFunction, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, Logger, Dialog } from "../lcore/LCoreExports";
+import { proto } from "../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 
 /**
@@ -107,10 +108,17 @@ export class InputReplayIdView extends cc.Component {
     }
 
     private onOkBtnClick(): void {
-        // this.win.hide();
-        // this.destroy();
-
-        //this.newRoomView.joinRoom(this.numbers.text);
+        const num = this.numbers.text;
+        if (num !== undefined && num !== null && num !== "") {
+            const req2 = new proto.casino.packet_replay_req();
+            req2.replay_id = +num;
+            const buf = proto.casino.packet_replay_req.encode(req2);
+            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_REPLAY_REQ);
+        } else {
+            //提示
+            Dialog.prompt("请输入回播id");
+        }
     }
 
 }

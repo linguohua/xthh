@@ -312,7 +312,7 @@ export class NewRoomView extends cc.Component {
         obj.getChild("num").text = `${msg.round}`;
         obj.getChild("score").text = `${msg.score}`;
         obj.getChild("name").text = `仙桃晃晃`;
-        obj.getChild("id").text = `${msg.id}`;
+        obj.getChild("id").text = `${msg.replay_id}`;
         obj.getChild("btn").asButton.onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
     }
     private onReplayBtnClick(rId: number): void {
