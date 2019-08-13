@@ -25,7 +25,7 @@ export class Helloworld extends cc.Component {
     public loader: GResLoader;
 
     private msgCenter: LMsgCenter;
-    private myUserID: number;
+    //private myUserID: number;
     private myPlayerID: number;
     private myCards: number[] = [];
 
@@ -160,16 +160,16 @@ export class Helloworld extends cc.Component {
         };
 
         return {
-                channel: "mac",
-                ticket: "",
-                user_id: 1094151,
-                reconnect: false,
-                gdatacrc: 0xFFFFFFFF,
-                devinfo: devInfo,
-                pdatacrc: 0,
-                pay: "",
-                request_id : 0
-            };
+            channel: "mac",
+            ticket: "",
+            user_id: 1094151,
+            reconnect: false,
+            gdatacrc: 0xFFFFFFFF,
+            devinfo: devInfo,
+            pdatacrc: 0,
+            pay: "",
+            request_id: 0
+        };
     }
     private async testFastLogin(serverCfg: ServerCfg): Promise<void> {
         console.log(serverCfg);
@@ -213,7 +213,7 @@ export class Helloworld extends cc.Component {
 
     private onFastLoginACK(fastLoginReply: proto.casino.packet_fast_login_ack): void {
         this.myPlayerID = fastLoginReply.player_id;
-        this.myUserID = fastLoginReply.user_id;
+        //this.myUserID = fastLoginReply.user_id;
     }
 
     private testCreateRoom(): void {

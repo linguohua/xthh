@@ -41,8 +41,6 @@ export class GameOverResultView extends cc.Component {
     private maxChucker: number = 0;
     private maxChuckerIndexs: ViewGroup[];
     private contentGroup: ViewGroup[];
-    private aniPos: fgui.GObject;
-
     public showView(room: RoomInterface, msgGameOver: proto.casino.packet_table_score): void {
         this.eventTarget = new cc.EventTarget();
         // -- 提高消息队列的优先级为1
@@ -263,7 +261,6 @@ export class GameOverResultView extends cc.Component {
         this.textRoomNumber = this.unityViewNode.getChild("roomNumber");
         this.dateText = this.unityViewNode.getChild("date");
         //特效位置节点
-        this.aniPos = this.unityViewNode.getChild("aniPos");
         const contentGroup: ViewGroup[] = [];
         for (let i = 0; i < 4; i++) {
             const contentGroupData = new ViewGroup();

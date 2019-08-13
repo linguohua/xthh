@@ -41,7 +41,6 @@ export class GameOverResultViewA extends cc.Component {
     private maxChucker: number = 0;
     private maxChuckerIndexs: ViewGroup[];
     private contentGroup: ViewGroup[];
-    private aniPos: fgui.GObject;
 
     public showView(room: RoomInterfaceA, msgGameOver: proto.casino.packet_table_score): void {
         this.eventTarget = new cc.EventTarget();
@@ -254,7 +253,6 @@ export class GameOverResultViewA extends cc.Component {
         this.textRoomNumber = this.unityViewNode.getChild("roomNumber");
         this.dateText = this.unityViewNode.getChild("date");
         //特效位置节点
-        this.aniPos = this.unityViewNode.getChild("aniPos");
         const contentGroup: ViewGroup[] = [];
         for (let i = 0; i < 4; i++) {
             const contentGroupData = new ViewGroup();
@@ -266,8 +264,8 @@ export class GameOverResultViewA extends cc.Component {
             contentGroupData.imageRoom = group.getChild("roomOwner");
             contentGroupData.imageRoom.visible = false;
             //大赢家动画位置
-            contentGroupData.aniPos = group.getChild("aniPos");
-            contentGroupData.aniPos.visible = false;
+            // contentGroupData.aniPos = group.getChild("aniPos");
+            // contentGroupData.aniPos.visible = false;
             // contentGroupData.imageWin.visible = false
             contentGroupData.zhuang = group.getChild("zhuang");
             contentGroupData.zhuang.visible = false;
