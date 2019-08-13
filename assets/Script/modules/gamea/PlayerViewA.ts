@@ -1431,18 +1431,6 @@ export class PlayerViewA {
         }
     }
 
-    //初始化
-    //花牌列表
-    private initFlowers(): void {
-        const flowers: fgui.GComponent[] = [];
-        const myFlowerTilesNode = this.myView.getChild("flowers").asCom;
-        for (let i = 0; i < 12; i++) {
-            const h = myFlowerTilesNode.getChild(`n${i + 1}`).asCom;
-            flowers[i] = h;
-        }
-        this.flowers = flowers;
-    }
-
     //明牌列表
     private initLights(): void {
         const lights: fgui.GComponent[] = [];

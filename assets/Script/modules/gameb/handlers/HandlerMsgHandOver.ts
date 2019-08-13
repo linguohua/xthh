@@ -1,13 +1,9 @@
-import { Logger } from "../../lobby/lcore/LCoreExports";
-import { Player } from "../Player";
-import { proto } from "../proto/protoGame";
-import { RoomInterface } from "../RoomInterface";
 
 /**
  * 响应服务器通知一手牌结束
  */
 export namespace HandlerMsgHandOver {
-    export const onHandOver = async (msgHandOver: proto.mahjong.IMsgHandOver, room: RoomInterface) => {
+    export const onHandOver = async () => {
         // if (msgHandOver.endType !== proto.mahjong.HandOverType.enumHandOverType_None) {
         //     const mjproto = proto.mahjong.HandOverType;
         //     for (const score of msgHandOver.scores.playerScores) {
@@ -29,7 +25,7 @@ export namespace HandlerMsgHandOver {
         // room.loadHandResultView(msgHandOver);
     };
 
-    export const onMsg = async (msgData: ByteBuffer, roomInterface: RoomInterface): Promise<void> => {
+    export const onMsg = async (): Promise<void> => {
         // Logger.debug('llwant hand over msg');
         // const room = roomInterface;
 

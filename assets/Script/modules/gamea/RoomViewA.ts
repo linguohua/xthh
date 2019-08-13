@@ -44,7 +44,6 @@ export class RoomViewA {
     private countDownText: fgui.GObject;
     private listensObjList: fgui.GList;
     private listensObjNum: fgui.GObject;
-    private multiOpsObj: fgui.GList;
     private listensDataList: TingPai[];
     private arrowObj: cc.Node;
     private leftTime: number;

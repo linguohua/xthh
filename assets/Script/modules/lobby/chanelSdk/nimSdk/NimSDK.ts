@@ -69,6 +69,9 @@ interface Team {
     custom: string;
 }
 
+/**
+ * NimSDK
+ */
 export class NimSDK {
     public eventTarget: cc.EventTarget;
     private appKey: string;

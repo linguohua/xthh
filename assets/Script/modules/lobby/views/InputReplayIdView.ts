@@ -1,5 +1,5 @@
 
-import { CommonFunction, LobbyModuleInterface, Logger, Dialog } from "../lcore/LCoreExports";
+import { CommonFunction, Dialog, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 
