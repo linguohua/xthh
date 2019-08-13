@@ -6,6 +6,7 @@ interface PropData {
     num: number;
     id: number;
 }
+// tslint:disable-next-line:no-empty-interface
 interface RoomInterface {
 }
 interface PlayerInfo {

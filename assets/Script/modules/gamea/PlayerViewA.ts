@@ -122,17 +122,15 @@ export class PlayerViewA {
     private myHandTilesNode: fgui.GComponent;
     private myLightilesNode: fgui.GComponent;
     private melds: fgui.GComponent[];
-    private myMeldNode: fgui.GObject;
     private flowers: fgui.GComponent[];
     private handsOriginPos: PosCtrl[];
-    private viewUnityNode: fgui.GComponent;
+
     private myView: fgui.GComponent;
     private operationPanel: fgui.GComponent;
     private aniPos: fgui.GObject;
     private userInfoPos: fgui.GObject;
     private qipao: fgui.GComponent;
     private qipaoText: fgui.GObject;
-    private alreadyShowNonDiscardAbleTips: boolean;
     private discardTipsTile: fgui.GComponent;
     private roomHost: RoomHost;
     private lastClickTime: number;
@@ -140,7 +138,6 @@ export class PlayerViewA {
     private dragHand: fgui.GComponent; //拖牌时 克隆的牌
     private msgTimerCB: Function;
     private isTwoPlayer: boolean = false;
-    private meldsViewScale: number = 0;
     private piaoScoreWin: fgui.GObject;
     private piaoScoreLose: fgui.GObject;
     private piaoScoreStartPos: cc.Vec2;
@@ -150,7 +147,6 @@ export class PlayerViewA {
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterfaceA) {
         this.room = room;
         this.viewChairID = viewChairID;
-        this.viewUnityNode = viewUnityNode;
         this.roomHost = this.room.getRoomHost();
 
         this.isTwoPlayer = this.room.roomInfo.players.length === 2;
@@ -1476,8 +1472,6 @@ export class PlayerViewA {
                 huoPos.visible = false;
             }
         }
-        this.meldsViewScale = meldsView.scaleX;
-        this.myMeldNode = meldsView;
     }
     //手牌列表
     private initHands(): void {
@@ -1579,28 +1573,8 @@ export class PlayerViewA {
                 }
             },
             this);
-        // this.buttonList = this.operationPanel.getChild("buttonList").asList;
-        // this.buttonList.itemRenderer = <(index: number, item: fgui.GComponent) => void>this.renderButtonListItem.bind(this);
-        // this.buttonList.on(fgui.Event.CLICK_ITEM, (onClickItem: fgui.GObject) => { this.onClickBtn(onClickItem.name); }, this);
+
         this.hideOperationButtons();
 
-        // //检查听详情 按钮
-        // this.checkReadyHandBtn = this.viewUnityNode.getChild("checkReadyHandBtn").asButton;
-        // this.checkReadyHandBtn.onClick(this.onCheckReadyHandBtnClick, this);
     }
-
-    // private renderButtonListItem(index: number, obj: fgui.GObject): void {
-    //     const name = this.buttonDataList[index];
-    //     obj.name = name;
-    //     obj.visible = true;
-
-    //     const node = obj.node;
-    //     if (node.childrenCount > 0) {
-    //         node.children.forEach((c) => {
-    //             c.active = false;
-    //         });
-    //     }
-
-    //     this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/${name}`, node);
-    // }
 }

@@ -1,6 +1,3 @@
-import { Player } from "../Player";
-import { proto } from "../proto/protoGame";
-import { RoomInterface } from "../RoomInterface";
 
 /**
  * 响应服务器更新房间
