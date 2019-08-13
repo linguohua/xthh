@@ -616,7 +616,7 @@ export class PlayerView {
         const t2 = meldView.getChild("n2").asCom;
         const t3 = meldView.getChild("n3").asCom;
         const t4 = meldView.getChild("n4").asCom;
-        const arr: fgui.GComponent[] = [t1, t2, t3];
+        let arr: fgui.GComponent[] = [t1, t2, t3];
         // t1.visible = true;
         // t2.visible = true;
         // t3.visible = true;
@@ -654,6 +654,14 @@ export class PlayerView {
         meldView.setSize(width, height);
         // Logger.debug("isHu ------------- ", isHu);
         if (isHu) {
+            if (this.viewChairID === 2 || this.viewChairID === 3) {
+                //要反一下
+                const a2: fgui.GComponent[] = [];
+                for (let i = arr.length - 1; i >= 0; i--) {
+                    a2.push(arr[i]);
+                }
+                arr = a2;
+            }
             for (const a of arr) {
                 const huo = a.getChild("huo");
                 huo.visible = true;
