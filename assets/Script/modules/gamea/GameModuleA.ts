@@ -378,15 +378,17 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     // 请求加入房间
     private joinRoomReq(table: protoHH.casino.Itable): void {
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
-
         const playerID = DataStore.getString("playerID");
-        const req = {
-            player_id: +playerID,
-            table_id: table.id
-        };
+        const req = new protoHH.casino.packet_table_join_req();
+        req.player_id = +playerID;
+        if (this.mRoom.handStartted > 0) {
+            req.table_id = table.id;
+        } else {
+            req.tag = table.tag;
+        }
 
-        const req2 = new protoHH.casino.packet_table_join_req(req);
-        const buf = protoHH.casino.packet_table_join_req.encode(req2);
+        Logger.debug("req:", req);
+        const buf = protoHH.casino.packet_table_join_req.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
     }
 
@@ -549,9 +551,22 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
     private onJoinTable(pmsg: protoHH.casino.ProxyMessage): void {
         const joinTableAck = protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
-        if (joinTableAck.ret !== 0) {
+        if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
             Logger.error("onReconnect, join table faild:", joinTableAck.ret);
             this.quit();
+
+            return;
+        }
+
+        // 已经在房间里面，需要指定桌子id,重新进入
+        if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_FAILED) {
+            const playerID = DataStore.getString("playerID");
+            const req = new protoHH.casino.packet_table_join_req();
+            req.player_id = +playerID;
+            req.table_id = this.mRoom.roomInfo.id;
+
+            const buf = protoHH.casino.packet_table_join_req.encode(req);
+            this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
 
             return;
         }
