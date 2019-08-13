@@ -318,6 +318,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             this.room.updateReadView(table);
             this.room.onReadyButtonClick();
         } else {
+            this.room.roomView.showOrHideReadyView(false);
             this.room.showRoomBtnsAndBgs();
 
             if (reconnect) {

@@ -72,7 +72,7 @@ export class ReadyViewA {
         const bg = view.getChild("bg");
         CommonFunction.setBgFullScreenSize(bg);
 
-        roomHost.eventTarget.once("onDeal", this.onDeal, this);
+        // roomHost.eventTarget.once("onDeal", this.onDeal, this);
         roomHost.eventTarget.once("leave", this.onLeave, this);
         this.view.visible = true;
 
@@ -97,6 +97,14 @@ export class ReadyViewA {
 
         this.updateView(players);
 
+    }
+
+    public showOrHideReadyView(isShow: boolean): void {
+        if (!isShow) {
+            this.onHide();
+        } else {
+            Logger.error("Unimplement show ready view");
+        }
     }
 
     protected updateView(players: protoHH.casino.Itable_player[]): void {
@@ -238,9 +246,9 @@ export class ReadyViewA {
         }
     }
 
-    private onDeal(): void {
-        this.onHide();
-    }
+    // private onDeal(): void {
+    //     this.onHide();
+    // }
 
     // 自己退出房间
     private onLeave(): void {

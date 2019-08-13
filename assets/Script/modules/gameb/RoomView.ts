@@ -390,7 +390,7 @@ export class RoomView {
     }
 
     public showOrHideReadyView(isShow: boolean): void {
-        if (this.readyView !== null && this.readyView !== null) {
+        if (this.readyView !== null && this.readyView !== undefined) {
             this.readyView.showOrHideReadyView(isShow);
         }
     }
