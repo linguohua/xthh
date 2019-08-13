@@ -111,11 +111,6 @@ export namespace Share {
         };
 
         const canvas = cc.game.canvas;
-        const width = cc.winSize.width;
-        const height = cc.winSize.height;
-
-        Logger.debug(`canvas.width:${canvas.width}, canvas.heigth:${canvas.height},
-        cc.winSize.width:${cc.winSize.width}, cc.winSize.height:${cc.winSize.height}`);
         // 为了去掉警告
         interface MyCanvas extends HTMLCanvasElement {
             toTempFilePath: Function;
@@ -125,8 +120,8 @@ export namespace Share {
         myCanvas.toTempFilePath({
             x: 0,
             y: 0,
-            width: width,
-            height: height,
+            width: canvas.width,
+            height: canvas.height,
             destWidth: 500,
             destHeight: 400,
             // tslint:disable-next-line:no-any
