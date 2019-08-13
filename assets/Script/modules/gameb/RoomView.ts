@@ -197,7 +197,6 @@ export class RoomView {
             cc.macro.REPEAT_FOREVER,
             0);
     }
-
     public countDownCallBack(): void {
         if (this.leftTime > 0) {
             this.leftTime -= 1;
@@ -206,6 +205,13 @@ export class RoomView {
         if (this.leftTime <= 0) {
             this.component.unschedule(this.leftTimerCB);
             this.countDownText.text = `${0}`;
+            if (this.gamePauseTipsCom.visible === true) {
+                // 当已经存在了，就不更新了
+                return;
+            }
+            // 默认五分钟
+            const timeStamp = this.room.getRoomHost().getServerTime() + (5 * 60);
+            this.showGamePauseTips(timeStamp);
         } else {
             this.countDownText.text = `${this.leftTime}`;
         }
@@ -425,8 +431,6 @@ export class RoomView {
     }
 
     public showGamePauseTips(timeStamp: number): void {
-        //
-        //this.roomView.showGamePauseTips();
 
         this.gamePauseTipsCom.visible = true;
         const roomHost = this.room.getRoomHost();
