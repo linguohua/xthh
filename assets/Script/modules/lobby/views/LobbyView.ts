@@ -207,6 +207,8 @@ export class LobbyView extends cc.Component {
             Logger.error("this.lm === undefined");
         }
 
+        this.lm.msgCenter.blockNormal();
+
     }
 
     private onAddDouBtnClick(): void {
@@ -307,6 +309,8 @@ export class LobbyView extends cc.Component {
                 const errMsg = GameError.getErrorString(joinRoomAck.ret);
                 Dialog.showDialog(errMsg);
             }
+
+            this.lm.msgCenter.unblockNormal();
 
             return;
         }

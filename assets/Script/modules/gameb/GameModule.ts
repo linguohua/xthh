@@ -277,6 +277,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.subMsg();
 
+        this.lm.msgCenter.unblockNormal();
+
         this.retry = false;
         let reconnect = false;
         let table: protoHH.casino.Itable = null;
@@ -394,6 +396,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         Logger.debug("req:", req);
         const buf = protoHH.casino.packet_table_join_req.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+
+        this.lm.msgCenter.blockNormal();
     }
 
     private createRoom(
@@ -558,6 +562,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
             Logger.error("onReconnect, join table faild:", joinTableAck.ret);
             this.quit();
+
+            this.lm.msgCenter.unblockNormal();
 
             return;
         }

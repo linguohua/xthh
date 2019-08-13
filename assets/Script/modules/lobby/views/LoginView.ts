@@ -328,7 +328,9 @@ export class LoginView extends cc.Component {
         Logger.debug(url);
         Logger.debug("fastLoginReq:", fastLoginReq);
         // LmsgCenter 绑定到LobbyModule
-        const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, fastLoginReq);
+
+        const priorityMap: { [key: number]: number } = { [protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK << 8]: 1 };
+        const msgCenter = new LMsgCenter(url, <cc.Component>lmComponent, fastLoginReq, priorityMap);
         msgCenter.eventTarget.once("onFastLoginComplete", this.onFastLoginComplete, this);
 
         lm.msgCenter = msgCenter;

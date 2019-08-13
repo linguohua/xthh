@@ -32,12 +32,19 @@ export class LMsgCenter {
     private serverTime: Long;
     private localTimeDiff: number = 0;
     // private lobbyModule: LobbyModuleInterface;
+    private priorityMap: { [key: number]: number } = {};
 
-    public constructor(url: string, component: cc.Component, fastLoginReq: proto.casino.packet_fast_login_req) {
+    public constructor(
+        url: string, component: cc.Component, fastLoginReq: proto.casino.packet_fast_login_req,
+        priorityMap?: { [key: number]: number }) {
         this.url = url;
         this.component = component;
         this.fastLoginReq = fastLoginReq;
         this.eventTarget = new cc.EventTarget();
+
+        if (priorityMap !== undefined && priorityMap !== null) {
+            this.priorityMap = priorityMap;
+        }
     }
 
     public async start(): Promise<void> {
@@ -114,14 +121,20 @@ export class LMsgCenter {
     public getServerTime(): number {
         return Math.ceil(Date.now() / 1000) - this.localTimeDiff;
     }
-
-    public isWebSocketClose(): boolean {
-        return this.ws === null;
-    }
-
     public closeWebsocket(): void {
         if (this.ws !== null) {
             this.ws.ww.close();
+        }
+    }
+
+    public unblockNormal(): void {
+        if (this.mq !== undefined && this.mq !== null) {
+            this.mq.unblockNormal();
+        }
+    }
+    public blockNormal(): void {
+        if (this.mq !== undefined && this.mq !== null) {
+            this.mq.blockNormal();
         }
     }
 
@@ -150,8 +163,7 @@ export class LMsgCenter {
             encode: proto.casino.ProxyMessage.encode
         };
 
-        const priorityMap: { [key: number]: number } = {};
-        const mq = new MsgQueue(priorityMap);
+        const mq = new MsgQueue(this.priorityMap);
         const ws = new WS(this.url, mq, host, pp);
         this.mq = mq;
         this.ws = ws;
