@@ -273,7 +273,7 @@ export class HandResultViewA extends cc.Component {
         //构造落地牌组
         const player = <PlayerA>this.room.getPlayerByUserID(`${playerScore.data.id}`);
         const meldDatas = player.tilesMelds;
-        let tilesHand = playerScore.curcards; //玩家手上的牌（暗牌）排好序的
+        let tilesHand = playerScore.curcards.concat([]); //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);
         if (playerScore.hupai_card > 0) {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);

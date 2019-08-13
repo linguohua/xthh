@@ -564,22 +564,15 @@ export class AlgorithmA {
                     // vecDelePai[vecDelePai.length] = sVecPai[0] + 1;
                     vecDelePai.push(sVecPai[0] + 1);
                     if (sVecPai[0] % 10 == 8) {
-                        // sVecSavePai[sVecSavePai.length] = vecDeleLai[0];
-                        // sVecSavePai[sVecSavePai.length + 1] = sVecPai[0];
-                        // sVecSavePai[sVecSavePai.length + 1] = sVecPai[0] + 1;
-                        sVecSavePai.push(vecDeleLai[0]);
+                        sVecSavePai[sVecSavePai.length - 1] = vecDeleLai[0];
+                        // sVecSavePai.push(vecDeleLai[0]);
                         sVecSavePai.push(sVecPai[0]);
                         sVecSavePai.push(sVecPai[0] + 1);
                     } else {
-                        // sVecSavePai[sVecSavePai.length] = sVecPai[0] + 1;
-                        // sVecSavePai[sVecSavePai.length + 1] = vecDeleLai[0];
                         sVecSavePai.push(sVecPai[0] + 1);
                         sVecSavePai.push(vecDeleLai[0]);
                     }
                 } else if (this.isFind(sVecPai, sVecPai[0] + 2)) {
-                    // vecDelePai[vecDelePai.length] = sVecPai[0] + 2;
-                    // sVecSavePai[sVecSavePai.length] = vecDeleLai[0];
-                    // sVecSavePai[sVecSavePai.length + 1] = sVecPai[0] + 2;
                     vecDelePai.push(sVecPai[0] + 2);
                     sVecSavePai.push(vecDeleLai[0]);
                     sVecSavePai.push(sVecPai[0] + 2);
