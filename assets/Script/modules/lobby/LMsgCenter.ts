@@ -119,6 +119,12 @@ export class LMsgCenter {
         return this.ws === null;
     }
 
+    public closeWebsocket(): void {
+        if (this.ws !== null) {
+            this.ws.ww.close();
+        }
+    }
+
     private async connectServer(): Promise<void> {
         const mc = proto.casino.ProxyMessageCode;
         // host 结构

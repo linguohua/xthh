@@ -51,7 +51,7 @@ export interface MsgCenter {
 
     getServerTime(): number;
 
-    isWebSocketClose(): boolean;
+    closeWebsocket(): void;
 }
 /**
  * 大厅模块

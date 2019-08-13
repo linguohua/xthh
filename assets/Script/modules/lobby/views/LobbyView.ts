@@ -105,11 +105,13 @@ export class LobbyView extends cc.Component {
         const rKey = "roomNumber";
         const roomNumber = res.query[rKey];
         if (roomNumber !== undefined && roomNumber !== null) {
-            if (!this.lm.msgCenter.isWebSocketClose()) {
-                this.joinTableReq(null, +roomNumber);
-            } else {
-                this.roomNumberFromShare = roomNumber;
-            }
+            this.roomNumberFromShare = roomNumber;
+            this.lm.msgCenter.closeWebsocket();
+            // if (!this.lm.msgCenter.isWebSocketClose()) {
+            //     this.joinTableReq(null, +roomNumber);
+            // } else {
+            //     this.roomNumberFromShare = roomNumber;
+            // }
 
         }
     }
