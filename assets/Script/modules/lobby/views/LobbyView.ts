@@ -114,6 +114,8 @@ export class LobbyView extends cc.Component {
             // }
 
         }
+
+        SoundMgr.resumeMusic();
     }
     private initView(): void {
         const personalRoomBtn = this.view.getChild("personalRoomBtn");

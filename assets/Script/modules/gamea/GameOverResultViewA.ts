@@ -5,7 +5,7 @@ import { Share } from "../lobby/shareUtil/ShareExports";
 import { RoomInterfaceA } from "./RoomInterfaceA";
 
 /**
- * palyer ui
+ * player ui
  */
 class ViewGroup {
     public group: fgui.GComponent;
