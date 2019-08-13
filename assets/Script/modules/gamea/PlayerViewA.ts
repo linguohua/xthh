@@ -1,5 +1,5 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { CommonFunction } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Logger } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { ClickCtrl, PlayerInterfaceA, playerStatus, TypeOfOP } from "./PlayerInterfaceA";
 import { PlayerInfo, RoomInterfaceA } from "./RoomInterfaceA";
@@ -69,22 +69,31 @@ const lightsScale: number[][] = [
     //[0]初始化Scale [1]胡牌摊牌时Scale
     [1, 0.8], //1号玩家
     [1, 0.9], //2号玩家
-    [1, 0.8],  //3号玩家
+    [1, 0.88],  //3号玩家
     [1, 0.91] //4号玩家
 ];
-const lightsPos2: number[][] = [
+const lightsPos: number[][] = [
     //[0]初始化位置 [1]胡牌摊牌时位置
     [471, 484], //1号玩家 y
     [955, 962], //2号玩家 x
-    [0, 13],  //3号玩家 y
+    [0, 12],  //3号玩家 y
     [0, 8] //4号玩家 x
 ];
+//胡牌摊牌的时候用的
 const lightsPos1: number[][] = [
-    //[0]初始化位置 [1]当4个碰牌组的时候 [2]回播时总体需要移动的值
+    //[0]初始化位置 [1]当4个碰牌组的时候
     [0, -30, -1, -20, 40, -1, -23, 38, 100, -25, 35, 95, 155, 32, 90, 152, 213], //1号玩家 x
-    [0, 75, -40, 68, 44, -1, 70, 47, 23, 73, 51, 29, 5, 53, 31, 9, -14], //2号玩家 y
-    [0, 170, -141, 171, 136, -1, 170, 135, 100, 170, 135, 100, 65, 135, 100, 65, 29],  //3号玩家 x
-    [0, -30, -10, -24, -2, -1, -26, -4, 19, -28, -5, 18, 40, -7, 17, 39, 62] //4号玩家 y
+    [0, 75, -1, 68, 44, -1, 70, 47, 23, 73, 51, 29, 5, 53, 31, 9, -14], //2号玩家 y
+    [80, 147, -1, 116, 81, -1, 126, 90, 56, 136, 100, 65, 30, 110, 75, 40, 6],  //3号玩家 x
+    [0, -30, -1, -24, -2, -1, -26, -4, 19, -28, -5, 18, 40, -7, 17, 39, 62] //4号玩家 y
+];
+//回播时用的
+const lightsPos2: number[][] = [
+    //[0]初始化位置 [1]当4个碰牌组的时候
+    [0, -30, -1, -20, 40, -1, -23, 38, 100, -25, 35, 95, 155, 32, 90, 152, 213], //1号玩家 x （目前没用到）
+    [0, 35, -1, 28, 4, -1, 30, 17, -17, 33, 11, -11, -35, 13, -9, -11, -54], //2号玩家 y
+    [0, 100, -1, 20, -10, -1, 50, 15, -20, 75, 40, 5, -25, 70, 35, 0, -35],  //3号玩家 x
+    [0, -40, -1, -34, -12, -11, -36, -14, 9, -38, -15, 8, 30, -17, 7, 29, 52] //4号玩家 y
 ];
 /**
  * 玩家
@@ -320,11 +329,11 @@ export class PlayerViewA {
                 h.getChild("huo").visible = false;
             }
             if (this.viewChairID === 1 || this.viewChairID === 3) {
-                this.myLightilesNode.x = lightsPos1[this.viewChairID - 1][0];
-                this.myLightilesNode.y = lightsPos2[this.viewChairID - 1][0];
-            } else {
-                this.myLightilesNode.y = lightsPos1[this.viewChairID - 1][0];
                 this.myLightilesNode.x = lightsPos2[this.viewChairID - 1][0];
+                this.myLightilesNode.y = lightsPos[this.viewChairID - 1][0];
+            } else {
+                this.myLightilesNode.y = lightsPos2[this.viewChairID - 1][0];
+                this.myLightilesNode.x = lightsPos[this.viewChairID - 1][0];
             }
             const s = lightsScale[this.viewChairID - 1][0];
             this.myLightilesNode.setScale(s, s);
@@ -829,25 +838,22 @@ export class PlayerViewA {
         }
 
         //重新设置 手牌位置
-        const arr = lightsPos1[this.viewChairID - 1];
-        let pos = arr[num];
-        if (num === 12 && melds.length === 4) {
-            pos = arr[1]; //特殊位置
-        }
-        if (!isHu) {
-            if (meldCount > 0) {
-                pos += arr[2];
-            }
-        } else {
+        let arr = lightsPos2[this.viewChairID - 1];
+        if (isHu) {
+            arr = lightsPos1[this.viewChairID - 1];
             const s = lightsScale[this.viewChairID - 1][1];
             this.myLightilesNode.setScale(s, s);
             if (this.viewChairID === 1 || this.viewChairID === 3) {
                 //改变x值
-                this.myLightilesNode.y = lightsPos2[this.viewChairID - 1][1];
+                this.myLightilesNode.y = lightsPos[this.viewChairID - 1][1];
             } else {
                 //改变y值
-                this.myLightilesNode.x = lightsPos2[this.viewChairID - 1][1];
+                this.myLightilesNode.x = lightsPos[this.viewChairID - 1][1];
             }
+        }
+        let pos = arr[num];
+        if (num === 12 && melds.length === 4) {
+            pos = arr[1]; //特殊位置
         }
         if (this.viewChairID === 1 || this.viewChairID === 3) {
             //改变x值
