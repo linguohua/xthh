@@ -597,6 +597,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private async onReconnect(): Promise<void> {
         Logger.debug("onReconnect");
         if (this.mRoom.isGameOver) {
+            Dialog.showDialog("您要进入的房间已经关闭喽!");
+
             return;
         }
 
