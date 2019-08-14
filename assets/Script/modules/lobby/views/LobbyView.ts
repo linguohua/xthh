@@ -82,11 +82,11 @@ export class LobbyView extends cc.Component {
         this.setLaunchCallBack();
 
         this.ccShowBackFunc = () => {
-            Logger.debug("cc.game.EVENT_SHOW event------------------ resume music");
-            SoundMgr.resumeMusic();
+            Logger.debug("cc.game.EVENT_RESTART event--------------------------");
+            //SoundMgr.resumeMusic();
         };
 
-        cc.game.on(cc.game.EVENT_SHOW, this.ccShowBackFunc);
+        cc.game.on(cc.game.EVENT_RESTART, this.ccShowBackFunc);
     }
 
     protected onDestroy(): void {
