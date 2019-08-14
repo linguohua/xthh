@@ -257,12 +257,18 @@ export class HandResultView extends cc.Component {
         const tilesMelds: proto.casino_xtsj.packet_sc_op_ack[] = [];
         for (const player of this.msgHandOver.tdata.players) {
             if (player.id === pId) {
+                const melds: { [key: string]: proto.casino_gdy.packet_sc_op_ack } = {};
                 for (const g of player.groups) {
                     const m = new proto.casino_gdy.packet_sc_op_ack();
                     m.cards = g.cards;
                     m.op = g.op;
                     m.target_id = g.target_id;
                     m.type = g.type;
+                    melds[g.cards[0].toString()] = m;
+                }
+                const keys = Object.keys(melds);
+                for (const k of keys) {
+                    const m = melds[k];
                     tilesMelds.push(m);
                 }
             }
