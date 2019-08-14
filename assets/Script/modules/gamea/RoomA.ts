@@ -872,6 +872,7 @@ export class RoomA {
     // }
 
     public onBgClick(): void {
+        this.hideTingDataView();
         this.myPlayer.playerView.restoreHandsPositionAndClickCount(-1);
     }
 

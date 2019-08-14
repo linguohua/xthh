@@ -854,6 +854,7 @@ export class Room {
         this.roomView.hideGamePauseTips();
     }
     public onBgClick(): void {
+        this.hideTingDataView();
         this.myPlayer.playerView.restoreHandsPositionAndClickCount(-1);
     }
 
