@@ -861,6 +861,16 @@ export class Room {
     public showOrHideGpsTag(isShow: boolean): void {
         this.roomView.showOrHideGpsTag(isShow);
     }
+
+    // 当关闭gps后判断是否与服务器的同步，服务器的数据会同步到客户端
+    public isGpsSync(): boolean {
+        const myPlayer = <Player>this.getMyPlayer();
+        if (myPlayer.coordinate.latitude === null && myPlayer.coordinate.longitude === null) {
+            return true;
+        }
+
+        return false;
+    }
     //播放背景音乐
     // private playBgSound(): void {
     //     SoundMgr.playMusicAudio("gameb/music_hall", true);

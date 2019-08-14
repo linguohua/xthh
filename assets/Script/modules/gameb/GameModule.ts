@@ -113,7 +113,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.checkGpsSetting();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            this.component.schedule(this.getLocation, 1 * 60, cc.macro.REPEAT_FOREVER);
+            // 90s 获取一次位置信息
+            this.component.schedule(this.getLocation, 90, cc.macro.REPEAT_FOREVER);
         }
 
         if (args.jsonString === "replay") {
@@ -621,6 +622,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (!this.isGpsOpen) {
             Logger.debug("gps is close");
+            // 如果gps不同步，则同步gps到服务器
+            if (this.mRoom !== null && !this.mRoom.isGpsSync()) {
+                this.sendLocation2Server(null, null);
+            }
 
             return;
         }
