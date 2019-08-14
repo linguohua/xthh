@@ -109,20 +109,29 @@ export class GameOverResultViewA extends cc.Component {
     }
     //更新玩家基本信息
     //更新玩家基本信息
-    private updatePlayerInfoData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
+    private updatePlayerInfoData(playerScore: proto.casino.Iplayer_score, c: ViewGroup, player?: proto.casino.Itable_player): void {
 
         let nameStr = "";
-        if (playerScore.data.channel_nickname !== undefined &&
+        if (player !== undefined && player.channel_nickname !== null && player.channel_nickname !== "") {
+            nameStr = player.channel_nickname;
+        } else if (playerScore.data.channel_nickname !== undefined &&
             playerScore.data.channel_nickname !== null && playerScore.data.channel_nickname !== "") {
             nameStr = playerScore.data.channel_nickname;
         } else {
             nameStr = playerScore.data.nickname;
         }
 
+        let channelHead = "";
+        if (player !== undefined && player.channel_head !== null && player.channel_head !== "") {
+            channelHead = player.channel_head;
+        } else {
+            channelHead = playerScore.data.channel_head;
+        }
+
         c.textName.text = CommonFunction.nameFormatWithCount(nameStr, 6);
 
         const iconLoader = c.imageIcon.asCom.getChild("n1").asLoader;
-        CommonFunction.setHead(iconLoader, playerScore.data.channel_head, playerScore.data.sex);
+        CommonFunction.setHead(iconLoader, channelHead, playerScore.data.sex);
 
         const userID = playerScore.data.id;
         c.textId.text = `ID:${userID}`;
@@ -221,7 +230,7 @@ export class GameOverResultViewA extends cc.Component {
                     c.group.visible = true;
                     // const player = <Player>this.room.getPlayerByChairID(playerStat.chairID);
                     //玩家基本信息
-                    this.updatePlayerInfoData(playerStat, c);
+                    this.updatePlayerInfoData(playerStat, c, this.msgGameOver.tdata.players[i]);
                     //玩家分数信息
                     this.updatePlayerScoreData(playerStat, c, ps[playerStat.data.id]);
                 }
