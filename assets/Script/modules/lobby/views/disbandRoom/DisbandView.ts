@@ -83,6 +83,7 @@ export class DisbandView extends cc.Component {
             const mask = view.getChild("mask");
             CommonFunction.setBgFullScreenSize(mask);
 
+            this.room.getRoomHost().eventTarget.once("disband", this.onDisband, this);
             this.view = view;
             const win = new fgui.Window();
             win.contentPane = view;
@@ -132,6 +133,8 @@ export class DisbandView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        this.room.getRoomHost().eventTarget.off("disband");
+
         this.view.dispose();
         this.win.hide();
         this.win.dispose();
@@ -145,7 +148,7 @@ export class DisbandView extends cc.Component {
         const disbandTime = gameConfig.table_disband_time;
         this.leftTime = this.startDisbandTime + disbandTime - serverTime;
 
-        Logger.debug("this.leftTime  = ", this.leftTime);
+        Logger.debug("DisbandView.countDownFunc this.leftTime  = ", this.leftTime);
         if (this.leftTime < 0) {
             this.unschedule(this.countDownSchedule);
 
@@ -277,6 +280,11 @@ export class DisbandView extends cc.Component {
 
         return playerInfo;
 
+    }
+
+    private onDisband(): void {
+        this.unschedule(this.countDownSchedule);
+        this.destroy();
     }
 
 }
