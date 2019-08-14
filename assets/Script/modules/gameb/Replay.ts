@@ -7,7 +7,7 @@ import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
 import { HandlerMsgTableScore } from "./handlers/HandlerMsgTableScore";
 import { Player } from "./Player";
 import { TypeOfOP } from "./PlayerInterface";
-import { RoomInterface, roomStatus } from "./RoomInterface";
+import { RoomInterface } from "./RoomInterface";
 
 type ActionHandler = (srAction: proto.casino.Itable_op, x?: any) => Promise<void>; // tslint:disable-line:no-any
 enum actionType {
