@@ -595,15 +595,17 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             this.mq.pushMessage(msg);
         }
     }
-    private async onReconnect(): Promise<void> {
+    private async onReconnect(isFromShare: boolean): Promise<void> {
         Logger.debug("onReconnect");
-        if (this.mRoom.isGameOver) {
-            Dialog.showDialog("您要进入的房间已经关闭喽!");
-
+        if (this.mRoom.isReplayMode()) {
             return;
         }
 
-        if (this.mRoom.isReplayMode()) {
+        if (this.mRoom.isGameOver) {
+            if (isFromShare) {
+                Dialog.showDialog("您要进入的房间已经关闭喽!");
+            }
+
             return;
         }
 

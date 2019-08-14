@@ -281,7 +281,13 @@ export class LobbyView extends cc.Component {
 
         // 如果是在房间内重连，则发通知让房间重连恢复
         if (this.lm.isGameModuleExist()) {
-            this.lm.eventTarget.emit("reconnect");
+            let isFromShare: boolean = false;
+            if (this.roomNumberFromShare !== "" && this.roomNumberFromShare !== undefined && this.roomNumberFromShare !== null) {
+                isFromShare = true;
+            }
+
+            this.lm.eventTarget.emit("reconnect", isFromShare);
+            this.roomNumberFromShare = "";
 
             return;
         }
