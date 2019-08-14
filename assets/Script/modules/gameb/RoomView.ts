@@ -1,4 +1,4 @@
-import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
@@ -74,8 +74,6 @@ export class RoomView {
 
     private startRecordTime: number;
 
-    private wxShowCallBackFunction: (res: showRes) => void;
-
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
         this.unityViewNode = view;
@@ -102,7 +100,6 @@ export class RoomView {
             this.initRecordManager();
         }
 
-        this.setWechatOnShowCallBack();
     }
 
     //响应玩家点击左上角的退出按钮以及后退事件
@@ -456,18 +453,6 @@ export class RoomView {
 
     public showOrHideGpsTag(isShow: boolean): void {
         this.gpsUnOpen.visible = isShow;
-    }
-
-    private wxShowCallBack(res: showRes): void {
-        Logger.debug("RoomView wxShowCallBack");
-        SoundMgr.resumeMusic();
-    }
-
-    private setWechatOnShowCallBack(): void {
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
-            wx.onShow(this.wxShowCallBackFunction);
-        }
     }
 
     private gamePauseCountDownFunc(timeStamp: number): void {

@@ -1046,17 +1046,11 @@ export class RoomA {
             this.currentPlayMsg = null;
         };
 
-        const onAudioInterruptionBegin = () => {
-            Logger.debug("onAudioInterruptionBegin");
-        };
-
         this.audioContext.onPlay(onPlay);
         this.audioContext.onPause(onPause);
         this.audioContext.onStop(onStop);
         this.audioContext.onEnded(onEnd);
         this.audioContext.onError(onError);
-
-        wx.onAudioInterruptionEnd(onAudioInterruptionBegin);
     }
 
     private showOrHideVoiceImg(isShow: boolean): void {

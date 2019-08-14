@@ -34,7 +34,7 @@ export class LobbyView extends cc.Component {
 
     private wxShowCallBackFunction: (res: showRes) => void;
 
-    private ccShowBackFunc: Function;
+    private ccShowBackFunc: ReturnCallBack;
 
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
@@ -80,13 +80,6 @@ export class LobbyView extends cc.Component {
         this.initNimSDK();
 
         this.setLaunchCallBack();
-
-        this.ccShowBackFunc = () => {
-            Logger.debug("cc.game.EVENT_RESTART event--------------------------");
-            //SoundMgr.resumeMusic();
-        };
-
-        cc.game.on(cc.game.EVENT_RESTART, this.ccShowBackFunc);
     }
 
     protected onDestroy(): void {
@@ -96,7 +89,6 @@ export class LobbyView extends cc.Component {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
         }
-        cc.game.off(cc.game.EVENT_SHOW, this.ccShowBackFunc);
     }
 
     // private updateEmailRedPoint(): void {
@@ -124,7 +116,6 @@ export class LobbyView extends cc.Component {
             // }
 
         }
-
         SoundMgr.resumeMusic();
     }
     private initView(): void {
@@ -424,6 +415,13 @@ export class LobbyView extends cc.Component {
             this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
             // 点别人的邀请链接 原来就在游戏内 走这里
             wx.onShow(this.wxShowCallBackFunction);
+
+            this.ccShowBackFunc = () => {
+                Logger.debug("onAudioInterruptionEnd--------------------- ready to resume music");
+                SoundMgr.resumeMusic();
+            };
+
+            wx.onAudioInterruptionEnd(this.ccShowBackFunc);
 
             const query = WeiXinSDK.getLaunchOption();
             const rKey = "roomNumber";
