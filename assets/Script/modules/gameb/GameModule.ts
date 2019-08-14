@@ -20,8 +20,7 @@ import { msgHandlers, Room } from "./Room";
 // 添加需要优先级管理的消息码
 const mc = protoHH.casino.eMSG_TYPE;
 const priorityMap: { [key: number]: number } = {
-    [mc.MSG_TABLE_CREATE_ACK]: 1, [mc.MSG_TABLE_JOIN_ACK]: 1,
-    [mc.MSG_TABLE_DISBAND]: 1, [mc.MSG_TABLE_DISBAND_REQ]: 1, [mc.MSG_TABLE_DISBAND_ACK]: 1
+    [mc.MSG_TABLE_CREATE_ACK]: 1, [mc.MSG_TABLE_JOIN_ACK]: 1, [mc.MSG_TABLE_DISBAND_REQ]: 1, [mc.MSG_TABLE_DISBAND_ACK]: 1
 };
 
 /**
