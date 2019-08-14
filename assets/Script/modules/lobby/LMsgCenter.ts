@@ -163,7 +163,7 @@ export class LMsgCenter {
             encode: proto.casino.ProxyMessage.encode
         };
 
-        const mq = new MsgQueue(this.priorityMap);
+        const mq = new MsgQueue(this.priorityMap, true);
         const ws = new WS(this.url, mq, host, pp);
         this.mq = mq;
         this.ws = ws;

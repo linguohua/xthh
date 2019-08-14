@@ -43,8 +43,15 @@ export class MsgQueue {
 
     private readonly priorityMap: { [key: number]: number };
 
-    public constructor(priorityMap: { [key: number]: number }) {
+    // 大厅的消息队列
+    private isLobby: boolean = false;
+
+    public constructor(priorityMap: { [key: number]: number }, isLobby?: boolean) {
         this.priorityMap = priorityMap;
+
+        if (isLobby !== undefined) {
+            this.isLobby = isLobby;
+        }
     }
 
     public async waitMsg(): Promise<Message> {
@@ -86,6 +93,8 @@ export class MsgQueue {
                     if (p !== undefined && p >= this.priority) {
                         isBlocked = false;
                     }
+                } else if (this.isLobby) {
+                    isBlocked = false;
                 }
 
                 if (isBlocked) {
@@ -124,6 +133,9 @@ export class MsgQueue {
                 if (p !== undefined && p >= this.priority) {
                     isBlocked = false;
                 }
+            } else if (this.isLobby) {
+                // 大厅的weboskcet close, error 不阻塞
+                isBlocked = false;
             }
         }
 
