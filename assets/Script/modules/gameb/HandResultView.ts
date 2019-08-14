@@ -253,12 +253,29 @@ export class HandResultView extends cc.Component {
         }
     }
 
+    private getMelds(pId: number): proto.casino_xtsj.packet_sc_op_ack[] {
+        const tilesMelds: proto.casino_xtsj.packet_sc_op_ack[] = [];
+        for (const player of this.msgHandOver.tdata.players) {
+            if (player.id === pId) {
+                for (const g of player.groups) {
+                    const m = new proto.casino_gdy.packet_sc_op_ack();
+                    m.cards = g.cards;
+                    m.op = g.op;
+                    m.target_id = g.target_id;
+                    m.type = g.type;
+                    tilesMelds.push(m);
+                }
+            }
+        }
+
+        return tilesMelds;
+    }
     //更新牌数据
     private updatePlayerTileData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
         // Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
-        const meldDatas = player.tilesMelds;
+        const meldDatas = this.getMelds(playerScore.data.id); // player.tilesMelds;
         let tilesHand = playerScore.curcards.concat([]); //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);
         if (playerScore.hupai_card > 0) {
