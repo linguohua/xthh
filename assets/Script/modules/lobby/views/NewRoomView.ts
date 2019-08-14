@@ -274,14 +274,25 @@ export class NewRoomView extends cc.Component {
 
         const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
 
-        let table;
-        if (reply.replay !== undefined && reply.replay !== null && reply.replay_id > 10000) {
-            table = protoHH.casino.table.decode(reply.replay);
-        } else {
-            Dialog.prompt(`操作频繁,请${reply.replay_id}秒后尝试`);
+        Logger.debug("packet_replay_ack  reply = ", reply);
+
+        if (reply.ret !== 0) {
+
+            switch (reply.ret) {
+                case 1:
+                    Dialog.prompt("未找到该房间数据");
+                    break;
+                case 22:
+                    Dialog.prompt(`操作频繁，请${reply.replay_id}秒后尝试`);
+                    break;
+
+                default:
+            }
 
             return;
         }
+
+        const table = protoHH.casino.table.decode(reply.replay);
 
         const replayId = reply.replay_id;
         const replayInMap = this.replayTable[replayId];

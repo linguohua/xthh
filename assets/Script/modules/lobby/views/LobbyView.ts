@@ -34,6 +34,8 @@ export class LobbyView extends cc.Component {
 
     private wxShowCallBackFunction: (res: showRes) => void;
 
+    private ccShowBackFunc: Function;
+
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -78,6 +80,12 @@ export class LobbyView extends cc.Component {
         this.initNimSDK();
 
         this.setLaunchCallBack();
+
+        this.ccShowBackFunc = () => {
+            SoundMgr.resumeMusic();
+        };
+
+        cc.game.on(cc.game.EVENT_SHOW, this.ccShowBackFunc);
     }
 
     protected onDestroy(): void {
@@ -87,6 +95,7 @@ export class LobbyView extends cc.Component {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
         }
+        cc.game.off(cc.game.EVENT_SHOW, this.ccShowBackFunc);
     }
 
     // private updateEmailRedPoint(): void {
