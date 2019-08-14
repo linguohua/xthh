@@ -671,7 +671,6 @@ export class RoomA {
             }
         }
 
-
         let curid: number = 0;
         for (let i = 0; i < table.players.length; i++) {
             const p = table.players[i];

@@ -82,6 +82,7 @@ export class LobbyView extends cc.Component {
         this.setLaunchCallBack();
 
         this.ccShowBackFunc = () => {
+            Logger.debug("cc.game.EVENT_SHOW event------------------ resume music");
             SoundMgr.resumeMusic();
         };
 
