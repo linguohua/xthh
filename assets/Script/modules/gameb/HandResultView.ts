@@ -283,13 +283,10 @@ export class HandResultView extends cc.Component {
         const player = <Player>this.room.getPlayerByUserID(`${playerScore.data.id}`);
         const meldDatas = this.getMelds(playerScore.data.id); // player.tilesMelds;
         let tilesHand = playerScore.curcards.concat([]); //玩家手上的牌（暗牌）排好序的
-        // this.sortHands(tilesHand, false);
         if (playerScore.hupai_card > 0) {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 const hupaiArray = this.room.mAlgorithm.getArray_hupai(majong.sVecHuPai, playerScore.hupai_card);
-
-                this.sortHands(hupaiArray.sBarray, false);
                 // 将胡的牌从数组中去掉
                 let isFind = false;
                 const tilesLength = hupaiArray.sBarray.length;

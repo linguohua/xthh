@@ -308,8 +308,6 @@ export class HandResultViewA extends cc.Component {
             const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
             if (majong.bHuPai) {
                 const hupaiArray = this.room.mAlgorithm.getArray_hupai(majong.sVecHuPai, playerScore.hupai_card);
-                Logger.debug("hupaiArray:", hupaiArray);
-                this.sortHands(hupaiArray.sBarray, false);
                 // 将胡的牌从数组中去掉
                 let isFind = false;
                 const tilesLength = hupaiArray.sBarray.length;
