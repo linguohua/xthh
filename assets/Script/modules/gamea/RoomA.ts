@@ -393,6 +393,8 @@ export class RoomA {
 
         const view = this.host.component.addComponent(GameOverResultViewA);
         view.showView(this, msgGameOver);
+
+        this.getRoomHost().eventTarget.emit("disband");
     }
 
     public hideDiscardedTips(): void {

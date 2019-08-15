@@ -149,8 +149,10 @@ export class DisbandView extends cc.Component {
         this.leftTime = this.startDisbandTime + disbandTime - serverTime;
 
         Logger.debug("DisbandView.countDownFunc this.leftTime  = ", this.leftTime);
-        if (this.leftTime < 0) {
+        if (this.leftTime <= 0) {
+            Logger.debug("DisbandView.countDownFunc this.leftTime < 0");
             this.unschedule(this.countDownSchedule);
+            this.destroy();
 
             return;
         }
@@ -283,6 +285,7 @@ export class DisbandView extends cc.Component {
     }
 
     private onDisband(): void {
+        Logger.debug("onDisband");
         this.unschedule(this.countDownSchedule);
         this.destroy();
     }

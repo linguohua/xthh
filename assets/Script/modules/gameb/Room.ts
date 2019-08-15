@@ -389,9 +389,10 @@ export class Room {
 
     public loadGameOverResultView(msgGameOver: protoHH.casino.packet_table_score): void {
         this.isGameOver = true;
-
         const view = this.host.component.addComponent(GameOverResultView);
         view.showView(this, msgGameOver);
+
+        this.getRoomHost().eventTarget.emit("disband");
     }
 
     public hideDiscardedTips(): void {
