@@ -133,7 +133,7 @@ export class DisbandView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        this.room.getRoomHost().eventTarget.off("disband");
+        // this.room.getRoomHost().eventTarget.off("disband");
 
         this.view.dispose();
         this.win.hide();
