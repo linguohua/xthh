@@ -211,7 +211,7 @@ export class HandResultView extends cc.Component {
     }
 
     //更新玩家基本信息
-    private updatePlayerInfoData(player: proto.casino.Iplayer_min, c: ViewGroup): void {
+    private updatePlayerInfoData(playerMin: proto.casino.Iplayer_min, c: ViewGroup, player?: proto.casino.Itable_player): void {
         //名字
 
         let name = "";
@@ -448,7 +448,7 @@ export class HandResultView extends cc.Component {
             const c = this.contentGroup[i];
             c.group.visible = true;
             //玩家基本信息
-            this.updatePlayerInfoData(playerScore.data, c);
+            this.updatePlayerInfoData(playerScore.data, c, this.msgHandOver.tdata.players[i]);
             let myScore = 0;
             if (this.msgHandOver.op > 0 && playerScore.score !== null) {
                 myScore = playerScore.score;
