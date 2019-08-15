@@ -103,7 +103,13 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // bg = view.getChild("classBg");
         // CommonFunction.setBgFullScreenSize(bg);
 
-        bg.onClick(() => { this.room.onBgClick(); }, this);
+        bg.onClick(
+            () => {
+                if (this.room !== null && this.room !== undefined) {
+                    this.room.onBgClick();
+                }
+            },
+            this);
         // 兼容底部背景
         const diBg = view.getChild('diBg');
         diBg.width = bg.width;
