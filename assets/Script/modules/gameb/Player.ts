@@ -340,11 +340,11 @@ export class Player {
     }
 
     //把牌摊开
-    public hand2Exposed(curcards: number[]): void {
+    public hand2Exposed(curcards: number[], isHeiMo: boolean): void {
         const playerView = this.playerView;
         playerView.hideHands();
 
-        const newTiles1 = this.host.mAlgorithm.canHuPai_def(curcards); //排序 胡牌的人
+        const newTiles1 = this.host.mAlgorithm.canHuPai_def(curcards, isHeiMo); //排序 胡牌的人
         // Logger.debug("this.tilesHand : ", this.tilesHand);
         const newTiles2: number[] = [];
         for (let i = newTiles1.length - 1; i >= 0; i--) {

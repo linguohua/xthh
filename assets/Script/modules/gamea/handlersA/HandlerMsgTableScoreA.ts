@@ -49,10 +49,22 @@ export namespace HandlerMsgTableScoreA {
             const player = <PlayerA>room.getPlayerByUserID(`${score.data.id}`);
             //胡牌的人才 摊牌
             if (score.hupai_card > 0) {
-                // if (!player.isMe()) {
-                //     player.tilesHand = curcards;
-                // }
-                player.hand2Exposed(curcards);
+                let huType = eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO;
+                const opscores = score.opscores;
+                for (const opscore of opscores) {
+                    if (opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_ZHUOCHONG ||
+                        opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO ||
+                        opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMO ||
+                        opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_QIANGXIAO) {
+                        huType = opscore.type;
+                    } else if (opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_RUANMOX2) {
+                        huType = eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO;
+                    } else if (opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMOX2) {
+                        huType = eGDY_OP_TYPE.GDY_OP_TYPE_HEIMO;
+                    }
+                }
+
+                player.hand2Exposed(curcards, huType === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMO);
                 huPlayer = player;
             }
         }

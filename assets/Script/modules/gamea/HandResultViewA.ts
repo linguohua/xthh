@@ -304,8 +304,13 @@ export class HandResultViewA extends cc.Component {
         const meldDatas = this.getMelds(playerScore.data.id); // player.tilesMelds;
         let tilesHand = playerScore.curcards.concat([]); //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);
+        let isHeiMo = false;
+        if (playerScore.opscores.length > 0) {
+            // c.ruleText.text = this.getHupaiType(playerScore);
+            isHeiMo = this.setOpscore(playerScore, c);
+        }
         if (playerScore.hupai_card > 0) {
-            const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand);
+            const majong = this.room.mAlgorithm.canHuPai_defEX(tilesHand, isHeiMo);
             if (majong.bHuPai) {
                 const hupaiArray = this.room.mAlgorithm.getArray_hupai(majong.sVecHuPai, playerScore.hupai_card);
                 // 将胡的牌从数组中去掉
@@ -389,10 +394,10 @@ export class HandResultViewA extends cc.Component {
             c.ting.visible = true;
         }
 
-        if (playerScore.opscores.length > 0) {
-            // c.ruleText.text = this.getHupaiType(playerScore);
-            this.setOpscore(playerScore, c);
-        }
+        // if (playerScore.opscores.length > 0) {
+        //     // c.ruleText.text = this.getHupaiType(playerScore);
+        //     this.setOpscore(playerScore, c);
+        // }
 
         if (playerScore.data.id === this.room.bankerChairID) {
             c.zhuang.visible = true;
@@ -421,9 +426,10 @@ export class HandResultViewA extends cc.Component {
 
     }
 
-    private setOpscore(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
+    private setOpscore(playerScore: proto.casino.Iplayer_score, c: ViewGroup): boolean {
         let opscoreString = "";
         let piaoLaizi = "";
+        let haveHeiMo = false;
         for (const opscore of playerScore.opscores) {
             if (hupaiType[opscore.type] === undefined) {
                 Logger.error("Unknow opscore type:", opscore.type);
@@ -436,8 +442,11 @@ export class HandResultViewA extends cc.Component {
             }
 
             let hupaiString: string = "";
-            if (opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMO || opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMOX2
-                || opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO || opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_RUANMOX2) {
+            if (opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMO || opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_HEIMOX2) {
+                // 各种摸没有次数
+                hupaiString = hupaiType[opscore.type];
+                haveHeiMo = true;
+            } else if (opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO || opscore.type === eGDY_OP_TYPE.GDY_OP_TYPE_RUANMOX2) {
                 // 各种摸没有次数
                 hupaiString = hupaiType[opscore.type];
             } else {
@@ -453,6 +462,8 @@ export class HandResultViewA extends cc.Component {
 
         c.laiziCount.text = piaoLaizi;
         c.ruleText.text = opscoreString;
+
+        return haveHeiMo;
     }
 
     //更新显示数据
