@@ -28,10 +28,27 @@ export namespace CommonFunction {
      */
     export const setViewInCenter = (view: fgui.GObject): number => {
         //
+
+        if (cc.winSize.width < 1136) {
+            const scale = cc.winSize.width / 1136;
+
+            view.scaleX = scale;
+            view.scaleY = scale;
+
+            view.setPosition(0, (640 - (view.height * scale)) / 2);
+
+            return 0;
+
+        }
         const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+
         view.setPosition(x, view.y);
 
         return x;
+        // const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+        // view.setPosition(x, view.y);
+
+        // return x;
     };
 
     export const nameFormatWithCount = (str: string, count: number, tag: string = "..."): string => {
@@ -82,6 +99,19 @@ export namespace CommonFunction {
      * @param view 背景 节点
      */
     export const setBgFullScreenSize = (view: fgui.GObject): void => {
+
+        if (cc.winSize.width < 1136) {
+            const scale = cc.winSize.width / 1136;
+
+            // view.scaleX = scale;
+            // view.scaleY = scale;
+
+            view.setPosition(0, view.y);
+            //setBgFullScreen(view);
+
+            return;
+
+        }
 
         const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
 
