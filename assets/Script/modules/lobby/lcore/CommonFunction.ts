@@ -45,10 +45,7 @@ export namespace CommonFunction {
         view.setPosition(x, view.y);
 
         return x;
-        // const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        // view.setPosition(x, view.y);
 
-        // return x;
     };
 
     export const nameFormatWithCount = (str: string, count: number, tag: string = "..."): string => {
@@ -101,13 +98,7 @@ export namespace CommonFunction {
     export const setBgFullScreenSize = (view: fgui.GObject): void => {
 
         if (cc.winSize.width < 1136) {
-            const scale = cc.winSize.width / 1136;
-
-            // view.scaleX = scale;
-            // view.scaleY = scale;
-
             view.setPosition(0, view.y);
-            //setBgFullScreen(view);
 
             return;
 
