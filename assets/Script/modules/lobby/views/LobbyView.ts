@@ -34,8 +34,6 @@ export class LobbyView extends cc.Component {
 
     private wxShowCallBackFunction: (res: showRes) => void;
 
-    private ccShowBackFunc: ReturnCallBack;
-
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -116,6 +114,7 @@ export class LobbyView extends cc.Component {
             // }
 
         }
+        Logger.debug("SoundMgr.resumeMusic()----------------------");
         SoundMgr.resumeMusic();
     }
     private initView(): void {
@@ -232,7 +231,7 @@ export class LobbyView extends cc.Component {
 
     private openEmailClick(): void {
         // TODO: 显示邮件界面
-        //this.showMarquee("测试发送公告asdasd测试发送试发送公告asdasd");
+        //this.showMarquee("测试发送公告测试发送试发送公告");
 
         //Dialog.showReconnectDialog();
     }
@@ -286,7 +285,7 @@ export class LobbyView extends cc.Component {
         // 如果是登录进入房间，已经在房间则拉回房间
         const tableIDString = DataStore.getString("tableID", "");
         if (tableIDString !== "") {
-            Logger.debug("Aready in room, tableID:", tableIDString);
+            Logger.debug("already in room, tableID:", tableIDString);
 
             const tableID = long.fromString(tableIDString, true);
             this.joinTableReq(tableID);
@@ -415,14 +414,6 @@ export class LobbyView extends cc.Component {
             this.wxShowCallBackFunction = <(res: showRes) => void>this.wxShowCallBack.bind(this);
             // 点别人的邀请链接 原来就在游戏内 走这里
             wx.onShow(this.wxShowCallBackFunction);
-
-            this.ccShowBackFunc = () => {
-                Logger.debug("onAudioInterruptionEnd--------------------- ready to resume music");
-                SoundMgr.resumeMusic();
-            };
-
-            wx.onAudioInterruptionEnd(this.ccShowBackFunc);
-
             const query = WeiXinSDK.getLaunchOption();
             const rKey = "roomNumber";
             this.roomNumberFromShare = query[rKey];
