@@ -234,6 +234,19 @@ export class LobbyView extends cc.Component {
         //this.showMarquee("测试发送公告测试发送试发送公告");
 
         //Dialog.showReconnectDialog();
+        // let count = 0;
+
+        // const handler = () => {
+        //     //
+
+        //     Dialog.showReconnectDialog();
+        //     count++;
+
+        //     Logger.debug("showReconnectDialog count =", count);
+        // };
+
+        // setInterval(handler, 1000);
+
     }
 
     private onCreateRoom(): void {
@@ -418,6 +431,28 @@ export class LobbyView extends cc.Component {
             const rKey = "roomNumber";
             this.roomNumberFromShare = query[rKey];
             Logger.debug(`share from wx, room number:${this.roomNumberFromShare}`);
+
+            /**
+             * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓测试代码
+             */
+            let count = 0;
+            const playMusicHandler = () => {
+                count++;
+                SoundMgr.resumeMusic();
+                Logger.debug(`setLaunchCallBack schedule to resume music,count =  ${count}`);
+            };
+
+            const handler = () => {
+                if (cc.audioEngine.isMusicPlaying) {
+                    this.unschedule(playMusicHandler);
+                    Logger.debug(`setLaunchCallBack clear schedule-------------------------`);
+                } else {
+                    Logger.debug(`setLaunchCallBack set schedule to play music-------------------------`);
+                    this.schedule(playMusicHandler, 500, cc.macro.REPEAT_FOREVER);
+                }
+            };
+
+            wx.onAudioInterruptionEnd(handler);
         }
     }
 }
