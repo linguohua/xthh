@@ -43,7 +43,7 @@ export namespace HandlerActionResultDiscardedA {
             if (player.mPiaoCount === 3) {
                 //第一次提示
                 const backPlayer = <PlayerA>room.getBackPlayer(player.chairID);
-                if (!room.isReplayMode() && backPlayer.isMe()) {
+                if (!room.isReplayMode() && backPlayer.isMe() && room.roomInfo.room_id !== 2102) {
                     Dialog.prompt("下家飘赖达到3次，锁牌生效，您将被限制碰牌、点笑、小朝天操作");
                 }
             }
