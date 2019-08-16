@@ -108,6 +108,9 @@ export namespace HandlerMsgDealA {
         room.showRoomBtnsAndBgs();
         //清理
         room.resetForNewHand();
+
+        // 清理游戏操作提示
+        room.hideGamePauseTips();
         //局数
         if (!room.isReplayMode()) {
             room.handStartted++;
