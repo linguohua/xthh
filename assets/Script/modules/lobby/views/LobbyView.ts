@@ -443,7 +443,9 @@ export class LobbyView extends cc.Component {
             };
 
             const handler = () => {
-                if (cc.audioEngine.isMusicPlaying) {
+
+                Logger.debug("setLaunchCallBack cc.audioEngine.isMusicPlaying() = ", cc.audioEngine.isMusicPlaying())
+                if (cc.audioEngine.isMusicPlaying()) {
                     this.unschedule(playMusicHandler);
                     Logger.debug(`setLaunchCallBack clear schedule-------------------------`);
                 } else {
