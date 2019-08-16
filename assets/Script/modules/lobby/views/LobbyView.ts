@@ -435,23 +435,25 @@ export class LobbyView extends cc.Component {
             /**
              * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓测试代码
              */
-            let count = 0;
-            const playMusicHandler = () => {
-                count++;
-                SoundMgr.resumeMusic();
-                Logger.debug(`setLaunchCallBack schedule to resume music,count =  ${count}`);
-            };
+            // let count = 0;
+            // const playMusicHandler = () => {
+            //     count++;
+            //     SoundMgr.resumeMusic();
+            //     Logger.debug(`setLaunchCallBack schedule to resume music,count =  ${count}`);
+            // };
 
             const handler = () => {
-
-                Logger.debug("setLaunchCallBack cc.audioEngine.isMusicPlaying() = ", cc.audioEngine.isMusicPlaying())
-                if (cc.audioEngine.isMusicPlaying()) {
-                    this.unschedule(playMusicHandler);
-                    Logger.debug(`setLaunchCallBack clear schedule-------------------------`);
-                } else {
-                    Logger.debug(`setLaunchCallBack set schedule to play music-------------------------`);
-                    this.schedule(playMusicHandler, 500, cc.macro.REPEAT_FOREVER);
-                }
+                Logger.debug(`setLaunchCallBack time = ${new Date().getMinutes()}:${new Date().getMinutes()}`);
+                Logger.debug("setLaunchCallBack cc.audioEngine.isMusicPlaying() = ", cc.audioEngine.isMusicPlaying());
+                SoundMgr.pauseMusic();
+                SoundMgr.resumeMusic();
+                // if (cc.audioEngine.isMusicPlaying()) {
+                //     this.unschedule(playMusicHandler);
+                //     Logger.debug(`setLaunchCallBack clear schedule-------------------------`);
+                // } else {
+                //     Logger.debug(`setLaunchCallBack set schedule to play music-------------------------`);
+                //     this.schedule(playMusicHandler, 500, cc.macro.REPEAT_FOREVER);
+                // }
             };
 
             wx.onAudioInterruptionEnd(handler);
