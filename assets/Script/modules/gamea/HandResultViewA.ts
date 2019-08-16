@@ -151,13 +151,13 @@ export class HandResultViewA extends cc.Component {
         this.countDown = againBtn.getChild("n1");
         this.countDown.text = `${msgHandOver.time} ${btnText}`;
 
-        const shanreBtn = this.unityViewNode.getChild("shanreBtn");
-        shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
-        shanreBtn.onClick(this.onShareButtonClick, this);
+        // const shanreBtn = this.unityViewNode.getChild("shanreBtn");
+        // shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
+        // shanreBtn.onClick(this.onShareButtonClick, this);
 
         if (room.isReplayMode()) {
             againBtn.visible = false;
-            shanreBtn.visible = false;
+            //shanreBtn.visible = false;
             this.room.getRoomHost().eventTarget.once("closeHandResult", this.closeHandResultView, this);
         } else {
             const timeLeft = 3;

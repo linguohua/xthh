@@ -130,13 +130,13 @@ export class HandResultView extends cc.Component {
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
 
-        const shanreBtn = this.unityViewNode.getChild("shanreBtn");
-        shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
-        shanreBtn.onClick(this.onShareButtonClick, this);
+        // const shanreBtn = this.unityViewNode.getChild("shanreBtn");
+        // shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
+        // shanreBtn.onClick(this.onShareButtonClick, this);
 
         if (room.isReplayMode()) {
             againBtn.visible = false;
-            shanreBtn.visible = false;
+            //shanreBtn.visible = false;
             this.room.getRoomHost().eventTarget.once("closeHandResult", this.closeHandResultView, this);
         } else {
             const timeLeft = 3;
@@ -571,9 +571,9 @@ export class HandResultView extends cc.Component {
         this.contentGroup = contentGroup;
     }
 
-    private onShareButtonClick(): void {
-        Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
-    }
+    // private onShareButtonClick(): void {
+    //     Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
+    // }
 
     // 玩家点击“继续”按钮，注意如果牌局结束，此按钮是“大结算”
     private onAgainButtonClick(): void {
