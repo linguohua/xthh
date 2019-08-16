@@ -272,7 +272,10 @@ export class HandResultViewA extends cc.Component {
             }
         }
     }
-    private getMelds(pId: number): proto.casino_xtsj.packet_sc_op_ack[] {
+    private getMelds(pId: number, p: PlayerA): proto.casino_xtsj.packet_sc_op_ack[] {
+        if (this.room.isReplayMode()) {
+            return p.tilesMelds;
+        }
         const tilesMelds: proto.casino_xtsj.packet_sc_op_ack[] = [];
         for (const player of this.msgHandOver.tdata.players) {
             if (player.id === pId) {
@@ -301,7 +304,7 @@ export class HandResultViewA extends cc.Component {
         Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
         const player = <PlayerA>this.room.getPlayerByUserID(`${playerScore.data.id}`);
-        const meldDatas = this.getMelds(playerScore.data.id); // player.tilesMelds;
+        const meldDatas = this.getMelds(playerScore.data.id, player); // player.tilesMelds;
         let tilesHand = playerScore.curcards.concat([]); //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);
         let isHeiMo = false;
