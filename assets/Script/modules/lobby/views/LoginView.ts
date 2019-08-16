@@ -404,16 +404,18 @@ export class LoginView extends cc.Component {
     }
 
     private createWxBtn(): void {
-        const btnSize = cc.size(this.weixinButton.width, this.weixinButton.height);
+
+        const btnSize = cc.size(this.weixinButton.node.width, this.weixinButton.node.height);
         const frameSize = cc.view.getFrameSize();
-        const winSize = cc.winSize;
-        const scaleX = frameSize.width / winSize.width;
-        const scaleY = frameSize.height / winSize.height;
-        const scale = scaleX < scaleY ? scaleX : scaleY;
-        const left = this.weixinButton.x * scale;
-        const top = this.weixinButton.y * scale;
-        const width = btnSize.width * scale;
-        const height = btnSize.height * scale;
+        const winSize = cc.director.getWinSize();
+        // console.log("winSize: ",winSize);
+        // console.log("frameSize: ",frameSize);
+        //适配不同机型来创建微信授权按钮
+        const left = (winSize.width * 0.5 + this.weixinButton.node.x - btnSize.width * 0.5) / winSize.width * frameSize.width;
+        const top = (winSize.height * 0.5 - this.weixinButton.node.y - btnSize.height * 0.5) / winSize.height * frameSize.height;
+        const width = btnSize.width / winSize.width * frameSize.width;
+        const height = btnSize.height / winSize.height * frameSize.height;
+        // console.log("button pos: ",cc.v2(left,top));
         this.button = wx.createUserInfoButton({
             type: 'text',
             text: '',
@@ -423,12 +425,13 @@ export class LoginView extends cc.Component {
                 width: width,
                 height: height,
                 lineHeight: 0,
-                // backgroundColor: '#000000',
+                backgroundColor: '#000000',
                 // borderColor: '#ff0000',
                 // color: '#ffffff',
                 textAlign: 'center',
                 fontSize: 16,
                 borderRadius: 4
+                //zIndex: -1000
             }
         });
 
