@@ -384,6 +384,7 @@ export class RoomA {
     }
 
     public loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void {
+        this.hideGamePauseTips();
         const view = this.host.component.addComponent(HandResultViewA);
         view.showView(this, msgHandOver);
     }
