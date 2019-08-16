@@ -29,20 +29,19 @@ export namespace CommonFunction {
     export const setViewInCenter = (view: fgui.GObject): number => {
         //
 
+        let x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+        let y = view.y;
+
         if (cc.winSize.width < 1136) {
             const scale = cc.winSize.width / 1136;
 
             view.scaleX = scale;
             view.scaleY = scale;
-
-            view.setPosition(0, (640 - (view.height * scale)) / 2);
-
-            return 0;
-
+            x = 0;
+            y = (640 - (view.height * scale)) / 2;
         }
-        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
 
-        view.setPosition(x, view.y);
+        view.setPosition(x, y);
 
         return x;
 
@@ -105,7 +104,6 @@ export namespace CommonFunction {
         }
 
         const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-
         view.setPosition(-x, 0);
         setBgFullScreen(view);
 

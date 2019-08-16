@@ -27,7 +27,7 @@ export class RoomSettingView extends cc.Component {
     // private musicSlider: fgui.GSlider;
     // private soundSlider: fgui.GSlider;
 
-    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, position: cc.Vec2): void {
+    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, settingBtn: fgui.GObject): void {
         this.room = room;
         if (this.view === undefined || this.view === null) {
             // this.room = room;
@@ -35,9 +35,24 @@ export class RoomSettingView extends cc.Component {
             this.view = fgui.UIPackage.createObject("room_other_view", "setting").asCom;
             this.initView(isOwner);
         }
-        fgui.GRoot.inst.showPopup(this.view);
 
-        this.view.setPosition(position.x, position.y - this.view.height);
+        const position = fgui.GRoot.inst.node.
+            convertToNodeSpaceAR(settingBtn.parent.node.convertToWorldSpaceAR(new cc.Vec2(settingBtn.x, settingBtn.y)));
+        // Logger.debug("convertToNodeSpaceAR position = ", position);
+
+        let y = position.y - this.view.height;
+
+        if (cc.winSize.width < 1136) {
+            const scale = cc.winSize.width / 1136;
+            this.view.scaleX = scale;
+            this.view.scaleY = scale;
+            y = position.y - (this.view.height * scale) + ((640 - (this.view.height * scale)) / 2);
+
+        }
+
+        this.view.setPosition(position.x, y);
+
+        fgui.GRoot.inst.showPopup(this.view);
 
     }
 

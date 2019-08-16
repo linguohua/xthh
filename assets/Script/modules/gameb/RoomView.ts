@@ -530,11 +530,7 @@ export class RoomView {
 
         const settingBtn = this.unityViewNode.getChild("settingBtn");
 
-        const position = fgui.GRoot.inst.node.
-            convertToNodeSpaceAR(settingBtn.parent.node.convertToWorldSpaceAR(new cc.Vec2(settingBtn.x, settingBtn.y)));
-        // Logger.debug("convertToNodeSpaceAR position = ", position);
-
-        settingView.showView(this.room, this.room.getRoomHost().getLobbyModuleLoader(), isOwner, position);
+        settingView.showView(this.room, this.room.getRoomHost().getLobbyModuleLoader(), isOwner, settingBtn);
     }
 
     /**
