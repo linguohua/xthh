@@ -705,8 +705,8 @@ export class Room {
 
         this.setRoundMask();
         //设置癞子 赖根
-        this.mAlgorithm.setMahjongLaiZi(this.roomInfo.laizi);
-        this.mAlgorithm.setMahjongFan(this.roomInfo.fanpai);
+        this.mAlgorithm.setMahjongLaiZi(this.laiziID);
+        this.mAlgorithm.setMahjongFan(this.laigenID);
         //设置弃杠弃碰
         let myPlayerInfo: protoHH.casino.Itable_player;
         for (const p of this.roomInfo.players) {
