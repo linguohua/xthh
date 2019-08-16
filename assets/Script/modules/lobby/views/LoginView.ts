@@ -408,24 +408,24 @@ export class LoginView extends cc.Component {
         const btnSize = cc.size(this.weixinButton.node.width, this.weixinButton.node.height);
         const frameSize = cc.view.getFrameSize();
         const winSize = cc.director.getWinSize();
-        // console.log("winSize: ",winSize);
-        // console.log("frameSize: ",frameSize);
-        //适配不同机型来创建微信授权按钮
-        const left = (winSize.width * 0.5 + this.weixinButton.node.x - btnSize.width * 0.5) / winSize.width * frameSize.width;
-        const top = (winSize.height * 0.5 - this.weixinButton.node.y - btnSize.height * 0.5) / winSize.height * frameSize.height;
+        const scaleX = frameSize.width / winSize.width;
+        const scaleY = frameSize.height / winSize.height;
         const width = btnSize.width / winSize.width * frameSize.width;
         const height = btnSize.height / winSize.height * frameSize.height;
-        // console.log("button pos: ",cc.v2(left,top));
+
+        const readLeft = (frameSize.width * 0.5) - (btnSize.width * scaleX * 0.5);
+        const readTop = Math.abs(this.weixinButton.node.y) * scaleY;
+
         this.button = wx.createUserInfoButton({
             type: 'text',
             text: '',
             style: {
-                left: left,
-                top: top,
+                left: readLeft,
+                top: readTop,
                 width: width,
                 height: height,
                 lineHeight: 0,
-                backgroundColor: '#000000',
+                //backgroundColor: '#000000',
                 // borderColor: '#ff0000',
                 // color: '#ffffff',
                 textAlign: 'center',
