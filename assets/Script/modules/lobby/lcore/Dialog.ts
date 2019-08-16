@@ -234,7 +234,7 @@ export class Dialog {
     }
 
     public static showReconnectDialog(): void {
-        if (Dialog.inst.reConnectDlgView === undefined) {
+        if (Dialog.inst.reConnectDlgView === undefined || Dialog.inst.reConnectDlgView.node === null) {
             Logger.debug("showDialog view is null, create new");
             if (!Dialog.inst.packageLoaded) {
                 Dialog.inst.loader.fguiAddPackage("lobby/fui_dialog/lobby_dialog");
