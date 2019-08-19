@@ -72,36 +72,35 @@ export namespace HandlerMsgActionOPAck {
         }
         const mahjong = pAck.cards[0];
         //pAck.cards[1], pAck.type, self:changeOrder( index), pAck.target_id
-        let s_count = 0;
-        let v_count = 0;
+        let sCount = 0;
+        let vCount = 0;
         let t = 0;
-        let tag_idx = 0;
         if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_DIANXIAO) { //点笑
-            s_count = 4;
-            v_count = 3;
+            sCount = 4;
+            vCount = 3;
             t = TypeOfOP.DEF_XTSJ_OP_GANG_M;
         } else if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_MENGXIAO) { //闷笑
-            s_count = 4;
-            v_count = 4;
+            sCount = 4;
+            vCount = 4;
             t = TypeOfOP.DEF_XTSJ_OP_GANG_A;
         } else if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO) { //回头笑
-            s_count = 1;
-            v_count = 1;
+            sCount = 1;
+            vCount = 1;
             t = TypeOfOP.DEF_XTSJ_OP_GANG_B;
         } else if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN) { //翻牌点笑
-            s_count = 3;
-            v_count = 2;
+            sCount = 3;
+            vCount = 2;
             t = TypeOfOP.DEF_XTSJ_OP_GANG_M;
         } else if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN) { //翻牌闷笑
-            s_count = 3;
-            v_count = 3;
+            sCount = 3;
+            vCount = 3;
             t = TypeOfOP.DEF_XTSJ_OP_GANG_A;
         }
-        if (s_count === 0) {
+        if (sCount === 0) {
             return pAck.type;
         }
         const array: number[] = [];
-        for (let index = 0; index < v_count; index++) {
+        for (let index = 0; index < vCount; index++) {
             array.push(mahjong);
         }
         kong2(room, t, player, pAck, array);

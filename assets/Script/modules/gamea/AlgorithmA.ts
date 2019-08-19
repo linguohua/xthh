@@ -13,20 +13,20 @@ const DEF_GDY_MJ_WAN = 1           // 万
 const DEF_GDY_MJ_TIAO = 2;           // 条
 const DEF_GDY_MJ_TONG = 3;           // 筒
 
-const DEF_GDY_TYPE_TOTAL = 3;           // 牌类型总数
+// const DEF_GDY_TYPE_TOTAL = 3;           // 牌类型总数
 
-const DEF_GDY_MJ_MIN = 2;           // 手上牌剩余最少数量
+// const DEF_GDY_MJ_MIN = 2;           // 手上牌剩余最少数量
 
-const DEF_GDY_NAIZI_MAX = 4;           // 最大赖子数量
-const DEF_GDY_NAIZI_ERR = 99;          // 需要赖子数量的错误
+// const DEF_GDY_NAIZI_MAX = 4;           // 最大赖子数量
+// const DEF_GDY_NAIZI_ERR = 99;          // 需要赖子数量的错误
 
-const DEF_GDY_PENG = 1;
-const DEF_GDY_GANG = 2;
-const DEF_GDY_HU = 3;
-const DEF_GDY_ZIMO = 4;
-const DEF_GDY_CHAOTIAN = 5;
-const DEF_GDY_BUZHUOCHONG = 6;           // 不捉铳
-const DEF_GDY_QIANGXIAO = 7;
+// const DEF_GDY_PENG = 1;
+// const DEF_GDY_GANG = 2;
+// const DEF_GDY_HU = 3;
+// const DEF_GDY_ZIMO = 4;
+// const DEF_GDY_CHAOTIAN = 5;
+// const DEF_GDY_BUZHUOCHONG = 6;           // 不捉铳
+// const DEF_GDY_QIANGXIAO = 7;
 const DEF_WITH_CARDS: number[] = [];
 
 export class AlgorithmA {
@@ -56,8 +56,8 @@ export class AlgorithmA {
         }
     }
     //释放
-    private release(): void {
-    }
+    // private release(): void {
+    // }
     //随机赖子牌
     public randomLaiZi(): void {
         const random_num = Math.floor(Math.random() * DEF_GDY_MJ_MAX - 1);
@@ -470,7 +470,7 @@ export class AlgorithmA {
                 const vecNextPai: number[] = [];
                 const vecNextLai: number[] = [];
                 const vecDelePai: number[] = [];
-                const vecDeleLai: number[] = [];
+                //const vecDeleLai: number[] = [];
 
                 this.push_back(vecDelePai, sVecPai, 1, 3);
                 this.push_back(vecNextPai, sVecPai, 4, sVecPai.length);
@@ -913,7 +913,7 @@ export class AlgorithmA {
         if (a.sVecLai.length > 2) {
             return false;
         }
-        const size = a.sVecPai.length;
+        //const size = a.sVecPai.length;
         let bTing = false;
         const sVecPaiNext: number[] = [];
         const sVecSavePai: number[] = [];
@@ -953,7 +953,7 @@ export class AlgorithmA {
             return false;
         }
 
-        const size = sVecPai.length;
+        //const size = sVecPai.length;
 
         let bTing = false;
         const sVecPaiNext: number[] = [];
@@ -1037,6 +1037,7 @@ export class AlgorithmA {
             // dd.array = array;
             return [];
         }
+        return [];
     }
     public canGangPai_withAllEX(mahjongs: number[]): ArrayClass_d {
         const dd = new ArrayClass_d();

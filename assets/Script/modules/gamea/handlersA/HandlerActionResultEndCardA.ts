@@ -1,6 +1,5 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
-import { Player } from "../Player";
 import { RoomInterface } from "../RoomInterface";
 
 /**
@@ -26,7 +25,7 @@ export namespace HandlerActionResultEndCardA {
         room.tilesInWall = 0; // room.tilesInWall - le;
         room.updateTilesInWallUI();
         if (reply.card !== 0) {
-            const player = <Player>room.getMyPlayer();
+            const player = room.getMyPlayer();
             player.addHandTile(reply.card);
             player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
             player.hand2UI(false);

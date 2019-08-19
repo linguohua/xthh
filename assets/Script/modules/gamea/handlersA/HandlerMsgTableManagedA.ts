@@ -1,7 +1,7 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
-import { RoomInterfaceA } from "../RoomInterfaceA";
 import { PlayerA } from "../PlayerA";
+import { RoomInterfaceA } from "../RoomInterfaceA";
 
 /**
  * 托管

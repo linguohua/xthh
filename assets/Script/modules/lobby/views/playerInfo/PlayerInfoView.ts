@@ -53,8 +53,6 @@ export class PlayerInfoView extends cc.Component {
     private dataList: PropData[];
     private dataListForOpponents: PropData[];
 
-    private room: RoomInterface;
-
     public showUserInfoView(loader: GResLoader, room: RoomInterface, playerInfo: PlayerInfo, pos: cc.Vec2, isOther: boolean): void {
         if (this.view === null) {
             loader.fguiAddPackage("lobby/fui_player_info/lobby_player_info");
@@ -64,12 +62,11 @@ export class PlayerInfoView extends cc.Component {
 
             if (this.onMessageFunc === null) {
                 this.lobbyModule = <LobbyModuleInterface>this.node.getParent().getComponent("LobbyModule");
-                                                  }
+            }
 
             Logger.debug("showUserInfoView view is nil");
         }
 
-        this.room = room;
         this.playerInfo = playerInfo;
         this.isOther = isOther;
 
@@ -159,13 +156,13 @@ export class PlayerInfoView extends cc.Component {
         this.numberText.text = "";
     }
 
-    private addMsg(msg: ByteBuffer): void {
-        Logger.debug("msg:", msg);
-    }
+    // private addMsg(msg: ByteBuffer): void {
+    //     Logger.debug("msg:", msg);
+    // }
 
-    private onMessage(msg: ByteBuffer): void {
-        this.addMsg(msg);
-    }
+    // private onMessage(msg: ByteBuffer): void {
+    //     this.addMsg(msg);
+    // }
 
     private onKickoutBtnClick(): void {
         Logger.debug("onKickoutBtnClick");
