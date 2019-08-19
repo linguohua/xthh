@@ -3,6 +3,7 @@ import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
+const cardChannel = "weixin";
 
 export enum TabType {
 
@@ -23,8 +24,11 @@ export class ShopView extends cc.Component {
     private vipView: fgui.GComponent;
 
     private beanItemList: fgui.GList;
+
     private beanPayCfgs: protoHH.casino.Ipay[];
-    // private cardPayCfgs: protoHH.casino.Ipay[];
+    private cardItemList: fgui.GList;
+
+    private cardPayCfgs: protoHH.casino.Ipay[];
 
     public showView(page: TabType): void {
         this.win.show();
@@ -91,6 +95,20 @@ export class ShopView extends cc.Component {
 
     private initShopCardView(): void {
         // TODO:
+        this.cardPayCfgs = this.getPayCfgs(cardChannel, protoHH.casino.eRESOURCE.RESOURCE_CARD);
+
+        const cardView = this.view.getChild("fkCom").asCom;
+        const vipBtn = cardView.getChild("vipBtn");
+        vipBtn.onClick(this.onVipBtnClick, this);
+
+        this.cardItemList = cardView.getChild("list").asList;
+        this.cardItemList.on(fgui.Event.CLICK_ITEM, this.onCardItemClick, this);
+        this.cardItemList.setVirtual();
+        this.cardItemList.itemRenderer = (index: number, item: fgui.GObject) => {
+            this.renderCardItemList(index, item);
+        };
+
+        this.cardItemList.numItems = this.cardPayCfgs.length;
     }
 
     private initShopBeansView(): void {
@@ -119,6 +137,32 @@ export class ShopView extends cc.Component {
     private showVipView(): void {
         this.win.contentPane = this.vipView;
         this.win.show();
+    }
+
+    private renderCardItemList(index: number, item: fgui.GObject): void {
+        const cardPayCfg = this.cardPayCfgs[index];
+        const itemCom = item.asCom;
+        const nameText = itemCom.getChild("countText").asTextField;
+        nameText.text = cardPayCfg.name;
+
+        const giveMoreText = itemCom.getChild("giveMore").asTextField;
+        giveMoreText.visible = false;
+
+        // const scText = itemCom.getChild("scText").asTextField;
+        // scText.visible = true;
+
+        // const scBg = itemCom.getChild("bgSC");
+        // scBg.visible = true;
+
+        const loader = itemCom.getChild("loader").asLoader;
+        loader.url = `ui://lobby_shop/cz_icon_fk${index + 1}`;
+
+        const buyBtn = itemCom.getChild("buyBtn").asButton;
+        buyBtn.getChild("n1").text = cardPayCfg.price_info;
+        buyBtn.onClick(this.onCardBuyBtnClick, this);
+        buyBtn.data = index;
+
+        // TODO:
     }
 
     private renderItemList(index: number, item: fgui.GObject): void {
@@ -151,11 +195,23 @@ export class ShopView extends cc.Component {
         // TODO:
     }
 
+    private onCardItemClick(clickItem: fgui.GObject): void {
+        // TODO:
+    }
+
     private onBeanBuyBtnClick(ev: fgui.Event): void {
         const index = <number>ev.initiator.data;
         const beanPayCfg = this.beanPayCfgs[index];
 
         Logger.debug("beanPayCfg:", beanPayCfg);
+
+    }
+
+    private onCardBuyBtnClick(ev: fgui.Event): void {
+        const index = <number>ev.initiator.data;
+        const cardPayCfg = this.cardPayCfgs[index];
+
+        Logger.debug("cardPayCfg:", cardPayCfg);
 
     }
     private onVipBtnClick(): void {
@@ -175,7 +231,7 @@ export class ShopView extends cc.Component {
         const payDataStr = DataStore.getString("payData");
         const payData = <protoHH.casino.pay_data>JSON.parse(payDataStr);
         for (const pay of payData.pays) {
-            if (pay.type === protoHH.casino.eRESOURCE.RESOURCE_BEANS && pay.channel === payChannel) {
+            if (pay.type === payType && pay.channel === payChannel) {
                 payCfgs.push(pay);
             }
         }
