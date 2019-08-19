@@ -158,6 +158,7 @@ export class Replay {
     // }
 
     private startStepTimer(): void {
+        this.room.getRoomHost().component.unschedule(this.timerCb);
         const cb = () => {
             const mt = new Message(MsgType.replay);
             this.mq.pushMessage(mt);
@@ -295,7 +296,6 @@ export class Replay {
     private onBackClick(): void {
         //上一局
         if (!this.btnBack.grayed && this.roundStep > 0) {
-            this.room.getRoomHost().component.unschedule(this.timerCb);
             this.roundStep--;
             this.actionStep = 0;
             this.startStepTimer();
@@ -304,7 +304,6 @@ export class Replay {
     private onNextClick(): void {
         //下一局
         if (!this.btnNext.grayed && this.roundStep < this.msgHandRecord.rounds.length - 1) {
-            this.room.getRoomHost().component.unschedule(this.timerCb);
             this.roundStep++;
             this.actionStep = 0;
             this.startStepTimer();
@@ -314,7 +313,6 @@ export class Replay {
         if (this.btnReset.grayed) {
             return;
         }
-        this.room.getRoomHost().component.unschedule(this.timerCb);
         //重头开始
         this.roundStep = 0;
         this.actionStep = 0;
@@ -348,7 +346,6 @@ export class Replay {
         this.speed = speedArr[this.speedIndex];
         this.textNum.text = `x${this.speedIndex + 1}`;
         if (!this.isPause) {
-            this.room.getRoomHost().component.unschedule(this.timerCb);
             this.startStepTimer();
         }
         // Logger.debug("this.speed ： ", this.speed);
