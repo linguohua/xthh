@@ -519,11 +519,8 @@ export class RoomViewA {
     private onSettingBtnClick(): void {
         // Logger.debug("onSettingBtnClick---------------");
         const settingView = this.component.addComponent(RoomSettingView);
-
         const isOwner = this.room.ownerID === this.room.getMyPlayerInfo().userID;
-        const settingBtn = this.unityViewNode.getChild("settingBtn");
-
-        settingView.showView(this.room, this.room.getRoomHost().getLobbyModuleLoader(), isOwner, settingBtn);
+        settingView.showView(this.room, isOwner, this.room.getRoomHost().getLobbyModuleLoader());
     }
 
     /**

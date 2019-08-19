@@ -1,5 +1,5 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { DataStore, Dialog, GResLoader, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, GResLoader, Logger } from "../../lcore/LCoreExports";
 
 export interface RoomInterface {
     switchBg(agree: number): void;
@@ -18,6 +18,8 @@ export class RoomSettingView extends cc.Component {
 
     private view: fgui.GComponent;
     private eventTarget: cc.EventTarget;
+    private win: fgui.Window;
+
     private room: RoomInterface;
 
     private musicBtn: fgui.GButton;
@@ -27,33 +29,28 @@ export class RoomSettingView extends cc.Component {
     // private musicSlider: fgui.GSlider;
     // private soundSlider: fgui.GSlider;
 
-    public showView(room: RoomInterface, loader: GResLoader, isOwner: boolean, settingBtn: fgui.GObject): void {
+    public showView(room: RoomInterface, isOwner: boolean, loader: GResLoader): void {
         this.room = room;
-        if (this.view === undefined || this.view === null) {
-            // this.room = room;
-            loader.fguiAddPackage("lobby/fui_room_other_view/room_other_view");
-            this.view = fgui.UIPackage.createObject("room_other_view", "setting").asCom;
-            this.initView(isOwner);
-        }
 
-        const position = fgui.GRoot.inst.node.
-            convertToNodeSpaceAR(settingBtn.parent.node.convertToWorldSpaceAR(new cc.Vec2(settingBtn.x, settingBtn.y)));
-        // Logger.debug("convertToNodeSpaceAR position = ", position);
+        loader.fguiAddPackage("lobby/fui_room_other_view/room_other_view");
 
-        let y = position.y - this.view.height;
+        const view = fgui.UIPackage.createObject("room_other_view", "setting").asCom;
+        this.view = view;
 
-        if (cc.winSize.width < 1136) {
-            const scale = cc.winSize.width / 1136;
-            this.view.scaleX = scale;
-            this.view.scaleY = scale;
-            y = position.y - (this.view.height * scale) + ((640 - (this.view.height * scale)) / 2);
+        CommonFunction.setViewInCenter(view);
 
-        }
+        const mask = view.getChild("spaceBg");
+        mask.onClick(this.onSpaceBgClick, this);
+        CommonFunction.setBgFullScreenSize(mask);
 
-        this.view.setPosition(position.x, y);
+        const win = new fgui.Window();
+        win.contentPane = view;
+        win.modal = true;
 
-        fgui.GRoot.inst.showPopup(this.view);
+        this.win = win;
 
+        this.initView(isOwner);
+        this.win.show();
     }
 
     protected onLoad(): void {
@@ -61,9 +58,10 @@ export class RoomSettingView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        //this.saveData();
+
         this.eventTarget.emit("destroy");
-        this.view.dispose();
+        this.win.hide();
+        this.win.dispose();
     }
 
     private initView(isOwner: boolean): void {
@@ -117,6 +115,10 @@ export class RoomSettingView extends cc.Component {
         } else {
             this.musicBtn.selected = false;
         }
+    }
+
+    private onSpaceBgClick(): void {
+        this.destroy();
     }
     // private saveData(): void {
     //     DataStore.setItem("soundVolume", this.soundSlider.value.toString());
