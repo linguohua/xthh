@@ -1,4 +1,4 @@
-import { Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
@@ -576,21 +576,16 @@ export class RoomView {
             return;
         }
 
-        // SoundMgr.pauseMusic();
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
-        // const options = {
-        //     duration: 60000,
-        //     sampleRate: 44100,
-        //     numberOfChannels: 1,
-        //     encodeBitRate: 192000,
-        //     format: 'aac',
-        //     frameSize: 50
-        // };
+        SoundMgr.pauseMusic();
+        const options = {
+            duration: 120 * 1000,
+            format: 'mp3'
+        };
 
-        // Logger.debug("this.recordManager:", this.recordManager);
-        this.recordManager.start({});
+        this.recordManager.start(options);
 
     }
 
@@ -608,6 +603,7 @@ export class RoomView {
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
         this.recordManager.stop();
+        SoundMgr.resumeMusic();
     }
 
     private initOtherView(): void {
