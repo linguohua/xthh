@@ -47,17 +47,12 @@ interface FastLoginReply {
 export class LoginView extends cc.Component {
     private viewNode: fgui.GComponent;
     private win: fgui.Window;
-
     private loginBtn: fgui.GObject;
     private weixinButton: fgui.GObject;
-
     private phoneLoginBtn: fgui.GObject;
-
     private progressBar: fgui.GProgressBar;
     private progressText: fgui.GTextField;
-
     private eventTarget: cc.EventTarget;
-
     private button: UserInfoButton = null;
 
     public showLoginView(): void {
@@ -84,13 +79,10 @@ export class LoginView extends cc.Component {
         this.win = win;
 
         this.initView();
-
         this.win.show();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.createWxBtn();
-        } else {
-            Logger.debug('not wx platform');
         }
     }
 
@@ -121,7 +113,6 @@ export class LoginView extends cc.Component {
 
         this.loginBtn.onClick(this.onLoginClick, this);
         this.weixinButton.onClick(this.onWeixinBtnClick, this);
-
     }
 
     public updateCompleted(): void {
@@ -133,7 +124,6 @@ export class LoginView extends cc.Component {
     }
 
     public onLoginClick(): void {
-        Logger.debug("onQuicklyBtnClick");
         if (this.button !== null) {
             this.button.hide();
         }

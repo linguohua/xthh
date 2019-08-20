@@ -1,11 +1,10 @@
-import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
-import {
-    CommonFunction,
-    DataStore, Dialog, GameModuleLaunchArgs, LEnv, LobbyModuleInterface, Logger, SoundMgr
-} from "../lcore/LCoreExports";
-
 import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
+import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import { GameError } from "../errorCode/ErrorCodeExports";
+import {
+    CommonFunction, DataStore, Dialog, GameModuleLaunchArgs,
+    LEnv, LobbyModuleInterface, Logger, SoundMgr
+} from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
@@ -21,17 +20,11 @@ const { ccclass } = cc._decorator;
 export class LobbyView extends cc.Component {
     private view: fgui.GComponent;
     private lm: LobbyModuleInterface;
-
     private nameText: fgui.GTextField;
     private beansText: fgui.GTextField;
-
     private fkText: fgui.GTextField;
-
     private marqueeAction: cc.Action = null;
-
     private roomNumberFromShare: string = "";
-    //private marqueeTimer: number = null;
-
     private wxShowCallBackFunction: (res: showRes) => void;
 
     protected async onLoad(): Promise<void> {
@@ -65,8 +58,6 @@ export class LobbyView extends cc.Component {
         bg3.setPosition(-x, bg3.y);
 
         const announcementText = this.view.getChild('announcementText');
-
-        Logger.debug("cc.winSize.width = ", cc.winSize.width);
         announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
 
         this.view = view;
@@ -76,13 +67,11 @@ export class LobbyView extends cc.Component {
         SoundMgr.playMusicAudio("gameb/music_hall", true);
 
         this.initNimSDK();
-
         this.setLaunchCallBack();
     }
 
     protected onDestroy(): void {
         SoundMgr.stopMusic();
-        // this.msgCenter.destory();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
@@ -107,12 +96,6 @@ export class LobbyView extends cc.Component {
         if (roomNumber !== undefined && roomNumber !== null) {
             this.roomNumberFromShare = roomNumber;
             this.lm.msgCenter.closeWebsocket();
-            // if (!this.lm.msgCenter.isWebSocketClose()) {
-            //     this.joinTableReq(null, +roomNumber);
-            // } else {
-            //     this.roomNumberFromShare = roomNumber;
-            // }
-
         }
         Logger.debug("SoundMgr.resumeMusic()----------------------");
         SoundMgr.resumeMusic();
@@ -159,21 +142,8 @@ export class LobbyView extends cc.Component {
         const gender = DataStore.getString("gender", "");
         const avatarURL = DataStore.getString("avatarURL", "");
         const headLoader = this.view.getChild("iconLoader").asLoader;
+
         CommonFunction.setHead(headLoader, avatarURL, +gender);
-        // const userInfo = this.view.getChild("userInfo").asCom;
-        // this.initInfoView(userInfo);
-        // userInfo.onClick(this.openUserInfoView, this);
-
-        // const bg = this.view.getChild('n21');
-        // bg.setSize(cc.winSize.width, cc.winSize.width * 640 / 1136);
-        // const y = -(cc.winSize.width * 640 / 1136 - cc.winSize.height) / 2;
-        // const x = (cc.winSize.height * 1136 / 640 / 2) - cc.winSize.width / 2;
-        // bg.setPosition(x, y);
-
-        // this.lm.eventTarget.on(`checkRoomInfo`, this.checkRoomInfo, this);
-
-        // this.checkRoomInfo();
-
     }
 
     private testJoinGame(): void {
@@ -232,19 +202,14 @@ export class LobbyView extends cc.Component {
     private openEmailClick(): void {
         // TODO: 显示邮件界面
         //this.showMarquee("测试发送公告测试发送试发送公告");
-
         //Dialog.showReconnectDialog();
         // let count = 0;
-
         // const handler = () => {
         //     //
-
         //     Dialog.showReconnectDialog();
         //     count++;
-
         //     Logger.debug("showReconnectDialog count =", count);
         // };
-
         // setInterval(handler, 1000);
 
     }
@@ -431,29 +396,11 @@ export class LobbyView extends cc.Component {
             const rKey = "roomNumber";
             this.roomNumberFromShare = query[rKey];
             Logger.debug(`share from wx, room number:${this.roomNumberFromShare}`);
-
-            /**
-             * ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓测试代码
-             */
-            // let count = 0;
-            // const playMusicHandler = () => {
-            //     count++;
-            //     SoundMgr.resumeMusic();
-            //     Logger.debug(`setLaunchCallBack schedule to resume music,count =  ${count}`);
-            // };
-
             const handler = () => {
                 Logger.debug(`setLaunchCallBack time = ${new Date().getMinutes()}:${new Date().getMinutes()}`);
                 Logger.debug("setLaunchCallBack cc.audioEngine.isMusicPlaying() = ", cc.audioEngine.isMusicPlaying());
                 SoundMgr.pauseMusic();
                 SoundMgr.resumeMusic();
-                // if (cc.audioEngine.isMusicPlaying()) {
-                //     this.unschedule(playMusicHandler);
-                //     Logger.debug(`setLaunchCallBack clear schedule-------------------------`);
-                // } else {
-                //     Logger.debug(`setLaunchCallBack set schedule to play music-------------------------`);
-                //     this.schedule(playMusicHandler, 500, cc.macro.REPEAT_FOREVER);
-                // }
             };
 
             wx.onAudioInterruptionEnd(handler);

@@ -55,7 +55,7 @@ export class Helloworld extends cc.Component {
         //
     }
 
-    public requetJoinRoom(roomNumber: string): void {
+    public requestJoinRoom(roomNumber: string): void {
         //
     }
 

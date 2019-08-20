@@ -23,15 +23,12 @@ import { LoginView } from "./views/LoginView";
 export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public loader: GResLoaderImpl;
     public eventTarget: cc.EventTarget;
-
     public msgCenter: MsgCenter;
     public nimSDK: NimSDK;
     private gameNode: cc.Node;
     private gameLoader: GResLoaderImpl;
     private view: fgui.GObject;
-
     private loginView: LoginView;
-
     private filterProgress: number = 0;
 
     public cleanupGRoot(): void {
@@ -65,12 +62,13 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         fgui.GRoot.inst.addChild(this.view);
 
         // this.eventTarget.emit(`checkRoomInfo`);
+        // 从牌局内返回来，如果战绩页面还存在，则显示出来
         this.eventTarget.emit(`onGameSubRecordShow`);
         // this.eventTarget.emit(`onClubViewShow`);
     }
 
-    public requetJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void {
-        Logger.debug("requetJoinRoom");
+    public requestJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void {
+        Logger.debug("requestJoinRoom");
 
         const joinRoomParams = {
             table: table,
@@ -80,11 +78,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         this.enterGame(joinRoomParams, null);
     }
     public enterGame(joinRoomParams?: JoinRoomParams, creatRoomParams?: CreateRoomParams): void {
-
-        // Dialog.hidePrompt();
-
-        // 发消息給俱乐部页面，让俱乐部界面隐藏
-        // this.eventTarget.emit("enterGameEvent");
 
         const myUserID = DataStore.getString("playerID", "");
         const myUser = { userID: myUserID };
@@ -111,7 +104,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         }
         // 当存在弹窗时，立刻dispose弹窗
         Dialog.hidePrompt();
-
         Dialog.showWaiting();
 
         // 资源加载
@@ -193,33 +185,6 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public isGameModuleExist(): boolean {
         return this.gameNode !== undefined;
     }
-    protected onLoad(): void {
-
-        // 默认值
-        // DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
-        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-        //     wx.getSystemInfo({
-        //         success: (res) => {
-        //             Logger.debug("wx.getSystemInfo res = ", res);
-        //             const model = res.model;
-
-        //             for (const name of this.adaptivePhones) {
-        //                 const result = model.indexOf(name);
-        //                 Logger.debug(`model.indexOf(${name}) = `, result);
-        //                 if (result !== -1) {
-        //                     DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
-        //                 }
-        //             }
-
-        //             if (this.adaptivePhones.indexOf(model) !== -1) {
-        //                 DataStore.setItem(KeyConstants.ADAPTIVE_PHONE_KEY, "1");
-        //             }
-        //         }
-        //     });
-        // }
-
-    }
-
     protected start(): void {
         this.loader = new GResLoaderImpl("lobby");
         this.eventTarget = new cc.EventTarget();
