@@ -1,5 +1,5 @@
 
-import { CommonFunction, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 
 interface JoinRoomInterface {
@@ -44,9 +44,6 @@ export class JoinRoom extends cc.Component {
 
         this.win = win;
 
-        // this.initView();
-
-        // this.win.show();
     }
 
     protected onDestroy(): void {
@@ -56,8 +53,8 @@ export class JoinRoom extends cc.Component {
     }
 
     private initView(): void {
-        const clostBtn = this.view.getChild("closeBtn");
-        clostBtn.onClick(this.onCloseBtnClick, this);
+        const closeBtn = this.view.getChild("closeBtn");
+        closeBtn.onClick(this.onCloseBtnClick, this);
 
         const resetBtn = this.view.getChild("buttonCS");
         resetBtn.onClick(this.onResetBtnClick, this);
@@ -82,7 +79,6 @@ export class JoinRoom extends cc.Component {
     }
 
     private onResetBtnClick(): void {
-        Logger.debug("onResetBtnClick");
         this.numbers.text = "";
 
         this.okBtn.grayed = true;
@@ -90,7 +86,6 @@ export class JoinRoom extends cc.Component {
     }
 
     private onBackBtnClick(): void {
-        Logger.debug("onBackBtnClick");
         const len = this.numbers.text.length;
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
@@ -100,7 +95,7 @@ export class JoinRoom extends cc.Component {
     }
 
     private onInputButton(input: number): void {
-        Logger.debug(`onInputButton, input:${input}`);
+
         const numberLength = this.numbers.text.length;
         if (numberLength < 6) {
             this.numbers.text = `${this.numbers.text}${input}`;

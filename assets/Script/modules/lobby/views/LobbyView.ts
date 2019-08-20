@@ -340,7 +340,7 @@ export class LobbyView extends cc.Component {
     private showMarquee(announcement: string): void {
 
         if (this.marqueeAction !== null) {
-            Logger.debug("已经存在Action---------------------");
+            Logger.debug("showMarquee 已经存在Action---------------------");
 
             return;
         }
