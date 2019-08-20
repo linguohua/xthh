@@ -212,14 +212,14 @@ export class ReplayA {
 
         this.btnPause.onClick(
             () => {
-                this.onPauseClick(false);
+                this.onPauseClick();
             },
             this
         );
 
         this.btnResume.onClick(
             () => {
-                this.onResumeClick(false);
+                this.onResumeClick();
             },
             this
         );
@@ -279,12 +279,9 @@ export class ReplayA {
         this.mq.pushMessage(msg);
     }
 
-    private onPauseClick(isForce: boolean = false): void {
-        if (this.btnPause.grayed && !isForce) {
+    private onPauseClick(): void {
+        if (this.btnPause.grayed) {
             return;
-        }
-        if (isForce) {
-            this.setGrayBtn(true);
         }
         this.btnPause.visible = false;
         this.btnResume.visible = true;
@@ -319,12 +316,9 @@ export class ReplayA {
         this.actionStep = 0;
         this.startStepTimer();
     }
-    private onResumeClick(isForce: boolean = false): void {
-        if (this.btnResume.grayed && !isForce) {
+    private onResumeClick(): void {
+        if (this.btnResume.grayed) {
             return;
-        }
-        if (isForce) {
-            this.setGrayBtn(false);
         }
         this.btnPause.visible = true;
         this.btnResume.visible = false;
@@ -354,6 +348,15 @@ export class ReplayA {
         // Logger.debug("this.speed ： ", this.speed);
     }
 
+    //用于播放动画的时候 停止跟开启定时器
+    private stopTimer(): void {
+        this.setGrayBtn(true);
+        this.room.getRoomHost().component.unschedule(this.timerCb);
+    }
+    private startTimer(): void {
+        this.startStepTimer();
+        this.setGrayBtn(false);
+    }
     private armActionHandler(): void {
         const handers: { [key: number]: ActionHandler } = {};
 
@@ -376,7 +379,7 @@ export class ReplayA {
         const roundlist = this.msgHandRecord.rounds;
         if (this.roundStep >= roundlist.length) {
             // 已经播放完成了
-            this.onPauseClick(true);
+            this.stopTimer();
             // 结算页面 （总结算界面）
             await this.handOver();
             this.setGrayBtn(false);
@@ -388,10 +391,10 @@ export class ReplayA {
                 // 重置房间
                 room.resetForNewHand();
                 // 发牌
-                this.onPauseClick(true); //先暂停定时器
+                this.stopTimer(); //先暂停定时器
                 room.handStartted = this.roundStep + 1; //局数要从这里保存进去
                 await this.deal(round);
-                this.onResumeClick(true); //启动定时器
+                this.startTimer(); //启动定时器
             }
             // 进入op循环
             const action = round.ops[this.actionStep];
@@ -465,7 +468,7 @@ export class ReplayA {
     }
     private async endeActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
         // Logger.debug("llwant, dfreplay, end : ", srAction);
-        this.onPauseClick(true);
+        this.stopTimer();
         const pCards = srAction.params;
 
         //播放动画
@@ -493,7 +496,7 @@ export class ReplayA {
             }
         }
         await this.scoreActionHandler();
-        this.onResumeClick(true);
+        this.startTimer();
     }
 
     private async handOver(): Promise<void> {
@@ -520,7 +523,7 @@ export class ReplayA {
     }
     private async scoreActionHandler(): Promise<void> {
         // Logger.debug("llwant, dfreplay, scoreActionHandler");
-        this.onPauseClick(true);
+        this.stopTimer();
         const data = new proto.casino.packet_table_score();
         //构建scores
         const scores: proto.casino.player_score[] = [];
@@ -548,7 +551,7 @@ export class ReplayA {
 
         await this.room.coWaitSeconds(2);
         this.room.getRoomHost().eventTarget.emit("closeHandResult");
-        this.onResumeClick(true);
+        this.startTimer();
     }
     private async opAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
         Logger.debug("llwant, dfreplay, opAckActionHandler");
