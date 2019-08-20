@@ -132,11 +132,11 @@ export class Replay {
     }
 
     private stopStepTimer(): void {
-        Logger.debug("replay stop --------------------- timer");
+        // Logger.debug("replay stop --------------------- timer");
         this.room.getRoomHost().component.unschedule(this.timerCb);
     }
     private startStepTimer(): void {
-        Logger.debug("replay start --------------------- timer");
+        // Logger.debug("replay start --------------------- timer");
         const cb = () => {
             const mt = new Message(MsgType.replay);
             this.mq.pushMessage(mt);
