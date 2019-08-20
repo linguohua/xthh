@@ -1,10 +1,10 @@
-import { NIMMessage, NimSDK } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
+import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { GameError } from "../lobby/errorCode/ErrorCodeExports";
 import {
     AnimationMgr, CommonFunction,
     CreateRoomParams, DataStore,
     Dialog, GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams,
-    LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, UserInfo
+    LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, NimSDKInterface, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 // import long = require("../lobby/protobufjs/long");
@@ -53,7 +53,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         return this.lm.loader;
     }
 
-    public getNimSDK(): NimSDK {
+    public getNimSDK(): NimSDKInterface {
         return this.lm.nimSDK;
     }
 
@@ -331,7 +331,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             this.room.showRoomBtnsAndBgs();
 
             if (reconnect) {
-                this.mRoom.restorePlayerOperation();
+                await this.mRoom.restorePlayerOperation();
                 // 重连后弹解散对话框
                 if (table.disband_id !== null && table.disband_time !== null) {
                     this.mRoom.showDisbandVoteForRecconect(table.disband_id, table.disband_time);
@@ -682,7 +682,8 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         wx.getSetting({
             success: (res: getSettingRes) => {
                 console.log(res);
-                if (!res.authSetting['scope.userLocation']) {
+                const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
+                if (authSetting['scope.userLocation']) {
                     DataStore.setItem("gps", "0");
                 }
 

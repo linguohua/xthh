@@ -229,10 +229,10 @@ export class GpsView extends cc.Component {
         }
 
         const earthRadius = 6378137;  // 赤道半径(单位m)
-        let radLat1 = this.rad(coordinate1.latitude);
-        let radLat2 = this.rad(coordinate2.latitude);
-        let radLon1 = this.rad(coordinate1.longitude);
-        let radLon2 = this.rad(coordinate2.longitude);
+        let radLat1 = this.rad(<number>coordinate1.latitude);
+        let radLat2 = this.rad(<number>coordinate2.latitude);
+        let radLon1 = this.rad(<number>coordinate1.longitude);
+        let radLon2 = this.rad(<number>coordinate2.longitude);
 
         if (radLat1 < 0) {
             radLat1 = Math.PI / 2 + Math.abs(radLat1); // south
@@ -304,7 +304,8 @@ export class GpsView extends cc.Component {
 
                     if (errMsg === null) {
                         // Logger.debug("xhr.responseText:", xhr.responseText);
-                        const jsonObj = JSON.parse(xhr.responseText);
+                        const jsonObj = <{ status: number; message: string; result: { formatted_address: string } }>JSON.parse(
+                            xhr.responseText);
                         if (jsonObj.status !== 0) {
                             // Dialog.showDialog(`获取位置错误，状态码:${jsonObj.status}`);
                             Dialog.prompt(`获取位置错误，状态码: ${jsonObj.status}`);

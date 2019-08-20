@@ -179,7 +179,8 @@ export class RoomSettingView extends cc.Component {
             wx.getSetting({
                 success: (res: getSettingRes) => {
                     console.log(res);
-                    if (!res.authSetting['scope.userLocation']) {
+                    const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
+                    if (!authSetting['scope.userLocation']) {
                         this.authorizeLocation();
                     } else {
                         this.changeGps(1);

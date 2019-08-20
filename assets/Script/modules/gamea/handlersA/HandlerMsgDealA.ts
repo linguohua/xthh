@@ -121,10 +121,10 @@ export namespace HandlerMsgDealA {
         //播放庄动画 并等待
         if (room.bankerChairID === msgDeal.lord_id) {
             //连庄
-            room.roomView.playAnimation("Effect_ico_lianzhuang", true);
+            await room.roomView.playAnimation("Effect_ico_lianzhuang", true);
         } else if (room.bankerChairID !== -1) {
             //换庄
-            room.roomView.playAnimation("Effect_ico_huanzhuang", true);
+            await room.roomView.playAnimation("Effect_ico_huanzhuang", true);
         }
         await room.coWaitSeconds(0.5);
         const time = 0.6; //飞庄动画时间

@@ -1,4 +1,3 @@
-import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 
 /**
@@ -55,6 +54,18 @@ export interface MsgCenter {
     unblockNormal(): void;
     blockNormal(): void;
 }
+
+export interface NimSDKInterface {
+    eventTarget: cc.EventTarget;
+    initNimSDK(): void;
+    disconnect(): void;
+    createTeam(imaccids: string[], roomNumber: string): void;
+    sendTeamMsg(msgContent: string): void;
+    sendTeamAudio(wxFilePath: string): void;
+    sendFile(wxFilePath: string): void;
+    addMembers(members: string[]): void;
+    dismissAllTeam(onDone: Function): void;
+}
 /**
  * 大厅模块
  */
@@ -62,7 +73,7 @@ export interface LobbyModuleInterface {
     loader: GResLoader;
     eventTarget: cc.EventTarget;
     msgCenter: MsgCenter;
-    nimSDK: NimSDK;
+    nimSDK: NimSDKInterface;
     returnFromGame(): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;

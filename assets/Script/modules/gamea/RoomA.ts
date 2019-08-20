@@ -690,7 +690,7 @@ export class RoomA {
     /**
      * 断线重连恢复用户的操作
      */
-    public restorePlayerOperation(): void {
+    public async restorePlayerOperation(): Promise<void> {
         Logger.debug("restorePlayerOperation");
         this.onUpdateStatus(roomStatus.onPlay);
         //剩牌
@@ -755,7 +755,7 @@ export class RoomA {
 
             // 构造一个类似的消息，恢复用户的操作
             const handler = msgHandlers[protoHH.casino_gdy.eGDY_MSG_TYPE.GDY_MSG_SC_DRAWCARD];
-            handler(reply, this);
+            await handler(reply, this);
 
         } else if (this.roomInfo.status === protoHH.casino_gdy.eGDY_STATUS.GDY_STATUS_OP) {
             //如果到我操作 要显示操作按钮
@@ -774,7 +774,7 @@ export class RoomA {
 
             // 构造一个类似的消息，恢复用户的操作
             const handler = msgHandlers[protoHH.casino_gdy.eGDY_MSG_TYPE.GDY_MSG_SC_OP];
-            handler(reply, this);
+            await handler(reply, this);
         }
         // if (this.roomInfo.cur_idx !== 0) {
         //     const player = this.roomInfo.players[this.roomInfo.cur_idx];
@@ -997,7 +997,6 @@ export class RoomA {
         while (this.nimMsgs.length > 0) {
             const msg = this.nimMsgs.shift();
             await this.playAudio(msg);
-            this.coWaitSeconds(0.5);
         }
         this.isPlayAudio = false;
     }

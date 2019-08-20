@@ -70,6 +70,16 @@ interface Team {
     custom: string;
 }
 
+interface MyNimSDK {
+    disconnect: Function;
+    createTeam: Function;
+    sendText: Function;
+    getTeams: Function;
+    sendFile: Function;
+    addTeamMembers: Function;
+    dismissTeam: Function;
+    connect: Function;
+}
 /**
  * NimSDK
  */
@@ -80,7 +90,7 @@ export class NimSDK {
     private token: string;
 
     // tslint:disable-next-line:no-any
-    private nimSDK: any;
+    private nimSDK: MyNimSDK;
 
     // private teams: Team[] = [];
 
@@ -161,10 +171,10 @@ export class NimSDK {
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             // 微信版本sdk
-            this.nimSDK = NIMWeixin.getInstance(options);
+            this.nimSDK = <MyNimSDK>NIMWeixin.getInstance(options);
         } else {
             // web版本sdk
-            this.nimSDK = NIMWeb.getInstance(options);
+            this.nimSDK = <MyNimSDK>NIMWeb.getInstance(options);
         }
     }
 

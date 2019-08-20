@@ -125,7 +125,7 @@ export namespace Share {
             destWidth: 500,
             destHeight: 400,
             // tslint:disable-next-line:no-any
-            success: (res: any) => {
+            success: (res: { tempFilePath: string }) => {
                 //.可以保存该截屏图片
                 Logger.debug(res);
                 WeiXinSDK.shareWeChat(cb1, cb2, contentText, res.tempFilePath, customParam);

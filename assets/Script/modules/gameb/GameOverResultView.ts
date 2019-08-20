@@ -374,8 +374,8 @@ export class GameOverResultView extends cc.Component {
             wx.setClipboardData({
                 data: textData,
                 // tslint:disable-next-line:no-any
-                success: (res: any) => {
-                    console.log(res.data);
+                success: (res: {}) => {
+                    console.log(res);
                 }
             });
         } else {
