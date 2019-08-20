@@ -72,8 +72,6 @@ export class RoomView {
     private gamePauseSchedule: Function;
     private gamePauseTime: number;
 
-    private startRecordTime: number;
-
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
         this.unityViewNode = view;
@@ -749,7 +747,6 @@ export class RoomView {
 
         const onStart = () => {
             Logger.debug("recordManager.onStart");
-            this.startRecordTime = Date.now();
         };
 
         const onPause = () => {
@@ -764,7 +761,7 @@ export class RoomView {
             Logger.debug("recordManager.onInterruptionBegin");
         };
 
-        const onStop = (res: RecordOnStopRes) => {
+        const onStop = (res: { tempFilePath: string; duration: number; fileSize: number }) => {
             Logger.debug("recordManager.onStop:", res);
             if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
                 Dialog.prompt("取消发送");
@@ -772,9 +769,9 @@ export class RoomView {
                 return;
             }
 
-            if (Date.now() - this.startRecordTime < 1000) {
+            if (res.duration < 1000) {
                 Logger.debug("record time small than 1 second");
-                Dialog.prompt("录制要小于1秒");
+                Dialog.prompt("录制要大于1秒");
 
                 return;
             }

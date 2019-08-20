@@ -779,11 +779,18 @@ export class RoomViewA {
             Logger.debug("recordManager.onInterruptionBegin");
         };
 
-        const onStop = (res: RecordOnStopRes) => {
+        const onStop = (res: { tempFilePath: string; duration: number; fileSize: number }) => {
             Logger.debug("recordManager.onStop:", res);
             // this.mike.visible = false;
             if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
                 Dialog.prompt("取消发送");
+
+                return;
+            }
+
+            if (res.duration < 1000) {
+                Logger.debug("record time small than 1 second");
+                Dialog.prompt("录制要大于1秒");
 
                 return;
             }
