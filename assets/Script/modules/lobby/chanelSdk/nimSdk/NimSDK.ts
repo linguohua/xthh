@@ -155,7 +155,8 @@ export class NimSDK {
             onteams: onTeams,
             onsyncdone: onSyncDone,
             reconnectionAttempts: 0,
-            onmsg: onMsg
+            onmsg: onMsg,
+            debug: true
         };
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -171,7 +172,7 @@ export class NimSDK {
         this.nimSDK.disconnect({
             done: async (res: {}): Promise<void> => {
                 Logger.debug("disconnect done:", res);
-                // await this.tryReconnect();
+                await this.tryReconnect();
                 // await this.waitSecond(2);
                 // this.nimSDK.connect();
             }
@@ -474,12 +475,6 @@ export class NimSDK {
 
     protected async tryReconnect(): Promise<void> {
         await this.waitSecond(2);
-
-        try {
-            this.nimSDK.connect();
-        } catch (e) {
-            Logger.debug("tryReconnect:", e);
-            this.tryReconnect();
-        }
+        this.nimSDK.connect();
     }
 }
