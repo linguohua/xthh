@@ -69,7 +69,6 @@ export interface PlayerInterfaceA {
     onSkipBtnClick: Function;
     onWinBtnClick: Function;
     onPongBtnClick: Function;
-    onReadyHandBtnClick: Function;
     onPlayerInfoClick: Function;
     isMe(): boolean;
     onPlayerDiscardTile(tileID: number): void;

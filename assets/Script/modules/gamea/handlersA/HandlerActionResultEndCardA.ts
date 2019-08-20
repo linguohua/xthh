@@ -1,12 +1,13 @@
 import { Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
-import { RoomInterface } from "../RoomInterface";
+import { RoomInterfaceA } from "../RoomInterfaceA";
+import { PlayerA } from "../PlayerA";
 
 /**
  * 响应服务器抽牌通知
  */
 export namespace HandlerActionResultEndCardA {
-    export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
+    export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         const reply = proto.casino_gdy.packet_sc_endcard.decode(msgData);
         Logger.debug("海底----------------------- ", reply);
 
@@ -25,7 +26,7 @@ export namespace HandlerActionResultEndCardA {
         room.tilesInWall = 0; // room.tilesInWall - le;
         room.updateTilesInWallUI();
         if (reply.card !== 0) {
-            const player = room.getMyPlayer();
+            const player = <PlayerA>room.getMyPlayer();
             player.addHandTile(reply.card);
             player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
             player.hand2UI(false);

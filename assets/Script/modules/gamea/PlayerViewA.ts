@@ -44,20 +44,7 @@ const MELD_COMPONENT_PREFIX: string[] = [
 const MELD_COMPONENT_SUFFIX: { [key: string]: string } = {
     [TypeOfOP.Kong]: "gang1",
     [TypeOfOP.Pong]: "chipeng"
-    // [mjproto.MeldType.enumMeldTypeTriplet2Kong]: "gang1",
-    // [mjproto.MeldType.enumMeldTypeExposedKong]: "gang1",
-    // [mjproto.MeldType.enumMeldTypeConcealedKong]: "gang2",
-    // [mjproto.MeldType.enumMeldTypeSequence]: "chipeng",
-    // [mjproto.MeldType.enumMeldTypeTriplet]: "chipeng"
 };
-//落地牌组缩放
-// const meldsScale: number[][] = [
-//     [1, 1, 1, 1, 1], //没有杠
-//     [0.9, 0.95, 0.95, 1], //1个杠
-//     [0.85, 0.9, 0.95], //2个杠
-//     [0.85, 0.9], //3个杠
-//     [0.85] //4个杠
-// ];
 
 const handsPos: number[][] = [
     [0, -180, -1, -50, 0, -1, -80, -50, 10, -130, -100, -20, 20, -120, -80, -20, 20], //1号2万玩家 x
@@ -203,20 +190,6 @@ export class PlayerViewA {
         this.operationPanel.visible = false;
     }
 
-    //界面操作
-    //设置金币数显示（目前是累计分数）
-    public setGold(): void {
-
-        // if checkint(gold) < 0 {
-        //this.head.goldText1. Show()
-        //this.head.goldText. Hide()
-        //this.head.goldText1.text = tostring(gold)
-        // else
-        //this.head.goldText1. Hide()
-        //this.head.goldText. Show()
-        //this.head.goldText.text = tostring(gold)
-        //}
-    }
     // tslint:disable-next-line:cyclomatic-complexity
     public setLanOfDiscard(isShow: boolean, tile?: number): void {
         // Logger.debug("setLanOfDiscard ------- tile : ", tile);
@@ -268,18 +241,6 @@ export class PlayerViewA {
         }
     }
 
-    //设置头像特殊效果是否显示（当前出牌者则显示）
-    public setHeadEffectBox(isShow: boolean): void {
-        // const x = this.head.pos.x
-        // const y = this.head.pos.y
-        // const ani = animation.play("animations/Effects_UI_touxiang.prefab", this.head.headView, x, y, true);
-        // ani.setVisible(isShow)
-        // if (isShow) {
-        //     this.roomHost.animationMgr.play(`lobby/prefabs/mahjong/Effect_UI_touxiang`, this.head.pos.node);
-        // }
-        this.head.pos.visible = isShow;
-    }
-
     //从根节点上隐藏所有
     public hideAll(): void {
         this.head.hideAll();
@@ -300,7 +261,6 @@ export class PlayerViewA {
         this.hideDiscarded();
 
         this.head.ting.visible = false;
-        this.setHeadEffectBox(false);
 
         if (this.viewChairID === 1) {
             this.hideOperationButtons();
@@ -459,14 +419,6 @@ export class PlayerViewA {
         }
 
         if (isPiao) {
-            //因为出牌列表节点会缩小 得把飘赖效果放大。。。
-            // const point = lastD.getChild("piaoPos");
-            // point.scaleX = 1 / lastD.scaleX;
-            // point.scaleY = 1 / lastD.scaleY;
-            // Logger.debug("point : ", point.scaleX);
-
-            // const xy = this.room.roomView.unityViewNode.node.
-            //     convertToNodeSpaceAR(lastD.parent.node.convertToWorldSpaceAR(lastD.node.position));
             const xy = lastD.node.position;
             xy.x += 20;
             xy.y += 15;
@@ -759,12 +711,6 @@ export class PlayerViewA {
             h.getChild("laizi").visible = t === this.room.laiziID;
             h.visible = true;
             handsClickCtrls[j].tileID = t;
-            // if (this.player.isRichi) {
-            //     //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
-            //     //判断 handsClickCtrls[j].isDiscardable 是否为 true, 是的话 则不能 setGray
-            //     this.setGray(h);
-            //     handsClickCtrls[j].isGray = true;
-            // }
             j = j + 1;
         }
 
@@ -895,64 +841,6 @@ export class PlayerViewA {
         //隐藏听牌详情界面
         this.room.hideTingDataView();
     }
-    //处理玩家点击手牌按钮
-    public onHandTileBtnClick2(index: number): void {
-        // const handsClickCtrls = this.handsClickCtrls;
-
-        // const player = this.player;
-        // if (player === null) {
-        //     Logger.debug("player === null");
-
-        //     return;
-        // }
-
-        // const clickCtrl = handsClickCtrls[index];
-
-        // if (!clickCtrl.isDiscardable) {
-        //     //不可以出牌
-        //     //"本轮不能出与该牌组合的牌，请选择其他牌"
-        //     if (clickCtrl.isGray) {
-        //         if (!this.alreadyShowNonDiscardAbleTips) {
-        //             // prompt.showPrompt("本轮不能出与该牌组合的牌，请选择其他牌")
-        //             this.alreadyShowNonDiscardAbleTips = true;
-        //         }
-        //     }
-
-        //     return;
-        // }
-
-        // if (clickCtrl.readyHandList !== undefined && clickCtrl.readyHandList !== null && clickCtrl.readyHandList.length > 0) {
-        //     //如果此牌可以听
-        //     const tingP: TingPai[] = [];
-        //     for (let i = 0; i < clickCtrl.readyHandList.length; i += 2) {
-        //         tingP.push(new TingPai(clickCtrl.readyHandList[i], 1, clickCtrl.readyHandList[i + 1]));
-        //     }
-        //     this.room.showTingDataView(tingP);
-        // } else {
-        //     this.room.hideTingDataView();
-        // }
-
-        //播放选牌音效
-        //dfCompatibleAPI. soundPlay("effect/effect_xuanpai")
-
-        // clickCtrl.clickCount = clickCtrl.clickCount + 1;
-        // if (clickCtrl.clickCount === 1) {
-        //     this.restoreHandsPositionAndClickCount(index);
-        //     this.moveHandUp(index);
-        // }
-
-        // if (clickCtrl.clickCount === 2) {
-        //     //判断可否出牌
-        //     if (player.waitSkip) {
-        //         this.restoreHandsPositionAndClickCount(-1);
-        //         this.room.hideTingDataView();
-        //     } else {
-        //         player.onPlayerDiscardTile(clickCtrl.tileID);
-        //         this.clearAllowedActionsView(false);
-        //     }
-        //     //player. onPlayerDiscardTile(clickCtrl.tileID)
-        // }
-    }
 
     //还原所有手牌到它初始化时候的位置，并把clickCount重置为0
     public restoreHandsPositionAndClickCount(index: number): void {
@@ -1010,16 +898,6 @@ export class PlayerViewA {
     //起手听特效播放
     public playReadyHandEffect(): void {
         //this. playerOperationEffect(dfConfig.EFF_DEFINE.SUB_ZI_TING)
-    }
-
-    //设置灰度
-    public setGray(obj: fgui.GComponent): void {
-        // obj.grayed = true;
-    }
-
-    //恢复灰度
-    public clearGray(obj: fgui.GComponent): void {
-        // obj.grayed = false;
     }
 
     public getUserInfoPos(): fgui.GObject {
@@ -1204,18 +1082,6 @@ export class PlayerViewA {
         const handsClickCtrls = this.handsClickCtrls;
         const clickCtrl = handsClickCtrls[index];
         const player = this.player;
-        // if (!clickCtrl.isDiscardable) {
-        //     //不可以出牌
-        //     if (clickCtrl.isGray) {
-        //         if (!this.alreadyShowNonDiscardAbleTips) {
-        //             Dialog.prompt("本轮不能出与该牌组合的牌，请选择其他牌");
-        //             this.alreadyShowNonDiscardAbleTips = true;
-        //         }
-        //     }
-
-        //     return;
-        // }
-
         const prevClickTime = this.lastClickTime;
         this.lastClickTime = this.roomHost.timeElapsed;
 
@@ -1270,22 +1136,6 @@ export class PlayerViewA {
             }
         }
     }
-
-    //处理玩家点击左下角的“听”按钮
-    // private onCheckReadyHandBtnClick(): void {
-    //     const player = this.player;
-    //     const readyHandList = player.readyHandList;
-    //     if (!this.room.isListensObjVisible() && readyHandList != null && readyHandList.length > 0) {
-    //         //const tingData = {}
-    //         const tingP: TingPai[] = [];
-    //         for (let i = 0; i < readyHandList.length; i += 2) {
-    //             tingP.push(new TingPai(readyHandList[i], 1, readyHandList[i + 1]));
-    //         }
-    //         this.room.showTingDataView(tingP);
-    //     } else {
-    //         this.room.hideTingDataView();
-    //     }
-    // }
 
     //拖动出牌事件
     private onDrag(dragGo: fgui.GObject, index: number): void {
@@ -1414,16 +1264,8 @@ export class PlayerViewA {
 
     //让所有的手牌都不可以点击
     private clearDiscardable(): void {
-        // if (this.player.isRichi) {
-        //     //如果是听牌状态下，则不再把牌弄回白色（让手牌一直是灰色的）
-        //     return;
-        // }
         for (const clickCtrl of this.handsClickCtrls) {
             clickCtrl.isDiscardable = false;
-            if (clickCtrl.isGray) {
-                clickCtrl.isGray = false;
-                this.clearGray(clickCtrl.h);
-            }
         }
     }
 
@@ -1516,34 +1358,6 @@ export class PlayerViewA {
         this.handsClickCtrls = handsClickCtrls; // 手牌点击时控制数据结构
     }
 
-    // private onClickBtn(name: string): void {
-    //     if (this.btnHanders === undefined) {
-    //         this.btnHanders = {};
-    //         const btnHanders = this.btnHanders;
-    //         btnHanders[ButtonDef.Kong] = () => {
-    //             this.player.onKongBtnClick();
-    //         };
-    //         btnHanders[ButtonDef.Skip] = () => {
-    //             this.player.onSkipBtnClick();
-    //         };
-    //         btnHanders[ButtonDef.Pong] = () => {
-    //             this.player.onPongBtnClick();
-    //         };
-    //         btnHanders[ButtonDef.Ting] = () => {
-    //             this.player.onReadyHandBtnClick();
-    //         };
-    //         btnHanders[ButtonDef.Hu] = () => {
-    //             this.player.onWinBtnClick();
-    //         };
-    //     }
-
-    //     const handler = this.btnHanders[name];
-    //     handler();
-    // }
-
-    // public itemProviderButtonList(index: number): string {
-    //     return this.buttonDataList[index];
-    // }
     //操作按钮
     private initOperationButtons(): void {
         this.skipBtn = this.operationPanel.getChild("skipBtn").asButton;

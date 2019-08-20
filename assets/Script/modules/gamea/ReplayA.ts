@@ -29,7 +29,7 @@ enum actionType {
     DEF_GDY_REPLAY_OP_GANG_B = 2,  	//  补杠
     DEF_GDY_REPLAY_OP_GANG_A = 3,  	// 暗杠
     DEF_GDY_REPLAY_OP_PENG = 9,  	//  碰
-    DEF_GDY_REPLAY_OP_FORGET_PENG = 110,  	// 弃碰
+    DEF_GDY_REPLAY_OP_FORGET_PENG = 111,  	// 弃碰
     DEF_GDY_REPLAY_OP_XIAOCHAOTIAN = 101,  	// 小朝天
     DEF_GDY_REPLAY_OP_DACHAOTIAN = 102,  	//  大朝天
     DEF_GDY_REPLAY_OP_ZHUOCHONG = 20,  	//  捉铳
@@ -81,19 +81,6 @@ export class ReplayA {
     public async gogogo(room: RoomInterfaceA): Promise<void> {
         Logger.debug("gogogogo");
         this.room = room;
-        // const players = this.msgHandRecord.players;
-        // players.forEach((p) => {
-        //     //先创建自己
-        //     if (p.userID === this.room.getRoomHost().user.userID) {
-        //         room.createMyPlayer(this.clonePlayer(p));
-        //     }
-        // });
-        // players.forEach((p) => {
-        //     //再创建其他人
-        //     if (p.userID !== this.room.getRoomHost().user.userID) {
-        //         room.createPlayerByInfo(this.clonePlayer(p));
-        //     }
-        // });
 
         // 挂载action处理handler，复用action result handlers
         this.armActionHandler();
@@ -144,19 +131,12 @@ export class ReplayA {
         fgui.GRoot.inst.modalLayer.color = this.modalLayerColor;
     }
 
-    // private clonePlayer(p: proto.mahjong.ISRMsgPlayerInfo): proto.mahjong.IMsgPlayerInfo {
-    //     return {
-    //         state: 0,
-    //         userID: p.userID,
-    //         chairID: p.chairID,
-    //         nick: p.nick,
-    //         gender: p.gender,
-    //         headIconURI: p.headIconURI,
-    //         avatarID: p.avatarID
-    //     };
-    // }
-
+    private stopStepTimer(): void {
+        Logger.debug("replayA stop --------------------- timer");
+        this.room.getRoomHost().component.unschedule(this.timerCb);
+    }
     private startStepTimer(): void {
+        Logger.debug("replayA start --------------------- timer");
         const cb = () => {
             const mt = new Message(MsgType.replay);
             this.mq.pushMessage(mt);
@@ -178,8 +158,8 @@ export class ReplayA {
         this.btnBack = view.getChild("back"); //上一局
         this.btnNext = view.getChild("next"); //下一局
 
-        this.btnBack.grayed = true;
-        this.btnNext.grayed = true;
+        // this.btnBack.grayed = true;
+        // this.btnNext.grayed = true;
 
         this.textNum = view.getChild("num"); //速度
         this.textNum.text = "x1";
@@ -211,16 +191,12 @@ export class ReplayA {
             this);
 
         this.btnPause.onClick(
-            () => {
-                this.onPauseClick();
-            },
+            this.onPauseClick,
             this
         );
 
         this.btnResume.onClick(
-            () => {
-                this.onResumeClick();
-            },
+            this.onResumeClick,
             this
         );
 
@@ -286,12 +262,12 @@ export class ReplayA {
         this.btnPause.visible = false;
         this.btnResume.visible = true;
         this.isPause = true;
-        this.room.getRoomHost().component.unschedule(this.timerCb);
+        this.stopStepTimer();
     }
     private onBackClick(): void {
         //上一局
         if (!this.btnBack.grayed && this.roundStep > 0) {
-            this.room.getRoomHost().component.unschedule(this.timerCb);
+            this.stopStepTimer();
             this.roundStep--;
             this.actionStep = 0;
             this.startStepTimer();
@@ -300,7 +276,7 @@ export class ReplayA {
     private onNextClick(): void {
         //下一局
         if (!this.btnNext.grayed && this.roundStep < this.msgHandRecord.rounds.length - 1) {
-            this.room.getRoomHost().component.unschedule(this.timerCb);
+            this.stopStepTimer();
             this.roundStep++;
             this.actionStep = 0;
             this.startStepTimer();
@@ -310,7 +286,7 @@ export class ReplayA {
         if (this.btnReset.grayed) {
             return;
         }
-        this.room.getRoomHost().component.unschedule(this.timerCb);
+        this.stopStepTimer();
         //重头开始
         this.roundStep = 0;
         this.actionStep = 0;
@@ -342,7 +318,7 @@ export class ReplayA {
         this.textNum.text = `x${this.speedIndex + 1}`;
 
         if (!this.isPause) {
-            this.room.getRoomHost().component.unschedule(this.timerCb);
+            this.stopStepTimer();
             this.startStepTimer();
         }
         // Logger.debug("this.speed ： ", this.speed);
@@ -351,7 +327,7 @@ export class ReplayA {
     //用于播放动画的时候 停止跟开启定时器
     private stopTimer(): void {
         this.setGrayBtn(true);
-        this.room.getRoomHost().component.unschedule(this.timerCb);
+        this.stopStepTimer();
     }
     private startTimer(): void {
         this.startStepTimer();
@@ -496,7 +472,7 @@ export class ReplayA {
             }
         }
         await this.scoreActionHandler();
-        this.startTimer();
+        // this.startTimer(); //scoreActionHandler 里面会调startTimer
     }
 
     private async handOver(): Promise<void> {
@@ -565,15 +541,15 @@ export class ReplayA {
         await HandlerMsgActionOPAckA.onMsg(msg, this.room);
     }
     private async cancelOpAckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
-        Logger.debug("llwant, dfreplay, cancelOpAckActionHandler");
         const data = new proto.casino_gdy.packet_sc_op_ack();
+        Logger.debug("llwant, dfreplay, cancelOpAckActionHandler ： ", data);
         data.player_id = srAction.player_id;
         data.op = TypeOfOP.Guo;
         data.type = srAction.type;
         data.target_id = srAction.target_id;
         data.cards = srAction.cards;
-        const msg = proto.casino_gdy.packet_sc_op_ack.encode(data);
-        await HandlerMsgActionOPAckA.onMsg(msg, this.room);
+        // const msg = proto.casino_gdy.packet_sc_op_ack.encode(data);
+        // await HandlerMsgActionOPAckA.onMsg(msg, this.room);
         //TODO : 显示 弃操作
         let str = this.room.getPlayerByUserID(`${srAction.player_id}`).mNick;
         if (data.type === actionType.TABLE_OP_ZIMO) {

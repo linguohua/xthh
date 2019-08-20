@@ -232,16 +232,11 @@ export class RoomView {
         this.clearWaitingPlayer();
         const viewChairID = playerView.viewChairID;
         this.roundMarks[viewChairID].visible = true;
-
-        // playerView.setHeadEffectBox(true);
     }
     //清除当前房间的等待玩家标志
     public clearWaitingPlayer(): void {
         for (let i = 1; i <= 4; i++) {
             this.roundMarks[i].visible = false;
-        }
-        for (let i = 1; i <= 4; i++) {
-            this.playerViews[i].setHeadEffectBox(false);
         }
     }
     public showRoomNumber(): void {

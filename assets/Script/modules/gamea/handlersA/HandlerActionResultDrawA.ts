@@ -7,33 +7,6 @@ import { RoomInterfaceA } from "../RoomInterfaceA";
  * 响应服务器抽牌通知
  */
 export namespace HandlerActionResultDrawA {
-    // const setTitleIsDiscard = (player: Player): void => {
-    //     if (!player.isMe()) {
-    //         return;
-    //     }
-    //     const playerView = player.playerView;
-    //     const handsClickCtrls = playerView.handsClickCtrls;
-    //     for (let i = 0; i < 14; i++) {
-    //         const handsClickCtrl = handsClickCtrls[i];
-    //         const tileID = handsClickCtrl.tileID;
-    //         // const discardAbleTile = discarAbleTilesMap[tileID];
-    //         if (tileID !== null) {
-    //             // if (discardAbleTile !== undefined) {
-    //             handsClickCtrl.isDiscardable = true;
-    //             // let readyHandList = discardAbleTile.readyHandList;
-    //             // if (readyHandList === undefined || readyHandList === null || readyHandList.length === 0) { //加入可听列表，空表示不可听
-    //             //     readyHandList = [];
-    //             // }
-    //             // handsClickCtrl.t.visible = readyHandList.length > 0;
-    //             // handsClickCtrl.readyHandList = readyHandList;
-    //             // } else {
-    //             //     handsClickCtrl.isGray = true;
-    //             //     playerView.setGray(handsClickCtrl.h);
-    //             //     handsClickCtrl.isDiscardable = false;
-    //             // }
-    //         }
-    //     }
-    // };
 
     const checkButton = (room: RoomInterfaceA, player: PlayerA, reply: proto.casino_gdy.packet_sc_drawcard): boolean => {
         player.resetAllStatus();
