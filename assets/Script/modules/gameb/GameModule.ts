@@ -520,9 +520,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         chairID: number): Promise<void> {
         const table = record;
         // // 如果不提供userID,则必须提供chairID，然后根据chairID获得userID
-        let userID = myUser.userID;
+        // let userID = myUser.userID;
+        let userID = DataStore.getString("playerID");
         let isFind = false;
-        if (userID !== null) {
+        if (userID !== undefined && userID !== null) {
             for (const player of table.players) {
                 if (player !== undefined && userID === `${player.id}`) {
                     isFind = true;
@@ -536,13 +537,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                 userID = `${p.id}`;
             }
         }
-
-        if (userID === null || userID === undefined) {
-            Dialog.prompt("您输入的回放码不存在,或录像已过期!");
-
-            return;
-        }
-
         Logger.debug("table ---------**********--------- :", table);
         this.mUser = { userID: userID };
         // const roomInfo = {
