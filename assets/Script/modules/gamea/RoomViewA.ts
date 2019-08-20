@@ -769,8 +769,6 @@ export class RoomViewA {
 
         const onPause = () => {
             Logger.debug("recordManager.onPause");
-            // this.mike.visible = false;
-            this.recordManager.stop();
         };
 
         const onResume = () => {
@@ -779,8 +777,6 @@ export class RoomViewA {
 
         const onInterruptionBegin = () => {
             Logger.debug("recordManager.onInterruptionBegin");
-            // this.mike.visible = false;
-            this.recordManager.stop();
         };
 
         const onStop = (res: RecordOnStopRes) => {

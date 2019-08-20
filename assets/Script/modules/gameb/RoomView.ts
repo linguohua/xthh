@@ -773,13 +773,10 @@ export class RoomView {
         const onStart = () => {
             Logger.debug("recordManager.onStart");
             this.startRecordTime = Date.now();
-            // this.mike.visible = true;
         };
 
         const onPause = () => {
             Logger.debug("recordManager.onPause");
-            // this.mike.visible = false;
-            this.recordManager.stop();
         };
 
         const onResume = () => {
@@ -788,13 +785,10 @@ export class RoomView {
 
         const onInterruptionBegin = () => {
             Logger.debug("recordManager.onInterruptionBegin");
-            // this.mike.visible = false;
-            this.recordManager.stop();
         };
 
         const onStop = (res: RecordOnStopRes) => {
             Logger.debug("recordManager.onStop:", res);
-            // this.mike.visible = false;
             if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
                 Dialog.prompt("取消发送");
 
