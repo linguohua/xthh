@@ -212,15 +212,6 @@ export class DisbandView extends cc.Component {
             const nameText = this.view.getChild("name");
             nameText.text = CommonFunction.nameFormatWithCount(nick, 6);
 
-            //const gameConfigStr = DataStore.getString("gameConfig");
-            //const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
-            //const disbandTime = gameConfig.table_disband_time;
-
-            // TODO: 暂时写死，这里需要用同步服务器时间
-            //this.leftTime = disbandTime;
-            // const nowTime = Date.now() / 1000;
-
-            // this.leftTime = disbandTime - (nowTime - disbandReq.disband_time.toNumber())
             this.countDownFunc();
             this.countDownSchedule = () => {
                 this.countDownFunc();

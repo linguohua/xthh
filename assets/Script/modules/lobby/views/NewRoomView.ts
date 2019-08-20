@@ -251,7 +251,6 @@ export class NewRoomView extends cc.Component {
     }
 
     private initGameRecord(): void {
-        // TODO:
         this.onScoreTimeBtnClick(0);
     }
     private onGameRecord(msg: protoHH.casino.ProxyMessage): void {

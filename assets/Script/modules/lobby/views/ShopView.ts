@@ -94,7 +94,6 @@ export class ShopView extends cc.Component {
     }
 
     private initShopCardView(): void {
-        // TODO:
         this.cardPayCfgs = this.getPayCfgs(cardChannel, protoHH.casino.eRESOURCE.RESOURCE_CARD);
 
         const cardView = this.view.getChild("fkCom").asCom;
@@ -161,8 +160,6 @@ export class ShopView extends cc.Component {
         buyBtn.getChild("n1").text = cardPayCfg.price_info;
         buyBtn.onClick(this.onCardBuyBtnClick, this);
         buyBtn.data = index;
-
-        // TODO:
     }
 
     private renderItemList(index: number, item: fgui.GObject): void {
@@ -187,8 +184,6 @@ export class ShopView extends cc.Component {
         buyBtn.getChild("n1").text = beanPayCfg.price_info;
         buyBtn.onClick(this.onBeanBuyBtnClick, this);
         buyBtn.data = index;
-
-        // TODO:
     }
 
     private onBeanItemClick(clickItem: fgui.GObject): void {
