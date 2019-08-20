@@ -558,29 +558,6 @@ export class RoomView {
 
     }
 
-    // private onRecordSuccess(tempFilePath: string): void {
-    //     Logger.debug("onRecordSuccess, tempFilePath:", tempFilePath);
-    // }
-
-    // private startRecord(): void {
-    //     if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
-    //         return;
-    //     }
-
-    //     wx.startRecord({
-    //         success: (result: { tempFilePath: string }) => {
-    //             this.onRecordSuccess(result.tempFilePath);
-    //         }
-    //     });
-
-    //     setTimeout(
-    //         () => {
-    //             this.mike.visible = false;
-    //             wx.stopRecord(); // 结束录音
-    //         },
-    //         10000);
-    // }
-
     private onVoiceBtnPress(event: fgui.Event): void {
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
@@ -595,7 +572,7 @@ export class RoomView {
             return;
         }
 
-        if (this.room.currentPlayMsg !== null) {
+        if (this.room.isPlayAudio) {
             Dialog.prompt("正在播放，不能录音");
 
             return;

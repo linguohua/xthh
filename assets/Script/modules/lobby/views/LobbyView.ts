@@ -331,7 +331,7 @@ export class LobbyView extends cc.Component {
     private initNimSDK(): void {
         const imaccid = DataStore.getString("imaccid");
         const imtoken = DataStore.getString("imtoken");
-        const nimSDK = new NimSDK(LEnv.yunxinAppKey, imaccid, imtoken);
+        const nimSDK = new NimSDK(LEnv.yunxinAppKey, imaccid, imtoken, this);
         nimSDK.initNimSDK();
 
         this.lm.nimSDK = nimSDK;

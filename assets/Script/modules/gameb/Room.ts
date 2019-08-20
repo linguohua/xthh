@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
@@ -99,9 +99,9 @@ export class Room {
     public lastDisCardTile: number = 0; //最后打出的牌 用于吃碰杠胡
     public isGameOver: boolean = false;
     public readonly audioContext: createInnerAudioContextOpts;
-
-    public currentPlayMsg: NIMMessage = null;
     public nimMsgs: NIMMessage[] = [];
+
+    public isPlayAudio: boolean = false;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -114,10 +114,10 @@ export class Room {
         this.roomType = roomInfo.room_id;
         this.handNum = roomInfo.round;
 
-        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            this.audioContext = wx.createInnerAudioContext();
-            this.initAudioPlayer();
-        }
+        // if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+        //     this.audioContext = wx.createInnerAudioContext();
+        //     this.initAudioPlayer();
+        // }
     }
 
     public onDestroy(): void {
@@ -140,7 +140,7 @@ export class Room {
         }
     }
 
-    public onNimMsg(msg: NIMMessage): void {
+    public async onNimMsg(msg: NIMMessage): Promise<void> {
         Logger.debug("onNimMsg msg:", msg);
         if (msg.type !== "audio") {
             Logger.debug("onNimMsg msg.type:", msg.type);
@@ -150,10 +150,7 @@ export class Room {
 
         this.nimMsgs.push(msg);
         Logger.debug("this.nimMsgs.length:", this.nimMsgs.length);
-        this.playVoicMsg();
-        // const fromWho: string = msg.from;
-        // const player = this.getPlayerByImID(fromWho);
-        // player.onNimMsg(msg);
+        await this.playVoicMsg();
     }
 
     public getPlayerByChairID(chairID: number): Player {
@@ -972,7 +969,7 @@ export class Room {
         return lave;
     }
 
-    private playVoicMsg(): void {
+    private async playVoicMsg(): Promise<void> {
         if (this.nimMsgs.length <= 0) {
             Logger.debug("playVoicMsg failed, this.nimMsgs.length <s 0");
 
@@ -986,87 +983,74 @@ export class Room {
             return;
         }
 
-        if (this.currentPlayMsg !== null) {
-            Logger.debug(`this.currentPlayMsg !== null`);
+        await this.playAllAudio();
+    }
+
+    private async playAllAudio(): Promise<void> {
+        if (this.isPlayAudio) {
+            Logger.debug("this.isPlayAudio");
 
             return;
         }
 
-        const msg = this.nimMsgs.shift();
-        this.currentPlayMsg = msg;
-
-        Logger.debug(`left ${this.nimMsgs.length}, start player ${msg.file.name}`);
-
-        this.audioContext.src = msg.file.url;
-
-        // 起定时器来关闭音频
-
-        this.audioContext.autoplay = true;
-        // this.audioContext.play();
+        this.isPlayAudio = true;
+        while (this.nimMsgs.length > 0) {
+            const msg = this.nimMsgs.shift();
+            await this.playAudio(msg);
+            this.coWaitSeconds(0.5);
+        }
+        this.isPlayAudio = false;
     }
 
-    private initAudioPlayer(): void {
-        const onPlay = () => {
-            Logger.debug("audioContext.onPlayer");
-            this.showOrHideVoiceImg(true);
-            // this.playerView.showOrHideVoiceImg(true);
-        };
-
-        const onPause = () => {
-            Logger.debug("audioContext.onPause");
-        };
-
-        const onStop = () => {
-            Logger.debug("audioContext.onStop");
-            this.showOrHideVoiceImg(false);
-            this.currentPlayMsg = null;
-            // this.playerView.showOrHideVoiceImg(false);
-            // this.audioContext.src = "";
-
-        };
-
-        const onEnd = () => {
-            Logger.debug("audioContext.onEnd");
-            this.showOrHideVoiceImg(false);
-            this.currentPlayMsg = null;
-            if (this.nimMsgs.length > 0) {
-                // 延时0.5秒
-                Logger.debug("scheduleOnce playerVoiceMsg");
-                this.host.component.scheduleOnce(
-                    () => {
-                        this.playVoicMsg();
-                    },
-                    0.5);
-            }
-
-            Logger.debug("player voice end");
-        };
-
-        const onError = () => {
-            Logger.debug("audioContext.onError");
-            this.showOrHideVoiceImg(false);
-            this.currentPlayMsg = null;
-        };
-
-        this.audioContext.onPlay(onPlay);
-        this.audioContext.onPause(onPause);
-        this.audioContext.onStop(onStop);
-        this.audioContext.onEnded(onEnd);
-        this.audioContext.onError(onError);
-    }
-
-    private showOrHideVoiceImg(isShow: boolean): void {
-        if (this.currentPlayMsg === null) {
-            Logger.error("this.currentPlayMsg === null");
+    private async playAudio(msg: NIMMessage): Promise<void> {
+        if (msg.file.dur <= 0) {
+            Logger.error("playAudio msg.file.dur <= 0");
 
             return;
         }
 
-        const fromWho: string = this.currentPlayMsg.from;
-        const player = this.getPlayerByImID(fromWho);
-        Logger.debug("showOrHideVoiceImg, fromWho:", fromWho);
-        Logger.debug("showOrHideVoiceImg, player:", player);
-        player.showOrHideVoiceImg(isShow);
-    }
+        if (msg.from === null || msg.from === "") {
+            Logger.error("msg.from === null || msg.from === ");
 
+            return;
+        }
+
+        const player = this.getPlayerByImID(msg.from);
+        if (player === null) {
+            Logger.error("player === null");
+
+            return;
+        }
+
+        player.showOrHideVoiceImg(true);
+
+        const audioContext = wx.createInnerAudioContext();
+        if (player.isMe()) {
+            audioContext.src = msg.file.name;
+        } else if (msg.file.ext === "mp3") {
+            audioContext.src = msg.file.url;
+        } else {
+            audioContext.src = msg.file.mp3Url;
+        }
+
+        audioContext.onPlay(() => {
+            Logger.debug("playAudio, onPlay");
+        });
+
+        audioContext.onEnded(() => {
+            wx.hideToast();
+        });
+
+        audioContext.onError((res) => {
+            Logger.error("playAudio error:", res);
+            Dialog.prompt("播放失败");
+        });
+
+        audioContext.play();
+
+        await this.coWaitSeconds(Math.ceil(msg.file.dur / 1000));
+
+        player.showOrHideVoiceImg(false);
+        audioContext.destroy();
+    }
 }

@@ -589,7 +589,7 @@ export class RoomViewA {
             return;
         }
 
-        if (this.room.currentPlayMsg !== null) {
+        if (this.room.isPlayAudio) {
             Dialog.prompt("正在播放，不能录音");
 
             return;

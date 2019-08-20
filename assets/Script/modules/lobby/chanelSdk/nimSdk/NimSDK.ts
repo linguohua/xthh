@@ -11,6 +11,7 @@ export interface NIMFile {
     size: number;
     md5: number;
     url: string;
+    mp3Url: string;
     ext: string;
     dur: number;
 }
@@ -84,12 +85,14 @@ export class NimSDK {
     // private teams: Team[] = [];
 
     private myTeam: Team = null;
+
+    private component: cc.Component;
     // 用来订阅消息
-    public constructor(appKey: string, account: string, token: string) {
+    public constructor(appKey: string, account: string, token: string, component: cc.Component) {
         this.appKey = appKey;
         this.account = account;
         this.token = token;
-
+        this.component = component;
         this.eventTarget = new cc.EventTarget();
     }
 
@@ -110,7 +113,7 @@ export class NimSDK {
             this.onWillReconnect(obj);
         };
 
-        const onDisconnect = (res: {}) => {
+        const onDisconnect = (res: { callFunc: Function | string }) => {
             this.onDisconnect(res);
         };
 
@@ -134,6 +137,10 @@ export class NimSDK {
             this.onMsg(msg);
         };
 
+        const onSyncDone = (res: {}) => {
+            this.onSyncDone(res);
+        };
+
         const options = {
             appKey: this.appKey,
             account: this.account,
@@ -146,6 +153,8 @@ export class NimSDK {
             onsynccreateteam: onCreateTeam,
             onteammembers: onTeamMembers,
             onteams: onTeams,
+            onsyncdone: onSyncDone,
+            reconnectionAttempts: 0,
             onmsg: onMsg
         };
 
@@ -159,7 +168,14 @@ export class NimSDK {
     }
 
     public disconnect(): void {
-        this.nimSDK.disconnect();
+        this.nimSDK.disconnect({
+            done: async (res: {}): Promise<void> => {
+                Logger.debug("disconnect done:", res);
+                // await this.tryReconnect();
+                // await this.waitSecond(2);
+                // this.nimSDK.connect();
+            }
+        });
     }
 
     /**
@@ -404,8 +420,13 @@ export class NimSDK {
         Logger.debug("NimSDK onWillReconnect", obj);
     }
 
-    protected onDisconnect(res: {}): void {
+    protected onDisconnect(res: { callFunc: Function | string }): void {
         Logger.debug("NimSDK onDisconnect:", res);
+        if (res.callFunc === null) {
+            this.disconnect();
+        } else {
+            Logger.debug("res.callFunc:", res.callFunc);
+        }
     }
 
     protected onError(): void {
@@ -435,5 +456,30 @@ export class NimSDK {
     }
     protected onTeamMembers(obj: { teamId: string; members: [] }): void {
         Logger.debug(`NimSDK onTeamMembers, teamID:${obj.teamId}, members:${obj.members}`);
+    }
+
+    protected onSyncDone(res: {}): void {
+        Logger.debug("onSyncDone:", res);
+    }
+
+    protected async waitSecond(seconds: number): Promise<void> {
+        return new Promise<void>((resolve, _) => {
+            this.component.scheduleOnce(
+                () => {
+                    resolve();
+                },
+                seconds);
+        });
+    }
+
+    protected async tryReconnect(): Promise<void> {
+        await this.waitSecond(2);
+
+        try {
+            this.nimSDK.connect();
+        } catch (e) {
+            Logger.debug("tryReconnect:", e);
+            this.tryReconnect();
+        }
     }
 }

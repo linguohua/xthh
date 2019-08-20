@@ -456,11 +456,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         this.mq.pushMessage(msg);
     }
 
-    private onNimMsg(msg: NIMMessage): void {
+    private async onNimMsg(msg: NIMMessage): Promise<void> {
         Logger.debug("msg:", msg);
 
         if (this.mRoom !== null) {
-            this.mRoom.onNimMsg(msg);
+            await this.mRoom.onNimMsg(msg);
         }
     }
     private async showEnterRoomError(code: number): Promise<void> {
