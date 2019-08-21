@@ -862,7 +862,7 @@ export class PlayerView {
         this.head.headView.visible = true;
         // this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
 
-        this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 10);
+        this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 6);
         this.head.nameText.visible = true;
         //头像
         CommonFunction.setHead(this.head.headLoader, playerInfo.headIconURI, playerInfo.gender);
@@ -941,7 +941,7 @@ export class PlayerView {
     }
     public showScore(): void {
         if (this.viewChairID === 1) {
-            this.head.nameText.text = `${this.player.mNick}:${this.player.totalScores}`;
+            this.head.nameText.text = `${CommonFunction.nameFormatWithCount(this.player.mNick, 6)}:${this.player.totalScores}`;
         } else {
             this.head.nameText.text = `${this.player.totalScores}`;
         }
@@ -1024,7 +1024,7 @@ export class PlayerView {
             // if (this.viewChairID === 1) {
             //     this.checkReadyHandBtn.visible = false;
             // }
-            this.head.nameText.text = `${this.player.mNick}`;
+            this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 6);
         };
 
         //准备
