@@ -156,7 +156,7 @@ export class GpsView extends cc.Component {
             const address = distanceView.getChild(`city${i + 1}`);
 
             CommonFunction.setHead(head, player.playerInfo.headIconURI, player.playerInfo.gender);
-            name.text = player.playerInfo.nick;
+            name.text = CommonFunction.nameFormatWithCount(player.playerInfo.nick, 6);
 
             if (player.coordinate === null || player.coordinate.latitude === null) {
                 address.text = "未获取位置";

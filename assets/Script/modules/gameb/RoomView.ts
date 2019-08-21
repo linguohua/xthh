@@ -65,7 +65,7 @@ export class RoomView {
     private readonly moveDistance: number = 50;
 
     private lastRecordTime: number = 0;
-    private lastStartTime: number = 0;
+    private lastVoiceBtnClickTime: number = 0;
     private isRecordStart: boolean = true;
     private readyView: ReadyView;
 
@@ -585,11 +585,13 @@ export class RoomView {
             return;
         }
 
-        if (Date.now() - this.lastStartTime < 1500) {
+        const lastClickTime = this.lastVoiceBtnClickTime;
+        this.lastVoiceBtnClickTime = Date.now();
+        if (this.lastVoiceBtnClickTime - lastClickTime < 1500) {
+            Logger.debug("can not so quickly click voice button");
+
             return;
         }
-
-        this.lastStartTime = Date.now();
 
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
