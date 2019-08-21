@@ -1,8 +1,10 @@
-import { DataStore, Logger } from '../../lcore/LCoreExports';
+import { DataStore, Dialog, Logger } from '../../lcore/LCoreExports';
 // tslint:disable-next-line:no-require-imports
 import NIMWeb = require('./NIMWeb');
 // tslint:disable-next-line:no-require-imports
 import NIMWeixin = require('./NIMWeixin');
+
+const connectionError = "Error_Connection_Socket_State_not_Match";
 /**
  * 网易云信SDK
  */
@@ -96,6 +98,8 @@ export class NimSDK {
 
     private myTeam: Team = null;
 
+    private msgQueue: string[] = [];
+
     private component: cc.Component;
     // 用来订阅消息
     public constructor(appKey: string, account: string, token: string, component: cc.Component) {
@@ -165,8 +169,8 @@ export class NimSDK {
             onteams: onTeams,
             onsyncdone: onSyncDone,
             reconnectionAttempts: 0,
-            onmsg: onMsg,
-            debug: true
+            // debug: true,
+            onmsg: onMsg
         };
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -194,7 +198,7 @@ export class NimSDK {
      * @param imaccids 群用户ID
      * @param roomNumber 房间号
      */
-    public createTeam(imaccids: string[], roomNumber: string): void {
+    public createTeam(imaccids: string[], roomNumber: string, callback?: Function): void {
         if (this.nimSDK === undefined || this.nimSDK === null) {
             Logger.error("createTeam failed, this.nimSDK === undefined || this.nimSDK === null");
 
@@ -214,6 +218,9 @@ export class NimSDK {
 
             this.myTeam = obj.team;
 
+            if (callback !== undefined) {
+                callback();
+            }
             Logger.debug("createTeamDone:", obj.team);
         };
         // Logger.debug("my account:", this.account);
@@ -245,19 +252,40 @@ export class NimSDK {
             return;
         }
 
-        const sendMsgDone = () => {
-            Logger.debug("sendMsgDone");
+        const sendMsg = (content: string) => {
+            const sendMsgDone = (error: { code: string }, message: NIMMessage) => {
+                if (error !== null && error.code === connectionError) {
+                    this.disconnect();
+                    Logger.debug("sendMsgDone error:", error);
+
+                    return;
+                }
+
+                Logger.debug("sendMsgDone:", message);
+            };
+
+            const msg = this.nimSDK.sendText({
+                scene: 'team',
+                to: this.myTeam.teamId,
+                text: content,
+                done: sendMsgDone
+            });
+
+            Logger.debug("msg:", msg);
         };
 
-        const msg = this.nimSDK.sendText({
-            scene: 'team',
-            to: this.myTeam.teamId,
-            text: msgContent,
-            done: sendMsgDone
-        });
+        if (this.myTeam === null || this.myTeam === undefined) {
+            this.createTeam(['1'], "123", () => {
+                sendMsg(msgContent);
+            });
+        } else {
+            sendMsg(msgContent);
+        }
 
-        Logger.debug("msg:", msg);
     }
+
+    // Logger.debug("msg:", msg);
+    // }
 
     // tslint:disable-next-line:no-reserved-keywords
     public sendTeamAudio(wxFilePath: string): void {
@@ -304,11 +332,13 @@ export class NimSDK {
             return;
         }
 
-        const sendMsgDone = (error: {}, msg: NIMMessage) => {
-            if (error !== null) {
+        const sendMsgDone = (error: { code: string }, message: NIMMessage) => {
+            if (error !== null && error.code === connectionError) {
+                this.disconnect();
+                Dialog.prompt("语音网络断开，正在重连");
                 Logger.debug("send msg error:", error);
             } else {
-                this.onMsg(msg);
+                this.onMsg(message);
             }
         };
 
@@ -484,7 +514,9 @@ export class NimSDK {
     }
 
     protected async tryReconnect(): Promise<void> {
+        Logger.debug("NIMSDK wait 2 second to connet");
         await this.waitSecond(2);
+        Logger.debug("NIMSDK excute connect");
         this.nimSDK.connect();
     }
 }

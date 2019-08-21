@@ -801,7 +801,7 @@ export class RoomViewA {
 
         const onError = (res: RecordOnErrorRes) => {
             Logger.debug("onError:", res);
-            Dialog.prompt("录制失败!");
+            // Dialog.prompt("录制失败!");
             // this.mike.visible = false;
         };
 
