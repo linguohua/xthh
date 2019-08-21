@@ -89,7 +89,7 @@ export class RoomSettingView extends cc.Component {
         // this.musicBtnText = musicBtn.getChild("text");
 
         const gps = DataStore.getString("gps", "0");
-        const voice = DataStore.getString("effectsVolume", "0");
+        const recordVoice = DataStore.getString("voice", "0");
         const effectsVolume = DataStore.getString("effectsVolume", "0");
         const musicVolume = DataStore.getString("musicVolume", "0");
         if (+gps > 0) {
@@ -98,7 +98,7 @@ export class RoomSettingView extends cc.Component {
             this.gpsBtn.selected = false;
         }
 
-        if (+voice > 0) {
+        if (+recordVoice > 0) {
             this.voiceBtn.selected = true;
         } else {
             this.voiceBtn.selected = false;
@@ -200,6 +200,12 @@ export class RoomSettingView extends cc.Component {
 
     private onVoiceBtnClick(): void {
         this.room.enableVoiceBtn(this.voiceBtn.selected);
+
+        if (this.voiceBtn.selected) {
+            DataStore.setItem("voice", 1);
+        } else {
+            DataStore.setItem("voice", 0);
+        }
     }
 
     // 音效开关

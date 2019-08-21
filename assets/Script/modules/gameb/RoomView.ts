@@ -1,4 +1,4 @@
-import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
@@ -553,6 +553,13 @@ export class RoomView {
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");
         this.settingBtn.onClick(this.onSettingBtnClick, this);
+
+        const voice = DataStore.getString("voice", "0");
+        if (+voice > 0) {
+            this.enableVoiceBtn(true);
+        } else {
+            this.enableVoiceBtn(false);
+        }
 
     }
 
