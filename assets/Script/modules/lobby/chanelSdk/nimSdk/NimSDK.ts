@@ -290,10 +290,12 @@ export class NimSDK {
     // tslint:disable-next-line:no-reserved-keywords
     public sendTeamAudio(wxFilePath: string): void {
         if (this.myTeam === null || this.myTeam === undefined) {
-
-            const onGetTeams = (error: {}, teams: Team[]) => {
-                if (error !== null) {
+            const onGetTeams = (error: { code: string }, teams: Team[]) => {
+                if (error !== null && error.code === connectionError) {
                     Logger.debug("sendTeamAudio failed, get teams error:", error);
+                    this.disconnect();
+
+                    Dialog.prompt("语音网络正在重连");
 
                     return;
                 }
