@@ -9436,6 +9436,48 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     ]
                 },
                 {
+                    "name": "packet_update",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "type",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint64",
+                            "name": "id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "merge",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "owner_id",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "msg",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bytes",
+                            "name": "data",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
                     "name": "packet_ping",
                     "syntax": "proto2",
                     "fields": [

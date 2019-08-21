@@ -31,6 +31,7 @@ export class LobbyView extends cc.Component {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
+        lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
 
         this.lm = lm;
         const loader = lm.loader;
@@ -200,6 +201,7 @@ export class LobbyView extends cc.Component {
     }
 
     private openEmailClick(): void {
+        this.lm.nimSDK.disconnect();
         // TODO: 显示邮件界面
         //this.showMarquee("测试发送公告测试发送试发送公告");
         //Dialog.showReconnectDialog();
@@ -404,6 +406,24 @@ export class LobbyView extends cc.Component {
             };
 
             wx.onAudioInterruptionEnd(handler);
+        }
+    }
+
+    private onMsgUpdate(msg: proto.casino.ProxyMessage): void {
+        Logger.debug("onMsgUpdate");
+        const updateMsg = proto.casino.packet_update.decode(msg.Data);
+        if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_RESOURCE) {
+            const playerResource = proto.casino.player_resource.decode(updateMsg.data);
+            // Logger.debug("resource:", playerResource);
+            if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
+                DataStore.setItem("card", playerResource.curr.toNumber());
+                this.fkText.text = playerResource.curr.toString();
+            }
+
+            if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
+                DataStore.setItem("beans", playerResource.curr.toNumber());
+                this.beansText.text = playerResource.curr.toString();
+            }
         }
     }
 }

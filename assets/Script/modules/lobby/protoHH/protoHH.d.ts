@@ -55,7 +55,7 @@ export namespace proto {
 			public dices: number[];
 			constructor(properties?: casino_gdy.Iplayer_dice);
 			public static encode(message: player_dice): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_dice;
+			public static decode(reader: Uint8Array | ByteBuffer): player_dice;
 		}
 
 		interface Ipacket_sc_start_play {
@@ -80,7 +80,7 @@ export namespace proto {
 			public dices: casino_gdy.Iplayer_dice[];
 			constructor(properties?: casino_gdy.Ipacket_sc_start_play);
 			public static encode(message: packet_sc_start_play): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_start_play;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_start_play;
 		}
 
 		interface Ipacket_sc_drawcard {
@@ -95,7 +95,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino_gdy.Ipacket_sc_drawcard);
 			public static encode(message: packet_sc_drawcard): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_drawcard;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_drawcard;
 		}
 
 		interface Ipacket_sc_endcard {
@@ -114,7 +114,7 @@ export namespace proto {
 			public hupai: boolean;
 			constructor(properties?: casino_gdy.Ipacket_sc_endcard);
 			public static encode(message: packet_sc_endcard): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_endcard;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_endcard;
 		}
 
 		interface Iplayer_score {
@@ -133,7 +133,7 @@ export namespace proto {
 			public score_total: number;
 			constructor(properties?: casino_gdy.Iplayer_score);
 			public static encode(message: player_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_score;
+			public static decode(reader: Uint8Array | ByteBuffer): player_score;
 		}
 
 		interface Ipacket_sc_score {
@@ -150,7 +150,7 @@ export namespace proto {
 			public scores: casino_gdy.Iplayer_score[];
 			constructor(properties?: casino_gdy.Ipacket_sc_score);
 			public static encode(message: packet_sc_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_score;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_score;
 		}
 
 		interface Ipacket_cs_outcard_req {
@@ -163,7 +163,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino_gdy.Ipacket_cs_outcard_req);
 			public static encode(message: packet_cs_outcard_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_outcard_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_cs_outcard_req;
 		}
 
 		interface Ipacket_sc_outcard_ack {
@@ -178,7 +178,7 @@ export namespace proto {
 			public table_id: Long;
 			constructor(properties?: casino_gdy.Ipacket_sc_outcard_ack);
 			public static encode(message: packet_sc_outcard_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_outcard_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_outcard_ack;
 		}
 
 		interface Ipacket_sc_op {
@@ -197,7 +197,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino_gdy.Ipacket_sc_op);
 			public static encode(message: packet_sc_op): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_op;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_op;
 		}
 
 		interface Ipacket_cs_op_req {
@@ -214,7 +214,7 @@ export namespace proto {
 			public cancel_type: number;
 			constructor(properties?: casino_gdy.Ipacket_cs_op_req);
 			public static encode(message: packet_cs_op_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_op_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_cs_op_req;
 		}
 
 		interface Ipacket_sc_op_ack {
@@ -237,7 +237,7 @@ export namespace proto {
 			public cards: number[];
 			constructor(properties?: casino_gdy.Ipacket_sc_op_ack);
 			public static encode(message: packet_sc_op_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_op_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_op_ack;
 		}
 
 		interface Ipacket_cs_cancelcard_req {
@@ -252,7 +252,7 @@ export namespace proto {
 			public type: number;
 			constructor(properties?: casino_gdy.Ipacket_cs_cancelcard_req);
 			public static encode(message: packet_cs_cancelcard_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_cancelcard_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_cs_cancelcard_req;
 		}
 
 		interface Ipacket_sc_reconnect {
@@ -275,7 +275,7 @@ export namespace proto {
 			public op: number;
 			constructor(properties?: casino_gdy.Ipacket_sc_reconnect);
 			public static encode(message: packet_sc_reconnect): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_reconnect;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_reconnect;
 		}
 
 		interface Igdy_gang_score {
@@ -288,7 +288,7 @@ export namespace proto {
 			public score: number;
 			constructor(properties?: casino_gdy.Igdy_gang_score);
 			public static encode(message: gdy_gang_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): gdy_gang_score;
+			public static decode(reader: Uint8Array | ByteBuffer): gdy_gang_score;
 		}
 
 		interface Igdy_gang_group {
@@ -299,7 +299,7 @@ export namespace proto {
 			public scores: casino_gdy.Igdy_gang_score[];
 			constructor(properties?: casino_gdy.Igdy_gang_group);
 			public static encode(message: gdy_gang_group): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): gdy_gang_group;
+			public static decode(reader: Uint8Array | ByteBuffer): gdy_gang_group;
 		}
 
 		interface Igdy_gang {
@@ -312,7 +312,7 @@ export namespace proto {
 			public groups: casino_gdy.Igdy_gang_group[];
 			constructor(properties?: casino_gdy.Igdy_gang);
 			public static encode(message: gdy_gang): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): gdy_gang;
+			public static decode(reader: Uint8Array | ByteBuffer): gdy_gang;
 		}
 
 	}
@@ -372,7 +372,7 @@ export namespace proto {
 			public dices: number[];
 			constructor(properties?: casino_xtsj.Iplayer_dice);
 			public static encode(message: player_dice): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_dice;
+			public static decode(reader: Uint8Array | ByteBuffer): player_dice;
 		}
 
 		interface Ipacket_sc_start_play {
@@ -397,7 +397,7 @@ export namespace proto {
 			public dices: casino_xtsj.Iplayer_dice[];
 			constructor(properties?: casino_xtsj.Ipacket_sc_start_play);
 			public static encode(message: packet_sc_start_play): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_start_play;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_start_play;
 		}
 
 		interface Ipacket_sc_drawcard {
@@ -412,7 +412,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino_xtsj.Ipacket_sc_drawcard);
 			public static encode(message: packet_sc_drawcard): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_drawcard;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_drawcard;
 		}
 
 		interface Ipacket_sc_endcard {
@@ -431,7 +431,7 @@ export namespace proto {
 			public hupai: boolean;
 			constructor(properties?: casino_xtsj.Ipacket_sc_endcard);
 			public static encode(message: packet_sc_endcard): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_endcard;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_endcard;
 		}
 
 		interface Iplayer_score {
@@ -450,7 +450,7 @@ export namespace proto {
 			public score_total: number;
 			constructor(properties?: casino_xtsj.Iplayer_score);
 			public static encode(message: player_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_score;
+			public static decode(reader: Uint8Array | ByteBuffer): player_score;
 		}
 
 		interface Ipacket_sc_score {
@@ -467,7 +467,7 @@ export namespace proto {
 			public scores: casino_xtsj.Iplayer_score[];
 			constructor(properties?: casino_xtsj.Ipacket_sc_score);
 			public static encode(message: packet_sc_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_score;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_score;
 		}
 
 		interface Ipacket_cs_outcard_req {
@@ -480,7 +480,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino_xtsj.Ipacket_cs_outcard_req);
 			public static encode(message: packet_cs_outcard_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_outcard_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_cs_outcard_req;
 		}
 
 		interface Ipacket_sc_outcard_ack {
@@ -495,7 +495,7 @@ export namespace proto {
 			public table_id: Long;
 			constructor(properties?: casino_xtsj.Ipacket_sc_outcard_ack);
 			public static encode(message: packet_sc_outcard_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_outcard_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_outcard_ack;
 		}
 
 		interface Ipacket_sc_op {
@@ -514,7 +514,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino_xtsj.Ipacket_sc_op);
 			public static encode(message: packet_sc_op): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_op;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_op;
 		}
 
 		interface Ipacket_cs_op_req {
@@ -531,7 +531,7 @@ export namespace proto {
 			public cancel_type: number;
 			constructor(properties?: casino_xtsj.Ipacket_cs_op_req);
 			public static encode(message: packet_cs_op_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_op_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_cs_op_req;
 		}
 
 		interface Ipacket_sc_op_ack {
@@ -554,7 +554,7 @@ export namespace proto {
 			public cards: number[];
 			constructor(properties?: casino_xtsj.Ipacket_sc_op_ack);
 			public static encode(message: packet_sc_op_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_op_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_op_ack;
 		}
 
 		interface Ipacket_cs_cancelcard_req {
@@ -569,7 +569,7 @@ export namespace proto {
 			public type: number;
 			constructor(properties?: casino_xtsj.Ipacket_cs_cancelcard_req);
 			public static encode(message: packet_cs_cancelcard_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_cs_cancelcard_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_cs_cancelcard_req;
 		}
 
 		interface Ipacket_sc_reconnect {
@@ -592,7 +592,7 @@ export namespace proto {
 			public op: number;
 			constructor(properties?: casino_xtsj.Ipacket_sc_reconnect);
 			public static encode(message: packet_sc_reconnect): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_sc_reconnect;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_sc_reconnect;
 		}
 
 		interface Ixtsj_gang_score {
@@ -605,7 +605,7 @@ export namespace proto {
 			public score: number;
 			constructor(properties?: casino_xtsj.Ixtsj_gang_score);
 			public static encode(message: xtsj_gang_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): xtsj_gang_score;
+			public static decode(reader: Uint8Array | ByteBuffer): xtsj_gang_score;
 		}
 
 		interface Ixtsj_gang_group {
@@ -616,7 +616,7 @@ export namespace proto {
 			public scores: casino_xtsj.Ixtsj_gang_score[];
 			constructor(properties?: casino_xtsj.Ixtsj_gang_group);
 			public static encode(message: xtsj_gang_group): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): xtsj_gang_group;
+			public static decode(reader: Uint8Array | ByteBuffer): xtsj_gang_group;
 		}
 
 		interface Ixtsj_gang {
@@ -629,7 +629,7 @@ export namespace proto {
 			public groups: casino_xtsj.Ixtsj_gang_group[];
 			constructor(properties?: casino_xtsj.Ixtsj_gang);
 			public static encode(message: xtsj_gang): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): xtsj_gang;
+			public static decode(reader: Uint8Array | ByteBuffer): xtsj_gang;
 		}
 
 	}
@@ -1107,7 +1107,7 @@ export namespace proto {
 			public casino_id: number;
 			constructor(properties?: casino.Ichat);
 			public static encode(message: chat): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): chat;
+			public static decode(reader: Uint8Array | ByteBuffer): chat;
 		}
 
 		interface Iobject {
@@ -1126,7 +1126,7 @@ export namespace proto {
 			public max: number;
 			constructor(properties?: casino.Iobject);
 			public static encode(message: object): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): object;
+			public static decode(reader: Uint8Array | ByteBuffer): object;
 		}
 
 		interface Iresource {
@@ -1149,7 +1149,7 @@ export namespace proto {
 			public desc: string;
 			constructor(properties?: casino.Iresource);
 			public static encode(message: resource): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): resource;
+			public static decode(reader: Uint8Array | ByteBuffer): resource;
 		}
 
 		interface Iresource_need {
@@ -1162,7 +1162,7 @@ export namespace proto {
 			public count: number;
 			constructor(properties?: casino.Iresource_need);
 			public static encode(message: resource_need): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): resource_need;
+			public static decode(reader: Uint8Array | ByteBuffer): resource_need;
 		}
 
 		interface Ipay_url {
@@ -1175,7 +1175,7 @@ export namespace proto {
 			public url: string;
 			constructor(properties?: casino.Ipay_url);
 			public static encode(message: pay_url): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): pay_url;
+			public static decode(reader: Uint8Array | ByteBuffer): pay_url;
 		}
 
 		interface Ired_store {
@@ -1206,7 +1206,7 @@ export namespace proto {
 			public buy_time: Long;
 			constructor(properties?: casino.Ired_store);
 			public static encode(message: red_store): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): red_store;
+			public static decode(reader: Uint8Array | ByteBuffer): red_store;
 		}
 
 		interface Ired_data {
@@ -1227,7 +1227,7 @@ export namespace proto {
 			public red_disable: boolean;
 			constructor(properties?: casino.Ired_data);
 			public static encode(message: red_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): red_data;
+			public static decode(reader: Uint8Array | ByteBuffer): red_data;
 		}
 
 		interface Ipay {
@@ -1302,7 +1302,7 @@ export namespace proto {
 			public channels: string[];
 			constructor(properties?: casino.Ipay);
 			public static encode(message: pay): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): pay;
+			public static decode(reader: Uint8Array | ByteBuffer): pay;
 		}
 
 		interface Ipay_channel {
@@ -1321,7 +1321,7 @@ export namespace proto {
 			public res: string;
 			constructor(properties?: casino.Ipay_channel);
 			public static encode(message: pay_channel): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): pay_channel;
+			public static decode(reader: Uint8Array | ByteBuffer): pay_channel;
 		}
 
 		interface Ipay_data {
@@ -1338,7 +1338,7 @@ export namespace proto {
 			public urls: casino.Ipay_url[];
 			constructor(properties?: casino.Ipay_data);
 			public static encode(message: pay_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): pay_data;
+			public static decode(reader: Uint8Array | ByteBuffer): pay_data;
 		}
 
 		interface Iroom {
@@ -1375,7 +1375,7 @@ export namespace proto {
 			public server_id: number;
 			constructor(properties?: casino.Iroom);
 			public static encode(message: room): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): room;
+			public static decode(reader: Uint8Array | ByteBuffer): room;
 		}
 
 		interface Iop_score {
@@ -1392,7 +1392,7 @@ export namespace proto {
 			public score: number;
 			constructor(properties?: casino.Iop_score);
 			public static encode(message: op_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): op_score;
+			public static decode(reader: Uint8Array | ByteBuffer): op_score;
 		}
 
 		interface Icard_group {
@@ -1411,7 +1411,7 @@ export namespace proto {
 			public cards: number[];
 			constructor(properties?: casino.Icard_group);
 			public static encode(message: card_group): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): card_group;
+			public static decode(reader: Uint8Array | ByteBuffer): card_group;
 		}
 
 		interface Iplayer_mj {
@@ -1464,7 +1464,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_mj);
 			public static encode(message: player_mj): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_mj;
+			public static decode(reader: Uint8Array | ByteBuffer): player_mj;
 		}
 
 		interface Iplayer_mjtl {
@@ -1517,7 +1517,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_mjtl);
 			public static encode(message: player_mjtl): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_mjtl;
+			public static decode(reader: Uint8Array | ByteBuffer): player_mjtl;
 		}
 
 		interface Iplayer_sshh {
@@ -1570,7 +1570,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_sshh);
 			public static encode(message: player_sshh): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_sshh;
+			public static decode(reader: Uint8Array | ByteBuffer): player_sshh;
 		}
 
 		interface Iplayer_gdy {
@@ -1623,7 +1623,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_gdy);
 			public static encode(message: player_gdy): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_gdy;
+			public static decode(reader: Uint8Array | ByteBuffer): player_gdy;
 		}
 
 		interface Iplayer_tmhh {
@@ -1676,7 +1676,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_tmhh);
 			public static encode(message: player_tmhh): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_tmhh;
+			public static decode(reader: Uint8Array | ByteBuffer): player_tmhh;
 		}
 
 		interface Iplayer_tmyh {
@@ -1729,7 +1729,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_tmyh);
 			public static encode(message: player_tmyh): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_tmyh;
+			public static decode(reader: Uint8Array | ByteBuffer): player_tmyh;
 		}
 
 		interface Iplayer_hhyx {
@@ -1782,7 +1782,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_hhyx);
 			public static encode(message: player_hhyx): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_hhyx;
+			public static decode(reader: Uint8Array | ByteBuffer): player_hhyx;
 		}
 
 		interface Iplayer_hcyx {
@@ -1835,7 +1835,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_hcyx);
 			public static encode(message: player_hcyx): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_hcyx;
+			public static decode(reader: Uint8Array | ByteBuffer): player_hcyx;
 		}
 
 		interface Iplayer_qjhh {
@@ -1888,7 +1888,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_qjhh);
 			public static encode(message: player_qjhh): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_qjhh;
+			public static decode(reader: Uint8Array | ByteBuffer): player_qjhh;
 		}
 
 		interface Iplayer_tcmj {
@@ -1941,7 +1941,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Iplayer_tcmj);
 			public static encode(message: player_tcmj): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_tcmj;
+			public static decode(reader: Uint8Array | ByteBuffer): player_tcmj;
 		}
 
 		interface Icoordinate {
@@ -1960,7 +1960,7 @@ export namespace proto {
 			public ipaddress: string;
 			constructor(properties?: casino.Icoordinate);
 			public static encode(message: coordinate): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): coordinate;
+			public static decode(reader: Uint8Array | ByteBuffer): coordinate;
 		}
 
 		interface Iting_card {
@@ -1973,7 +1973,7 @@ export namespace proto {
 			public hucards: number[];
 			constructor(properties?: casino.Iting_card);
 			public static encode(message: ting_card): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): ting_card;
+			public static decode(reader: Uint8Array | ByteBuffer): ting_card;
 		}
 
 		interface Itable_player {
@@ -2108,7 +2108,7 @@ export namespace proto {
 			public coord: casino.Icoordinate;
 			constructor(properties?: casino.Itable_player);
 			public static encode(message: table_player): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_player;
+			public static decode(reader: Uint8Array | ByteBuffer): table_player;
 		}
 
 		interface Itable_param {
@@ -2125,7 +2125,7 @@ export namespace proto {
 			public cards: number[];
 			constructor(properties?: casino.Itable_param);
 			public static encode(message: table_param): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_param;
+			public static decode(reader: Uint8Array | ByteBuffer): table_param;
 		}
 
 		interface Itable_op {
@@ -2160,7 +2160,7 @@ export namespace proto {
 			public params: casino.Itable_param[];
 			constructor(properties?: casino.Itable_op);
 			public static encode(message: table_op): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_op;
+			public static decode(reader: Uint8Array | ByteBuffer): table_op;
 		}
 
 		interface Itable_round_score {
@@ -2199,7 +2199,7 @@ export namespace proto {
 			public last_card: number;
 			constructor(properties?: casino.Itable_round_score);
 			public static encode(message: table_round_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_round_score;
+			public static decode(reader: Uint8Array | ByteBuffer): table_round_score;
 		}
 
 		interface Itable_round {
@@ -2222,7 +2222,7 @@ export namespace proto {
 			public remaincards: number[];
 			constructor(properties?: casino.Itable_round);
 			public static encode(message: table_round): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_round;
+			public static decode(reader: Uint8Array | ByteBuffer): table_round;
 		}
 
 		interface Itable_replay {
@@ -2233,7 +2233,7 @@ export namespace proto {
 			public rounds: casino.Itable_round[];
 			constructor(properties?: casino.Itable_replay);
 			public static encode(message: table_replay): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_replay;
+			public static decode(reader: Uint8Array | ByteBuffer): table_replay;
 		}
 
 		interface Itable_outcard {
@@ -2250,7 +2250,7 @@ export namespace proto {
 			public cards: number[];
 			constructor(properties?: casino.Itable_outcard);
 			public static encode(message: table_outcard): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_outcard;
+			public static decode(reader: Uint8Array | ByteBuffer): table_outcard;
 		}
 
 		interface Itable {
@@ -2345,7 +2345,7 @@ export namespace proto {
 			public match_name: string;
 			constructor(properties?: casino.Itable);
 			public static encode(message: table): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table;
+			public static decode(reader: Uint8Array | ByteBuffer): table;
 		}
 
 		interface Icasino {
@@ -2368,7 +2368,7 @@ export namespace proto {
 			public info: string;
 			constructor(properties?: casino.Icasino);
 			public static encode(message: casino): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): casino;
+			public static decode(reader: Uint8Array | ByteBuffer): casino;
 		}
 
 		interface Iitem {
@@ -2389,7 +2389,7 @@ export namespace proto {
 			public icon: string;
 			constructor(properties?: casino.Iitem);
 			public static encode(message: item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): item;
+			public static decode(reader: Uint8Array | ByteBuffer): item;
 		}
 
 		interface Itask {
@@ -2432,7 +2432,7 @@ export namespace proto {
 			public info: string;
 			constructor(properties?: casino.Itask);
 			public static encode(message: task): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): task;
+			public static decode(reader: Uint8Array | ByteBuffer): task;
 		}
 
 		interface Iact {
@@ -2447,7 +2447,7 @@ export namespace proto {
 			public disable: boolean;
 			constructor(properties?: casino.Iact);
 			public static encode(message: act): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): act;
+			public static decode(reader: Uint8Array | ByteBuffer): act;
 		}
 
 		interface Iact_checkin_day {
@@ -2466,7 +2466,7 @@ export namespace proto {
 			public vip_awards: casino.Iobject[];
 			constructor(properties?: casino.Iact_checkin_day);
 			public static encode(message: act_checkin_day): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): act_checkin_day;
+			public static decode(reader: Uint8Array | ByteBuffer): act_checkin_day;
 		}
 
 		interface Iact_checkin_counter {
@@ -2485,7 +2485,7 @@ export namespace proto {
 			public vip_awards: casino.Iobject[];
 			constructor(properties?: casino.Iact_checkin_counter);
 			public static encode(message: act_checkin_counter): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): act_checkin_counter;
+			public static decode(reader: Uint8Array | ByteBuffer): act_checkin_counter;
 		}
 
 		interface Iact_card_free {
@@ -2508,7 +2508,7 @@ export namespace proto {
 			public end_time: number;
 			constructor(properties?: casino.Iact_card_free);
 			public static encode(message: act_card_free): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): act_card_free;
+			public static decode(reader: Uint8Array | ByteBuffer): act_card_free;
 		}
 
 		interface Ired_rain {
@@ -2523,7 +2523,7 @@ export namespace proto {
 			public max: number;
 			constructor(properties?: casino.Ired_rain);
 			public static encode(message: red_rain): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): red_rain;
+			public static decode(reader: Uint8Array | ByteBuffer): red_rain;
 		}
 
 		interface Iact_red_rain {
@@ -2552,7 +2552,7 @@ export namespace proto {
 			public rains: casino.Ired_rain[];
 			constructor(properties?: casino.Iact_red_rain);
 			public static encode(message: act_red_rain): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): act_red_rain;
+			public static decode(reader: Uint8Array | ByteBuffer): act_red_rain;
 		}
 
 		interface Ibind_data {
@@ -2591,7 +2591,7 @@ export namespace proto {
 			public exchange_limit: number;
 			constructor(properties?: casino.Ibind_data);
 			public static encode(message: bind_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): bind_data;
+			public static decode(reader: Uint8Array | ByteBuffer): bind_data;
 		}
 
 		interface Iguild_data {
@@ -2664,7 +2664,7 @@ export namespace proto {
 			public guild_room_close: number;
 			constructor(properties?: casino.Iguild_data);
 			public static encode(message: guild_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_data;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_data;
 		}
 
 		interface Iguild_member {
@@ -2717,7 +2717,7 @@ export namespace proto {
 			public table_play_time: Long;
 			constructor(properties?: casino.Iguild_member);
 			public static encode(message: guild_member): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_member;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_member;
 		}
 
 		interface Iguild_request {
@@ -2748,7 +2748,7 @@ export namespace proto {
 			public request_time: Long;
 			constructor(properties?: casino.Iguild_request);
 			public static encode(message: guild_request): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_request;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_request;
 		}
 
 		interface Iguild_permission_config {
@@ -2765,7 +2765,7 @@ export namespace proto {
 			public desc: string;
 			constructor(properties?: casino.Iguild_permission_config);
 			public static encode(message: guild_permission_config): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_permission_config;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_permission_config;
 		}
 
 		interface Iguild_room {
@@ -2804,7 +2804,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iguild_room);
 			public static encode(message: guild_room): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_room;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_room;
 		}
 
 		interface Iguild_table_player {
@@ -2831,7 +2831,7 @@ export namespace proto {
 			public channel: string;
 			constructor(properties?: casino.Iguild_table_player);
 			public static encode(message: guild_table_player): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_table_player;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_table_player;
 		}
 
 		interface Iguild_table_log {
@@ -2874,7 +2874,7 @@ export namespace proto {
 			public remove_time: Long;
 			constructor(properties?: casino.Iguild_table_log);
 			public static encode(message: guild_table_log): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_table_log;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_table_log;
 		}
 
 		interface Iguild_table {
@@ -2907,7 +2907,7 @@ export namespace proto {
 			public players: casino.Iguild_table_player[];
 			constructor(properties?: casino.Iguild_table);
 			public static encode(message: guild_table): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild_table;
+			public static decode(reader: Uint8Array | ByteBuffer): guild_table;
 		}
 
 		interface Iguild {
@@ -2968,7 +2968,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iguild);
 			public static encode(message: guild): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): guild;
+			public static decode(reader: Uint8Array | ByteBuffer): guild;
 		}
 
 		interface Imatch_table_player {
@@ -3001,7 +3001,7 @@ export namespace proto {
 			public item_id: number;
 			constructor(properties?: casino.Imatch_table_player);
 			public static encode(message: match_table_player): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_table_player;
+			public static decode(reader: Uint8Array | ByteBuffer): match_table_player;
 		}
 
 		interface Imatch_table_log {
@@ -3048,7 +3048,7 @@ export namespace proto {
 			public remove_time: Long;
 			constructor(properties?: casino.Imatch_table_log);
 			public static encode(message: match_table_log): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_table_log;
+			public static decode(reader: Uint8Array | ByteBuffer): match_table_log;
 		}
 
 		interface Imatch_status {
@@ -3059,7 +3059,7 @@ export namespace proto {
 			public signup: number;
 			constructor(properties?: casino.Imatch_status);
 			public static encode(message: match_status): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_status;
+			public static decode(reader: Uint8Array | ByteBuffer): match_status;
 		}
 
 		interface Imatch_open_time {
@@ -3072,7 +3072,7 @@ export namespace proto {
 			public et: number;
 			constructor(properties?: casino.Imatch_open_time);
 			public static encode(message: match_open_time): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_open_time;
+			public static decode(reader: Uint8Array | ByteBuffer): match_open_time;
 		}
 
 		interface Imatch_room {
@@ -3135,7 +3135,7 @@ export namespace proto {
 			public view_time: Long;
 			constructor(properties?: casino.Imatch_room);
 			public static encode(message: match_room): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_room;
+			public static decode(reader: Uint8Array | ByteBuffer): match_room;
 		}
 
 		interface Imatch_item {
@@ -3154,7 +3154,7 @@ export namespace proto {
 			public res: string;
 			constructor(properties?: casino.Imatch_item);
 			public static encode(message: match_item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_item;
+			public static decode(reader: Uint8Array | ByteBuffer): match_item;
 		}
 
 		interface Imatch_data {
@@ -3183,7 +3183,7 @@ export namespace proto {
 			public ranks: casino.Irank_score_item[];
 			constructor(properties?: casino.Imatch_data);
 			public static encode(message: match_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): match_data;
+			public static decode(reader: Uint8Array | ByteBuffer): match_data;
 		}
 
 		interface Icard_test {
@@ -3208,7 +3208,7 @@ export namespace proto {
 			public cards: number[];
 			constructor(properties?: casino.Icard_test);
 			public static encode(message: card_test): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): card_test;
+			public static decode(reader: Uint8Array | ByteBuffer): card_test;
 		}
 
 		interface Ibroadcast_config {
@@ -3237,7 +3237,7 @@ export namespace proto {
 			public weight: number;
 			constructor(properties?: casino.Ibroadcast_config);
 			public static encode(message: broadcast_config): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): broadcast_config;
+			public static decode(reader: Uint8Array | ByteBuffer): broadcast_config;
 		}
 
 		interface Ibind_third_robot {
@@ -3270,7 +3270,7 @@ export namespace proto {
 			public push: number;
 			constructor(properties?: casino.Ibind_third_robot);
 			public static encode(message: bind_third_robot): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): bind_third_robot;
+			public static decode(reader: Uint8Array | ByteBuffer): bind_third_robot;
 		}
 
 		interface Ivip_config {
@@ -3289,7 +3289,7 @@ export namespace proto {
 			public name: string;
 			constructor(properties?: casino.Ivip_config);
 			public static encode(message: vip_config): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): vip_config;
+			public static decode(reader: Uint8Array | ByteBuffer): vip_config;
 		}
 
 		interface Ienergy_turnable {
@@ -3320,7 +3320,7 @@ export namespace proto {
 			public item: casino.Ienergy_turnable_item[];
 			constructor(properties?: casino.Ienergy_turnable);
 			public static encode(message: energy_turnable): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): energy_turnable;
+			public static decode(reader: Uint8Array | ByteBuffer): energy_turnable;
 		}
 
 		interface Ienergy_turnable_item {
@@ -3349,7 +3349,7 @@ export namespace proto {
 			public desc: string;
 			constructor(properties?: casino.Ienergy_turnable_item);
 			public static encode(message: energy_turnable_item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): energy_turnable_item;
+			public static decode(reader: Uint8Array | ByteBuffer): energy_turnable_item;
 		}
 
 		interface Irank_score_item {
@@ -3370,7 +3370,7 @@ export namespace proto {
 			public items: casino.Irank_award_item[];
 			constructor(properties?: casino.Irank_score_item);
 			public static encode(message: rank_score_item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): rank_score_item;
+			public static decode(reader: Uint8Array | ByteBuffer): rank_score_item;
 		}
 
 		interface Irank_award_item {
@@ -3397,7 +3397,7 @@ export namespace proto {
 			public desc: string;
 			constructor(properties?: casino.Irank_award_item);
 			public static encode(message: rank_award_item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): rank_award_item;
+			public static decode(reader: Uint8Array | ByteBuffer): rank_award_item;
 		}
 
 		interface Iplayer_pay {
@@ -3444,7 +3444,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_pay);
 			public static encode(message: player_pay): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_pay;
+			public static decode(reader: Uint8Array | ByteBuffer): player_pay;
 		}
 
 		interface Iplayer_min {
@@ -3503,7 +3503,7 @@ export namespace proto {
 			public coord: casino.Icoordinate;
 			constructor(properties?: casino.Iplayer_min);
 			public static encode(message: player_min): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_min;
+			public static decode(reader: Uint8Array | ByteBuffer): player_min;
 		}
 
 		interface Iplayer_rank {
@@ -3524,7 +3524,7 @@ export namespace proto {
 			public channel_nickname: string;
 			constructor(properties?: casino.Iplayer_rank);
 			public static encode(message: player_rank): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_rank;
+			public static decode(reader: Uint8Array | ByteBuffer): player_rank;
 		}
 
 		interface Iplayer {
@@ -3615,7 +3615,7 @@ export namespace proto {
 			public ban_time: Long;
 			constructor(properties?: casino.Iplayer);
 			public static encode(message: player): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player;
+			public static decode(reader: Uint8Array | ByteBuffer): player;
 		}
 
 		interface Iplayer_item {
@@ -3648,7 +3648,7 @@ export namespace proto {
 			public buy_time: Long;
 			constructor(properties?: casino.Iplayer_item);
 			public static encode(message: player_item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_item;
+			public static decode(reader: Uint8Array | ByteBuffer): player_item;
 		}
 
 		interface Imail {
@@ -3677,7 +3677,7 @@ export namespace proto {
 			public end_time: Long;
 			constructor(properties?: casino.Imail);
 			public static encode(message: mail): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): mail;
+			public static decode(reader: Uint8Array | ByteBuffer): mail;
 		}
 
 		interface Iplayer_mail {
@@ -3700,7 +3700,7 @@ export namespace proto {
 			public remove_time: Long;
 			constructor(properties?: casino.Iplayer_mail);
 			public static encode(message: player_mail): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_mail;
+			public static decode(reader: Uint8Array | ByteBuffer): player_mail;
 		}
 
 		interface Iplayer_resource {
@@ -3729,7 +3729,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_resource);
 			public static encode(message: player_resource): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_resource;
+			public static decode(reader: Uint8Array | ByteBuffer): player_resource;
 		}
 
 		interface Iplayer_casino {
@@ -3780,7 +3780,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_casino);
 			public static encode(message: player_casino): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_casino;
+			public static decode(reader: Uint8Array | ByteBuffer): player_casino;
 		}
 
 		interface Iplayer_friend {
@@ -3803,7 +3803,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_friend);
 			public static encode(message: player_friend): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_friend;
+			public static decode(reader: Uint8Array | ByteBuffer): player_friend;
 		}
 
 		interface Iplayer_message {
@@ -3826,7 +3826,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_message);
 			public static encode(message: player_message): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_message;
+			public static decode(reader: Uint8Array | ByteBuffer): player_message;
 		}
 
 		interface Iplayer_task {
@@ -3859,7 +3859,7 @@ export namespace proto {
 			public complete_time: Long;
 			constructor(properties?: casino.Iplayer_task);
 			public static encode(message: player_task): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_task;
+			public static decode(reader: Uint8Array | ByteBuffer): player_task;
 		}
 
 		interface Iplayer_act {
@@ -3892,7 +3892,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_act);
 			public static encode(message: player_act): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_act;
+			public static decode(reader: Uint8Array | ByteBuffer): player_act;
 		}
 
 		interface Iplayer_lucky {
@@ -3915,7 +3915,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_lucky);
 			public static encode(message: player_lucky): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_lucky;
+			public static decode(reader: Uint8Array | ByteBuffer): player_lucky;
 		}
 
 		interface Iplayer_helper {
@@ -3942,7 +3942,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_helper);
 			public static encode(message: player_helper): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_helper;
+			public static decode(reader: Uint8Array | ByteBuffer): player_helper;
 		}
 
 		interface Iplayer_lottery {
@@ -3967,7 +3967,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_lottery);
 			public static encode(message: player_lottery): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_lottery;
+			public static decode(reader: Uint8Array | ByteBuffer): player_lottery;
 		}
 
 		interface Iplayer_guild {
@@ -3982,7 +3982,7 @@ export namespace proto {
 			public join_time: Long;
 			constructor(properties?: casino.Iplayer_guild);
 			public static encode(message: player_guild): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_guild;
+			public static decode(reader: Uint8Array | ByteBuffer): player_guild;
 		}
 
 		interface Iplayer_red {
@@ -4005,7 +4005,7 @@ export namespace proto {
 			public cash_time: Long;
 			constructor(properties?: casino.Iplayer_red);
 			public static encode(message: player_red): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_red;
+			public static decode(reader: Uint8Array | ByteBuffer): player_red;
 		}
 
 		interface Iplayer_bind {
@@ -4056,7 +4056,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_bind);
 			public static encode(message: player_bind): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_bind;
+			public static decode(reader: Uint8Array | ByteBuffer): player_bind;
 		}
 
 		interface Iplayer_match {
@@ -4085,7 +4085,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Iplayer_match);
 			public static encode(message: player_match): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_match;
+			public static decode(reader: Uint8Array | ByteBuffer): player_match;
 		}
 
 		interface Iplayer_match_apply {
@@ -4102,7 +4102,7 @@ export namespace proto {
 			public apply_time: number;
 			constructor(properties?: casino.Iplayer_match_apply);
 			public static encode(message: player_match_apply): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_match_apply;
+			public static decode(reader: Uint8Array | ByteBuffer): player_match_apply;
 		}
 
 		interface Iplayer_energy {
@@ -4135,7 +4135,7 @@ export namespace proto {
 			public energy_time: Long;
 			constructor(properties?: casino.Iplayer_energy);
 			public static encode(message: player_energy): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_energy;
+			public static decode(reader: Uint8Array | ByteBuffer): player_energy;
 		}
 
 		interface Iplayer_data {
@@ -4222,7 +4222,7 @@ export namespace proto {
 			public coord: casino.Icoordinate;
 			constructor(properties?: casino.Iplayer_data);
 			public static encode(message: player_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_data;
+			public static decode(reader: Uint8Array | ByteBuffer): player_data;
 		}
 
 		interface Ibot {
@@ -4249,7 +4249,7 @@ export namespace proto {
 			public gold_cost: Long;
 			constructor(properties?: casino.Ibot);
 			public static encode(message: bot): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): bot;
+			public static decode(reader: Uint8Array | ByteBuffer): bot;
 		}
 
 		interface Itable_score {
@@ -4262,7 +4262,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Itable_score);
 			public static encode(message: table_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): table_score;
+			public static decode(reader: Uint8Array | ByteBuffer): table_score;
 		}
 
 		interface IProxyMessage {
@@ -4275,7 +4275,7 @@ export namespace proto {
 			public Data: ByteBuffer;
 			constructor(properties?: casino.IProxyMessage);
 			public static encode(message: ProxyMessage): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): ProxyMessage;
+			public static decode(reader: Uint8Array | ByteBuffer): ProxyMessage;
 		}
 
 		interface Ipacket_coordinate {
@@ -4296,7 +4296,28 @@ export namespace proto {
 			public ipaddress: string;
 			constructor(properties?: casino.Ipacket_coordinate);
 			public static encode(message: packet_coordinate): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_coordinate;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_coordinate;
+		}
+
+		interface Ipacket_update {
+			type: number;
+			id: Long;
+			merge?: boolean;
+			owner_id?: number;
+			msg?: number;
+			data?: ByteBuffer;
+		}
+
+		class packet_update implements Ipacket_update {
+			public type: number;
+			public id: Long;
+			public merge: boolean;
+			public owner_id: number;
+			public msg: number;
+			public data: ByteBuffer;
+			constructor(properties?: casino.Ipacket_update);
+			public static encode(message: packet_update): ByteBuffer;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_update;
 		}
 
 		interface Ipacket_ping {
@@ -4307,7 +4328,7 @@ export namespace proto {
 			public now: Long;
 			constructor(properties?: casino.Ipacket_ping);
 			public static encode(message: packet_ping): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_ping;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_ping;
 		}
 
 		interface Ipacket_pong {
@@ -4318,7 +4339,7 @@ export namespace proto {
 			public now: Long;
 			constructor(properties?: casino.Ipacket_pong);
 			public static encode(message: packet_pong): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_pong;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_pong;
 		}
 
 		interface Idevice_info {
@@ -4369,7 +4390,7 @@ export namespace proto {
 			public ip: string;
 			constructor(properties?: casino.Idevice_info);
 			public static encode(message: device_info): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): device_info;
+			public static decode(reader: Uint8Array | ByteBuffer): device_info;
 		}
 
 		interface Iround_cost {
@@ -4382,7 +4403,7 @@ export namespace proto {
 			public card: number;
 			constructor(properties?: casino.Iround_cost);
 			public static encode(message: round_cost): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): round_cost;
+			public static decode(reader: Uint8Array | ByteBuffer): round_cost;
 		}
 
 		interface Igame_round_cost {
@@ -4395,7 +4416,7 @@ export namespace proto {
 			public rcosts: casino.Iround_cost[];
 			constructor(properties?: casino.Igame_round_cost);
 			public static encode(message: game_round_cost): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): game_round_cost;
+			public static decode(reader: Uint8Array | ByteBuffer): game_round_cost;
 		}
 
 		interface Igame_room_base {
@@ -4408,7 +4429,7 @@ export namespace proto {
 			public roombases: number[];
 			constructor(properties?: casino.Igame_room_base);
 			public static encode(message: game_room_base): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): game_room_base;
+			public static decode(reader: Uint8Array | ByteBuffer): game_room_base;
 		}
 
 		interface Igame_config {
@@ -4453,7 +4474,7 @@ export namespace proto {
 			public lang_gb: boolean;
 			constructor(properties?: casino.Igame_config);
 			public static encode(message: game_config): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): game_config;
+			public static decode(reader: Uint8Array | ByteBuffer): game_config;
 		}
 
 		interface Ibulletin {
@@ -4474,7 +4495,7 @@ export namespace proto {
 			public end_time: Long;
 			constructor(properties?: casino.Ibulletin);
 			public static encode(message: bulletin): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): bulletin;
+			public static decode(reader: Uint8Array | ByteBuffer): bulletin;
 		}
 
 		interface Ibulletin_data {
@@ -4485,7 +4506,7 @@ export namespace proto {
 			public datas: casino.Ibulletin[];
 			constructor(properties?: casino.Ibulletin_data);
 			public static encode(message: bulletin_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): bulletin_data;
+			public static decode(reader: Uint8Array | ByteBuffer): bulletin_data;
 		}
 
 		interface Ilucky {
@@ -4512,7 +4533,7 @@ export namespace proto {
 			public desc: string;
 			constructor(properties?: casino.Ilucky);
 			public static encode(message: lucky): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lucky;
+			public static decode(reader: Uint8Array | ByteBuffer): lucky;
 		}
 
 		interface Ilucky_log {
@@ -4537,7 +4558,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Ilucky_log);
 			public static encode(message: lucky_log): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lucky_log;
+			public static decode(reader: Uint8Array | ByteBuffer): lucky_log;
 		}
 
 		interface Ilucky_data {
@@ -4558,7 +4579,7 @@ export namespace proto {
 			public lastlogs: casino.Ilucky_log[];
 			constructor(properties?: casino.Ilucky_data);
 			public static encode(message: lucky_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lucky_data;
+			public static decode(reader: Uint8Array | ByteBuffer): lucky_data;
 		}
 
 		interface Ihelper {
@@ -4573,7 +4594,7 @@ export namespace proto {
 			public param: number;
 			constructor(properties?: casino.Ihelper);
 			public static encode(message: helper): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): helper;
+			public static decode(reader: Uint8Array | ByteBuffer): helper;
 		}
 
 		interface Ihelper_data {
@@ -4588,7 +4609,7 @@ export namespace proto {
 			public helpers: casino.Ihelper[];
 			constructor(properties?: casino.Ihelper_data);
 			public static encode(message: helper_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): helper_data;
+			public static decode(reader: Uint8Array | ByteBuffer): helper_data;
 		}
 
 		interface Ilottery_item {
@@ -4607,7 +4628,7 @@ export namespace proto {
 			public res: string;
 			constructor(properties?: casino.Ilottery_item);
 			public static encode(message: lottery_item): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lottery_item;
+			public static decode(reader: Uint8Array | ByteBuffer): lottery_item;
 		}
 
 		interface Ilottery {
@@ -4620,7 +4641,7 @@ export namespace proto {
 			public rate: number;
 			constructor(properties?: casino.Ilottery);
 			public static encode(message: lottery): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lottery;
+			public static decode(reader: Uint8Array | ByteBuffer): lottery;
 		}
 
 		interface Ilottery_group {
@@ -4635,7 +4656,7 @@ export namespace proto {
 			public lotterys: casino.Ilottery[];
 			constructor(properties?: casino.Ilottery_group);
 			public static encode(message: lottery_group): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lottery_group;
+			public static decode(reader: Uint8Array | ByteBuffer): lottery_group;
 		}
 
 		interface Ilottery_log {
@@ -4660,7 +4681,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Ilottery_log);
 			public static encode(message: lottery_log): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lottery_log;
+			public static decode(reader: Uint8Array | ByteBuffer): lottery_log;
 		}
 
 		interface Ilottery_data {
@@ -4679,7 +4700,7 @@ export namespace proto {
 			public selflogs: casino.Ilottery_log[];
 			constructor(properties?: casino.Ilottery_data);
 			public static encode(message: lottery_data): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): lottery_data;
+			public static decode(reader: Uint8Array | ByteBuffer): lottery_data;
 		}
 
 		interface Ipacket_fast_login_req {
@@ -4706,7 +4727,7 @@ export namespace proto {
 			public request_id: number;
 			constructor(properties?: casino.Ipacket_fast_login_req);
 			public static encode(message: packet_fast_login_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_fast_login_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_fast_login_req;
 		}
 
 		interface Ipacket_fast_login_ack {
@@ -4765,7 +4786,7 @@ export namespace proto {
 			public request_id: number;
 			constructor(properties?: casino.Ipacket_fast_login_ack);
 			public static encode(message: packet_fast_login_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_fast_login_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_fast_login_ack;
 		}
 
 		interface Ipacket_table_create_req {
@@ -4792,7 +4813,7 @@ export namespace proto {
 			public flag: number;
 			constructor(properties?: casino.Ipacket_table_create_req);
 			public static encode(message: packet_table_create_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_create_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_create_req;
 		}
 
 		interface Ipacket_table_create_ack {
@@ -4809,7 +4830,7 @@ export namespace proto {
 			public guild_id: number;
 			constructor(properties?: casino.Ipacket_table_create_ack);
 			public static encode(message: packet_table_create_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_create_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_create_ack;
 		}
 
 		interface Ipacket_table_join_req {
@@ -4834,7 +4855,7 @@ export namespace proto {
 			public type: number;
 			constructor(properties?: casino.Ipacket_table_join_req);
 			public static encode(message: packet_table_join_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_join_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_join_req;
 		}
 
 		interface Ipacket_table_join_ack {
@@ -4851,7 +4872,7 @@ export namespace proto {
 			public reconnect: boolean;
 			constructor(properties?: casino.Ipacket_table_join_ack);
 			public static encode(message: packet_table_join_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_join_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_join_ack;
 		}
 
 		interface Ipacket_player_join_req {
@@ -4864,7 +4885,7 @@ export namespace proto {
 			public request_id: number;
 			constructor(properties?: casino.Ipacket_player_join_req);
 			public static encode(message: packet_player_join_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_player_join_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_player_join_req;
 		}
 
 		interface Ipacket_player_join_ack {
@@ -4881,7 +4902,7 @@ export namespace proto {
 			public request_id: number;
 			constructor(properties?: casino.Ipacket_player_join_ack);
 			public static encode(message: packet_player_join_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_player_join_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_player_join_ack;
 		}
 
 		interface Ipacket_table_entry {
@@ -4896,7 +4917,7 @@ export namespace proto {
 			public table_id: Long;
 			constructor(properties?: casino.Ipacket_table_entry);
 			public static encode(message: packet_table_entry): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_entry;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_entry;
 		}
 
 		interface Ipacket_table_leave {
@@ -4913,7 +4934,7 @@ export namespace proto {
 			public table_id: Long;
 			constructor(properties?: casino.Ipacket_table_leave);
 			public static encode(message: packet_table_leave): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_leave;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_leave;
 		}
 
 		interface Ipacket_table_ready {
@@ -4928,7 +4949,7 @@ export namespace proto {
 			public table_id: Long;
 			constructor(properties?: casino.Ipacket_table_ready);
 			public static encode(message: packet_table_ready): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_ready;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_ready;
 		}
 
 		interface Ipacket_table_pause {
@@ -4945,7 +4966,7 @@ export namespace proto {
 			public reason: number;
 			constructor(properties?: casino.Ipacket_table_pause);
 			public static encode(message: packet_table_pause): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_pause;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_pause;
 		}
 
 		interface Ipacket_table_managed {
@@ -4964,7 +4985,7 @@ export namespace proto {
 			public quit_time: Long;
 			constructor(properties?: casino.Ipacket_table_managed);
 			public static encode(message: packet_table_managed): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_managed;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_managed;
 		}
 
 		interface Ipacket_table_update {
@@ -4975,7 +4996,7 @@ export namespace proto {
 			public tdata: casino.Itable;
 			constructor(properties?: casino.Ipacket_table_update);
 			public static encode(message: packet_table_update): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_update;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_update;
 		}
 
 		interface Iplayer_score {
@@ -5018,7 +5039,7 @@ export namespace proto {
 			public lottery_item: number;
 			constructor(properties?: casino.Iplayer_score);
 			public static encode(message: player_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): player_score;
+			public static decode(reader: Uint8Array | ByteBuffer): player_score;
 		}
 
 		interface Ipacket_table_score {
@@ -5051,7 +5072,7 @@ export namespace proto {
 			public info: string;
 			constructor(properties?: casino.Ipacket_table_score);
 			public static encode(message: packet_table_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_score;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_score;
 		}
 
 		interface Ipacket_table_disband_req {
@@ -5064,7 +5085,7 @@ export namespace proto {
 			public disband_time: Long;
 			constructor(properties?: casino.Ipacket_table_disband_req);
 			public static encode(message: packet_table_disband_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_disband_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_disband_req;
 		}
 
 		interface Ipacket_table_disband_ack {
@@ -5081,7 +5102,7 @@ export namespace proto {
 			public table_id: Long;
 			constructor(properties?: casino.Ipacket_table_disband_ack);
 			public static encode(message: packet_table_disband_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_table_disband_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_table_disband_ack;
 		}
 
 		interface Icasino_score {
@@ -5110,7 +5131,7 @@ export namespace proto {
 			public create_time: Long;
 			constructor(properties?: casino.Icasino_score);
 			public static encode(message: casino_score): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): casino_score;
+			public static decode(reader: Uint8Array | ByteBuffer): casino_score;
 		}
 
 		interface Ipacket_score_ack {
@@ -5125,7 +5146,7 @@ export namespace proto {
 			public scores: casino.Icasino_score[];
 			constructor(properties?: casino.Ipacket_score_ack);
 			public static encode(message: packet_score_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_score_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_score_ack;
 		}
 
 		interface Ipacket_score_time_req {
@@ -5138,7 +5159,7 @@ export namespace proto {
 			public day: number;
 			constructor(properties?: casino.Ipacket_score_time_req);
 			public static encode(message: packet_score_time_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_score_time_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_score_time_req;
 		}
 
 		interface Ipacket_score_time_ack {
@@ -5153,7 +5174,7 @@ export namespace proto {
 			public scores: casino.Icasino_score[];
 			constructor(properties?: casino.Ipacket_score_time_ack);
 			public static encode(message: packet_score_time_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_score_time_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_score_time_ack;
 		}
 
 		interface Ipacket_replay_req {
@@ -5164,7 +5185,7 @@ export namespace proto {
 			public replay_id: number;
 			constructor(properties?: casino.Ipacket_replay_req);
 			public static encode(message: packet_replay_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_replay_req;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_replay_req;
 		}
 
 		interface Ipacket_replay_ack {
@@ -5181,7 +5202,7 @@ export namespace proto {
 			public replay: ByteBuffer;
 			constructor(properties?: casino.Ipacket_replay_ack);
 			public static encode(message: packet_replay_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_replay_ack;
+			public static decode(reader: Uint8Array | ByteBuffer): packet_replay_ack;
 		}
 
 	}

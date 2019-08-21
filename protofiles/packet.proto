@@ -426,6 +426,16 @@ message packet_coordinate{
    optional string				ipaddress = 21;	// ipaddress
 }
 
+// 对象更新
+message packet_update{
+  required uint32 		   type = 1; 				// 对象类型
+  required uint64 			 id = 2; 				// 更新id
+  optional bool			  merge = 3;				// 合并(默认为Copy操作)
+  optional uint32	   owner_id = 4;				// 拥有者id
+  optional uint32			msg = 5;				// 操作消息
+  optional bytes 		   data = 10; 				// 对象新数据
+}
+
 
 message packet_ping{
 	optional uint64 			now = 1; 			// 服务器当前时间
@@ -503,8 +513,8 @@ message game_config{
   optional uint32	 guild_close_cost = 14[default = 5];	// 公会关闭房卡消耗
 
   repeated game_round_cost	roundcosts = 100;				// 自建房回合房卡消耗值
-	repeated game_room_base   groombases = 101;				//自建房抵住
-	repeated game_devote_cost  gdevotecosts = 102;			//贡献值
+  repeated game_room_base   groombases = 101;				//自建房抵住
+//   repeated game_devote_cost  gdevotecosts = 102;			//贡献值
 
   optional uint32       gdy_endcard = 1000[default = 4];//
   optional uint32       gdy_gangcard = 1001[default = 5];//
