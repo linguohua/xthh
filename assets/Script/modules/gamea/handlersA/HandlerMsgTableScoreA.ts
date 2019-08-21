@@ -39,6 +39,28 @@ export namespace HandlerMsgTableScoreA {
 
     };
 
+    const emitTime = (room: RoomInterfaceA) => {
+        const data = new Date();
+        const receiveTime = Date.parse(data.toString());
+        room.getRoomHost().eventTarget.emit("receiveTime", receiveTime);
+        room.getRoomHost().eventTarget.emit("returnAppTime", 0);
+        room.getRoomHost().eventTarget.emit("quitAppTime", 0);
+    };
+
+    const isTimeOut = (quitAppTime: number, returnAppTime: number): boolean => {
+
+        let timeOut = false;
+
+        if (quitAppTime !== 0 && returnAppTime !== 0) {
+            const leaveSeconds = (returnAppTime - quitAppTime) / 1000;
+            if (leaveSeconds > 12) {
+                timeOut = true;
+            }
+        }
+
+        return timeOut;
+    };
+
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         const reply = proto.casino.packet_table_score.decode(msgData);
         Logger.debug("HandlerMsgTableScore----------------------- ", reply);
@@ -74,10 +96,36 @@ export namespace HandlerMsgTableScoreA {
                 }
             }
         } else {
+            emitTime(room);
+
+            let quitAppTime = 0;
+            let returnAppTime = 0;
+            const saveQuitAppTime = (time: number) => {
+                quitAppTime = time;
+            };
+            const saveReturnAppTime = (time: number) => {
+                returnAppTime = time;
+            };
+            room.getRoomHost().eventTarget.on("quitAppTime", saveQuitAppTime);
+            room.getRoomHost().eventTarget.on("returnAppTime", saveReturnAppTime);
+
             await showHu(reply, room);
+            // 如果在这里超时，直接返回
+            if (isTimeOut(quitAppTime, returnAppTime)) {
+                return;
+            }
+
             await room.coWaitSeconds(1);
+            // 如果在这里超时，直接返回
+            if (isTimeOut(quitAppTime, returnAppTime)) {
+                return;
+            }
             if (huPlayer !== null) {
                 await huPlayer.playerView.hideHuoArray();
+            }
+            // 如果在这里超时，直接返回
+            if (isTimeOut(quitAppTime, returnAppTime)) {
+                return;
             }
             // 显示手牌输赢结果
             room.loadHandResultView(reply);

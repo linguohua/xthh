@@ -119,6 +119,9 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
 
+        cc.game.on(cc.game.EVENT_HIDE, this.hideEvent, this);
+        cc.game.on(cc.game.EVENT_SHOW, this.showEvent, this);
+
         this.checkGpsSetting();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.component.schedule(this.getLocation, 1 * 60, cc.macro.REPEAT_FOREVER);
@@ -226,6 +229,9 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         this.eventTarget.off("gpsChange");
         this.lm.eventTarget.off("reconnect");
 
+        cc.game.off(cc.game.EVENT_HIDE, this.hideEvent, this);
+        cc.game.off(cc.game.EVENT_SHOW, this.showEvent, this);
+
         this.component.unschedule(this.getLocation);
 
         fgui.GRoot.inst.removeChild(this.view);
@@ -236,6 +242,20 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
     protected update(dt: number): void {
         this.timeElapsed += dt;
+    }
+
+    private showEvent(): void {
+        const data = new Date();
+        const returnAppTime = Date.parse(data.toString());
+        Logger.debug("getMilliseconds returnAppTime = ", returnAppTime);
+        this.room.getRoomHost().eventTarget.emit("returnAppTime", returnAppTime);
+    }
+
+    private hideEvent(): void {
+        const data = new Date();
+        const quitAppTime = Date.parse(data.toString());
+        Logger.debug("getMilliseconds quitAppTime = ", quitAppTime);
+        this.room.getRoomHost().eventTarget.emit("quitAppTime", quitAppTime);
     }
 
     private async tryEnterRoom(

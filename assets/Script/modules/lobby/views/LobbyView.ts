@@ -399,8 +399,6 @@ export class LobbyView extends cc.Component {
             this.roomNumberFromShare = query[rKey];
             Logger.debug(`share from wx, room number:${this.roomNumberFromShare}`);
             const handler = () => {
-                Logger.debug(`setLaunchCallBack time = ${new Date().getMinutes()}:${new Date().getMinutes()}`);
-                Logger.debug("setLaunchCallBack cc.audioEngine.isMusicPlaying() = ", cc.audioEngine.isMusicPlaying());
                 SoundMgr.pauseMusic();
                 SoundMgr.resumeMusic();
             };
