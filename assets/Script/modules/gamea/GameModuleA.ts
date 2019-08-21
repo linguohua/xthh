@@ -515,11 +515,11 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         const table = record;
         // // 如果不提供userID,则必须提供chairID，然后根据chairID获得userID
         // let userID = myUser.userID;
-        let userID = DataStore.getString("playerID");
+        let playerID = DataStore.getString("playerID");
         let isFind = false;
-        if (userID !== undefined && userID !== null) {
+        if (playerID !== undefined && playerID !== null) {
             for (const player of table.players) {
-                if (player !== undefined && userID === `${player.id}`) {
+                if (+playerID === player.id) {
                     isFind = true;
                     break;
                 }
@@ -528,11 +528,11 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         if (!isFind) {
             const p = table.players[chairID];
             if (p !== undefined) {
-                userID = `${p.id}`;
+                playerID = `${p.id}`;
             }
         }
-        Logger.debug("table ---------**********--------- :", table);
-        this.mUser = { userID: userID };
+        Logger.debug(playerID, " ; table ---------**********--------- :", table);
+        this.mUser = { userID: playerID };
         // const roomInfo = {
         //     roomID: "",
         //     roomNumber: msgHandRecord.roomNumber,
