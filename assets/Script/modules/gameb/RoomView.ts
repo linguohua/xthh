@@ -65,6 +65,8 @@ export class RoomView {
     private readonly moveDistance: number = 50;
 
     private lastRecordTime: number = 0;
+    private lastStartTime: number = 0;
+    private isRecordStart: boolean = true;
     private readyView: ReadyView;
 
     private gamePauseTipsCom: fgui.GComponent;
@@ -583,6 +585,12 @@ export class RoomView {
             return;
         }
 
+        if (Date.now() - this.lastStartTime < 1500) {
+            return;
+        }
+
+        this.lastStartTime = Date.now();
+
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
@@ -593,6 +601,7 @@ export class RoomView {
         };
 
         this.recordManager.start(options);
+        this.isRecordStart = true;
 
     }
 
@@ -603,6 +612,14 @@ export class RoomView {
 
             return;
         }
+
+        if (!this.isRecordStart) {
+            Logger.debug("record not start");
+
+            return;
+        }
+
+        this.isRecordStart = false;
 
         // SoundMgr.resumeMusic();
         this.mike.visible = false;

@@ -1,4 +1,4 @@
-import { Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
@@ -64,6 +64,8 @@ export class RoomViewA {
     private readonly moveDistance: number = 50;
 
     private lastRecordTime: number = 0;
+    private isRecordStart: boolean = true;
+    private lastStartTime: number = 0;
     private readyView: ReadyViewA;
 
     private gamePauseTipsCom: fgui.GComponent;
@@ -550,6 +552,13 @@ export class RoomViewA {
         this.settingBtn = this.unityViewNode.getChild("settingBtn");
         this.settingBtn.onClick(this.onSettingBtnClick, this);
 
+        const voice = DataStore.getString("voice", "0");
+        if (+voice > 0) {
+            this.enableVoiceBtn(true);
+        } else {
+            this.enableVoiceBtn(false);
+        }
+
     }
 
     // private onRecordSuccess(tempFilePath: string): void {
@@ -595,6 +604,14 @@ export class RoomViewA {
             return;
         }
 
+        if (Date.now() - this.lastStartTime < 1500) {
+            Logger.debug("can not not record so quickly");
+
+            return;
+        }
+
+        this.lastStartTime = Date.now();
+
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
@@ -604,6 +621,7 @@ export class RoomViewA {
             format: 'mp3'
         };
         this.recordManager.start(options);
+        this.isRecordStart = true;
 
     }
 
@@ -614,6 +632,14 @@ export class RoomViewA {
 
             return;
         }
+
+        if (!this.isRecordStart) {
+            Logger.debug("record not start");
+
+            return;
+        }
+
+        this.isRecordStart = false;
 
         this.mike.visible = false;
         this.recordEndPosition = event.touch.getLocation();
