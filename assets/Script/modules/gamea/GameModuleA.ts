@@ -683,7 +683,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             success: (res: getSettingRes) => {
                 console.log(res);
                 const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
-                if (authSetting['scope.userLocation']) {
+                if (!authSetting['scope.userLocation']) {
                     DataStore.setItem("gps", "0");
                 }
 

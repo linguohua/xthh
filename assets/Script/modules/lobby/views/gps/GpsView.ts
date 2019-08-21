@@ -123,17 +123,21 @@ export class GpsView extends cc.Component {
         this.sortPlayer();
         const playerLength = this.players.length;
 
-        let playerPairNumber: number = 0;
+        // let playerPairNumber: number = 0;
         let distanceView: fgui.GComponent = null;
+        let playerPair: number[][] = [];
 
         if (playerLength === 2) {
-            playerPairNumber = twoPlayerPair.length;
+            // playerPairNumber = twoPlayerPair.length;
+            playerPair = twoPlayerPair;
             distanceView = this.view.getChild("twoPlayer").asCom;
         } else if (playerLength === 3) {
-            playerPairNumber = threePlayerPair.length;
+            // playerPairNumber = threePlayerPair.length;
+            playerPair = threePlayerPair;
             distanceView = this.view.getChild("threePlayer").asCom;
         } else if (playerLength === 4) {
-            playerPairNumber = fourPlayerPair.length;
+            // playerPairNumber = fourPlayerPair.length;
+            playerPair = fourPlayerPair;
             distanceView = this.view.getChild("fourPlayer").asCom;
         } else {
             Logger.error("Unkonw player number:", playerLength);
@@ -163,8 +167,9 @@ export class GpsView extends cc.Component {
 
         }
 
-        for (let i = 0; i < playerPairNumber; i++) {
-            const pair = threePlayerPair[i];
+        const pairLength = playerPair.length;
+        for (let i = 0; i < pairLength; i++) {
+            const pair = playerPair[i];
             const player1 = this.players[pair[0]];
             const player2 = this.players[pair[1]];
 
