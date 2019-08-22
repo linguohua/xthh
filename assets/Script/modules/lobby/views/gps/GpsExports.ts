@@ -3,3 +3,4 @@
  */
 
 export * from "./GpsView";
+export * from "./GpsDistance";

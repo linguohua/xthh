@@ -1,6 +1,7 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
 import { CommonFunction, DataStore, Dialog, HTTP, LEnv, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
+import { GpsDistance } from "./GpsDistance";
 
 interface RoomInterface {
     getRoomHost(): RoomHost;
@@ -191,7 +192,8 @@ export class GpsView extends cc.Component {
             // 绿色
             ctrl.selectedIndex = 1;
 
-            const distance = this.calculateDistance(player1.coordinate, player2.coordinate);
+            const distance = GpsDistance.calculateDistance(player1.coordinate.latitude, player1.coordinate.longitude,
+                player2.coordinate.latitude, player2.coordinate.longitude);
             if (distance > 1000) {
                 distanceText.text = `${Math.floor(distance / 1000)}千米`;
             } else {
@@ -222,65 +224,6 @@ export class GpsView extends cc.Component {
 
     private onContinueBtnClick(): void {
         this.destroy();
-    }
-
-    private calculateDistance(coordinate1: proto.casino.Icoordinate, coordinate2: proto.casino.Icoordinate): number {
-        if (coordinate1 === null || coordinate1 === undefined) {
-            return 0;
-        }
-
-        if (coordinate2 === null || coordinate2 === undefined) {
-            return 0;
-        }
-
-        const earthRadius = 6378137;  // 赤道半径(单位m)
-        let radLat1 = this.rad(<number>coordinate1.latitude);
-        let radLat2 = this.rad(<number>coordinate2.latitude);
-        let radLon1 = this.rad(<number>coordinate1.longitude);
-        let radLon2 = this.rad(<number>coordinate2.longitude);
-
-        if (radLat1 < 0) {
-            radLat1 = Math.PI / 2 + Math.abs(radLat1); // south
-        }
-
-        if (radLat1 > 0) {
-            radLat1 = Math.PI / 2 - Math.abs(radLat1); // north
-        }
-
-        if (radLon1 < 0) {
-            radLon1 = Math.PI * 2 - Math.abs(radLon1); // west
-        }
-
-        if (radLat2 < 0) {
-            radLat2 = Math.PI / 2 + Math.abs(radLat2); // south
-        }
-
-        if (radLat2 > 0) {
-            radLat2 = Math.PI / 2 - Math.abs(radLat2); // north
-        }
-
-        if (radLon2 < 0) {
-            radLon2 = Math.PI * 2 - Math.abs(radLon2); // west
-        }
-
-        const x1 = earthRadius * Math.cos(radLon1) * Math.sin(radLat1);
-        const y1 = earthRadius * Math.sin(radLon1) * Math.sin(radLat1);
-        const z1 = earthRadius * Math.cos(radLat1);
-
-        const x2 = earthRadius * Math.cos(radLon2) * Math.sin(radLat2);
-        const y2 = earthRadius * Math.sin(radLon2) * Math.sin(radLat2);
-        const z2 = earthRadius * Math.cos(radLat2);
-
-        const d = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
-
-        //余弦定理求夹角
-        const theta = Math.acos((earthRadius * earthRadius + earthRadius * earthRadius - d * d) / (earthRadius * earthRadius * 2));
-
-        return Math.ceil(theta * earthRadius);
-    }
-
-    private rad(d: number): number {
-        return d * Math.PI / 180;
     }
 
     private setAddress(coordinate: proto.casino.Icoordinate, obj: fgui.GObject): void {
