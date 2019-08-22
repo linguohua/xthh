@@ -9,6 +9,7 @@ import {
 // tslint:disable-next-line:no-require-imports
 // import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { Replay } from "./Replay";
 import { msgHandlers, Room } from "./Room";
 // import { roomStatus } from "./RoomInterface";
@@ -630,7 +631,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (this.mRoom.isGameOver) {
             if (isFromShare) {
-                Dialog.showDialog("您要进入的房间已经关闭喽!");
+                Dialog.showDialog(LocalStrings.findString('roomHasClose'));
             }
 
             return;

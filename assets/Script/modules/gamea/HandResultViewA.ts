@@ -1,5 +1,6 @@
 import { CommonFunction, Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { GameRules } from "./GameRules";
 import { PlayerA } from "./PlayerA";
 // import { TypeOfOP } from "./PlayerInterface";
@@ -162,10 +163,9 @@ export class HandResultViewA extends cc.Component {
             const timeLeft = 3;
             this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
 
-            this.countDownAgian();
-            this.unschedule(this.countDownAgian);
-            this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
-
+            this.countDownAgain();
+            this.unschedule(this.countDownAgain);
+            this.schedule(this.countDownAgain, 1, cc.macro.REPEAT_FOREVER);
             this.room.getRoomHost().eventTarget.once("disband", this.onDisband, this);
         }
 
@@ -224,10 +224,10 @@ export class HandResultViewA extends cc.Component {
         if (roomNumber == null) {
             roomNumber = 0;
         }
-        this.textRoomNumber.text = `房号:${roomNumber}`;
+        this.textRoomNumber.text = `${LocalStrings.findString("roomNumber")}:${roomNumber}`;
 
         // 显示底注
-        this.dizhu.text = `底注：${this.room.roomInfo.base}`;
+        this.dizhu.text = `${LocalStrings.findString("baseScore")}：${this.room.roomInfo.base}`;
         const date = new Date();
         this.date.text = CommonFunction.formatDate(date);
     }
@@ -252,12 +252,7 @@ export class HandResultViewA extends cc.Component {
             c.nameBg.visible = true;
             c.kuang.visible = true;
         }
-        // c.textId.text = `ID:${userID}`;
-        //房主
-        // c.imageRoom.visible = player.isMe();
-        //庄家
-        // c.zhuang.visible = this.room.bankerChairID === player.chairID;
-        //头像
+
     }
     private sortHands(tilesHand: number[], excludeLast: boolean): void {
         if (tilesHand != null) {
@@ -310,7 +305,6 @@ export class HandResultViewA extends cc.Component {
         // this.sortHands(tilesHand, false);
         let isHeiMo = false;
         if (playerScore.opscores.length > 0) {
-            // c.ruleText.text = this.getHupaiType(playerScore);
             isHeiMo = this.setOpscore(playerScore, c);
         }
         if (playerScore.hupai_card > 0) {
@@ -397,11 +391,6 @@ export class HandResultViewA extends cc.Component {
         } else if (this.isTing(playerScore.curcards)) {
             c.ting.visible = true;
         }
-
-        // if (playerScore.opscores.length > 0) {
-        //     // c.ruleText.text = this.getHupaiType(playerScore);
-        //     this.setOpscore(playerScore, c);
-        // }
 
         if (playerScore.data.id === this.room.bankerChairID) {
             c.zhuang.visible = true;
@@ -629,19 +618,19 @@ export class HandResultViewA extends cc.Component {
         }
     }
 
-    private countDownAgian(): void {
+    private countDownAgain(): void {
         const countDownTime = this.stopTime - this.room.getRoomHost().getServerTime();
         if (countDownTime <= 0) {
-            this.unschedule(this.countDownAgian);
+            this.unschedule(this.countDownAgain);
 
             this.onAgainButtonClick();
 
             return;
         }
 
-        let btnText = `继续`;
+        let btnText = LocalStrings.findString("continue");
         if (this.msgHandOver.tdata.play_total === this.msgHandOver.tdata.round) {
-            btnText = `查看积分`;
+            btnText = LocalStrings.findString("checkScore");
         }
         this.countDown.text = `${countDownTime} ${btnText}`;
     }

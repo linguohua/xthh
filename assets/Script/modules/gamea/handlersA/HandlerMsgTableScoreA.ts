@@ -1,5 +1,6 @@
 import { Dialog, Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
+import { LocalStrings } from "../../lobby/strings/LocalStringsExports";
 import { PlayerA } from "../PlayerA";
 import { RoomInterfaceA, roomStatus } from "../RoomInterfaceA";
 
@@ -92,7 +93,7 @@ export namespace HandlerMsgTableScoreA {
                 room.loadGameOverResultView(reply);
             } else {
                 if (disband_type === 2) {
-                    Dialog.prompt("超时太久，自动解散！");
+                    Dialog.prompt(LocalStrings.findString("autoDisband"));
                 }
             }
         } else {

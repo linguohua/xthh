@@ -1,6 +1,7 @@
 import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { Player } from "./Player";
 import { RoomInterface } from "./RoomInterface";
 
@@ -94,17 +95,17 @@ export class GameOverResultView extends cc.Component {
 
     //更新房间相关数据
     private updateRoomData(): void {
-        //牌局结算文字动效
-        // const x = this.aniPos.x
-        // const y = this.aniPos.y
-        // animation.play("animations/Effects_jiemian_paijvzongjiesuan.prefab", this.unityViewNode, x, y, true)
-        // this.room.getRoomHost().animationMgr.play(`lobby/prefabs/mahjong/Effect_zi_jiesuan`, this.aniPos.node);
-        //日期时间
-        // const date = os.date("%Y-%m-%d %H:%M:%S")
-        // this.textTime.text = date
         //房间信息
         const roomNumber = this.room.roomInfo.tag;
-        this.textRoomNumber.text = `房号:${roomNumber}  底注:${this.room.roomInfo.base}  总共:${this.room.roomInfo.round}局`;
+
+        const roomNumberText = LocalStrings.findString("roomNumber");
+        const baseScoreText = LocalStrings.findString("baseScore");
+        const totalText = LocalStrings.findString("total");
+        const roundText = LocalStrings.findString("round");
+        this.textRoomNumber.text =
+            `${roomNumberText}:${roomNumber}  ${baseScoreText}:
+            ${this.room.roomInfo.base}  ${totalText}:${this.room.roomInfo.round}${roundText}`;
+
         this.dateText.text = CommonFunction.formatDate(new Date());
     }
     //更新玩家基本信息
@@ -179,19 +180,19 @@ export class GameOverResultView extends cc.Component {
         if (p !== undefined) {
             //胡牌次数
             if (p.hupai_total !== undefined && p.hupai_total !== null) {
-                c.textHuPai.text = `胡牌次数: ${p.hupai_total}`;
+                c.textHuPai.text = `${LocalStrings.findString("huPaiTimes")}: ${p.hupai_total}`;
             }
             //坐庄次数
             if (p.lord_total !== undefined && p.lord_total !== null) {
-                c.textZuoZhuang.text = `坐庄次数: ${p.lord_total}`;
+                c.textZuoZhuang.text = `${LocalStrings.findString("zuoZhuangTimes")}: ${p.lord_total}`;
             }
             //飘赖次数
             if (p.laizi_total !== undefined && p.laizi_total !== null) {
-                c.textPiaoLai.text = `飘赖次数: ${p.laizi_total}`;
+                c.textPiaoLai.text = `${LocalStrings.findString("piaoLaiTimes")}: ${p.laizi_total}`;
             }
             //超时次数
             if (p.timeout_total !== undefined && p.timeout_total !== null) {
-                c.textChaoShi.text = `超时次数: ${p.timeout_total}`;
+                c.textChaoShi.text = `${LocalStrings.findString("chaoShiTimes")}: ${p.timeout_total}`;
             }
         }
     }
@@ -379,7 +380,7 @@ export class GameOverResultView extends cc.Component {
                 }
             });
         } else {
-            Dialog.showDialog("web版没实现，请在微信小游戏上测试");
+            Dialog.showDialog(LocalStrings.findString('testInWeChat'));
         }
     }
 

@@ -576,7 +576,6 @@ export class PlayerA {
         }
         if (str === "") {
             str = `弃自摸`;
-            // Dialog.prompt(str);
         }
         this.host.showOrHideCancelCom(true, str);
         // const buf = protoHH.casino_gdy.packet_cs_op_req.encode(req2);

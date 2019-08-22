@@ -1,5 +1,6 @@
 import { DataStore, Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
 import { GpsView } from "../lobby/views/gps/GpsExports";
@@ -107,36 +108,18 @@ export class RoomView {
 
         if (this.room !== null && this.room.handStartted > 0) {
 
-            Dialog.prompt("牌局已经开始，请申请解散房间");
+            Dialog.prompt(LocalStrings.findString("applyDisband"));
 
             return;
         }
 
-        Dialog.showDialog(`确实要退出房间吗？`, () => {
+        Dialog.showDialog(LocalStrings.findString("confirmQuitRoom"), () => {
 
             this.room.onExitButtonClicked();
             // tslint:disable-next-line:align
         }, () => {
             //
         });
-
-        // if (roomView.room != null && roomView.room.handStartted > 0) {
-        //      prompt.showPrompt("牌局已经开始，请申请解散房间");
-
-        //     return;
-        // }
-
-        // const room = roomView.room;
-        // const msg = "确实要退出房间吗？";
-        // dialog: showDialog(
-        //     msg,
-        //     function () {
-        //         room.host: triggerLeaveRoom();
-        //     },
-        //     function () {
-        //         //nothing to do
-        //     }
-        // )
     }
 
     public async playPiaoEffect(xy: cc.Vec2): Promise<void> {
@@ -242,12 +225,12 @@ export class RoomView {
     public showRoomNumber(): void {
         // const room = this.room;
         const n = this.room.handNum - this.room.handStartted;
-        let num = `还有:${n}局`;
+        let num = LocalStrings.findString("leftRound", n.toString());
         if (n <= 0) {
-            num = "最后一局";
+            num = LocalStrings.findString("lastRound");
         }
         const s = `     `;
-        const base = `底注:${this.room.roomInfo.base}`;
+        const base = `${LocalStrings.findString("baseScore")}:${this.room.roomInfo.base}`;
         const str = `${base}${s}${num}${s}`;
         this.roomInfoText.text = str;
     }
@@ -568,19 +551,20 @@ export class RoomView {
     private onVoiceBtnPress(event: fgui.Event): void {
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
-            Dialog.showDialog("微信上才可以录音");
+
+            Dialog.showDialog(LocalStrings.findString("recordInWeChat"));
 
             return;
         }
 
         if (Date.now() - this.lastRecordTime < 1000) {
-            Dialog.prompt("1秒内不能重复录音");
+            Dialog.prompt(LocalStrings.findString("frequentlyRecording"));
 
             return;
         }
 
         if (this.room.isPlayAudio) {
-            Dialog.prompt("正在播放，不能录音");
+            Dialog.prompt(LocalStrings.findString("cannotRecordWhenOnPlay"));
 
             return;
         }
@@ -786,17 +770,18 @@ export class RoomView {
         const onStop = (res: { tempFilePath: string; duration: number; fileSize: number }) => {
             Logger.debug("recordManager.onStop:", res);
             if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
-                Dialog.prompt("取消发送");
+                Dialog.prompt(LocalStrings.findString("cancelSend"));
 
                 return;
             }
 
             if (res.duration < 1000) {
                 Logger.debug("record time small than 1 second");
-                Dialog.prompt("录制要大于1秒");
+                Dialog.prompt(LocalStrings.findString("durationTooShort"));
 
                 return;
             }
+
 
             this.lastRecordTime = Date.now();
             this.sendVoice(res.tempFilePath);
@@ -808,7 +793,6 @@ export class RoomView {
 
         const onError = (res: RecordOnErrorRes) => {
             Logger.debug("onError:", res);
-            // Dialog.prompt("录制失败!");
             // this.mike.visible = false;
         };
 

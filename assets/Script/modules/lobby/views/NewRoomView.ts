@@ -6,6 +6,7 @@ import {
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
+import { LocalStrings } from "../strings/LocalStringsExports";
 import { InputReplayIdView } from "./InputReplayIdView";
 import { JoinRoom } from "./JoinRoom";
 
@@ -27,18 +28,13 @@ interface MyGame {
 
 }
 
-// const gameModule: { [key: number]: string } = {
-//     [2100]: "gamea", //仙桃晃晃
-//     [2103]: "gameb", //三人两门
-//     [2112]: "gameb" //两人两门
-// };
+const myGames: MyGame[] = [
+    { casinoID: 2, roomID: 2100, name: LocalStrings.findString("xthh") },
+    { casinoID: 16, roomID: 2103, name: LocalStrings.findString("srlm") },
+    { casinoID: 16, roomID: 2112, name: LocalStrings.findString("lrlm") }];
 
-const myGames: MyGame[] = [{ casinoID: 2, roomID: 2100, name: "仙桃晃晃" },
-{ casinoID: 16, roomID: 2103, name: "三人两门" }, { casinoID: 16, roomID: 2112, name: "两人两门" }];
-
-// const gameNames: string[] = ["仙桃晃晃", "三人两门", "两人两门"];
-
-const joinTypes: string[] = ["所有", "微信", "工会"];
+// const joinTypes: string[] = ["所有", "微信", "工会"];
+const joinTypes: string[] = [LocalStrings.findString("all"), LocalStrings.findString("weChat"), LocalStrings.findString("community")];
 
 const playerRequires: number[] = [2, 3, 4];
 /**
@@ -49,27 +45,20 @@ export class NewRoomView extends cc.Component {
 
     public forReview: boolean = false;
     public itemsJSON: { [key: string]: boolean | number } = {};
-
     private view: fgui.GComponent;
     private win: fgui.Window;
-
     private gameTypeRadioBtns: fgui.GButton[] = [];
     private anteRadioBtns: fgui.GButton[] = [];
     private roundRadioBtns: fgui.GButton[] = [];
     private joinRadioBtns: fgui.GButton[] = [];
     private playerRequireRadioBtns: fgui.GButton[] = [];
-
     private gameConfig: protoHH.casino.game_config;
-
     private defaultConfig: DefaultConfig;
-
     private fkText: fgui.GTextField;
     private noEnoughFkText: fgui.GTextField;
     private createRoomBtn: fgui.GButton;
     private recordList: fgui.GList;
-
     private replayTable: { [key: string]: protoHH.casino.table } = {};
-
     private recordMsgs: protoHH.casino.Icasino_score[];
     private lm: LobbyModuleInterface;
     public getView(): fgui.GComponent {
@@ -77,38 +66,12 @@ export class NewRoomView extends cc.Component {
     }
 
     public showView(): void {
-        // this.club = club;
-        // this.quicklyCreateView = quicklyCreateView;
         this.initHandler();
         this.initView();
         this.win.show();
     }
 
     public joinRoom(roomNumber: string): void {
-        // const playerID = DataStore.getString("playerID");
-        // const myUser = { userID: playerID };
-
-        // const joinRoomParams = {
-        //     roomNumber: roomNumber
-        // };
-
-        // Logger.debug("joinRoomParams:", joinRoomParams);
-
-        // const params: GameModuleLaunchArgs = {
-        //     jsonString: "",
-        //     userInfo: myUser,
-        //     joinRoomParams: joinRoomParams,
-        //     createRoomParams: null,
-        //     record: null
-        // };
-
-        // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-
-        // this.win.hide();
-        // this.destroy();
-
-        // lm.switchToGame(params, "gameb");s
-
         const playerID = DataStore.getString("playerID");
         const req = {
             player_id: +playerID,
@@ -122,7 +85,6 @@ export class NewRoomView extends cc.Component {
         if (this.lm !== undefined) {
             this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
         }
-        // this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
 
     }
 
@@ -174,27 +136,26 @@ export class NewRoomView extends cc.Component {
         boxRecordBtn.onClick(this.onBoxRecordBtnClick, this);
 
         const boxRecordText = boxRecordBtn.getChild("n2");
-        boxRecordText.text = "宝箱记录";
+        boxRecordText.text = LocalStrings.findString("boxRecord");
 
         const fkRecordBtn = this.view.getChild("fkRecordBtn").asButton;
         fkRecordBtn.onClick(this.onFKRecordBtn, this);
 
         const fkRecordText = fkRecordBtn.getChild("n2");
-        fkRecordText.text = "房卡记录";
+        fkRecordText.text = LocalStrings.findString("fkRecord");
 
         const gameRecordBtn = this.view.getChild("gameRecordBtn").asButton;
         gameRecordBtn.onClick(this.onGameRecordBtn, this);
 
         const gameRecordText = gameRecordBtn.getChild("n2");
-        gameRecordText.text = "战绩统计";
+        gameRecordText.text = LocalStrings.findString("gameRecord");
 
         const personalRoomBtn = this.view.getChild("personalRoomBtn").asButton;
         personalRoomBtn.onClick(this.onPersonalRoomBtn, this);
         personalRoomBtn.selected = true;
 
-        const personalRoomTextx = personalRoomBtn.getChild("n2");
-        personalRoomTextx.text = "私人房";
-
+        const personalRoomText = personalRoomBtn.getChild("n2");
+        personalRoomText.text = LocalStrings.findString("personalRoom");
         this.initPersonalRoom();
         //战绩界面
         const recordCom = this.view.getChild("recordCom").asCom;
@@ -264,7 +225,7 @@ export class NewRoomView extends cc.Component {
             }
         }
         if (this.recordMsgs.length === 0) {
-            Dialog.prompt("没有您最近的战绩记录！");
+            Dialog.prompt(LocalStrings.findString('noGameRecordTips'));
         }
         this.recordList.numItems = this.recordMsgs.length;
     }
@@ -279,10 +240,10 @@ export class NewRoomView extends cc.Component {
 
             switch (reply.ret) {
                 case 1:
-                    Dialog.prompt("未找到该房间数据");
+                    Dialog.prompt(LocalStrings.findString('wrongGameRecordIdTips'));
                     break;
                 case 22:
-                    Dialog.prompt(`操作频繁，请${reply.replay_id}秒后尝试`);
+                    Dialog.prompt(LocalStrings.findString('daleyOperationTips', reply.replay_id.toString()));
                     break;
 
                 default:
@@ -317,7 +278,7 @@ export class NewRoomView extends cc.Component {
         obj.getChild("room").text = `${msg.table_tag}`;
         obj.getChild("num").text = `${msg.round}`;
         obj.getChild("score").text = `${msg.score}`;
-        obj.getChild("name").text = `仙桃晃晃`;
+        obj.getChild("name").text = LocalStrings.findString("xthh");
         obj.getChild("id").text = `${msg.replay_id}`;
         obj.getChild("btn").asButton.offClick(undefined, undefined);
         obj.getChild("btn").asButton.onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
@@ -360,7 +321,7 @@ export class NewRoomView extends cc.Component {
 
             lm.switchToGame(params, "gameb");
         } else {
-            Dialog.showDialog("reply.replay === null");
+            Logger.debug("reply.replay === null");
         }
     }
 
@@ -413,13 +374,13 @@ export class NewRoomView extends cc.Component {
         // 根据游戏类型，显示底注和局数
         const roomBase = this.getRoomBaseByCasinoID(myGame.casinoID);
         if (roomBase == null) {
-            Logger.debug("initPersonalRoom error, no roombase found for ", myGame.casinoID);
+            Logger.debug("initPersonalRoom error, no room base found for ", myGame.casinoID);
 
             return;
         }
 
-        const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
-        if (roundcost == null) {
+        const roundCost = this.getRoundCostByCasinoID(myGame.casinoID);
+        if (roundCost == null) {
             Logger.debug("initPersonalRoom error, no roundCost found for ", myGame.casinoID);
 
             return;
@@ -427,7 +388,7 @@ export class NewRoomView extends cc.Component {
 
         for (let i = 0; i < 3; i++) {
             this.anteRadioBtns[i].getChild("text").text = `${roomBase.roombases[i]}`;
-            this.roundRadioBtns[i].getChild("text").text = `${roundcost.rcosts[i].round}`;
+            this.roundRadioBtns[i].getChild("text").text = `${roundCost.rcosts[i].round}`;
         }
 
         const anteRadioBtnIndex = this.defaultConfig.anteRadioBtnIndex;
@@ -450,7 +411,7 @@ export class NewRoomView extends cc.Component {
         // }
 
         // 计算房卡消耗
-        const needCard = roundcost.rcosts[roundRadioBtnIndex].card;
+        const needCard = roundCost.rcosts[roundRadioBtnIndex].card;
         const myCard = DataStore.getString("card");
         const myCardInt: number = parseInt(myCard, 10);
 
@@ -579,7 +540,7 @@ export class NewRoomView extends cc.Component {
     }
     private onSpaceBtnClick(): void {
         //
-        Dialog.prompt("两人玩法不能增加此限制");
+        Dialog.prompt(LocalStrings.findString("2playerLimitTips"));
     }
 
     private onGameTypeSelect(index: number): void {
@@ -592,8 +553,8 @@ export class NewRoomView extends cc.Component {
             return;
         }
 
-        const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
-        if (roundcost == null) {
+        const roundCost = this.getRoundCostByCasinoID(myGame.casinoID);
+        if (roundCost == null) {
             Logger.debug("initPersonalRoom error, no roundCost found for ", myGame.casinoID);
 
             return;
@@ -601,7 +562,7 @@ export class NewRoomView extends cc.Component {
 
         for (let i = 0; i < 3; i++) {
             this.anteRadioBtns[i].getChild("text").text = `${roomBase.roombases[i]}`;
-            this.roundRadioBtns[i].getChild("text").text = `${roundcost.rcosts[i].round}`;
+            this.roundRadioBtns[i].getChild("text").text = `${roundCost.rcosts[i].round}`;
         }
 
         // 注意：这里特殊处理仙桃晃晃, 仙桃晃晃可以是2人、4人
@@ -643,15 +604,15 @@ export class NewRoomView extends cc.Component {
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
 
-        const roundcost = this.getRoundCostByCasinoID(myGame.casinoID);
-        if (roundcost == null) {
+        const roundCost = this.getRoundCostByCasinoID(myGame.casinoID);
+        if (roundCost == null) {
             Logger.debug("initPersonalRoom error, no roundCost found for ", myGame.casinoID);
 
             return;
         }
 
         const roundRadioBtnIndex = this.getRoundRadioBtnSelectIndex();
-        const needCard = roundcost.rcosts[roundRadioBtnIndex].card;
+        const needCard = roundCost.rcosts[roundRadioBtnIndex].card;
         const myCard = DataStore.getString("card");
         const myCardInt: number = parseInt(myCard, 10);
 
@@ -670,10 +631,10 @@ export class NewRoomView extends cc.Component {
 
     private onPlayerRequireBtnClick(ev: fgui.Event): void {
         const playerRequireRadioBtnSelectIndex = <number>ev.initiator.data;
-        const gameTypeRadiBtnIndex = this.getGameTypeRadioBtnSelectIndex();
+        const gameTypeRadioBtnIndex = this.getGameTypeRadioBtnSelectIndex();
 
         if (playerRequireRadioBtnSelectIndex === 0) {
-            if (gameTypeRadiBtnIndex === 1) {
+            if (gameTypeRadioBtnIndex === 1) {
                 const index: number = 0;
                 this.gameTypeRadioBtns[index].selected = true;
                 this.onGameTypeSelect(index);
@@ -685,7 +646,7 @@ export class NewRoomView extends cc.Component {
         }
 
         if (playerRequireRadioBtnSelectIndex === 1) {
-            if (gameTypeRadiBtnIndex !== 1) {
+            if (gameTypeRadioBtnIndex !== 1) {
                 const index: number = 1;
                 this.gameTypeRadioBtns[index].selected = true;
                 this.onGameTypeSelect(index);
@@ -693,7 +654,7 @@ export class NewRoomView extends cc.Component {
         }
 
         if (playerRequireRadioBtnSelectIndex === 2) {
-            if (gameTypeRadiBtnIndex !== 0) {
+            if (gameTypeRadioBtnIndex !== 0) {
                 const index: number = 0;
                 this.gameTypeRadioBtns[index].selected = true;
                 this.onGameTypeSelect(index);
@@ -771,7 +732,7 @@ export class NewRoomView extends cc.Component {
     private onJoinTableAck(msg: protoHH.casino.ProxyMessage): void {
         const joinRoomAck = protoHH.casino.packet_table_join_ack.decode(msg.Data);
         if (joinRoomAck.ret !== 0) {
-            Logger.debug("onJoinTableAck, join room faile:", joinRoomAck.ret);
+            Logger.debug("onJoinTableAck, join room failed:", joinRoomAck.ret);
 
             const err = GameError.getErrorString(joinRoomAck.ret);
             Dialog.prompt(err);

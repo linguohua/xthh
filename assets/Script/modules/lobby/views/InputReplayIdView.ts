@@ -1,6 +1,7 @@
 
 import { CommonFunction, Dialog, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
+import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
 
 /**
@@ -28,7 +29,7 @@ export class InputReplayIdView extends cc.Component {
         const view = fgui.UIPackage.createObject("lobby_join_room", "joinRoom").asCom;
 
         const hint = view.getChild("hintText").asTextField;
-        hint.text = "请输入视频ID";
+        hint.text = LocalStrings.findString("inputRecordId");
         CommonFunction.setViewInCenter(view);
 
         const mask = view.getChild("mask");
@@ -41,10 +42,6 @@ export class InputReplayIdView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-
-        // this.initView();
-
-        // this.win.show();
     }
 
     protected onDestroy(): void {
@@ -54,8 +51,8 @@ export class InputReplayIdView extends cc.Component {
     }
 
     private initView(): void {
-        const clostBtn = this.view.getChild("closeBtn");
-        clostBtn.onClick(this.onCloseBtnClick, this);
+        const closeBtn = this.view.getChild("closeBtn");
+        closeBtn.onClick(this.onCloseBtnClick, this);
 
         const resetBtn = this.view.getChild("buttonCS");
         resetBtn.onClick(this.onResetBtnClick, this);
@@ -108,7 +105,7 @@ export class InputReplayIdView extends cc.Component {
             lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_REPLAY_REQ);
         } else {
             //提示
-            Dialog.prompt("请输入回播id");
+            Dialog.prompt(LocalStrings.findString("inputRecordId"));
         }
     }
 

@@ -1,5 +1,6 @@
 import { Dialog, Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
+import { LocalStrings } from "../../lobby/strings/LocalStringsExports";
 import { Player } from "../Player";
 import { RoomInterface } from "../RoomInterface";
 
@@ -44,7 +45,7 @@ export namespace HandlerActionResultDiscarded {
                 //第一次提示
                 const backPlayer = <Player>room.getBackPlayer(player.chairID);
                 if (!room.isReplayMode() && backPlayer.isMe() && room.roomInfo.room_id !== 2112) {
-                    Dialog.prompt("下家飘赖达到3次，锁牌生效，您将被限制碰牌、点笑、小朝天操作");
+                    Dialog.prompt(LocalStrings.findString("plLimit"));
                 }
             }
 
@@ -76,10 +77,11 @@ export namespace HandlerActionResultDiscarded {
                 }
                 if (str !== "") {
                     if (room.isReplayMode()) {
-                        // const backPlayer = <Player>room.getBackPlayer(player.chairID);
-                        Dialog.prompt(`【${nextPlayer.mNick}】飘赖${nextPlayer.mPiaoCount}次，【${myPlayer.mNick}】限制【碰牌/点笑/小朝天】`);
+                        // const backPlayer = <PlayerA>room.getBackPlayer(player.chairID);
+                        Dialog.prompt(
+                            LocalStrings.findString("plLimit1", nextPlayer.mNick, nextPlayer.mPiaoCount.toString(), myPlayer.mNick));
                     } else {
-                        Dialog.prompt(`下家飘赖${nextPlayer.mPiaoCount}次，限制【${str}】`);
+                        Dialog.prompt(LocalStrings.findString("plLimit2", nextPlayer.mPiaoCount.toString(), str));
                     }
                 }
             }

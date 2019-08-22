@@ -3,6 +3,7 @@ import { Share } from "../lobby/shareUtil/ShareExports";
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 
 export interface RoomInterface {
     sendDisbandAgree(agree: boolean): void;
@@ -111,7 +112,6 @@ export class ReadyView {
 
     protected updateView(players: protoHH.casino.Itable_player[]): void {
         Logger.debug("updateView");
-        // this.ruleText.text = ``;
 
         this.resetHeadPosition();
 
@@ -131,9 +131,15 @@ export class ReadyView {
 
         this.tips.text = text;
         this.roomNumber.text = `${this.table.tag}`;
-        this.anteText.text = `底注：${this.table.base}       总共：${this.table.round}局`;
-        this.ruleText.text = `一赖到底，飘赖子有奖，笑翻倍`;
-        this.permission.text = `[${permissionText[this.table.join]}]允许进入`;
+        const baseScoreText = LocalStrings.findString("baseScore");
+        const totalText = LocalStrings.findString("total");
+        const roundText = LocalStrings.findString("round");
+        const admissionText = LocalStrings.findString("admission");
+
+        this.anteText.text = `${baseScoreText}：${this.table.base}       ${totalText}：${this.table.round} ${roundText}`;
+        this.ruleText.text = LocalStrings.findString("plText");
+        this.permission.text = `[${permissionText[this.table.join]}]${admissionText}`;
+
 
         const length = players.length;
         for (let i = 0; i < length; i++) {
@@ -214,7 +220,8 @@ export class ReadyView {
 
     private onLeaveRoomBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
-        Dialog.showDialog("你确定要离开当前所在的房间吗？", () => {
+
+        Dialog.showDialog(LocalStrings.findString('quitRoom'), () => {
 
             this.leaveRoom();
             // tslint:disable-next-line:align
@@ -225,7 +232,7 @@ export class ReadyView {
 
     private onDisbandBtnClick(): void {
         Logger.debug("onDisbandBtnClick");
-        Dialog.showDialog("确定要解散当前的牌局吗？解散将退还您房卡！", () => {
+        Dialog.showDialog(LocalStrings.findString('disbandRoom'), () => {
 
             this.disbandRoom();
             // tslint:disable-next-line:align

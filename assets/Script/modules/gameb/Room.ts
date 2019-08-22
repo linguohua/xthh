@@ -4,6 +4,7 @@ import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { DataStore, Dialog, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { Algorithm } from "./Algorithm";
 import { GameOverResultView } from "./GameOverResultView";
@@ -182,7 +183,7 @@ export class Room {
     }
     //把tilesInWall显示到房间的剩余牌数中
     public updateTilesInWallUI(): void {
-        this.roomView.tilesInWall.text = `剩牌 :${this.tilesInWall}`;
+        this.roomView.tilesInWall.text = `${LocalStrings.findString("leftCard")} :${this.tilesInWall}`;
     }
 
     // 加载房间的view
@@ -1042,7 +1043,7 @@ export class Room {
 
         audioContext.onError((res) => {
             Logger.error("playAudio error:", res);
-            Dialog.prompt("播放失败");
+            Dialog.prompt(LocalStrings.findString("playerVoiceFailed"));
         });
 
         audioContext.play();

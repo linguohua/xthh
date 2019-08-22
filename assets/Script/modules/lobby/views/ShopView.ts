@@ -34,7 +34,6 @@ export class ShopView extends cc.Component {
         this.win.show();
 
         const tabCtrl = this.view.getController("tab");
-
         tabCtrl.selectedIndex = page;
     }
 
@@ -44,16 +43,13 @@ export class ShopView extends cc.Component {
 
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = lm.loader;
+
         loader.fguiAddPackage("lobby/fui_lobby_shop/lobby_shop");
-
         const view = fgui.UIPackage.createObject("lobby_shop", "shopView").asCom;
-
         CommonFunction.setViewInCenter(view);
 
         let mask = view.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
-
-        this.view = view;
 
         const vipView = fgui.UIPackage.createObject("lobby_shop", "vipView").asCom;
         CommonFunction.setViewInCenter(vipView);
@@ -61,6 +57,7 @@ export class ShopView extends cc.Component {
         mask = vipView.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
 
+        this.view = view;
         this.vipView = vipView;
 
         const win = new fgui.Window();
@@ -68,8 +65,6 @@ export class ShopView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-        // this.win.show();
-
         this.initView();
     }
 
@@ -147,12 +142,6 @@ export class ShopView extends cc.Component {
         const giveMoreText = itemCom.getChild("giveMore").asTextField;
         giveMoreText.visible = false;
 
-        // const scText = itemCom.getChild("scText").asTextField;
-        // scText.visible = true;
-
-        // const scBg = itemCom.getChild("bgSC");
-        // scBg.visible = true;
-
         const loader = itemCom.getChild("loader").asLoader;
         loader.url = `ui://lobby_shop/cz_icon_fk${index + 1}`;
 
@@ -170,12 +159,6 @@ export class ShopView extends cc.Component {
 
         const giveMoreText = itemCom.getChild("giveMore").asTextField;
         giveMoreText.visible = false;
-
-        // const scText = itemCom.getChild("scText").asTextField;
-        // scText.visible = true;
-
-        // const scBg = itemCom.getChild("bgSC");
-        // scBg.visible = true;
 
         const loader = itemCom.getChild("loader").asLoader;
         loader.url = `ui://lobby_shop/cz_icon_hld${index + 1}`;
@@ -215,7 +198,6 @@ export class ShopView extends cc.Component {
 
     private onVipViewCloseBtnClick(): void {
         this.win.hide();
-
         this.win.contentPane = this.view;
         this.win.show();
     }

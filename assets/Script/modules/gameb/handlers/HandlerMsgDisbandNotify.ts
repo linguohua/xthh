@@ -1,4 +1,5 @@
 import { Dialog, Logger } from "../../lobby/lcore/LCoreExports";
+import { LocalStrings } from "../../lobby/strings/LocalStringsExports";
 import { proto } from "../proto/protoGame";
 import { RoomInterface } from "../RoomInterface";
 
@@ -13,11 +14,11 @@ export namespace HandlerMsgDisbandNotify {
         // msgDisbandNotify:ParseFromString(msgData)
         const state = msgDisbandNotify.disbandState;
         if (state === proto.mahjong.DisbandState.ErrorDuplicateAcquire) {
-            Dialog.prompt("已经有人申请了解散房间");
+            Dialog.prompt(LocalStrings.findString("alreadyCallDisband"));
 
             return;
         } else if (state === proto.mahjong.DisbandState.ErrorNeedOwnerWhenGameNotStart) {
-            Dialog.prompt("牌局未开始，只有房主可以解散房间");
+            Dialog.prompt(LocalStrings.findString("ownerCanDisband"));
 
             return;
         }

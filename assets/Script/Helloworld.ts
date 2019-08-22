@@ -77,11 +77,6 @@ export class Helloworld extends cc.Component {
         //优先加载login资源，用于显示loading
         this.loader.loadResDir("lobby", (error) => {
             Logger.debug(`lobby load, error:${error}`);
-            // if (error == null) {
-            //     this.loadLobbyRes();
-            // }
-            // init logic
-            // this.label.string = this.text;
             this.button.on("click", this.testHTTPLogin, this);
             this.buttonA.on("click", this.testCreateRoom, this);
             this.buttonB.on("click", this.testJoinGame, this);
