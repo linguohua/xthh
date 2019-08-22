@@ -62,9 +62,13 @@ export namespace LocalStrings {
         [`disbandTips`]: "是否解散房间？",
 
         [`roomNumber`]: "房号",
+        [`game`]: "游戏",
+        [`roundCount`]: "局数",
         [`baseScore`]: "底注",
         [`total`]: "总共",
         [`round`]: "局",
+        [`gameResult`]: "游戏结果",
+        [`recordLink`]: "战绩连接",
 
         [`huPaiTimes`]: "胡牌次数",
         [`zuoZhuangTimes`]: "坐庄次数",
@@ -88,7 +92,21 @@ export namespace LocalStrings {
         [`km`]: "千米",
         [`m`]: "米",
 
-        [`cannotRecordWhenOnPlay`]: "正在播放，不能录音"
+        [`pengPai`]: "碰牌",
+        [`xiaoChaoTian`]: "小朝天",
+        [`dianXiao`]: "点笑",
+
+        [`giveUpXiao`]: "弃笑",
+        [`giveUpPeng`]: "弃碰",
+        [`giveUpZuoChong`]: "弃捉铳",
+        [`giveUpZimo`]: "弃自摸",
+
+        [`giveUpHuiTouXiao`]: "弃回头笑",
+        [`giveUpMenXiao`]: "弃闷笑",
+        [`giveUpDaChaoTiem`]: "弃大朝天",
+
+        [`cannotRecordWhenOnPlay`]: "正在播放，不能录音",
+        [`leaveRoomCountDown`]: "你的牌友已离开，({0})后，将自动解散房间！"
 
     };
 

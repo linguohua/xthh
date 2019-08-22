@@ -61,7 +61,7 @@ export namespace HandlerActionResultDiscarded {
                 if (myPlayer.notPong !== reply.card) {
                     const peng = room.mAlgorithm.canPeng_WithOther(myPlayer.tilesHand, reply.card);
                     if (peng.length > 0) {
-                        str = `碰牌`;
+                        str = LocalStrings.findString("pengPai");
                     }
                 }
                 const isCanGang = room.tilesInWall > room.roomInfo.players.length; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
@@ -69,9 +69,9 @@ export namespace HandlerActionResultDiscarded {
                     const gang = room.mAlgorithm.canGang_WithOther(myPlayer.tilesHand, reply.card);
                     if (gang.length > 0) {
                         if (reply.card === room.laigenID) {
-                            str = `${str} 小朝天`;
+                            str = `${str} ${LocalStrings.findString("xiaoChaoTian")}`;
                         } else {
-                            str = `${str} 点笑`;
+                            str = `${str} ${LocalStrings.findString("dianXiao")}`;
                         }
                     }
                 }

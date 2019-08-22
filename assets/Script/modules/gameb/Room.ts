@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Dialog, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, KeyConstants, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
@@ -882,9 +882,9 @@ export class Room {
     // 恢复上次设置的音量
     // 如果没设置过，则默认为0
     private setSound(): void {
-        const musicVolume = DataStore.getString("musicVolume", "0");
+        const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
         cc.audioEngine.setMusicVolume(+musicVolume);
-        const effectsVolume = DataStore.getString("effectsVolume", "0");
+        const effectsVolume = DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
         cc.audioEngine.setEffectsVolume(+effectsVolume);
     }
     //重连 初始化 牌组

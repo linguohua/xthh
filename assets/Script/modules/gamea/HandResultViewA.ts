@@ -126,38 +126,12 @@ export class HandResultViewA extends cc.Component {
         //结算数据
         this.msgHandOver = msgHandOver;
 
-        // fairy.GRoot.inst:AddChild(viewObj)
-
-        //排序players
-        // const players2 = room.getPlayers();
-        // const players: Player[] = [];
-        // let i = 0;
-        // Object.keys(players2).forEach((key: string) => {
-        //     const p = players2[key];
-        //     players[i] = <Player>p;
-        //     i = i + 1;
-        // });
-        // players.sort((x: Player, y: Player) => {
-        //     return y.playerView.viewChairID - x.playerView.viewChairID;
-        // });
-        // this.players = players;
-        let btnText = `继续`;
-        if (msgHandOver.tdata.play_total === msgHandOver.tdata.round) {
-            btnText = `查看积分`;
-        }
-
         const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
-        this.countDown.text = `${msgHandOver.time} ${btnText}`;
-
-        // const shanreBtn = this.unityViewNode.getChild("shanreBtn");
-        // shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
-        // shanreBtn.onClick(this.onShareButtonClick, this);
 
         if (room.isReplayMode()) {
             againBtn.visible = false;
-            //shanreBtn.visible = false;
             this.room.getRoomHost().eventTarget.once("closeHandResult", this.closeHandResultView, this);
         } else {
             const timeLeft = 3;

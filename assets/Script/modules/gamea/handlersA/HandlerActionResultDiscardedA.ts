@@ -10,7 +10,7 @@ import { RoomInterfaceA } from "../RoomInterfaceA";
 export namespace HandlerActionResultDiscardedA {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         const reply = proto.casino_gdy.packet_sc_outcard_ack.decode(msgData);
-        Logger.debug("HandlerMsgActionOutcardAck----------------------- ", reply);
+        Logger.debug("HandlerMsgActionOutCardAck----------------------- ", reply);
         const player = <PlayerA>room.getPlayerByUserID(`${reply.player_id}`);
 
         // const targetChairID = actionResultMsg.targetChairID;
@@ -60,7 +60,7 @@ export namespace HandlerActionResultDiscardedA {
                 if (myPlayer.notPong !== reply.card) {
                     const peng = room.mAlgorithm.canPeng_WithOther(myPlayer.tilesHand, reply.card);
                     if (peng.length > 0) {
-                        str = `碰牌`;
+                        str = LocalStrings.findString("pengPai");
                     }
                 }
                 const isCanGang = room.tilesInWall > room.roomInfo.players.length; //最后几张不可杠 (赖根除外 因为朝天不摸牌)
@@ -68,9 +68,9 @@ export namespace HandlerActionResultDiscardedA {
                     const gang = room.mAlgorithm.canGang_WithOther(myPlayer.tilesHand, reply.card);
                     if (gang.length > 0) {
                         if (reply.card === room.laigenID) {
-                            str = `${str} 小朝天`;
+                            str = `${str} ${LocalStrings.findString("xiaoChaoTian")}`;
                         } else {
-                            str = `${str} 点笑`;
+                            str = `${str} ${LocalStrings.findString("dianXiao")}`;
                         }
                     }
                 }

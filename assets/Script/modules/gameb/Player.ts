@@ -1,5 +1,6 @@
 import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
 import { AgariIndex } from "./AgariIndex";
@@ -542,18 +543,24 @@ export class Player {
         req2.op = TypeOfOP.Guo;
         //假如之前是杠牌并且有杠牌，并且之前也有碰并且也有碰牌
         let str = "";
+
+        const giveUpXiao = LocalStrings.findString("giveUpXiao");
+        const giveUpPeng = LocalStrings.findString("giveUpPeng");
+        const giveUpZuoChong = LocalStrings.findString("giveUpZuoChong");
+        const giveUpZimo = LocalStrings.findString("giveUpZimo");
+
         if (this.canKongs.length > 0 && this.isCanPong) {
             curCancelType = 2;
             curCancelCard = this.canKongs[0];
-            str = `${AgariIndex.tileId2Str(curCancelCard)} 弃笑 ${AgariIndex.tileId2Str(curCancelCard)} 弃碰`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)} ${giveUpXiao} ${AgariIndex.tileId2Str(curCancelCard)} ${giveUpPeng}`;
         } else if (this.canKongs.length > 0) {
             curCancelType = 0;
             curCancelCard = this.canKongs[0];
-            str = `${AgariIndex.tileId2Str(curCancelCard)} 弃笑`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)} ${giveUpXiao}`;
         } else if (this.isCanPong) {
             curCancelType = 1;
             curCancelCard = this.host.lastDisCardTile;
-            str = `${AgariIndex.tileId2Str(curCancelCard)} 弃碰`;
+            str = `${AgariIndex.tileId2Str(curCancelCard)} ${giveUpPeng}`;
         }
         Logger.debug("curCancelType ---------------- : ", curCancelType);
         req2.cancel_type = curCancelType;
@@ -564,7 +571,7 @@ export class Player {
             req2.op = TypeOfOP.BUZHUOCHONG;
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
-            str = `${str} 弃捉铳`;
+            str = `${str} ${giveUpZuoChong}`;
         } else if (this.host.lastDisCardTile !== 0) {
             const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);
             this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OP_REQ);
@@ -575,7 +582,7 @@ export class Player {
             // }
         }
         if (str === "") {
-            str = `弃自摸`;
+            str = giveUpZimo;
         }
         this.host.showOrHideCancelCom(true, str);
         // const buf = protoHH.casino_xtsj.packet_cs_op_req.encode(req2);

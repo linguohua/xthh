@@ -1,5 +1,6 @@
-import { CommonFunction, DataStore, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { HandlerActionResultDiscardedA } from "./handlersA/HandlerActionResultDiscardedA";
 import { HandlerActionResultDrawA } from "./handlersA/HandlerActionResultDrawA";
 import { HandlerMsgActionOPAckA } from "./handlersA/HandlerMsgActionOPAckA";
@@ -171,8 +172,8 @@ export class ReplayA {
         this.btnYX = this.settingView.getChild("btnYX").asButton;
         this.btnYY.onClick(this.onMusicSoundBtnClick, this);
         this.btnYX.onClick(this.onEffectSoundBtnClick, this);
-        const effectsVolume = DataStore.getString("effectsVolume", "0");
-        const musicVolume = DataStore.getString("musicVolume", "0");
+        const effectsVolume = DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
+        const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
         if (+effectsVolume > 0) {
             this.btnYX.selected = true;
         } else {
@@ -226,10 +227,10 @@ export class ReplayA {
     private onEffectSoundBtnClick(): void {
         if (this.btnYX.selected) {
             cc.audioEngine.setEffectsVolume(1);
-            DataStore.setItem("effectsVolume", 1);
+            DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
         } else {
             cc.audioEngine.setEffectsVolume(0);
-            DataStore.setItem("effectsVolume", 0);
+            DataStore.setItem(KeyConstants.EFFECT_VOLUME, 0);
         }
     }
 
@@ -237,10 +238,10 @@ export class ReplayA {
     private onMusicSoundBtnClick(): void {
         if (this.btnYY.selected) {
             cc.audioEngine.setMusicVolume(1);
-            DataStore.setItem("musicVolume", 1);
+            DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
         } else {
             cc.audioEngine.setMusicVolume(0);
-            DataStore.setItem("musicVolume", 0);
+            DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
         }
     }
     private onSettingClick(): void {
@@ -552,33 +553,48 @@ export class ReplayA {
         // await HandlerMsgActionOPAckA.onMsg(msg, this.room);
         //TODO : 显示 弃操作
         let str = this.room.getPlayerByUserID(`${srAction.player_id}`).mNick;
-        if (data.type === actionType.TABLE_OP_ZIMO) {
-            str = `${str} 弃自摸`;
-        } else if (data.type === actionType.TABLE_OP_BUZHUOCHONG) {
-            str = `${str} 弃捉铳`;
-        } else if (data.type === actionType.DEF_GDY_REPLAY_OP_GANG_M) {
-            str = `${str} 弃点笑`;
-        } else if (data.type === actionType.DEF_GDY_REPLAY_OP_GANG_B) {
-            str = `${str} 弃回头笑`;
-        } else if (data.type === actionType.DEF_GDY_REPLAY_OP_GANG_A) {
-            str = `${str} 弃闷笑`;
-        } else if (data.type === actionType.DEF_GDY_REPLAY_OP_FORGET_PENG) {
-            str = `${str} 弃碰`;
-        } else if (data.type === actionType.DEF_GDY_REPLAY_OP_XIAOCHAOTIAN) {
-            str = `${str} 弃小朝天`;
-        } else if (data.type === actionType.DEF_GDY_REPLAY_OP_DACHAOTIAN) {
-            str = `${str} 弃大朝天`;
+
+        const giveUpZimo = LocalStrings.findString("giveUpZimo");
+        const giveUpZuoChong = LocalStrings.findString("giveUpZuoChong");
+        const dianXiao = LocalStrings.findString("dianXiao");
+
+        const giveUpHuiTouXiao = LocalStrings.findString("giveUpHuiTouXiao");
+        const giveUpMenXiao = LocalStrings.findString("giveUpMenXiao");
+        const giveUpPeng = LocalStrings.findString("giveUpPeng");
+
+        const xiaoChaoTian = LocalStrings.findString("xiaoChaoTian");
+        const giveUpDaChaoTiem = LocalStrings.findString("giveUpDaChaoTiem");
+
+        switch (data.type) {
+            case actionType.TABLE_OP_ZIMO:
+                str = `${str} ${giveUpZimo}`;
+                break;
+            case actionType.TABLE_OP_BUZHUOCHONG:
+                str = `${str} ${giveUpZuoChong}`;
+                break;
+            case actionType.DEF_GDY_REPLAY_OP_GANG_M:
+                str = `${str} ${dianXiao}`;
+                break;
+            case actionType.DEF_GDY_REPLAY_OP_GANG_B:
+                str = `${str} ${giveUpHuiTouXiao}`;
+                break;
+            case actionType.DEF_GDY_REPLAY_OP_GANG_A:
+                str = `${str} ${giveUpMenXiao}`;
+                break;
+            case actionType.DEF_GDY_REPLAY_OP_FORGET_PENG:
+                str = `${str} ${giveUpPeng}`;
+                break;
+            case actionType.DEF_GDY_REPLAY_OP_XIAOCHAOTIAN:
+                str = `${str} ${xiaoChaoTian}`;
+                break;
+            case actionType.DEF_GDY_REPLAY_OP_DACHAOTIAN:
+                str = `${str} ${giveUpDaChaoTiem}`;
+                break;
+
+            default:
+
         }
         this.room.showOrHideCancelCom(true, str);
     }
-    // private async winChuckActionHandler(srAction: proto.casino.Itable_op): Promise<void> {
-    //     Logger.debug("llwant, dfreplay, win chuck ");
-    //     const room = this.room;
-    //     const player = <Player>room.getPlayerByChairID(srAction.chairID);
-    //     player.addHandTile(srAction.tiles[0]);
-    // }
 
-    // private async winSelfDrawActionHandler(srAction?: proto.casino.Itable_op): Promise<void> {
-    //     Logger.debug("llwant, dfreplay, win self draw ");
-    // }
 }

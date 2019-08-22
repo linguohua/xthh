@@ -247,24 +247,25 @@ export class ReadyView {
     private onShareBtnClick(): void {
         Logger.debug("onLeaveRoomBtnClick");
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+
             let text = "";
             if (this.table.room_id === 2100 || this.table.room_id === 2102) {
-                text = `仙桃晃晃`;
+                text = LocalStrings.findString('xthh');
             } else if (this.table.room_id === 2103) {
-                text = `三人两门`;
+                text = LocalStrings.findString('srlm');
             } else if (this.table.room_id === 2112) {
-                text = `两人两门`;
+                text = LocalStrings.findString('lrlm');
             }
 
-            text = `${text} 局数：${this.table.round}局\n`;
-            text = `${text}房间号：${this.table.tag}\n`;
+            const roundCount = LocalStrings.findString('roundCount');
+            const round = LocalStrings.findString('round');
+            const roomNumber = LocalStrings.findString('roomNumber');
+
+            text = `${text} ${roundCount}：${this.table.round}${round}\n`;
+            text = `${text}${roomNumber}${this.table.tag}\n`;
             Share.shareScreenshot(text, `roomNumber=${this.table.tag}`);
         }
     }
-
-    // private onDeal(): void {
-    //     this.onHide();
-    // }
 
     // 自己退出房间
     private onLeave(): void {

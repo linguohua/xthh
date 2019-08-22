@@ -94,6 +94,7 @@ export namespace HandlerMsgTableScoreA {
             } else {
                 if (disband_type === 2) {
                     Dialog.prompt(LocalStrings.findString("autoDisband"));
+                    await room.coWaitSeconds(2);
                 }
             }
         } else {

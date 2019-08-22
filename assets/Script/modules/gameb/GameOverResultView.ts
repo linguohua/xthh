@@ -328,24 +328,32 @@ export class GameOverResultView extends cc.Component {
         const table = this.msgGameOver.tdata;
         let gameName = "";
         if (table.room_id === 2100 || table.room_id === 2102) {
-            gameName = `仙桃晃晃`;
+            gameName = LocalStrings.findString("xthh");
         } else if (table.room_id === 2103) {
-            gameName = `三人两门`;
+            gameName = LocalStrings.findString("srlm");
         } else if (table.room_id === 2112) {
-            gameName = `两人两门`;
+            gameName = LocalStrings.findString("lrlm");
         }
+
+        const roomNumberText = LocalStrings.findString("roomNumber");
+        const gameText = LocalStrings.findString("game");
+        const roundCountText = LocalStrings.findString("roundCount");
+        const baseScoreText = LocalStrings.findString("baseScore");
+        const communityText = LocalStrings.findString("community");
+        const gameResultText = LocalStrings.findString("gameResult");
+        const recordLinkText = LocalStrings.findString("recordLink");
 
         // tslint:disable-next-line:prefer-template
-        let textData = `房号：${table.tag} \n`
-            + `游戏：${gameName} \n`
-            + `局数：${table.play_total}  \n`
-            + `底注：${table.base} \n`;
+        let textData = `${roomNumberText}：${table.tag} \n`
+            + `${gameText}：${gameName} \n`
+            + `${roundCountText}：${table.play_total}  \n`
+            + `${baseScoreText}：${table.base} \n`;
 
         if (table.guild_id !== null) {
-            textData = `${textData}工会：${table.guild_id}\n`;
+            textData = `${textData}${communityText}：${table.guild_id}\n`;
         }
 
-        textData = `${textData}游戏结果：\n----------------------- \n`;
+        textData = `${textData}${gameResultText}：\n----------------------- \n`;
 
         const playrLength = this.msgGameOver.scores.length;
         for (let i = 0; i < playrLength; i++) {
@@ -368,7 +376,7 @@ export class GameOverResultView extends cc.Component {
         textData = `${textData} ----------------------- \n`;
 
         if (this.msgGameOver.replay_id !== null) {
-            textData = `${textData}战绩连接：\n`;
+            textData = `${textData}${recordLinkText}：\n`;
         }
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {

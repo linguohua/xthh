@@ -19,7 +19,7 @@ export namespace KeyConstants {
 
     export const DIAMOND = "diamond";
 
-    export const SOUND_VOLUME = "soundVolume";
+    export const EFFECT_VOLUME = "effectsVolume";
 
     export const MUSIC_VOLUME = "musicVolume";
 

@@ -462,7 +462,8 @@ export class RoomViewA {
             text = `${hourText}:${text}`;
         }
 
-        return `你的牌友已离开，(${text})后，将自动解散房间！`;
+        return LocalStrings.findString("leaveRoomCountDown", text);
+
     }
     //解散房间按钮点击事件
     // private onDissolveClick(): void {
