@@ -1,5 +1,6 @@
 import { CommonFunction, Logger } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
+import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { GameRules } from "./GameRules";
 import { Player } from "./Player";
 // import { TypeOfOP } from "./PlayerInterface";
