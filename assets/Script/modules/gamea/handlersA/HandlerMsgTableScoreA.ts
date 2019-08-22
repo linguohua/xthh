@@ -88,7 +88,7 @@ export namespace HandlerMsgTableScoreA {
         if (disband_type !== null && !room.isReplayMode()) {
             // 还没开局，不弹大结算界面
             if (reply.tdata.play_total !== null && reply.tdata.play_total > 0) {
-                await room.coWaitSeconds(2);
+                // await room.coWaitSeconds(2);
                 room.loadGameOverResultView(reply);
             } else {
                 if (disband_type === 2) {

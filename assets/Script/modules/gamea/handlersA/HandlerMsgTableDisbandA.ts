@@ -9,7 +9,6 @@ export namespace HandlerMsgTableDisbandA {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         // const reply = proto.casino.packet_table_disban.decode(msgData);
         Logger.debug("HandlerMsgTableDisband----------------------- ", msgData);
-        room.getRoomHost().eventTarget.emit("disband");
         room.getRoomHost().dismissAllTeam();
         room.quit();
     };

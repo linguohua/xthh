@@ -144,6 +144,8 @@ export class HandResultView extends cc.Component {
             this.countDownAgian();
             this.unschedule(this.countDownAgian);
             this.schedule(this.countDownAgian, 1, cc.macro.REPEAT_FOREVER);
+
+            this.room.getRoomHost().eventTarget.once("disband", this.onDisband, this);
         }
 
         //更新数据
@@ -633,5 +635,11 @@ export class HandResultView extends cc.Component {
         this.destroy();
         this.win.hide();
         this.win.dispose();
+    }
+
+    private async onDisband(): Promise<void> {
+        Logger.debug("HandResultView.onDisband");
+        await this.room.coWaitSeconds(2);
+        this.onAgainButtonClick();
     }
 }

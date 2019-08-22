@@ -474,6 +474,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private onMsg(pmsg: protoHH.casino.ProxyMessage): void {
         const msg = new Message(MsgType.wsData, pmsg);
         this.mq.pushMessage(msg);
+
+        // 如果已经解散了，关闭解散框和小结算框，接着弹大结算框
+        if (pmsg.Ops === protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND) {
+            this.eventTarget.emit("disband");
+        }
     }
 
     private async onNimMsg(msg: NIMMessage): Promise<void> {
