@@ -124,9 +124,9 @@ export class LoginView extends cc.Component {
     }
 
     public onLoginClick(): void {
-        if (this.button !== null) {
-            this.button.hide();
-        }
+        // if (this.button !== null) {
+        //     this.button.hide();
+        // }
         this.testHTTPLogin();
     }
 
@@ -194,7 +194,7 @@ export class LoginView extends cc.Component {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
                     Logger.debug(err);
-                    Dialog.showDialog(err);
+                    Dialog.showDialog("请检查网络是否连接");
                 } else {
                     const reply = <FastLoginReply>JSON.parse(xhr.responseText);
                     if (reply.ret !== 0) {
@@ -443,6 +443,7 @@ export class LoginView extends cc.Component {
         if (!result) {
             Logger.error("wxlogin error");
             this.button.show();
+            Dialog.showDialog("请检查网络是否连接");
 
             return;
         } else {
@@ -471,7 +472,7 @@ export class LoginView extends cc.Component {
                         this.button.show();
                         errMsg = `登录错误:${err}`;
                         Logger.debug(errMsg);
-                        Dialog.showDialog(errMsg);
+                        Dialog.showDialog("请检查网络是否连接");
 
                         return;
                     }
@@ -480,7 +481,7 @@ export class LoginView extends cc.Component {
                     if (errMsg !== null) {
                         this.button.show();
                         Logger.debug(errMsg);
-                        Dialog.showDialog(errMsg);
+                        Dialog.showDialog("请检查网络是否连接");
 
                         return;
                     }

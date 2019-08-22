@@ -174,7 +174,7 @@ export class Dialog {
             return false;
         }
 
-        return Dialog.inst.waitWin.visible;
+        return Dialog.inst.waitWin.isShowing;
     }
 
     public static showWaiting(): void {

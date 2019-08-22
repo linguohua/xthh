@@ -4,7 +4,7 @@
 export namespace GpsDistance {
     const rad = (d: number): number => {
         return d * Math.PI / 180;
-    }
+    };
 
     export const calculateDistance = (latitude1: number, longitude1: number, latitude2: number, longitude2: number): number => {
         if (latitude1 === null || longitude1 === null || latitude2 === null || longitude2 === null) {
