@@ -818,7 +818,7 @@ export class PlayerViewA {
         if (this.huoArray.length > 0) {
             for (const huo of this.huoArray) {
                 huo.visible = false;
-                await this.room.coWaitSeconds(0.05);
+                await this.room.coWaitSeconds(0.02);
             }
         }
 
