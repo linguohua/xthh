@@ -98,17 +98,14 @@ export class GameOverResultViewA extends cc.Component {
         //房间信息
         const roomNumber = this.room.roomInfo.tag;
 
-        const roomNumberText = LocalStrings.findString("roomNumber");
-        const baseScoreText = LocalStrings.findString("baseScore");
-        const totalText = LocalStrings.findString("total");
-        const roundText = LocalStrings.findString("round");
-        this.textRoomNumber.text =
-            `${roomNumberText}:${roomNumber}  ${baseScoreText}:
-            ${this.room.roomInfo.base}  ${totalText}:${this.room.roomInfo.round}${roundText}`;
+        const roomNumberText = `${LocalStrings.findString("roomNumber")}:${roomNumber} `;
+        const baseScoreText = `${LocalStrings.findString("baseScore")}:${this.room.roomInfo.base} `;
+        const roundText = `${LocalStrings.findString("total")}:${this.room.roomInfo.round}${LocalStrings.findString("round")}`;
+        this.textRoomNumber.text = `${roomNumberText}  ${baseScoreText}  ${roundText}`;
 
         this.dateText.text = CommonFunction.formatDate(new Date());
     }
-    //更新玩家基本信息
+
     //更新玩家基本信息
     private updatePlayerInfoData(playerScore: proto.casino.Iplayer_score, c: ViewGroup, player?: proto.casino.Itable_player): void {
 
