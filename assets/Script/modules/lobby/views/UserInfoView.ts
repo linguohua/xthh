@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, LobbyModuleInterface } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, LobbyModuleInterface, KeyConstants } from "../lcore/LCoreExports";
 
 const { ccclass } = cc._decorator;
 /**
@@ -54,7 +54,7 @@ export class UserInfoView extends cc.Component {
         itemName.text = "昵称:";
 
         let itemText = item.asCom.getChild("text");
-        const name = DataStore.getString("nickName");
+        const name = DataStore.getString(KeyConstants.NICK_NAME);
 
         if (name === null || name.length < 1) {
             itemText.text = "默认用户名字";
@@ -67,10 +67,10 @@ export class UserInfoView extends cc.Component {
         itemName.text = "ID:";
 
         itemText = item.asCom.getChild("text");
-        itemText.text = DataStore.getString("userID");
+        itemText.text = DataStore.getString(KeyConstants.USER_ID, "");
 
         const genderCtrl = this.view.getController("gender");
-        const gender = DataStore.getString("sex");
+        const gender = DataStore.getString(KeyConstants.GENDER);
         genderCtrl.selectedIndex = +gender;
 
         const iconLoader = this.view.getChild("loader").asLoader;

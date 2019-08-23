@@ -163,7 +163,7 @@ export class LoginView extends cc.Component {
         this.eventTarget = new cc.EventTarget();
     }
     protected testHTTPLogin(): void {
-        let openudid = DataStore.getString("openudid", "");
+        let openudid = DataStore.getString(KeyConstants.OPEN_UD_ID, "");
         if (openudid === "") {
             const now = Date.now();
             const random = Math.random() * 100000;
@@ -204,8 +204,8 @@ export class LoginView extends cc.Component {
                         return;
                     }
 
-                    DataStore.setItem("imaccid", reply.im_accid);
-                    DataStore.setItem("imtoken", reply.im_token);
+                    DataStore.setItem(KeyConstants.IM_ACCID, reply.im_accid);
+                    DataStore.setItem(KeyConstants.IM_TOKEN, reply.im_token);
 
                     Logger.debug(reply);
                     this.fastLogin(reply, null).catch((reason) => {
@@ -366,23 +366,23 @@ export class LoginView extends cc.Component {
         }
 
         if (fastLoginAck.pdata.channel_head !== null) {
-            DataStore.setItem("avatarURL", fastLoginAck.pdata.channel_head);
+            DataStore.setItem(KeyConstants.AVATAR_URL, fastLoginAck.pdata.channel_head);
         }
 
         const gameConfigStr = JSON.stringify(fastLoginAck.config);
         const payDataStr = JSON.stringify(fastLoginAck.paydata);
 
-        DataStore.setItem("userID", fastLoginAck.user_id);
-        DataStore.setItem("nickName", nickName);
-        DataStore.setItem("gender", fastLoginAck.pdata.data.sex);
-        DataStore.setItem("playerID", fastLoginAck.player_id);
-        DataStore.setItem("phone", fastLoginAck.pdata.data.phone);
-        DataStore.setItem("openudid", fastLoginAck.pdata.data.create_openudid);
-        DataStore.setItem("tableID", tableID);
-        DataStore.setItem("card", card);
-        DataStore.setItem("beans", beans);
-        DataStore.setItem("gameConfig", gameConfigStr);
-        DataStore.setItem("payData", payDataStr);
+        DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
+        DataStore.setItem(KeyConstants.NICK_NAME, nickName);
+        DataStore.setItem(KeyConstants.GENDER, fastLoginAck.pdata.data.sex);
+        DataStore.setItem(KeyConstants.PLAYER_ID, fastLoginAck.player_id);
+        DataStore.setItem(KeyConstants.PHONE, fastLoginAck.pdata.data.phone);
+        DataStore.setItem(KeyConstants.OPEN_UD_ID, fastLoginAck.pdata.data.create_openudid);
+        DataStore.setItem(KeyConstants.TABLE_ID, tableID);
+        DataStore.setItem(KeyConstants.CARD, card);
+        DataStore.setItem(KeyConstants.BEANS, beans);
+        DataStore.setItem(KeyConstants.GAME_CONFIG, gameConfigStr);
+        DataStore.setItem(KeyConstants.PAY_DATA, payDataStr);
 
         if (fastLoginAck.channel === "mac") {
             // 游客登录标志
@@ -500,8 +500,8 @@ export class LoginView extends cc.Component {
                         return;
                     }
 
-                    DataStore.setItem("imaccid", reply.data.im_accid);
-                    DataStore.setItem("imtoken", reply.data.im_token);
+                    DataStore.setItem(KeyConstants.IM_ACCID, reply.data.im_accid);
+                    DataStore.setItem(KeyConstants.IM_TOKEN, reply.data.im_token);
 
                     Logger.debug("reply =", reply);
                     this.fastLogin(null, reply).catch((reason) => {

@@ -207,7 +207,7 @@ export class ChatView extends cc.Component {
 
     private sendMsg(msg: string, dataType: proto.lobby.ChatDataType): void {
         const tk = DataStore.getString("token", "");
-        const nickName = DataStore.getString("nickName", "");
+        const nickName = DataStore.getString(KeyConstants.NICK_NAME, "");
         const url = `${LEnv.rootURL}${LEnv.chat}?tk=${tk}`;
         const data = {
             msg: msg,

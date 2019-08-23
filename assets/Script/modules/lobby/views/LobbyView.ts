@@ -124,12 +124,12 @@ export class LobbyView extends cc.Component {
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
 
-        this.nameText.text = CommonFunction.nameFormatWithCount(DataStore.getString("nickName"), 6);
-        this.beansText.text = DataStore.getString("beans");
-        this.fkText.text = DataStore.getString("card");
+        this.nameText.text = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
+        this.beansText.text = DataStore.getString(KeyConstants.BEANS);
+        this.fkText.text = DataStore.getString(KeyConstants.CARD);
 
-        const gender = DataStore.getString("gender", "");
-        const avatarURL = DataStore.getString("avatarURL", "");
+        const gender = DataStore.getString(KeyConstants.GENDER, "");
+        const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const headLoader = this.view.getChild("iconLoader").asLoader;
 
         CommonFunction.setHead(headLoader, avatarURL, +gender);
@@ -147,7 +147,7 @@ export class LobbyView extends cc.Component {
     private joinTableReq(tableID: long, roomNumber?: number): void {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this); // 加入桌子
 
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new proto.casino.packet_table_join_req();
         req.player_id = +playerID;
         if (tableID !== null) {
@@ -251,14 +251,14 @@ export class LobbyView extends cc.Component {
         }
 
         // 如果是登录进入房间，已经在房间则拉回房间
-        const tableIDString = DataStore.getString("tableID", "");
+        const tableIDString = DataStore.getString(KeyConstants.TABLE_ID, "");
         if (tableIDString !== "") {
             Logger.debug("already in room, tableID:", tableIDString);
 
             const tableID = long.fromString(tableIDString, true);
             this.joinTableReq(tableID);
 
-            DataStore.setItem("tableID", "");
+            DataStore.setItem(KeyConstants.TABLE_ID, "");
 
             return;
         }
@@ -291,7 +291,7 @@ export class LobbyView extends cc.Component {
             return;
         }
 
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const myUser = { userID: playerID };
 
         const joinRoomParams = {
@@ -319,8 +319,8 @@ export class LobbyView extends cc.Component {
     }
 
     private initNimSDK(): void {
-        const imaccid = DataStore.getString("imaccid");
-        const imtoken = DataStore.getString("imtoken");
+        const imaccid = DataStore.getString(KeyConstants.IM_ACCID);
+        const imtoken = DataStore.getString(KeyConstants.IM_TOKEN);
         const nimSDK = new NimSDK(LEnv.yunxinAppKey, imaccid, imtoken, this);
         nimSDK.initNimSDK();
 
@@ -389,12 +389,12 @@ export class LobbyView extends cc.Component {
             const playerResource = proto.casino.player_resource.decode(updateMsg.data);
             // Logger.debug("resource:", playerResource);
             if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
-                DataStore.setItem("card", playerResource.curr.toNumber());
+                DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
                 this.fkText.text = playerResource.curr.toString();
             }
 
             if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
-                DataStore.setItem("beans", playerResource.curr.toNumber());
+                DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
                 this.beansText.text = playerResource.curr.toString();
             }
         }

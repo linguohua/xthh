@@ -72,7 +72,7 @@ export class NewRoomView extends cc.Component {
     }
 
     public joinRoom(roomNumber: string): void {
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = {
             player_id: +playerID,
             table_id: long.ZERO,
@@ -107,10 +107,10 @@ export class NewRoomView extends cc.Component {
 
         this.win = win;
 
-        const gameConfigStr = DataStore.getString("gameConfig");
+        const gameConfigStr = DataStore.getString(KeyConstants.GAME_CONFIG);
         this.gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
 
-        const defaultConfig = DataStore.getString("createRoomParams", "");
+        const defaultConfig = DataStore.getString(KeyConstants.CREATE_ROOM_PARAMS, "");
         if (defaultConfig !== "") {
             this.defaultConfig = <DefaultConfig>JSON.parse(defaultConfig);
         } else {
@@ -300,7 +300,7 @@ export class NewRoomView extends cc.Component {
 
     private showReplay(table: protoHH.casino.table): void {
 
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const myUser = { userID: playerID };
 
         if (table !== undefined && table !== null) {
@@ -412,7 +412,7 @@ export class NewRoomView extends cc.Component {
 
         // 计算房卡消耗
         const needCard = roundCost.rcosts[roundRadioBtnIndex].card;
-        const myCard = DataStore.getString("card");
+        const myCard = DataStore.getString(KeyConstants.CARD);
         const myCardInt: number = parseInt(myCard, 10);
 
         this.fkText = personalRoomView.getChild("fkText").asTextField;
@@ -613,7 +613,7 @@ export class NewRoomView extends cc.Component {
 
         const roundRadioBtnIndex = this.getRoundRadioBtnSelectIndex();
         const needCard = roundCost.rcosts[roundRadioBtnIndex].card;
-        const myCard = DataStore.getString("card");
+        const myCard = DataStore.getString(KeyConstants.CARD);
         const myCardInt: number = parseInt(myCard, 10);
 
         this.fkText.text = `${needCard}/${myCard}`;
@@ -663,7 +663,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCreateRoomBtnClick(): void {
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const myUser = { userID: playerID };
 
         const gameTypeRadioBtnIndex = this.getGameTypeRadioBtnSelectIndex();
@@ -722,7 +722,7 @@ export class NewRoomView extends cc.Component {
 
         const configJson = JSON.stringify(defaultConfig);
         Logger.debug("configJson:", configJson);
-        DataStore.setItem("createRoomParams", configJson);
+        DataStore.setItem(KeyConstants.CREATE_ROOM_PARAMS, configJson);
     }
 
     private onCloseClick(): void {
@@ -740,7 +740,7 @@ export class NewRoomView extends cc.Component {
             return;
         }
 
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const myUser = { userID: playerID };
 
         const joinRoomParams = {

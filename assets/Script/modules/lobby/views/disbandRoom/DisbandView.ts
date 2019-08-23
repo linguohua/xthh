@@ -1,5 +1,5 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, GResLoader, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, GResLoader, Logger, KeyConstants } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 
 export interface RoomInterface {
@@ -143,7 +143,7 @@ export class DisbandView extends cc.Component {
     private countDownFunc(): void {
         const serverTime = this.room.getRoomHost().getServerTime();
 
-        const gameConfigStr = DataStore.getString("gameConfig");
+        const gameConfigStr = DataStore.getString(KeyConstants.GAME_CONFIG);
         const gameConfig = <protoHH.casino.game_config>JSON.parse(gameConfigStr);
         const disbandTime = gameConfig.table_disband_time;
         this.leftTime = this.startDisbandTime + disbandTime - serverTime;

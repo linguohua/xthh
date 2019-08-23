@@ -1,5 +1,5 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, Dialog, HTTP, LEnv, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, HTTP, LEnv, Logger, KeyConstants } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { GpsDistance } from "./GpsDistance";
 import { LocalStrings } from "../../strings/LocalStrings";
@@ -275,7 +275,7 @@ export class GpsView extends cc.Component {
 
     // 将自己放在第一个
     private sortPlayer(): void {
-        const myID = DataStore.getString("playerID");
+        const myID = DataStore.getString(KeyConstants.PLAYER_ID);
         const playerLength = this.players.length;
         for (let i = 0; i < playerLength; i++) {
             const p = this.players[i];

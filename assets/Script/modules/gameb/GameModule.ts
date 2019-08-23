@@ -200,7 +200,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     public createTeam(imaccids: string[], roomNumber: string): void {
-        // const imaccid = DataStore.getString("imaccid");
+        // const imaccid = DataStore.getString(KeyConstants.IM_ACCID);
         // const roomNumber = this.mRoom.roomInfo.tag;
         // const imaccids: string[] = [];
         if (this.lm.nimSDK !== undefined && this.lm.nimSDK !== null) {
@@ -414,7 +414,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     // 请求加入房间
     private joinRoomReq(table: protoHH.casino.Itable): void {
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new protoHH.casino.packet_table_join_req();
         req.player_id = +playerID;
         if (this.mRoom.handStartted > 0) {
@@ -547,7 +547,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         const table = record;
         // // 如果不提供userID,则必须提供chairID，然后根据chairID获得userID
         // let userID = myUser.userID;
-        let playerID = DataStore.getString("playerID");
+        let playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         let isFind = false;
         if (playerID !== undefined && playerID !== null) {
             for (const player of table.players) {
@@ -599,7 +599,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         // 已经在房间里面，需要指定桌子id,重新进入
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_FAILED) {
-            const playerID = DataStore.getString("playerID");
+            const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
             const req = new protoHH.casino.packet_table_join_req();
             req.player_id = +playerID;
             req.table_id = this.mRoom.roomInfo.id;
@@ -679,7 +679,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private sendLocation2Server(latitude: number, longitude: number): void {
-        const playerID = DataStore.getString("playerID");
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new protoHH.casino.packet_coordinate({ player_id: +playerID, latitude: latitude, longitude: longitude });
         const buf = protoHH.casino.packet_coordinate.encode(req);
         this.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_COORDINATE);
@@ -737,7 +737,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     // private createTeam(roomNumber: string): void {
-    //     // const imaccid = DataStore.getString("imaccid");
+    //     // const imaccid = DataStore.getString(KeyConstants.IM_ACCID);
     //     const imaccids: string[] = [];
     //     this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
     // }

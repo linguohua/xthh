@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, LobbyModuleInterface, Logger, KeyConstants } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
@@ -205,7 +205,7 @@ export class ShopView extends cc.Component {
     private getPayCfgs(payChannel: string, payType: number): protoHH.casino.Ipay[] {
         const payCfgs: protoHH.casino.Ipay[] = [];
 
-        const payDataStr = DataStore.getString("payData");
+        const payDataStr = DataStore.getString(KeyConstants.PAY_DATA);
         const payData = <protoHH.casino.pay_data>JSON.parse(payDataStr);
         for (const pay of payData.pays) {
             if (pay.type === payType && pay.channel === payChannel) {

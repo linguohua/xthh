@@ -306,7 +306,7 @@ export class NimSDK {
                     return;
                 }
 
-                const imaccid = DataStore.getString("imaccid", "");
+                const imaccid = DataStore.getString(KeyConstants.IM_ACCID, "");
                 // 寻找第一个群来发送消息
                 for (const team of teams) {
                     if (team.owner === imaccid) {
@@ -412,7 +412,7 @@ export class NimSDK {
             return;
         }
 
-        const imaccid = DataStore.getString("imaccid", "");
+        const imaccid = DataStore.getString(KeyConstants.IM_ACCID, "");
 
         const dismissTeamDone = (error: {}, obj: {}) => {
             if (error !== null) {
@@ -478,7 +478,7 @@ export class NimSDK {
 
     protected onTeams(res: Team[]): void {
         Logger.debug("NimSDK onTeams:", res);
-        const myImaccid = DataStore.getString("imaccid");
+        const myImaccid = DataStore.getString(KeyConstants.IM_ACCID);
         for (const team of res) {
             if (team.owner === myImaccid) {
                 this.myTeam = team;

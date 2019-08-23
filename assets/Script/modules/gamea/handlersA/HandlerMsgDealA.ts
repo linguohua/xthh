@@ -1,4 +1,4 @@
-import { DataStore, Logger } from "../../lobby/lcore/LCoreExports";
+import { DataStore, Logger, KeyConstants } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { PlayerA } from "../PlayerA";
 import { PlayerInterfaceA } from "../PlayerInterfaceA";
@@ -83,7 +83,7 @@ export namespace HandlerMsgDealA {
 
     const getPlayerImaccids = (players: { [key: string]: PlayerInterfaceA }): string[] => {
         const imaccids: string[] = [];
-        const myImaccid = DataStore.getString("imaccid");
+        const myImaccid = DataStore.getString(KeyConstants.IM_ACCID);
         const keys = Object.keys(players);
         Logger.debug("getPlayerImaccids, keys:", keys);
         for (const key of keys) {

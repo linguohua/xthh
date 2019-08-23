@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Logger, KeyConstants } from "../lobby/lcore/LCoreExports";
 import { Share } from "../lobby/shareUtil/ShareExports";
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
@@ -177,7 +177,7 @@ export class ReadyViewA {
 
         // this.resetHeadPosition();
 
-        this.userID = DataStore.getString("playerID");
+        this.userID = DataStore.getString(KeyConstants.PLAYER_ID);
 
         this.leaveBtn = this.view.getChild("leaveBtn").asButton;
         this.leaveBtn.onClick(this.onLeaveRoomBtnClick, this);
@@ -271,14 +271,14 @@ export class ReadyViewA {
     }
 
     private disbandRoom(): void {
-        const myUserID = DataStore.getString("playerID");
+        const myUserID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req2 = new protoHH.casino.packet_table_disband_req({ player_id: + myUserID });
         const buf = protoHH.casino.packet_table_disband_req.encode(req2);
         this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_DISBAND_REQ);
     }
 
     private leaveRoom(): void {
-        const myUserID = DataStore.getString("playerID");
+        const myUserID = DataStore.getString(KeyConstants.PLAYER_ID);
 
         const req = new protoHH.casino.packet_table_leave();
         req.idx = 1;

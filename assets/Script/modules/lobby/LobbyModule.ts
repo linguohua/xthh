@@ -7,7 +7,7 @@ import { GameModule } from "../gameb/GamebExports";
 import { NimSDK } from "./chanelSdk/nimSdk/NimSDK";
 import { GResLoaderImpl } from "./GResLoaderImpl";
 import { Dialog } from "./lcore/Dialog";
-import { DataStore } from "./lcore/LCoreExports";
+import { DataStore, KeyConstants } from "./lcore/LCoreExports";
 import {
     CreateRoomParams, GameModuleInterface, GameModuleLaunchArgs, JoinRoomParams,
     LobbyModuleInterface, MsgCenter
@@ -79,7 +79,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     }
     public enterGame(joinRoomParams?: JoinRoomParams, creatRoomParams?: CreateRoomParams): void {
 
-        const myUserID = DataStore.getString("playerID", "");
+        const myUserID = DataStore.getString(KeyConstants.PLAYER_ID, "");
         const myUser = { userID: myUserID };
         const modName = "gameb";
 
