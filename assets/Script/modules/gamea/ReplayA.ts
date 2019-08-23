@@ -62,6 +62,7 @@ export class ReplayA {
     private btnReset: fgui.GObject;
     private btnSetting: fgui.GObject;
     private textNum: fgui.GObject;
+    private textNum2: fgui.GObject;
     private btnNext: fgui.GObject;
     private btnBack: fgui.GObject;
     private btnYY: fgui.GButton;
@@ -164,6 +165,8 @@ export class ReplayA {
 
         this.textNum = view.getChild("num"); //速度
         this.textNum.text = "x1";
+        this.textNum2 = view.getChild("num2"); //进度
+        this.textNum2.text = "";
         this.btnSetting = view.getChild("setting");
 
         this.settingView = view.getChild("settingView").asCom;
@@ -382,9 +385,13 @@ export class ReplayA {
                 await this.doAction(action);
                 this.actionStep++;
             }
+            this.updateOpNum();
         }
     }
 
+    private updateOpNum(): void {
+        this.textNum2.text = `${this.actionStep + 1}/${this.round.ops.length}`;
+    }
     private async doAction(srAction: proto.casino.Itable_op): Promise<void> {
         const h = this.actionHandlers[srAction.op];
         if (h === undefined) {

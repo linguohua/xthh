@@ -399,6 +399,8 @@ export class RoomView {
         this.dbg.visible = true;
         this.nameBg.visible = true;
         this.anteBg.visible = true;
+
+        this.replayHideBtns();
     }
 
     public enableVoiceBtn(isShow: boolean): void {
@@ -468,6 +470,15 @@ export class RoomView {
         return LocalStrings.findString("leaveRoomCountDown", text);
     }
 
+    private replayHideBtns(): void {
+        if (this.room.isReplayMode()) {
+            //回播的时候 隐藏的按钮
+            this.chatBtn.visible = false;
+            this.gpsBtn.visible = false;
+            this.recoredBtn.visible = false;
+            this.settingBtn.visible = false;
+        }
+    }
     //解散房间按钮点击事件
     // private onDissolveClick(): void {
     //     // const msg = "确实要申请解散房间吗？";
@@ -546,6 +557,7 @@ export class RoomView {
             this.enableVoiceBtn(false);
         }
 
+        this.replayHideBtns();
     }
 
     private onVoiceBtnPress(event: fgui.Event): void {

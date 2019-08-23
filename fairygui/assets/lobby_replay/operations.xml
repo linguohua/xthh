@@ -12,6 +12,7 @@
     <component id="n12_be4r" name="setting" src="be4rs" fileName="setting.xml" xy="7,597"/>
     <component id="n13_be4r" name="settingView" src="be4rn" fileName="settingView.xml" xy="10,208" visible="false"/>
     <image id="n14_be4r" name="n14" src="be4ry" fileName="image/zm_xxdi.png" xy="962,602" size="170,33"/>
-    <text id="n15_be4r" name="num" xy="974,605" size="37,31" fontSize="18" color="#def43a" autoSize="none" text="&#xA;"/>
+    <text id="n15_be4r" name="num" xy="974,605" size="37,31" fontSize="18" color="#def43a" autoSize="none" text=""/>
+    <text id="n16_r1q9" name="num2" xy="1031,605" size="76,31" fontSize="18" color="#def43a" autoSize="none" text=""/>
   </displayList>
 </component>
