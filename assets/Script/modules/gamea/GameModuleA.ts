@@ -4,7 +4,7 @@ import {
     AnimationMgr, CommonFunction,
     CreateRoomParams, DataStore,
     Dialog, GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams,
-    LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, NimSDKInterface, UserInfo
+    KeyConstants, LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, NimSDKInterface, UserInfo
 } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 // import long = require("../lobby/protobufjs/long");
@@ -689,7 +689,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     }
 
     private applyGpsSetting(): void {
-        const gps = DataStore.getString("gps", "0");
+        const gps = DataStore.getString(KeyConstants.GPS, "0");
         if (+ gps > 0) {
             this.isGpsOpen = true;
         } else {
@@ -710,7 +710,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
                 console.log(res);
                 const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
                 if (!authSetting['scope.userLocation']) {
-                    DataStore.setItem("gps", "0");
+                    DataStore.setItem(KeyConstants.GPS, "0");
                 }
 
                 this.applyGpsSetting();
@@ -721,7 +721,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             // tslint:disable-next-line:no-any
             fail: (err: any) => {
                 Logger.error("getSetting error:", err);
-                DataStore.setItem("gps", "0");
+                DataStore.setItem(KeyConstants.GPS, "0");
                 this.applyGpsSetting();
             }
         });

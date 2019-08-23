@@ -24,5 +24,6 @@ export namespace KeyConstants {
     export const MUSIC_VOLUME = "musicVolume";
 
     export const ADAPTIVE_PHONE_KEY = "newIPhone";
+    export const GPS = "gps";
 
 }

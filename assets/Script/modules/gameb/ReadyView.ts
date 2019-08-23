@@ -140,7 +140,6 @@ export class ReadyView {
         this.ruleText.text = LocalStrings.findString("plText");
         this.permission.text = `[${permissionText[this.table.join]}]${admissionText}`;
 
-
         const length = players.length;
         for (let i = 0; i < length; i++) {
             const headView = this.headViews[i];

@@ -89,7 +89,7 @@ export class RoomSettingView extends cc.Component {
         this.musicBtn.onClick(this.onMusicSoundBtnClick, this);
         // this.musicBtnText = musicBtn.getChild("text");
 
-        const gps = DataStore.getString("gps", "0");
+        const gps = DataStore.getString(KeyConstants.GPS, "0");
         const recordVoice = DataStore.getString("voice", "0");
         const effectsVolume = DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
         const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
@@ -136,12 +136,12 @@ export class RoomSettingView extends cc.Component {
     // }
 
     // 0 关闭，1打开
-    private changeGps(openOrClose: number): void {
-        DataStore.setItem("gps", openOrClose);
+    private changeGps(gpsState: number): void {
+        DataStore.setItem(KeyConstants.GPS, gpsState);
         this.room.getRoomHost().eventTarget.emit("gpsChange");
 
         // 重新设置一遍按钮状态，避免状态不同步
-        if (openOrClose > 0) {
+        if (gpsState > 0) {
             this.gpsBtn.selected = true;
         } else {
             this.gpsBtn.selected = false;

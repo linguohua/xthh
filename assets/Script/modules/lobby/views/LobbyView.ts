@@ -327,55 +327,42 @@ export class LobbyView extends cc.Component {
         this.lm.nimSDK = nimSDK;
     }
 
-    private showMarquee(announcement: string): void {
+    // private showMarquee(announcement: string): void {
 
-        if (this.marqueeAction !== null) {
-            Logger.debug("showMarquee already had marquee action---------------------");
+    //     if (this.marqueeAction !== null) {
+    //         Logger.debug("showMarquee already had marquee action---------------------");
 
-            return;
-        }
-        const announcementText = this.view.getChild('announcementText');
-        const pos = this.view.getChild('pos');
+    //         return;
+    //     }
+    //     const announcementText = this.view.getChild('announcementText');
+    //     const pos = this.view.getChild('pos');
 
-        announcementText.text = announcement;
+    //     announcementText.text = announcement;
 
-        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-        announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
+    //     const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+    //     announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
 
-        const xPos = announcementText.node.x;
-        const yPos = announcementText.node.y;
+    //     const xPos = announcementText.node.x;
+    //     const yPos = announcementText.node.y;
 
-        // 方案：setInterval
-        // const handler = () => {
-        //     //
-        //     announcementText.setPosition(announcementText.node.x - 1, announcementText.y);
+    //     // 方案：moveTo
+    //     let duration = announcementText.width * 0.005;
+    //     Logger.debug("duration = ", duration);
 
-        //     if (announcementText.node.x < pos.node.x) {
-        //         announcementText.node.setPosition(xPos, yPos);
-        //         clearInterval(this.marqueeTimer);
-        //     }
-        // };
+    //     if (duration < 10) {
+    //         duration = 15;
+    //     }
 
-        // this.marqueeTimer = setInterval(handler, 1);
+    //     const action1 = cc.moveTo(duration, pos.node.x - 100, pos.node.y);
+    //     const action3 = cc.callFunc(() => {
+    //         announcementText.node.setPosition(xPos, yPos);
+    //         this.marqueeAction = null;
+    //     });
 
-        // 方案：moveTo
-        let duration = announcementText.width * 0.005;
-        Logger.debug("duration = ", duration);
+    //     const action0 = cc.sequence(action1, action3);
+    //     this.marqueeAction = announcementText.node.runAction(action0);
 
-        if (duration < 10) {
-            duration = 15;
-        }
-
-        const action1 = cc.moveTo(duration, pos.node.x - 100, pos.node.y);
-        const action3 = cc.callFunc(() => {
-            announcementText.node.setPosition(xPos, yPos);
-            this.marqueeAction = null;
-        });
-
-        const action0 = cc.sequence(action1, action3);
-        this.marqueeAction = announcementText.node.runAction(action0);
-
-    }
+    // }
 
     private setLaunchCallBack(): void {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
