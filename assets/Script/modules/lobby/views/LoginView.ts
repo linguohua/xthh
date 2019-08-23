@@ -124,9 +124,9 @@ export class LoginView extends cc.Component {
     }
 
     public onLoginClick(): void {
-        // if (this.button !== null) {
-        //     this.button.hide();
-        // }
+        if (this.button !== null) {
+            this.button.hide();
+        }
         this.testHTTPLogin();
     }
 
