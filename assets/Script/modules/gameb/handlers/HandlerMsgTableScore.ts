@@ -118,11 +118,11 @@ export namespace HandlerMsgTableScore {
                 return;
             }
 
-            await room.coWaitSeconds(1);
+            // await room.coWaitSeconds(1);
             // 如果在这里超时，直接返回
-            if (isTimeOut(quitAppTime, returnAppTime)) {
-                return;
-            }
+            // if (isTimeOut(quitAppTime, returnAppTime)) {
+            //     return;
+            // }
             if (huPlayer !== null) {
                 await huPlayer.playerView.hideHuoArray();
             }
