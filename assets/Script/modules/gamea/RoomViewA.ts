@@ -192,8 +192,9 @@ export class RoomViewA {
                 // 当已经存在了，就不更新了
                 return;
             }
-            // 默认五分钟
-            const timeStamp = this.room.getRoomHost().getServerTime() + (5 * 60);
+            // 默认十分钟
+            // 他们的代码 ====> self:initTablePauseTime( casinoclient:getInstance():getServerTime()+600)
+            const timeStamp = this.room.getRoomHost().getServerTime() + (10 * 60);
             this.showGamePauseTips(timeStamp);
         } else {
             this.countDownText.text = `${this.leftTime}`;
