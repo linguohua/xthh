@@ -120,8 +120,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
 
-        cc.game.on(cc.game.EVENT_HIDE, this.hideEvent, this);
-        cc.game.on(cc.game.EVENT_SHOW, this.showEvent, this);
+        this.registerEventCallBack();
 
         this.checkGpsSetting();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -223,12 +222,11 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     protected onDestroy(): void {
         this.unsubMsg();
 
+        this.unregisterEvent();
+
         this.eventTarget.emit("destroy");
         this.eventTarget.off("gpsChange");
         this.lm.eventTarget.off("reconnect");
-
-        cc.game.off(cc.game.EVENT_HIDE, this.hideEvent, this);
-        cc.game.off(cc.game.EVENT_SHOW, this.showEvent, this);
 
         this.component.unschedule(this.getLocation);
 
@@ -722,6 +720,27 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
                 this.applyGpsSetting();
             }
         });
+    }
+
+
+    private unregisterEvent(): void {
+        cc.game.off(cc.game.EVENT_HIDE, this.hideEvent, this);
+        cc.game.off(cc.game.EVENT_SHOW, this.showEvent, this);
+
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.offAudioInterruptionEnd(this.showEvent);
+            wx.offAudioInterruptionBegin(this.hideEvent)
+        }
+    }
+
+    private registerEventCallBack(): void {
+        cc.game.on(cc.game.EVENT_HIDE, this.hideEvent, this);
+        cc.game.on(cc.game.EVENT_SHOW, this.showEvent, this);
+
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.onAudioInterruptionEnd(this.showEvent);
+            wx.onAudioInterruptionBegin(this.hideEvent)
+        }
     }
 
 }

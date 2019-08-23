@@ -692,6 +692,9 @@ interface MediaAPIs {
   createLivePusherContext: () => createLivePusherContextOpts;
   loadFontFace: (options: loadFontFaceOpts) => void;
   onAudioInterruptionEnd: (callback: ReturnCallBack) => void;
+  onAudioInterruptionBegin: (callback: ReturnCallBack) => void;
+  offAudioInterruptionEnd: (callback: ReturnCallBack) => void;
+  offAudioInterruptionBegin: (callback: ReturnCallBack) => void;
 }
 
 // File APIs

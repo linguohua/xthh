@@ -120,8 +120,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         this.mAnimationMgr = new AnimationMgr(this.lm.loader);
 
-        cc.game.on(cc.game.EVENT_HIDE, this.hideEvent, this);
-        cc.game.on(cc.game.EVENT_SHOW, this.showEvent, this);
+        this.registerEventCallBack();
 
         this.checkGpsSetting();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -228,13 +227,11 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     protected onDestroy(): void {
         this.unsubMsg();
+        this.unregisterEvent();
 
         this.eventTarget.emit("destroy");
         this.eventTarget.off("gpsChange");
         this.lm.eventTarget.off("reconnect");
-
-        cc.game.off(cc.game.EVENT_HIDE, this.hideEvent);
-        cc.game.off(cc.game.EVENT_SHOW, this.showEvent);
 
         this.component.unschedule(this.getLocation);
 
@@ -736,9 +733,23 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         });
     }
 
-    // private createTeam(roomNumber: string): void {
-    //     // const imaccid = DataStore.getString(KeyConstants.IM_ACCID);
-    //     const imaccids: string[] = [];
-    //     this.lm.nimSDK.createTeam(imaccids, `${roomNumber}`);
-    // }
+    private unregisterEvent(): void {
+        cc.game.off(cc.game.EVENT_HIDE, this.hideEvent, this);
+        cc.game.off(cc.game.EVENT_SHOW, this.showEvent, this);
+
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.offAudioInterruptionEnd(this.showEvent);
+            wx.offAudioInterruptionBegin(this.hideEvent)
+        }
+    }
+
+    private registerEventCallBack(): void {
+        cc.game.on(cc.game.EVENT_HIDE, this.hideEvent, this);
+        cc.game.on(cc.game.EVENT_SHOW, this.showEvent, this);
+
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.onAudioInterruptionEnd(this.showEvent);
+            wx.onAudioInterruptionBegin(this.hideEvent)
+        }
+    }
 }
