@@ -2,6 +2,7 @@ import { RoomHost } from "../../interface/LInterfaceExports";
 import { CommonFunction, DataStore, Dialog, HTTP, LEnv, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { GpsDistance } from "./GpsDistance";
+import { LocalStrings } from "../../strings/LocalStrings";
 
 interface RoomInterface {
     getRoomHost(): RoomHost;
@@ -213,7 +214,7 @@ export class GpsView extends cc.Component {
 
     private onDisbandBtnClick(): void {
         const room = this.room;
-        Dialog.showDialog("你确定要发起解散当前的牌局吗？", () => {
+        Dialog.showDialog(LocalStrings.findString("confirmDisbandRoom"), () => {
             room.onDissolveClicked();
             // tslint:disable-next-line:align
         }, () => {
