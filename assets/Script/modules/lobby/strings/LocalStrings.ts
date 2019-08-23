@@ -106,7 +106,8 @@ export namespace LocalStrings {
         [`giveUpDaChaoTiem`]: "弃大朝天",
 
         [`cannotRecordWhenOnPlay`]: "正在播放，不能录音",
-        [`leaveRoomCountDown`]: "你的牌友已离开，({0})后，将自动解散房间！"
+        [`leaveRoomCountDown`]: "你的牌友已离开，({0})后，将自动解散房间！",
+        [`networkConnectError`]: "请检查网络是否连接"
 
     };
 

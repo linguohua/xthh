@@ -37,7 +37,9 @@ export namespace WeiXinSDK {
             fail: res => {
                 Logger.error("wx login error", res);
                 cb(false);
-            }
+            },
+            // 30秒超时
+            timeout: 30 * 1000
         });
     };
 

@@ -3,6 +3,7 @@ import { CommonFunction, DataStore, Dialog, Enum, HTTP, KeyConstants, LEnv, Lobb
 import { LMsgCenter } from "../LMsgCenter";
 // tslint:disable-next-line:no-require-imports
 import { proto as protoHH } from "../protoHH/protoHH";
+import { LocalStrings } from "../strings/LocalStringsExports";
 import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
 
@@ -194,11 +195,11 @@ export class LoginView extends cc.Component {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
                     Logger.debug(err);
-                    Dialog.showDialog("请检查网络是否连接");
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
                 } else {
                     const reply = <FastLoginReply>JSON.parse(xhr.responseText);
                     if (reply.ret !== 0) {
-                        Dialog.showDialog(`登录错误，错误码:${reply.ret}`);
+                        Dialog.showDialog(LocalStrings.findString("networkConnectError", `${reply.ret}`));
 
                         return;
                     }
@@ -300,6 +301,8 @@ export class LoginView extends cc.Component {
         if (lm.msgCenter !== undefined) {
             return;
         }
+
+        Dialog.showWaiting();
 
         let fastLoginReq = null;
         let loginServerCfg: ServerCfg = null;
@@ -443,7 +446,7 @@ export class LoginView extends cc.Component {
         if (!result) {
             Logger.error("wxlogin error");
             this.button.show();
-            Dialog.showDialog("请检查网络是否连接");
+            Dialog.showDialog(LocalStrings.findString("networkConnectError"));
 
             return;
         } else {
@@ -472,7 +475,7 @@ export class LoginView extends cc.Component {
                         this.button.show();
                         errMsg = `登录错误:${err}`;
                         Logger.debug(errMsg);
-                        Dialog.showDialog("请检查网络是否连接");
+                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
 
                         return;
                     }
@@ -481,7 +484,7 @@ export class LoginView extends cc.Component {
                     if (errMsg !== null) {
                         this.button.show();
                         Logger.debug(errMsg);
-                        Dialog.showDialog("请检查网络是否连接");
+                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
 
                         return;
                     }
