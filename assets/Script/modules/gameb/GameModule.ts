@@ -227,6 +227,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     protected onDestroy(): void {
         this.unsubMsg();
+
         this.unregisterEvent();
 
         this.eventTarget.emit("destroy");

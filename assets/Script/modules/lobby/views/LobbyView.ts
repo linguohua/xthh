@@ -23,7 +23,7 @@ export class LobbyView extends cc.Component {
     private nameText: fgui.GTextField;
     private beansText: fgui.GTextField;
     private fkText: fgui.GTextField;
-    private marqueeAction: cc.Action = null;
+    // private marqueeAction: cc.Action = null;
     private roomNumberFromShare: string = "";
     private wxShowCallBackFunction: (res: showRes) => void;
 
