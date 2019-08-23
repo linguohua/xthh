@@ -74,6 +74,8 @@ export class RoomViewA {
     private gamePauseSchedule: Function;
     private gamePauseTime: number;
 
+    private defaultQuitTime: number = 10 * 60;
+
     public constructor(room: RoomInterfaceA, view: fgui.GComponent) {
         this.room = room;
         this.unityViewNode = view;
@@ -192,10 +194,8 @@ export class RoomViewA {
                 // 当已经存在了，就不更新了
                 return;
             }
-            // 默认十分钟
-            // 他们的代码 ====> self:initTablePauseTime( casinoclient:getInstance():getServerTime()+600)
-            const timeStamp = this.room.getRoomHost().getServerTime() + (10 * 60);
-            this.showGamePauseTips(timeStamp);
+
+            this.showGamePauseTips(this.room.getRoomHost().getServerTime() + this.defaultQuitTime);
         } else {
             this.countDownText.text = `${this.leftTime}`;
         }
@@ -409,6 +409,8 @@ export class RoomViewA {
     }
 
     public showGamePauseTips(timeStamp: number): void {
+
+        this.defaultQuitTime = timeStamp - this.room.getRoomHost().getServerTime();
 
         this.gamePauseTipsCom.visible = true;
         const roomHost = this.room.getRoomHost();
