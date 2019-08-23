@@ -98,8 +98,6 @@ export class NimSDK {
 
     private myTeam: Team = null;
 
-    private msgQueue: string[] = [];
-
     private component: cc.Component;
     // 用来订阅消息
     public constructor(appKey: string, account: string, token: string, component: cc.Component) {
