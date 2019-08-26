@@ -45,8 +45,6 @@ const playerRequires: number[] = [2, 3, 4];
 @ccclass
 export class NewRoomView extends cc.Component {
 
-    public forReview: boolean = false;
-    public itemsJSON: { [key: string]: boolean | number } = {};
     private view: fgui.GComponent;
     private win: fgui.Window;
     private gameTypeRadioBtns: fgui.GButton[] = [];
