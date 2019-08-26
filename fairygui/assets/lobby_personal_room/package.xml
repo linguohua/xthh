@@ -46,6 +46,8 @@
     <component id="ztsl18" name="recordBtn.xml" path="/btn/"/>
     <component id="uptd19" name="fkRecord.xml" path="/com/"/>
     <component id="uptd1a" name="fkRecorditem.xml" path="/com/"/>
+    <component id="uptd1b" name="boxRecord.xml" path="/com/"/>
+    <component id="uptd1c" name="boxRecorditem.xml" path="/com/"/>
   </resources>
   <publish name="lobby_personal_room"/>
 </packageDescription>
