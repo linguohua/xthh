@@ -245,7 +245,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     protected update(dt: number): void {
         this.timeElapsed += dt;
     }
-
     private showEvent(): void {
         const data = new Date();
         const returnAppTime = Date.parse(data.toString());
@@ -253,6 +252,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (this.eventTarget === undefined) {
             Logger.debug("showEvent this.eventTarget === undefined");
+        }
+
+        if (this.node === undefined) {
+            Logger.debug("showEvent this.node === undefined");
         }
         this.eventTarget.emit("returnAppTime", returnAppTime);
     }
@@ -264,6 +267,10 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (this.eventTarget === undefined) {
             Logger.debug("hideEvent this.eventTarget === undefined");
+        }
+
+        if (this.node === undefined) {
+            Logger.debug("hideEvent this.node === undefined");
         }
         this.eventTarget.emit("quitAppTime", quitAppTime);
     }
@@ -757,8 +764,18 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         cc.game.on(cc.game.EVENT_SHOW, this.showEvent, this);
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-            wx.onAudioInterruptionEnd(this.showEvent);
-            wx.onAudioInterruptionBegin(this.hideEvent)
+
+            const showHandler = () => {
+                this.showEvent();
+            };
+
+            const hideHandler = () => {
+                this.hideEvent();
+            };
+
+
+            wx.onAudioInterruptionEnd(showHandler);
+            wx.onAudioInterruptionBegin(hideHandler)
         }
     }
 }
