@@ -243,15 +243,23 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     private showEvent(): void {
         const data = new Date();
         const returnAppTime = Date.parse(data.toString());
-        Logger.debug("getMilliseconds returnAppTime = ", returnAppTime);
-        this.room.getRoomHost().eventTarget.emit("returnAppTime", returnAppTime);
+        Logger.debug("showEvent getMilliseconds returnAppTime = ", returnAppTime);
+
+        if (this.eventTarget === undefined) {
+            Logger.debug("showEvent this.eventTarget === undefined");
+        }
+        this.eventTarget.emit("returnAppTime", returnAppTime);
     }
 
     private hideEvent(): void {
         const data = new Date();
         const quitAppTime = Date.parse(data.toString());
-        Logger.debug("getMilliseconds quitAppTime = ", quitAppTime);
-        this.room.getRoomHost().eventTarget.emit("quitAppTime", quitAppTime);
+        Logger.debug("hideEvent getMilliseconds quitAppTime = ", quitAppTime);
+
+        if (this.eventTarget === undefined) {
+            Logger.debug("hideEvent this.eventTarget === undefined");
+        }
+        this.eventTarget.emit("quitAppTime", quitAppTime);
     }
 
     private async tryEnterRoom(
