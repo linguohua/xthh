@@ -542,14 +542,12 @@ export class NimSDK {
                 // Logger.debug("sendMsgDone:", message);
             };
 
-            const msg = this.nimSDK.sendText({
+            this.nimSDK.sendText({
                 scene: 'p2p',
                 to: this.account,
                 text: content,
                 done: sendMsgDone
             });
-
-            Logger.debug("msg:", msg);
         };
 
         sendMsg("keep-alive");
