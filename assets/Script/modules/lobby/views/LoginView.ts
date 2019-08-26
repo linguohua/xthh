@@ -186,7 +186,7 @@ export class LoginView extends cc.Component {
         req.sign = md5(cat);
 
         const reqString = JSON.stringify(req);
-        Logger.debug(reqString);
+        //Logger.debug(reqString);
 
         HTTP.hPost(
             this.eventTarget,

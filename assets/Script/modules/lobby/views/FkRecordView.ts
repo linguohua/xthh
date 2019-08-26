@@ -30,7 +30,7 @@ export class FkRecordView {
     }
 
     private initHandler(): void {
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onFkRecordLoad, this);
+        // this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onFkRecordLoad, this);
     }
 
     private onFkRecordLoad(): void {
