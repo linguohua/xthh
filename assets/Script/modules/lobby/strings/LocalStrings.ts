@@ -107,8 +107,9 @@ export namespace LocalStrings {
 
         [`cannotRecordWhenOnPlay`]: "正在播放，不能录音",
         [`leaveRoomCountDown`]: "你的牌友已离开，({0})后，将自动解散房间！",
-        [`networkConnectError`]: "请检查网络是否连接"
+        [`networkConnectError`]: "请检查网络是否连接",
 
+        [`discardTipsOfMe`]: "到您出牌咯！"
     };
 
     export const findString = (strTag: string, ...params: string[]): string => {

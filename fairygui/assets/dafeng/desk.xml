@@ -3,12 +3,13 @@
   <displayList>
     <component id="n61_tebr" name="blueBg" src="tebrpd" fileName="bg_btn.xml" xy="0,0" size="1136,640"/>
     <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44" visible="false"/>
+    <component id="n63_r1q9" name="tipsOfMeCom" src="r1q9pe" fileName="tipsOfMeCom.xml" xy="657,400" visible="false"/>
     <component id="n17_fxwe" name="player4" src="jmxy16" fileName="desk/left/desk_view_left.xml" xy="0,0"/>
     <component id="n16_fxwe" name="player3" src="jmxyk" fileName="desk/dui/desk_view_dui.xml" xy="0,0"/>
     <component id="n15_fxwe" name="player2" src="jmxy1u" fileName="desk/right/desk_view_right.xml" xy="0,0"/>
     <component id="n14_fxwe" name="player1" src="jmxy1k" fileName="desk/mine/desk_view_mine.xml" xy="0,0"/>
     <component id="n24_fxwe" name="roundMask" src="jmxy2u" fileName="desk/round_mask.xml" xy="533,227"/>
-    <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" visible="false"/>
+    <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" hideByEditor="true" visible="false"/>
     <component id="n60_j2i5" name="tipsCom" src="j2i5pa" fileName="tipsCom.xml" xy="296,379" visible="false"/>
     <loader id="n27_rh8w" name="donate" xy="72,439" pivot="0.5,0.5" anchor="true" size="105,97" hideByEditor="true" visible="false"/>
     <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596" visible="false">
@@ -23,7 +24,7 @@
     <component id="n40_jel2" name="recorderBtn" src="jel2m6" fileName="btn/recorderBtn.xml" xy="1027,329" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>
-    <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="7,353" visible="false"/>
+    <component id="n18_fxwe" name="operationPanel" src="jmxy2a" fileName="desk/operation_panel.xml" xy="7,353" hideByEditor="true" visible="false"/>
     <component id="n46_jel2" name="laiziCom" src="jel2md" fileName="compoment/laiziCom.xml" xy="510,5" visible="false"/>
     <graph id="n48_lop0" name="AniPos" xy="568,300" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <graph id="n47_lop0" name="zhuangPos" xy="568,320" pivot="0.5,0.5" anchor="true" size="18,28"/>

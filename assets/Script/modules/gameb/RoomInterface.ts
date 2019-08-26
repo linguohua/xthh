@@ -78,6 +78,7 @@ export interface RoomViewInterface {
     playLaiAni(): void;
     playPiaoEffect(pos: cc.Vec2): Promise<void>;
     showOrHideReadyView(isShow: boolean): void;
+    showOrHideTipsOfMe(isShow: boolean): void;
 }
 
 /**

@@ -73,6 +73,7 @@ export namespace HandlerActionResultDrawA {
             player.cancelZhuochong = false;
             if (!room.isReplayMode()) {
                 room.setDiscardAble(!checkButton(room, player, reply));
+                room.roomView.showOrHideTipsOfMe(true);
             }
         } else {
             room.isMySelfDisCard = false;

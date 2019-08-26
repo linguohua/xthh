@@ -54,6 +54,7 @@ export class RoomViewA {
     private zhuangPos: cc.Vec2;
     private aniPos: fgui.GObject;
     private cancelCom: fgui.GComponent;
+    private tipsOfMeCom: fgui.GComponent;
     private cancelComText: fgui.GObject;
     private mike: fgui.GObject;
     // private isRecordOpen: boolean = false;
@@ -380,7 +381,9 @@ export class RoomViewA {
             this.readyView.showOrHideReadyView(isShow);
         }
     }
-
+    public showOrHideTipsOfMe(isShow: boolean): void {
+        this.tipsOfMeCom.visible = isShow;
+    }
     public showOrHideCancelCom(isShow: boolean, str: string): void {
         if (isShow) {
             this.cancelComText.text = str;
@@ -693,6 +696,9 @@ export class RoomViewA {
         //弃碰弃杠 提示
         this.cancelCom = this.unityViewNode.getChild("cancelCom").asCom;
         this.cancelComText = this.cancelCom.getChild("text");
+        //到我出牌提示
+        this.tipsOfMeCom = this.unityViewNode.getChild("tipsOfMeCom").asCom;
+        this.tipsOfMeCom.getChild("tipsText").text = LocalStrings.findString("discardTipsOfMe");
 
         //为了兼容界面 房间信息 跟 余牌text  放在了 player1里面
         const player1 = this.unityViewNode.getChild(`player1`).asCom;
