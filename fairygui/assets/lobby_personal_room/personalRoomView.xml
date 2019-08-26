@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://shrzm3rcik11g" designImageAlpha="100">
-  <controller name="tap" pages="0,boxRecord,1,fkRecord,2,gameRecord,3,personalRoom" selected="2">
+  <controller name="tap" pages="0,boxRecord,1,fkRecord,2,gameRecord,3,personalRoom" selected="1">
     <remark page="0" value="宝箱记录"/>
     <remark page="1" value="房卡记录"/>
     <remark page="2" value="战绩统计"/>
@@ -14,10 +14,10 @@
       <Button controller="tap" page="0"/>
     </component>
     <component id="n65_lqn3" name="fkRecordBtn" src="lqn3v" fileName="btn/fkRecordBtn.xml" xy="418,64">
-      <Button controller="tap" page="1"/>
+      <Button checked="true" controller="tap" page="1"/>
     </component>
     <component id="n67_lqn3" name="gameRecordBtn" src="lqn3w" fileName="btn/gameRecordBtn.xml" xy="587,64">
-      <Button checked="true" controller="tap" page="2"/>
+      <Button controller="tap" page="2"/>
     </component>
     <component id="n64_lqn3" name="personalRoomBtn" src="b75tt" fileName="btn/personalRoomBtn.xml" xy="757,64">
       <Button controller="tap" page="3"/>
@@ -27,6 +27,9 @@
     </component>
     <component id="n69_kyp5" name="recordCom" src="kyp5y" fileName="com/recordCom.xml" xy="136,132">
       <gearDisplay controller="tap" pages="2"/>
+    </component>
+    <component id="n71_uptd" name="fkRecord" src="uptd19" fileName="com/fkRecord.xml" xy="142,132">
+      <gearDisplay controller="tap" pages="1"/>
     </component>
   </displayList>
 </component>

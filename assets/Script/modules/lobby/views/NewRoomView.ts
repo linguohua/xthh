@@ -7,6 +7,8 @@ import {
 import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
+import { FkRecordView } from "./FkRecordView";
+import { GameRecordView } from "./GameRecordView";
 import { InputReplayIdView } from "./InputReplayIdView";
 import { JoinRoom } from "./JoinRoom";
 
@@ -54,16 +56,14 @@ export class NewRoomView extends cc.Component {
     private playerRequireRadioBtns: fgui.GButton[] = [];
     private gameConfig: protoHH.casino.game_config;
     private defaultConfig: DefaultConfig;
+
     private fkText: fgui.GTextField;
     private noEnoughFkText: fgui.GTextField;
     private createRoomBtn: fgui.GButton;
-    private recordList: fgui.GList;
-    private replayTable: { [key: string]: protoHH.casino.table } = {};
-    private recordMsgs: protoHH.casino.Icasino_score[];
+
+    private gameRecordView: GameRecordView;
+
     private lm: LobbyModuleInterface;
-    public getView(): fgui.GComponent {
-        return this.view;
-    }
 
     public showView(): void {
         this.initHandler();
@@ -86,6 +86,21 @@ export class NewRoomView extends cc.Component {
             this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
         }
 
+    }
+
+    public setViewVisible(visible: boolean): void {
+        if (visible) {
+            this.win.show();
+        } else {
+            this.win.hide();
+        }
+
+    }
+
+    public onInputRecordIdBtnClick(): void {
+        Logger.debug("onInputRecordIdBtnClick");
+        const joiRoomView = this.addComponent(InputReplayIdView);
+        joiRoomView.show();
     }
 
     protected onLoad(): void {
@@ -156,42 +171,27 @@ export class NewRoomView extends cc.Component {
 
         const personalRoomText = personalRoomBtn.getChild("n2");
         personalRoomText.text = LocalStrings.findString("personalRoom");
+
+        this.initTapView();
+
+    }
+
+    private initTapView(): void {
+        const gameRecordCom = this.view.getChild("recordCom").asCom;
+        const gameRecordView = new GameRecordView();
+        this.gameRecordView = gameRecordView;
+        gameRecordView.init(gameRecordCom, this.lm, this);
+
+        const fkRecordCom = this.view.getChild("fkRecord").asCom;
+        const fkRecordView = new FkRecordView();
+        fkRecordView.init(fkRecordCom, this.lm);
+
         this.initPersonalRoom();
-        //战绩界面
-        const recordCom = this.view.getChild("recordCom").asCom;
-        const recordBtn = recordCom.getChild("recordBtn").asButton;
-
-        recordBtn.onClick(this.onInputRecordIdBtnClick, this);
-        this.recordList = recordCom.getChild("list").asList;
-        this.recordList.itemRenderer = (index: number, item: fgui.GObject) => {
-            this.renderRecordListItem(index, item);
-        };
-
-        //n天前的日期
-        for (let i = 0; i < 7; i++) {
-            const curDate = new Date();
-            const n = curDate.setDate(curDate.getDate() - i);
-            const date = new Date(n);
-            const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-            const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-            // const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
-            // const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
-            const timeText = `${month}/${day}`;
-            const btn = recordCom.getChild(`btn${i}`).asButton;
-            if (i === 0) {
-                btn.selected = true;
-            }
-            btn.getChild("n1").text = timeText;
-            btn.getChild("n2").text = timeText;
-            btn.onClick(() => { this.onScoreTimeBtnClick(i); }, this);
-        }
     }
 
     private initHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
-        lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onGameRecord, this);
-        lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK, this.onReplayAck, this);
         lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
     }
     private initBoxRecord(): void {
@@ -202,131 +202,8 @@ export class NewRoomView extends cc.Component {
         // TODO:
     }
 
-    private onScoreTimeBtnClick(day: number): void {
-        const req2 = new protoHH.casino.packet_score_time_req();
-        req2.casino_id = 0; //固定
-        req2.day = day; // 0~6 0当天 1昨天 2前天
-        const buf = protoHH.casino.packet_score_time_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_SCORE_TIME_REQ);
-    }
-
     private initGameRecord(): void {
-        this.onScoreTimeBtnClick(0);
-    }
-    private onGameRecord(msg: protoHH.casino.ProxyMessage): void {
-        const reply = protoHH.casino.packet_score_time_ack.decode(msg.Data);
-        this.recordMsgs = [];
-        if (reply.scores !== undefined && reply.scores !== null && reply.scores.length > 0) {
-            for (const score of reply.scores) {
-                // const length = Object.keys(this.recordMsgs).length + 1;
-                // this.recordMsgs[length] = score;
-                this.recordMsgs.push(score);
-            }
-        }
-        if (this.recordMsgs.length === 0) {
-            Dialog.prompt(LocalStrings.findString('noGameRecordTips'));
-        }
-        this.recordList.numItems = this.recordMsgs.length;
-    }
-
-    private onReplayAck(msg: protoHH.casino.ProxyMessage): void {
-
-        const reply = protoHH.casino.packet_replay_ack.decode(msg.Data);
-
-        Logger.debug("packet_replay_ack  reply = ", reply);
-
-        if (reply.ret !== 0) {
-
-            switch (reply.ret) {
-                case 1:
-                    Dialog.prompt(LocalStrings.findString('wrongGameRecordIdTips'));
-                    break;
-                case 22:
-                    Dialog.prompt(LocalStrings.findString('daleyOperationTips', reply.replay_id.toString()));
-                    break;
-
-                default:
-            }
-
-            return;
-        }
-
-        const table = protoHH.casino.table.decode(reply.replay);
-
-        const replayId = reply.replay_id;
-        const replayInMap = this.replayTable[replayId];
-        if (replayInMap === undefined || replayInMap === null || replayId > 10000) {
-            this.replayTable[replayId] = table;
-        }
-
-        this.showReplay(table);
-    }
-
-    private renderRecordListItem(index: number, item: fgui.GObject): void {
-        const msg = this.recordMsgs[index];
-        const obj = item.asCom;
-
-        const date = new Date(msg.create_time.toNumber() * 1000);
-        const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-        const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
-        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
-        const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
-
-        obj.getChild("time").text = timeText;
-        obj.getChild("room").text = `${msg.table_tag}`;
-        obj.getChild("num").text = `${msg.round}`;
-        obj.getChild("score").text = `${msg.score}`;
-        obj.getChild("name").text = LocalStrings.findString("xthh");
-        obj.getChild("id").text = `${msg.replay_id}`;
-        obj.getChild("btn").asButton.offClick(undefined, undefined);
-        obj.getChild("btn").asButton.onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
-    }
-    private onReplayBtnClick(rId: number): void {
-
-        const table = this.replayTable[rId];
-
-        if (table === undefined || table === null) {
-            const req2 = new protoHH.casino.packet_replay_req();
-            req2.replay_id = rId;
-            const buf = protoHH.casino.packet_replay_req.encode(req2);
-            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-            lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
-        } else {
-            this.showReplay(table);
-        }
-    }
-
-    private showReplay(table: protoHH.casino.table): void {
-
-        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
-        const myUser = { userID: playerID };
-
-        if (table !== undefined && table !== null) {
-            const params: GameModuleLaunchArgs = {
-                jsonString: "replay",
-                userInfo: myUser,
-                joinRoomParams: null,
-                createRoomParams: null,
-                record: table,
-                roomId: table.room_id
-            };
-
-            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-            lm.eventTarget.on(`onGameSubRecordShow`, this.onGameReturn, this);
-
-            this.win.hide();
-            //this.destroy();
-
-            lm.switchToGame(params, "gameb");
-        } else {
-            Logger.debug("reply.replay === null");
-        }
-    }
-
-    private onGameReturn(): void {
-        this.win.show();
+        this.gameRecordView.onTapBtnClick();
     }
 
     private initPersonalRoom(): void {
@@ -522,13 +399,6 @@ export class NewRoomView extends cc.Component {
 
     private onPersonalRoomBtn(): void {
         this.initPersonalRoom();
-    }
-
-    private onInputRecordIdBtnClick(): void {
-        Logger.debug("onEnterBtnClick");
-
-        const joiRoomView = this.addComponent(InputReplayIdView);
-        joiRoomView.show();
     }
 
     private onEnterBtnClick(): void {

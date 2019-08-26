@@ -755,7 +755,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offAudioInterruptionEnd(this.showEvent);
-            wx.offAudioInterruptionBegin(this.hideEvent)
+            wx.offAudioInterruptionBegin(this.hideEvent);
         }
     }
 
@@ -773,9 +773,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                 this.hideEvent();
             };
 
-
             wx.onAudioInterruptionEnd(showHandler);
-            wx.onAudioInterruptionBegin(hideHandler)
+            wx.onAudioInterruptionBegin(hideHandler);
         }
     }
 }

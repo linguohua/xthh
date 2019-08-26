@@ -32,5 +32,4 @@ export namespace KeyConstants {
     export const IM_ACCID = "imaccid";
     export const IM_TOKEN = "imtoken";
 
-
 }

@@ -738,14 +738,13 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         });
     }
 
-
     private unregisterEvent(): void {
         cc.game.off(cc.game.EVENT_HIDE, this.hideEvent, this);
         cc.game.off(cc.game.EVENT_SHOW, this.showEvent, this);
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offAudioInterruptionEnd(this.showEvent);
-            wx.offAudioInterruptionBegin(this.hideEvent)
+            wx.offAudioInterruptionBegin(this.hideEvent);
         }
     }
 
@@ -763,9 +762,8 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
                 this.hideEvent();
             };
 
-
             wx.onAudioInterruptionEnd(showHandler);
-            wx.onAudioInterruptionBegin(hideHandler)
+            wx.onAudioInterruptionBegin(hideHandler);
         }
     }
 

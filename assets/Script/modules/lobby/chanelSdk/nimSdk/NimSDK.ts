@@ -1,4 +1,4 @@
-import { DataStore, Dialog, Logger, KeyConstants } from '../../lcore/LCoreExports';
+import { DataStore, Dialog, KeyConstants, Logger } from '../../lcore/LCoreExports';
 // tslint:disable-next-line:no-require-imports
 import NIMWeb = require('./NIMWeb');
 // tslint:disable-next-line:no-require-imports

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="862,450" designImage="ui://shrzm3rcik11m" designImageOffsetX="-142" designImageOffsetY="-132" designImageAlpha="100">
+  <displayList>
+    <image id="n1_uptd" name="bg" src="ik119" fileName="resource/srf_di1.png" xy="0,42" size="862,407"/>
+    <text id="n0_uptd" name="text" xy="20,4" size="812,35" fontSize="24" color="#856d57" autoSize="none" singleLine="true" text="日期：                                 说明：                                                数量："/>
+    <list id="n2_uptd" name="list" xy="6,48" size="843,394" overflow="scroll" lineGap="6" defaultItem="ui://shrzm3rcuptd1a" align="center" autoClearItems="true">
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

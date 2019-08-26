@@ -1,4 +1,4 @@
-import { DataStore, Logger, KeyConstants } from "../../lobby/lcore/LCoreExports";
+import { DataStore, KeyConstants, Logger } from "../../lobby/lcore/LCoreExports";
 import { proto } from "../../lobby/protoHH/protoHH";
 import { PlayerA } from "../PlayerA";
 import { PlayerInterfaceA } from "../PlayerInterfaceA";

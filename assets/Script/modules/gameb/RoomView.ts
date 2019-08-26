@@ -1,4 +1,4 @@
-import { DataStore, Dialog, Logger, SoundMgr, KeyConstants } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, KeyConstants, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { ChatView } from "../lobby/views/chat/ChatExports";

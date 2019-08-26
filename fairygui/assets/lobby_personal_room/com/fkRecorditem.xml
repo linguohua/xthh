@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="843,60">
+  <displayList>
+    <image id="n3_uptd" name="bg" src="ik11a" fileName="resource/srf_di2.png" xy="0,0" size="843,60"/>
+    <text id="n4_uptd" name="date" xy="16,15" size="228,35" fontSize="20" color="#856d57" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2019-05-21  10:45:05"/>
+    <text id="n5_uptd" name="reason" xy="313,14" size="248,35" fontSize="24" color="#856d57" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="房间解散收到退还房卡"/>
+    <text id="n6_uptd" name="count" xy="696,15" size="125,35" fontSize="20" color="#856d57" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="1&#xA;"/>
+  </displayList>
+</component>

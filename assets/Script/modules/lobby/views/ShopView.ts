@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, LobbyModuleInterface, Logger, KeyConstants } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
