@@ -178,6 +178,9 @@ export class NimSDK {
             // web版本sdk
             this.nimSDK = <MyNimSDK>NIMWeb.getInstance(options);
         }
+
+        this.startKeepAlive();
+
     }
 
     public disconnect(): void {
@@ -514,9 +517,50 @@ export class NimSDK {
     }
 
     protected async tryReconnect(): Promise<void> {
-        Logger.debug("NIMSDK wait 2 second to connet");
+        Logger.debug("NimSDK.tryReconnect wait 2 second to connet");
         await this.waitSecond(2);
-        Logger.debug("NIMSDK excute connect");
         this.nimSDK.connect();
+    }
+
+    // 用来检测网络是否联通
+    protected sendKeepAlive(): void {
+        if (this.nimSDK === null || this.nimSDK === undefined) {
+            Logger.error("this.nimSDK === null || this.nimSDK === undefined");
+
+            return;
+        }
+
+        const sendMsg = (content: string) => {
+            const sendMsgDone = (error: { code: string }, message: NIMMessage) => {
+                if (error !== null && error.code === connectionError) {
+                    this.disconnect();
+                    Logger.debug("sendMsgDone error:", error);
+
+                    return;
+                }
+
+                // Logger.debug("sendMsgDone:", message);
+            };
+
+            const msg = this.nimSDK.sendText({
+                scene: 'p2p',
+                to: this.account,
+                text: content,
+                done: sendMsgDone
+            });
+
+            Logger.debug("msg:", msg);
+        };
+
+        sendMsg("keep-alive");
+    }
+
+    private startKeepAlive(): void {
+        // this.schedule(this.countDownAgain, 1, cc.macro.REPEAT_FOREVER);
+        const keepAlive = () => {
+            this.sendKeepAlive();
+        };
+
+        this.component.schedule(keepAlive, 60, cc.macro.REPEAT_FOREVER);
     }
 }
