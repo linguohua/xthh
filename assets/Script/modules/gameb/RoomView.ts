@@ -455,6 +455,12 @@ export class RoomView {
         this.gpsUnOpen.visible = isShow;
     }
 
+    public showGpsView(): void {
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            this.onGPSBtnClick();
+        }
+    }
+
     private gamePauseCountDownFunc(timeStamp: number): void {
         const roomHost = this.room.getRoomHost();
         const serverTime = roomHost.getServerTime();

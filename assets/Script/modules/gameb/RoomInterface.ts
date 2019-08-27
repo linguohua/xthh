@@ -80,6 +80,7 @@ export interface RoomViewInterface {
     showOrHideReadyView(isShow: boolean): void;
     showOrHideTipsOfMe(isShow: boolean): void;
     showCountDownIfReadViewShow(): boolean;
+    showGpsView(): void;
 }
 
 /**

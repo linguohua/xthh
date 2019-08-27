@@ -163,5 +163,9 @@ export namespace HandlerMsgDeal {
         room.mAlgorithm.setFlagPiao(false);
         //房间状态
         room.onUpdateStatus(roomStatus.onPlay);
+
+        if (room.handStartted <= 1) {
+            room.roomView.showGpsView();
+        }
     };
 }

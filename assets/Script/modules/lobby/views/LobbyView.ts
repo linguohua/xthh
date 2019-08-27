@@ -70,6 +70,8 @@ export class LobbyView extends cc.Component {
 
         this.initNimSDK();
         this.setLaunchCallBack();
+
+        this.checkGpsSetting();
     }
 
     protected onDestroy(): void {
@@ -398,5 +400,52 @@ export class LobbyView extends cc.Component {
                 this.beansText.text = playerResource.curr.toString();
             }
         }
+    }
+
+    private checkGpsSetting(): void {
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            return;
+        }
+
+        wx.getSetting({
+            success: (res: getSettingRes) => {
+                console.log(res);
+                const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
+                if (!authSetting['scope.userLocation']) {
+                    // 如果gps权限没打开，强制把界面上的gps置为关闭状态
+                    DataStore.setItem(KeyConstants.GPS, "0");
+                } else {
+                    const gps = DataStore.getString(KeyConstants.GPS, "0");
+                    if (+gps > 0) {
+                        wx.getLocation({
+                            type: 'wgs84',
+                            success: (location: getLocationRes) => {
+                                const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
+                                const req = new proto.casino.packet_coordinate(
+                                    { player_id: +playerID, latitude: location.latitude, longitude: location.longitude }
+                                );
+                                const buf = proto.casino.packet_coordinate.encode(req);
+                                this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_COORDINATE);
+                                Logger.debug(`latitude:${location.latitude}, longitude:${location.longitude}`);
+                            },
+
+                            // tslint:disable-next-line:no-any
+                            fail: (err: any) => {
+                                Logger.error("getLocation error:", err);
+                            }
+
+                        });
+                    }
+                }
+
+            },
+
+            // tslint:disable-next-line:no-any
+            fail: (err: any) => {
+                Logger.error("getSetting error:", err);
+                DataStore.setItem(KeyConstants.GPS, "0");
+                // this.applyGpsSetting();
+            }
+        });
     }
 }

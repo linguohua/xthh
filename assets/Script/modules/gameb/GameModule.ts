@@ -732,6 +732,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
                 console.log(res);
                 const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
                 if (!authSetting['scope.userLocation']) {
+                    // 如果gps权限没打开，强制把界面上的gps置为关闭状态
                     DataStore.setItem(KeyConstants.GPS, "0");
                 }
 
