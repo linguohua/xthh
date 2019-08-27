@@ -1,6 +1,6 @@
-import { LobbyModuleInterface, Dialog, Logger } from "../lcore/LCoreExports";
+import { GameError } from "../errorCode/ErrorCodeExports";
+import { Dialog, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
-import { GameError } from "../errorCode/GameError";
 
 const { ccclass } = cc._decorator;
 /**
@@ -24,7 +24,6 @@ export class FkRecordView {
     }
 
     public onTapBtnClick(): void {
-        Logger.debug("onTapBtnClick");
         this.sendCardRecordReq();
 
     }
@@ -56,8 +55,7 @@ export class FkRecordView {
             return;
         }
 
-        Logger.debug("onFkRecordLoad, reply.cards:", reply.cards);
-        this.recordMsgs = reply.cards
+        this.recordMsgs = reply.cards;
         this.list.numItems = this.recordMsgs.length;
     }
 
