@@ -59,6 +59,10 @@ export class ReadyViewA {
     private anteText: fgui.GObject;
     private tips: fgui.GObject;
 
+    private disbandTip: fgui.GObject;
+    private disbandCountDown: fgui.GObject;
+    private disbandTipText: fgui.GObject;
+
     private originPositions: cc.Vec2[] = [];
 
     private countDownTime: number;
@@ -106,6 +110,25 @@ export class ReadyViewA {
         } else {
             Logger.error("Unimplement show ready view");
         }
+    }
+
+    public showDisbandCountDown(): boolean {
+        if (!this.view.visible) {
+            return false;
+        }
+
+        this.disbandTip.visible = true;
+        this.disbandTipText.text = LocalStrings.findString('readyViewDisbandRoomTip');
+        this.disbandCountDown.text = '3';
+
+        const countDown = () => {
+            const disbandCountDown = +this.disbandCountDown.text;
+            this.disbandCountDown.text = `${disbandCountDown - 1}`;
+        };
+
+        this.host.component.schedule(countDown, 1, 3);
+
+        return true;
     }
 
     protected updateView(players: protoHH.casino.Itable_player[]): void {
@@ -196,6 +219,10 @@ export class ReadyViewA {
         this.ruleText = this.view.getChild("rule");
         this.anteText = this.view.getChild("dizhu");
         this.tips = this.view.getChild("tips");
+
+        this.disbandTip = this.view.getChild("disbandCountDown");
+        this.disbandCountDown = this.disbandTip.asCom.getChild("countDown");
+        this.disbandTipText = this.disbandTip.asCom.getChild("text");
 
         // 10 分钟后自动解散房间
         //this.scheduleOnce(this.schedule2DisbandRoom, 10 * 60);

@@ -77,7 +77,7 @@ export class RoomView {
     private gamePauseTime: number;
 
     private defaultQuitTime: number = 10 * 60;
-    private soundTimeNum: number = 0;
+    // private soundTimeNum: number = 0;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
         this.room = room;
@@ -383,6 +383,14 @@ export class RoomView {
         // const load = this.room.getRoomHost().getLobbyModuleLoader();
         const roomHost = this.room.getRoomHost();
         this.readyView.updateReadyView(roomHost, table, view, players);
+    }
+
+    public showCountDownIfReadViewShow(): boolean {
+        if (this.readyView !== null && this.readyView !== undefined) {
+            return this.readyView.showDisbandCountDown();
+        }
+
+        return false;
     }
 
     public showOrHideReadyView(isShow: boolean): void {

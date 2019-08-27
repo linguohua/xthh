@@ -10,6 +10,12 @@ export namespace HandlerMsgTableDisband {
         // const reply = proto.casino.packet_table_disban.decode(msgData);
         Logger.debug("HandlerMsgTableDisband----------------------- ", msgData);
         room.getRoomHost().dismissAllTeam();
+
+        const isShow = room.roomView.showCountDownIfReadViewShow();
+        if (isShow) {
+            await room.coWaitSeconds(3);
+        }
+
         room.quit();
     };
 }

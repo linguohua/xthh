@@ -76,7 +76,7 @@ export class RoomViewA {
     private gamePauseTime: number;
 
     private defaultQuitTime: number = 10 * 60;
-    private soundTimeNum: number = 0;
+    // private soundTimeNum: number = 0;
 
     public constructor(room: RoomInterfaceA, view: fgui.GComponent) {
         this.room = room;
@@ -387,6 +387,15 @@ export class RoomViewA {
             this.readyView.showOrHideReadyView(isShow);
         }
     }
+
+    public showCountDownIfReadViewShow(): boolean {
+        if (this.readyView !== null && this.readyView !== undefined) {
+            return this.readyView.showDisbandCountDown();
+        }
+
+        return false;
+    }
+
     public showOrHideTipsOfMe(isShow: boolean): void {
         this.tipsOfMeCom.visible = isShow;
     }

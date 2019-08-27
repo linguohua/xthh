@@ -109,7 +109,8 @@ export namespace LocalStrings {
         [`leaveRoomCountDown`]: "你的牌友已离开，({0})后，将自动解散房间！",
         [`networkConnectError`]: "请检查网络是否连接",
 
-        [`discardTipsOfMe`]: "到您出牌咯！"
+        [`discardTipsOfMe`]: "到您出牌咯！",
+        ['readyViewDisbandRoomTip']: "房主解散房间"
     };
 
     export const findString = (strTag: string, ...params: string[]): string => {
