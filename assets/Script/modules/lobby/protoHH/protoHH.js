@@ -11306,6 +11306,65 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 10
                         }
                     ]
+                },
+                {
+                    "name": "packet_card_req",
+                    "syntax": "proto2",
+                    "fields": []
+                },
+                {
+                    "name": "casino_card",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint64",
+                            "name": "id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "reason",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "op_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "int32",
+                            "name": "amount",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "create_time",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_card_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "casino_card",
+                            "name": "cards",
+                            "id": 10
+                        }
+                    ]
                 }
             ],
             "enums": [

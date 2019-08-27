@@ -1,5 +1,6 @@
-import { LobbyModuleInterface } from "../lcore/LCoreExports";
+import { LobbyModuleInterface, Dialog, Logger } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
+import { GameError } from "../errorCode/GameError";
 
 const { ccclass } = cc._decorator;
 /**
@@ -12,6 +13,7 @@ export class FkRecordView {
 
     private list: fgui.GList;
 
+    private recordMsgs: protoHH.casino.Icasino_card[];
     //private recordMsgs: string[];
 
     public init(view: fgui.GComponent, lm: LobbyModuleInterface): void {
@@ -19,6 +21,12 @@ export class FkRecordView {
         this.lm = lm;
         this.initView();
         this.initHandler();
+    }
+
+    public onTapBtnClick(): void {
+        Logger.debug("onTapBtnClick");
+        this.sendCardRecordReq();
+
     }
 
     private initView(): void {
@@ -30,27 +38,43 @@ export class FkRecordView {
     }
 
     private initHandler(): void {
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_UPDATE, this.onFkRecordLoad, this);
+        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK, this.onFkRecordLoad, this);
     }
 
-    private onFkRecordLoad(): void {
-        //
+    private sendCardRecordReq(): void {
+        Logger.debug("sendCardRecordReq");
+        const req = new protoHH.casino.packet_card_req();
+        const buf = protoHH.casino.packet_card_req.encode(req);
+        this.lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_CARD_REQ);
+    }
+
+    private onFkRecordLoad(msg: protoHH.casino.ProxyMessage): void {
+        const reply = protoHH.casino.packet_card_ack.decode(msg.Data);
+        if (reply.ret !== 0) {
+            Dialog.prompt(GameError.getErrorString(reply.ret));
+
+            return;
+        }
+
+        Logger.debug("onFkRecordLoad, reply.cards:", reply.cards);
+        this.recordMsgs = reply.cards
+        this.list.numItems = this.recordMsgs.length;
     }
 
     private renderRecordListItem(index: number, item: fgui.GObject): void {
-        // const msg = this.recordMsgs[index];
-        // const obj = item.asCom;
+        const msg = this.recordMsgs[index];
+        const obj = item.asCom;
 
-        // const date = new Date(msg.create_time.toNumber() * 1000);
-        // const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-        // const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-        // const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
-        // const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
-        // const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
+        const date = new Date(msg.create_time.toNumber() * 1000);
+        const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+        const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
+        const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
+        const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
 
-        // obj.getChild("date").text = timeText;
-        // obj.getChild("reason").text = `${msg.table_tag}`;
-        // obj.getChild("count").text = `${msg.round}`;
+        obj.getChild("date").text = timeText;
+        obj.getChild("reason").text = `${msg.op_id}`;
+        obj.getChild("count").text = `${msg.amount}`;
 
     }
 

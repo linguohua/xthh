@@ -867,3 +867,25 @@ message packet_replay_ack{
  optional uint32	  request_id = 3;			// 请求战报的玩家id
  optional bytes 		  replay = 10; 			// 战报数据
 }
+
+// 房卡日志查询请求
+message packet_card_req{
+}
+
+// "gift"	赠送房卡给别人
+// "create" 创建房间时消耗
+// "back"	房间没开始就结束退还房卡
+// 房卡日志结构
+message casino_card{
+	required uint64				 id = 1;		// 唯一编号
+	optional string			 reason = 2;		// 操作原因
+	optional uint32			  op_id = 3;		// 操作id
+	optional int32			 amount = 5;		// 数量增减
+	optional uint64		create_time = 10;		// 创建时间
+}
+
+// 房卡查询返回
+message packet_card_ack{
+   required uint32				ret = 1;		// 返回值
+   repeated casino_card	      cards = 10;		// 卡牌信息
+}

@@ -60,6 +60,7 @@ export class NewRoomView extends cc.Component {
     private createRoomBtn: fgui.GButton;
 
     private gameRecordView: GameRecordView;
+    private fkRecordView: FkRecordView;
 
     private lm: LobbyModuleInterface;
 
@@ -182,6 +183,7 @@ export class NewRoomView extends cc.Component {
 
         const fkRecordCom = this.view.getChild("fkRecord").asCom;
         const fkRecordView = new FkRecordView();
+        this.fkRecordView = fkRecordView;
         fkRecordView.init(fkRecordCom, this.lm);
 
         this.initPersonalRoom();
@@ -197,7 +199,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private initFKRecord(): void {
-        // TODO:
+        this.fkRecordView.onTapBtnClick();
     }
 
     private initGameRecord(): void {
