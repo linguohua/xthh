@@ -139,6 +139,7 @@ export namespace HandlerMsgActionOPAck {
                 // room.m_bSaveZCHFlag = false;
                 player.cancelZhuochong = true;
             }
+            room.roomView.showOrHideTipsOfMe(false);
         }
         if (pAck.op === TypeOfOP.Pong) {
             await pong(room, player, pAck);

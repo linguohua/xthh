@@ -282,6 +282,7 @@ export class Room {
 
     //重置房间，以便开始新一手游戏
     public resetForNewHand(): void {
+        this.roomView.showOrHideTipsOfMe(false);
         this.isMySelfDisCard = false;
         this.lastDisCardTile = 0;
 
