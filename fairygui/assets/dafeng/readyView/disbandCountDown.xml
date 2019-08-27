@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="386,120">
   <displayList>
-    <image id="n38_uptd" name="bg" src="hsnci4" fileName="readyView/ready/z_准备界面/ty_tips1.png" xy="0,47" size="386,73" group="n42_uptd"/>
-    <text id="n39_uptd" name="text" xy="81,66" size="200,34" group="n42_uptd" fontSize="28" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="房主解散房间"/>
-    <text id="n41_uptd" name="countDown" xy="82,0" size="200,67" group="n42_uptd" fontSize="50" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="3"/>
-    <group id="n42_uptd" name="n42" xy="0,0" size="386,120"/>
+    <image id="n38_uptd" name="bg" src="hsnci4" fileName="readyView/ready/z_准备界面/ty_tips1.png" xy="0,47" size="386,73"/>
+    <text id="n39_uptd" name="text" xy="81,66" size="200,34" fontSize="28" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="房主解散房间"/>
+    <text id="n41_uptd" name="countDown" xy="82,0" size="200,67" fontSize="50" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="3"/>
   </displayList>
 </component>
