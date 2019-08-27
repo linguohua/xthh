@@ -73,7 +73,7 @@ export class FkRecordView {
         const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
 
         obj.getChild("date").text = timeText;
-        obj.getChild("reason").text = `${msg.op_id}`;
+        obj.getChild("reason").text = `${msg.reason}`;
         obj.getChild("count").text = `${msg.amount}`;
 
     }
