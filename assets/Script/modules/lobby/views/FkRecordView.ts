@@ -55,6 +55,7 @@ export class FkRecordView {
             return;
         }
 
+        Logger.debug("onFkRecordLoad, reply.cards:", reply.cards);
         this.recordMsgs = reply.cards;
         this.list.numItems = this.recordMsgs.length;
     }
