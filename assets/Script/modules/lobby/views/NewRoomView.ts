@@ -7,6 +7,7 @@ import {
 import long = require("../protobufjs/long");
 import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
+import { BoxRecordView } from "./BoxRecordView";
 import { FkRecordView } from "./FkRecordView";
 import { GameRecordView } from "./GameRecordView";
 import { InputReplayIdView } from "./InputReplayIdView";
@@ -185,6 +186,10 @@ export class NewRoomView extends cc.Component {
         const fkRecordView = new FkRecordView();
         this.fkRecordView = fkRecordView;
         fkRecordView.init(fkRecordCom, this.lm);
+
+        const boxRecordCom = this.view.getChild("boxRecord").asCom;
+        const boxRecordView = new BoxRecordView();
+        boxRecordView.init(boxRecordCom, this.lm);
 
         this.initPersonalRoom();
     }
