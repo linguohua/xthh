@@ -76,6 +76,7 @@ export class RoomViewA {
     private gamePauseTime: number;
 
     private defaultQuitTime: number = 10 * 60;
+    private soundTimeNum: number = 0;
 
     public constructor(room: RoomInterfaceA, view: fgui.GComponent) {
         this.room = room;
@@ -191,13 +192,18 @@ export class RoomViewA {
         if (this.leftTime <= 0) {
             this.component.unschedule(this.leftTimerCB);
             this.countDownText.text = `${0}`;
+            //关闭警告声音
+            // SoundMgr.stopEffect(this.soundTimeNum);
             if (this.gamePauseTipsCom.visible === true) {
                 // 当已经存在了，就不更新了
                 return;
             }
-
             this.showGamePauseTips(this.room.getRoomHost().getServerTime() + this.defaultQuitTime);
         } else {
+            if (this.leftTime <= 5) {
+                //播放警告声音
+                SoundMgr.playEffectAudio("gameb/sound_time", false);
+            }
             this.countDownText.text = `${this.leftTime}`;
         }
     }
