@@ -568,7 +568,7 @@ export class Replay {
         const giveUpPeng = LocalStrings.findString("giveUpPeng");
 
         const xiaoChaoTian = LocalStrings.findString("xiaoChaoTian");
-        const giveUpDaChaoTiem = LocalStrings.findString("giveUpDaChaoTiem");
+        const giveUpDaChaoTian = LocalStrings.findString("giveUpDaChaoTian");
 
         switch (data.type) {
             case actionType.TABLE_OP_ZIMO:
@@ -593,7 +593,7 @@ export class Replay {
                 str = `${str} ${xiaoChaoTian}`;
                 break;
             case actionType.DEF_XTSJ_REPLAY_OP_DACHAOTIAN:
-                str = `${str} ${giveUpDaChaoTiem}`;
+                str = `${str} ${giveUpDaChaoTian}`;
                 break;
 
             default:

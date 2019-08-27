@@ -103,7 +103,7 @@ export namespace LocalStrings {
 
         [`giveUpHuiTouXiao`]: "弃回头笑",
         [`giveUpMenXiao`]: "弃闷笑",
-        [`giveUpDaChaoTiem`]: "弃大朝天",
+        [`giveUpDaChaoTian`]: "弃大朝天",
 
         [`cannotRecordWhenOnPlay`]: "正在播放，不能录音",
         [`leaveRoomCountDown`]: "你的牌友已离开，({0})后，将自动解散房间！",
