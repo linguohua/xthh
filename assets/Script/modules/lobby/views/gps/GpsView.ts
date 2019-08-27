@@ -194,8 +194,8 @@ export class GpsView extends cc.Component {
             ctrl.selectedIndex = 1;
 
             const distance = GpsDistance.calculateDistance(
-                player1.coordinate.latitude, player1.coordinate.longitude,
-                player2.coordinate.latitude, player2.coordinate.longitude);
+                <number>player1.coordinate.latitude, <number>player1.coordinate.longitude,
+                <number>player2.coordinate.latitude, <number>player2.coordinate.longitude);
             if (distance > 1000) {
                 distanceText.text = `${Math.floor(distance / 1000)}千米`;
             } else {

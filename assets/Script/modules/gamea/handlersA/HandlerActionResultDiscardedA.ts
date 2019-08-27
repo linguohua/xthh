@@ -35,7 +35,7 @@ export namespace HandlerActionResultDiscardedA {
         //加到打出牌列表
         player.addDicardedTile(discardTileId);
         const isPiao = room.mAlgorithm.getMahjongLaiZi() === reply.card;
-        player.discarded2UI(true, false, isPiao);
+        await player.discarded2UI(true, false, isPiao);
 
         //有人飘赖子
         if (isPiao) {

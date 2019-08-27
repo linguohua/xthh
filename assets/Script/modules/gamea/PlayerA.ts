@@ -364,8 +364,8 @@ export class PlayerA {
     }
 
     //把打出的牌列表显示到界面上
-    public discarded2UI(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): void {
-        this.playerView.showDiscarded(newDiscard, waitDiscardReAction, isPiao);
+    public async discarded2UI(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): Promise<void> {
+        await this.playerView.showDiscarded(newDiscard, waitDiscardReAction, isPiao);
     }
 
     //隐藏打出的牌提示

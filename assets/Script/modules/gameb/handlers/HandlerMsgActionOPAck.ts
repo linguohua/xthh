@@ -9,7 +9,7 @@ const OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
  * 操作服务器回复
  */
 export namespace HandlerMsgActionOPAck {
-    const pong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): void => {
+    const pong = async (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): Promise<void> => {
         //从手牌移除
         for (let i = 0; i < 2; i++) {
             player.removeTileFromHand(pAck.cards[0]);
@@ -20,7 +20,7 @@ export namespace HandlerMsgActionOPAck {
         const contributorPlayer = <Player>room.getPlayerByUserID(`${pAck.target_id}`);
         const a = pAck.cards[0];
         contributorPlayer.removeLatestDiscarded(a); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
-        contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
+        await contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
         // if (player.isMe()) {
         //     room.mAlgorithm.push_back([], pAck.cards, 1, 2);
         //     if (player.getMahjongCount_withV(a) > 0) {
@@ -28,7 +28,8 @@ export namespace HandlerMsgActionOPAck {
         //     }
         // }
     };
-    const kong2 = (room: RoomInterface, t: number, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack, array: number[]): void => {
+    const kong2 = async (
+        room: RoomInterface, t: number, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack, array: number[]): Promise<void> => {
         const mahjong = pAck.cards[0];
         //从手牌移除
         for (const card of array) {
@@ -53,12 +54,12 @@ export namespace HandlerMsgActionOPAck {
         const contributorPlayer = <Player>room.getPlayerByUserID(`${pAck.target_id}`);
         if (contributorPlayer !== undefined && contributorPlayer !== null) {
             contributorPlayer.removeLatestDiscarded(mahjong); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
-            contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
+            await contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
         }
         // player.sortHands(false); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
         player.hand2UI(true); //手牌列表更新UI
     };
-    const kong = (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): number => {
+    const kong = async (room: RoomInterface, player: Player, pAck: proto.casino_xtsj.packet_sc_op_ack): Promise<number> => {
         if (pAck.type === OP_TYPE.XTSJ_OP_TYPE_DIANXIAO || pAck.type === OP_TYPE.XTSJ_OP_TYPE_MENGXIAO ||
             pAck.type === OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN || pAck.type === OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN) {
             //检测三种可能的错误（小于等于1张牌，三张牌但是闷笑，三张牌但是点笑）
@@ -103,7 +104,7 @@ export namespace HandlerMsgActionOPAck {
         for (let index = 0; index < vCount; index++) {
             array.push(mahjong);
         }
-        kong2(room, t, player, pAck, array);
+        await kong2(room, t, player, pAck, array);
 
         return pAck.type;
     };
@@ -140,11 +141,11 @@ export namespace HandlerMsgActionOPAck {
             }
         }
         if (pAck.op === TypeOfOP.Pong) {
-            pong(room, player, pAck);
+            await pong(room, player, pAck);
             //播放动画
             await player.exposedResultAnimation(1001);
         } else if (pAck.op === TypeOfOP.Kong) {
-            const pAckType = kong(room, player, pAck); //在这个函数里面 pAck.type 会改变
+            const pAckType = await kong(room, player, pAck); //在这个函数里面 pAck.type 会改变
             //播放动画
             await player.exposedResultAnimation(pAckType);
         } else if (pAck.op === TypeOfOP.ZiMo || pAck.op === TypeOfOP.Hu || pAck.op === TypeOfOP.QIANGXIAO) {

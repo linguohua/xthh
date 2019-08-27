@@ -945,9 +945,9 @@ export class RoomA {
                 }
             }
         });
-        Object.keys(this.players).forEach((key: string) => {
+        Object.keys(this.players).forEach(async (key: string) => {
             const player = this.players[key];
-            player.discarded2UI(`${isNewDiacardId}` === key, false);
+            await player.discarded2UI(`${isNewDiacardId}` === key, false);
             player.hand2UI(false);
         });
     }

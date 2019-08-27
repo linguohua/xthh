@@ -371,7 +371,7 @@ export class PlayerViewA {
         }
     }
     //显示打出去的牌，明牌显示
-    public showDiscarded(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): void {
+    public async showDiscarded(newDiscard: boolean, waitDiscardReAction: boolean, isPiao: boolean = false): Promise<void> {
         //先隐藏所有的打出牌节点
         const discards = this.discards;
         for (const d of discards) {
@@ -422,7 +422,7 @@ export class PlayerViewA {
             const xy = lastD.node.position;
             xy.x += 20;
             xy.y += 15;
-            this.room.roomView.playPiaoEffect(xy);
+            await this.room.roomView.playPiaoEffect(xy);
         }
     }
 

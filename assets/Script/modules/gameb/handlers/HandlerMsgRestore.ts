@@ -74,7 +74,7 @@ export namespace HandlerMsgRestore {
         mySelf.sortHands(newDraw);
 
         //显示各个玩家的手牌（对手只显示暗牌）和花牌和打出去的牌
-        Object.keys(players).forEach((key: string) => {
+        Object.keys(players).forEach(async (key: string) => {
             const p = <Player>players[key];
             p.hand2UI(!newDraw);
 
@@ -84,7 +84,7 @@ export namespace HandlerMsgRestore {
                 room.setWaitingPlayer(p.chairID);
                 newDiscarded = true;
             }
-            p.discarded2UI(newDiscarded, msgRestore.waitDiscardReAction);
+            await p.discarded2UI(newDiscarded, msgRestore.waitDiscardReAction);
         });
     };
 }
