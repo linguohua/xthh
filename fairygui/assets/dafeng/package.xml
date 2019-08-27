@@ -302,7 +302,7 @@
     <component id="j2i5pa" name="tipsCom.xml" path="/"/>
     <image id="j2i5pc" name="zm_wkq.png" path="/_resource/z_桌面打牌/"/>
     <component id="tebrpd" name="bg_btn.xml" path="/"/>
-    <component id="r1q9pe" name="tipsOfMeCom.xml" path="/"/>
+    <component id="uptdpe" name="disbandCountDown.xml" path="/readyView/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

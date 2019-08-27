@@ -18,5 +18,6 @@
     <text id="n14_hsnc" name="dizhu" xy="381,525" size="400,43" fontSize="30" color="#00df01" align="center" vAlign="middle" autoSize="none" singleLine="true" text="底注：1        总共：10局"/>
     <text id="n21_hsnc" name="tips" xy="249,362" size="632,34" fontSize="22" color="#dc1f4c" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="（11:28）后, 牌友还没到齐，牌局将自动解散，并退还房卡！"/>
     <text id="n22_hsnc" name="permission" xy="910,550" size="143,28" fontSize="18" color="#91cca9" align="center" vAlign="middle" singleLine="true" text="[所有人]允许进入"/>
+    <component id="n38_uptd" name="disbandCountDown" src="uptdpe" fileName="readyView/disbandCountDown.xml" xy="382,225" visible="false"/>
   </displayList>
 </component>
