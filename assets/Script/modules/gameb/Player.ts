@@ -381,8 +381,6 @@ export class Player {
     //听牌标志
     public richiIconShow(showOrHide: boolean): void {
         this.isRichi = showOrHide;
-        const playerView = this.playerView;
-        playerView.head.ting.visible = showOrHide;
     }
     //播放动画
     public async exposedResultAnimation(t: number, isWait?: boolean): Promise<void> {
@@ -399,21 +397,7 @@ export class Player {
 
     //播放读牌音效
     public playReadTileSound(tileID: number): void {
-        // const index = AgariIndex.tileId2ArtId(tileID);
-        // const id = +index;
-        // if (id >= 51 && id <= 58) {
-        //     // this.playSound("gameb/operate", "hua")
-        // } else {
-        //     let effectName = `tile${ id } `;
-        //     if (id === 11) {
-        //         // Math.newrandomseed()
-        //         effectName = `tile${ id } _${ 1 } `; //, id, Math.random(1, 2, 3));
-        //     } else if (id === 29) {
-        //         // math.newrandomseed()
-        //         effectName = `tile${ id } _${ 1 } `; // id, math.random(1, 2));
-        //     }
-        //     this.playSound("gameb/tile", effectName);
-        // }
+
         if (tileID === this.host.laiziID) {
             this.playSound("gameb", `mj_piao`);
         } else {

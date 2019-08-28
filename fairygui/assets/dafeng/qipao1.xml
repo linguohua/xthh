@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="400,50">
-  <displayList>
-    <image id="n0_dtxt" name="n0" src="jmxy1j" fileName="大丰麻将美术改版/2 游戏内/切图/ltqp_qp01.png" xy="-1,0" size="402,47">
-      <relation target="n1_dtxt" sidePair="height-height,bottom-bottom"/>
-    </image>
-    <text id="n1_dtxt" name="text" xy="19,10" size="380,30" fontSize="22" color="#7b582e" vAlign="middle" autoSize="height" bold="true" text=""/>
-  </displayList>
-</component>

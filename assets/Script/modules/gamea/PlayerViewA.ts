@@ -24,9 +24,6 @@ class Head {
     public headView: fgui.GComponent;
     public headLoader: fgui.GLoader;
     public pos: fgui.GObject;
-    public readyIndicator: fgui.GObject;
-    public ting: fgui.GObject;
-    public roomOwnerFlag: fgui.GObject;
     public bankerFlag: fgui.GObject;
     public nameText: fgui.GObject;
     public hideAll: Function;
@@ -116,7 +113,7 @@ export class PlayerViewA {
     private operationPanel: fgui.GComponent;
     private aniPos: fgui.GObject;
     private userInfoPos: fgui.GObject;
-    private qipao: fgui.GComponent;
+
     private qipaoText: fgui.GObject;
     private discardTipsTile: fgui.GComponent;
     private roomHost: RoomHost;
@@ -259,8 +256,6 @@ export class PlayerViewA {
         this.hideLights();
         this.clearDiscardable();
         this.hideDiscarded();
-
-        this.head.ting.visible = false;
 
         if (this.viewChairID === 1) {
             this.hideOperationButtons();
@@ -869,8 +864,7 @@ export class PlayerViewA {
 
     //显示桌主
     public showOwner(): void {
-        const player = this.player;
-        this.head.roomOwnerFlag.visible = player.isMe();
+        //
     }
 
     //特效播放
@@ -911,7 +905,6 @@ export class PlayerViewA {
                 this.msgTimerCB = <Function>this.hideChatMsg.bind(this);
             }
             this.qipaoText.text = str;
-            this.qipao.visible = true;
             //定时隐藏
             this.roomHost.component.unschedule(this.msgTimerCB);
             this.roomHost.component.scheduleOnce(this.msgTimerCB, 3);
@@ -952,7 +945,7 @@ export class PlayerViewA {
         this.voice.visible = isShow;
     }
     private hideChatMsg(): void {
-        this.qipao.visible = false;
+        //
     }
 
     private initOtherView(): void {
@@ -961,10 +954,6 @@ export class PlayerViewA {
         //打出的牌放大显示
         this.discardTips = this.myView.getChild("discardTip").asCom;
         this.discardTipsTile = this.discardTips.getChild("card").asCom;
-
-        //聊天气泡
-        this.qipao = this.myView.getChild("qipao").asCom;
-        this.qipaoText = this.qipao.getChild("text");
 
         // 语音气泡
         this.voice = this.myView.getChild("voice");
@@ -987,15 +976,6 @@ export class PlayerViewA {
         head.headView.visible = false;
         head.pos = head.headView.getChild("pos");
         head.headLoader = head.headView.getChild("n1").asLoader;
-        //ready状态指示
-        head.readyIndicator = this.myView.getChild("ready");
-        head.readyIndicator.visible = false;
-        //听牌标志
-        head.ting = this.myView.getChild("ting");
-        head.ting.visible = false;
-        //房间拥有者标志
-        head.roomOwnerFlag = this.myView.getChild("owner");
-        head.roomOwnerFlag.visible = false;
 
         //庄家标志
         head.bankerFlag = this.myView.getChild("zhuang");
@@ -1006,9 +986,6 @@ export class PlayerViewA {
 
         head.hideAll = (): void => {
             head.headView.visible = false;
-            head.readyIndicator.visible = false;
-            head.ting.visible = false;
-            head.roomOwnerFlag.visible = false;
             head.bankerFlag.visible = false;
             head.nameText.visible = false;
         };
@@ -1020,29 +997,23 @@ export class PlayerViewA {
     private initPlayerStatus(): void {
         //起始
         const onStart = (): void => {
-            this.head.readyIndicator.visible = false;
-            // if (this.viewChairID === 1) {
-            //     this.checkReadyHandBtn.visible = false;
-            // }
+
             this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 6);
         };
 
         //准备
         const onReady = (): void => {
-            this.head.readyIndicator.visible = true;
             this.head.headView.grayed = false;
             this.showOwner();
         };
 
         //离线
         const onLeave = (): void => {
-            this.head.readyIndicator.visible = false;
             this.head.headView.grayed = true;
         };
 
         //正在玩
         const onPlaying = (): void => {
-            this.head.readyIndicator.visible = false;
             this.head.headView.grayed = false;
 
             this.showOwner();

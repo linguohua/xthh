@@ -2,13 +2,6 @@
 <packageDescription id="397phoch" jpegQuality="80" compressPNG="true">
   <resources>
     <component id="jmxy0" name="head_button.xml" path="/btn/"/>
-    <component id="jmxy3" name="chi_button.xml" path="/desk/button/" exported="true"/>
-    <component id="jmxy4" name="peng_button.xml" path="/desk/button/" exported="true"/>
-    <component id="jmxy7" name="gang_button.xml" path="/desk/button/" exported="true"/>
-    <component id="jmxy9" name="hu_button.xml" path="/desk/button/" exported="true"/>
-    <component id="jmxyc" name="ting_button.xml" path="/desk/button/" exported="true"/>
-    <component id="jmxyf" name="guo_button.xml" path="/desk/button/" exported="true"/>
-    <component id="jmxyi" name="zhua_button.xml" path="/desk/button/" exported="true"/>
     <component id="jmxyk" name="desk_view_dui.xml" path="/desk/dui/"/>
     <component id="jmxyq" name="desk_meld.xml" path="/desk/dui/"/>
     <component id="jmxys" name="desk_hand.xml" path="/desk/dui/"/>
@@ -21,7 +14,6 @@
     <component id="jmxyz" name="desk_discard.xml" path="/desk/dui/"/>
     <component id="jmxy11" name="discard_tip.xml" path="/desk/dui/"/>
     <component id="jmxy13" name="mahjong_mine_luo.xml" path="/mahjong_mine/" exported="true"/>
-    <component id="jmxy14" name="qipao2.xml" path="/" exported="true"/>
     <component id="jmxy16" name="desk_view_left.xml" path="/desk/left/"/>
     <component id="jmxy17" name="desk_meld.xml" path="/desk/left/"/>
     <component id="jmxy18" name="desk_hand.xml" path="/desk/left/"/>
@@ -33,7 +25,6 @@
     <component id="jmxy1e" name="desk_flower.xml" path="/desk/left/"/>
     <component id="jmxy1f" name="desk_light.xml" path="/desk/left/"/>
     <component id="jmxy1g" name="discard_tip.xml" path="/desk/left/"/>
-    <component id="jmxy1i" name="qipao1.xml" path="/" exported="true"/>
     <component id="jmxy1k" name="desk_view_mine.xml" path="/desk/mine/"/>
     <component id="jmxy1l" name="desk_discard.xml" path="/desk/mine/"/>
     <component id="jmxy1m" name="desk_meld.xml" path="/desk/mine/"/>
