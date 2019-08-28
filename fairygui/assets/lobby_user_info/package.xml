@@ -9,7 +9,7 @@
     <image id="6k9y5" name="grxx_btzi.png" path="/_resource/"/>
     <image id="6k9y6" name="grxx_dian.png" path="/_resource/"/>
     <image id="6k9y7" name="grxx_fgx.png" path="/_resource/" scale="9grid" scale9grid="3,0,2,2"/>
-    <image id="6k9y8" name="grxx_fgx2.png" path="/_resource/" scale="9grid" scale9grid="3,1,6,2"/>
+    <image id="6k9y8" name="grxx_fgx2.png" path="/_resource/" scale="9grid" scale9grid="3,0,3,1"/>
     <image id="6k9y9" name="grxx_icon_.png" path="/_resource/"/>
     <image id="6k9ya" name="grxx_icon_yk.png" path="/_resource/"/>
     <image id="6k9yb" name="grxx_wxzdi.png" path="/_resource/" scale="9grid" scale9grid="7,6,7,12"/>
@@ -52,6 +52,9 @@
     <component id="6k9y1d" name="beanRecordTap.xml" path="/btn/"/>
     <image id="6k9y1e" name="ty_icon_fk.png" path="/_resource/"/>
     <image id="6k9y1f" name="ty_icon_hld.png" path="/_resource/"/>
+    <component id="6k9y1g" name="exitBtn.xml" path="/btn/"/>
+    <component id="6k9y1h" name="clearCache.xml" path="/btn/"/>
+    <component id="6k9y1i" name="radioBtn.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_user_info"/>
 </packageDescription>
