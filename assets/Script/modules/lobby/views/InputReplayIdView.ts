@@ -1,5 +1,5 @@
 
-import { CommonFunction, Dialog, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
@@ -62,6 +62,8 @@ export class InputReplayIdView extends cc.Component {
 
         this.okBtn = this.view.getChild("buttonQD").asButton;
         this.okBtn.onClick(this.onOkBtnClick, this);
+        this.okBtn.grayed = true;
+        this.okBtn._touchDisabled = true;
 
         for (let i = 0; i < 10; i++) {
             const button = this.view.getChild(`button${i}`);
@@ -75,21 +77,30 @@ export class InputReplayIdView extends cc.Component {
     }
 
     private onResetBtnClick(): void {
-        Logger.debug("onResetBtnClick");
+        // Logger.debug("onResetBtnClick");
         this.numbers.text = "";
+        this.okBtn.grayed = true;
+        this.okBtn._touchDisabled = true;
     }
 
     private onBackBtnClick(): void {
-        Logger.debug("onBackBtnClick");
+        // Logger.debug("onBackBtnClick");
         const len = this.numbers.text.length;
+        if (len === 1) {
+            this.okBtn.grayed = true;
+            this.okBtn._touchDisabled = true;
+        }
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
         }
     }
 
     private onInputButton(input: number): void {
-        Logger.debug(`onInputButton, input:${input}`);
+        // Logger.debug(`onInputButton, input:${input}`);
         this.numbers.text = `${this.numbers.text}${input}`;
+
+        this.okBtn.grayed = false;
+        this.okBtn._touchDisabled = false;
     }
 
     private onOkBtnClick(): void {
@@ -105,7 +116,7 @@ export class InputReplayIdView extends cc.Component {
             lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_REPLAY_REQ);
         } else {
             //提示
-            Dialog.prompt(LocalStrings.findString("inputRecordId"));
+            // Dialog.prompt(LocalStrings.findString("inputRecordId"));
         }
     }
 

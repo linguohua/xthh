@@ -20,7 +20,7 @@ export namespace LocalStrings {
         [`gameRecord`]: "战绩统计",
         [`personalRoom`]: "私人房",
         [`noGameRecordTips`]: "没有您最近的战绩记录",
-        [`inputRecordId`]: "请输入回播id",
+        [`inputRecordId`]: "请输入视频ID",
 
         [`wrongGameRecordIdTips`]: "未找到该房间数据",
         [`daleyOperationTips`]: "操作频繁，请{0}秒后尝试",
