@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="psmq81bc" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="6k9y0" name="grxx_btnzi_cbdj.png" path="/_resource/"/>
+    <image id="6k9y1" name="grxx_btn_bcxg.png" path="/_resource/"/>
+    <image id="6k9y2" name="grxx_btn_qhzh.png" path="/_resource/"/>
+    <image id="6k9y3" name="grxx_btn_qkhc.png" path="/_resource/"/>
+    <image id="6k9y4" name="grxx_btn_xg.png" path="/_resource/"/>
+    <image id="6k9y5" name="grxx_btzi.png" path="/_resource/"/>
+    <image id="6k9y6" name="grxx_dian.png" path="/_resource/"/>
+    <image id="6k9y7" name="grxx_fgx.png" path="/_resource/" scale="9grid" scale9grid="3,0,2,2"/>
+    <image id="6k9y8" name="grxx_fgx2.png" path="/_resource/" scale="9grid" scale9grid="3,1,6,2"/>
+    <image id="6k9y9" name="grxx_icon_.png" path="/_resource/"/>
+    <image id="6k9ya" name="grxx_icon_yk.png" path="/_resource/"/>
+    <image id="6k9yb" name="grxx_wxzdi.png" path="/_resource/" scale="9grid" scale9grid="7,6,7,12"/>
+    <image id="6k9yc" name="grxx_xb_1.png" path="/_resource/"/>
+    <image id="6k9yd" name="grxx_xb_2.png" path="/_resource/"/>
+    <image id="6k9ye" name="grxx_xgtxdi.png" path="/_resource/"/>
+    <image id="6k9yf" name="grxx_xxdi1.png" path="/_resource/" scale="9grid" scale9grid="9,9,18,18"/>
+    <image id="6k9yg" name="grxx_xzdi.png" path="/_resource/"/>
+    <image id="6k9yh" name="grxx_yqdi.png" path="/_resource/" scale="9grid" scale9grid="13,15,9,10"/>
+    <image id="6k9yi" name="grxx_zi_djbd.png" path="/_resource/"/>
+    <image id="6k9yj" name="grxx_zi_djck.png" path="/_resource/"/>
+    <image id="6k9yk" name="grxx_zi_ybd.png" path="/_resource/"/>
+    <image id="6k9yl" name="grxx_zydi.png" path="/_resource/" scale="9grid" scale9grid="13,10,12,7"/>
+    <image id="6k9ym" name="gxxx_btn_yg.png" path="/_resource/"/>
+    <image id="6k9yn" name="gxxx_btn_yk.png" path="/_resource/"/>
+    <image id="6k9yo" name="g_个人信息_基本信息.jpg" path="/_design/"/>
+    <image id="6k9yp" name="g_个人信息_基本信息1.jpg" path="/_design/"/>
+    <image id="6k9yq" name="g_个人信息_基本信息2.jpg" path="/_design/"/>
+    <image id="6k9yr" name="g_个人信息_基本信息2标注.jpg" path="/_design/"/>
+    <image id="6k9ys" name="g_个人信息_基本信息标注.jpg" path="/_design/"/>
+    <image id="6k9yt" name="g_个人信息_游戏设置.jpg" path="/_design/"/>
+    <image id="6k9yu" name="g_个人信息_游戏设置1.jpg" path="/_design/"/>
+    <image id="6k9yv" name="g_个人信息_游戏设置标注.jpg" path="/_design/"/>
+    <image id="6k9yw" name="g_个人信息_认证信息.jpg" path="/_design/"/>
+    <image id="6k9yx" name="g_个人信息_认证信息标注.jpg" path="/_design/"/>
+    <component id="6k9yy" name="userInfoView.xml" path="/" exported="true"/>
+    <component id="6k9yz" name="baseInfoBtn.xml" path="/"/>
+    <component id="6k9y10" name="authInfoBtn.xml" path="/"/>
+    <component id="6k9y11" name="gameSettingBtn.xml" path="/"/>
+    <image id="6k9y12" name="cz_diban.png" path="/_resource/" scale="9grid" scale9grid="18,220,10,39"/>
+    <component id="6k9y13" name="baseInfoCom.xml" path="/com/"/>
+    <component id="6k9y14" name="autoInfoCom.xml" path="/com/"/>
+    <component id="6k9y15" name="gameSettingCom.xml" path="/com/"/>
+    <component id="6k9y16" name="saveBtn.xml" path="/btn/"/>
+    <component id="6k9y18" name="saveModifyBtn.xml" path="/btn/"/>
+    <component id="6k9y19" name="modifyBtn.xml" path="/btn/"/>
+    <component id="6k9y1a" name="boyRadioBtn.xml" path="/btn/"/>
+    <component id="6k9y1b" name="girlRadioBtn.xml" path="/btn/"/>
+    <component id="6k9y1c" name="fkRecordTap.xml" path="/btn/"/>
+    <component id="6k9y1d" name="beanRecordTap.xml" path="/btn/"/>
+    <image id="6k9y1e" name="ty_icon_fk.png" path="/_resource/"/>
+    <image id="6k9y1f" name="ty_icon_hld.png" path="/_resource/"/>
+  </resources>
+  <publish name="lobby_user_info"/>
+</packageDescription>

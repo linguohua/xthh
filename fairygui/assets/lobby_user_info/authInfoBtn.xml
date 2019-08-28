@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="182,67" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n3_6k9y" name="n3" src="6k9yu" fileName="resource/ty_yq4_1.png" pkg="snwj6cnx" xy="4,4" size="152,59">
+      <gearDisplay controller="button" pages="0"/>
+    </image>
+    <image id="n4_6k9y" name="n4" src="6k9yv" fileName="resource/ty_yq4_2.png" pkg="snwj6cnx" xy="0,0" size="182,67">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <text id="n5_6k9y" name="n5" xy="18,19" size="130,35" fontSize="24" color="#994243" align="center" vAlign="middle" letterSpacing="3" autoSize="none" bold="true" singleLine="true" text="认证信息"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

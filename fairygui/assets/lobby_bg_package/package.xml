@@ -29,6 +29,11 @@
     <image id="c07lp" name="ty_icon_wh.png" path="/resource/" exported="true"/>
     <component id="c07lq" name="gouBtn.xml" path="/commonBtn/" exported="true"/>
     <component id="c07lr" name="wenhaoBtn.xml" path="/commonBtn/" exported="true"/>
+    <image id="6k9ys" name="ty_yq3_1.png" path="/resource/" exported="true" scale="9grid" scale9grid="14,16,12,13"/>
+    <image id="6k9yt" name="ty_yq3_2.png" path="/resource/" exported="true" scale="9grid" scale9grid="14,14,11,15"/>
+    <image id="6k9yu" name="ty_yq4_1.png" path="/resource/" exported="true" scale="9grid" scale9grid="10,15,6,26"/>
+    <image id="6k9yv" name="ty_yq4_2.png" path="/resource/" exported="true" scale="9grid" scale9grid="16,17,5,34"/>
+    <image id="6k9yw" name="cz_diban.png" path="/resource/" exported="true" scale="9grid" scale9grid="11,221,22,43"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

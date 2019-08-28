@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="584,425" designImage="ui://psmq81bc6k9yw" designImageOffsetX="-364" designImageOffsetY="-133" designImageAlpha="100">
+  <displayList>
+    <text id="n16_6k9y" name="n16" xy="32,19" size="181,34" fontSize="22" color="#856d57" bold="true" text="尊敬的游戏玩家："/>
+    <text id="n17_6k9y" name="n17" xy="32,52" size="525,67" fontSize="20" color="#856d57" leading="9" autoSize="none" text="根据《互联网文化管理暂行规定》和《网络游戏管理暂行办法》的相关规定及要求，需要登记以下个人信息："/>
+    <text id="n18_6k9y" name="n18" xy="101,140" size="114,133" fontSize="22" color="#856d57" leading="24" autoSize="none" text="真实姓名：&#xA;身份证号：&#xA;用户协议："/>
+    <text id="n19_6k9y" name="n19" xy="129,385" size="328,31" fontSize="20" color="#c1500d" leading="24" text="您的信息 ,  不会对其他玩家开放查看"/>
+    <component id="n20_6k9y" name="n20" src="6k9y16" fileName="btn/saveBtn.xml" xy="195,314" size="194,70"/>
+    <image id="n33_6k9y" name="n33" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="208,189" size="260,32"/>
+    <image id="n34_6k9y" name="n34" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="208,139" size="151,32"/>
+    <image id="n21_6k9y" name="n21" src="6k9y6" fileName="_resource/grxx_dian.png" xy="79,147"/>
+    <image id="n23_6k9y" name="n23" src="6k9y6" fileName="_resource/grxx_dian.png" xy="79,196"/>
+    <image id="n22_6k9y" name="n22" src="6k9y6" fileName="_resource/grxx_dian.png" xy="79,247"/>
+    <image id="n25_6k9y" name="n25" src="6k9y8" fileName="_resource/grxx_fgx2.png" xy="37,305" size="515,2"/>
+    <image id="n27_6k9y" name="n27" src="6k9yj" fileName="_resource/grxx_zi_djck.png" xy="213,244"/>
+    <text id="n35_6k9y" name="n35" xy="211,141" size="144,34" input="true" maxLength="6" fontSize="22" color="#9d3d09" vAlign="middle" leading="24" autoSize="none" singleLine="true" autoClearText="true" text="万家乐"/>
+    <text id="n36_6k9y" name="n36" xy="211,190" size="257,34" input="true" keyboardType="4" fontSize="22" color="#9d3d09" vAlign="middle" leading="24" autoSize="none" singleLine="true" autoClearText="true" text="440823111111111111"/>
+  </displayList>
+</component>

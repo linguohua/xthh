@@ -1,6 +1,15 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface } from "../lcore/LCoreExports";
+import { LobbyModuleInterface } from "../lcore/LCoreExports";
 
 const { ccclass } = cc._decorator;
+
+export enum UserInfoTabType {
+
+    BASE_INFO = 0,
+    AUTH_INFO = 1,
+    GAME_SETTING = 2
+
+}
+
 /**
  * 用户信息页面
  */
@@ -10,6 +19,13 @@ export class UserInfoView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private eventTarget: cc.EventTarget;
+
+    public showView(page: UserInfoTabType): void {
+        this.win.show();
+
+        const tabCtrl = this.view.getController("tab");
+        tabCtrl.selectedIndex = page;
+    }
 
     protected onLoad(): void {
 
@@ -27,8 +43,6 @@ export class UserInfoView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-        this.win.show();
-
         this.initView();
     }
 
@@ -48,35 +62,6 @@ export class UserInfoView extends cc.Component {
 
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
-
-        let item = this.view.getChild("nick");
-        let itemName = item.asCom.getChild("item");
-        itemName.text = "昵称:";
-
-        let itemText = item.asCom.getChild("text");
-        const name = DataStore.getString(KeyConstants.NICK_NAME);
-
-        if (name === null || name.length < 1) {
-            itemText.text = "默认用户名字";
-        } else {
-            itemText.text = name;
-        }
-
-        item = this.view.getChild("id");
-        itemName = item.asCom.getChild("item");
-        itemName.text = "ID:";
-
-        itemText = item.asCom.getChild("text");
-        itemText.text = DataStore.getString(KeyConstants.USER_ID, "");
-
-        const genderCtrl = this.view.getController("gender");
-        const gender = DataStore.getString(KeyConstants.GENDER);
-        genderCtrl.selectedIndex = +gender;
-
-        const iconLoader = this.view.getChild("loader").asLoader;
-
-        const headImgUrl = DataStore.getString("headImgUrl");
-        CommonFunction.setHead(iconLoader, headImgUrl, +gender);
 
     }
 

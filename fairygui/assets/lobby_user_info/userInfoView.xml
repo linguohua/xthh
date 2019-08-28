@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://psmq81bc6k9yo" designImageAlpha="100">
+  <controller name="role" pages="0,visitor,1,weChat" selected="0"/>
+  <controller name="gender" pages="0,boy,1,girl" selected="0"/>
+  <controller name="tab" pages="0,baseInfo,1,autoInfo,2,gameSetting" selected="0"/>
+  <displayList>
+    <image id="n2_6k9y" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640" hideByEditor="true"/>
+    <image id="n1_6k9y" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,59" size="815,518"/>
+    <image id="n19_6k9y" name="bg1" src="6k9y12" fileName="_resource/cz_diban.png" xy="365,133" size="584,425"/>
+    <image id="n14_6k9y" name="bg2" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="181,130" size="163,423"/>
+    <image id="n3_6k9y" name="title" src="6k9y5" fileName="_resource/grxx_btzi.png" xy="494,73"/>
+    <component id="n0_6k9y" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="143,54"/>
+    <component id="n13_6k9y" name="baseInfoBtn" src="6k9yz" fileName="baseInfoBtn.xml" xy="182,131">
+      <Button checked="true" controller="tab" page="0"/>
+    </component>
+    <component id="n11_6k9y" name="authInfoBtn" src="6k9y10" fileName="authInfoBtn.xml" xy="182,195">
+      <Button controller="tab" page="1"/>
+    </component>
+    <component id="n12_6k9y" name="gameSettingBtn" src="6k9y11" fileName="gameSettingBtn.xml" xy="182,260">
+      <Button controller="tab" page="2"/>
+    </component>
+    <component id="n15_6k9y" name="baseInfoCom" src="6k9y13" fileName="com/baseInfoCom.xml" xy="364,133">
+      <gearDisplay controller="tab" pages="0"/>
+    </component>
+    <component id="n18_6k9y" name="autoInfoCom" src="6k9y14" fileName="com/autoInfoCom.xml" xy="364,133">
+      <gearDisplay controller="tab" pages="1"/>
+    </component>
+    <component id="n16_6k9y" name="gameSettingCom" src="6k9y15" fileName="com/gameSettingCom.xml" xy="364,133">
+      <gearDisplay controller="tab" pages="2"/>
+    </component>
+  </displayList>
+</component>

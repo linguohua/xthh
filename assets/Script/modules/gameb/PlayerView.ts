@@ -675,7 +675,7 @@ export class PlayerView {
         this.restoreHandsPositionAndClickCount(-1);
 
         let begin = 0;
-        let endd = tileCountInHand;
+        let end = tileCountInHand;
 
         const meldCount = melds.length;
         if ((meldCount * 3 + tileCountInHand) > 13) {
@@ -691,7 +691,7 @@ export class PlayerView {
                 handsClickCtrls[13].tileID = tileshand[tileCountInHand - 1];
                 this.hands[13].getChild("laiziMask").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
                 this.hands[13].getChild("laizi").visible = tileshand[tileCountInHand - 1] === this.room.laiziID;
-                endd = tileCountInHand - 1;
+                end = tileCountInHand - 1;
             }
         }
 
@@ -699,7 +699,7 @@ export class PlayerView {
         const num = this.showMelds();
 
         let j = 0;
-        for (let i = begin; i < endd; i++) {
+        for (let i = begin; i < end; i++) {
             const h = this.hands[j];
             const t = tileshand[i];
             TileImageMounter.mountTileImage(h, t);

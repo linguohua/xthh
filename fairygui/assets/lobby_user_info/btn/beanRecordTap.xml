@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="170,40" extention="Button" designImage="ui://psmq81bc6k9yq" designImageOffsetX="-643" designImageOffsetY="-321" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n0_6k9y" name="n0" src="6k9ys" fileName="resource/ty_yq3_1.png" pkg="snwj6cnx" xy="0,0" size="170,40">
+      <gearDisplay controller="button" pages="0,2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_6k9y" name="n1" src="6k9yt" fileName="resource/ty_yq3_2.png" pkg="snwj6cnx" xy="0,0" size="170,41">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n2_6k9y" name="n2" xy="14,6" size="143,34" fontSize="22" color="#994234" align="center" vAlign="middle" autoSize="none" bold="true" text="欢乐豆战绩"/>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

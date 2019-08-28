@@ -11,6 +11,7 @@ import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
+import { UserInfoTabType, UserInfoView } from "./UserInfoView";
 const { ccclass } = cc._decorator;
 
 /**
@@ -116,6 +117,9 @@ export class LobbyView extends cc.Component {
         const shareBtn = this.view.getChild("shareBtn");
         shareBtn.onClick(this.onShareBtnClick, this);
 
+        const settingBtn = this.view.getChild("settingBtn");
+        settingBtn.onClick(this.onSettingBtnClick, this);
+
         const addDou = this.view.getChild("addBtn1");
         addDou.onClick(this.onAddDouBtnClick, this);
 
@@ -133,6 +137,7 @@ export class LobbyView extends cc.Component {
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const headLoader = this.view.getChild("iconLoader").asLoader;
+        headLoader.onClick(this.onUserInfoClick, this);
 
         CommonFunction.setHead(headLoader, avatarURL, +gender);
     }
@@ -172,6 +177,16 @@ export class LobbyView extends cc.Component {
 
         this.lm.msgCenter.blockNormal();
 
+    }
+
+    private onUserInfoClick(): void {
+        const view = this.addComponent(UserInfoView);
+        view.showView(UserInfoTabType.BASE_INFO);
+    }
+
+    private onSettingBtnClick(): void {
+        const view = this.addComponent(UserInfoView);
+        view.showView(UserInfoTabType.GAME_SETTING);
     }
 
     private onAddDouBtnClick(): void {
