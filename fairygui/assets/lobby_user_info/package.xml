@@ -55,6 +55,23 @@
     <component id="6k9y1g" name="exitBtn.xml" path="/btn/"/>
     <component id="6k9y1h" name="clearCache.xml" path="/btn/"/>
     <component id="6k9y1i" name="radioBtn.xml" path="/btn/"/>
+    <image id="hjqc1j" name="grxx_icon_sj.png" path="/_resource/"/>
+    <image id="hjqc1k" name="grxx_icon_wx.png" path="/_resource/"/>
+    <image id="hjqc1l" name="grxx_txktdi.png" path="/_resource/" scale="9grid" scale9grid="20,19,11,9"/>
+    <image id="hjqc1m" name="grxx_xttx_1.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1n" name="grxx_xttx_10.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1o" name="grxx_xttx_2.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1p" name="grxx_xttx_3.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1q" name="grxx_xttx_4.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1r" name="grxx_xttx_5.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1s" name="grxx_xttx_6.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1t" name="grxx_xttx_7.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1u" name="grxx_xttx_8.png" path="/_resource/" exported="true"/>
+    <image id="hjqc1v" name="grxx_xttx_9.png" path="/_resource/" exported="true"/>
+    <component id="hjqc1w" name="changeIconBtn.xml" path="/btn/"/>
+    <image id="hjqc1x" name="g_个人信息_基本信息_修改头像.jpg" path="/_design/"/>
+    <image id="hjqc1y" name="g_个人信息_基本信息_修改头像标注.jpg" path="/_design/"/>
+    <component id="hjqc1z" name="iconItem.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_user_info"/>
 </packageDescription>

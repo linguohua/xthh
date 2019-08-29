@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="433,63">
+  <displayList>
+    <image id="n10_hjqc" name="n10" src="hjqcb" fileName="_resource/zm_lt_wzdi1.png" xy="0,0" size="433,63"/>
+    <text id="n11_hjqc" name="n11" xy="22,17" size="405,39" fontSize="26" color="#66412c" vAlign="middle" autoSize="none" singleLine="true" text="快滴卡，瞎打"/>
+  </displayList>
+</component>

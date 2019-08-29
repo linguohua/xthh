@@ -3,7 +3,7 @@
   <displayList>
     <text id="n16_6k9y" name="n16" xy="32,19" size="181,34" fontSize="22" color="#856d57" bold="true" text="尊敬的游戏玩家："/>
     <text id="n17_6k9y" name="n17" xy="32,52" size="525,67" fontSize="20" color="#856d57" leading="9" autoSize="none" text="根据《互联网文化管理暂行规定》和《网络游戏管理暂行办法》的相关规定及要求，需要登记以下个人信息："/>
-    <text id="n18_6k9y" name="n18" xy="101,140" size="114,133" fontSize="22" color="#856d57" leading="24" autoSize="none" text="真实姓名：&#xA;身份证号：&#xA;用户协议："/>
+    <text id="n18_6k9y" name="n18" xy="101,140" size="128,133" fontSize="22" color="#856d57" leading="24" autoSize="none" text="真实姓名：&#xA;身份证号：&#xA;用户协议："/>
     <text id="n19_6k9y" name="n19" xy="129,385" size="328,31" fontSize="20" color="#c1500d" leading="24" text="您的信息 ,  不会对其他玩家开放查看"/>
     <component id="n20_6k9y" name="n20" src="6k9y16" fileName="btn/saveBtn.xml" xy="195,314" size="194,70"/>
     <image id="n33_6k9y" name="n33" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="208,189" size="260,32"/>

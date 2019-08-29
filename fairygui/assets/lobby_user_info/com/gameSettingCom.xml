@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="584,425" designImage="ui://psmq81bc6k9yt" designImageOffsetX="-364" designImageOffsetY="-133" designImageAlpha="100">
-  <controller name="role" pages="0,游客,1,微信,2,手机" selected="0"/>
+  <controller name="role" pages="0,游客,1,微信,2,手机" selected="1"/>
   <displayList>
     <image id="n2_6k9y" name="dot1" src="6k9y6" fileName="_resource/grxx_dian.png" xy="43,54"/>
     <image id="n3_6k9y" name="dot2" src="6k9y6" fileName="_resource/grxx_dian.png" xy="299,54"/>
@@ -24,8 +24,11 @@
     <text id="n14_6k9y" name="effectText" xy="72,127" size="89,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="音  效："/>
     <text id="n15_6k9y" name="gpsText" xy="327,127" size="89,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="定  位："/>
     <text id="n17_6k9y" name="loginWayText" xy="72,237" size="108,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="登录方式："/>
-    <text id="n18_6k9y" name="loginWay" xy="182,237" size="92,34" fontSize="22" color="#59901f" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="游客登录">
+    <text id="n18_6k9y" name="loginWay" xy="182,237" size="92,34" fontSize="22" color="#59901f" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="微信登录">
       <gearText controller="role" pages="0,2" values="游客登录|手机登录" default="微信登录"/>
     </text>
+    <image id="n19_hjqc" name="n19" src="hjqc1j" fileName="_resource/grxx_icon_sj.png" xy="282,233">
+      <gearDisplay controller="role" pages="2"/>
+    </image>
   </displayList>
 </component>

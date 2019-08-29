@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="qyrwdwrp" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="hjqc0" name="zm_lt_bq1.png" path="/_resource/"/>
+    <image id="hjqc1" name="zm_lt_bq1wq.png" path="/_resource/"/>
+    <image id="hjqc2" name="zm_lt_bq2.png" path="/_resource/"/>
+    <image id="hjqc3" name="zm_lt_bq2dy.png" path="/_resource/"/>
+    <image id="hjqc4" name="zm_lt_bq3.png" path="/_resource/"/>
+    <image id="hjqc5" name="zm_lt_bq3dzh.png" path="/_resource/"/>
+    <image id="hjqc6" name="zm_lt_bq4.png" path="/_resource/"/>
+    <image id="hjqc7" name="zm_lt_bq4cc.png" path="/_resource/"/>
+    <image id="hjqc8" name="zm_lt_qp.png" path="/_resource/"/>
+    <image id="hjqc9" name="zm_lt_qpjt.png" path="/_resource/"/>
+    <image id="hjqca" name="zm_lt_wzdi.png" path="/_resource/" scale="9grid" scale9grid="18,17,16,15"/>
+    <image id="hjqcb" name="zm_lt_wzdi1.png" path="/_resource/" scale="9grid" scale9grid="19,8,41,7"/>
+    <image id="hjqcc" name="z_桌面-聊天标注.jpg" path="/_design/"/>
+    <image id="hjqcd" name="z_桌面-聊天气泡.jpg" path="/_design/"/>
+    <image id="hjqce" name="z_桌面-聊天气泡标注.jpg" path="/_design/"/>
+    <image id="hjqcf" name="z_桌面_聊天.jpg" path="/_design/"/>
+    <component id="hjqcg" name="chatView.xml" path="/" exported="true"/>
+    <component id="hjqch" name="item.xml" path="/btn/"/>
+  </resources>
+  <publish name="lobby_chat"/>
+</packageDescription>
