@@ -1,14 +1,23 @@
 
 import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
-import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
 
+export enum InputNumberOpenType {
+
+    JOIN_ROOM = "joinRoomText",
+    INPUT_RECORD = "inputRecordText",
+
+    INPUT_PHONE = "inputPhoneText",
+
+    INPUT_AUTH = "inputAuthText"
+
+}
 /**
- * 输入战绩ID界面
+ * 输入数字界面
  */
 @ccclass
-export class InputReplayIdView extends cc.Component {
+export class InputNumberView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
 
@@ -17,7 +26,16 @@ export class InputReplayIdView extends cc.Component {
 
     private okBtn: fgui.GButton;
 
-    public show(): void {
+    private callback: Function;
+
+    private inputLimit: number;
+
+    private openType: InputNumberOpenType;
+
+    public show(callback: Function, openType: InputNumberOpenType, inputLimit: number): void {
+        this.callback = callback;
+        this.inputLimit = inputLimit;
+        this.openType = openType;
 
         this.initView();
         this.win.show();
@@ -28,8 +46,6 @@ export class InputReplayIdView extends cc.Component {
         loader.fguiAddPackage("lobby/fui_join_room/lobby_join_room");
         const view = fgui.UIPackage.createObject("lobby_join_room", "joinRoom").asCom;
 
-        const hint = view.getChild("hintText").asTextField;
-        hint.text = LocalStrings.findString("inputRecordId");
         CommonFunction.setViewInCenter(view);
 
         const mask = view.getChild("mask");
@@ -51,6 +67,10 @@ export class InputReplayIdView extends cc.Component {
     }
 
     private initView(): void {
+
+        const hint = this.view.getChild("hintText").asTextField;
+        hint.text = LocalStrings.findString(this.openType);
+
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseBtnClick, this);
 
@@ -85,38 +105,43 @@ export class InputReplayIdView extends cc.Component {
 
     private onBackBtnClick(): void {
         // Logger.debug("onBackBtnClick");
-        const len = this.numbers.text.length;
-        if (len === 1) {
-            this.okBtn.grayed = true;
-            this.okBtn._touchDisabled = true;
-        }
+        let len = this.numbers.text.length;
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
+        }
+
+        len = this.numbers.text.length;
+        if (len < this.inputLimit) {
+            this.okBtn.grayed = true;
+            this.okBtn._touchDisabled = true;
         }
     }
 
     private onInputButton(input: number): void {
-        // Logger.debug(`onInputButton, input:${input}`);
-        this.numbers.text = `${this.numbers.text}${input}`;
 
-        this.okBtn.grayed = false;
-        this.okBtn._touchDisabled = false;
+        const numberLength = this.numbers.text.length;
+        if (numberLength < this.inputLimit) {
+            this.numbers.text = `${this.numbers.text}${input}`;
+
+        }
+
+        if (this.numbers.text.length < this.inputLimit) {
+            this.okBtn.grayed = true;
+            this.okBtn._touchDisabled = true;
+        } else {
+            this.okBtn.grayed = false;
+            this.okBtn._touchDisabled = false;
+        }
     }
 
     private onOkBtnClick(): void {
+
         const num = this.numbers.text;
         if (num !== undefined && num !== null && num !== "") {
+
+            this.callback(num);
             this.win.hide();
             this.destroy();
-
-            const req2 = new proto.casino.packet_replay_req();
-            req2.replay_id = +num;
-            const buf = proto.casino.packet_replay_req.encode(req2);
-            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-            lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_REPLAY_REQ);
-        } else {
-            //提示
-            // Dialog.prompt(LocalStrings.findString("inputRecordId"));
         }
     }
 

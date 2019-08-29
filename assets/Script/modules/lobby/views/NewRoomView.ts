@@ -10,8 +10,7 @@ import { LocalStrings } from "../strings/LocalStringsExports";
 import { BoxRecordView } from "./BoxRecordView";
 import { FkRecordView } from "./FkRecordView";
 import { GameRecordView } from "./GameRecordView";
-import { InputReplayIdView } from "./InputReplayIdView";
-import { JoinRoom } from "./JoinRoom";
+import { InputNumberOpenType, InputNumberView } from "./InputNumberView";
 
 const { ccclass } = cc._decorator;
 
@@ -71,23 +70,6 @@ export class NewRoomView extends cc.Component {
         this.win.show();
     }
 
-    public joinRoom(roomNumber: string): void {
-        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
-        const req = {
-            player_id: +playerID,
-            table_id: long.ZERO,
-            tag: +roomNumber
-        };
-
-        const req2 = new protoHH.casino.packet_table_join_req(req);
-        const buf = protoHH.casino.packet_table_join_req.encode(req2);
-
-        if (this.lm !== undefined) {
-            this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-        }
-
-    }
-
     public setViewVisible(visible: boolean): void {
         if (visible) {
             this.win.show();
@@ -99,8 +81,17 @@ export class NewRoomView extends cc.Component {
 
     public onInputRecordIdBtnClick(): void {
         Logger.debug("onInputRecordIdBtnClick");
-        const joiRoomView = this.addComponent(InputReplayIdView);
-        joiRoomView.show();
+        const inputNumberView = this.addComponent(InputNumberView);
+
+        const cb = (str: string) => {
+            const req2 = new protoHH.casino.packet_replay_req();
+            req2.replay_id = +str;
+            const buf = protoHH.casino.packet_replay_req.encode(req2);
+            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
+        };
+        inputNumberView.show(cb, InputNumberOpenType.INPUT_RECORD, 8);
+
     }
 
     protected onLoad(): void {
@@ -406,11 +397,32 @@ export class NewRoomView extends cc.Component {
         this.initPersonalRoom();
     }
 
+    private joinRoom(roomNumber: string): void {
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
+        const req = {
+            player_id: +playerID,
+            table_id: long.ZERO,
+            tag: +roomNumber
+        };
+
+        const req2 = new protoHH.casino.packet_table_join_req(req);
+        const buf = protoHH.casino.packet_table_join_req.encode(req2);
+
+        if (this.lm !== undefined) {
+            this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+        }
+
+    }
+
     private onEnterBtnClick(): void {
         Logger.debug("onEnterBtnClick");
 
-        const joiRoomView = this.addComponent(JoinRoom);
-        joiRoomView.show(this);
+        const inputNumberView = this.addComponent(InputNumberView);
+
+        const cb = (str: string) => {
+            this.joinRoom(str);
+        };
+        inputNumberView.show(cb, InputNumberOpenType.JOIN_ROOM, 6);
 
     }
     private onSpaceBtnClick(): void {

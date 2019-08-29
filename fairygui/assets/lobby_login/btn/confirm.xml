@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="188,72" pivot="0.5,0.5" extention="Button">
+  <controller name="enable" pages="0,no,1,yes" selected="0"/>
+  <displayList>
+    <image id="n0_hjqc" name="n0" src="b75th" fileName="resource/ty_btn_hd.png" pkg="snwj6cnx" xy="0,0" size="188,72">
+      <gearDisplay controller="enable" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_hjqc" name="n1" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="188,72">
+      <gearDisplay controller="enable" pages="1"/>
+    </image>
+    <text id="n2_hjqc" name="n2" xy="45,16" size="110,43" fontSize="30" color="#d9d9d9" align="center" vAlign="middle" letterSpacing="10" autoSize="none" text="确定">
+      <gearColor controller="enable" pages="0" values="#d9d9d9,#5b6713" default="#f7fec0,#5b6713"/>
+    </text>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

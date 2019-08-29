@@ -6,6 +6,7 @@ import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
+import { OpenType, PhoneAuthView } from "./PhoneAuthView";
 
 const { ccclass } = cc._decorator;
 interface ServerCfg {
@@ -114,6 +115,7 @@ export class LoginView extends cc.Component {
 
         this.loginBtn.onClick(this.onLoginClick, this);
         this.weixinButton.onClick(this.onWeixinBtnClick, this);
+        this.phoneLoginBtn.onClick(this.onPhoneLoginBtnClick, this);
     }
 
     public updateCompleted(): void {
@@ -139,6 +141,8 @@ export class LoginView extends cc.Component {
 
     public onPhoneLoginBtnClick(): void {
         Logger.debug("onPhoneLoginBtnClick");
+        const view = this.addComponent(PhoneAuthView);
+        view.show(OpenType.LOGIN);
     }
 
     public showLobbyView(): void {

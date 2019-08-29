@@ -19,6 +19,17 @@
     <component id="b9xzf" name="downloadProgress.xml" path="/"/>
     <image id="b9xzg" name="dl_jdt_di.png" path="/resource/" scale="9grid" scale9grid="9,7,15,10"/>
     <image id="b9xzh" name="dl_jdt.png" path="/resource/" scale="9grid" scale9grid="15,8,4,9"/>
+    <component id="hjqc0" name="phoneAuthView.xml" path="/" exported="true"/>
+    <image id="hjqc1" name="d_登录_手机登录.jpg" path="/design/"/>
+    <image id="hjqc2" name="d_登录_手机登录1.jpg" path="/design/"/>
+    <image id="hjqc3" name="d_登录_手机登录1标注.jpg" path="/design/"/>
+    <image id="hjqc4" name="d_登录_手机登录标注.jpg" path="/design/"/>
+    <image id="hjqci" name="dl_btzi_sjdl.png" path="/resource/"/>
+    <component id="hjqcj" name="getAuthBtn.xml" path="/btn/"/>
+    <component id="hjqck" name="confirm.xml" path="/btn/"/>
+    <image id="hjqcl" name="dl_btzi_bdsjh.png" path="/resource/"/>
+    <component id="hjqcm" name="inputPhone.xml" path="/"/>
+    <component id="hjqcn" name="inputAuth.xml" path="/"/>
   </resources>
   <publish name="lobby_login"/>
 </packageDescription>

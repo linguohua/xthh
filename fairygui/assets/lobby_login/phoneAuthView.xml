@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://svm739nzhjqc2" designImageAlpha="100">
+  <controller name="phoneLegal" pages="0,no,1,yes" selected="0"/>
+  <controller name="codeLegal" pages="0,no,1,yes" selected="0"/>
+  <controller name="type" pages="0,login,1,bindPhone" selected="0"/>
+  <displayList>
+    <image id="n1_hjqc" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="226,93" size="684,454"/>
+    <image id="n6_hjqc" name="title" src="hjqci" fileName="resource/dl_btzi_sjdl.png" xy="493,100">
+      <gearDisplay controller="type" pages="0"/>
+    </image>
+    <image id="n15_hjqc" name="title2" src="hjqcl" fileName="resource/dl_btzi_bdsjh.png" xy="477,100">
+      <gearDisplay controller="type" pages="1"/>
+    </image>
+    <component id="n0_hjqc" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="204,86"/>
+    <text id="n3_hjqc" name="text" xy="307,233" size="130,121" fontSize="30" color="#664620" leading="41" autoSize="none" text="手机号：&#xA;验证码："/>
+    <component id="n13_hjqc" name="getAuthBtn" src="hjqcj" fileName="btn/getAuthBtn.xml" xy="701,307"/>
+    <component id="n14_hjqc" name="confirmBtn" src="hjqck" fileName="btn/confirm.xml" xy="473,432"/>
+    <component id="n17_hjqc" name="inputPhone" src="hjqcm" fileName="inputPhone.xml" xy="430,230"/>
+    <component id="n19_hjqc" name="inputAuth" src="hjqcn" fileName="inputAuth.xml" xy="430,311"/>
+  </displayList>
+</component>

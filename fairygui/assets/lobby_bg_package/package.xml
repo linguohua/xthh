@@ -34,6 +34,7 @@
     <image id="6k9yu" name="ty_yq4_1.png" path="/resource/" exported="true" scale="9grid" scale9grid="10,15,6,26"/>
     <image id="6k9yv" name="ty_yq4_2.png" path="/resource/" exported="true" scale="9grid" scale9grid="16,17,5,34"/>
     <image id="6k9yw" name="cz_diban.png" path="/resource/" exported="true" scale="9grid" scale9grid="11,221,22,43"/>
+    <image id="hjqcx" name="grxx_yqdi.png" path="/resource/" exported="true" scale="9grid" scale9grid="12,10,16,18"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>
