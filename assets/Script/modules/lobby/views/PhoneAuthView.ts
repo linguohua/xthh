@@ -23,7 +23,10 @@ export class PhoneAuthView extends cc.Component {
 
     private inputAuth: fgui.GObject;
 
+    private openType: OpenType;
+
     public show(openType: OpenType): void {
+        this.openType = openType;
 
         const view = fgui.UIPackage.createObject("lobby_login", "phoneAuthView").asCom;
 
@@ -90,6 +93,9 @@ export class PhoneAuthView extends cc.Component {
 
         const confirmBtn = this.view.getChild("confirmBtn");
         confirmBtn.onClick(this.onCloseBtnClick, this);
+
+        const openType = this.view.getController("type");
+        openType.selectedIndex = this.openType;
 
         // this.list = this.view.getChild("list").asList;
 
