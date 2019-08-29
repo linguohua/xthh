@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="92,92">
   <displayList>
-    <image id="n68_hjqc" name="n68" src="hjqc1q" fileName="_resource/grxx_xttx_4.png" xy="0,0"/>
+    <loader id="n69_tsqc" name="n69" xy="0,0" size="92,92" align="center" vAlign="middle" fill="scale"/>
   </displayList>
 </component>
