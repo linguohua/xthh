@@ -31,5 +31,6 @@ export namespace KeyConstants {
     export const OPEN_UD_ID = "openudid";
     export const IM_ACCID = "imaccid";
     export const IM_TOKEN = "imtoken";
+    export const DATA_GDY = "dataGdy";
 
 }

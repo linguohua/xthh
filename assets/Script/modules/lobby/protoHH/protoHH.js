@@ -11365,6 +11365,84 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 10
                         }
                     ]
+                },
+                {
+                    "name": "packet_modify_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "nickname",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "phone",
+                            "id": 11
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "sex",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "avatar",
+                            "id": 21
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_modify_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "nickname",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "phone",
+                            "id": 11
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "sex",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "avatar",
+                            "id": 21
+                        }
+                    ]
                 }
             ],
             "enums": [

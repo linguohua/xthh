@@ -115,7 +115,8 @@ export namespace LocalStrings {
         [`inputAuthText`]: "请输入验证码",
 
         [`discardTipsOfMe`]: "到您出牌咯！",
-        ['readyViewDisbandRoomTip']: "房主解散房间"
+        [`readyViewDisbandRoomTip`]: "房主解散房间",
+        [`modifySuccess`]: "修改成功"
     };
 
     export const findString = (strTag: string, ...params: string[]): string => {

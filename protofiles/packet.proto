@@ -889,3 +889,20 @@ message packet_card_ack{
    required uint32				ret = 1;		// 返回值
    repeated casino_card	      cards = 10;		// 卡牌信息
 }
+
+message packet_modify_req{
+	optional uint32 	   player_id = 2; 			// 说话玩家
+	optional string		   nickname	= 10;
+	optional string			  phone = 11;
+	optional uint32		        sex	= 20;
+	optional uint32		     avatar	= 21;
+}
+
+message packet_modify_ack{
+	required uint32				ret = 1;			// 返回值
+	optional uint32 	   player_id = 2; 			// 说话玩家
+	optional string		   nickname	= 10;
+	optional string			  phone = 11;
+	optional uint32		        sex	= 20;
+	optional uint32		     avatar	= 21;
+}
