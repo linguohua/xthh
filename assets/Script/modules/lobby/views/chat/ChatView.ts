@@ -1,4 +1,8 @@
-import { DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+
+import {
+    CommonFunction, DataStore, Dialog, GResLoader,
+    HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger
+} from "../../lcore/LCoreExports";
 import { proto } from "../../proto/protoLobby";
 // tslint:disable-next-line:no-require-imports
 import bytebuffer = require("../../protobufjs/bytebuffer");
@@ -55,6 +59,8 @@ interface MsgContent {
  */
 export class ChatView extends cc.Component {
     private view: fgui.GComponent = null;
+
+    private win: fgui.Window;
     private phraseBtn: fgui.GButton;
     private expressionBtn: fgui.GButton;
     private historyBtn: fgui.GButton;
@@ -74,30 +80,47 @@ export class ChatView extends cc.Component {
     private msgCallBack: Function;
     private msgList: { [key: number]: ChatData };
 
-    public show(loader: GResLoader, msgCallBack: Function, width: number): void {
+    public show(loader: GResLoader, msgCallBack: Function): void {
         this.msgCallBack = msgCallBack;
-        if (this.view === undefined || this.view === null) {
-            loader.fguiAddPackage("lobby/fui_chat/lobby_chat");
-            this.view = fgui.UIPackage.createObject("lobby_chat", "chat").asCom;
 
-            this.initView();
-            this.testLists();
-            this.userID = DataStore.getString(KeyConstants.USER_ID, "");
+        loader.fguiAddPackage("lobby/fui_chat/lobby_chat");
+        const view = fgui.UIPackage.createObject("lobby_chat", "chatView").asCom;
 
-            this.lobbyModule = <LobbyModuleInterface>this.node.getParent().getComponent("LobbyModule");
-            if (this.lobbyModule !== null) {
-                this.onMessageFunc = this.lobbyModule.eventTarget.on(`${proto.lobby.MessageCode.OPChat}`, this.onMessage, this);
-            }
-        }
-        fgui.GRoot.inst.showPopup(this.view);
+        CommonFunction.setViewInCenter(view);
 
-        const x = width - 500;
-        this.view.setPosition(x, 0);
+        const mask = view.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
+        //this.testLists();
+        this.userID = DataStore.getString(KeyConstants.USER_ID, "");
+
+        // this.lobbyModule = <LobbyModuleInterface>this.node.getParent().getComponent("LobbyModule");
+        // if (this.lobbyModule !== null) {
+        //     this.onMessageFunc = this.lobbyModule.eventTarget.on(`${proto.lobby.MessageCode.OPChat}`, this.onMessage, this);
+        // }
+        this.view = view;
+        this.initView();
+        const win = new fgui.Window();
+        win.contentPane = view;
+        win.modal = true;
+
+        this.win = win;
+
+        const viewPos = this.view.node.position;
+        this.view.node.setPosition(viewPos.x + 500, viewPos.y);
+        this.win.show();
+
+        const pos1 = new cc.Vec2(viewPos.x - 50, viewPos.y);
+        const action = cc.moveTo(0.1, pos1);
+        const action1 = cc.moveTo(0.1, viewPos);
+
+        const actionQueue = cc.sequence(action, action1);
+        this.view.node.runAction(actionQueue);
 
     }
 
     protected onMessage(data: ByteBuffer): void {
         this.addMsg(data);
+        //this.initView();
     }
 
     protected onLoad(): void {
@@ -105,47 +128,49 @@ export class ChatView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        if (this.lobbyModule !== null) {
-            this.lobbyModule.eventTarget.off(`${proto.lobby.MessageCode.OPChat}`, this.onMessageFunc);
-        }
 
         this.view.dispose();
+        this.win.dispose();
 
     }
 
     private initView(): void {
-        this.phraseBtn = this.view.getChild("phraseBtn").asButton;
-        this.expressionBtn = this.view.getChild("expressionBtn").asButton;
-        this.historyBtn = this.view.getChild("historyBtn").asButton;
-        this.phraseBtn.onClick(this.onPhraseBtnClick, this);
-        this.expressionBtn.onClick(this.onExpressionBtnClick, this);
-        this.historyBtn.onClick(this.onHistoryBtnClick, this);
-        // -- list
-        this.phraseList = this.view.getChild("phraseList").asList;
-        this.phraseList.on(fgui.Event.CLICK_ITEM, this.onPhraseListItemClick, this);
-        // this.phraseList.onClickItem(this.onPhraseListItemClick, this);
-        this.phraseList.itemRenderer = (index: number, item: fgui.GObject) => {
-            this.renderPhraseListItem(index, item);
-        };
 
-        this.phraseList.setVirtual();
+        const mask = this.view.getChild("mask");
+        mask.onClick(this.onMaskBtnClick, this);
 
-        this.expressionList = this.view.getChild("expressionList").asList;
+        // this.phraseBtn = this.view.getChild("phraseBtn").asButton;
+        // this.expressionBtn = this.view.getChild("expressionBtn").asButton;
+        // this.historyBtn = this.view.getChild("historyBtn").asButton;
+        // this.phraseBtn.onClick(this.onPhraseBtnClick, this);
+        // this.expressionBtn.onClick(this.onExpressionBtnClick, this);
+        // this.historyBtn.onClick(this.onHistoryBtnClick, this);
+        // // -- list
+        // this.phraseList = this.view.getChild("phraseList").asList;
+        // this.phraseList.on(fgui.Event.CLICK_ITEM, this.onPhraseListItemClick, this);
+        // // this.phraseList.onClickItem(this.onPhraseListItemClick, this);
+        // this.phraseList.itemRenderer = (index: number, item: fgui.GObject) => {
+        //     this.renderPhraseListItem(index, item);
+        // };
 
-        this.historyList = this.view.getChild("historyList").asList;
-        this.historyList.itemRenderer = (index: number, item: fgui.GObject) => {
-            this.renderHistoryListItem(index, item);
-        };
+        // this.phraseList.setVirtual();
 
-        this.historyList.itemProvider = (index: number) => {
-            return this.getHistoryListItemResource(index);
-        };
+        // this.expressionList = this.view.getChild("expressionList").asList;
 
-        this.historyList.setVirtual();
+        // this.historyList = this.view.getChild("historyList").asList;
+        // this.historyList.itemRenderer = (index: number, item: fgui.GObject) => {
+        //     this.renderHistoryListItem(index, item);
+        // };
 
-        this.chatText = this.view.getChild("chatText").asTextInput;
-        const sendBtn = this.view.getChild("sendBtn");
-        sendBtn.onClick(this.onSendBtnClick, this);
+        // this.historyList.itemProvider = (index: number) => {
+        //     return this.getHistoryListItemResource(index);
+        // };
+
+        // this.historyList.setVirtual();
+
+        // this.chatText = this.view.getChild("chatText").asTextInput;
+        // const sendBtn = this.view.getChild("sendBtn");
+        // sendBtn.onClick(this.onSendBtnClick, this);
     }
 
     private onPhraseBtnClick(): void {
@@ -168,6 +193,25 @@ export class ChatView extends cc.Component {
         this.chatText.text = "";
     }
 
+    private onMaskBtnClick(): void {
+
+        const viewPos = this.view.node.position;
+        const pos1 = new cc.Vec2(viewPos.x - 50, viewPos.y);
+        const pos2 = new cc.Vec2(viewPos.x + 500, viewPos.y);
+
+        const action = cc.moveTo(0.1, pos1);
+        const action1 = cc.moveTo(0.1, pos2);
+
+        const daleyDispose = cc.callFunc(() => {
+            this.destroy();
+        });
+        const actionQueue = cc.sequence(action, action1, daleyDispose);
+
+        this.view.node.runAction(actionQueue);
+
+        // setTimeout(daleyDispose, 0.13);
+
+    }
     private onPhraseListItemClick(clickItem: fgui.GObject): void {
         this.changeList(2);
         this.historyBtn.selected = true;

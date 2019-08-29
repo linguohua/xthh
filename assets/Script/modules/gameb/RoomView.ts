@@ -1,7 +1,7 @@
 import { DataStore, Dialog, KeyConstants, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
-// import { ChatView } from "../lobby/views/chat/ChatExports";
+import { ChatView } from "../lobby/views/chat/ChatExports";
 import { DisBandPlayerInfo, DisbandView } from "../lobby/views/disbandRoom/DisbandViewExports";
 import { GpsView } from "../lobby/views/gps/GpsExports";
 import { RoomSettingView } from "../lobby/views/roomSetting/RoomSettingViewExports";
@@ -549,7 +549,13 @@ export class RoomView {
      */
     private onChatBtnClick(): void {
         Logger.debug("onChatBtnClick");
+        const chatView = this.component.addComponent(ChatView);
+        const loader = this.room.getRoomHost().getLobbyModuleLoader();
 
+        const cb = () => {
+            //
+        };
+        chatView.show(loader, cb);
     }
     /**
      * 初始化
