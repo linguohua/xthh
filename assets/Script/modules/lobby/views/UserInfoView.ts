@@ -2,6 +2,7 @@ import { GameError } from "../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
+import { AgreementView } from "./AgreementView";
 
 const { ccclass } = cc._decorator;
 
@@ -284,16 +285,18 @@ export class UserInfoView extends cc.Component {
         const authInfo = this.view.getChild("autoInfoCom").asCom;
         this.realName = authInfo.getChild("n35");
         this.idCard = authInfo.getChild("n36");
-        // this.agreementViewBtn = authInfo.getChild("n27").asButton;
-        // this.agreementViewBtn.onClick(this.onAgreementViewBtnClick, this);
+        this.agreementViewBtn = authInfo.getChild("agreementViewBtn").asButton;
+        this.agreementViewBtn.onClick(this.onAgreementViewBtnClick, this);
 
         const saveBtn = authInfo.getChild("n20").asButton;
         saveBtn.onClick(this.onAuthSaveBtnClick, this);
     }
 
-    // private onAgreementViewBtnClick(): void {
-    //     Logger.debug("onAgreementViewBtnClick");
-    // }
+    private onAgreementViewBtnClick(): void {
+        Logger.debug("onAgreementViewBtnClick");
+        this.addComponent(AgreementView);
+
+    }
 
     private onAuthSaveBtnClick(): void {
         Logger.debug("onAuthSaveBtnClick");

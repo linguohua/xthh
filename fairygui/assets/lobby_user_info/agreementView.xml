@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://psmq81bcl4pw22" designImageAlpha="100">
+  <controller name="agree" pages="0,no,1,yes" selected="1"/>
+  <controller name="index" pages="0,,1,,2,,3,,4,,5,,6,,7,,8,,9,,10,,11,,12,,13,,14,,15," selected="0"/>
+  <displayList>
+    <image id="n1_l4pw" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="158,60" size="815,518"/>
+    <component id="n0_l4pw" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="144,54">
+      <gearDisplay controller="agree" pages="1"/>
+    </component>
+    <image id="n9_l4pw" name="bg1" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="279,493" size="211,58"/>
+    <image id="n11_l4pw" name="bg2" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="180,133" size="769,348"/>
+    <image id="n12_l4pw" name="bg3" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="675,494" size="276,58">
+      <gearDisplay controller="agree" pages="1"/>
+    </image>
+    <component id="n6_l4pw" name="nextPageBtn" src="l4pw28" fileName="btn/nextPageBtn.xml" xy="448,486"/>
+    <component id="n7_l4pw" name="lastPageBtn" src="l4pw27" fileName="btn/lastPageBtn.xml" xy="190,486"/>
+    <component id="n10_l4pw" name="agreeBtn" src="l4pw29" fileName="btn/agreeBtn.xml" xy="763,486">
+      <gearDisplay controller="agree" pages="0"/>
+    </component>
+    <text id="n13_l4pw" name="agreeText" xy="689,503" size="246,43" fontSize="24" color="#ff4800" align="center" vAlign="middle" autoSize="none" singleLine="true" text="您已同意以上用户协议">
+      <gearDisplay controller="agree" pages="1"/>
+    </text>
+    <text id="n8_l4pw" name="page" xy="334,503" size="92,43" fontSize="30" color="#9b4839" align="center" vAlign="middle" autoSize="none" text="1/19"/>
+    <component id="n14_82t1" name="text" src="l4pw26" fileName="textItem.xml" xy="185,136" size="759,340"/>
+  </displayList>
+</component>

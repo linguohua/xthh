@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="132,72" pivot="0.5,0.5" extention="Button" designImage="ui://psmq81bcl4pw22" designImageOffsetX="-190" designImageOffsetY="-486">
+  <controller name="enable" pages="0,no,1,yes" selected="0"/>
+  <displayList>
+    <image id="n0_l4pw" name="n0" src="b75th" fileName="resource/ty_btn_hd.png" pkg="snwj6cnx" xy="0,0" size="132,72">
+      <gearDisplay controller="enable" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_l4pw" name="n1" src="b75tg" fileName="resource/ty_btn_cd.png" pkg="snwj6cnx" xy="0,0" size="132,72">
+      <gearDisplay controller="enable" pages="1"/>
+    </image>
+    <text id="n2_l4pw" name="n2" xy="22,16" size="88,41" fontSize="26" color="#eeeeee" align="center" vAlign="middle" autoSize="none" text="上一页"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

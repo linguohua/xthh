@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="759,327" overflow="scroll">
+  <displayList>
+    <component id="n5_82t1" name="spaceBtn" src="82t12a" fileName="btn/spaceBtn.xml" xy="0,0" size="759,327"/>
+    <text id="n3_l4pw" name="text" xy="0,0" size="759,35" fontSize="24" color="#994234" autoSize="height" autoClearText="true" text="栗子："/>
+  </displayList>
+</component>

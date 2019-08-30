@@ -9,6 +9,7 @@ import {
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
+import { AgreementView } from "./AgreementView";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
@@ -71,8 +72,8 @@ export class LobbyView extends cc.Component {
 
         this.initNimSDK();
         this.setLaunchCallBack();
-
         this.checkGpsSetting();
+        this.checkAgreement();
     }
 
     protected onDestroy(): void {
@@ -82,6 +83,15 @@ export class LobbyView extends cc.Component {
             wx.offShow(this.wxShowCallBack);
         }
     }
+
+    private checkAgreement(): void {
+        const agree = DataStore.getString(KeyConstants.AGREEMENT);
+        if (agree !== KeyConstants.RESULT_YES) {
+            this.addComponent(AgreementView);
+
+        }
+    }
+
     private wxShowCallBack(res: showRes): void {
         Logger.debug("wxShowCallBack");
         const rKey = "roomNumber";

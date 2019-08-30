@@ -33,4 +33,9 @@ export namespace KeyConstants {
     export const IM_TOKEN = "imtoken";
     export const DATA_GDY = "dataGdy";
 
+    export const AGREEMENT = "agreement";
+
+    export const RESULT_YES = "1";
+    export const RESULT_NO = "0";
+
 }

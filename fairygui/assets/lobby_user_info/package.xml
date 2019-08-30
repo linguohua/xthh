@@ -72,6 +72,17 @@
     <image id="hjqc1x" name="g_个人信息_基本信息_修改头像.jpg" path="/_design/"/>
     <image id="hjqc1y" name="g_个人信息_基本信息_修改头像标注.jpg" path="/_design/"/>
     <component id="hjqc1z" name="iconItem.xml" path="/btn/"/>
+    <component id="l4pw20" name="agreementViewBtn.xml" path="/btn/"/>
+    <component id="l4pw21" name="agreementView.xml" path="/" exported="true"/>
+    <image id="l4pw22" name="g_个人信息_用户协议.jpg" path="/_design/"/>
+    <image id="l4pw23" name="g_个人信息_用户协议1.jpg" path="/_design/"/>
+    <image id="l4pw24" name="g_个人信息_用户协议标注.jpg" path="/_design/"/>
+    <image id="l4pw25" name="grxx_btzi_hyxy.png" path="/_resource/"/>
+    <component id="l4pw26" name="textItem.xml" path="/"/>
+    <component id="l4pw27" name="lastPageBtn.xml" path="/btn/"/>
+    <component id="l4pw28" name="nextPageBtn.xml" path="/btn/"/>
+    <component id="l4pw29" name="agreeBtn.xml" path="/btn/"/>
+    <component id="82t12a" name="spaceBtn.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_user_info"/>
 </packageDescription>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="186,72" pivot="0.5,0.5" extention="Button" designImage="ui://psmq81bcl4pw22" designImageOffsetX="-763" designImageOffsetY="-486">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_l4pw" name="n0" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="186,72">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n1_l4pw" name="n1" xy="46,18" size="98,39" fontSize="30" color="#eeeeee" align="center" vAlign="middle" autoSize="none" text="我同意"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>
