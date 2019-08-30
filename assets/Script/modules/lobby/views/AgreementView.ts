@@ -13,6 +13,8 @@ export class AgreementView extends cc.Component {
 
     private pageIndex: number = 0;
 
+    private readonly pageCount: number = 16;
+
     private contentText: fgui.GTextField;
 
     private page: fgui.GTextField;
@@ -70,7 +72,7 @@ export class AgreementView extends cc.Component {
         this.contentText.text = LocalStrings.findString("agreeText0");
 
         this.page = this.view.getChild("page").asTextField;
-        this.page.text = `${this.pageIndex + 1}/16`;
+        this.page.text = `${this.pageIndex + 1}/${this.pageCount}`;
 
         const lastPageBtn = this.view.getChild("lastPageBtn").asButton;
         this.lastPageBtn = lastPageBtn;
@@ -101,7 +103,7 @@ export class AgreementView extends cc.Component {
             this.contentText.text = "";
             this.contentText.text = LocalStrings.findString(`agreeText${this.pageIndex}`);
 
-            this.page.text = `${this.pageIndex + 1}/16`;
+            this.page.text = `${this.pageIndex + 1}/${this.pageCount}`;
         } else {
             this.lastPageBtn.getController("enable").selectedIndex = 0;
         }
@@ -111,14 +113,14 @@ export class AgreementView extends cc.Component {
     private onNextPageBtnClick(): void {
         //
 
-        if (this.pageIndex < 15) {
+        if (this.pageIndex < this.pageCount - 1) {
             this.pageIndex++;
-            this.nextPageBtn.getController("enable").selectedIndex = this.pageIndex === 15 ? 0 : 1;
+            this.nextPageBtn.getController("enable").selectedIndex = this.pageIndex === this.pageCount - 1 ? 0 : 1;
             this.lastPageBtn.getController("enable").selectedIndex = 1;
             this.contentText.text = "";
             this.contentText.text = LocalStrings.findString(`agreeText${this.pageIndex}`);
 
-            this.page.text = `${this.pageIndex + 1}/16`;
+            this.page.text = `${this.pageIndex + 1}/${this.pageCount}`;
         } else {
             this.nextPageBtn.getController("enable").selectedIndex = 0;
         }
