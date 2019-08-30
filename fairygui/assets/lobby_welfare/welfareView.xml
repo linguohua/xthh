@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://sxspooes82t13" designImageAlpha="100">
+  <displayList>
+    <image id="n1_82t1" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,60" size="815,518"/>
+    <component id="n0_82t1" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="147,54"/>
+    <image id="n2_82t1" name="bg1" src="82t12" fileName="_resource/flj_bj.jpg" xy="182,132" size="769,321"/>
+    <image id="n6_82t1" name="title" src="82t10" fileName="_resource/djlq_bt.png" xy="512,72"/>
+    <component id="n4_82t1" name="collectBtn" src="82t16" fileName="collectBtn.xml" xy="480,486"/>
+    <text id="n7_82t1" name="text" xy="441,455" size="282,30" fontSize="24" color="#856d57" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="今日还有     次领取机会！"/>
+    <text id="n8_82t1" name="count" xy="539,454" pivot="0.5,0.5" size="39,35" fontSize="26" color="#cc6600" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="3"/>
+  </displayList>
+</component>

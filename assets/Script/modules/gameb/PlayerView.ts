@@ -945,6 +945,11 @@ export class PlayerView {
     public showOrHideVoiceImg(isShow: boolean): void {
         this.voice.visible = isShow;
     }
+
+    public chatMsgVisible(visible: boolean): void {
+        this.voice.visible = visible;
+    }
+
     private hideChatMsg(): void {
         //
     }

@@ -295,6 +295,16 @@
     <component id="tebrpd" name="bg_btn.xml" path="/"/>
     <component id="uptdpe" name="disbandCountDown.xml" path="/readyView/"/>
     <component id="r1q9pe" name="tipsOfMeCom.xml" path="/"/>
+    <image id="82t1pf" name="zm_lt_bq1.png" path="/_resource/z_桌面聊天/" exported="true"/>
+    <image id="82t1pg" name="zm_lt_bq2.png" path="/_resource/z_桌面聊天/" exported="true"/>
+    <image id="82t1ph" name="zm_lt_bq3.png" path="/_resource/z_桌面聊天/" exported="true"/>
+    <image id="82t1pi" name="zm_lt_bq4.png" path="/_resource/z_桌面聊天/" exported="true"/>
+    <image id="82t1pj" name="zm_lt_qp.png" path="/_resource/z_桌面聊天/" scale="9grid" scale9grid="15,13,11,23"/>
+    <image id="82t1pk" name="zm_lt_qpjt.png" path="/_resource/z_桌面聊天/"/>
+    <component id="82t1pm" name="chatMsgCom.xml" path="/desk/dui/"/>
+    <component id="82t1pq" name="chatMsgCom.xml" path="/desk/left/"/>
+    <component id="82t1pr" name="chatMsgCom.xml" path="/desk/mine/"/>
+    <component id="82t1ps" name="chatMsgCom.xml" path="/desk/right/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

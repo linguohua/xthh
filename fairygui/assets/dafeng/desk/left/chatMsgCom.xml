@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="222,166">
+  <displayList>
+    <loader id="n24_82t1" name="biaoqing" xy="40,0" size="100,89" align="center" vAlign="middle" fill="scale"/>
+    <image id="n25_82t1" name="bg" src="82t1pj" fileName="_resource/z_桌面聊天/zm_lt_qp.png" xy="0,116" pivot="0,0.5" anchor="true" size="657,50">
+      <relation target="n27_82t1" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n26_82t1" name="arrow" src="82t1pk" fileName="_resource/z_桌面聊天/zm_lt_qpjt.png" xy="2,104" rotation="90"/>
+    <text id="n27_82t1" name="text" xy="9,98" pivot="0,0.5" size="643,39" fontSize="26" color="#0d2590" align="center" vAlign="middle" singleLine="true" autoClearText="true" text="哎呀，速度滴卡。哎哎呀，速度滴卡。呀，速度滴卡。"/>
+  </displayList>
+</component>

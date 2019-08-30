@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="sxspooes" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="82t10" name="djlq_bt.png" path="/_resource/"/>
+    <image id="82t11" name="djlq_btn.png" path="/_resource/"/>
+    <image id="82t12" name="flj_bj.jpg" path="/_resource/"/>
+    <image id="82t13" name="f_福利金.jpg" path="/_design/"/>
+    <image id="82t14" name="f_福利金标注.jpg" path="/_design/"/>
+    <component id="82t15" name="welfareView.xml" path="/" exported="true"/>
+    <component id="82t16" name="collectBtn.xml" path="/"/>
+  </resources>
+  <publish name="lobby_welfare"/>
+</packageDescription>

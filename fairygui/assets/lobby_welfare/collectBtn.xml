@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="194,70" pivot="0.5,0.5" extention="Button" designImage="ui://sxspooes82t13" designImageOffsetX="-480" designImageOffsetY="-486">
+  <displayList>
+    <image id="n0_82t1" name="n0" src="ik115" fileName="resource/ty_btn_lv1.png" pkg="snwj6cnx" xy="0,0" size="194,70">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_82t1" name="n1" src="82t11" fileName="_resource/djlq_btn.png" xy="28,13"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

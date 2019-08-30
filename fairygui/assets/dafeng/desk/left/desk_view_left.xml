@@ -18,5 +18,6 @@
     <component id="n20_hz17" name="hand2" src="hz17p1" fileName="desk/left/desk_hand2.xml" xy="2,1" hideByEditor="true" visible="false"/>
     <graph id="n21_kyp5" name="piaoAni" xy="553,317" size="17,16"/>
     <component id="n22_jnmk" name="voice" src="jnmkp6" fileName="qipao.xml" xy="122,210" visible="false"/>
+    <component id="n24_82t1" name="chatMsgCom" src="82t1pq" fileName="desk/left/chatMsgCom.xml" xy="118,150" visible="false"/>
   </displayList>
 </component>
