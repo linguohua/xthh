@@ -35,6 +35,23 @@
     <image id="6k9yv" name="ty_yq4_2.png" path="/resource/" exported="true" scale="9grid" scale9grid="16,17,5,34"/>
     <image id="6k9yw" name="cz_diban.png" path="/resource/" exported="true" scale="9grid" scale9grid="11,221,22,43"/>
     <image id="hjqcx" name="grxx_yqdi.png" path="/resource/" exported="true" scale="9grid" scale9grid="12,10,16,18"/>
+    <image id="82t1y" name="ty_btn_fh.png" path="/resource/" exported="true"/>
+    <image id="82t1z" name="ty_btn_hs1.png" path="/resource/" exported="true"/>
+    <image id="82t110" name="ty_btn_hsx1.png" path="/resource/" exported="true"/>
+    <image id="82t111" name="ty_icon_kk.png" path="/resource/" exported="true"/>
+    <image id="82t112" name="ty_loading.png" path="/resource/" exported="true"/>
+    <image id="82t113" name="ty_tc3.png" path="/resource/" exported="true"/>
+    <image id="82t114" name="ty_yq5_1.png" path="/resource/" exported="true"/>
+    <image id="82t115" name="ty_yq5_2.png" path="/resource/" exported="true"/>
+    <component id="82t116" name="returnBtn.xml" path="/commonBtn/" exported="true"/>
+    <image id="82t117" name="dt_btn_fx.png" path="/resource/" exported="true"/>
+    <image id="82t118" name="dt_btn_sc.png" path="/resource/" exported="true"/>
+    <image id="82t119" name="dt_btn_sz.png" path="/resource/" exported="true"/>
+    <image id="82t11a" name="dt_btn_zyjia.png" path="/resource/" exported="true"/>
+    <component id="82t11b" name="settingBtn.xml" path="/commonBtn/" exported="true"/>
+    <component id="82t11c" name="shareBtn.xml" path="/commonBtn/" exported="true"/>
+    <component id="82t11d" name="shopBtn.xml" path="/commonBtn/" exported="true"/>
+    <component id="82t11e" name="addBtn.xml" path="/commonBtn/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

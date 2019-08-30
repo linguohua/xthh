@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="sgra0tjv" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="82t10" name="hlddt_bj.jpg" path="/_resource/"/>
+    <image id="82t11" name="hlddt_btn_ksks.png" path="/_resource/"/>
+    <image id="82t12" name="hlddt_btn_mfc.png" path="/_resource/"/>
+    <image id="82t13" name="hlddt_icon_hld.png" path="/_resource/"/>
+    <image id="82t14" name="hlddt_rk1.png" path="/_resource/"/>
+    <image id="82t15" name="hlddt_rk2.png" path="/_resource/"/>
+    <image id="82t16" name="hlddt_rk3.png" path="/_resource/"/>
+    <image id="82t17" name="hlddt_rknlzq.png" path="/_resource/"/>
+    <image id="82t18" name="h_欢乐豆大厅.jpg" path="/_design/"/>
+    <image id="82t19" name="h_欢乐豆大厅标注.jpg" path="/_design/"/>
+    <component id="82t1a" name="JoyBeanView.xml" path="/" exported="true"/>
+    <image id="82t1b" name="dt_zydi.png" path="/resource/" scale="9grid" scale9grid="16,9,4,18"/>
+    <image id="82t1c" name="ty_icon_hld.png" path="/resource/"/>
+    <image id="82t1d" name="ty_icon_fk.png" path="/resource/"/>
+    <component id="82t1f" name="playQuicklyBtn.xml" path="/"/>
+    <component id="82t1g" name="freeBtn.xml" path="/"/>
+    <component id="82t1h" name="junior.xml" path="/"/>
+    <component id="82t1i" name="middle.xml" path="/"/>
+    <component id="82t1j" name="senior.xml" path="/"/>
+    <component id="82t1k" name="turnplate.xml" path="/"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>
