@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="278,353" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+<component size="278,353" extention="Button" designImage="ui://sgra0tjv82t18" designImageOffsetX="-96" designImageOffsetY="-129" designImageAlpha="100">
   <displayList>
-    <image id="n0_82t1" src="82t14" name="n0" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <image id="n0_82t1" name="n0" src="82t14" fileName="_resource/hlddt_rk1.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
     </image>
+    <image id="n1_h7gn" name="n1" src="82t13" fileName="_resource/hlddt_icon_hld.png" xy="49,308"/>
+    <text id="n2_h7gn" name="difenText" xy="89,247" size="72,34" fontSize="22" color="#ffffff" align="right" vAlign="middle" autoSize="none" text="底分："/>
+    <text id="n3_h7gn" name="difen" xy="80,304" size="129,34" alpha="0.8" fontSize="22" color="#f8e9d5" align="right" vAlign="middle" autoSize="none" text="500-10万豆"/>
+    <text id="n4_h7gn" name="limit" xy="158,246" size="69,34" fontSize="22" color="#ffeb63" vAlign="middle" autoSize="none" singleLine="true" text="10"/>
   </displayList>
+  <Button/>
 </component>

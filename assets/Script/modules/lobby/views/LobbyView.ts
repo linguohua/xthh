@@ -13,6 +13,7 @@ import { AgreementView } from "./AgreementView";
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
+import { JoyBeanView } from './JoyBeanView';
 const { ccclass } = cc._decorator;
 
 /**
@@ -46,7 +47,7 @@ export class LobbyView extends cc.Component {
         this.view = view;
 
         const bg = this.view.getChild('bg');
-        CommonFunction.setBgFullScreenSize(bg);
+        //CommonFunction.setBgFullScreenSize(bg);
 
         // 兼容底部背景
         const diBg = view.getChild('bg1');
@@ -136,6 +137,9 @@ export class LobbyView extends cc.Component {
         const addFK = this.view.getChild("addBtn2");
         addFK.onClick(this.onAddFKBtnClick, this);
 
+        const joyBeanHallBtn = this.view.getChild("huanlechangBtn");
+        joyBeanHallBtn.onClick(this.onJoyBeanHallBtnClick, this);
+
         this.nameText = this.view.getChild("nameText").asTextField;
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
@@ -207,6 +211,11 @@ export class LobbyView extends cc.Component {
     private onAddFKBtnClick(): void {
         const view = this.addComponent(ShopView);
         view.showView(TabType.FK);
+    }
+
+    private onJoyBeanHallBtnClick(): void {
+        const view = this.addComponent(JoyBeanView);
+        view.show();
     }
 
     private onFriendClick(): void {

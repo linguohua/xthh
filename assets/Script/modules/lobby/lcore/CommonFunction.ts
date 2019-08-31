@@ -100,7 +100,6 @@ export namespace CommonFunction {
             view.setPosition(0, view.y);
 
             return;
-
         }
 
         const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);

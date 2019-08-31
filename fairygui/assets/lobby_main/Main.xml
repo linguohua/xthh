@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://s52nz8zt9f1en" designImageAlpha="100">
   <displayList>
-    <image id="n0_9f1e" name="bg" src="9f1e1" fileName="resource/dt_bj.jpg" xy="0,0" size="1136,640"/>
+    <image id="n0_9f1e" name="bg" src="9f1e1" fileName="resource/dt_bj.jpg" xy="568,320" pivot="0.5,0.5" anchor="true"/>
     <image id="n25_u4cz" name="bg1" src="u4cz19" fileName="resource/dt_zz_d2.png" xy="0,565" size="1136,75"/>
     <image id="n21_u4cz" name="bg2" src="9f1eh" fileName="resource/dt_rkdi1.png" xy="574,157" size="358,382"/>
     <image id="n22_u4cz" name="bg3" src="9f1ef" fileName="resource/dt_ggdi.png" xy="0,78" size="1136,41"/>

@@ -66,7 +66,7 @@ export class LoginView extends cc.Component {
         const x = CommonFunction.setViewInCenter(view);
 
         const bg = view.getChild('bg');
-        CommonFunction.setBgFullScreenSize(bg);
+        //CommonFunction.setBgFullScreenSize(bg);
 
         // 兼容底部背景
         const diBg = view.getChild('diBg');
