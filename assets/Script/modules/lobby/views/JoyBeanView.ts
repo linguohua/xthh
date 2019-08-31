@@ -1,11 +1,11 @@
 import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
-import { UserInfoView, UserInfoTabType } from "./UserInfoView";
-import { ShopView, TabType } from "./ShopView";
 import { Share } from "../shareUtil/ShareExports";
+import { ShopView, TabType } from "./ShopView";
+import { UserInfoTabType, UserInfoView } from "./UserInfoView";
 const { ccclass } = cc._decorator;
 
 /**
- * 复制样本
+ * 欢乐场页面
  */
 @ccclass
 export class JoyBeanView extends cc.Component {
@@ -17,6 +17,7 @@ export class JoyBeanView extends cc.Component {
         this.initView();
         this.win.show();
     }
+
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
