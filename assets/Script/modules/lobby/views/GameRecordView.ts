@@ -21,7 +21,7 @@ export class GameRecordView {
 
     private recordList: fgui.GList;
 
-    private replayTable: { [key: string]: protoHH.casino.table } = {};
+    private readonly replayTable: { [key: string]: protoHH.casino.table } = {};
     private recordMsgs: protoHH.casino.Icasino_score[];
 
     public init(view: fgui.GComponent, lm: LobbyModuleInterface, newRoomView: NewRoomViewInterface): void {
@@ -147,8 +147,8 @@ export class GameRecordView {
             const params: GameModuleLaunchArgs = {
                 jsonString: "replay",
                 userInfo: myUser,
-                joinRoomParams: null,
-                createRoomParams: null,
+                joinRoomParams: undefined,
+                createRoomParams: undefined,
                 record: table,
                 roomId: table.room_id
             };
@@ -184,8 +184,11 @@ export class GameRecordView {
         obj.getChild("score").text = `${msg.score}`;
         obj.getChild("name").text = LocalStrings.findString("xthh");
         obj.getChild("id").text = `${msg.replay_id}`;
-        obj.getChild("btn").asButton.offClick(undefined, undefined);
-        obj.getChild("btn").asButton.onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
+        obj.getChild("btn").asButton
+            .offClick(undefined, undefined);
+
+        obj.getChild("btn").asButton
+            .onClick(() => { this.onReplayBtnClick(msg.replay_id); }, this);
     }
 
     private onReplayBtnClick(rId: number): void {
