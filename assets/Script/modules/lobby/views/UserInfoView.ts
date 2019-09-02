@@ -28,7 +28,7 @@ export class UserInfoView extends cc.Component {
     private headLoader: fgui.GLoader;
     private girlRadioBtn: fgui.GButton;
     private boyRadioBtn: fgui.GButton;
-    private userName: fgui.GTextInput;
+    private userName: fgui.GObject;
     private modifyBtn: fgui.GButton;
     private saveModifyBtn: fgui.GButton;
     private id: fgui.GObject;
@@ -47,9 +47,10 @@ export class UserInfoView extends cc.Component {
     private changeIconBtn: fgui.GButton;
 
     //// 认证信息 //////
-    private realName: fgui.GObject;
-    private idCard: fgui.GObject;
+    private realName: fgui.GTextInput;
+    private idCard: fgui.GTextInput;
     private agreementViewBtn: fgui.GButton;
+    private authSaveBtn: fgui.GButton;
 
     /// 游戏设置 /////
     private musicBtn: fgui.GButton;
@@ -129,8 +130,8 @@ export class UserInfoView extends cc.Component {
         this.beanRecordTap = userInfo.getChild("beanRecordTap").asButton;
         this.beanRecordTap.onClick(this.onBeanRecordTapClick, this);
 
-        this.userName = userInfo.getChild("name").asTextInput;
-        this.userName.editable = false;
+        this.userName = userInfo.getChild("name");
+        this.userName.asTextInput.editable = false;
         this.id = userInfo.getChild("id");
         this.beanText = userInfo.getChild("beanText");
         this.fkText = userInfo.getChild("fkText");
@@ -144,7 +145,9 @@ export class UserInfoView extends cc.Component {
         this.headList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderHeadListItem(index, item);
         };
-        this.headList.numItems = 11;
+        // this.headList.numItems = 4;
+
+        this.headList.on(fgui.Event.CLICK_ITEM, this.onHeadListItemClick, this);
 
         this.headListBg = userInfo.getChild("listBg");
         this.headListBg.visible = false;
@@ -221,6 +224,7 @@ export class UserInfoView extends cc.Component {
 
         DataStore.setItem(KeyConstants.NICK_NAME, reply.nickname);
         DataStore.setItem(KeyConstants.SEX, reply.sex);
+        DataStore.setItem(KeyConstants.SEX, reply.sex);
 
         Dialog.prompt(LocalStrings.findString("modifySuccess"));
     }
@@ -234,6 +238,8 @@ export class UserInfoView extends cc.Component {
             this.headList.visible = true;
             this.headListBg.visible = true;
         }
+
+        this.headList.numItems = 4;
     }
     private onModifyBtnClick(): void {
         Logger.debug("onModifyBtnClick");
@@ -242,10 +248,10 @@ export class UserInfoView extends cc.Component {
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
-            this.userName.editable = true;
+            this.userName.asTextInput.editable = true;
             this.changeIconBtn.visible = true;
         } else {
-            this.userName.editable = false;
+            this.userName.asTextInput.editable = false;
         }
 
         // Logger.debug("this.changeIconBtn.enabled:", this.changeIconBtn.enabled);
@@ -263,6 +269,7 @@ export class UserInfoView extends cc.Component {
         req.nickname = this.userName.text;
         req.sex = this.boyRadioBtn.selected ? 1 : 0;
         req.player_id = +playerid;
+        req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
 
         Logger.debug("req:", req);
         const buf = proto.casino.packet_modify_req.encode(req);
@@ -271,6 +278,7 @@ export class UserInfoView extends cc.Component {
         this.headList.visible = false;
         this.headListBg.visible = false;
         this.changeIconBtn.visible = false;
+        this.userName.asTextInput.editable = false;
     }
 
     private onFkRecordTapClick(): void {
@@ -281,15 +289,47 @@ export class UserInfoView extends cc.Component {
         Logger.debug("onBeanRecordTapClick");
     }
 
+    private onHeadListItemClick(clickItem: fgui.GObject): void {
+        Logger.debug("clickItem index:", this.headList.getChildIndex(clickItem));
+
+        const obj = clickItem.asCom;
+        this.headLoader.url = obj.getChild("n69").asLoader.url;
+    }
+
+    private getAvatarIndexFromLoaderUrl(url: string): number {
+        Logger.debug("getAvatarIndexFromLoaderUrl, url:", url);
+        if (url !== "") {
+            const indexStr = url.substring(31);
+            Logger.debug("getAvatarIndexFromLoaderUrl, indexStr:", indexStr);
+
+            return +indexStr;
+        }
+
+        return 0;
+    }
+
     private initAuthInfo(): void {
         const authInfo = this.view.getChild("autoInfoCom").asCom;
-        this.realName = authInfo.getChild("n35");
-        this.idCard = authInfo.getChild("n36");
+        this.realName = authInfo.getChild("n35").asTextInput;
+        this.realName.requestFocus();
+        this.idCard = authInfo.getChild("n36").asTextInput;
+        this.idCard.requestFocus();
         this.agreementViewBtn = authInfo.getChild("agreementViewBtn").asButton;
         this.agreementViewBtn.onClick(this.onAgreementViewBtnClick, this);
 
-        const saveBtn = authInfo.getChild("n20").asButton;
-        saveBtn.onClick(this.onAuthSaveBtnClick, this);
+        this.authSaveBtn = authInfo.getChild("n20").asButton;
+        this.authSaveBtn.onClick(this.onAuthSaveBtnClick, this);
+
+        this.realName.text = DataStore.getString(KeyConstants.REAL_NAME, "");
+        this.idCard.text = DataStore.getString(KeyConstants.ID_CARD, "");
+        if (this.realName.text !== "" && this.idCard.text !== "") {
+            this.authSaveBtn.visible = false;
+        } else {
+            this.authSaveBtn.visible = true;
+            this.realName.editable = true;
+            this.idCard.editable = true;
+        }
+
     }
 
     private onAgreementViewBtnClick(): void {
@@ -300,6 +340,18 @@ export class UserInfoView extends cc.Component {
 
     private onAuthSaveBtnClick(): void {
         Logger.debug("onAuthSaveBtnClick");
+        if (this.idCard.text.length !== 18 || !this.idCard.text.match(/^-{0,1}\d+$/)) {
+            Dialog.prompt("请输入正确的身份证号码");
+
+            return;
+        }
+
+        DataStore.setItem(KeyConstants.REAL_NAME, this.realName.text);
+        DataStore.setItem(KeyConstants.ID_CARD, this.idCard.text);
+
+        this.authSaveBtn.visible = false;
+        this.realName.editable = false;
+        this.idCard.editable = false;
     }
 
     private initGameSetting(): void {
@@ -308,12 +360,73 @@ export class UserInfoView extends cc.Component {
         this.effectBtn = gameSetting.getChild("effectBtn").asButton;
         this.clearCacheBtn = gameSetting.getChild("clearCache").asButton;
         this.gpsBtn = gameSetting.getChild("gpsBtn").asButton;
+        this.musicBtn.onClick(this.onMusiceBtnClick, this);
+        this.effectBtn.onClick(this.onEffectBtnVolumeClick, this);
+        this.clearCacheBtn.onClick(this.onClearCacheBtn, this);
+        this.gpsBtn.onClick(this.onGpsBtnClick, this);
+
+        const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
+        if (+musicVolume > 0) {
+            this.musicBtn.selected = true;
+        } else {
+            this.musicBtn.selected = false;
+        }
+
+        const effectVolume = DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
+        if (+effectVolume > 0) {
+            this.effectBtn.selected = true;
+        } else {
+            this.effectBtn.selected = false;
+        }
+
+        const gps = DataStore.getString(KeyConstants.GPS, "0");
+        if (+gps > 0) {
+            this.gpsBtn.selected = true;
+        } else {
+            this.gpsBtn.selected = false;
+        }
+    }
+
+    private onMusiceBtnClick(): void {
+        if (this.musicBtn.selected) {
+            cc.audioEngine.setMusicVolume(1);
+            DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
+        } else {
+            cc.audioEngine.setMusicVolume(0);
+            DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
+        }
+    }
+
+    private onEffectBtnVolumeClick(): void {
+        if (this.effectBtn.selected) {
+            cc.audioEngine.setEffectsVolume(1);
+            DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
+        } else {
+            cc.audioEngine.setEffectsVolume(0);
+            DataStore.setItem(KeyConstants.EFFECT_VOLUME, 0);
+        }
+    }
+
+    private onClearCacheBtn(): void {
+        Logger.debug("onClearCacheBtn");
+    }
+
+    private onGpsBtnClick(): void {
+        if (this.gpsBtn.selected) {
+            DataStore.setItem(KeyConstants.GPS, 1);
+        } else {
+            DataStore.setItem(KeyConstants.GPS, 0);
+        }
     }
 
     private renderHeadListItem(index: number, item: fgui.GObject): void {
         Logger.debug("renderHeadListItem");
+        let itemIndex = index + 1;
+        if (this.boyRadioBtn.selected) {
+            itemIndex = index + 5;
+        }
         const obj = item.asCom;
-        obj.getChild("n69").asLoader.url = `ui://lobby_user_info/grxx_xttx_${index}`;
+        obj.getChild("n69").asLoader.url = `ui://lobby_user_info/grxx_xttx_${itemIndex}`;
     }
 
 }
