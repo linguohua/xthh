@@ -1,3 +1,4 @@
+import { GameError } from "../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
@@ -53,6 +54,7 @@ export class PhoneAuthView extends cc.Component {
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK, this.onBindPhoneAck, this);
     }
     protected onDestroy(): void {
         this.eventTarget.emit("destroy");
@@ -116,6 +118,17 @@ export class PhoneAuthView extends cc.Component {
         this.requireBindPhone(phone, code);
     }
 
+    private onBindPhoneAck(msg: proto.casino.ProxyMessage): void {
+        const reply = proto.casino.packet_bind_phone_ack.decode(msg.Data);
+        if (reply.ret !== 0) {
+            Logger.error("reply.ret:", reply.ret);
+            Dialog.prompt(GameError.getErrorString(reply.ret));
+
+            return;
+        }
+
+    }
+
     private initView(): void {
 
         const closeBtn = this.view.getChild("closeBtn");
@@ -136,6 +149,7 @@ export class PhoneAuthView extends cc.Component {
 
         const confirmBtn = this.view.getChild("confirmBtn");
         confirmBtn.onClick(this.onConfirmBtnClick, this);
+        confirmBtn.asButton.getController("enable").selectedIndex = 1;
 
         const openType = this.view.getController("type");
         openType.selectedIndex = this.openType;
