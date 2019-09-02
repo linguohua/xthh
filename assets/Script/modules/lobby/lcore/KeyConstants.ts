@@ -40,6 +40,6 @@ export namespace KeyConstants {
     export const RESULT_NO = "0";
     export const REAL_NAME = "realName";
     export const ID_CARD = "idCard";
-    export const AVATAR = "avatar";
+    export const AVATAR_INDEX = "avatarIndex";
 
 }

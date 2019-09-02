@@ -110,77 +110,7 @@ export class UserInfoView extends cc.Component {
 
     }
 
-    private initUserBaseInfo(): void {
-        const userInfo = this.view.getChild("baseInfoCom").asCom;
-        this.userInfo = userInfo;
-
-        this.headLoader = userInfo.getChild("loader").asLoader;
-        this.girlRadioBtn = userInfo.getChild("girlRadioBtn").asButton;
-        this.boyRadioBtn = userInfo.getChild("boyRadioBtn").asButton;
-
-        this.modifyBtn = userInfo.getChild("modifyBtn").asButton;
-        this.modifyBtn.onClick(this.onModifyBtnClick, this);
-
-        this.saveModifyBtn = userInfo.getChild("saveModifyBtn").asButton;
-        this.saveModifyBtn.onClick(this.onSaveModifyBtn, this);
-
-        this.fkRecordTap = userInfo.getChild("fkRecordTap").asButton;
-        this.fkRecordTap.onClick(this.onFkRecordTapClick, this);
-
-        this.beanRecordTap = userInfo.getChild("beanRecordTap").asButton;
-        this.beanRecordTap.onClick(this.onBeanRecordTapClick, this);
-
-        this.userName = userInfo.getChild("name");
-        this.userName.asTextInput.editable = false;
-        this.id = userInfo.getChild("id");
-        this.beanText = userInfo.getChild("beanText");
-        this.fkText = userInfo.getChild("fkText");
-        this.phone = userInfo.getChild("phone");
-        this.changeIconBtn = userInfo.getChild("changeIconBtn").asButton;
-        // this.changeIconBtn.enabled = false;
-        this.changeIconBtn.onClick(this.onChangeIconBtnClick, this);
-
-        this.headList = userInfo.getChild("list").asList;
-        this.headList.visible = false;
-        this.headList.itemRenderer = (index: number, item: fgui.GObject) => {
-            this.renderHeadListItem(index, item);
-        };
-        // this.headList.numItems = 4;
-
-        this.headList.on(fgui.Event.CLICK_ITEM, this.onHeadListItemClick, this);
-
-        this.headListBg = userInfo.getChild("listBg");
-        this.headListBg.visible = false;
-
-        this.hupaiText = userInfo.getChild("hupaiText");
-        this.piaolaiText = userInfo.getChild("piaolaiText");
-        this.chaoshiText = userInfo.getChild("chaoshiText");
-        this.fangpaoText = userInfo.getChild("fangpaoText");
-
-        this.userName.text = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
-        this.beanText.text = DataStore.getString(KeyConstants.BEANS);
-        this.fkText.text = DataStore.getString(KeyConstants.CARD);
-        this.id.text = DataStore.getString(KeyConstants.PLAYER_ID);
-        this.phone.text = DataStore.getString(KeyConstants.PHONE);
-
-        const gender = DataStore.getString(KeyConstants.GENDER, "");
-        const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
-
-        if (+gender > 0) {
-            this.boyRadioBtn.selected = true;
-        } else {
-            this.girlRadioBtn.selected = true;
-        }
-
-        CommonFunction.setHead(this.headLoader, avatarURL, +gender);
-
-        const controller = userInfo.getController("record");
-        if (controller.selectedIndex === 0) {
-            // 房卡战绩
-        } else {
-            // 欢乐豆
-        }
-
+    private initGameRecord(): void {
         let hupai: number = 0;
         let piaolai: number = 0;
         let timeout: number = 0;
@@ -210,6 +140,75 @@ export class UserInfoView extends cc.Component {
         this.chaoshiText.text = `${timeout}`;
         this.fangpaoText.text = `${fangchong}`;
     }
+    private initUserBaseInfo(): void {
+        const userInfo = this.view.getChild("baseInfoCom").asCom;
+        this.userInfo = userInfo;
+
+        this.headLoader = userInfo.getChild("loader").asLoader;
+        this.girlRadioBtn = userInfo.getChild("girlRadioBtn").asButton;
+        this.boyRadioBtn = userInfo.getChild("boyRadioBtn").asButton;
+
+        this.modifyBtn = userInfo.getChild("modifyBtn").asButton;
+        this.modifyBtn.onClick(this.onModifyBtnClick, this);
+
+        this.saveModifyBtn = userInfo.getChild("saveModifyBtn").asButton;
+        this.saveModifyBtn.onClick(this.onSaveModifyBtn, this);
+
+        this.fkRecordTap = userInfo.getChild("fkRecordTap").asButton;
+        this.fkRecordTap.onClick(this.onFkRecordTapClick, this);
+
+        this.beanRecordTap = userInfo.getChild("beanRecordTap").asButton;
+        this.beanRecordTap.onClick(this.onBeanRecordTapClick, this);
+
+        this.userName = userInfo.getChild("name");
+        this.userName.asTextInput.editable = false;
+        this.id = userInfo.getChild("id");
+        this.beanText = userInfo.getChild("beanText");
+        this.fkText = userInfo.getChild("fkText");
+        this.phone = userInfo.getChild("phone");
+        this.changeIconBtn = userInfo.getChild("changeIconBtn").asButton;
+        this.changeIconBtn.onClick(this.onChangeIconBtnClick, this);
+
+        this.headList = userInfo.getChild("list").asList;
+        this.headList.visible = false;
+        this.headList.itemRenderer = (index: number, item: fgui.GObject) => {
+            this.renderHeadListItem(index, item);
+        };
+
+        this.headList.on(fgui.Event.CLICK_ITEM, this.onHeadListItemClick, this);
+
+        this.headListBg = userInfo.getChild("listBg");
+        this.headListBg.visible = false;
+
+        this.hupaiText = userInfo.getChild("hupaiText");
+        this.piaolaiText = userInfo.getChild("piaolaiText");
+        this.chaoshiText = userInfo.getChild("chaoshiText");
+        this.fangpaoText = userInfo.getChild("fangpaoText");
+
+        this.userName.text = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
+        this.beanText.text = DataStore.getString(KeyConstants.BEANS);
+        this.fkText.text = DataStore.getString(KeyConstants.CARD);
+        this.id.text = DataStore.getString(KeyConstants.PLAYER_ID);
+        this.phone.text = DataStore.getString(KeyConstants.PHONE);
+
+        const gender = DataStore.getString(KeyConstants.GENDER, "");
+        const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
+
+        if (+gender > 0) {
+            this.boyRadioBtn.selected = true;
+        } else {
+            this.girlRadioBtn.selected = true;
+        }
+
+        if (avatarURL !== "" || avatarIndex === "") {
+            CommonFunction.setHead(this.headLoader, avatarURL, +gender);
+        } else {
+            this.headLoader.url = `ui://lobby_user_info/grxx_xttx_${avatarIndex}`;
+        }
+
+        this.initGameRecord();
+    }
 
     private onModifyAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_modify_ack.decode(msg.Data);
@@ -224,7 +223,9 @@ export class UserInfoView extends cc.Component {
 
         DataStore.setItem(KeyConstants.NICK_NAME, reply.nickname);
         DataStore.setItem(KeyConstants.SEX, reply.sex);
-        DataStore.setItem(KeyConstants.SEX, reply.sex);
+
+        // 游客使用的头像
+        DataStore.setItem(KeyConstants.AVATAR_INDEX, reply.avatar);
 
         Dialog.prompt(LocalStrings.findString("modifySuccess"));
     }

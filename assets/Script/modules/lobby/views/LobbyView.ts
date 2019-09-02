@@ -150,10 +150,16 @@ export class LobbyView extends cc.Component {
 
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
         const headLoader = this.view.getChild("iconLoader").asLoader;
         headLoader.onClick(this.onUserInfoClick, this);
 
         CommonFunction.setHead(headLoader, avatarURL, +gender);
+        if (avatarURL !== "" || avatarIndex === "") {
+            CommonFunction.setHead(headLoader, avatarURL, +gender);
+        } else {
+            headLoader.url = `ui://lobby_user_info/grxx_xttx_${avatarIndex}`;
+        }
     }
 
     private testJoinGame(): void {
