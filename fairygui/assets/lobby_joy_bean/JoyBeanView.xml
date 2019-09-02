@@ -12,12 +12,12 @@
     <component id="n11_82t1" name="shareBtn" src="82t11c" fileName="commonBtn/shareBtn.xml" pkg="snwj6cnx" xy="769,10"/>
     <component id="n12_82t1" name="settingBtn" src="82t11b" fileName="commonBtn/settingBtn.xml" pkg="snwj6cnx" xy="850,11"/>
     <component id="n13_82t1" name="shopBtn" src="82t11d" fileName="commonBtn/shopBtn.xml" pkg="snwj6cnx" xy="26,520"/>
-    <component id="n16_82t1" name="playQuicklyBtn" src="82t1f" fileName="playQuicklyBtn.xml" xy="435,521"/>
-    <component id="n18_82t1" name="freeBtn" src="82t1g" fileName="freeBtn.xml" xy="886,478"/>
+    <component id="n16_82t1" name="playQuicklyBtn" src="82t1f" fileName="_btn/playQuicklyBtn.xml" xy="435,521"/>
+    <component id="n18_82t1" name="freeBtn" src="82t1g" fileName="_btn/freeBtn.xml" xy="886,478"/>
     <component id="n20_82t1" name="junior" src="82t1h" fileName="junior.xml" xy="96,129"/>
     <component id="n30_ojmm" name="middle" src="h7gnl" fileName="middle.xml" xy="429,129"/>
     <component id="n31_ojmm" name="senior" src="h7gnm" fileName="senior.xml" xy="762,129"/>
-    <component id="n24_82t1" name="n24" src="82t1k" fileName="turnplate.xml" xy="1031,111"/>
+    <component id="n24_82t1" name="lotteryViewBtn" src="82t1k" fileName="_btn/lotteryViewBtn.xml" xy="1031,111"/>
     <text id="n28_h7gn" name="douText" xy="348,26" size="115,36" fontSize="30" color="#ffffdd" align="center" vAlign="middle" autoSize="none" text="8888"/>
     <text id="n29_h7gn" name="fkText" xy="584,26" size="115,36" fontSize="30" color="#ffffdd" align="center" vAlign="middle" autoSize="none" text="8888"/>
   </displayList>

@@ -16,7 +16,7 @@
     <component id="82t1f" name="playQuicklyBtn.xml" path="/_btn/"/>
     <component id="82t1g" name="freeBtn.xml" path="/_btn/"/>
     <component id="82t1h" name="junior.xml" path="/"/>
-    <component id="82t1k" name="turnplateBtn.xml" path="/_btn/"/>
+    <component id="82t1k" name="lotteryViewBtn.xml" path="/_btn/"/>
     <component id="h7gnl" name="middle.xml" path="/"/>
     <component id="h7gnm" name="senior.xml" path="/"/>
     <component id="a2w9n" name="rewardView.xml" path="/" exported="true"/>

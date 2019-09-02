@@ -10,10 +10,6 @@ export class LotteryRuleView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
-    public show(): void {
-        this.initView();
-        this.win.show();
-    }
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
@@ -21,7 +17,6 @@ export class LotteryRuleView extends cc.Component {
         const view = fgui.UIPackage.createObject("lobby_joy_bean", "lotteryRuleView").asCom;
 
         CommonFunction.setViewInCenter(view);
-
         const mask = view.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
 
@@ -32,6 +27,8 @@ export class LotteryRuleView extends cc.Component {
         win.modal = true;
 
         this.win = win;
+        this.initView();
+        this.win.show();
     }
 
     protected onDestroy(): void {

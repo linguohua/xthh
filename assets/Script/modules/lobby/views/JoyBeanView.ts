@@ -1,10 +1,13 @@
-import { GameError } from "../errorCode/GameError";
+
+import { GameError } from "../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+// tslint:disable-next-line:no-require-imports
+import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
+import { LotteryView } from "./joyBean/LotteryView";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
-import Long = require("../protobufjs/long");
 const { ccclass } = cc._decorator;
 
 /**
@@ -73,6 +76,9 @@ export class JoyBeanView extends cc.Component {
         const shopBtn = this.view.getChild("shopBtn");
         shopBtn.onClick(this.onShopBtnClick, this);
 
+        const lotteryViewBtn = this.view.getChild("lotteryViewBtn");
+        lotteryViewBtn.onClick(this.onLotteryViewBtnClick, this);
+
         const juniorBtn = this.view.getChild("junior").asCom;
         juniorBtn.onClick(() => { this.onJoinRoomCliclk(0); }, this); //初级场
         this.setJoyBtnInfo(juniorBtn, this.rooms[0]);
@@ -84,6 +90,7 @@ export class JoyBeanView extends cc.Component {
         const seniorBtn = this.view.getChild("senior").asCom;
         seniorBtn.onClick(() => { this.onJoinRoomCliclk(2); }, this); //高级场
         this.setJoyBtnInfo(seniorBtn, this.rooms[2]);
+
     }
     private onCloseBtnClick(): void {
         this.destroy();
@@ -115,13 +122,17 @@ export class JoyBeanView extends cc.Component {
         view.showView(TabType.Dou);
     }
 
+    private onLotteryViewBtnClick(): void {
+        this.addComponent(LotteryView);
+    }
+
     private onJoinRoomCliclk(index: number): void {
         Logger.debug("rooms : ", this.rooms[index]);
         const room = this.rooms[index];
         const req = {
             casino_id: room.casino_id,
             room_id: room.id,
-            table_id: Long.fromNumber(0),
+            table_id: long.fromNumber(0),
             ready: true
         };
 

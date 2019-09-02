@@ -20,7 +20,7 @@ export class Reward {
 
 const rewardConfig: { [key: string]: string } = {
     [REWARD_TYPE.BEAN]: "正在加载中... {0} %",
-    [REWARD_TYPE.RED_BAG]: "正在加载中... {0} %",
+    [REWARD_TYPE.RED_BAG]: "正在加载中... {0} %"
 };
 
 /**
