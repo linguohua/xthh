@@ -377,6 +377,14 @@ export class LoginView extends cc.Component {
         const payDataStr = JSON.stringify(fastLoginAck.paydata);
         const dataGdy = JSON.stringify(fastLoginAck.pdata.data_gdy);
 
+        const rooms: protoHH.casino.Iroom[] = [];
+        //把欢乐场的房间信息提出来
+        for (const r of fastLoginAck.rooms) {
+            if (r.cost_type === 9) {
+                rooms.push(r);
+            }
+        }
+
         DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
         DataStore.setItem(KeyConstants.NICK_NAME, nickName);
         DataStore.setItem(KeyConstants.GENDER, fastLoginAck.pdata.data.sex);
@@ -389,6 +397,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.GAME_CONFIG, gameConfigStr);
         DataStore.setItem(KeyConstants.PAY_DATA, payDataStr);
         DataStore.setItem(KeyConstants.DATA_GDY, dataGdy);
+        DataStore.setItem(KeyConstants.ROOMS, JSON.stringify(rooms));
 
         if (fastLoginAck.channel === "mac") {
             // 游客登录标志

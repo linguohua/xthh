@@ -1,4 +1,6 @@
-import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
+import { GameError } from "../errorCode/GameError";
+import { CommonFunction, DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
@@ -12,8 +14,9 @@ export class JoyBeanView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
-
+    private rooms: proto.casino.Iroom[];
     public show(): void {
+        this.initHandler();
         this.initView();
         this.win.show();
     }
@@ -32,6 +35,9 @@ export class JoyBeanView extends cc.Component {
         win.contentPane = view;
         win.modal = true;
 
+        const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+        this.rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
+
         this.win = win;
     }
 
@@ -41,6 +47,11 @@ export class JoyBeanView extends cc.Component {
 
     }
 
+    private initHandler(): void {
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        this.lm = lm;
+        lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
+    }
     private initView(): void {
 
         const returnBtn = this.view.getChild("returnBtn");
@@ -61,6 +72,17 @@ export class JoyBeanView extends cc.Component {
         const shopBtn = this.view.getChild("shopBtn");
         shopBtn.onClick(this.onShopBtnClick, this);
 
+        const juniorBtn = this.view.getChild("junior").asCom;
+        juniorBtn.onClick(() => { this.onJoinRoomCliclk(0); }, this); //初级场
+        this.setJoyBtnInfo(juniorBtn, this.rooms[0]);
+
+        const middleBtn = this.view.getChild("middle").asCom;
+        middleBtn.onClick(() => { this.onJoinRoomCliclk(1); }, this); //中级场
+        this.setJoyBtnInfo(middleBtn, this.rooms[1]);
+
+        const seniorBtn = this.view.getChild("senior").asCom;
+        seniorBtn.onClick(() => { this.onJoinRoomCliclk(2); }, this); //高级场
+        this.setJoyBtnInfo(seniorBtn, this.rooms[2]);
     }
     private onCloseBtnClick(): void {
         this.destroy();
@@ -92,4 +114,81 @@ export class JoyBeanView extends cc.Component {
         view.showView(TabType.Dou);
     }
 
+    private onJoinRoomCliclk(index: number): void {
+        Logger.debug("rooms : ", this.rooms[index]);
+        const room = this.rooms[index];
+        const req = {
+            casino_id: room.casino_id,
+            room_id: room.id
+        };
+
+        const req2 = new proto.casino.packet_table_join_req(req);
+        const buf = proto.casino.packet_table_join_req.encode(req2);
+
+        if (this.lm !== undefined) {
+            this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+        }
+    }
+    private setJoyBtnInfo(btn: fgui.GComponent, room: proto.casino.Iroom): void {
+        btn.getChild("limit").text = room.base.toString(); //底分
+        // Logger.debug("room : ------- ", room.gold.low);
+        btn.getChild("difen").text = this.getJoyBeansStr(room.gold.low, room.gold_max); //欢乐豆
+    }
+
+    private getJoyBeansStr(gold: number, goldMax: number): string {
+        let str = "";
+        if (gold >= 10000) {
+            str = `${gold / 10000}万`;
+        } else {
+            str = `${gold}`;
+        }
+        if (goldMax === 0) {
+            str = `${str}豆以上`;
+        } else {
+            if (goldMax >= 10000) {
+                str = `${str}-${goldMax / 10000}万豆`;
+            } else {
+                str = `${str}-${goldMax}豆`;
+            }
+        }
+
+        return str;
+    }
+    private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
+        const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
+        if (joinRoomAck.ret !== 0) {
+            Logger.debug("onJoinTableAck, join room failed:", joinRoomAck.ret);
+
+            const err = GameError.getErrorString(joinRoomAck.ret);
+            Dialog.prompt(err);
+
+            return;
+        }
+
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
+        const myUser = { userID: playerID };
+
+        const joinRoomParams = {
+            table: joinRoomAck.tdata,
+            reconnect: joinRoomAck.reconnect
+        };
+
+        const params: GameModuleLaunchArgs = {
+            jsonString: "",
+            userInfo: myUser,
+            joinRoomParams: joinRoomParams,
+            createRoomParams: null,
+            record: null,
+            roomId: joinRoomAck.tdata.room_id
+        };
+
+        Logger.debug("GameModuleLaunchArgs:", params);
+
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+
+        this.win.hide();
+        this.destroy();
+
+        lm.switchToGame(params, "gameb");
+    }
 }

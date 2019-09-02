@@ -153,6 +153,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                                 // 启动游戏流程
                                 gm.launch(params);
                             } else {
+                                // 12001 12002 12003 欢乐场
+                                Logger.debug("params.roomId : ", params.roomId);
                                 const gmc = this.gameNode.addComponent(GameModule);
                                 const gm = <GameModuleInterface>gmc;
                                 // 启动游戏流程
