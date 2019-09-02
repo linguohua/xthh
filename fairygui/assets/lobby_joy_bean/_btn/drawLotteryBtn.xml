@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="137,174" extention="Button" designImage="ui://sgra0tjva2w9s" designImageOffsetX="-519" designImageOffsetY="-202" designImageAlpha="100">
+  <controller name="enable" pages="0,no,1,yes" selected="1"/>
+  <displayList>
+    <image id="n2_a2w9" name="n2" src="a2w915" fileName="_resource/nlzp_xzgx.png" xy="-41,-90"/>
+    <image id="n0_a2w9" name="n0" src="a2w9z" fileName="_resource/nlzp_cjjt1.png" xy="0,0">
+      <gearDisplay controller="enable" pages="0,1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_a2w9" name="n1" src="a2w910" fileName="_resource/nlzp_cjjt2.png" xy="15,52">
+      <gearDisplay controller="enable" pages="0"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

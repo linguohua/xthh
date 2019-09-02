@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://sgra0tjva2w9s" designImageAlpha="100">
+  <controller name="field" pages="0,低级,1,中级,2,高级" selected="0"/>
+  <displayList>
+    <image id="n10_a2w9" name="bg" src="a2w912" fileName="_resource/nlzp_gx2.png" xy="0,0" size="1136,640"/>
+    <image id="n12_a2w9" name="bg1" src="a2w91e" fileName="_resource/n_nlzpd.png" xy="198,22" size="680,616"/>
+    <component id="n14_a2w9" name="closeBtn" src="a2w91l" fileName="_btn/closeBtn.xml" xy="795,75"/>
+    <image id="n17_a2w9" name="line" src="a2w915" fileName="_resource/nlzp_xzgx.png" xy="479,114"/>
+    <component id="n5_a2w9" name="junoirBtn" src="a2w91f" fileName="_btn/junoirBtn.xml" xy="182,114">
+      <Button checked="true" controller="field" page="0"/>
+    </component>
+    <component id="n6_a2w9" name="middleBtn" src="a2w91i" fileName="_btn/middleBtn.xml" xy="182,211">
+      <Button controller="field" page="1"/>
+    </component>
+    <component id="n7_a2w9" name="seniorBtn" src="a2w91j" fileName="_btn/seniorBtn.xml" xy="182,308">
+      <Button controller="field" page="2"/>
+    </component>
+    <component id="n13_a2w9" name="ruleBtn" src="a2w91k" fileName="_btn/ruleBtn.xml" xy="762,438"/>
+    <component id="n16_a2w9" name="powerProgress" src="a2w91m" fileName="powerProgress.xml" xy="358,590" size="486,27">
+      <ProgressBar value="50" max="100"/>
+    </component>
+    <component id="n18_a2w9" name="drawLotteryBtn" src="a2w91n" fileName="_btn/drawLotteryBtn.xml" xy="587,309" pivot="0.5,0.62" anchor="true" rotation="360"/>
+    <image id="n20_a2w9" name="light1" src="a2w911" fileName="_resource/nlzp_gd.png" xy="372,169" group="n44_a2w9"/>
+    <image id="n36_a2w9" name="light2" src="a2w911" fileName="_resource/nlzp_gd.png" xy="353,208" group="n44_a2w9"/>
+    <image id="n21_a2w9" name="light3" src="a2w911" fileName="_resource/nlzp_gd.png" xy="341,247" group="n44_a2w9"/>
+    <image id="n37_a2w9" name="light4" src="a2w911" fileName="_resource/nlzp_gd.png" xy="337,292" group="n44_a2w9"/>
+    <image id="n22_a2w9" name="light5" src="a2w911" fileName="_resource/nlzp_gd.png" xy="344,341" group="n44_a2w9"/>
+    <image id="n38_a2w9" name="light6" src="a2w911" fileName="_resource/nlzp_gd.png" xy="363,389" group="n44_a2w9"/>
+    <image id="n23_a2w9" name="light7" src="a2w911" fileName="_resource/nlzp_gd.png" xy="389,432" group="n44_a2w9"/>
+    <image id="n39_a2w9" name="light8" src="a2w911" fileName="_resource/nlzp_gd.png" xy="427,467" group="n44_a2w9"/>
+    <image id="n24_a2w9" name="light9" src="a2w911" fileName="_resource/nlzp_gd.png" xy="470,493" group="n44_a2w9"/>
+    <image id="n29_a2w9" name="light10" src="a2w911" fileName="_resource/nlzp_gd.png" xy="660,495" group="n44_a2w9"/>
+    <image id="n40_a2w9" name="light11" src="a2w911" fileName="_resource/nlzp_gd.png" xy="704,467" group="n44_a2w9"/>
+    <image id="n28_a2w9" name="light12" src="a2w911" fileName="_resource/nlzp_gd.png" xy="740,432" group="n44_a2w9"/>
+    <image id="n41_a2w9" name="light13" src="a2w911" fileName="_resource/nlzp_gd.png" xy="768,389" group="n44_a2w9"/>
+    <image id="n27_a2w9" name="light14" src="a2w911" fileName="_resource/nlzp_gd.png" xy="787,341" group="n44_a2w9"/>
+    <image id="n42_a2w9" name="light15" src="a2w911" fileName="_resource/nlzp_gd.png" xy="793,292" group="n44_a2w9"/>
+    <image id="n26_a2w9" name="light16" src="a2w911" fileName="_resource/nlzp_gd.png" xy="789,247" group="n44_a2w9"/>
+    <image id="n43_a2w9" name="light17" src="a2w911" fileName="_resource/nlzp_gd.png" xy="779,208" group="n44_a2w9"/>
+    <image id="n25_a2w9" name="light18" src="a2w911" fileName="_resource/nlzp_gd.png" xy="758,169" group="n44_a2w9"/>
+    <group id="n44_a2w9" name="light" xy="337,169" size="499,369" advanced="true" collapsed="true"/>
+  </displayList>
+  <transition name="t1" autoPlay="true" autoPlayRepeat="-1">
+    <item time="0" type="Visible" target="n20_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n21_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n22_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n23_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n24_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n25_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n26_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n27_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n28_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n29_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n36_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n37_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n38_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n39_a2w9" value="false"/>
+    <item time="0" type="Visible" target="n40_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n41_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n42_a2w9" value="true"/>
+    <item time="0" type="Visible" target="n43_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n20_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n21_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n22_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n23_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n24_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n25_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n26_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n27_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n28_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n29_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n36_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n37_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n38_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n39_a2w9" value="true"/>
+    <item time="6" type="Visible" target="n40_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n41_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n42_a2w9" value="false"/>
+    <item time="6" type="Visible" target="n43_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n20_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n21_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n22_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n23_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n24_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n25_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n26_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n27_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n28_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n29_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n36_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n37_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n38_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n39_a2w9" value="false"/>
+    <item time="12" type="Visible" target="n40_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n41_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n42_a2w9" value="true"/>
+    <item time="12" type="Visible" target="n43_a2w9" value="true"/>
+  </transition>
+</component>

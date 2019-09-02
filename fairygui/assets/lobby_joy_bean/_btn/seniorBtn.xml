@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="169,69" extention="Button" designImage="ui://sgra0tjva2w9s" designImageOffsetX="-182" designImageOffsetY="-211" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n0_a2w9" name="n0" src="a2w916" fileName="_resource/nlzp_yq1.png" xy="0,0">
+      <gearDisplay controller="button" pages="0,2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_a2w9" name="n1" src="a2w917" fileName="_resource/nlzp_yq2.png" xy="0,0">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_a2w9" name="n3" src="a2w91a" fileName="_resource/nlzp_zi_gjc1.png" xy="38,18">
+      <gearDisplay controller="button" pages="0"/>
+    </image>
+    <image id="n4_a2w9" name="n4" src="a2w91b" fileName="_resource/nlzp_zi_gjc2.png" xy="36,16">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+  </displayList>
+  <Button mode="Radio"/>
+</component>
