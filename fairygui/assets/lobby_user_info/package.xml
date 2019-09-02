@@ -75,6 +75,7 @@
     <component id="l4pw28" name="nextPageBtn.xml" path="/btn/"/>
     <component id="l4pw29" name="agreeBtn.xml" path="/btn/"/>
     <component id="82t12a" name="spaceBtn.xml" path="/btn/"/>
+    <component id="a2w92b" name="bindPhoneBtn.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_user_info"/>
 </packageDescription>
