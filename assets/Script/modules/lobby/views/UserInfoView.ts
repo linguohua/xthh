@@ -144,6 +144,8 @@ export class UserInfoView extends cc.Component {
         const userInfo = this.view.getChild("baseInfoCom").asCom;
         this.userInfo = userInfo;
 
+        const role = userInfo.getController("role");
+
         this.headLoader = userInfo.getChild("loader").asLoader;
         this.girlRadioBtn = userInfo.getChild("girlRadioBtn").asButton;
         this.boyRadioBtn = userInfo.getChild("boyRadioBtn").asButton;
@@ -166,6 +168,10 @@ export class UserInfoView extends cc.Component {
         this.beanText = userInfo.getChild("beanText");
         this.fkText = userInfo.getChild("fkText");
         this.phone = userInfo.getChild("phone");
+        const phoneText = userInfo.getChild("phoneText");
+        phoneText.text = LocalStrings.findString("bindPhone");
+
+        this.phone.visible = true;
         this.changeIconBtn = userInfo.getChild("changeIconBtn").asButton;
         this.changeIconBtn.onClick(this.onChangeIconBtnClick, this);
 
@@ -204,10 +210,17 @@ export class UserInfoView extends cc.Component {
         if (avatarURL !== "" || avatarIndex === "") {
             CommonFunction.setHead(this.headLoader, avatarURL, +gender);
         } else {
-            this.headLoader.url = `ui://lobby_user_info/grxx_xttx_${avatarIndex}`;
+            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
         }
 
         this.initGameRecord();
+
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+        if (channel === Enum.CHANNEL_TYPE.WECHAT) {
+            role.selectedIndex = 1;
+        } else {
+            role.selectedIndex = 0;
+        }
     }
 
     private onModifyAck(msg: proto.casino.ProxyMessage): void {
@@ -222,10 +235,15 @@ export class UserInfoView extends cc.Component {
         Logger.debug("onModifyAck:", reply);
 
         DataStore.setItem(KeyConstants.NICK_NAME, reply.nickname);
-        DataStore.setItem(KeyConstants.SEX, reply.sex);
+        DataStore.setItem(KeyConstants.GENDER, reply.sex);
 
         // 游客使用的头像
         DataStore.setItem(KeyConstants.AVATAR_INDEX, reply.avatar);
+
+        // 刷新一遍头像
+        this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${reply.avatar}`;
+
+        this.lm.eventTarget.emit("onAvatarChange");
 
         Dialog.prompt(LocalStrings.findString("modifySuccess"));
     }
@@ -270,7 +288,19 @@ export class UserInfoView extends cc.Component {
         req.nickname = this.userName.text;
         req.sex = this.boyRadioBtn.selected ? 1 : 0;
         req.player_id = +playerid;
-        req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
+
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+            let avatarIndex = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
+            // 如果头像与性别不对应，则默认选个头像
+            if (req.sex > 0 && avatarIndex < 5) {
+                avatarIndex = 8;
+            } else if (req.sex < 1 && avatarIndex > 4) {
+                avatarIndex = 4;
+            }
+
+            req.avatar = avatarIndex;
+        }
 
         Logger.debug("req:", req);
         const buf = proto.casino.packet_modify_req.encode(req);
@@ -300,7 +330,7 @@ export class UserInfoView extends cc.Component {
     private getAvatarIndexFromLoaderUrl(url: string): number {
         Logger.debug("getAvatarIndexFromLoaderUrl, url:", url);
         if (url !== "") {
-            const indexStr = url.substring(31);
+            const indexStr = url.substring(32);
             Logger.debug("getAvatarIndexFromLoaderUrl, indexStr:", indexStr);
 
             return +indexStr;
@@ -427,7 +457,7 @@ export class UserInfoView extends cc.Component {
             itemIndex = index + 5;
         }
         const obj = item.asCom;
-        obj.getChild("n69").asLoader.url = `ui://lobby_user_info/grxx_xttx_${itemIndex}`;
+        obj.getChild("n69").asLoader.url = `ui://lobby_bg_package/grxx_xttx_${itemIndex}`;
     }
 
 }

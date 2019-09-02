@@ -26,6 +26,7 @@ export class LobbyView extends cc.Component {
     private nameText: fgui.GTextField;
     private beansText: fgui.GTextField;
     private fkText: fgui.GTextField;
+    private headLoader: fgui.GLoader;
     // private marqueeAction: cc.Action = null;
     private roomNumberFromShare: string = "";
     private wxShowCallBackFunction: (res: showRes) => void;
@@ -34,6 +35,7 @@ export class LobbyView extends cc.Component {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
+        lm.eventTarget.on("onAvatarChange", this.onAvatarChange, this);
         lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
 
         this.lm = lm;
@@ -151,14 +153,13 @@ export class LobbyView extends cc.Component {
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
-        const headLoader = this.view.getChild("iconLoader").asLoader;
-        headLoader.onClick(this.onUserInfoClick, this);
+        this.headLoader = this.view.getChild("iconLoader").asLoader;
+        this.headLoader.onClick(this.onUserInfoClick, this);
 
-        CommonFunction.setHead(headLoader, avatarURL, +gender);
         if (avatarURL !== "" || avatarIndex === "") {
-            CommonFunction.setHead(headLoader, avatarURL, +gender);
+            CommonFunction.setHead(this.headLoader, avatarURL, +gender);
         } else {
-            headLoader.url = `ui://lobby_user_info/grxx_xttx_${avatarIndex}`;
+            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
         }
     }
 
@@ -358,6 +359,18 @@ export class LobbyView extends cc.Component {
 
     private onReconnectOk(fastLoginReply: proto.casino.packet_fast_login_ack): void {
         this.testJoinGame();
+    }
+
+    private onAvatarChange(): void {
+        const gender = DataStore.getString(KeyConstants.GENDER, "");
+        const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
+
+        if (avatarURL !== "" || avatarIndex === "") {
+            CommonFunction.setHead(this.headLoader, avatarURL, +gender);
+        } else {
+            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
+        }
     }
 
     private initNimSDK(): void {
