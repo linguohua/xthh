@@ -41,5 +41,6 @@ export namespace KeyConstants {
     export const REAL_NAME = "realName";
     export const ID_CARD = "idCard";
     export const AVATAR_INDEX = "avatarIndex";
+    export const getAuthCodeTime = "authCodeTime";
 
 }

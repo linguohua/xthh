@@ -11443,6 +11443,90 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 21
                         }
                     ]
+                },
+                {
+                    "name": "packet_auth_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "phone",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "code",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_auth_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "phone",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "auth_time",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_bind_phone_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "phone",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "code",
+                            "id": 2
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_bind_phone_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "phone",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "auth_time",
+                            "id": 10
+                        }
+                    ]
                 }
             ],
             "enums": [

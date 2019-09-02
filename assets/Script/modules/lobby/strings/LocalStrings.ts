@@ -118,6 +118,8 @@ export namespace LocalStrings {
         [`readyViewDisbandRoomTip`]: "房主解散房间",
         [`modifySuccess`]: "修改成功",
         [`bindPhone`]: "绑定手机：",
+        [`sendAuthCode`]: "发送验证码",
+        [`invalidPhone`]: "请输入有效的手机号",
 
         // 12个 制表符
         [`agreeText0`]: `                                               用户服务协议

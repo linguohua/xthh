@@ -3,6 +3,7 @@ import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInter
 import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 import { AgreementView } from "./AgreementView";
+import { OpenType, PhoneAuthView } from "./PhoneAuthView";
 
 const { ccclass } = cc._decorator;
 
@@ -45,6 +46,7 @@ export class UserInfoView extends cc.Component {
     private headList: fgui.GList;
     private headListBg: fgui.GObject;
     private changeIconBtn: fgui.GButton;
+    private bindPhoneBtn: fgui.GButton;
 
     //// 认证信息 //////
     private realName: fgui.GTextInput;
@@ -162,6 +164,9 @@ export class UserInfoView extends cc.Component {
         this.beanRecordTap = userInfo.getChild("beanRecordTap").asButton;
         this.beanRecordTap.onClick(this.onBeanRecordTapClick, this);
 
+        this.bindPhoneBtn = userInfo.getChild("bindPhoneBtn").asButton;
+        this.bindPhoneBtn.onClick(this.onBindPhoneBtnClick, this);
+
         this.userName = userInfo.getChild("name");
         this.userName.asTextInput.editable = false;
         this.id = userInfo.getChild("id");
@@ -207,7 +212,7 @@ export class UserInfoView extends cc.Component {
             this.girlRadioBtn.selected = true;
         }
 
-        if (avatarURL !== "" || avatarIndex === "") {
+        if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
             CommonFunction.setHead(this.headLoader, avatarURL, +gender);
         } else {
             this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
@@ -240,12 +245,17 @@ export class UserInfoView extends cc.Component {
         // 游客使用的头像
         DataStore.setItem(KeyConstants.AVATAR_INDEX, reply.avatar);
 
-        // 刷新一遍头像
-        this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${reply.avatar}`;
-
         this.lm.eventTarget.emit("onAvatarChange");
 
         Dialog.prompt(LocalStrings.findString("modifySuccess"));
+
+        // 刷新一遍头像
+        const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
+        if (avatarURL !== "" || reply.avatar === 0) {
+            CommonFunction.setHead(this.headLoader, avatarURL, reply.sex);
+        } else {
+            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${reply.avatar}`;
+        }
     }
 
     private onChangeIconBtnClick(): void {
@@ -318,6 +328,13 @@ export class UserInfoView extends cc.Component {
 
     private onBeanRecordTapClick(): void {
         Logger.debug("onBeanRecordTapClick");
+    }
+
+    private onBindPhoneBtnClick(): void {
+        Logger.debug("onBindPhoneBtnClick");
+        const view = this.addComponent(PhoneAuthView);
+        view.show(OpenType.BIND_PHONE);
+
     }
 
     private onHeadListItemClick(clickItem: fgui.GObject): void {

@@ -156,7 +156,7 @@ export class LobbyView extends cc.Component {
         this.headLoader = this.view.getChild("iconLoader").asLoader;
         this.headLoader.onClick(this.onUserInfoClick, this);
 
-        if (avatarURL !== "" || avatarIndex === "") {
+        if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
             CommonFunction.setHead(this.headLoader, avatarURL, +gender);
         } else {
             this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
@@ -366,7 +366,7 @@ export class LobbyView extends cc.Component {
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
 
-        if (avatarURL !== "" || avatarIndex === "") {
+        if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
             CommonFunction.setHead(this.headLoader, avatarURL, +gender);
         } else {
             this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
