@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "6921383e-a5a8-4a75-82c5-467b1cb286c4",
+  "uuid": "a87d40fb-aa83-40dc-82da-dc4a2759a976",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "lobby_welfare_atlas0": {
       "ver": "1.0.4",
-      "uuid": "2b45871a-65b7-42b9-afc5-a4d18df7ef11",
-      "rawTextureUuid": "6921383e-a5a8-4a75-82c5-467b1cb286c4",
+      "uuid": "8f55e7cf-34ed-4eae-8906-c2a563c9c64b",
+      "rawTextureUuid": "a87d40fb-aa83-40dc-82da-dc4a2759a976",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
