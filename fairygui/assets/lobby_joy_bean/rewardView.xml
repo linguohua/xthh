@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://sgra0tjva2w9p" designImageAlpha="100">
+  <displayList>
+    <image id="n1_a2w9" name="title" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="301,190" size="534,256"/>
+    <image id="n0_a2w9" name="bg" src="a2w9o" fileName="_resource/hlddt_zi_gxnhd.png" xy="411,154"/>
+    <text id="n2_a2w9" name="count" xy="478,364" size="171,49" fontSize="36" color="#ac5216" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2000"/>
+    <loader id="n3_a2w9" name="loader" xy="567,317" pivot="0.5,0.5" anchor="true" size="181,157" url="ui://l6hq6c41tfg8a" align="center" vAlign="middle" fill="scale" autoSize="true"/>
+  </displayList>
+</component>

@@ -5,7 +5,7 @@
     <image id="n25_h7gn" name="bg1" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="326,24" size="180,40"/>
     <image id="n26_h7gn" name="bg2" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="563,24" size="165,40"/>
     <image id="n8_82t1" name="dou" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="306,22"/>
-    <image id="n27_h7gn" name="fk" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="540,20"/>
+    <image id="n27_h7gn" name="fk" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="540,18"/>
     <component id="n1_82t1" name="returnBtn" src="82t116" fileName="commonBtn/returnBtn.xml" pkg="snwj6cnx" xy="22,9" scale="1.1,1.1"/>
     <component id="n9_82t1" name="addDouBtn" src="82t11e" fileName="commonBtn/addBtn.xml" pkg="snwj6cnx" xy="465,21" scale="1.2,1.2"/>
     <component id="n10_82t1" name="addFKBtn" src="82t11e" fileName="commonBtn/addBtn.xml" pkg="snwj6cnx" xy="694,21" scale="1.2,1.2"/>

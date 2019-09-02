@@ -10,10 +10,10 @@ import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { AgreementView } from "./AgreementView";
+import { JoyBeanView } from './JoyBeanView';
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
-import { JoyBeanView } from './JoyBeanView';
 const { ccclass } = cc._decorator;
 
 /**
