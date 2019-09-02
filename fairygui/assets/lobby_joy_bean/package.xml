@@ -56,6 +56,7 @@
     <component id="a2w91n" name="drawLotteryBtn.xml" path="/_btn/"/>
     <component id="a2w91o" name="lotteryRuleView.xml" path="/" exported="true"/>
     <image id="a2w91p" name="nlzp_xx.png" path="/_resource/"/>
+    <image id="a2w91r" name="cz_icon_hld2.png" path="/_resource/"/>
   </resources>
   <publish name="lobby_joy_bean"/>
 </packageDescription>
