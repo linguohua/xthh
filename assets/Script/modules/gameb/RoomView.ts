@@ -237,6 +237,9 @@ export class RoomView {
         if (n <= 0) {
             num = LocalStrings.findString("lastRound");
         }
+        if (this.room.isJoyRoom) {
+            num = "";
+        }
         const s = `     `;
         const base = `${LocalStrings.findString("baseScore")}:${this.room.roomInfo.base}`;
         const str = `${base}${s}${num}${s}`;
@@ -725,6 +728,13 @@ export class RoomView {
 
         this.gamePauseTipsCom = this.unityViewNode.getChild("tipsCom").asCom;
 
+        //提示消耗多少欢乐豆
+        Logger.debug("this.room.isJoyRoom : ", this.room.isJoyRoom);
+        if (this.room.isJoyRoom) {
+            Logger.debug("this.room.joyRoom : ", this.room.joyRoom);
+            const str = this.room.joyRoom.cost_param.toString();
+            this.unityViewNode.getChild("joyText").text = LocalStrings.findString("joyText", str);
+        }
     }
 
     //初始化房间状态事件

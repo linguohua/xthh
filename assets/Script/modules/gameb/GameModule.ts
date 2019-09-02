@@ -49,6 +49,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private retry: boolean = false;
 
     private isGpsOpen: boolean = false;
+    private joyRoom: protoHH.casino.Iroom;
 
     public getLobbyModuleLoader(): GResLoader {
         return this.lm.loader;
@@ -79,6 +80,17 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     public async launch(args: GameModuleLaunchArgs): Promise<void> {
+        //判断此房间是否是欢乐场
+        const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+        const rooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
+        this.joyRoom = null;
+        for (const r of rooms) {
+            if (r.id === args.roomId) {
+                this.joyRoom = r;
+                break;
+            }
+        }
+
         // 尝试进入房间
         this.lm = args.lm;
         this.loader = args.loader;
@@ -356,12 +368,15 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, table);
         } else {
+            this.mRoom.joyRoom = this.joyRoom;
+            this.mRoom.isJoyRoom = this.joyRoom !== null;
+
             this.mRoom.updateRoom(table);
             reconnect = true;
             Dialog.hideReconnectDialog();
         }
 
-        if (table.status === null) {
+        if (table.status === null && this.joyRoom === null) { //(欢乐场不显示准备界面)
             // 显示准备界面
             this.room.updateReadView(table);
             this.room.onReadyButtonClick();
@@ -449,6 +464,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         rePlay?: Replay): void {
         //
         this.mRoom = new Room(myUser, roomInfo, this, rePlay);
+        this.mRoom.joyRoom = this.joyRoom;
+        this.mRoom.isJoyRoom = this.joyRoom !== null;
         this.mRoom.loadRoomView(this.view);
 
         // 创建玩家

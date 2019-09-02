@@ -116,7 +116,10 @@ export namespace HandlerMsgDeal {
         }
         room.showRoomNumber();
         //播放开局动画 并等待
-        await room.roomView.playAnimation("Effect_ico_kaiju", true);
+        if (!room.isJoyRoom) {
+            //欢乐场不需要
+            await room.roomView.playAnimation("Effect_ico_kaiju", true);
+        }
         //播放庄动画 并等待
         if (room.bankerChairID === msgDeal.lord_id) {
             //连庄

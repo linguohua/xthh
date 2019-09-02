@@ -98,6 +98,8 @@ export interface RoomInterface {
     handStartted: number;
     markup: number;
     bankerChairID: number;
+    isJoyRoom: boolean;
+    joyRoom: protoHH.casino.Iroom;
     isContinuousBanker: boolean;
     tilesInWall: number;
     laiziID: number;

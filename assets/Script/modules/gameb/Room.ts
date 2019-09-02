@@ -103,6 +103,8 @@ export class Room {
     public nimMsgs: NIMMessage[] = [];
 
     public isPlayAudio: boolean = false;
+    public isJoyRoom: boolean = false;
+    public joyRoom: protoHH.casino.Iroom;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -833,6 +835,9 @@ export class Room {
     }
 
     public updateReadView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
+        if (this.isJoyRoom) {
+            return;
+        }
         this.roomView.updateReadyView(table, players);
     }
 

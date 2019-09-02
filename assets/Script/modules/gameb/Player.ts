@@ -431,6 +431,9 @@ export class Player {
         this.playerInfo = new PlayerInfo(playerInfo, chairID);
         if (this.playerInfo.scoreTotal !== null) {
             this.totalScores = this.playerInfo.scoreTotal;
+            if (this.host.isJoyRoom) {
+                this.totalScores += playerInfo.gold.toNumber();
+            }
         }
 
         let nick = "";
@@ -644,7 +647,7 @@ export class Player {
         //     }
         // }
         // this.discardToDeskOfMe(tileID);
-        this.myDiscardAction(tileID);
+        // this.myDiscardAction(tileID);
         const req2 = new protoHH.casino_xtsj.packet_cs_outcard_req({ player_id: +this.userID, card: tileID });
         const buf = protoHH.casino_xtsj.packet_cs_outcard_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_xtsj.eXTSJ_MSG_TYPE.XTSJ_MSG_CS_OUTCARD_REQ);
