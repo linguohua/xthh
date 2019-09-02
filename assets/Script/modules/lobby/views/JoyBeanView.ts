@@ -4,6 +4,7 @@ import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
+import Long = require("../protobufjs/long");
 const { ccclass } = cc._decorator;
 
 /**
@@ -119,7 +120,9 @@ export class JoyBeanView extends cc.Component {
         const room = this.rooms[index];
         const req = {
             casino_id: room.casino_id,
-            room_id: room.id
+            room_id: room.id,
+            table_id: Long.fromNumber(0),
+            ready: true
         };
 
         const req2 = new proto.casino.packet_table_join_req(req);

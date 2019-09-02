@@ -10,7 +10,7 @@ export namespace HandlerMsgTableManagedA {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         const reply = proto.casino.packet_table_managed.decode(msgData);
         Logger.debug("HandlerMsgTableManaged----------------------- ", reply);
-        const player = <PlayerA>room.getPlayerByUserID(`${reply.player_id}`);
+        const player = <PlayerA>room.getPlayerByChairID(reply.idx);
         player.playerView.head.headView.grayed = reply.managed;
     };
 }

@@ -3,10 +3,11 @@
   <displayList>
     <component id="n61_tebr" name="blueBg" src="tebrpd" fileName="bg_btn.xml" xy="0,0" size="1136,640"/>
     <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44" visible="false"/>
-    <component id="n63_r1q9" name="tipsOfMeCom" src="r1q9pe" fileName="tipsOfMeCom.xml" xy="657,400" visible="false"/>
+    <text id="n64_t6oz" name="joyText" xy="18,15" size="410,39" fontSize="20" color="#529e70" autoSize="none" bold="true" text=""/>
     <component id="n17_fxwe" name="player4" src="jmxy16" fileName="desk/left/desk_view_left.xml" xy="0,0"/>
     <component id="n16_fxwe" name="player3" src="jmxyk" fileName="desk/dui/desk_view_dui.xml" xy="0,0"/>
     <component id="n15_fxwe" name="player2" src="jmxy1u" fileName="desk/right/desk_view_right.xml" xy="0,0"/>
+    <component id="n63_r1q9" name="tipsOfMeCom" src="r1q9pe" fileName="tipsOfMeCom.xml" xy="683,396" visible="false"/>
     <component id="n14_fxwe" name="player1" src="jmxy1k" fileName="desk/mine/desk_view_mine.xml" xy="0,0"/>
     <component id="n24_fxwe" name="roundMask" src="jmxy2u" fileName="desk/round_mask.xml" xy="533,227"/>
     <component id="n25_fxwe" name="listensPanel" src="jmxy30" fileName="desk/listens_panel.xml" xy="0,0" hideByEditor="true" visible="false"/>
