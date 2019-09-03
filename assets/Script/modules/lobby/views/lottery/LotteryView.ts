@@ -188,6 +188,12 @@ export class LotteryView extends cc.Component {
             return;
         }
 
+        // const req2 = new proto.casino.packet_et_draw_req();
+        // req2.et_id = 12001;
+        // const buf = proto.casino.packet_replay_req.encode(req2);
+        // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        // lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ET_DRAW_REQ);
+
         const rewardIndex = 6;
         const rotate = rewardIndex * -60;
         const armRotate = -360 * 6 + rotate;
