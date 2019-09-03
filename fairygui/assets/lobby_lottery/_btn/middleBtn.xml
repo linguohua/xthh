@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="169,69" extention="Button" designImage="ui://sgra0tjva2w9s" designImageOffsetX="-182" designImageOffsetY="-211" designImageAlpha="100">
+<component size="169,69" extention="Button" designImage="ui://1v07h65fa2w9s" designImageOffsetX="-182" designImageOffsetY="-211" designImageAlpha="100">
   <controller name="button" pages="0,up,1,down" selected="0"/>
   <displayList>
     <image id="n0_a2w9" name="n0" src="a2w916" fileName="_resource/nlzp_yq1.png" xy="0,0">
@@ -10,10 +10,10 @@
       <gearDisplay controller="button" pages="1,3"/>
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n3_a2w9" name="n3" src="a2w918" fileName="_resource/nlzp_zi_djc1.png" xy="38,18">
+    <image id="n3_a2w9" name="n3" src="a2w91c" fileName="_resource/nlzp_zi_zjc1.png" xy="38,18">
       <gearDisplay controller="button" pages="0"/>
     </image>
-    <image id="n4_a2w9" name="n4" src="a2w919" fileName="_resource/nlzp_zi_djc2.png" xy="36,16">
+    <image id="n4_a2w9" name="n4" src="a2w91d" fileName="_resource/nlzp_zi_zjc2.png" xy="36,16">
       <gearDisplay controller="button" pages="1"/>
     </image>
   </displayList>

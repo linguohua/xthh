@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="137,174" extention="Button" designImage="ui://1v07h65fa2w9s" designImageOffsetX="-519" designImageOffsetY="-202" designImageAlpha="0">
+  <controller name="enable" pages="0,no,1,yes" selected="0"/>
+  <displayList>
+    <image id="n2_a2w9" name="n2" src="a2w915" fileName="_resource/nlzp_xzgx.png" xy="-41,-104"/>
+  </displayList>
+  <Button/>
+</component>

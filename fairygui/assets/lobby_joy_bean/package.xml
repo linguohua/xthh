@@ -19,43 +19,7 @@
     <component id="82t1k" name="lotteryViewBtn.xml" path="/_btn/"/>
     <component id="h7gnl" name="middle.xml" path="/"/>
     <component id="h7gnm" name="senior.xml" path="/"/>
-    <component id="a2w9n" name="rewardView.xml" path="/" exported="true"/>
     <image id="a2w9o" name="hlddt_zi_gxnhd.png" path="/_resource/"/>
-    <image id="a2w9p" name="h_欢乐豆大厅_获得奖励.jpg" path="/_design/"/>
-    <image id="a2w9q" name="h_欢乐豆大厅_获得奖励标注.jpg" path="/_design/"/>
-    <component id="a2w9r" name="lotteryView.xml" path="/" exported="true"/>
-    <image id="a2w9s" name="n_能量转盘.jpg" path="/_design/"/>
-    <image id="a2w9t" name="n_能量转盘标注.jpg" path="/_design/"/>
-    <image id="a2w9u" name="n_能量转盘规则提示.jpg" path="/_design/"/>
-    <image id="a2w9v" name="n_能量转盘规则提示标注.jpg" path="/_design/"/>
-    <image id="a2w9w" name="nlzp_btngb.png" path="/_resource/"/>
-    <image id="a2w9x" name="nlzp_btn_gz.png" path="/_resource/"/>
-    <image id="a2w9y" name="nlzp_btzi_zpgz.png" path="/_resource/"/>
-    <image id="a2w9z" name="nlzp_cjjt1.png" path="/_resource/"/>
-    <image id="a2w910" name="nlzp_cjjt2.png" path="/_resource/"/>
-    <image id="a2w911" name="nlzp_gd.png" path="/_resource/"/>
-    <image id="a2w912" name="nlzp_gx2.png" path="/_resource/" scale9grid="20,36,4,6"/>
-    <image id="a2w913" name="nlzp_icon_hb.png" path="/_resource/"/>
-    <image id="a2w914" name="nlzp_jdt.png" path="/_resource/" scale="9grid" scale9grid="14,1,3,22"/>
-    <image id="a2w915" name="nlzp_xzgx.png" path="/_resource/"/>
-    <image id="a2w916" name="nlzp_yq1.png" path="/_resource/"/>
-    <image id="a2w917" name="nlzp_yq2.png" path="/_resource/"/>
-    <image id="a2w918" name="nlzp_zi_djc1.png" path="/_resource/"/>
-    <image id="a2w919" name="nlzp_zi_djc2.png" path="/_resource/"/>
-    <image id="a2w91a" name="nlzp_zi_gjc1.png" path="/_resource/"/>
-    <image id="a2w91b" name="nlzp_zi_gjc2.png" path="/_resource/"/>
-    <image id="a2w91c" name="nlzp_zi_zjc1.png" path="/_resource/"/>
-    <image id="a2w91d" name="nlzp_zi_zjc2.png" path="/_resource/"/>
-    <image id="a2w91e" name="n_nlzpd.png" path="/_resource/"/>
-    <component id="a2w91f" name="junoirBtn.xml" path="/_btn/"/>
-    <component id="a2w91i" name="middleBtn.xml" path="/_btn/"/>
-    <component id="a2w91j" name="seniorBtn.xml" path="/_btn/"/>
-    <component id="a2w91k" name="ruleBtn.xml" path="/_btn/"/>
-    <component id="a2w91l" name="closeBtn.xml" path="/_btn/"/>
-    <component id="a2w91m" name="powerProgress.xml" path="/"/>
-    <component id="a2w91n" name="drawLotteryBtn.xml" path="/_btn/"/>
-    <component id="a2w91o" name="lotteryRuleView.xml" path="/" exported="true"/>
-    <image id="a2w91p" name="nlzp_xx.png" path="/_resource/"/>
     <image id="a2w91r" name="cz_icon_hld2.png" path="/_resource/"/>
   </resources>
   <publish name="lobby_joy_bean"/>

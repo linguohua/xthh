@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://1v07h65fa2w9u" designImageAlpha="100">
+  <displayList>
+    <component id="n15_rwy1" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
+    <image id="n1_a2w9" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="217,118" size="700,404"/>
+    <image id="n3_a2w9" name="bg1" src="hjqcx" fileName="resource/grxx_yqdi.png" pkg="snwj6cnx" xy="243,193" size="649,304"/>
+    <component id="n0_a2w9" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="193,113"/>
+    <image id="n2_a2w9" name="title" src="a2w9y" fileName="_resource/nlzp_btzi_zpgz.png" xy="495,133"/>
+    <image id="n8_a2w9" name="star1" src="a2w91p" fileName="_resource/nlzp_xx.png" xy="254,257"/>
+    <image id="n9_a2w9" name="star2" src="a2w91p" fileName="_resource/nlzp_xx.png" xy="254,333"/>
+    <image id="n10_a2w9" name="star3" src="a2w91p" fileName="_resource/nlzp_xx.png" xy="254,295"/>
+    <text id="n5_a2w9" name="text1" xy="251,202" size="609,36" fontSize="24" color="#994234" letterSpacing="1" autoSize="none" singleLine="true" text="1. 当前场次 : 玩牌就能获得能量（流局按失败计算）"/>
+    <text id="n6_a2w9" name="text3" xy="250,410" size="609,36" fontSize="24" color="#994234" letterSpacing="1" autoSize="none" singleLine="true" text="3. 转场能力不会减少,  可以一直累加。"/>
+    <text id="n7_a2w9" name="text2" xy="252,368" size="609,36" fontSize="24" color="#994234" letterSpacing="1" autoSize="none" singleLine="true" text="2. 场次越高级, 抽奖的能量越多，奖励也丰富。"/>
+    <text id="n33_rwy1" name="n33" xy="273,250" size="253,35" fontSize="24" color="#994234" vAlign="middle" leading="8" autoSize="none" singleLine="true" text="胜利获得     能量；"/>
+    <text id="n34_rwy1" name="n34" xy="272,288" size="253,35" fontSize="24" color="#994234" vAlign="middle" leading="8" autoSize="none" singleLine="true" text="失败获得     能量；"/>
+    <text id="n35_rwy1" name="n35" xy="272,326" size="253,35" fontSize="24" color="#994234" vAlign="middle" leading="8" autoSize="none" singleLine="true" text="         能量抽奖一次">
+      <relation target="n35_rwy1" sidePair="left-left,top-top"/>
+    </text>
+    <text id="n36_hszz" name="n36" xy="373,252" size="34,35" fontSize="24" color="#157712" align="center" vAlign="middle" singleLine="true" text="40">
+      <relation target="n33_rwy1" sidePair="left-left"/>
+    </text>
+    <text id="n37_hszz" name="n37" xy="374,289" size="34,35" fontSize="24" color="#157712" align="center" vAlign="middle" singleLine="true" text="20">
+      <relation target="n34_rwy1" sidePair="left-left"/>
+    </text>
+    <text id="n38_hszz" name="n38" xy="274,327" size="63,35" fontSize="24" color="#157712" align="center" vAlign="middle" singleLine="true" text="5000"/>
+  </displayList>
+</component>

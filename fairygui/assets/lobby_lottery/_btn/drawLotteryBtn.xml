@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="115,115" pivot="0.5,0.5" extention="Button" designImage="ui://1v07h65fa2w9s" designImageOffsetX="-519" designImageOffsetY="-202" designImageAlpha="0">
+  <controller name="enable" pages="0,no,1,yes" selected="0"/>
+  <displayList>
+    <image id="n1_a2w9" name="n1" src="a2w910" fileName="_resource/nlzp_cjjt2.png" xy="4,4">
+      <gearDisplay controller="enable" pages="0"/>
+    </image>
+    <image id="n2_mk70" name="n2" src="a2w9z" fileName="_resource/nlzp_cjjt1.png" xy="0,0">
+      <gearDisplay controller="enable" pages="1"/>
+    </image>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

@@ -34,6 +34,10 @@ export namespace KeyConstants {
     export const DATA_GDY = "dataGdy";
     export const ROOMS = "rooms";
 
+    export const TURN_TABLE = "turnTable";
+
+    export const PLAYER_ENERGY = "playerEnergy";
+
     export const AGREEMENT = "agreement";
 
     export const RESULT_YES = "1";

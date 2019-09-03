@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="71,110">
+  <controller name="select" pages="0,no,1,yes" selected="1"/>
+  <displayList>
+    <loader id="n48_fv9j" name="loader" xy="36,0" pivot="0.5,0" anchor="true" size="60,68" url="ui://1v07h65fa2w913" align="center" vAlign="middle" autoSize="true"/>
+    <text id="n54_fv9j" name="count" xy="36,76" pivot="0.5,0" anchor="true" size="71,29" fontSize="19" color="#ffe44d" align="center" vAlign="middle" text="5000豆">
+      <gearColor controller="select" pages="1" values="#ffe44d,#000000" default="#ffffff,#000000"/>
+    </text>
+  </displayList>
+</component>

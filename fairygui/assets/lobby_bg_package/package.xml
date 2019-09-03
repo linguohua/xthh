@@ -62,6 +62,8 @@
     <image id="hjqc1u" name="grxx_xttx_6.png" path="/resource/" exported="true"/>
     <image id="hjqc1v" name="grxx_xttx_7.png" path="/resource/" exported="true"/>
     <component id="a2w91g" name="maskBtn.xml" path="/commonBtn/" exported="true"/>
+    <image id="mk701w" name="ty_btn_huang1.png" path="/resource/" exported="true"/>
+    <image id="mk701x" name="ty_di2.png" path="/resource/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

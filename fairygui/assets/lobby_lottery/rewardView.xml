@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://1v07h65fhszz21" designImageAlpha="100">
+  <displayList>
+    <component id="n5_a2w9" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
+    <image id="n1_a2w9" name="bg" src="hszz1y" fileName="_resource/nlzp_gxhddi.png" xy="0,145" size="1136,370"/>
+    <image id="n7_mk70" name="titleBg" src="hszz1z" fileName="_resource/nlzp_gxhdzidi.png" xy="294,72" size="546,168"/>
+    <image id="n0_a2w9" name="title" src="hszz1u" fileName="_resource/nlzp_btzi_gxhd.png" xy="428,128"/>
+    <image id="n11_mk70" name="light" src="hszz1v" fileName="_resource/nlzp_gx3.png" xy="564,306" pivot="0.5,0.5" anchor="true" scale="5.5,5.5"/>
+    <component id="n6_mk70" name="closeBtn" src="a2w91l" fileName="_btn/closeBtn.xml" xy="848,120"/>
+    <loader id="n8_mk70" name="loader" xy="482,234" pivot="0.5,0" size="181,157" url="ui://l6hq6c41tfg8a" fill="scale" autoSize="true"/>
+    <image id="n9_mk70" name="star1" src="hszz1w" fileName="_resource/nlzp_gx4.png" xy="443,218" scale="1.2,1.2"/>
+    <image id="n10_mk70" name="star2" src="hszz1x" fileName="_resource/nlzp_gx5.png" xy="635,314"/>
+    <text id="n12_mk70" name="text1" xy="332,437" size="158,54" fontSize="30" color="#d2d4ee" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="您获得了"/>
+    <text id="n13_mk70" name="describe" xy="685,438" size="280,54" fontSize="30" color="#d2d4ee" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="元微信红包！"/>
+    <text id="n14_mk70" name="count" xy="476,405" size="165,83" scale="1.2,1.2" font="ui://397phochtfg8me" fontSize="150" color="#ffffff" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="2000"/>
+  </displayList>
+</component>

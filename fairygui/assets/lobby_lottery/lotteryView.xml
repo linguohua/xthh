@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://sgra0tjva2w9s" designImageAlpha="100">
+<component size="1136,640" designImage="ui://1v07h65fa2w9s" designImageAlpha="100">
   <controller name="field" pages="0,低级,1,中级,2,高级" selected="0"/>
   <displayList>
     <component id="n45_rwy1" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
     <image id="n10_a2w9" name="bg" src="a2w912" fileName="_resource/nlzp_gx2.png" xy="0,0" size="1136,640"/>
     <image id="n12_a2w9" name="bg1" src="a2w91e" fileName="_resource/n_nlzpd.png" xy="198,22" size="680,616"/>
     <component id="n14_a2w9" name="closeBtn" src="a2w91l" fileName="_btn/closeBtn.xml" xy="795,75"/>
-    <image id="n17_a2w9" name="line" src="a2w915" fileName="_resource/nlzp_xzgx.png" xy="479,114"/>
-    <component id="n5_a2w9" name="junoirBtn" src="a2w91f" fileName="_btn/junoirBtn.xml" xy="182,114">
+    <component id="n5_a2w9" name="juniorBtn" src="a2w91f" fileName="_btn/juniorBtn.xml" xy="182,114">
       <Button checked="true" controller="field" page="0"/>
     </component>
     <component id="n6_a2w9" name="middleBtn" src="a2w91i" fileName="_btn/middleBtn.xml" xy="182,211">
@@ -17,10 +16,18 @@
       <Button controller="field" page="2"/>
     </component>
     <component id="n13_a2w9" name="ruleBtn" src="a2w91k" fileName="_btn/ruleBtn.xml" xy="762,438"/>
-    <component id="n16_a2w9" name="powerProgress" src="a2w91m" fileName="powerProgress.xml" xy="358,590" size="486,27">
-      <ProgressBar value="50" max="100"/>
+    <component id="n16_a2w9" name="powerProgress" src="a2w91m" fileName="_com/powerProgress.xml" xy="358,590" size="486,27">
+      <ProgressBar value="100" max="100"/>
     </component>
-    <component id="n18_a2w9" name="drawLotteryBtn" src="a2w91n" fileName="_btn/drawLotteryBtn.xml" xy="587,309" pivot="0.5,0.62" anchor="true" rotation="360"/>
+    <component id="n46_hszz" name="revolvePage" src="hszz1s" fileName="_btn/revolvePage.xml" xy="588,308" pivot="0.5,0.62" anchor="true"/>
+    <component id="n18_a2w9" name="drawLotteryBtn" src="a2w91n" fileName="_btn/drawLotteryBtn.xml" xy="530,250" rotation="360"/>
+    <text id="n47_fv9j" name="powerProgressText" xy="715,590" pivot="1,0" size="101,29" fontSize="19" color="#ffffff" align="right" vAlign="middle" singleLine="true" autoClearText="true" text="400/50000"/>
+    <component id="n55_fv9j" name="reward0" src="fv9j22" fileName="_com/rewardItem.xml" xy="547,113"/>
+    <component id="n60_fv9j" name="reward1" src="fv9j22" fileName="_com/rewardItem.xml" xy="736,180" rotation="60"/>
+    <component id="n57_fv9j" name="reward2" src="fv9j22" fileName="_com/rewardItem.xml" xy="772,372" rotation="120"/>
+    <component id="n58_fv9j" name="reward3" src="fv9j22" fileName="_com/rewardItem.xml" xy="622,502" rotation="180"/>
+    <component id="n59_fv9j" name="reward4" src="fv9j22" fileName="_com/rewardItem.xml" xy="438,434" rotation="240"/>
+    <component id="n56_fv9j" name="reward5" src="fv9j22" fileName="_com/rewardItem.xml" xy="399,246" rotation="300"/>
     <image id="n20_a2w9" name="light1" src="a2w911" fileName="_resource/nlzp_gd.png" xy="372,169" group="n44_a2w9"/>
     <image id="n36_a2w9" name="light2" src="a2w911" fileName="_resource/nlzp_gd.png" xy="353,208" group="n44_a2w9"/>
     <image id="n21_a2w9" name="light3" src="a2w911" fileName="_resource/nlzp_gd.png" xy="341,247" group="n44_a2w9"/>
