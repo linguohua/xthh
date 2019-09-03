@@ -13,6 +13,10 @@ export enum OpenType {
 
 }
 
+interface PhoneLoginInterface {
+    requestPhoneLogin(phone: string, code: string, callback: Function): void;
+}
+
 /**
  * 手机验证页面
  */
@@ -26,6 +30,7 @@ export class PhoneAuthView extends cc.Component {
 
     private inputAuth: fgui.GObject;
     private getAuthBtn: fgui.GButton;
+    private confirmBtn: fgui.GButton;
     private countdownText: fgui.GObject;
 
     private openType: OpenType;
@@ -33,9 +38,11 @@ export class PhoneAuthView extends cc.Component {
     private eventTarget: cc.EventTarget;
     private lm: LobbyModuleInterface;
 
-    public show(openType: OpenType): void {
-        this.openType = openType;
+    private loginView: PhoneLoginInterface;
 
+    public show(openType: OpenType, login?: PhoneLoginInterface): void {
+        this.openType = openType;
+        this.loginView = login;
         const view = fgui.UIPackage.createObject("lobby_login", "phoneAuthView").asCom;
 
         CommonFunction.setViewInCenter(view);
@@ -75,6 +82,7 @@ export class PhoneAuthView extends cc.Component {
         const cb = (str: string) => {
             this.inputPhone.asButton.getController("phoneLegal").selectedIndex = 1;
             this.inputPhone.asButton.getChild("text").text = str;
+            this.showCountDown();
         };
         inputNumberView.show(cb, InputNumberOpenType.INPUT_PHONE, 11);
     }
@@ -86,6 +94,9 @@ export class PhoneAuthView extends cc.Component {
         const cb = (str: string) => {
             this.inputAuth.asButton.getController("codeLegal").selectedIndex = 1;
             this.inputAuth.asButton.getChild("text").text = str;
+
+            this.confirmBtn.getController("enable").selectedIndex = 1;
+
         };
         inputNumberView.show(cb, InputNumberOpenType.INPUT_AUTH, 4);
     }
@@ -93,7 +104,7 @@ export class PhoneAuthView extends cc.Component {
     private onGetAuthBtnClick(): void {
         const lastTimeStr = DataStore.getString(KeyConstants.getAuthCodeTime, "0");
         const lastTime = +lastTimeStr;
-        if (this.lm.msgCenter.getServerTime() - lastTime < 90) {
+        if (Math.floor(Date.now() / 1000) - lastTime < 90) {
             Logger.debug("获取验证码操作太频繁，请稍后重试");
 
             return;
@@ -112,20 +123,36 @@ export class PhoneAuthView extends cc.Component {
 
     private onConfirmBtnClick(): void {
         Logger.debug("onConfirmBtnClick");
-
         const phone = this.inputPhone.asButton.getChild("text").text;
         const code = this.inputAuth.asButton.getChild("text").text;
-        this.requireBindPhone(phone, code);
+
+        if (this.openType === OpenType.BIND_PHONE) {
+            this.requireBindPhone(phone, code);
+        } else {
+            if (this.loginView !== undefined) {
+                const cb = (err: string) => {
+                    if (err !== null && err !== "") {
+                        Dialog.showDialog(err);
+                    } else {
+                        this.destroy();
+                    }
+                };
+
+                this.loginView.requestPhoneLogin(phone, code, cb);
+            }
+        }
     }
 
     private onBindPhoneAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_bind_phone_ack.decode(msg.Data);
         if (reply.ret !== 0) {
-            Logger.error("reply.ret:", reply.ret);
+            Logger.error("reply", reply);
             Dialog.prompt(GameError.getErrorString(reply.ret));
 
             return;
         }
+
+        Dialog.prompt("bindPhoneSuccess");
 
     }
 
@@ -148,12 +175,18 @@ export class PhoneAuthView extends cc.Component {
         this.countdownText = this.getAuthBtn.getChild("text");
 
         const confirmBtn = this.view.getChild("confirmBtn");
+        this.confirmBtn = confirmBtn.asButton;
         confirmBtn.onClick(this.onConfirmBtnClick, this);
-        confirmBtn.asButton.getController("enable").selectedIndex = 1;
 
         const openType = this.view.getController("type");
         openType.selectedIndex = this.openType;
 
+        const confirmBtnController = confirmBtn.asButton.getController("enable");
+        if (inputAuth.asButton.getChild("text").text.length === 4) {
+            confirmBtnController.selectedIndex = 1;
+        } else {
+            confirmBtnController.selectedIndex = 0;
+        }
         // this.list = this.view.getChild("list").asList;
 
         // this.list.itemRenderer = (index: number, item: fgui.GObject) => {
@@ -190,7 +223,7 @@ export class PhoneAuthView extends cc.Component {
                         return;
                     }
 
-                    DataStore.setItem(KeyConstants.getAuthCodeTime, this.lm.msgCenter.getServerTime());
+                    DataStore.setItem(KeyConstants.getAuthCodeTime, Math.floor(Date.now() / 1000));
                     this.showCountDown();
                     // this.inputAuth.asButton.getChild("text").text =
 
@@ -217,14 +250,19 @@ export class PhoneAuthView extends cc.Component {
         const controller = this.getAuthBtn.getController("enable");
         const lastTimeStr = DataStore.getString(KeyConstants.getAuthCodeTime, "0");
         const lastTime = +lastTimeStr;
-        if (this.lm.msgCenter.getServerTime() - lastTime < 90) {
+        if (Math.floor(Date.now() / 1000) - lastTime < 90) {
             // 倒计时90秒
             this.schedule(this.countDownTick, 1, cc.macro.REPEAT_FOREVER);
             controller.selectedIndex = 0;
         } else {
+            if (this.inputPhone.asButton.getChild("text").text.length === 11) {
+                controller.selectedIndex = 1;
+                this.getAuthBtn.enabled = true;
+            } else {
+                controller.selectedIndex = 0;
+                this.getAuthBtn.enabled = false;
+            }
             this.countdownText.text = LocalStrings.findString("sendAuthCode");
-            controller.selectedIndex = 1;
-
         }
 
     }
@@ -232,7 +270,7 @@ export class PhoneAuthView extends cc.Component {
     private countDownTick(): void {
         const lastTimeStr = DataStore.getString(KeyConstants.getAuthCodeTime, "0");
         const lastTime = +lastTimeStr;
-        const diff = this.lm.msgCenter.getServerTime() - lastTime;
+        const diff = Math.floor(Date.now() / 1000) - lastTime;
         if (diff < 90) {
             this.countdownText.text = `${90 - diff} s后可重发`;
         } else {

@@ -40,6 +40,7 @@ interface FastLoginReply {
     ticket: string;
     id: number;
     userid: string;
+    msg: string;
 }
 
 /**
@@ -142,7 +143,7 @@ export class LoginView extends cc.Component {
     public onPhoneLoginBtnClick(): void {
         Logger.debug("onPhoneLoginBtnClick");
         const view = this.addComponent(PhoneAuthView);
-        view.show(OpenType.LOGIN);
+        view.show(OpenType.LOGIN, this);
     }
 
     public showLobbyView(): void {
@@ -154,6 +155,45 @@ export class LoginView extends cc.Component {
         this.addComponent(LobbyView);
     }
 
+    public requestPhoneLogin(phone: string, code: string, callback: Function): void {
+        const url = `${LEnv.rootURL}/t9user/PhoneLogin?app=${LEnv.app}&phone=${phone}&code=${code}`;
+        Logger.debug("requireCode:", url);
+        HTTP.hGet(
+            this.eventTarget,
+            url,
+            (xhr: XMLHttpRequest) => {
+                const err = HTTP.hError(xhr);
+                if (err !== null) {
+                    Logger.error(err);
+                    callback(LocalStrings.findString("networkConnectError"));
+                    // Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+                } else {
+                    const reply = <FastLoginReply>JSON.parse(xhr.responseText);
+                    if (reply.ret !== 0) {
+                        // Dialog.showDialog(LocalStrings.findString("networkConnectError", `${reply.ret}`));
+                        Logger.error("requestPhoneLogin failed:", reply);
+                        if (reply.msg === "") {
+                            callback("无效的验证码");
+                        } else {
+                            callback(reply.msg);
+                        }
+
+                        return;
+                    }
+
+                    DataStore.setItem(KeyConstants.IM_ACCID, reply.im_accid);
+                    DataStore.setItem(KeyConstants.IM_TOKEN, reply.im_token);
+
+                    Logger.debug(reply);
+                    this.fastLogin(reply, null).catch((reason) => {
+                        Logger.debug(reason);
+                    });
+
+                    callback(null);
+                }
+            },
+            "text");
+    }
     protected start(): void {
         this.showLoginView();
     }
@@ -221,7 +261,7 @@ export class LoginView extends cc.Component {
             reqString);
     }
 
-    private constructFastLoginReq(userID: number, openudid: string): protoHH.casino.packet_fast_login_req {
+    private constructFastLoginReq(userID: number, channel: string, ticket: string): protoHH.casino.packet_fast_login_req {
         const devInfo = {
             package: "com.zhongyou.hubei.casino.as",
             platform: "",
@@ -231,7 +271,7 @@ export class LoginView extends cc.Component {
             idfa: "",
             idfv: "",
             udid: "",
-            openudid: openudid,
+            openudid: "",
             mac: "00:00:00:00:00:00",
             device: "iPhone",
             device_version: "",
@@ -247,8 +287,8 @@ export class LoginView extends cc.Component {
         };
 
         return {
-            channel: "mac",
-            ticket: "",
+            channel: channel,
+            ticket: ticket,
             user_id: userID,
             reconnect: false,
             gdatacrc: 0xFFFFFFFF,
@@ -316,7 +356,7 @@ export class LoginView extends cc.Component {
             fastLoginReq = this.constructWxLoginReq(wxLoginReply);
         } else if (fastLoginReply !== undefined && fastLoginReply !== null) {
             loginServerCfg = fastLoginReply.servers[0];
-            fastLoginReq = this.constructFastLoginReq(fastLoginReply.id, fastLoginReply.userid);
+            fastLoginReq = this.constructFastLoginReq(fastLoginReply.id, fastLoginReply.channel, fastLoginReply.ticket);
         }
 
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发

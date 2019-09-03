@@ -388,7 +388,7 @@ export class UserInfoView extends cc.Component {
 
     private onAuthSaveBtnClick(): void {
         Logger.debug("onAuthSaveBtnClick");
-        if (this.idCard.text.length !== 18 || !this.idCard.text.match(/^-{0,1}\d+$/)) {
+        if (this.idCard.text.length !== 18) {
             Dialog.prompt("请输入正确的身份证号码");
 
             return;
