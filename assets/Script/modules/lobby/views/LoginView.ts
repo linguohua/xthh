@@ -282,7 +282,7 @@ export class LoginView extends cc.Component {
             reqString);
     }
 
-    private constructFastLoginReq(userID: number, channel: string, ticket: string): protoHH.casino.packet_fast_login_req {
+    private constructFastLoginReq(userID: number, openudid: string, channel: string, ticket: string): protoHH.casino.packet_fast_login_req {
         const devInfo = {
             package: "com.zhongyou.hubei.casino.as",
             platform: "",
@@ -292,7 +292,7 @@ export class LoginView extends cc.Component {
             idfa: "",
             idfv: "",
             udid: "",
-            openudid: "",
+            openudid: openudid,
             mac: "00:00:00:00:00:00",
             device: "iPhone",
             device_version: "",
@@ -377,7 +377,8 @@ export class LoginView extends cc.Component {
             fastLoginReq = this.constructWxLoginReq(wxLoginReply);
         } else if (fastLoginReply !== undefined && fastLoginReply !== null) {
             loginServerCfg = fastLoginReply.servers[0];
-            fastLoginReq = this.constructFastLoginReq(fastLoginReply.id, fastLoginReply.channel, fastLoginReply.ticket);
+            fastLoginReq = this.constructFastLoginReq(
+                fastLoginReply.id, `${fastLoginReply.userid}`, fastLoginReply.channel, fastLoginReply.ticket);
         }
 
         // 订阅登录完成的消息, 需要在msgCenter登录完成后分发
@@ -459,6 +460,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.PAY_DATA, payDataStr);
         DataStore.setItem(KeyConstants.DATA_GDY, dataGdy);
         DataStore.setItem(KeyConstants.ROOMS, JSON.stringify(rooms));
+        DataStore.setItem(KeyConstants.AVATAR_INDEX, fastLoginAck.pdata.data.avatar);
 
         if (fastLoginAck.channel === "mac") {
             // 游客登录标志
