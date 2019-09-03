@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Dialog, KeyConstants, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, KeyConstants, Logger, UserInfo, LobbyModuleInterface } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
@@ -32,6 +32,7 @@ import { PlayerInterface } from "./PlayerInterface";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
+import long = require("../lobby/protobufjs/long");
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**
@@ -235,10 +236,48 @@ export class Room {
     }
 
     public onReadyButtonClick(): void {
+        if (this.isJoyRoom) {
+            //欢乐场的话就再进游戏
+            // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            // lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
 
-        const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
-        const buf = protoHH.casino.packet_table_ready.encode(req2);
-        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_READY);
+            let joyRoom = null;
+            const myGold = this.myPlayer.totalScores;
+            if (this.joyRoom.gold.low <= myGold) {
+                //如果欢乐豆还够的话 继续这种房间
+                joyRoom = this.joyRoom;
+            } else {
+                //否则就找可以进的房间
+                const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+                const rooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
+                for (const r of rooms) {
+                    if (r.gold.low <= myGold) {
+                        joyRoom = r;
+                    }
+                }
+            }
+            if (joyRoom !== null) {
+                const req = {
+                    casino_id: joyRoom.casino_id,
+                    room_id: joyRoom.id,
+                    table_id: long.fromNumber(0),
+                    ready: true
+                };
+
+                const req2 = new protoHH.casino.packet_table_join_req(req);
+                const buf = protoHH.casino.packet_table_join_req.encode(req2);
+
+                this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+            } else {
+                // 提示用户没有豆了
+                Dialog.prompt(LocalStrings.findString("beanIsLess"));
+                this.quit();
+            }
+        } else {
+            const req2 = new protoHH.casino.packet_table_ready({ idx: -1 });
+            const buf = protoHH.casino.packet_table_ready.encode(req2);
+            this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_READY);
+        }
     }
 
     public onInviteButtonClick(): void {

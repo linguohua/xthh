@@ -376,10 +376,12 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             Dialog.hideReconnectDialog();
         }
 
-        if (table.status === null && this.joyRoom === null) { //(欢乐场不显示准备界面)
-            // 显示准备界面
-            this.room.updateReadView(table);
-            this.room.onReadyButtonClick();
+        if (table.status === null) {
+            // 显示准备界面 (欢乐场不显示准备界面)
+            if (!this.mRoom.isJoyRoom) {
+                this.room.updateReadView(table);
+                this.room.onReadyButtonClick();
+            }
         } else {
             this.room.roomView.showOrHideReadyView(false);
             this.room.showRoomBtnsAndBgs();
@@ -441,7 +443,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     // 请求加入房间
     private joinRoomReq(table: protoHH.casino.Itable): void {
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
+        // this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new protoHH.casino.packet_table_join_req();
         req.player_id = +playerID;
@@ -482,6 +484,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private subMsg(): void {
         // 只有gameModule用到
         this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK, this.onMsg, this); // 创建房间
+        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
 
         // room 用到
         const keys = Object.keys(msgHandlers);
@@ -617,6 +620,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     private onJoinTable(pmsg: protoHH.casino.ProxyMessage): void {
+        Logger.debug("onJoinTable ------------------:", pmsg);
         const joinTableAck = protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
             Logger.error("onReconnect, join table faild:", joinTableAck.ret);

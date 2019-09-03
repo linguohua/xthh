@@ -414,7 +414,7 @@ export class RoomView {
     // 默认隐藏这些按钮，发牌后再显示
     public showBtnsAndBgs(): void {
         this.chatBtn.visible = true;
-        this.gpsBtn.visible = true;
+        this.gpsBtn.visible = !this.room.isJoyRoom; //欢乐场不显示gps
         this.settingBtn.visible = true;
         this.recoredBtn.visible = true;
         this.dbg.visible = true;

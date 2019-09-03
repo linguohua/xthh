@@ -133,7 +133,7 @@ export class HandResultView extends cc.Component {
         this.countDown = againBtn.getChild("n1");
         const backBtn = this.unityViewNode.getChild("backBtn").asButton;
         backBtn.onClick(this.onBackButtonClick, this);
-        backBtn.getChild("n1").text = LocalStrings.findString("again_result");
+
         if (room.isReplayMode()) {
             againBtn.visible = false;
 
@@ -143,7 +143,7 @@ export class HandResultView extends cc.Component {
             this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
             if (this.room.isJoyRoom) {
                 //欢乐场的话 就显示 再来一局
-                const btnText = LocalStrings.findString("again_result");
+                const btnText = LocalStrings.findString("againResult");
                 this.countDown.text = `${btnText}`;
 
                 backBtn.visible = true;
@@ -594,11 +594,6 @@ export class HandResultView extends cc.Component {
         // if (this.ani) {
         //     this.ani.setVisible(false);
         // }
-        this.eventTarget.emit("destroy");
-        this.destroy();
-        this.win.hide();
-        this.win.dispose();
-
         const play_total = this.msgHandOver.tdata.play_total;
         const round = this.msgHandOver.tdata.round;
         if (!this.room.isJoyRoom) {
@@ -609,37 +604,13 @@ export class HandResultView extends cc.Component {
                 this.room.onReadyButtonClick();
             }
         } else {
-            //欢乐场的话就再进游戏
-            let joyRoom = null;
-            if (this.room.joyRoom.gold.low <= this.room.getMyPlayer().totalScores) {
-                //如果欢乐豆还够的话 继续这种房间
-                joyRoom = this.room.joyRoom;
-            } else {
-                //否则就找可以进的房间
-                const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
-                const rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
-                for (const r of rooms) {
-                    if (r.gold.low <= this.room.getMyPlayer().totalScores) {
-                        joyRoom = r;
-                    }
-                }
-            }
-            if (joyRoom !== null) {
-                const req = {
-                    casino_id: joyRoom.casino_id,
-                    room_id: joyRoom.id,
-                    table_id: long.fromNumber(0),
-                    ready: true
-                };
-
-                const req2 = new proto.casino.packet_table_join_req(req);
-                const buf = proto.casino.packet_table_join_req.encode(req2);
-
-                this.room.sendMsg(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ, buf);
-            } else {
-                //TODO ： 提示用户
-            }
+            // Logger.debug("欢乐场的话就再进游戏 ------------------");
+            this.room.onReadyButtonClick();
         }
+        this.eventTarget.emit("destroy");
+        this.destroy();
+        this.win.hide();
+        this.win.dispose();
     }
     private onBackButtonClick(): void {
         if (!this.room.isReplayMode()) {
