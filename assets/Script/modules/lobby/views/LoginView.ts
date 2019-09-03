@@ -203,11 +203,8 @@ export class LoginView extends cc.Component {
 
     // 手机号登录输入框会穿透
     public disableAllBtn(): void {
-        Logger.debug("disableAllBtn");
         if (this.button !== null) {
             this.button.hide();
-        } else {
-            Logger.debug("disableAllBtn");
         }
     }
 
@@ -403,6 +400,10 @@ export class LoginView extends cc.Component {
     }
 
     private onFastLoginComplete(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {
+        if (this.button !== null) {
+            this.button.destroy();
+        }
+
         Logger.debug("fastLoginReply:", fastLoginAck);
         this.saveFastLoginReply(fastLoginAck);
         this.showLobbyView();
