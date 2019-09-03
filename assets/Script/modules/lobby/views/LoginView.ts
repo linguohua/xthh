@@ -342,7 +342,7 @@ export class LoginView extends cc.Component {
         const lmComponent = this.getComponent("LobbyModule");
         const lm = <LobbyModuleInterface>lmComponent;
 
-        if (lm.msgCenter !== undefined) {
+        if (lm.msgCenter !== undefined && lm.msgCenter !== null) {
             return;
         }
 
@@ -445,6 +445,8 @@ export class LoginView extends cc.Component {
         } else if (fastLoginAck.channel === "weixin") {
             // 微信登录标志
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.WECHAT);
+        } else if (fastLoginAck.channel === "phone") {
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.PHONE);
         } else {
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.UNKNOWN);
         }

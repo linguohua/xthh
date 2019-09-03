@@ -907,18 +907,6 @@ message packet_modify_ack{
 	optional uint32		     avatar	= 21;
 }
 
-// 验证请求
-message packet_auth_req{
-   optional string 			  phone = 2; 		// 电话号码
-   optional string			   code = 3;		// 验证码
-}
-
-message packet_auth_ack{
-   required uint32				ret = 1;		// 返回值
-   optional string 			  phone = 2; 		// 电话号码
-   optional uint64		  auth_time = 10;		// 验证开始时间
-}
-
 // 绑定手机号请求
 message packet_bind_phone_req {
    optional string 			  phone = 1; 		// 电话号码
@@ -929,4 +917,10 @@ message packet_bind_phone_ack {
    required uint32				ret = 1;		// 返回值
    optional string 			  phone = 2; 		// 电话号码
    optional uint64		  auth_time = 10;		// 验证开始时
+}
+
+// 登出消息
+message packet_user_logout{
+	optional uint32			player_id = 1;		// 玩家id
+	optional uint64				 time = 2;		// 登出时间
 }

@@ -33,6 +33,7 @@ export class LMsgCenter {
     private localTimeDiff: number = 0;
     // private lobbyModule: LobbyModuleInterface;
     private priorityMap: { [key: number]: number } = {};
+    private isLogout: boolean = false;
 
     public constructor(
         url: string, component: cc.Component, fastLoginReq: proto.casino.packet_fast_login_req,
@@ -73,6 +74,8 @@ export class LMsgCenter {
                 await this.waitSecond(this.connectErrorCount);
             }
         }
+
+        this.eventTarget.emit("logout");
     }
 
     public destory(): void {
@@ -136,6 +139,10 @@ export class LMsgCenter {
         if (this.mq !== undefined && this.mq !== null) {
             this.mq.blockNormal();
         }
+    }
+
+    public logout(): void {
+        this.isLogout = true;
     }
 
     private async connectServer(): Promise<void> {
@@ -221,6 +228,9 @@ export class LMsgCenter {
             } else if (msg.mt === MsgType.wsClosed || msg.mt === MsgType.wsError) {
                 Logger.debug("Websocket close, retury connect");
                 this.retry = true;
+                if (this.isLogout) {
+                    this.retry = false;
+                }
                 loop = false;
             }
         }
@@ -296,25 +306,4 @@ export class LMsgCenter {
         const buf = proto.casino.packet_pong.encode(new proto.casino.packet_pong(pongProp));
         this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PONG);
     }
-
-    // private onServerPong(msg: proto.casino.ProxyMessage): void {
-    //     Logger.debug("onServerPong");
-    //     const pongPacket = proto.casino.packet_pong.decode(msg.Data);
-
-    //     this.serverTime = pongPacket.now;
-    //     Logger.debug("this.serverTime:", this.serverTime);
-
-    //     this.localTimeDiff = (Date.now() / 1000) - this.serverTime.toNumber();
-    // }
-
-    // private sendPong(): void {
-    //     Logger.debug("sendPong:", Date.now());
-    //     const nowTime: number = Math.ceil(Date.now() / 1000);
-    //     const pongProp = {
-    //         now: new long(nowTime)
-    //     };
-
-    //     const buf = proto.casino.packet_pong.encode(new proto.casino.packet_pong(pongProp));
-    //     this.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_PONG);
-    // }
 }

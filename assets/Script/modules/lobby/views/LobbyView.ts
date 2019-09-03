@@ -35,6 +35,7 @@ export class LobbyView extends cc.Component {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
+        lm.msgCenter.eventTarget.on("logout", this.onLogout, this);
         lm.eventTarget.on("onAvatarChange", this.onAvatarChange, this);
         lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
 
@@ -80,6 +81,8 @@ export class LobbyView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        Logger.debug("LobbyView.onDestroy");
+
         SoundMgr.stopMusic();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -500,5 +503,11 @@ export class LobbyView extends cc.Component {
                 // this.applyGpsSetting();
             }
         });
+    }
+
+    private onLogout(): void {
+        Logger.debug("onLogout");
+        this.lm.logout();
+        this.destroy();
     }
 }

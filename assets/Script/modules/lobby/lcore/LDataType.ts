@@ -53,6 +53,7 @@ export interface MsgCenter {
     closeWebsocket(): void;
     unblockNormal(): void;
     blockNormal(): void;
+    logout(): void;
 }
 
 export interface NimSDKInterface {
@@ -81,6 +82,7 @@ export interface LobbyModuleInterface {
     sendGameMsg(buf: ByteBuffer, code: number): void;
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;
     isGameModuleExist(): boolean;
+    logout(): void;
 }
 
 export interface CreateRoomParams {

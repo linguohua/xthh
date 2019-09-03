@@ -11445,48 +11445,6 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     ]
                 },
                 {
-                    "name": "packet_auth_req",
-                    "syntax": "proto2",
-                    "fields": [
-                        {
-                            "rule": "optional",
-                            "type": "string",
-                            "name": "phone",
-                            "id": 2
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "string",
-                            "name": "code",
-                            "id": 3
-                        }
-                    ]
-                },
-                {
-                    "name": "packet_auth_ack",
-                    "syntax": "proto2",
-                    "fields": [
-                        {
-                            "rule": "required",
-                            "type": "uint32",
-                            "name": "ret",
-                            "id": 1
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "string",
-                            "name": "phone",
-                            "id": 2
-                        },
-                        {
-                            "rule": "optional",
-                            "type": "uint64",
-                            "name": "auth_time",
-                            "id": 10
-                        }
-                    ]
-                },
-                {
                     "name": "packet_bind_phone_req",
                     "syntax": "proto2",
                     "fields": [
@@ -11525,6 +11483,24 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "type": "uint64",
                             "name": "auth_time",
                             "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_user_logout",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "time",
+                            "id": 2
                         }
                     ]
                 }

@@ -5286,34 +5286,6 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_modify_ack;
 		}
 
-		interface Ipacket_auth_req {
-			phone?: string;
-			code?: string;
-		}
-
-		class packet_auth_req implements Ipacket_auth_req {
-			public phone: string;
-			public code: string;
-			constructor(properties?: casino.Ipacket_auth_req);
-			public static encode(message: packet_auth_req): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_auth_req;
-		}
-
-		interface Ipacket_auth_ack {
-			ret: number;
-			phone?: string;
-			auth_time?: Long;
-		}
-
-		class packet_auth_ack implements Ipacket_auth_ack {
-			public ret: number;
-			public phone: string;
-			public auth_time: Long;
-			constructor(properties?: casino.Ipacket_auth_ack);
-			public static encode(message: packet_auth_ack): ByteBuffer;
-			public static decode(reader: Uint8Array|ByteBuffer): packet_auth_ack;
-		}
-
 		interface Ipacket_bind_phone_req {
 			phone?: string;
 			code?: string;
@@ -5340,6 +5312,19 @@ export namespace proto {
 			constructor(properties?: casino.Ipacket_bind_phone_ack);
 			public static encode(message: packet_bind_phone_ack): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): packet_bind_phone_ack;
+		}
+
+		interface Ipacket_user_logout {
+			player_id?: number;
+			time?: Long;
+		}
+
+		class packet_user_logout implements Ipacket_user_logout {
+			public player_id: number;
+			public time: Long;
+			constructor(properties?: casino.Ipacket_user_logout);
+			public static encode(message: packet_user_logout): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_user_logout;
 		}
 
 	}

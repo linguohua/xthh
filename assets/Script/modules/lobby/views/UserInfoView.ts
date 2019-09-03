@@ -59,6 +59,7 @@ export class UserInfoView extends cc.Component {
     private effectBtn: fgui.GButton;
     private clearCacheBtn: fgui.GButton;
     private gpsBtn: fgui.GButton;
+    private logoutBtn: fgui.GButton;
 
     public showView(page: UserInfoTabType): void {
         this.win.show();
@@ -87,10 +88,11 @@ export class UserInfoView extends cc.Component {
         this.initView();
 
         lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK, this.onModifyAck, this);
+        lm.eventTarget.on("onBindPhone", this.onBindPhone, this);
     }
 
     protected onDestroy(): void {
-
+        this.lm.eventTarget.off("onBindPhone");
         this.eventTarget.emit("destroy");
         this.win.hide();
         this.win.dispose();
@@ -185,7 +187,6 @@ export class UserInfoView extends cc.Component {
         this.headList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderHeadListItem(index, item);
         };
-
         this.headList.on(fgui.Event.CLICK_ITEM, this.onHeadListItemClick, this);
 
         this.headListBg = userInfo.getChild("listBg");
@@ -221,13 +222,31 @@ export class UserInfoView extends cc.Component {
         this.initGameRecord();
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
-        if (channel === Enum.CHANNEL_TYPE.WECHAT) {
+        if (channel !== Enum.CHANNEL_TYPE.VISITOR) {
             role.selectedIndex = 1;
+
+            if (channel === Enum.CHANNEL_TYPE.WECHAT) {
+                // 微信登录
+                this.bindPhoneBtn.visible = true;
+                const controller = this.bindPhoneBtn.getController("bind");
+                if (this.phone.text !== "") {
+                    controller.selectedIndex = 1;
+                } else {
+                    controller.selectedIndex = 0;
+                }
+            } else {
+                // 手机登录
+                this.bindPhoneBtn.visible = false;
+            }
         } else {
             role.selectedIndex = 0;
+            this.bindPhoneBtn.visible = false;
         }
     }
 
+    private onBindPhone(): void {
+        this.phone.text = DataStore.getString(KeyConstants.PHONE);
+    }
     private onModifyAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_modify_ack.decode(msg.Data);
         if (reply.ret !== 0) {
@@ -276,11 +295,12 @@ export class UserInfoView extends cc.Component {
         controller.selectedIndex = 1;
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
-        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+        if (channel === Enum.CHANNEL_TYPE.VISITOR) {
             this.userName.asTextInput.editable = true;
             this.changeIconBtn.visible = true;
         } else {
             this.userName.asTextInput.editable = false;
+            this.changeIconBtn.visible = false;
         }
 
         // Logger.debug("this.changeIconBtn.enabled:", this.changeIconBtn.enabled);
@@ -300,7 +320,7 @@ export class UserInfoView extends cc.Component {
         req.player_id = +playerid;
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
-        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+        if (channel === Enum.CHANNEL_TYPE.VISITOR) {
             let avatarIndex = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
             // 如果头像与性别不对应，则默认选个头像
             if (req.sex > 0 && avatarIndex < 5) {
@@ -408,10 +428,12 @@ export class UserInfoView extends cc.Component {
         this.effectBtn = gameSetting.getChild("effectBtn").asButton;
         this.clearCacheBtn = gameSetting.getChild("clearCache").asButton;
         this.gpsBtn = gameSetting.getChild("gpsBtn").asButton;
+        this.logoutBtn = gameSetting.getChild("exitBtn").asButton;
         this.musicBtn.onClick(this.onMusiceBtnClick, this);
         this.effectBtn.onClick(this.onEffectBtnVolumeClick, this);
         this.clearCacheBtn.onClick(this.onClearCacheBtn, this);
         this.gpsBtn.onClick(this.onGpsBtnClick, this);
+        this.logoutBtn.onClick(this.onLogout, this);
 
         const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
         if (+musicVolume > 0) {
@@ -432,6 +454,18 @@ export class UserInfoView extends cc.Component {
             this.gpsBtn.selected = true;
         } else {
             this.gpsBtn.selected = false;
+        }
+
+        const controller = gameSetting.getController("role");
+        const role = DataStore.getString(KeyConstants.CHANNEL);
+        if (role === Enum.CHANNEL_TYPE.VISITOR) {
+            controller.selectedIndex = 0;
+        } else if (role === Enum.CHANNEL_TYPE.WECHAT) {
+            controller.selectedIndex = 1;
+        } else if (role === Enum.CHANNEL_TYPE.PHONE) {
+            controller.selectedIndex = 2;
+        } else {
+            Logger.error("initGameSetting unknow login type:", role);
         }
     }
 
@@ -457,6 +491,7 @@ export class UserInfoView extends cc.Component {
 
     private onClearCacheBtn(): void {
         Logger.debug("onClearCacheBtn");
+        Dialog.prompt(LocalStrings.findString("noDataClearn"));
     }
 
     private onGpsBtnClick(): void {
@@ -465,6 +500,20 @@ export class UserInfoView extends cc.Component {
         } else {
             DataStore.setItem(KeyConstants.GPS, 0);
         }
+    }
+
+    private onLogout(): void {
+        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
+        const req = new proto.casino.packet_user_logout();
+        req.player_id = +playerID;
+
+        const buf = proto.casino.packet_user_logout.encode(req);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_USER_LOGOUT);
+        this.lm.msgCenter.logout();
+
+        this.win.hide();
+        this.win.dispose();
+        this.destroy();
     }
 
     private renderHeadListItem(index: number, item: fgui.GObject): void {

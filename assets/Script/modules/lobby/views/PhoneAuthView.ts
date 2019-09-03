@@ -152,6 +152,12 @@ export class PhoneAuthView extends cc.Component {
             return;
         }
 
+        DataStore.setItem(KeyConstants.PHONE, reply.phone);
+
+        if (this.lm !== null) {
+            this.lm.eventTarget.emit("onBindPhone");
+        }
+
         Dialog.prompt("bindPhoneSuccess");
 
     }
