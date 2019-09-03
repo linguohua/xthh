@@ -11503,6 +11503,42 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 2
                         }
                     ]
+                },
+                {
+                    "name": "packet_et_draw_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "et_id",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_et_draw_res",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "et_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "item_id",
+                            "id": 3
+                        }
+                    ]
                 }
             ],
             "enums": [

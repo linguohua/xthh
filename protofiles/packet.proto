@@ -924,3 +924,13 @@ message packet_user_logout{
 	optional uint32			player_id = 1;		// 玩家id
 	optional uint64				 time = 2;		// 登出时间
 }
+
+message packet_et_draw_req {
+	optional uint32 et_id = 1;	// 能量转盘ID
+}
+
+message packet_et_draw_res {
+	optional uint32		ret = 1;		// 响应码
+	optional uint32		et_id = 2;		// 能量转盘ID
+	optional uint32		item_id = 3;	// 抽奖的奖品ID
+}

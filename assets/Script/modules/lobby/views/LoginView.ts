@@ -165,7 +165,9 @@ export class LoginView extends cc.Component {
                 const err = HTTP.hError(xhr);
                 if (err !== null) {
                     Logger.error(err);
-                    callback(LocalStrings.findString("networkConnectError"));
+                    if (callback !== undefined) {
+                        callback(LocalStrings.findString("networkConnectError"));
+                    }
                     // Dialog.showDialog(LocalStrings.findString("networkConnectError"));
                 } else {
                     const reply = <FastLoginReply>JSON.parse(xhr.responseText);
@@ -173,9 +175,13 @@ export class LoginView extends cc.Component {
                         // Dialog.showDialog(LocalStrings.findString("networkConnectError", `${reply.ret}`));
                         Logger.error("requestPhoneLogin failed:", reply);
                         if (reply.msg === "") {
-                            callback("无效的验证码");
+                            if (callback !== undefined) {
+                                callback("无效的验证码");
+                            }
                         } else {
-                            callback(reply.msg);
+                            if (callback !== undefined) {
+                                callback(reply.msg);
+                            }
                         }
 
                         return;
@@ -197,19 +203,15 @@ export class LoginView extends cc.Component {
 
     // 手机号登录输入框会穿透
     public disableAllBtn(): void {
-        // this.weixinButton.asButton.changeStateOnClick = false;
-        // this.phoneLoginBtn.asButton.changeStateOnClick = false;
-        // this.loginBtn.enabled = false;
-        // this.phoneLoginBtn.visible = false;
+        Logger.debug("disableAllBtn");
         if (this.button !== null) {
             this.button.hide();
+        } else {
+            Logger.debug("disableAllBtn");
         }
     }
 
     public enableAllBtn(): void {
-        // this.weixinButton.enabled = true;
-        // this.loginBtn.enabled = true;
-        // this.phoneLoginBtn.visible = true;
         if (this.button !== null) {
             this.button.show();
         }
@@ -473,7 +475,6 @@ export class LoginView extends cc.Component {
         } else {
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.UNKNOWN);
         }
-
     }
 
     private createWxBtn(): void {

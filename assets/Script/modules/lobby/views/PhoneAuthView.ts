@@ -88,6 +88,7 @@ export class PhoneAuthView extends cc.Component {
         const cb = (str: string) => {
             this.inputPhone.asButton.getController("phoneLegal").selectedIndex = 1;
             this.inputPhone.asButton.getChild("text").text = str;
+            DataStore.setItem(KeyConstants.INPUT_PHONE, str);
             this.showCountDown();
         };
         inputNumberView.show(cb, InputNumberOpenType.INPUT_PHONE, 11);
@@ -214,6 +215,12 @@ export class PhoneAuthView extends cc.Component {
 
         if (this.openType === OpenType.LOGIN && this.loginView !== undefined) {
             this.loginView.disableAllBtn();
+        }
+
+        const phone = DataStore.getString(KeyConstants.INPUT_PHONE, "");
+        if (phone !== "") {
+            this.inputPhone.asButton.getChild("text").text = phone;
+            this.inputPhone.asButton.getController("phoneLegal").selectedIndex = 1;
         }
         // this.list = this.view.getChild("list").asList;
 

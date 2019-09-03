@@ -5327,5 +5327,31 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_user_logout;
 		}
 
+		interface Ipacket_et_draw_req {
+			et_id?: number;
+		}
+
+		class packet_et_draw_req implements Ipacket_et_draw_req {
+			public et_id: number;
+			constructor(properties?: casino.Ipacket_et_draw_req);
+			public static encode(message: packet_et_draw_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_et_draw_req;
+		}
+
+		interface Ipacket_et_draw_res {
+			ret?: number;
+			et_id?: number;
+			item_id?: number;
+		}
+
+		class packet_et_draw_res implements Ipacket_et_draw_res {
+			public ret: number;
+			public et_id: number;
+			public item_id: number;
+			constructor(properties?: casino.Ipacket_et_draw_res);
+			public static encode(message: packet_et_draw_res): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_et_draw_res;
+		}
+
 	}
 }

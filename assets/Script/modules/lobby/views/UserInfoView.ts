@@ -203,10 +203,9 @@ export class UserInfoView extends cc.Component {
         this.id.text = DataStore.getString(KeyConstants.PLAYER_ID);
         this.phone.text = DataStore.getString(KeyConstants.PHONE);
 
-        const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
-
+        const gender = DataStore.getString(KeyConstants.GENDER, "");
         if (+gender > 0) {
             this.boyRadioBtn.selected = true;
         } else {
@@ -358,6 +357,11 @@ export class UserInfoView extends cc.Component {
 
     private onBindPhoneBtnClick(): void {
         Logger.debug("onBindPhoneBtnClick");
+        // 已经绑定，无需再绑定
+        if (this.bindPhoneBtn.asButton.getController("bind").selectedIndex === 1) {
+            return;
+        }
+
         const view = this.addComponent(PhoneAuthView);
         view.show(OpenType.BIND_PHONE);
 
