@@ -5,10 +5,10 @@ import { CommonFunction, DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, 
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
+import { LocalStrings } from "../strings/LocalStringsExports";
 import { LotteryView } from "./lottery/LotteryView";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
-import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
 
 /**

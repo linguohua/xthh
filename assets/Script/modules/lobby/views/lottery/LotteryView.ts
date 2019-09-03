@@ -1,4 +1,5 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { GameError } from "../../errorCode/ErrorCodeExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LotteryRuleView } from "./LotteryRuleView";
 const { ccclass } = cc._decorator;
@@ -188,37 +189,44 @@ export class LotteryView extends cc.Component {
             return;
         }
 
-        // const req2 = new proto.casino.packet_et_draw_req();
-        // req2.et_id = 12001;
-        // const buf = proto.casino.packet_replay_req.encode(req2);
-        // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        // lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ET_DRAW_REQ);
+        const req2 = new proto.casino.packet_et_draw_req();
+        req2.et_id = this.tabId;
+        const buf = proto.casino.packet_et_draw_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ET_DRAW_REQ);
 
-        const rewardIndex = 6;
-        const rotate = rewardIndex * -60;
-        const armRotate = -360 * 6 + rotate;
-        const time = (armRotate / -60) * 0.1;
-        Logger.debug("dialShow time = describe", time);
+        // const rewardIndex = 6;
+        // const rotate = rewardIndex * -60;
+        // const armRotate = -360 * 6 + rotate;
+        // const time = (armRotate / -60) * 0.1;
+        // Logger.debug("dialShow time = describe", time);
 
-        //进入选中闪烁阶段
-        this.revolvePage.node.stopAllActions();
-        //self.m_pSpritePointer: runAction(cc.Sequence: create(cc.E
-        //aseInOut: create(cc.RotateTo: create(time, arm_rotate), 3), cc.CallFunc: create(lotteryOver)))
+        // //进入选中闪烁阶段
+        // this.revolvePage.node.stopAllActions();
+        // const action = cc.rotateTo(time, armRotate).easing(cc.easeInOut(3));
 
-        //this.revolvePage.node.runAction(cc.easeInOut(cc.rotateTo(time, armRotate), 3));
-
-        const action = cc.rotateTo(time, armRotate).easing(cc.easeInOut(3));
-
-        this.revolvePage.node.runAction(action);
+        // this.revolvePage.node.runAction(action);
 
     }
 
     private entryTurnable(msg: proto.casino.ProxyMessage): void {
         //
+        Logger.debug("entryTurnable ", msg);
     }
 
     private drawResult(msg: proto.casino.ProxyMessage): void {
         //
+        const drawAck = proto.casino.packet_et_draw_res.decode(msg.Data);
+        Logger.debug("drawAck ", drawAck);
+        if (drawAck.ret !== 0) {
+            Logger.debug("drawResult, failed:", drawAck.ret);
+
+            const err = GameError.getErrorString(drawAck.ret);
+            Dialog.prompt(err);
+
+            return;
+        }
+
     }
 
 }
