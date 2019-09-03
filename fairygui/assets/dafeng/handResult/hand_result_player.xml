@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1118,107" designImage="ui://397phochlqn3fa" designImageOffsetX="-8" designImageOffsetY="-106" designImageAlpha="100">
+<component size="1118,107" designImageOffsetX="-8" designImageOffsetY="-106" designImageAlpha="100">
   <displayList>
     <image id="n17_tfg8" name="bg" src="lqn3ge" fileName="_resource/z_桌面打牌/zm_di1.png" xy="0,0" size="1118,108"/>
     <image id="n21_tfg8" name="n21" src="lqn3ly" fileName="_resource/j_结算/js_xxdi1.png" xy="955,79" size="163,28"/>
@@ -21,6 +21,7 @@
     <component id="n0_rhc4" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="-238,76" hideByEditor="true" scale="0.7,0.7" visible="false"/>
     <image id="n4_rhc4" name="roomOwner" src="jmxyl" fileName="大丰麻将美术改版/2 游戏内/切图/bq_fanzhu.png" xy="-151,58" hideByEditor="true"/>
     <image id="n15_fxwe" name="lianzhuang" src="jmxyp" fileName="大丰麻将美术改版/2 游戏内/切图/tb_lianzhuang.png" xy="-185,61" hideByEditor="true"/>
+    <image id="n30_ubnm" name="collapse" src="ubnmpx" fileName="_resource/j_结算/js_bq_ypc.png" xy="823,6" visible="false"/>
     <image id="n27_wehq" name="kuang" src="lqn3m4" fileName="_resource/j_结算/js_zjdi.png" xy="-7,-7" size="1132,123" visible="false"/>
   </displayList>
 </component>

@@ -114,6 +114,7 @@ export interface RoomInterface {
     isMe(userID: string): boolean;
     isReplayMode(): boolean;
     sendActionMsg(msgAction: ByteBuffer, opCode: number): void;
+    sendMsg(opCode: number, msg?: ByteBuffer): void;
     getBankerChairID(): number;
     setArrowByParent(d: fgui.GComponent): void;
     getPlayerViewChairIDByChairID(chairID: number): number;

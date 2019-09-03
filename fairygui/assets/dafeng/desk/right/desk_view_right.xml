@@ -14,7 +14,7 @@
     <graph id="n13_fxwe" name="aniPos" xy="935,243" pivot="0.5,0.5" size="0,0"/>
     <component id="n14_g0pr" name="discardTip" src="jmxy23" fileName="desk/right/discard_tip.xml" xy="861,192" hideByEditor="true" visible="false"/>
     <graph id="n15_rh8w" name="userInfoPos" xy="533,193" size="20,26" hideByEditor="true" visible="false"/>
-    <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="859,147" visible="false"/>
+    <component id="n19_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="694,150" visible="false"/>
     <component id="n20_hz17" name="hand2" src="hz17p3" fileName="desk/right/desk_hand2.xml" xy="955,0" hideByEditor="true" visible="false"/>
     <graph id="n21_itd2" name="piaoAni" xy="553,318" size="17,16"/>
     <component id="n22_jnmk" name="voice" src="jnmkp6" fileName="qipao.xml" xy="1032,295" visible="false" rotation="180"/>

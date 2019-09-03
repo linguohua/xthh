@@ -1,4 +1,4 @@
-import { CommonFunction, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Logger, DataStore, KeyConstants } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { GameRules } from "./GameRules";
@@ -7,6 +7,7 @@ import { Player } from "./Player";
 import { RoomInterface } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
+import long = require("../lobby/protobufjs/long");
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 
@@ -75,6 +76,7 @@ class ViewGroup {
     public ruleText: fgui.GObject;
     public laiziCount: fgui.GObject;
     public kuang: fgui.GObject;
+    public collapse: fgui.GObject;
 }
 /**
  * 显示一手牌结束后的得分结果
@@ -129,7 +131,9 @@ export class HandResultView extends cc.Component {
         const againBtn = this.unityViewNode.getChild("againBtn").asButton;
         againBtn.onClick(this.onAgainButtonClick, this);
         this.countDown = againBtn.getChild("n1");
-
+        const backBtn = this.unityViewNode.getChild("backBtn").asButton;
+        backBtn.onClick(this.onBackButtonClick, this);
+        backBtn.getChild("n1").text = LocalStrings.findString("again_result");
         if (room.isReplayMode()) {
             againBtn.visible = false;
 
@@ -137,10 +141,17 @@ export class HandResultView extends cc.Component {
         } else {
             const timeLeft = 3;
             this.stopTime = this.room.getRoomHost().getServerTime() + (msgHandOver.time - timeLeft);
+            if (this.room.isJoyRoom) {
+                //欢乐场的话 就显示 再来一局
+                const btnText = LocalStrings.findString("again_result");
+                this.countDown.text = `${btnText}`;
 
-            this.countDownAgain();
-            this.unschedule(this.countDownAgain);
-            this.schedule(this.countDownAgain, 1, cc.macro.REPEAT_FOREVER);
+                backBtn.visible = true;
+            } else {
+                this.countDownAgain();
+                this.unschedule(this.countDownAgain);
+                this.schedule(this.countDownAgain, 1, cc.macro.REPEAT_FOREVER);
+            }
             this.room.getRoomHost().eventTarget.once("disband", this.onDisband, this);
         }
 
@@ -438,13 +449,15 @@ export class HandResultView extends cc.Component {
             const c = this.contentGroup[i];
             c.group.visible = true;
             //玩家基本信息
-            this.updatePlayerInfoData(playerScore.data, c, this.msgHandOver.tdata.players[i]);
+            const player = this.msgHandOver.tdata.players[i];
+            this.updatePlayerInfoData(playerScore.data, c, player);
             let myScore = 0;
             if (this.msgHandOver.op > 0 && playerScore.score !== null) {
                 myScore = playerScore.score;
             }
 
             this.updatePlayerTileData(playerScore, c);
+            Logger.debug("player : ", player);
             //分数
             if (myScore > 0) {
                 c.textCountT.text = `+${myScore}`;
@@ -454,6 +467,9 @@ export class HandResultView extends cc.Component {
                 c.textCountLoseT.text = myScore.toString();
                 c.textCountLoseT.visible = true;
                 c.textCountT.visible = false;
+                if (player.gold.low <= 0) {
+                    c.collapse.visible = true;
+                }
             }
             //显示马牌
             // this.updateFakeList(fakeList);
@@ -546,7 +562,8 @@ export class HandResultView extends cc.Component {
             //获胜节点位置
             contentGroupData.aniPos = group.getChild("aniPos");
             contentGroupData.kuang = group.getChild("kuang");
-
+            //破产
+            contentGroupData.collapse = group.getChild("collapse");
             //保存userID
             // contentGroupData.userID = "";
 
@@ -584,13 +601,57 @@ export class HandResultView extends cc.Component {
 
         const play_total = this.msgHandOver.tdata.play_total;
         const round = this.msgHandOver.tdata.round;
-        // if (this.msgHandOver.continueAble) {
-        if (play_total >= round && !room.isReplayMode()) {
-            this.room.loadGameOverResultView(this.msgHandOver);
+        if (!this.room.isJoyRoom) {
+            if (play_total >= round && !room.isReplayMode()) {
+                this.room.loadGameOverResultView(this.msgHandOver);
+            } else {
+                this.room.resetForNewHand();
+                this.room.onReadyButtonClick();
+            }
         } else {
-            this.room.resetForNewHand();
-            this.room.onReadyButtonClick();
+            //欢乐场的话就再进游戏
+            let joyRoom = null;
+            if (this.room.joyRoom.gold.low <= this.room.getMyPlayer().totalScores) {
+                //如果欢乐豆还够的话 继续这种房间
+                joyRoom = this.room.joyRoom;
+            } else {
+                //否则就找可以进的房间
+                const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+                const rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
+                for (const r of rooms) {
+                    if (r.gold.low <= this.room.getMyPlayer().totalScores) {
+                        joyRoom = r;
+                    }
+                }
+            }
+            if (joyRoom !== null) {
+                const req = {
+                    casino_id: joyRoom.casino_id,
+                    room_id: joyRoom.id,
+                    table_id: long.fromNumber(0),
+                    ready: true
+                };
+
+                const req2 = new proto.casino.packet_table_join_req(req);
+                const buf = proto.casino.packet_table_join_req.encode(req2);
+
+                this.room.sendMsg(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ, buf);
+            } else {
+                //TODO ： 提示用户
+            }
         }
+    }
+    private onBackButtonClick(): void {
+        if (!this.room.isReplayMode()) {
+            this.room.getRoomHost().unblockNormal();
+        }
+        this.eventTarget.emit("destroy");
+        this.unityViewNode = null;
+        this.destroy();
+        this.win.hide();
+        this.win.dispose();
+
+        this.room.quit();
     }
     private countDownAgain(): void {
         const countDownTime = this.stopTime - this.room.getRoomHost().getServerTime();

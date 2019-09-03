@@ -77,6 +77,7 @@ export namespace LocalStrings {
 
                 [`continue`]: "继续",
                 [`checkScore`]: "查看积分",
+                [`again_result`]: "再来一局",
                 [`plText`]: "一赖到底，飘赖子有奖，笑翻倍",
                 [`admission`]: "允许进入",
 

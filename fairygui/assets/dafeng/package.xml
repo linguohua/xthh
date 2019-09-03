@@ -305,6 +305,7 @@
     <component id="82t1pq" name="chatMsgCom.xml" path="/desk/left/"/>
     <component id="82t1pr" name="chatMsgCom.xml" path="/desk/mine/"/>
     <component id="82t1ps" name="chatMsgCom.xml" path="/desk/right/"/>
+    <image id="ubnmpx" name="js_bq_ypc.png" path="/_resource/j_结算/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

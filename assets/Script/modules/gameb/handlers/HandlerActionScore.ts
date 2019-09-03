@@ -21,7 +21,7 @@ export namespace HandlerActionScore {
         // await room.coWaitSeconds(1);
         //等待
         // for (const player of players) {
-        // player.playerView.showScore();
+        //     player.playerView.showScore();
         // }
     };
 }
