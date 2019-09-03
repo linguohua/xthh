@@ -8,6 +8,7 @@ import { Share } from "../shareUtil/ShareExports";
 import { LotteryView } from "./joyBean/LotteryView";
 import { ShopView, TabType } from "./ShopView";
 import { UserInfoTabType, UserInfoView } from "./UserInfoView";
+import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
 
 /**
@@ -91,6 +92,8 @@ export class JoyBeanView extends cc.Component {
         seniorBtn.onClick(() => { this.onJoinRoomCliclk(2); }, this); //高级场
         this.setJoyBtnInfo(seniorBtn, this.rooms[2]);
 
+        const playQuicklyBtn = this.view.getChild("playQuicklyBtn");
+        playQuicklyBtn.onClick(this.onQuicklyClick, this);
     }
     private onCloseBtnClick(): void {
         this.destroy();
@@ -126,6 +129,34 @@ export class JoyBeanView extends cc.Component {
         this.addComponent(LotteryView);
     }
 
+    private onQuicklyClick(): void {
+        let joyRoom = null;
+        const myGold = +DataStore.getString(KeyConstants.BEANS);
+        //否则就找可以进的房间
+        const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+        const rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
+        for (const r of rooms) {
+            if (r.gold.low <= myGold) {
+                joyRoom = r;
+            }
+        }
+        if (joyRoom !== null) {
+            const req = {
+                casino_id: joyRoom.casino_id,
+                room_id: joyRoom.id,
+                table_id: long.fromNumber(0),
+                ready: true
+            };
+
+            const req2 = new proto.casino.packet_table_join_req(req);
+            const buf = proto.casino.packet_table_join_req.encode(req2);
+
+            this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+        } else {
+            // 提示用户没有豆了
+            Dialog.prompt(LocalStrings.findString("beanIsLess"));
+        }
+    }
     private onJoinRoomCliclk(index: number): void {
         Logger.debug("rooms : ", this.rooms[index]);
         const room = this.rooms[index];
