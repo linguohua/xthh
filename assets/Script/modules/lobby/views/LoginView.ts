@@ -194,6 +194,27 @@ export class LoginView extends cc.Component {
             },
             "text");
     }
+
+    // 手机号登录输入框会穿透
+    public disableAllBtn(): void {
+        // this.weixinButton.asButton.changeStateOnClick = false;
+        // this.phoneLoginBtn.asButton.changeStateOnClick = false;
+        // this.loginBtn.enabled = false;
+        // this.phoneLoginBtn.visible = false;
+        if (this.button !== null) {
+            this.button.hide();
+        }
+    }
+
+    public enableAllBtn(): void {
+        // this.weixinButton.enabled = true;
+        // this.loginBtn.enabled = true;
+        // this.phoneLoginBtn.visible = true;
+        if (this.button !== null) {
+            this.button.show();
+        }
+    }
+
     protected start(): void {
         this.showLoginView();
     }

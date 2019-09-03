@@ -15,6 +15,8 @@ export enum OpenType {
 
 interface PhoneLoginInterface {
     requestPhoneLogin(phone: string, code: string, callback: Function): void;
+    disableAllBtn(): void;
+    enableAllBtn(): void;
 }
 
 /**
@@ -64,6 +66,10 @@ export class PhoneAuthView extends cc.Component {
         this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK, this.onBindPhoneAck, this);
     }
     protected onDestroy(): void {
+        if (this.openType === OpenType.LOGIN && this.loginView !== undefined) {
+            this.loginView.enableAllBtn();
+        }
+
         this.eventTarget.emit("destroy");
 
         this.win.hide();
@@ -126,6 +132,18 @@ export class PhoneAuthView extends cc.Component {
         const phone = this.inputPhone.asButton.getChild("text").text;
         const code = this.inputAuth.asButton.getChild("text").text;
 
+        if (phone.length < 11) {
+            Dialog.showDialog(LocalStrings.findString("invalidPhone"));
+
+            return;
+        }
+
+        if (code.length < 4) {
+            Dialog.showDialog(LocalStrings.findString("invalidCode"));
+
+            return;
+        }
+
         if (this.openType === OpenType.BIND_PHONE) {
             this.requireBindPhone(phone, code);
         } else {
@@ -145,7 +163,7 @@ export class PhoneAuthView extends cc.Component {
 
     private onBindPhoneAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_bind_phone_ack.decode(msg.Data);
-        if (reply.ret !== 0) {
+        if (reply.ret !== proto.casino.eRETURN_TYPE.RETURN_BIND_PHONE_SUCCESS) {
             Logger.error("reply", reply);
             Dialog.prompt(GameError.getErrorString(reply.ret));
 
@@ -192,6 +210,10 @@ export class PhoneAuthView extends cc.Component {
             confirmBtnController.selectedIndex = 1;
         } else {
             confirmBtnController.selectedIndex = 0;
+        }
+
+        if (this.openType === OpenType.LOGIN && this.loginView !== undefined) {
+            this.loginView.disableAllBtn();
         }
         // this.list = this.view.getChild("list").asList;
 

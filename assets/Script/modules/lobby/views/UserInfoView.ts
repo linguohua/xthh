@@ -245,7 +245,13 @@ export class UserInfoView extends cc.Component {
     }
 
     private onBindPhone(): void {
+        const controller = this.bindPhoneBtn.getController("bind");
         this.phone.text = DataStore.getString(KeyConstants.PHONE);
+        if (this.phone.text !== "") {
+            controller.selectedIndex = 1;
+        } else {
+            controller.selectedIndex = 0;
+        }
     }
     private onModifyAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_modify_ack.decode(msg.Data);
@@ -511,8 +517,6 @@ export class UserInfoView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_USER_LOGOUT);
         this.lm.msgCenter.logout();
 
-        this.win.hide();
-        this.win.dispose();
         this.destroy();
     }
 

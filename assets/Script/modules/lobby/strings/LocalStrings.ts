@@ -121,6 +121,7 @@ export namespace LocalStrings {
                 [`bindPhone`]: "绑定手机：",
                 [`sendAuthCode`]: "发送验证码",
                 [`invalidPhone`]: "请输入有效的手机号",
+                [`invalidCode`]: "请输入有效的认证码",
                 [`joyText`]: "每局开局需消耗{0}欢乐豆",
                 [`beanIsLess`]: "您的欢乐豆不足，是否需要前往充值界面",
                 [`bindPhoneSuccess`]: "绑定手机成功",
