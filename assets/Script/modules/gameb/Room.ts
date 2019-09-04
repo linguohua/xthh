@@ -5,7 +5,6 @@ import { DataStore, Dialog, KeyConstants, Logger, UserInfo } from "../lobby/lcor
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
-import { ChatData } from "../lobby/views/chat/ChatExports";
 import { Algorithm } from "./Algorithm";
 import { GameOverResultView } from "./GameOverResultView";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
@@ -15,6 +14,7 @@ import { HandlerActionScore } from "./handlers/HandlerActionScore";
 import { HandlerMsgActionOP } from "./handlers/HandlerMsgActionOP";
 import { HandlerMsgActionOPAck } from "./handlers/HandlerMsgActionOPAck";
 import { HandlerMsgDeal } from "./handlers/HandlerMsgDeal";
+import { HandlerMsgTableChat } from "./handlers/HandlerMsgTableChat";
 import { HandlerMsgTableDisband } from "./handlers/HandlerMsgTableDisband";
 import { HandlerMsgTableDisbandAck } from "./handlers/HandlerMsgTableDisbandAck";
 import { HandlerMsgTableDisbandReq } from "./handlers/HandlerMsgTableDisbandReq";
@@ -52,6 +52,8 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeEnum.MSG_TABLE_DISBAND_ACK]: HandlerMsgTableDisbandAck.onMsg, //解散
     [msgCodeEnum.MSG_TABLE_DISBAND_REQ]: HandlerMsgTableDisbandReq.onMsg, //解散
     [msgCodeEnum.MSG_TABLE_DISBAND]: HandlerMsgTableDisband.onMsg, //解散
+
+    [msgCodeEnum.MSG_TABLE_CHAT]: HandlerMsgTableChat.onMsg, //聊天消息
     //晃晃专用
     [msgCodeXTHH.XTSJ_MSG_SC_STARTPLAY]: HandlerMsgDeal.onMsg, //发牌
     [msgCodeXTHH.XTSJ_MSG_SC_OP]: HandlerMsgActionOP.onMsg, //服务器询问玩家操作
@@ -532,8 +534,8 @@ export class Room {
         //
         this.roomView.switchBg(index);
     }
-    public showMsg(chatData: ChatData): void {
-        this.players[chatData.fromUserID].onChatMsg(chatData);
+    public showMsg(chatData: protoHH.casino.packet_table_chat): void {
+        this.players[chatData.player_id].onChatMsg(chatData);
     }
     /**
      * 挂起若干秒

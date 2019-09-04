@@ -1,7 +1,6 @@
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { ChatData } from "../lobby/views/chat/ChatExports";
 import { AlgorithmA } from "./AlgorithmA";
 import { PlayerInterfaceA } from "./PlayerInterfaceA";
 /**
@@ -156,7 +155,7 @@ export interface RoomInterfaceA {
 
     getMyPlayerInfo(): PlayerInfo;
 
-    showMsg(chatData: ChatData): void;
+    showMsg(chatData: protoHH.casino.packet_table_chat): void;
     setDiscardAble(isDiscardAble: boolean): void;
     myMahjong_showTingGroup(tile: number): TingPai[];
     showOrHideCancelCom(isShow: boolean, str?: string): void;

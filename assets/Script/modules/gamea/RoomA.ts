@@ -5,7 +5,6 @@ import { DataStore, Dialog, KeyConstants, Logger, UserInfo } from "../lobby/lcor
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
-import { ChatData } from "../lobby/views/chat/ChatExports";
 import { AlgorithmA } from "./AlgorithmA";
 import { GameOverResultViewA } from "./GameOverResultViewA";
 import { HandlerActionResultDiscardedA } from "./handlersA/HandlerActionResultDiscardedA";
@@ -15,6 +14,7 @@ import { HandlerActionScoreA } from "./handlersA/HandlerActionScoreA";
 import { HandlerMsgActionOPA } from "./handlersA/HandlerMsgActionOPA";
 import { HandlerMsgActionOPAckA } from "./handlersA/HandlerMsgActionOPAckA";
 import { HandlerMsgDealA } from "./handlersA/HandlerMsgDealA";
+import { HandlerMsgTableChatA } from "./handlersA/HandlerMsgTableChatA";
 import { HandlerMsgTableDisbandA } from "./handlersA/HandlerMsgTableDisbandA";
 import { HandlerMsgTableDisbandAckA } from "./handlersA/HandlerMsgTableDisbandAckA";
 import { HandlerMsgTableDisbandReqA } from "./handlersA/HandlerMsgTableDisbandReqA";
@@ -52,6 +52,8 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeEnum.MSG_TABLE_DISBAND_ACK]: HandlerMsgTableDisbandAckA.onMsg, //解散
     [msgCodeEnum.MSG_TABLE_DISBAND_REQ]: HandlerMsgTableDisbandReqA.onMsg, //解散
     [msgCodeEnum.MSG_TABLE_DISBAND]: HandlerMsgTableDisbandA.onMsg, //解散
+
+    [msgCodeEnum.MSG_TABLE_CHAT]: HandlerMsgTableChatA.onMsg, //聊天消息
     //晃晃专用
     [msgCodeXTHH.GDY_MSG_SC_STARTPLAY]: HandlerMsgDealA.onMsg, //发牌
     [msgCodeXTHH.GDY_MSG_SC_OP]: HandlerMsgActionOPA.onMsg, //服务器询问玩家操作
@@ -533,8 +535,8 @@ export class RoomA {
         //
         this.roomView.switchBg(index);
     }
-    public showMsg(chatData: ChatData): void {
-        this.players[chatData.fromUserID].onChatMsg(chatData);
+    public showMsg(chatData: protoHH.casino.packet_table_chat): void {
+        this.players[chatData.player_id].onChatMsg(chatData);
     }
     /**
      * 挂起若干秒

@@ -1,7 +1,6 @@
 import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
-import { ChatData } from "../lobby/views/chat/ChatExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
 import { AgariIndexA } from "./AgariIndexA";
 import { TypeOfOP } from "./PlayerInterfaceA";
@@ -686,12 +685,12 @@ export class PlayerA {
             // this.playerView.checkReadyHandBtn.visible = false;
         }
     }
-    public onChatMsg(chatData: ChatData): void {
-        if (chatData.buildinId !== undefined && chatData.buildinId !== "") {
-            //播放快捷语音效
-            this.playSound("gameb", `chat${chatData.buildinId} `);
-        }
-        this.playerView.showChatMsg(chatData.msg);
+    public onChatMsg(chatData: protoHH.casino.packet_table_chat): void {
+        // if (chatData.buildinId !== undefined && chatData.buildinId !== "") {
+        //     //播放快捷语音效
+        //     this.playSound("gameb", `chat${chatData.buildinId} `);
+        // }
+        this.playerView.showChatMsg(chatData.text);
     }
     public onPlayerInfoClick(): void {
         // const pos = { x = this.playerView.userInfoPos.x, y = this.playerView.userInfoPos.y }

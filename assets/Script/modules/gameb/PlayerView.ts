@@ -116,6 +116,8 @@ export class PlayerView {
     private userInfoPos: fgui.GObject;
 
     private qipaoText: fgui.GObject;
+    private qipaoEmotion: fgui.GLoader;
+    private qipao: fgui.GObject;
     private discardTipsTile: fgui.GComponent;
     private roomHost: RoomHost;
     private lastClickTime: number;
@@ -900,12 +902,14 @@ export class PlayerView {
     }
 
     //显示聊天消息
-    public showChatMsg(str: string): void {
-        if (str !== undefined && str !== null) {
+    public showChatMsg(chatData: protoHH.casino.packet_table_chat): void {
+        if (chatData !== undefined && chatData !== null) {
             if (this.msgTimerCB === undefined) {
                 this.msgTimerCB = <Function>this.hideChatMsg.bind(this);
             }
-            this.qipaoText.text = str;
+            this.qipaoText.text = chatData.text;
+            this.qipaoEmotion.url = `ui://lobby_chat/zm_lt_bq${chatData.chat_id}`;
+            this.qipao.visible = true;
             //定时隐藏
             this.roomHost.component.unschedule(this.msgTimerCB);
             this.roomHost.component.scheduleOnce(this.msgTimerCB, 3);
@@ -952,6 +956,7 @@ export class PlayerView {
 
     private hideChatMsg(): void {
         //
+        this.qipao.visible = false;
     }
 
     private initOtherView(): void {
@@ -970,6 +975,9 @@ export class PlayerView {
         this.piaoScoreLose = scoreCom.getChild("lose");
         this.piaoScoreStartPos = scoreCom.getChild("startPos").node.position;
         this.piaoScoreEndPos = scoreCom.getChild("endPos").node.position;
+        this.qipao = this.myView.getChild("chatMsgCom");
+        this.qipaoText = this.qipao.asCom.getChild("text");
+        this.qipaoEmotion = this.qipao.asCom.getChild("biaoqing").asLoader;
 
     }
 
