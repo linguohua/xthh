@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://ls4obr7jiex4ji" designImageAlpha="100">
+  <controller name="gender" pages="0,girl,1,boy" selected="0"/>
+  <controller name="friend" pages="0,no,1,yes" selected="1"/>
+  <displayList>
+    <component id="n3_iex4" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
+    <image id="n2_iex4" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="216,73" size="634,447"/>
+    <component id="n0_iex4" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="205,68"/>
+    <image id="n15_iex4" name="bg1" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="325,252"/>
+    <image id="n14_iex4" name="bg2" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="532,247"/>
+    <image id="n11_iex4" name="bg3" src="iex41z" fileName="resource/grxx_wxzdi.png" pkg="snwj6cnx" xy="325,103" size="100,100"/>
+    <image id="n19_iex4" name="bg4" src="mk701x" fileName="resource/ty_di2.png" pkg="snwj6cnx" xy="445,160" size="293,38"/>
+    <image id="n20_iex4" name="bg5" src="mk701x" fileName="resource/ty_di2.png" pkg="snwj6cnx" xy="445,107" size="293,38"/>
+    <image id="n22_iex4" name="fgx" src="iex41y" fileName="resource/grxx_fgx2.png" pkg="snwj6cnx" xy="258,238" size="550,2"/>
+    <loader id="n4_iex4" name="loader" xy="375,107" pivot="0.5,0" anchor="true" size="92,92" url="ui://snwj6cnxhjqc1r" align="center" vAlign="middle" fill="scale"/>
+    <image id="n12_iex4" name="girl" src="iex421" fileName="resource/grxx_xb_2.png" pkg="snwj6cnx" xy="395,170">
+      <gearDisplay controller="gender" pages="0"/>
+    </image>
+    <image id="n13_iex4" name="boy" src="iex420" fileName="resource/grxx_xb_1.png" pkg="snwj6cnx" xy="395,170">
+      <gearDisplay controller="gender" pages="1"/>
+    </image>
+    <component id="n17_iex4" name="addFriendBtn" src="iex4jl" fileName="addFriendBtn.xml" xy="441,410">
+      <gearDisplay controller="friend" pages="0"/>
+    </component>
+    <component id="n18_iex4" name="deleteFriendBtn" src="iex4jm" fileName="deleteFriendBtn.xml" xy="441,410">
+      <gearDisplay controller="friend" pages="1"/>
+    </component>
+    <text id="n5_iex4" name="name" xy="450,109" size="302,39" fontSize="26" color="#feffdf" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="昵称：牛逼哄哄啦啦啦"/>
+    <text id="n6_iex4" name="id" xy="475,164" size="302,39" fontSize="26" color="#feffdf" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="ID：96532365"/>
+    <text id="n8_iex4" name="fkText" xy="594,256" size="117,39" fontSize="28" color="#6e5840" vAlign="middle" autoSize="none" singleLine="true" text="--"/>
+    <text id="n9_iex4" name="douText" xy="378,256" size="117,39" fontSize="28" color="#6e5840" vAlign="middle" autoSize="none" singleLine="true" text="--"/>
+    <text id="n10_iex4" name="count" xy="323,316" size="172,40" fontSize="28" color="#6e5840" vAlign="middle" autoSize="none" singleLine="true" text="退工会数：-"/>
+  </displayList>
+</component>

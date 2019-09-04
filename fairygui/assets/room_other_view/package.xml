@@ -43,6 +43,12 @@
     <component id="itgxjc" name="btnVoice.xml" path="/resource/s_设置/"/>
     <component id="itgxje" name="btnGps.xml" path="/resource/s_设置/"/>
     <component id="itgxjf" name="btnDisband.xml" path="/resource/s_设置/"/>
+    <component id="iex4jh" name="playerInfo.xml" path="/" exported="true"/>
+    <image id="iex4ji" name="z_桌面个人信息.png" path="/design/"/>
+    <image id="iex4jj" name="z_桌面个人信息1.png" path="/design/"/>
+    <image id="iex4jk" name="z_桌面个人信息标注.jpg" path="/design/"/>
+    <component id="iex4jl" name="addFriendBtn.xml" path="/"/>
+    <component id="iex4jm" name="deleteFriendBtn.xml" path="/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>

@@ -427,6 +427,7 @@ export class Player {
 
     public updateByPlayerInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void {
         this.state = playerInfo.status;
+        Logger.debug("updateByPlayerInfo = playerInfo ", playerInfo);
         this.playerInfo = new PlayerInfo(playerInfo, chairID);
         if (this.playerInfo.scoreTotal !== null) {
             this.totalScores = this.playerInfo.scoreTotal;
@@ -697,25 +698,14 @@ export class Player {
         this.playerView.showChatMsg(chatData);
     }
     public onPlayerInfoClick(): void {
-        // const pos = { x = this.playerView.userInfoPos.x, y = this.playerView.userInfoPos.y }
-        // playerInfoView.showUserInfoView(this.playerInfo, pos, this.isMe() == false, this.host)
-
-        const pos = new cc.Vec2(this.playerView.getUserInfoPos().x, this.playerView.getUserInfoPos().y);
-        // const pos = new cc.Vec2(0, 0);
-        // const playerInfoString = JSON.stringify(this.playerInfo);
-        // playerInfoView.showUserInfoView(self.playerInfo, pos, self:isMe() == false)
 
         const roomHost = this.host.getRoomHost();
-        if (roomHost === null) {
-            Logger.debug("roomHost === null");
-        }
-
         let playerInfoView = roomHost.component.getComponent(PlayerInfoView);
         if (playerInfoView === null) {
             playerInfoView = roomHost.component.addComponent(PlayerInfoView);
         }
 
-        playerInfoView.showUserInfoView(roomHost.getLobbyModuleLoader(), this.host, this.playerInfo, pos, this.isMe() === false);
+        playerInfoView.show(roomHost.getLobbyModuleLoader(), this.playerInfo);
     }
 
     /**

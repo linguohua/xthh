@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "2648105a-a6b3-4f8a-9caf-b02e18e6276e",
+  "uuid": "cc690e65-5b05-4ae4-8db4-bcf00905e420",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "lobby_lottery_atlas0": {
       "ver": "1.0.4",
-      "uuid": "030512d7-9e86-4bc8-a2b7-d05e548318ff",
-      "rawTextureUuid": "2648105a-a6b3-4f8a-9caf-b02e18e6276e",
+      "uuid": "c2dd459d-5bd0-4f9e-8718-4ce2f2950eec",
+      "rawTextureUuid": "cc690e65-5b05-4ae4-8db4-bcf00905e420",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
