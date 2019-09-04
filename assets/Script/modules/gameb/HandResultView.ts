@@ -1,4 +1,4 @@
-import { CommonFunction, Logger, DataStore, KeyConstants } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Logger, DataStore, KeyConstants, Dialog } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { GameRules } from "./GameRules";
@@ -8,6 +8,7 @@ import { RoomInterface } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
 import long = require("../lobby/protobufjs/long");
+import { ShopView, TabType } from "../lobby/views/ShopView";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 
@@ -457,7 +458,7 @@ export class HandResultView extends cc.Component {
             }
 
             this.updatePlayerTileData(playerScore, c);
-            Logger.debug("player : ", player);
+            // Logger.debug("player : ", player);
             //分数
             if (myScore > 0) {
                 c.textCountT.text = `+${myScore}`;
@@ -467,7 +468,7 @@ export class HandResultView extends cc.Component {
                 c.textCountLoseT.text = myScore.toString();
                 c.textCountLoseT.visible = true;
                 c.textCountT.visible = false;
-                if (player.gold.low <= 0) {
+                if (player.gold.low + myScore <= 0) {
                     c.collapse.visible = true;
                 }
             }
@@ -603,14 +604,56 @@ export class HandResultView extends cc.Component {
                 this.room.resetForNewHand();
                 this.room.onReadyButtonClick();
             }
+
+            this.closeHandResultView();
         } else {
-            // Logger.debug("欢乐场的话就再进游戏 ------------------");
-            this.room.onReadyButtonClick();
+            //欢乐场的话就再进游戏
+            let joyRoom = null;
+            const myGold = this.room.getMyPlayer().totalScores;
+            if (this.room.joyRoom.gold.low <= myGold) {
+                //如果欢乐豆还够的话 继续这种房间
+                joyRoom = this.room.joyRoom;
+            } else {
+                //否则就找可以进的房间
+                const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+                const rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
+                for (const r of rooms) {
+                    if (r.gold.low <= myGold) {
+                        joyRoom = r;
+                    }
+                }
+            }
+            // joyRoom = null;
+            if (joyRoom !== null) {
+                const req = {
+                    casino_id: joyRoom.casino_id,
+                    room_id: joyRoom.id,
+                    table_id: long.fromNumber(0),
+                    ready: true
+                };
+
+                const req2 = new proto.casino.packet_table_join_req(req);
+                const buf = proto.casino.packet_table_join_req.encode(req2);
+
+                this.room.getRoomHost().sendBinary(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+
+                this.closeHandResultView();
+            } else {
+                // 提示用户没有豆了
+                const yesCB = () => {
+                    const view = this.addComponent(ShopView);
+                    view.showView(this.room.getRoomHost().loader, TabType.Dou);
+
+                    // this.onBackButtonClick();
+                };
+                const noCB = () => {
+                    // this.onBackButtonClick();
+                };
+                Dialog.showDialog(LocalStrings.findString("beanIsLess"), yesCB, noCB);
+                // Dialog.prompt(LocalStrings.findString("beanIsLess"));
+                // this.quit();
+            }
         }
-        this.eventTarget.emit("destroy");
-        this.destroy();
-        this.win.hide();
-        this.win.dispose();
     }
     private onBackButtonClick(): void {
         if (!this.room.isReplayMode()) {

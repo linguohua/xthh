@@ -215,12 +215,12 @@ export class LobbyView extends cc.Component {
 
     private onAddDouBtnClick(): void {
         const view = this.addComponent(ShopView);
-        view.showView(TabType.Dou);
+        view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
         const view = this.addComponent(ShopView);
-        view.showView(TabType.FK);
+        view.showView(this.lm.loader, TabType.FK);
     }
 
     private onJoyBeanHallBtnClick(): void {
@@ -261,7 +261,7 @@ export class LobbyView extends cc.Component {
 
     private onShopBtnClick(): void {
         const view = this.addComponent(ShopView);
-        view.showView(TabType.Dou);
+        view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onQuestBtnClick(): void {

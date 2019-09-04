@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger, GResLoader } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
@@ -30,19 +30,19 @@ export class ShopView extends cc.Component {
 
     private cardPayCfgs: protoHH.casino.Ipay[];
 
-    public showView(page: TabType): void {
-        this.win.show();
+    // public showView(page: TabType): void {
+    //     this.win.show();
 
-        const tabCtrl = this.view.getController("tab");
-        tabCtrl.selectedIndex = page;
-    }
+    //     const tabCtrl = this.view.getController("tab");
+    //     tabCtrl.selectedIndex = page;
+    // }
 
-    protected onLoad(): void {
+    public showView(loader: GResLoader, page: TabType): void {
 
         this.eventTarget = new cc.EventTarget();
 
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        const loader = lm.loader;
+        // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        // const loader = lm.loader;
 
         loader.fguiAddPackage("lobby/fui_lobby_shop/lobby_shop");
         const view = fgui.UIPackage.createObject("lobby_shop", "shopView").asCom;
@@ -66,6 +66,9 @@ export class ShopView extends cc.Component {
 
         this.win = win;
         this.initView();
+        this.win.show();
+        const tabCtrl = this.view.getController("tab");
+        tabCtrl.selectedIndex = page;
     }
 
     protected onDestroy(): void {
