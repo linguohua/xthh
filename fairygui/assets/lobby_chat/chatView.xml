@@ -2,7 +2,7 @@
 <component size="1136,640" designImage="ui://qyrwdwrphjqcf" designImageAlpha="100">
   <displayList>
     <graph id="n13_hjqc" name="mask" xy="0,0" size="1136,640"/>
-    <image id="n12_hjqc" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="646,71" size="511,569"/>
+    <component id="n15_lqxe" name="n15" src="lqxej" fileName="btn/bgBtn.xml" xy="646,71"/>
     <image id="n8_hjqc" name="bg1" src="hjqca" fileName="_resource/zm_lt_wzdi.png" xy="677,98" size="445,385" flip="vt"/>
     <image id="n0_hjqc" name="wq" src="hjqc0" fileName="_resource/zm_lt_bq1.png" xy="678,489"/>
     <image id="n1_hjqc" name="wqText" src="hjqc1" fileName="_resource/zm_lt_bq1wq.png" xy="702,572"/>
@@ -22,5 +22,6 @@
       <item/>
       <item/>
     </list>
+    <component id="n14_lqxe" name="n14" src="lqxei" fileName="btn/wq.xml" xy="678,489"/>
   </displayList>
 </component>

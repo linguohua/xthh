@@ -5353,5 +5353,22 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_et_draw_res;
 		}
 
+		interface Ipacket_table_chat {
+			player_id?: number;
+			chat_id?: number;
+			table_id?: Long;
+			text?: string;
+		}
+
+		class packet_table_chat implements Ipacket_table_chat {
+			public player_id: number;
+			public chat_id: number;
+			public table_id: Long;
+			public text: string;
+			constructor(properties?: casino.Ipacket_table_chat);
+			public static encode(message: packet_table_chat): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_table_chat;
+		}
+
 	}
 }

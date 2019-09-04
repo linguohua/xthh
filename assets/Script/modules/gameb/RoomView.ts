@@ -560,10 +560,9 @@ export class RoomView {
         const chatView = this.component.addComponent(ChatView);
         const loader = this.room.getRoomHost().getLobbyModuleLoader();
 
-        const cb = () => {
-            //
-        };
-        chatView.show(loader, cb);
+        const roomHost = this.room.getRoomHost();
+
+        chatView.show(loader, roomHost, this.room.roomInfo.id);
     }
     /**
      * 初始化

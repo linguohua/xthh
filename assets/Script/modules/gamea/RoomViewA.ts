@@ -10,6 +10,7 @@ import { ReadyViewA } from "./ReadyViewA";
 import { RoomInterfaceA, roomStatus, TingPai } from "./RoomInterfaceA";
 
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
+import { ChatView } from "../lobby/views/chat/ChatExports";
 import { TileImageMounterA } from "./TileImageMounterA";
 
 /**
@@ -545,6 +546,10 @@ export class RoomViewA {
      */
     private onChatBtnClick(): void {
         Logger.debug("onChatBtnClick");
+        const chatView = this.component.addComponent(ChatView);
+        const loader = this.room.getRoomHost().getLobbyModuleLoader();
+        const roomHost = this.room.getRoomHost();
+        chatView.show(loader, roomHost, this.room.roomInfo.id);
 
     }
     /**

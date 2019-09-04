@@ -11539,6 +11539,36 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 3
                         }
                     ]
+                },
+                {
+                    "name": "packet_table_chat",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "chat_id",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "table_id",
+                            "id": 6
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "text",
+                            "id": 10
+                        }
+                    ]
                 }
             ],
             "enums": [

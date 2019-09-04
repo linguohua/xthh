@@ -19,6 +19,8 @@
     <image id="hjqcf" name="z_桌面_聊天.jpg" path="/_design/"/>
     <component id="hjqcg" name="chatView.xml" path="/" exported="true"/>
     <component id="hjqch" name="item.xml" path="/btn/"/>
+    <component id="lqxei" name="wq.xml" path="/btn/"/>
+    <component id="lqxej" name="bgBtn.xml" path="/btn/"/>
   </resources>
   <publish name="lobby_chat"/>
 </packageDescription>
