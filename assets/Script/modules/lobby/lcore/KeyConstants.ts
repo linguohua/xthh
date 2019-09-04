@@ -47,5 +47,6 @@ export namespace KeyConstants {
     export const AVATAR_INDEX = "avatarIndex";
     export const getAuthCodeTime = "authCodeTime";
     export const INPUT_PHONE = "inputPhone";
+    export const LAST_CHAT_TIME = "lastChatTime";
 
 }

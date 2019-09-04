@@ -1,6 +1,7 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { CommonFunction } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { PHRASE_MAP } from "../lobby/views/chat/ChatExports";
 import { ClickCtrl, PlayerInterfaceA, playerStatus, TypeOfOP } from "./PlayerInterfaceA";
 import { PlayerInfo, RoomInterfaceA } from "./RoomInterfaceA";
 import { TileImageMounterA } from "./TileImageMounterA";
@@ -115,6 +116,8 @@ export class PlayerViewA {
     private userInfoPos: fgui.GObject;
 
     private qipaoText: fgui.GObject;
+    private qipaoEmotion: fgui.GLoader;
+    private qipao: fgui.GObject;
     private discardTipsTile: fgui.GComponent;
     private roomHost: RoomHost;
     private lastClickTime: number;
@@ -899,12 +902,24 @@ export class PlayerViewA {
     }
 
     //显示聊天消息
-    public showChatMsg(str: string): void {
-        if (str !== undefined && str !== null) {
+    public showChatMsg(chatData: protoHH.casino.packet_table_chat): void {
+        if (chatData !== undefined && chatData !== null) {
             if (this.msgTimerCB === undefined) {
                 this.msgTimerCB = <Function>this.hideChatMsg.bind(this);
             }
-            this.qipaoText.text = str;
+
+            let emotionIndex = 3;
+            if (chatData.chat_id < 7) {
+                emotionIndex = 4;
+            } else if (chatData.chat_id < 14) {
+                emotionIndex = 1;
+            } else if (chatData.chat_id < 21) {
+                emotionIndex = 2;
+            }
+
+            this.qipaoText.text = PHRASE_MAP[chatData.chat_id];
+            this.qipaoEmotion.url = `ui://lobby_chat/zm_lt_bq${emotionIndex}`;
+            this.qipao.visible = true;
             //定时隐藏
             this.roomHost.component.unschedule(this.msgTimerCB);
             this.roomHost.component.scheduleOnce(this.msgTimerCB, 3);
@@ -946,6 +961,7 @@ export class PlayerViewA {
     }
     private hideChatMsg(): void {
         //
+        this.qipao.visible = false;
     }
 
     private initOtherView(): void {
@@ -964,6 +980,9 @@ export class PlayerViewA {
         this.piaoScoreLose = scoreCom.getChild("lose");
         this.piaoScoreStartPos = scoreCom.getChild("startPos").node.position;
         this.piaoScoreEndPos = scoreCom.getChild("endPos").node.position;
+        this.qipao = this.myView.getChild("chatMsgCom");
+        this.qipaoText = this.qipao.asCom.getChild("text");
+        this.qipaoEmotion = this.qipao.asCom.getChild("biaoqing").asLoader;
 
     }
 

@@ -690,7 +690,7 @@ export class PlayerA {
         //     //播放快捷语音效
         //     this.playSound("gameb", `chat${chatData.buildinId} `);
         // }
-        this.playerView.showChatMsg(chatData.text);
+        this.playerView.showChatMsg(chatData);
     }
     public onPlayerInfoClick(): void {
         // const pos = { x = this.playerView.userInfoPos.x, y = this.playerView.userInfoPos.y }

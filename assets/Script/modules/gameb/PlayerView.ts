@@ -1,6 +1,7 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
 import { CommonFunction } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
+import { PHRASE_MAP } from "../lobby/views/chat/ChatExports";
 import { ClickCtrl, PlayerInterface, playerStatus, TypeOfOP } from "./PlayerInterface";
 import { PlayerInfo, RoomInterface } from "./RoomInterface";
 import { TileImageMounter } from "./TileImageMounter";
@@ -907,8 +908,18 @@ export class PlayerView {
             if (this.msgTimerCB === undefined) {
                 this.msgTimerCB = <Function>this.hideChatMsg.bind(this);
             }
-            this.qipaoText.text = chatData.text;
-            this.qipaoEmotion.url = `ui://lobby_chat/zm_lt_bq${chatData.chat_id}`;
+
+            let emotionIndex = 3;
+            if (chatData.chat_id < 7) {
+                emotionIndex = 4;
+            } else if (chatData.chat_id < 14) {
+                emotionIndex = 1;
+            } else if (chatData.chat_id < 21) {
+                emotionIndex = 2;
+            }
+
+            this.qipaoText.text = PHRASE_MAP[chatData.chat_id];
+            this.qipaoEmotion.url = `ui://lobby_chat/zm_lt_bq${emotionIndex}`;
             this.qipao.visible = true;
             //定时隐藏
             this.roomHost.component.unschedule(this.msgTimerCB);

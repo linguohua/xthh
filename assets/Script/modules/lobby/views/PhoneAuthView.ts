@@ -70,6 +70,8 @@ export class PhoneAuthView extends cc.Component {
             this.loginView.enableAllBtn();
         }
 
+        this.unschedule(this.countDownTick);
+
         this.eventTarget.emit("destroy");
 
         this.win.hide();

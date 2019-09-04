@@ -22,5 +22,9 @@
       <item/>
       <item/>
     </list>
+    <text id="n28_lqxe" name="time1" xy="678,489" size="100,89" visible="false" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="9"/>
+    <text id="n29_lqxe" name="time2" xy="792,485" size="100,89" visible="false" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="15"/>
+    <text id="n30_lqxe" name="time3" xy="907,484" size="100,89" visible="false" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="15"/>
+    <text id="n31_lqxe" name="time4" xy="1021,484" size="100,89" visible="false" fontSize="40" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="15"/>
   </displayList>
 </component>
