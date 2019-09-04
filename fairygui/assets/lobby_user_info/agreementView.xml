@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://psmq81bcl4pw22" designImageAlpha="100">
-  <controller name="agree" pages="0,no,1,yes" selected="1"/>
+  <controller name="agree" pages="0,no,1,yes" selected="0"/>
   <controller name="index" pages="0,,1,,2,,3,,4,,5,,6,,7,,8,,9,,10,,11,,12,,13,,14,,15," selected="0"/>
   <displayList>
+    <component id="n15_iex4" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
     <image id="n1_l4pw" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="158,60" size="815,518"/>
     <component id="n0_l4pw" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="144,54">
       <gearDisplay controller="agree" pages="1"/>

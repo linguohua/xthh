@@ -21,6 +21,7 @@
     </component>
     <component id="n46_hszz" name="revolvePage" src="hszz1s" fileName="_btn/revolvePage.xml" xy="588,308" pivot="0.5,0.62" anchor="true"/>
     <component id="n18_a2w9" name="drawLotteryBtn" src="a2w91n" fileName="_btn/drawLotteryBtn.xml" xy="530,250" rotation="360"/>
+    <component id="n61_iex4" name="drawingBlockBtn" src="iex425" fileName="_btn/drawingBlockBtn.xml" xy="0,0" visible="false"/>
     <text id="n47_fv9j" name="powerProgressText" xy="715,590" pivot="1,0" size="101,29" fontSize="19" color="#ffffff" align="right" vAlign="middle" singleLine="true" autoClearText="true" text="400/50000"/>
     <component id="n55_fv9j" name="reward0" src="fv9j22" fileName="_com/rewardItem.xml" xy="547,113"/>
     <component id="n60_fv9j" name="reward1" src="fv9j22" fileName="_com/rewardItem.xml" xy="736,180" rotation="60"/>

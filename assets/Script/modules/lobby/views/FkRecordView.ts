@@ -20,7 +20,7 @@ export class FkRecordView {
         this.view = view;
         this.lm = lm;
         this.initView();
-        this.initHandler();
+        this.registerHandler();
     }
 
     public onTapBtnClick(): void {
@@ -36,7 +36,7 @@ export class FkRecordView {
         };
     }
 
-    private initHandler(): void {
+    private registerHandler(): void {
         this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK, this.onFkRecordLoad, this);
     }
 

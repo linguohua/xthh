@@ -65,7 +65,7 @@ export class NewRoomView extends cc.Component {
     private lm: LobbyModuleInterface;
 
     public showView(): void {
-        this.initHandler();
+        this.registerHandler();
         this.initView();
         this.win.show();
     }
@@ -185,7 +185,7 @@ export class NewRoomView extends cc.Component {
         this.initPersonalRoom();
     }
 
-    private initHandler(): void {
+    private registerHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
         lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);

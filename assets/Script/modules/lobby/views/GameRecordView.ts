@@ -29,7 +29,7 @@ export class GameRecordView {
         this.lm = lm;
         this.newRoomView = newRoomView;
         this.initView();
-        this.initHandler();
+        this.registerHandler();
     }
 
     public onTapBtnClick(): void {
@@ -84,7 +84,7 @@ export class GameRecordView {
         this.lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_SCORE_TIME_REQ);
     }
 
-    private initHandler(): void {
+    private registerHandler(): void {
         this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onGameRecord, this);
         this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK, this.onReplayAck, this);
     }

@@ -32,6 +32,10 @@ export class AgreementView extends cc.Component {
 
         CommonFunction.setViewInCenter(view);
 
+
+        const mask = view.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
+
         this.view = view;
 
         const win = new fgui.Window();

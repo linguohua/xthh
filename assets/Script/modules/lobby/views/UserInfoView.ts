@@ -78,6 +78,11 @@ export class UserInfoView extends cc.Component {
         loader.fguiAddPackage("lobby/fui_user_info/lobby_user_info");
 
         const view = fgui.UIPackage.createObject("lobby_user_info", "userInfoView").asCom;
+
+        CommonFunction.setViewInCenter(view);
+
+        const mask = view.getChild("mask");
+        CommonFunction.setBgFullScreenSize(mask);
         this.view = view;
 
         const win = new fgui.Window();

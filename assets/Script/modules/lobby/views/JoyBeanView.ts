@@ -21,7 +21,7 @@ export class JoyBeanView extends cc.Component {
     private lm: LobbyModuleInterface;
     private rooms: proto.casino.Iroom[];
     public show(): void {
-        this.initHandler();
+        this.registerHandler();
         this.initView();
         this.win.show();
     }
@@ -52,7 +52,7 @@ export class JoyBeanView extends cc.Component {
 
     }
 
-    private initHandler(): void {
+    private registerHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
         lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);

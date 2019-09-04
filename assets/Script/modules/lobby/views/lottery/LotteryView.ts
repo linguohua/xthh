@@ -2,6 +2,7 @@ import { GameError } from "../../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LotteryRuleView } from "./LotteryRuleView";
+import { RewardView } from "./RewardView";
 const { ccclass } = cc._decorator;
 
 const JUNIOR_ROOM_ID: number = 12001;
@@ -25,12 +26,18 @@ export class LotteryView extends cc.Component {
 
     private energyTurnableData: proto.casino.energy_turnable[];
 
+    private currTurnableData: proto.casino.energy_turnable;
+
     private drawLotteryBtn: fgui.GButton;
     private revolvePage: fgui.GComponent;
     private powerProgress: fgui.GProgressBar;
 
     private powerProgressText: fgui.GTextField;
     private tabId: number;
+
+    private itemBindDatas: { [key: number]: number } = {};
+
+    private drawingBlock: fgui.GComponent;
 
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -42,6 +49,9 @@ export class LotteryView extends cc.Component {
 
         const mask = view.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
+
+        const drawingBlock = view.getChild("drawingBlockBtn").asCom;
+        CommonFunction.setBgFullScreenSize(drawingBlock);
 
         this.view = view;
 
@@ -55,16 +65,20 @@ export class LotteryView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        this.unRegisterHander();
         this.win.hide();
         this.win.dispose();
-
     }
 
-    private initHandler(): void {
+    private unRegisterHander(): void {
+
+        this.lm.eventTarget.off(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
+    }
+    private registerHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
-        lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.entryTurnable, this);
         lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
+        lm.eventTarget.on(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
     }
 
     private initView(): void {
@@ -83,6 +97,9 @@ export class LotteryView extends cc.Component {
 
         const seniorBtn = this.view.getChild("seniorBtn");
         seniorBtn.onClick(this.onSeniorBtnClick, this);
+
+        const drawingBlockBtn = this.view.getChild("drawingBlockBtn").asCom;
+        this.drawingBlock = drawingBlockBtn;
 
         const drawLotteryBtn = this.view.getChild("drawLotteryBtn").asButton;
         drawLotteryBtn.onClick(this.onDrawLotteryBtnClick, this);
@@ -105,26 +122,44 @@ export class LotteryView extends cc.Component {
         this.energyTurnableData = energyTurnableData;
 
         this.refreshTurnTable(JUNIOR_ROOM_ID);
-        this.initHandler();
+        this.registerHandler();
+
+    }
+
+    private refreshPowerProgress(energy: number): void {
+
+        const data = this.currTurnableData;
+        this.powerProgressText.text = `${energy}/${data.draw}`;
+
+        const progressValue = energy / data.draw * 100;
+        this.powerProgress.value = progressValue;
+        if (energy === null || energy < data.draw) {
+            this.drawLotteryBtn.getController("enable").selectedIndex = 0;
+        } else {
+            this.drawLotteryBtn.getController("enable").selectedIndex = 1;
+        }
 
     }
 
     private refreshTurnTable(tabId: number): void {
         this.tabId = tabId;
 
-        let data: proto.casino.energy_turnable = null;
-
         for (const element of this.energyTurnableData) {
             if (element.room_id === tabId) {
-                data = element;
+                this.currTurnableData = element;
+
                 break;
             }
         }
 
-        if (data !== null) {
+        this.itemBindDatas = {};
+
+        const data = this.currTurnableData;
+
+        if (this.currTurnableData !== null) {
             const energyStr = DataStore.getString(KeyConstants.PLAYER_ENERGY);
             const playerEnergy = <proto.casino.player_energy>JSON.parse(energyStr);
-            Logger.debug("data = ", data);
+            Logger.debug("data= ", data);
             Logger.debug("playerEnergy = ", playerEnergy);
 
             for (let i = 0; i < data.item.length && i < 6; i++) {
@@ -136,18 +171,11 @@ export class LotteryView extends cc.Component {
                 }
                 node.getChild("count").text = count;
                 node.getChild("loader").asLoader.url = REWARD_IMG[item.type_id];
+
+                this.itemBindDatas[item.id] = i;
             }
 
-            const energy = playerEnergy.curr_energy ? playerEnergy.curr_energy : 0;
-            this.powerProgressText.text = `${energy}/${data.draw}`;
-
-            const progressValue = energy / data.draw * 100;
-            this.powerProgress.value = progressValue;
-            if (playerEnergy.curr_energy === null || playerEnergy.curr_energy < data.draw) {
-                this.drawLotteryBtn.getController("enable").selectedIndex = 0;
-            } else {
-                this.drawLotteryBtn.getController("enable").selectedIndex = 1;
-            }
+            this.refreshPowerProgress(playerEnergy.curr_energy);
         }
 
     }
@@ -180,51 +208,88 @@ export class LotteryView extends cc.Component {
         this.refreshTurnTable(SENIOR_ROOM_ID);
     }
 
+    private showDrawingBlock(): void {
+        this.drawingBlock.visible = true;
+    }
+
+    private hideDrawingBlock(): void {
+        this.drawingBlock.visible = false;
+    }
+
     private onDrawLotteryBtnClick(): void {
         //
-
         if (this.drawLotteryBtn.getController("enable").selectedIndex === 0) {
-            Logger.debug("energy not enough----------------------------------------");
+            Logger.debug("energy not enough or on drawing ----------------------------------------");
 
             return;
         }
 
+        this.showDrawingBlock();
+
+        const data = this.currTurnableData;
+        const turnableId = data.id;
+
         const req2 = new proto.casino.packet_et_draw_req();
-        req2.et_id = this.tabId;
+        req2.et_id = turnableId;
         const buf = proto.casino.packet_et_draw_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ET_DRAW_REQ);
 
-        // const rewardIndex = 6;
-        // const rotate = rewardIndex * -60;
-        // const armRotate = -360 * 6 + rotate;
-        // const time = (armRotate / -60) * 0.1;
-        // Logger.debug("dialShow time = describe", time);
-
-        // //进入选中闪烁阶段
-        // this.revolvePage.node.stopAllActions();
-        // const action = cc.rotateTo(time, armRotate).easing(cc.easeInOut(3));
-
-        // this.revolvePage.node.runAction(action);
-
     }
 
-    private entryTurnable(msg: proto.casino.ProxyMessage): void {
+    private showDrawResult(drawItem: proto.casino.Ienergy_turnable_item): void {
         //
-        Logger.debug("entryTurnable ", msg);
+
+        Dialog.hideWaiting();
+        const rewardIndex = this.itemBindDatas[drawItem.id];
+        Logger.debug("drawItem = ", drawItem);
+
+        const rotate = rewardIndex * -60;
+        const armRotate = -360 * 6 + rotate;
+        const time = (armRotate / -60) * 0.1;
+
+        //进入选中闪烁阶段
+        this.revolvePage.node.stopAllActions();
+        const action = cc.rotateTo(time, armRotate).easing(cc.easeInOut(3));
+
+        const showResultAction = cc.callFunc(() => {
+            const view = this.addComponent(RewardView);
+            view.show(drawItem);
+            this.hideDrawingBlock();
+        });
+
+        const finalAction = cc.sequence(action, showResultAction);
+        this.revolvePage.node.runAction(finalAction);
     }
 
     private drawResult(msg: proto.casino.ProxyMessage): void {
         //
         const drawAck = proto.casino.packet_et_draw_res.decode(msg.Data);
-        Logger.debug("drawAck ", drawAck);
+        Logger.debug("drawResult drawAck ", drawAck);
         if (drawAck.ret !== 0) {
             Logger.debug("drawResult, failed:", drawAck.ret);
 
             const err = GameError.getErrorString(drawAck.ret);
             Dialog.prompt(err);
 
+            this.hideDrawingBlock();
+
             return;
+        }
+
+        const data = this.currTurnableData;
+        let drawItem: proto.casino.Ienergy_turnable_item = null;
+        for (const item of data.item) {
+            if (item.id === drawAck.item_id && item.et_id === drawAck.et_id) {
+                drawItem = item;
+            }
+        }
+
+        if (drawItem !== null) {
+            this.showDrawResult(drawItem);
+        } else {
+            Logger.debug("drawItem is null, this.currTurnableData = ", this.currTurnableData);
+            this.hideDrawingBlock();
         }
 
     }

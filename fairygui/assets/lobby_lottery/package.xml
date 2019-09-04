@@ -35,7 +35,7 @@
     <image id="hszz1y" name="nlzp_gxhddi.png" path="/_resource/" scale9grid="15,20,8,258"/>
     <image id="hszz1z" name="nlzp_gxhdzidi.png" path="/_resource/" scale="9grid" scale9grid="252,40,35,82"/>
     <image id="a2w913" name="nlzp_icon_hb.png" path="/_resource/" exported="true"/>
-    <image id="hszz20" name="nlzp_icon_hb2.png" path="/_resource/"/>
+    <image id="hszz20" name="nlzp_icon_hb2.png" path="/_resource/" exported="true"/>
     <image id="a2w914" name="nlzp_jdt.png" path="/_resource/" scale="9grid" scale9grid="14,1,3,22"/>
     <image id="a2w91p" name="nlzp_xx.png" path="/_resource/"/>
     <image id="a2w915" name="nlzp_xzgx.png" path="/_resource/"/>
@@ -49,6 +49,8 @@
     <image id="a2w91d" name="nlzp_zi_zjc2.png" path="/_resource/"/>
     <component id="fv9j22" name="rewardItem.xml" path="/_com/"/>
     <image id="fv9j23" name="nlzp_icon_hld.png" path="/_resource/" exported="true"/>
+    <image id="r3p324" name="cz_icon_hld2.png" path="/_resource/" exported="true"/>
+    <component id="iex425" name="drawingBlockBtn.xml" path="/_btn/"/>
   </resources>
   <publish name="lobby_lottery"/>
 </packageDescription>

@@ -33,13 +33,11 @@ export class LobbyView extends cc.Component {
 
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
-        lm.msgCenter.eventTarget.on("logout", this.onLogout, this);
-        lm.eventTarget.on("onAvatarChange", this.onAvatarChange, this);
-        lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
 
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
+        this.registerHandler();
+
         const loader = lm.loader;
 
         loader.fguiAddPackage("lobby/fui/lobby_main");
@@ -88,6 +86,15 @@ export class LobbyView extends cc.Component {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
         }
+    }
+
+    private registerHandler(): void {
+        this.lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
+        this.lm.msgCenter.eventTarget.on("logout", this.onLogout, this);
+        this.lm.eventTarget.on("onAvatarChange", this.onAvatarChange, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
+
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyUpdate, this);
     }
 
     private checkAgreement(): void {
@@ -441,8 +448,8 @@ export class LobbyView extends cc.Component {
     }
 
     private onMsgUpdate(msg: proto.casino.ProxyMessage): void {
-        Logger.debug("onMsgUpdate");
         const updateMsg = proto.casino.packet_update.decode(msg.Data);
+        Logger.debug("onMsgUpdate,updateMsg =", updateMsg);
         if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_RESOURCE) {
             const playerResource = proto.casino.player_resource.decode(updateMsg.data);
             // Logger.debug("resource:", playerResource);
@@ -455,7 +462,33 @@ export class LobbyView extends cc.Component {
                 DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
                 this.beansText.text = playerResource.curr.toString();
             }
+
+        } else if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_ENERGY) {
+            const playerEnergy = proto.casino.player_energy.decode(updateMsg.data);
+            Logger.debug("TYPE_PLAYER_ENERGY,----------------------------------------- playerEnergy = ", playerEnergy);
+            const playerEnergyStr = JSON.stringify(playerEnergy);
+            DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergyStr);
+            this.lm.eventTarget.emit(KeyConstants.PLAYER_ENERGY, playerEnergy.curr_energy);
         }
+    }
+
+    private onEnergyUpdate(msg: proto.casino.ProxyMessage): void {
+        Logger.debug("onEnergyUpdate");
+        const updateMsg = proto.casino.energy_turnable.decode(msg.Data);
+        Logger.debug("onEnergyUpdate updateMsg = ", updateMsg);
+        // if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_RESOURCE) {
+        //     const playerResource = proto.casino.player_resource.decode(updateMsg.data);
+        //     // Logger.debug("resource:", playerResource);
+        //     if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
+        //         DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
+        //         this.fkText.text = playerResource.curr.toString();
+        //     }
+
+        //     if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
+        //         DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
+        //         this.beansText.text = playerResource.curr.toString();
+        //     }
+        // }
     }
 
     private checkGpsSetting(): void {

@@ -12,6 +12,6 @@
     <image id="n10_mk70" name="star2" src="hszz1x" fileName="_resource/nlzp_gx5.png" xy="635,314"/>
     <text id="n12_mk70" name="text1" xy="332,437" size="158,54" fontSize="30" color="#d2d4ee" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="您获得了"/>
     <text id="n13_mk70" name="describe" xy="685,438" size="280,54" fontSize="30" color="#d2d4ee" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="元微信红包！"/>
-    <text id="n14_mk70" name="count" xy="476,405" size="165,83" scale="1.2,1.2" font="ui://397phochtfg8me" fontSize="150" color="#ffffff" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" autoClearText="true" text="2000"/>
+    <text id="n15_iex4" name="count" xy="488,414" size="165,83" font="ui://snwj6cnxtfg8me" fontSize="150" color="#ffffff" align="center" vAlign="middle" autoSize="none" singleLine="true" text="2000"/>
   </displayList>
 </component>

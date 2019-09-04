@@ -1,26 +1,11 @@
 import { CommonFunction, LobbyModuleInterface } from "../../lcore/LCoreExports";
+import { proto } from "../../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 
-export enum REWARD_TYPE {
-
-    BEAN = "0",
-
-    RED_BAG = "1"
-}
-
-/**
- * 奖励
- */
-export class Reward {
-
-    public rewardType: REWARD_TYPE;
-
-    public count: number;
-}
-
-const rewardConfig: { [key: string]: string } = {
-    [REWARD_TYPE.BEAN]: "正在加载中... {0} %",
-    [REWARD_TYPE.RED_BAG]: "正在加载中... {0} %"
+const REWARD_IMG: { [key: number]: string } = {
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_lottery/nlzp_icon_hb2",
+    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_lottery/cz_icon_hld2",
+    [proto.casino.eRESOURCE.RESOURCE_NONE]: "ui://lobby_lottery/cz_icon_hld2"
 };
 
 /**
@@ -32,15 +17,15 @@ export class RewardView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
-    public show(): void {
-        this.initView();
+    public show(drawItem: proto.casino.Ienergy_turnable_item): void {
+        this.initView(drawItem);
         this.win.show();
     }
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_lottery/lobby_lottery");
-        const view = fgui.UIPackage.createObject("lobby_lottery", "lotteryRuleView").asCom;
+        const view = fgui.UIPackage.createObject("lobby_lottery", "rewardView").asCom;
 
         CommonFunction.setViewInCenter(view);
 
@@ -62,10 +47,22 @@ export class RewardView extends cc.Component {
 
     }
 
-    private initView(): void {
+    private initView(drawItem: proto.casino.Ienergy_turnable_item): void {
 
-        const closeBtn = this.view.getChild("maskBtn");
+        const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseBtnClick, this);
+
+        this.view.getChild("loader").asLoader.url = REWARD_IMG[drawItem.type_id];
+
+        let count: string = drawItem.param.toString();
+        let describe: string = drawItem.name.toString();
+
+        if (drawItem.type_id === proto.casino.eRESOURCE.RESOURCE_RED) {
+            count = `${drawItem.param / 100}`;
+            describe = `元微信${describe}`;
+        }
+        this.view.getChild("count").text = count;
+        this.view.getChild("describe").text = describe;
 
     }
     private onCloseBtnClick(): void {

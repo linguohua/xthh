@@ -64,6 +64,32 @@
     <component id="a2w91g" name="maskBtn.xml" path="/commonBtn/" exported="true"/>
     <image id="mk701w" name="ty_btn_huang1.png" path="/resource/" exported="true"/>
     <image id="mk701x" name="ty_di2.png" path="/resource/" exported="true"/>
+    <image id="tfg8mf" name="sz_1_0.png" path="/font/s_数字/"/>
+    <image id="tfg8mg" name="sz_1_1.png" path="/font/s_数字/"/>
+    <image id="tfg8mh" name="sz_1_2.png" path="/font/s_数字/"/>
+    <image id="tfg8mi" name="sz_1_3.png" path="/font/s_数字/"/>
+    <image id="tfg8mj" name="sz_1_4.png" path="/font/s_数字/"/>
+    <image id="tfg8mk" name="sz_1_5.png" path="/font/s_数字/"/>
+    <image id="tfg8ml" name="sz_1_6.png" path="/font/s_数字/"/>
+    <image id="tfg8mm" name="sz_1_7.png" path="/font/s_数字/"/>
+    <image id="tfg8mn" name="sz_1_8.png" path="/font/s_数字/"/>
+    <image id="tfg8mo" name="sz_1_9.png" path="/font/s_数字/"/>
+    <image id="tfg8mp" name="sz_1_d.png" path="/font/s_数字/"/>
+    <image id="tfg8mq" name="sz_1_j.png" path="/font/s_数字/"/>
+    <image id="tfg8mr" name="sz_2_0.png" path="/font/s_数字/"/>
+    <image id="tfg8ms" name="sz_2_1.png" path="/font/s_数字/"/>
+    <image id="tfg8mt" name="sz_2_2.png" path="/font/s_数字/"/>
+    <image id="tfg8mu" name="sz_2_3.png" path="/font/s_数字/"/>
+    <image id="tfg8mv" name="sz_2_4.png" path="/font/s_数字/"/>
+    <image id="tfg8mw" name="sz_2_5.png" path="/font/s_数字/"/>
+    <image id="tfg8mx" name="sz_2_6.png" path="/font/s_数字/"/>
+    <image id="tfg8my" name="sz_2_7.png" path="/font/s_数字/"/>
+    <image id="tfg8mz" name="sz_2_8.png" path="/font/s_数字/"/>
+    <image id="tfg8n0" name="sz_2_9.png" path="/font/s_数字/"/>
+    <image id="tfg8n1" name="sz_2_d.png" path="/font/s_数字/"/>
+    <image id="tfg8n2" name="sz_2_j.png" path="/font/s_数字/"/>
+    <font id="tfg8me" name="winFont.fnt" path="/font/font/" exported="true"/>
+    <font id="tfg8n3" name="loseFont.fnt" path="/font/font/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

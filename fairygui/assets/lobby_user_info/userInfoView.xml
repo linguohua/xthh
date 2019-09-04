@@ -4,7 +4,7 @@
   <controller name="gender" pages="0,boy,1,girl" selected="0"/>
   <controller name="tab" pages="0,baseInfo,1,autoInfo,2,gameSetting" selected="0"/>
   <displayList>
-    <image id="n2_6k9y" name="mask" src="im76m" fileName="resource/ty_zz.png" pkg="snwj6cnx" xy="0,0" size="1136,640" hideByEditor="true"/>
+    <component id="n20_iex4" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
     <image id="n1_6k9y" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,59" size="815,518"/>
     <image id="n19_6k9y" name="bg1" src="6k9y12" fileName="_resource/cz_diban.png" xy="365,133" size="584,425"/>
     <image id="n14_6k9y" name="bg2" src="6k9yh" fileName="_resource/grxx_yqdi.png" xy="181,130" size="163,423"/>

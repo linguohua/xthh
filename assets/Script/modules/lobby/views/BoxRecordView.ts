@@ -18,7 +18,7 @@ export class BoxRecordView {
         this.view = view;
         this.lm = lm;
         this.initView();
-        this.initHandler();
+        this.registerHandler();
     }
 
     private initView(): void {
@@ -29,7 +29,7 @@ export class BoxRecordView {
         };
     }
 
-    private initHandler(): void {
+    private registerHandler(): void {
         this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_UPDATE, this.onFkRecordLoad, this);
     }
 
