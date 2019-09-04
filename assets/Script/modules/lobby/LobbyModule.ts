@@ -191,11 +191,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
     public logout(): void {
         this.msgCenter = null;
         this.loginView = this.addComponent(LoginView);
-        this.scheduleOnce(
-            () => {
-                this.loginView.updateCompleted();
-            },
-            0);
+        this.loginView.setLogout();
     }
     protected start(): void {
         this.loader = new GResLoaderImpl("lobby");

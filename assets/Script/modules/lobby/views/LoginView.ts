@@ -57,6 +57,7 @@ export class LoginView extends cc.Component {
     private progressText: fgui.GTextField;
     private eventTarget: cc.EventTarget;
     private button: UserInfoButton = null;
+    private isLogout: boolean = false;
 
     public showLoginView(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -98,6 +99,10 @@ export class LoginView extends cc.Component {
         }
     }
 
+    public setLogout(): void {
+        this.isLogout = true;
+    }
+
     public initView(): void {
         // buttons
         this.weixinButton = this.viewNode.getChild("wechatLoginBtn");
@@ -109,10 +114,16 @@ export class LoginView extends cc.Component {
         const version = this.viewNode.getChild("versionLab");
         version.text = LEnv.VER_STR;
 
-        this.loginBtn.visible = false;
-        this.weixinButton.visible = false;
-        this.phoneLoginBtn.visible = false;
-        this.progressBar.value = 0;
+        if (this.isLogout) {
+            // 刷新界面
+            this.updateCompleted();
+        } else {
+            this.loginBtn.visible = false;
+            this.weixinButton.visible = false;
+            this.phoneLoginBtn.visible = false;
+            this.progressBar.visible = true;
+            this.progressBar.value = 0;
+        }
 
         this.loginBtn.onClick(this.onLoginClick, this);
         this.weixinButton.onClick(this.onWeixinBtnClick, this);
