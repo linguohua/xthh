@@ -4,13 +4,13 @@
     <graph id="n13_hjqc" name="mask" xy="0,0" size="1136,640"/>
     <component id="n15_lqxe" name="n15" src="lqxej" fileName="btn/bgBtn.xml" xy="646,71"/>
     <image id="n8_hjqc" name="bg1" src="hjqca" fileName="_resource/zm_lt_wzdi.png" xy="677,98" size="445,385" flip="vt"/>
-    <image id="n0_hjqc" name="wq" src="hjqc0" fileName="_resource/zm_lt_bq1.png" xy="678,489"/>
+    <component id="n14_lqxe" name="wq" src="lqxei" fileName="btn/wq.xml" xy="678,489"/>
     <image id="n1_hjqc" name="wqText" src="hjqc1" fileName="_resource/zm_lt_bq1wq.png" xy="702,572"/>
-    <image id="n2_hjqc" name="dy" src="hjqc2" fileName="_resource/zm_lt_bq2.png" xy="792,485"/>
+    <component id="n16_lqxe" name="dy" src="lqxek" fileName="btn/dy.xml" xy="792,485"/>
     <image id="n3_hjqc" name="dyText" src="hjqc3" fileName="_resource/zm_lt_bq2dy.png" xy="814,571"/>
-    <image id="n4_hjqc" name="dzh" src="hjqc4" fileName="_resource/zm_lt_bq3.png" xy="907,483"/>
+    <component id="n18_lqxe" name="dzh" src="lqxel" fileName="btn/dzh.xml" xy="907,484"/>
     <image id="n5_hjqc" name="dzhText" src="hjqc5" fileName="_resource/zm_lt_bq3dzh.png" xy="917,569"/>
-    <image id="n6_hjqc" name="cc" src="hjqc6" fileName="_resource/zm_lt_bq4.png" xy="1021,484"/>
+    <component id="n19_lqxe" name="cc" src="lqxem" fileName="btn/cc.xml" xy="1021,484"/>
     <image id="n7_hjqc" name="ccText" src="hjqc7" fileName="_resource/zm_lt_bq4cc.png" xy="1045,572"/>
     <list id="n9_hjqc" name="list" xy="681,105" size="437,367" overflow="scroll" defaultItem="ui://qyrwdwrphjqch" autoClearItems="true">
       <item/>
@@ -22,6 +22,5 @@
       <item/>
       <item/>
     </list>
-    <component id="n14_lqxe" name="n14" src="lqxei" fileName="btn/wq.xml" xy="678,489"/>
   </displayList>
 </component>
