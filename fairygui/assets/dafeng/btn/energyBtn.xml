@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="123,135" pivot="0.5,0.5" extention="Button" designImage="ui://397phochiex4py" designImageOffsetX="-1015" designImageOffsetY="-72">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_iex4" name="n0" src="iex4q8" fileName="_resource/z_桌面打牌/zm_nlzp4.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_iex4" name="n1" src="iex4q7" fileName="_resource/z_桌面打牌/zm_nlzp3.png" xy="0,0"/>
+    <image id="n2_iex4" name="n2" src="iex4q6" fileName="_resource/z_桌面打牌/zm_nlzp2.png" xy="0,0"/>
+    <image id="n3_iex4" name="n3" src="iex4q5" fileName="_resource/z_桌面打牌/zm_nlzp1.png" xy="0,0"/>
+    <text id="n4_iex4" name="percent" xy="25,90" size="81,35" fontSize="23" color="#ffe400" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="7.9%"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

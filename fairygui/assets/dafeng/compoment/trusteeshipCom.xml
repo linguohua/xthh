@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,199" designImage="ui://397phochiex4pz" designImageOffsetY="-400" designImageAlpha="100">
+  <displayList>
+    <component id="n1_iex4" name="bg" src="iex4qf" fileName="btn/blockBg.xml" xy="0,0"/>
+    <component id="n2_iex4" name="cancelBtn" src="iex4qg" fileName="btn/cancelBtn.xml" xy="472,92"/>
+    <text id="n3_iex4" name="n3" xy="386,166" size="361,35" fontSize="24" color="#e4ff00" align="center" vAlign="middle" autoSize="none" text="(提示：听牌后托管可自动胡牌)"/>
+  </displayList>
+</component>

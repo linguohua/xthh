@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://397phochlqn3fd" designImageAlpha="0">
+<component size="1136,640" designImage="ui://397phochiex4pz" designImageAlpha="100">
   <displayList>
     <component id="n61_tebr" name="blueBg" src="tebrpd" fileName="bg_btn.xml" xy="0,0" size="1136,640"/>
     <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44" visible="false"/>
@@ -16,12 +16,14 @@
     <component id="n11_fxwe" name="settingBtn" src="jmxy24" fileName="desk/setting_button.xml" xy="7,596" visible="false">
       <relation target="n14_fxwe" sidePair="left-left"/>
     </component>
-    <component id="n38_jel2" name="gpsBtn" src="jel2m5" fileName="btn/gpsBtn.xml" xy="1034,79" visible="false">
+    <component id="n38_jel2" name="gpsBtn" src="jel2m5" fileName="btn/gpsBtn.xml" xy="1034,79" hideByEditor="true" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>
     <component id="n41_jel2" name="chatBtn" src="jel2mc" fileName="btn/chatBtn.xml" xy="1049,598" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>
+    <component id="n66_iex4" name="energyBtn" src="iex4qd" fileName="btn/energyBtn.xml" xy="1015,72" visible="false"/>
+    <component id="n65_iex4" name="trusteeshipBtn" src="iex4qc" fileName="btn/trusteeshipBtn.xml" xy="933,598" visible="false"/>
     <component id="n40_jel2" name="recorderBtn" src="jel2m6" fileName="btn/recorderBtn.xml" xy="1027,329" visible="false">
       <relation target="n15_fxwe" sidePair="right-right"/>
     </component>
@@ -34,6 +36,7 @@
     <graph id="n53_q32b" name="laiComPos2" xy="511,3" pivot="0.5,0.5" anchor="true" size="18,28"/>
     <component id="n54_xjn0" name="mike" src="n8map5" fileName="mike.xml" xy="481,203" visible="false"/>
     <graph id="n55_cqve" name="piaoAni" xy="558,316" size="17,16"/>
+    <component id="n67_iex4" name="trusteeshipCom" src="iex4qe" fileName="compoment/trusteeshipCom.xml" xy="0,400" visible="false"/>
     <component id="n57_lynn" name="readyView" src="ri6gp4" fileName="readyView/ready.xml" xy="0,0" hideByEditor="true" visible="false"/>
   </displayList>
 </component>
