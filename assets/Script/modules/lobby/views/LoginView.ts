@@ -464,6 +464,7 @@ export class LoginView extends cc.Component {
 
         const etData = JSON.stringify(fastLoginAck.et_data);
         const playerEnergy = JSON.stringify(fastLoginAck.pdata.energy);
+        const emailData = JSON.stringify(fastLoginAck.pdata.mails);
 
         DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
         DataStore.setItem(KeyConstants.NICK_NAME, nickName);
@@ -482,6 +483,7 @@ export class LoginView extends cc.Component {
 
         DataStore.setItem(KeyConstants.TURN_TABLE, etData);
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
+        DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
 
         if (fastLoginAck.channel === "mac") {
             // 游客登录标志

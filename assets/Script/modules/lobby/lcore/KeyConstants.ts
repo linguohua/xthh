@@ -38,6 +38,8 @@ export namespace KeyConstants {
 
     export const PLAYER_ENERGY = "playerEnergy";
 
+    export const PLAYER_EMAIL = "playerEmail";
+
     export const AGREEMENT = "agreement";
 
     export const RESULT_YES = "1";

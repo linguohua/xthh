@@ -10,6 +10,7 @@ import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { AgreementView } from "./AgreementView";
+import { EmailView } from "./email/EmailView";
 import { JoyBeanView } from './JoyBeanView';
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
@@ -238,11 +239,7 @@ export class LobbyView extends cc.Component {
     private onFriendClick(): void {
         // TODO: 显示好友界面
         // this.showMarquee("");
-
-    }
-
-    private openEmailClick(): void {
-        this.lm.nimSDK.disconnect();
+        //this.lm.nimSDK.disconnect();
         // TODO: 显示邮件界面
         //this.showMarquee("测试发送公告测试发送试发送公告");
         //Dialog.showReconnectDialog();
@@ -255,6 +252,10 @@ export class LobbyView extends cc.Component {
         // };
         // setInterval(handler, 1000);
 
+    }
+
+    private openEmailClick(): void {
+        this.addComponent(EmailView);
     }
 
     private onCreateRoom(): void {
