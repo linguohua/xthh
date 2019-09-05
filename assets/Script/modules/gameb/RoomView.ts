@@ -105,6 +105,10 @@ export class RoomView {
             this.initRecordManager();
         }
 
+        if (this.room.isJoyRoom) {
+            //欢乐场显示按钮
+            this.settingBtn.visible = true;
+        }
     }
 
     //响应玩家点击左上角的退出按钮以及后退事件
@@ -423,8 +427,8 @@ export class RoomView {
         this.settingBtn.visible = true;
         this.recoredBtn.visible = true;
         this.dbg.visible = true;
-        this.nameBg.visible = true;
-        this.anteBg.visible = true;
+        // this.nameBg.visible = true;
+        // this.anteBg.visible = true;
 
         this.replayHideBtns();
     }
