@@ -49,6 +49,7 @@
     <image id="iex4jk" name="z_桌面个人信息标注.jpg" path="/design/"/>
     <component id="iex4jl" name="addFriendBtn.xml" path="/"/>
     <component id="iex4jm" name="deleteFriendBtn.xml" path="/"/>
+    <component id="de0bjn" name="firstChargeView.xml" path="/"/>
   </resources>
   <publish name="room_other_view"/>
 </packageDescription>
