@@ -179,7 +179,7 @@ export class ReadyViewA {
                 name.text = CommonFunction.nameFormatWithCount(nameStr, 6);
                 name.visible = true;
                 const loader = headView.getChild("loader").asLoader;
-                CommonFunction.setHead(loader, player.channel_head, player.sex);
+                CommonFunction.setHead(loader, player.channel_head, player.avatar, player.sex);
                 loader.visible = true;
                 // loader.url = player.ur
             } else {

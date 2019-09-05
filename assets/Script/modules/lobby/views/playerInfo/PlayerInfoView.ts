@@ -21,11 +21,12 @@ export class PlayerInfoView extends cc.Component {
     private douText: fgui.GObject;
     private fkText: fgui.GObject;
 
+    private playerID: string;
     private roomHost: RoomHost;
 
     public show(roomHost: RoomHost, playerID: string, searchPlayerAck: protoHH.casino.packet_search_ack): void {
         this.roomHost = roomHost;
-
+        this.playerID = playerID;
         if (this.view === null) {
             roomHost.loader.fguiAddPackage("lobby/fui_room_other_view/room_other_view");
             const view = fgui.UIPackage.createObject("room_other_view", "playerInfo").asCom;
@@ -87,11 +88,7 @@ export class PlayerInfoView extends cc.Component {
             }`;
         this.id.text = `ID：${searchPlayerAck.data.id} `;
 
-        if (searchPlayerAck.data.channel_head !== "") {
-            CommonFunction.setHead(this.headLoader, searchPlayerAck.data.channel_head);
-        } else {
-            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${searchPlayerAck.data.avatar}`;
-        }
+        CommonFunction.setHead(this.headLoader, searchPlayerAck.data.channel_head, searchPlayerAck.data.avatar, searchPlayerAck.data.sex);
 
         this.leaveGuildCount.text = LocalStrings.findString("leaveGuild", `${searchPlayerAck.data.leave_guild} `);
 
@@ -102,6 +99,16 @@ export class PlayerInfoView extends cc.Component {
 
     private onAddFriendBtnClick(): void {
         Logger.debug("onAddFriendBtnClick");
+
+        const req = new protoHH.casino.packet_friend_req();
+        req.friend_id = +this.playerID;
+        req.op = protoHH.casino.eFRIEND_OP.FRIEND_OP_REQUEST;
+
+        const buf = protoHH.casino.packet_friend_req.encode(req);
+        this.roomHost.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_FRIEND_REQ);
+
+        this.destroy();
+
     }
 
     private searchReq(playerID: number): void {

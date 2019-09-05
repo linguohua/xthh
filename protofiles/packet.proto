@@ -417,6 +417,17 @@ enum eRETURN_TYPE{
 	RETURN_HELPER_RECEIVE_ALL   = 4005;		//福利金已领完
 }
 
+// 好友操作类型
+enum eFRIEND_OP{
+	FRIEND_OP_ADD					= 0;			// 添加
+	FRIEND_OP_REMOVE				= 1;			// 删除
+	FRIEND_OP_REQUEST				= 2;			// 玩家请求某人加为好友(data为请求玩家昵称)
+	FRIEND_OP_RESPONSE				= 3;			// 玩家回应某人加为好友(data为回应玩家昵称)
+	FRIEND_OP_ALIAS					= 5;			// 设置别名(data为别名)
+	FRIEND_OP_CHAT					= 6;			// 聊天(data为聊天内容)
+	FRIEND_OP_GIFT_CARD				= 10;			// 赠送卡(param为赠送门卡数量)
+}
+
 message packet_coordinate{
    optional uint32				player_id = 1;			// 玩家id
    optional double		         latitude = 10;			// 纬度
@@ -968,4 +979,26 @@ message packet_mail_ack{
    optional bool			   gain = 5;		// 领取奖励
    repeated player_mail		  mails = 10;		// 邮件列表
    repeated object			  gains = 20;		// 邮件掉落信息
+}
+
+// 好友请求
+message packet_friend_req{
+  required uint32	 	  friend_id = 2; 			// 玩家id
+  optional uint32				 op = 3;			// 类型
+  optional uint32	 	  player_id = 4; 			// 玩家id
+  optional uint32			  param = 5;			// 参数1
+  optional string			   data = 10;			// 参数2
+  optional string		   nickname = 20;			// 昵称
+  optional string			   face = 30;			// 脸谱
+}
+
+message packet_friend_ack{
+  required uint32			   ret = 1;				// 返回值
+  required uint32		 friend_id = 2; 			// 玩家id
+  optional uint32				op = 3;				// 类型
+  optional uint32	 	  player_id = 4; 			// 玩家id
+  optional uint32			  param = 5;			// 参数1
+  optional string			   data = 10;			// 参数2
+  optional string		   nickname = 20;			// 昵称
+  optional string			   face = 30;			// 脸谱
 }

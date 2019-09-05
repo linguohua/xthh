@@ -163,15 +163,11 @@ export class LobbyView extends cc.Component {
 
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
-        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "0");
         this.headLoader = this.view.getChild("iconLoader").asLoader;
         this.headLoader.onClick(this.onUserInfoClick, this);
 
-        if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
-            CommonFunction.setHead(this.headLoader, avatarURL, +gender);
-        } else {
-            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
-        }
+        CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
     }
 
     private testJoinGame(): void {
@@ -375,16 +371,12 @@ export class LobbyView extends cc.Component {
     private onUserInfoModify(): void {
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
-        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "0");
         const nickName = DataStore.getString(KeyConstants.NICK_NAME, "");
 
         this.nameText.text = nickName;
 
-        if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
-            CommonFunction.setHead(this.headLoader, avatarURL, +gender);
-        } else {
-            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
-        }
+        CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender)
     }
 
     private initNimSDK(): void {

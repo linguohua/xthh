@@ -11671,6 +11671,108 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 20
                         }
                     ]
+                },
+                {
+                    "name": "packet_friend_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "friend_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "op",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "param",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "data",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "nickname",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "face",
+                            "id": 30
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_friend_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "friend_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "op",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "param",
+                            "id": 5
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "data",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "nickname",
+                            "id": 20
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "face",
+                            "id": 30
+                        }
+                    ]
                 }
             ],
             "enums": [
@@ -13403,6 +13505,40 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                         {
                             "name": "RETURN_HELPER_RECEIVE_ALL",
                             "id": 4005
+                        }
+                    ]
+                },
+                {
+                    "name": "eFRIEND_OP",
+                    "syntax": "proto2",
+                    "values": [
+                        {
+                            "name": "FRIEND_OP_ADD",
+                            "id": 0
+                        },
+                        {
+                            "name": "FRIEND_OP_REMOVE",
+                            "id": 1
+                        },
+                        {
+                            "name": "FRIEND_OP_REQUEST",
+                            "id": 2
+                        },
+                        {
+                            "name": "FRIEND_OP_RESPONSE",
+                            "id": 3
+                        },
+                        {
+                            "name": "FRIEND_OP_ALIAS",
+                            "id": 5
+                        },
+                        {
+                            "name": "FRIEND_OP_CHAT",
+                            "id": 6
+                        },
+                        {
+                            "name": "FRIEND_OP_GIFT_CARD",
+                            "id": 10
                         }
                     ]
                 }

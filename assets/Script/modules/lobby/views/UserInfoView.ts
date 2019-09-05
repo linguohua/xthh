@@ -209,7 +209,7 @@ export class UserInfoView extends cc.Component {
         this.phone.text = DataStore.getString(KeyConstants.PHONE);
 
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
-        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "0");
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         if (+gender > 0) {
             this.boyRadioBtn.selected = true;
@@ -217,11 +217,7 @@ export class UserInfoView extends cc.Component {
             this.girlRadioBtn.selected = true;
         }
 
-        if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
-            CommonFunction.setHead(this.headLoader, avatarURL, +gender);
-        } else {
-            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${avatarIndex}`;
-        }
+        CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
 
         this.initGameRecord();
 
@@ -280,11 +276,7 @@ export class UserInfoView extends cc.Component {
 
         // 刷新一遍头像
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
-        if (avatarURL !== "" || reply.avatar === 0) {
-            CommonFunction.setHead(this.headLoader, avatarURL, reply.sex);
-        } else {
-            this.headLoader.url = `ui://lobby_bg_package/grxx_xttx_${reply.avatar}`;
-        }
+        CommonFunction.setHead(this.headLoader, avatarURL, reply.avatar, reply.sex);
     }
 
     private onChangeIconBtnClick(): void {

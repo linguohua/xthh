@@ -128,7 +128,7 @@ export class GameOverResultView extends cc.Component {
         c.textName.text = CommonFunction.nameFormatWithCount(nameStr, 6);
 
         const iconLoader = c.imageIcon.asCom.getChild("n1").asLoader;
-        CommonFunction.setHead(iconLoader, channelHead, playerScore.data.sex);
+        CommonFunction.setHead(iconLoader, channelHead, playerScore.data.avatar, playerScore.data.sex);
 
         const userID = playerScore.data.id;
         c.textId.text = `ID:${userID}`;

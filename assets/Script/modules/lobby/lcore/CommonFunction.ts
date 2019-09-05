@@ -4,14 +4,14 @@
 export namespace CommonFunction {
 
     /**
-     * 设置头像
+     * 设置头像, gender 0为男，1为女，对应南京原来的app
      */
-    export const setHead = (node: fgui.GLoader, url: string, gender: number = 0): void => {
+    export const setHead = (node: fgui.GLoader, url: string, avatar: number = 0, gender: number = 0): void => {
         //"https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83er5prllVA37yiac4Vv8
         //ZAXwbg0Zicibn6ZjsgJ4ha0hmFBY8MUTRMnRTmSlvzPd8XJZzd0icuyGoiakj4A/132";
-        let headImage = `ui://lobby_bg_package/girl_img`;
+        let headImage = `ui://lobby_bg_package/grxx_xttx_${avatar + 4}`;
         if (gender === 1) {
-            headImage = `ui://lobby_bg_package/boy_img`;
+            headImage = `ui://lobby_bg_package/grxx_xttx_${avatar}`;
         }
         //-
         if (url !== undefined && url !== null && url !== "" && url.indexOf("http") >= 0) {

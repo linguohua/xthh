@@ -864,7 +864,7 @@ export class PlayerView {
         this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 6);
         this.head.nameText.visible = true;
         //头像
-        CommonFunction.setHead(this.head.headLoader, playerInfo.headIconURI, playerInfo.gender);
+        CommonFunction.setHead(this.head.headLoader, playerInfo.headIconURI, playerInfo.avatarID, playerInfo.gender);
     }
 
     //显示桌主

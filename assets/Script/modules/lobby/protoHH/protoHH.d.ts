@@ -1093,6 +1093,16 @@ export namespace proto {
 			RETURN_HELPER_RECEIVE_ALL = 4005,
 		}
 
+		enum eFRIEND_OP {
+			FRIEND_OP_ADD = 0,
+			FRIEND_OP_REMOVE = 1,
+			FRIEND_OP_REQUEST = 2,
+			FRIEND_OP_RESPONSE = 3,
+			FRIEND_OP_ALIAS = 5,
+			FRIEND_OP_CHAT = 6,
+			FRIEND_OP_GIFT_CARD = 10,
+		}
+
 		interface Ichat {
 			id: number;
 			text?: string;
@@ -5430,6 +5440,54 @@ export namespace proto {
 			constructor(properties?: casino.Ipacket_mail_ack);
 			public static encode(message: packet_mail_ack): ByteBuffer;
 			public static decode(reader: Uint8Array|ByteBuffer): packet_mail_ack;
+		}
+
+		interface Ipacket_friend_req {
+			friend_id: number;
+			op?: number;
+			player_id?: number;
+			param?: number;
+			data?: string;
+			nickname?: string;
+			face?: string;
+		}
+
+		class packet_friend_req implements Ipacket_friend_req {
+			public friend_id: number;
+			public op: number;
+			public player_id: number;
+			public param: number;
+			public data: string;
+			public nickname: string;
+			public face: string;
+			constructor(properties?: casino.Ipacket_friend_req);
+			public static encode(message: packet_friend_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_friend_req;
+		}
+
+		interface Ipacket_friend_ack {
+			ret: number;
+			friend_id: number;
+			op?: number;
+			player_id?: number;
+			param?: number;
+			data?: string;
+			nickname?: string;
+			face?: string;
+		}
+
+		class packet_friend_ack implements Ipacket_friend_ack {
+			public ret: number;
+			public friend_id: number;
+			public op: number;
+			public player_id: number;
+			public param: number;
+			public data: string;
+			public nickname: string;
+			public face: string;
+			constructor(properties?: casino.Ipacket_friend_ack);
+			public static encode(message: packet_friend_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_friend_ack;
 		}
 
 	}

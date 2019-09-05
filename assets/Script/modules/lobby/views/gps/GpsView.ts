@@ -16,6 +16,7 @@ interface PlayerInfo {
     gender: number;
     headIconURI: string;
     nick: string;
+    avatarID: number;
 }
 
 interface PlayerInterface {
@@ -157,7 +158,7 @@ export class GpsView extends cc.Component {
             const name = distanceView.getChild(`name${i + 1}`);
             const address = distanceView.getChild(`city${i + 1}`);
 
-            CommonFunction.setHead(head, player.playerInfo.headIconURI, player.playerInfo.gender);
+            CommonFunction.setHead(head, player.playerInfo.headIconURI, player.playerInfo.avatarID, player.playerInfo.gender);
             name.text = CommonFunction.nameFormatWithCount(player.playerInfo.nick, 6);
 
             if (player.coordinate === null || player.coordinate.latitude === null) {
