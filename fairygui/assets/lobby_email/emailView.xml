@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://03l3z1xbazoa12" designImageAlpha="100">
+<component size="1136,640" designImage="ui://03l3z1xbazoa13" designImageAlpha="100">
   <controller name="hasAttachment" pages="0,yes,1,no" selected="0"/>
   <displayList>
     <component id="n36_azoa" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
@@ -19,7 +19,10 @@
     <text id="n41_azoa" name="titleText" xy="458,148" size="433,41" fontSize="28" color="#ed7c1b" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="邮件标题"/>
     <text id="n45_azoa" name="fkCount" xy="470,549" size="138,35" visible="false" fontSize="24" color="#ed7c1b" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="10&#xA;"/>
     <text id="n46_azoa" name="beanCount" xy="590,549" size="138,35" visible="false" fontSize="24" color="#ed7c1b" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2000&#xA;"/>
+    <text id="n49_hzer" name="noEmailText" xy="153,340" size="245,31" visible="false" fontSize="20" color="#ed7c1b" align="center" vAlign="middle" singleLine="true" text="您目前没有收到任何邮件！"/>
     <component id="n47_azoa" name="deleteBtn" src="azoa16" fileName="deleteBtn.xml" xy="839,497" visible="false"/>
     <component id="n48_azoa" name="takeBtn" src="azoaq" fileName="takeBtn.xml" xy="839,497" visible="false"/>
+    <image id="n50_hzer" name="fkTick" src="azoaz" fileName="_resource/y_yjdg.png" xy="553,518" visible="false"/>
+    <image id="n51_hzer" name="beanTick" src="azoaz" fileName="_resource/y_yjdg.png" xy="682,518" visible="false"/>
   </displayList>
 </component>

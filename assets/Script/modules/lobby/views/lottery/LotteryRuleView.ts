@@ -1,6 +1,7 @@
 import { CommonFunction, LobbyModuleInterface } from "../../lcore/LCoreExports";
+import { proto } from "../../protoHH/protoHH";
+import { LocalStrings } from "../../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
-
 /**
  * 抽奖规则页面
  */
@@ -9,6 +10,11 @@ export class LotteryRuleView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
+
+    public show(turnTable: proto.casino.energy_turnable): void {
+        this.initView(turnTable);
+        this.win.show();
+    }
 
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -27,8 +33,6 @@ export class LotteryRuleView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-        this.initView();
-        this.win.show();
     }
 
     protected onDestroy(): void {
@@ -37,10 +41,22 @@ export class LotteryRuleView extends cc.Component {
 
     }
 
-    private initView(): void {
+    private initView(turnTable: proto.casino.energy_turnable): void {
 
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseBtnClick, this);
+
+        const text4 = this.view.getChild("text4");
+        const text5 = this.view.getChild("text5");
+        const text6 = this.view.getChild("text6");
+
+        const winnerGain = turnTable.winner_gain;
+        const loserGain = turnTable.loser_gain;
+        const draw = turnTable.draw;
+
+        text4.text = LocalStrings.findString("winnerGain", `${winnerGain}`);
+        text5.text = LocalStrings.findString("loserGain", `${loserGain}`);
+        text6.text = LocalStrings.findString("draw", `${draw}`);
 
     }
     private onCloseBtnClick(): void {

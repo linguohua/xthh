@@ -128,6 +128,10 @@ export namespace LocalStrings {
                 [`noDataClearn`]: "没有数据清除",
                 [`leaveGuild`]: "退工会数：{0}",
 
+                [`winnerGain`]: "胜利获得<color=#57712 >{0}</c>能量；",
+                [`loserGain`]: "失败获得<color=#57712 >{0}</c>能量；",
+                [`draw`]: "<color=#57712 >{0}</c>能量抽奖一次；",
+
                 // 12个 制表符
                 [`agreeText0`]: `                                               用户服务协议
 重要须知：

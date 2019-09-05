@@ -54,13 +54,12 @@ export class LotteryView extends cc.Component {
         CommonFunction.setBgFullScreenSize(drawingBlock);
 
         this.view = view;
-
+        this.initView();
         const win = new fgui.Window();
         win.contentPane = view;
         win.modal = true;
 
         this.win = win;
-        this.initView();
         this.win.show();
     }
 
@@ -89,13 +88,13 @@ export class LotteryView extends cc.Component {
         const ruleBtn = this.view.getChild("ruleBtn");
         ruleBtn.onClick(this.onRuleBtnClick, this);
 
-        const juniorBtn = this.view.getChild("juniorBtn");
+        const juniorBtn = this.view.getChild("juniorBtn").asButton;
         juniorBtn.onClick(this.onJuniorBtnClick, this);
 
-        const middleBtn = this.view.getChild("middleBtn");
+        const middleBtn = this.view.getChild("middleBtn").asButton;
         middleBtn.onClick(this.onMiddleBtnClick, this);
 
-        const seniorBtn = this.view.getChild("seniorBtn");
+        const seniorBtn = this.view.getChild("seniorBtn").asButton;
         seniorBtn.onClick(this.onSeniorBtnClick, this);
 
         const drawingBlockBtn = this.view.getChild("drawingBlockBtn").asCom;
@@ -121,7 +120,25 @@ export class LotteryView extends cc.Component {
         const energyTurnableData = <proto.casino.energy_turnable[]>JSON.parse(luckyDataStr);
         this.energyTurnableData = energyTurnableData;
 
-        this.refreshTurnTable(JUNIOR_ROOM_ID);
+        const energyStr = DataStore.getString(KeyConstants.PLAYER_ENERGY);
+        const playerEnergy = <proto.casino.player_energy>JSON.parse(energyStr);
+
+        const currEnergy = playerEnergy.curr_energy;
+
+        let selectedTap;
+
+        if (currEnergy < 10000) {
+            selectedTap = JUNIOR_ROOM_ID;
+            juniorBtn.selected = true;
+        } else if (currEnergy >= 10000 && currEnergy < 20000) {
+            selectedTap = MIDDLE_ROOM_ID;
+            middleBtn.selected = true;
+        } else if (currEnergy >= 20000) {
+            seniorBtn.selected = true;
+            selectedTap = SENIOR_ROOM_ID;
+        }
+
+        this.refreshTurnTable(selectedTap);
         this.registerHandler();
 
     }
@@ -184,7 +201,8 @@ export class LotteryView extends cc.Component {
     }
 
     private onRuleBtnClick(): void {
-        this.addComponent(LotteryRuleView);
+        const view = this.addComponent(LotteryRuleView);
+        view.show(this.currTurnableData);
     }
 
     private onJuniorBtnClick(): void {
