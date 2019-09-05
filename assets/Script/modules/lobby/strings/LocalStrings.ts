@@ -131,6 +131,7 @@ export namespace LocalStrings {
                 [`winnerGain`]: "胜利获得<color=#57712 >{0}</c>能量；",
                 [`loserGain`]: "失败获得<color=#57712 >{0}</c>能量；",
                 [`draw`]: "<color=#57712 >{0}</c>能量抽奖一次；",
+                [`sender`]: "寄件者：{0}",
 
                 // 12个 制表符
                 [`agreeText0`]: `                                               用户服务协议

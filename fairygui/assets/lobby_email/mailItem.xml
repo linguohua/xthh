@@ -12,7 +12,7 @@
     <image id="n29_azoa" name="redPoint" src="azoa15" fileName="_resource/ty_hd.png" xy="259,0" visible="false">
       <gearDisplay controller="button" pages=""/>
     </image>
-    <text id="n22_h59f" name="title" xy="4,6" size="252,35" fontSize="24" color="#994234" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text=" 你好！"/>
+    <text id="n22_h59f" name="title" xy="12,6" size="252,35" fontSize="24" color="#994234" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="你好！"/>
     <text id="n28_azoa" name="sender" xy="12,48" size="241,35" fontSize="24" color="#f8f6d7" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="寄件者：91258634"/>
   </displayList>
   <Button mode="Radio"/>
