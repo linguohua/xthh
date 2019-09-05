@@ -40,8 +40,10 @@ export namespace HandlerMsgTableScore {
         //屌爆了。。。如果是欢乐场。。。分数是欢乐豆 要从table.players 里面找
         if (room.isJoyRoom) {
             for (const p of reply.tdata.players) {
-                const player = <Player>room.getPlayerByUserID(`${p.id}`);
-                player.totalScores = p.gold.low;
+                if (p.gold !== undefined && p.gold !== null) {
+                    const player = <Player>room.getPlayerByUserID(`${p.id}`);
+                    player.totalScores = p.gold.low;
+                }
             }
         }
     };

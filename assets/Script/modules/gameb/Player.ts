@@ -432,8 +432,8 @@ export class Player {
         if (this.playerInfo.scoreTotal !== null) {
             this.totalScores = this.playerInfo.scoreTotal;
         }
-        if (this.host.isJoyRoom && playerInfo.gold !== undefined) {
-            this.totalScores += playerInfo.gold.toNumber();
+        if (this.host.isJoyRoom && playerInfo.gold !== undefined && playerInfo.gold !== null) {
+            this.totalScores += playerInfo.gold.low;
         }
 
         let nick = "";

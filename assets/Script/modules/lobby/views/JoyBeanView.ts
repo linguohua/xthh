@@ -158,7 +158,7 @@ export class JoyBeanView extends cc.Component {
         }
     }
     private onJoinRoomCliclk(index: number): void {
-        Logger.debug("rooms : ", this.rooms[index]);
+        // Logger.debug("rooms : ", this.rooms[index]);
         const room = this.rooms[index];
         const req = {
             casino_id: room.casino_id,

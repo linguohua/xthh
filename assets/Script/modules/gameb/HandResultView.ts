@@ -1,14 +1,14 @@
-import { CommonFunction, Logger, DataStore, KeyConstants, Dialog } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
+import long = require("../lobby/protobufjs/long");
 import { proto } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
+import { ShopView, TabType } from "../lobby/views/ShopView";
 // import { GameRules } from "./GameRules";
 import { Player } from "./Player";
 // import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-import long = require("../lobby/protobufjs/long");
-import { ShopView, TabType } from "../lobby/views/ShopView";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 
@@ -468,8 +468,10 @@ export class HandResultView extends cc.Component {
                 c.textCountLoseT.text = myScore.toString();
                 c.textCountLoseT.visible = true;
                 c.textCountT.visible = false;
-                if (player.gold.low + myScore <= 0) {
-                    c.collapse.visible = true;
+                if (this.room.isJoyRoom) {
+                    if (player.gold !== undefined && player.gold !== null && player.gold.low + myScore <= 0) {
+                        c.collapse.visible = true;
+                    }
                 }
             }
             //显示马牌
@@ -582,7 +584,7 @@ export class HandResultView extends cc.Component {
 
     // 玩家点击“继续”按钮，注意如果牌局结束，此按钮是“大结算”
     private onAgainButtonClick(): void {
-        Logger.debug("onAgainButtonClick");
+        // Logger.debug("onAgainButtonClick");
 
         this.room.getRoomHost().eventTarget.off("disband");
         this.room.getRoomHost().eventTarget.off("closeHandResult");
@@ -639,6 +641,8 @@ export class HandResultView extends cc.Component {
 
                 this.closeHandResultView();
             } else {
+                // 判断有没有可以免费领
+
                 // 提示用户没有豆了
                 const yesCB = () => {
                     const view = this.addComponent(ShopView);
@@ -693,7 +697,7 @@ export class HandResultView extends cc.Component {
     }
 
     private closeHandResultView(): void {
-        Logger.debug("closeHandResult");
+        // Logger.debug("closeHandResult");
 
         this.eventTarget.emit("destroy");
         this.destroy();
@@ -702,7 +706,7 @@ export class HandResultView extends cc.Component {
     }
 
     private async onDisband(): Promise<void> {
-        Logger.debug("HandResultView.onDisband");
+        // Logger.debug("HandResultView.onDisband");
         await this.room.coWaitSeconds(2);
         this.onAgainButtonClick();
     }

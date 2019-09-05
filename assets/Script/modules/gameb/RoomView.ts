@@ -142,11 +142,14 @@ export class RoomView {
     public async playLaiAni(): Promise<void> {
         TileImageMounter.mountTileImage(this.laiziTile, this.room.laiziID);
         this.laiziTile.getChild("laiziMask").visible = true;
+        this.laiziTile.visible = true;
         TileImageMounter.mountTileImage(this.laigenTile, this.room.laigenID);
+        this.laigenTile.visible = true;
+        //设置初始位置
         this.laiziTile.node.position = this.laiziTilePos2.node.position;
         this.laigenTile.node.position = this.laigenTilePos2.node.position;
         this.laiziCom.visible = true;
-
+        //移动
         this.laigenTile.node.runAction(cc.moveTo(0.7, this.laigenTilePos1.node.position));
         await this.room.coWaitSeconds(0.25);
         this.laiziTile.node.runAction(cc.moveTo(0.7, this.laiziTilePos1.node.position));
@@ -302,7 +305,9 @@ export class RoomView {
         this.laiziCom.visible = true;
         TileImageMounter.mountTileImage(this.laiziTile, this.room.laiziID);
         this.laiziTile.getChild("laiziMask").visible = true;
+        this.laiziTile.visible = true;
         TileImageMounter.mountTileImage(this.laigenTile, this.room.laigenID);
+        this.laigenTile.visible = true;
         // }
     }
 
@@ -684,6 +689,8 @@ export class RoomView {
 
         this.laigenTile = this.laiziCom.getChild("laigenCom").asCom;
         this.laiziTile = this.laiziCom.getChild("laiziCOm").asCom;
+        this.laigenTile.visible = false;
+        this.laiziTile.visible = false;
 
         this.laiziTilePos1 = this.laiziCom.getChild("laiziPos1");
         this.laigenTilePos1 = this.laiziCom.getChild("laigenPos1");
@@ -695,7 +702,7 @@ export class RoomView {
             this.laigenTilePos2 = this.laiziCom.getChild("laigenPos2");
         }
 
-        this.laiziCom.visible = false;
+        this.laiziCom.visible = true;
 
         //倒计时
         this.countDownText = this.roundMarkView.getChild("num");
@@ -741,7 +748,10 @@ export class RoomView {
     private initRoomStatus(): void {
         // 房间正在等待玩家准备
         const onWait = (): void => {
-            this.laiziCom.visible = false;
+            // this.laiziCom.visible = false;
+            this.laiziTile.visible = false;
+            this.laigenTile.visible = false;
+
             this.tilesInWall.visible = false;
 
             this.roundMarkView.visible = false;

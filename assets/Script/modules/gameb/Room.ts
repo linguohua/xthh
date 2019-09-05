@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Dialog, KeyConstants, Logger, UserInfo, LobbyModuleInterface } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, KeyConstants, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
@@ -32,8 +32,6 @@ import { PlayerInterface } from "./PlayerInterface";
 import { Replay } from "./Replay";
 import { PlayerInfo, RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 import { RoomView } from "./RoomView";
-import long = require("../lobby/protobufjs/long");
-import { ShopView, TabType } from "../lobby/views/ShopView";
 
 type msgHandler = (msgData: ByteBuffer, room: RoomInterface) => Promise<void>;
 /**

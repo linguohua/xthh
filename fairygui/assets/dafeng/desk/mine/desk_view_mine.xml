@@ -2,8 +2,8 @@
 <component size="1136,640" opaque="false" designImageAlpha="100">
   <displayList>
     <component id="n0_fxwe" name="head" src="jmxy0" fileName="btn/head_button.xml" xy="600,801" hideByEditor="true" visible="false"/>
-    <image id="n20_drq7" name="bg4" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="150,605" size="244,33" visible="false"/>
-    <image id="n21_drq7" name="bg5" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="405,605" size="331,33" visible="false"/>
+    <image id="n20_drq7" name="bg4" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="150,605" size="244,33"/>
+    <image id="n21_drq7" name="bg5" src="lqn3h4" fileName="_resource/z_桌面打牌/zm_xxdi.png" xy="405,605" size="331,33"/>
     <image id="n4_fxwe" name="zhuang" src="lqn3gv" fileName="_resource/z_桌面打牌/zm_icon_zhuang.png" xy="119,619" pivot="0.5,0.5" anchor="true" hideByEditor="true" visible="false"/>
     <text id="n22_drq7" name="tilesInWall" xy="426,606" size="77,28" visible="false" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="余牌:60"/>
     <text id="n23_drq7" name="roomInfo" xy="504,606" size="227,28" fontSize="18" color="#079e06" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="底注:1    还有9局"/>
