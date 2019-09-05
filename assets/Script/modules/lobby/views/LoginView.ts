@@ -274,7 +274,8 @@ export class LoginView extends cc.Component {
                 } else {
                     const reply = <FastLoginReply>JSON.parse(xhr.responseText);
                     if (reply.ret !== 0) {
-                        Dialog.showDialog(LocalStrings.findString("networkConnectError", `${reply.ret}`));
+                        Logger.debug("login error, ret:", reply.ret);
+                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
 
                         return;
                     }

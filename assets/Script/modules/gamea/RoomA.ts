@@ -14,6 +14,7 @@ import { HandlerActionScoreA } from "./handlersA/HandlerActionScoreA";
 import { HandlerMsgActionOPA } from "./handlersA/HandlerMsgActionOPA";
 import { HandlerMsgActionOPAckA } from "./handlersA/HandlerMsgActionOPAckA";
 import { HandlerMsgDealA } from "./handlersA/HandlerMsgDealA";
+import { HandlerMsgSearchAckA } from "./handlersA/HandlerMsgSearchAckA";
 import { HandlerMsgTableChatA } from "./handlersA/HandlerMsgTableChatA";
 import { HandlerMsgTableDisbandA } from "./handlersA/HandlerMsgTableDisbandA";
 import { HandlerMsgTableDisbandAckA } from "./handlersA/HandlerMsgTableDisbandAckA";
@@ -48,6 +49,7 @@ export const msgHandlers: { [key: number]: msgHandler } = {
     [msgCodeEnum.MSG_TABLE_UPDATE]: HandlerMsgTableUpdateA.onMsg, //桌子更新
     [msgCodeEnum.MSG_TABLE_SCORE]: HandlerMsgTableScoreA.onMsg, //桌子结算
     [msgCodeEnum.MSG_TABLE_MANAGED]: HandlerMsgTableManagedA.onMsg, //桌子进入托管
+    [msgCodeEnum.MSG_SEARCH_ACK]: HandlerMsgSearchAckA.onMsg, //桌子进入托管
 
     [msgCodeEnum.MSG_TABLE_DISBAND_ACK]: HandlerMsgTableDisbandAckA.onMsg, //解散
     [msgCodeEnum.MSG_TABLE_DISBAND_REQ]: HandlerMsgTableDisbandReqA.onMsg, //解散
@@ -537,6 +539,10 @@ export class RoomA {
     }
     public showMsg(chatData: protoHH.casino.packet_table_chat): void {
         this.players[chatData.player_id].onChatMsg(chatData);
+    }
+
+    public onSearchPlayerAck(searchAck: protoHH.casino.packet_search_ack): void {
+        this.players[searchAck.data.id].showPlayerInfoView(searchAck);
     }
     /**
      * 挂起若干秒

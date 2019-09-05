@@ -126,6 +126,7 @@ export namespace LocalStrings {
                 [`beanIsLess`]: "您的欢乐豆不足，是否需要前往充值界面",
                 [`bindPhoneSuccess`]: "绑定手机成功",
                 [`noDataClearn`]: "没有数据清除",
+                [`leaveGuild`]: "退工会数：{0}",
 
                 // 12个 制表符
                 [`agreeText0`]: `                                               用户服务协议

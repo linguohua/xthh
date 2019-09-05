@@ -696,13 +696,22 @@ export class PlayerA {
     }
     public onPlayerInfoClick(): void {
         const roomHost = this.host.getRoomHost();
-
         let playerInfoView = roomHost.component.getComponent(PlayerInfoView);
         if (playerInfoView === null) {
             playerInfoView = roomHost.component.addComponent(PlayerInfoView);
         }
 
-        playerInfoView.show(roomHost.getLobbyModuleLoader(), this.playerInfo);
+        playerInfoView.show(roomHost, this.playerInfo.userID, null);
+    }
+
+    public showPlayerInfoView(searchReq: protoHH.casino.packet_search_ack): void {
+        const roomHost = this.host.getRoomHost();
+        let playerInfoView = roomHost.component.getComponent(PlayerInfoView);
+        if (playerInfoView === null) {
+            playerInfoView = roomHost.component.addComponent(PlayerInfoView);
+        }
+
+        playerInfoView.show(roomHost, this.playerInfo.userID, searchReq);
     }
 
     /**

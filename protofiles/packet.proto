@@ -942,3 +942,12 @@ message packet_table_chat{
    optional uint64		table_id = 6;			// 桌子id
    optional string 			text = 10; 			// 聊天文字
 }
+
+// 查询玩家
+message packet_search_req{
+	required uint32			player_id = 2;	// 玩家id
+}
+message packet_search_ack{
+	required uint32				 ret = 1;	// 返回值
+	optional player_min			data = 20;	// 查询到的玩家信息
+}

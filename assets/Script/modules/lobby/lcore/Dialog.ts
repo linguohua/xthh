@@ -70,7 +70,7 @@ export class Dialog {
     }
 
     public static showDialog = (msg: string, yesCb: Function = null, noCB: Function = null): void => {
-        if (Dialog.inst.dlgView === undefined) {
+        if (Dialog.inst.dlgView === undefined || Dialog.inst.dlgView.node === null) {
             Logger.debug("showDialog view is null, create new");
             if (!Dialog.inst.packageLoaded) {
                 Dialog.inst.loader.fguiAddPackage("lobby/fui_dialog/lobby_dialog");

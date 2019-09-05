@@ -171,4 +171,5 @@ export interface RoomInterfaceA {
     getBackPlayer(chairID: number): PlayerInterfaceA;
 
     onReadyButtonClick(): void;
+    onSearchPlayerAck(searchAck: protoHH.casino.packet_search_ack): void;
 }

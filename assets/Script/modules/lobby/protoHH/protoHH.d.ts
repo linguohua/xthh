@@ -5370,5 +5370,29 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_table_chat;
 		}
 
+		interface Ipacket_search_req {
+			player_id: number;
+		}
+
+		class packet_search_req implements Ipacket_search_req {
+			public player_id: number;
+			constructor(properties?: casino.Ipacket_search_req);
+			public static encode(message: packet_search_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_search_req;
+		}
+
+		interface Ipacket_search_ack {
+			ret: number;
+			data?: casino.Iplayer_min;
+		}
+
+		class packet_search_ack implements Ipacket_search_ack {
+			public ret: number;
+			public data: casino.Iplayer_min;
+			constructor(properties?: casino.Ipacket_search_ack);
+			public static encode(message: packet_search_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_search_ack;
+		}
+
 	}
 }
