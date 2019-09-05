@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://sxspooesde0b7" designImageAlpha="100">
+  <displayList>
+    <image id="n1_82t1" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,60" size="815,518"/>
+    <component id="n0_82t1" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="147,54"/>
+    <image id="n10_ivql" name="bg2" src="de0ba" fileName="_resource/sclb_icon_hld2.png" xy="417,153"/>
+    <image id="n6_82t1" name="title" src="ivqld" fileName="_resource/sclb_btzi.png" xy="492,73"/>
+    <component id="n4_82t1" name="collectBtn" src="de0bc" fileName="buyBtn.xml" xy="472,472"/>
+    <text id="n7_82t1" name="text1" xy="401,430" size="212,35" fontSize="24" color="#856d57" vAlign="middle" letterSpacing="3" autoSize="none" bold="true" singleLine="true" text="20000欢乐豆"/>
+    <text id="n9_de0b" name="text2" xy="565,429" size="212,35" fontSize="24" color="#4c6a2c" vAlign="middle" letterSpacing="3" autoSize="none" bold="true" singleLine="true" text="+3000欢乐豆"/>
+  </displayList>
+</component>
