@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="282,88" extention="Button" designImage="ui://03l3z1xbazoa13" designImageOffsetX="-133" designImageOffsetY="-139" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="c3" pages="0,已领取,1,未领取" selected="0"/>
+  <displayList>
+    <image id="n10" name="bg" src="azoa10" fileName="_resource/y_yqdi1.png" xy="0,0" size="278,88">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <image id="n27_azoa" name="bg1" src="azoa11" fileName="_resource/y_yqdi2.png" xy="0,0" size="278,88">
+      <gearDisplay controller="button" pages="0"/>
+    </image>
+    <image id="n29_azoa" name="redPoint" src="azoa15" fileName="_resource/ty_hd.png" xy="259,0" visible="false">
+      <gearDisplay controller="button" pages=""/>
+    </image>
+    <text id="n22_h59f" name="title" xy="4,6" size="252,35" fontSize="24" color="#994234" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text=" 你好！"/>
+    <text id="n28_azoa" name="sender" xy="12,48" size="241,35" fontSize="24" color="#f8f6d7" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="寄件者：91258634"/>
+  </displayList>
+  <Button mode="Radio"/>
+  <transition name="t0">
+    <item time="0" type="Visible" value="true"/>
+    <item time="0" type="XY" tween="true" startValue="391,-" endValue="0,0" duration="9"/>
+  </transition>
+</component>

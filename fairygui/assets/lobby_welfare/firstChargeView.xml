@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://sxspooesde0b7" designImageAlpha="100">
   <displayList>
+    <component id="n11_azoa" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
     <image id="n1_82t1" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,60" size="815,518"/>
     <component id="n0_82t1" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="147,54"/>
     <image id="n10_ivql" name="bg2" src="de0ba" fileName="_resource/sclb_icon_hld2.png" xy="417,153"/>

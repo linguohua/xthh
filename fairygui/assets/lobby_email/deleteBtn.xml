@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="130,72" extention="Button" designImage="ui://03l3z1xbazoa12" designImageOffsetX="-839" designImageOffsetY="-497" designImageAlpha="100">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n3_azoa" name="n3" src="b75tg" fileName="resource/ty_btn_cd.png" pkg="snwj6cnx" xy="0,0" size="132,72">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n4_azoa" name="n4" xy="30,17" size="84,44" fontSize="30" color="#f7fec0" align="center" vAlign="middle" letterSpacing="10" autoSize="none" bold="true" singleLine="true" text="删除"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

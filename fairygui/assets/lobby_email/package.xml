@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="03l3z1xb" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="azoah" name="emailView.xml" path="/" exported="true"/>
+    <component id="azoaq" name="takeBtn.xml" path="/"/>
+    <component id="azoav" name="textComponent.xml" path="/"/>
+    <component id="azoaw" name="mailItem.xml" path="/"/>
+    <image id="azoax" name="y_bq_ylq.png" path="/_resource/"/>
+    <image id="azoay" name="y_btzi_yq.png" path="/_resource/"/>
+    <image id="azoaz" name="y_yjdg.png" path="/_resource/"/>
+    <image id="azoa10" name="y_yqdi1.png" path="/_resource/" scale="9grid" scale9grid="15,56,11,9"/>
+    <image id="azoa11" name="y_yqdi2.png" path="/_resource/" scale="9grid" scale9grid="18,57,6,8"/>
+    <image id="azoa12" name="y_邮件.jpg" path="/_design/"/>
+    <image id="azoa13" name="y_邮件1.jpg" path="/_design/"/>
+    <image id="azoa14" name="y_邮件标注.jpg" path="/_design/"/>
+    <image id="azoa15" name="ty_hd.png" path="/_resource/"/>
+    <component id="azoa16" name="deleteBtn.xml" path="/"/>
+  </resources>
+  <publish name="lobby_email"/>
+</packageDescription>

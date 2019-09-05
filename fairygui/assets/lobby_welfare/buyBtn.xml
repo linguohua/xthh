@@ -4,7 +4,7 @@
     <image id="n0_82t1" name="n0" src="ik115" fileName="resource/ty_btn_lv1.png" pkg="snwj6cnx" xy="0,0" size="194,70">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n1_82t1" name="n1" src="de0bb" fileName="_resource/sclb_zi_lygm.jpg" xy="36,14"/>
+    <image id="n1_82t1" name="n1" src="azoae" fileName="_resource/sclb_zi_lygm.png" xy="36,14"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

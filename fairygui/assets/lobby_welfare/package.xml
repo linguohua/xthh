@@ -12,9 +12,9 @@
     <image id="de0b8" name="s_首充礼包标注.jpg" path="/_design/"/>
     <component id="de0b9" name="firstChargeView.xml" path="/" exported="true"/>
     <image id="de0ba" name="sclb_icon_hld2.png" path="/_resource/"/>
-    <image id="de0bb" name="sclb_zi_lygm.jpg" path="/_resource/"/>
     <component id="de0bc" name="buyBtn.xml" path="/"/>
     <image id="ivqld" name="sclb_btzi.png" path="/_resource/"/>
+    <image id="azoae" name="sclb_zi_lygm.png" path="/_resource/"/>
   </resources>
   <publish name="lobby_welfare"/>
 </packageDescription>
