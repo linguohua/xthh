@@ -11599,6 +11599,78 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 20
                         }
                     ]
+                },
+                {
+                    "name": "packet_mail_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "mail_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "del",
+                            "id": 4
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "gain",
+                            "id": 5
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_mail_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint64",
+                            "name": "mail_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 3
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "gain",
+                            "id": 5
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "player_mail",
+                            "name": "mails",
+                            "id": 10
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "object",
+                            "name": "gains",
+                            "id": 20
+                        }
+                    ]
                 }
             ],
             "enums": [

@@ -5394,5 +5394,43 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_search_ack;
 		}
 
+		interface Ipacket_mail_req {
+			mail_id?: Long;
+			player_id?: number;
+			del?: boolean;
+			gain?: boolean;
+		}
+
+		class packet_mail_req implements Ipacket_mail_req {
+			public mail_id: Long;
+			public player_id: number;
+			public del: boolean;
+			public gain: boolean;
+			constructor(properties?: casino.Ipacket_mail_req);
+			public static encode(message: packet_mail_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_mail_req;
+		}
+
+		interface Ipacket_mail_ack {
+			ret: number;
+			mail_id?: Long;
+			player_id?: number;
+			gain?: boolean;
+			mails?: casino.Iplayer_mail[];
+			gains?: casino.Iobject[];
+		}
+
+		class packet_mail_ack implements Ipacket_mail_ack {
+			public ret: number;
+			public mail_id: Long;
+			public player_id: number;
+			public gain: boolean;
+			public mails: casino.Iplayer_mail[];
+			public gains: casino.Iobject[];
+			constructor(properties?: casino.Ipacket_mail_ack);
+			public static encode(message: packet_mail_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_mail_ack;
+		}
+
 	}
 }

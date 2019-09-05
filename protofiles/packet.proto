@@ -951,3 +951,21 @@ message packet_search_ack{
 	required uint32				 ret = 1;	// 返回值
 	optional player_min			data = 20;	// 查询到的玩家信息
 }
+
+// 邮件请求
+message packet_mail_req{
+   optional  uint64		    mail_id = 2;		// 请求玩家邮件唯一id(为0时表示刷新所有邮件,有id时表示浏览或领取邮件奖励)
+   optional  uint32 	  player_id = 3; 		// 请求玩家
+   optional	 bool			    del = 4;		// 是否删除邮件
+   optional  bool			   gain = 5;		// 领取奖励
+}
+
+// 邮件返回
+message packet_mail_ack{
+   required uint32				ret = 1;		// 返回值
+   optional uint64		    mail_id = 2;		// 操作邮件id
+   optional uint32 		  player_id = 3; 		// 请求玩家
+   optional bool			   gain = 5;		// 领取奖励
+   repeated player_mail		  mails = 10;		// 邮件列表
+   repeated object			  gains = 20;		// 邮件掉落信息
+}
