@@ -376,7 +376,7 @@ export class LobbyView extends cc.Component {
 
         this.nameText.text = nickName;
 
-        CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender)
+        CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
     }
 
     private initNimSDK(): void {
