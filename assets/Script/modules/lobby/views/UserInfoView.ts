@@ -163,7 +163,7 @@ export class UserInfoView extends cc.Component {
         this.modifyBtn.onClick(this.onModifyBtnClick, this);
 
         this.saveModifyBtn = userInfo.getChild("saveModifyBtn").asButton;
-        this.saveModifyBtn.onClick(this.onSaveModifyBtn, this);
+        this.saveModifyBtn.onClick(this.onSaveModifyBtnClick, this);
 
         this.fkRecordTap = userInfo.getChild("fkRecordTap").asButton;
         this.fkRecordTap.onClick(this.onFkRecordTapClick, this);
@@ -212,9 +212,9 @@ export class UserInfoView extends cc.Component {
         const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "0");
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         if (+gender > 0) {
-            this.boyRadioBtn.selected = true;
-        } else {
             this.girlRadioBtn.selected = true;
+        } else {
+            this.boyRadioBtn.selected = true;
         }
 
         CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
@@ -309,7 +309,7 @@ export class UserInfoView extends cc.Component {
 
     }
 
-    private onSaveModifyBtn(): void {
+    private onSaveModifyBtnClick(): void {
         Logger.debug("onSaveModifyBtn");
         const controller = this.userInfo.getController("isModify");
         controller.selectedIndex = 0;
@@ -318,20 +318,12 @@ export class UserInfoView extends cc.Component {
 
         const req = new proto.casino.packet_modify_req();
         req.nickname = this.userName.text;
-        req.sex = this.boyRadioBtn.selected ? 1 : 0;
+        req.sex = this.boyRadioBtn.selected ? 0 : 1;
         req.player_id = +playerid;
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel === Enum.CHANNEL_TYPE.VISITOR) {
-            let avatarIndex = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
-            // 如果头像与性别不对应，则默认选个头像
-            if (req.sex > 0 && avatarIndex < 5) {
-                avatarIndex = 8;
-            } else if (req.sex < 1 && avatarIndex > 4) {
-                avatarIndex = 4;
-            }
-
-            req.avatar = avatarIndex;
+            req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
         }
 
         Logger.debug("req:", req);
@@ -375,9 +367,14 @@ export class UserInfoView extends cc.Component {
         Logger.debug("getAvatarIndexFromLoaderUrl, url:", url);
         if (url !== "") {
             const indexStr = url.substring(32);
-            Logger.debug("getAvatarIndexFromLoaderUrl, indexStr:", indexStr);
+            let index = +indexStr;
+            if (index > 3) {
+                index = index - 4;
+            }
 
-            return +indexStr;
+            Logger.debug("getAvatarIndexFromLoaderUrl, indexStr:", index);
+
+            return index;
         }
 
         return 0;
@@ -523,9 +520,9 @@ export class UserInfoView extends cc.Component {
 
     private renderHeadListItem(index: number, item: fgui.GObject): void {
         Logger.debug("renderHeadListItem");
-        let itemIndex = index + 1;
+        let itemIndex = index;
         if (this.boyRadioBtn.selected) {
-            itemIndex = index + 5;
+            itemIndex = index + 4;
         }
         const obj = item.asCom;
         obj.getChild("n69").asLoader.url = `ui://lobby_bg_package/grxx_xttx_${itemIndex}`;

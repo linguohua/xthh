@@ -816,7 +816,7 @@ export class PlayerA {
             return;
         }
         let soundName = "";
-        if (this.playerInfo.gender === 1) {
+        if (this.playerInfo.gender === 0) {
             // soundName = `${ directory } /boy/${ effectName } `;
             soundName = `${directory}/${effectName}_m`;
         } else {
