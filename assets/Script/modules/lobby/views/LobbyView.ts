@@ -91,7 +91,7 @@ export class LobbyView extends cc.Component {
     private registerHandler(): void {
         this.lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
         this.lm.msgCenter.eventTarget.on("logout", this.onLogout, this);
-        this.lm.eventTarget.on("onAvatarChange", this.onAvatarChange, this);
+        this.lm.eventTarget.on("onUserInfoModify", this.onUserInfoModify, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyUpdate, this);
@@ -371,10 +371,13 @@ export class LobbyView extends cc.Component {
         this.testJoinGame();
     }
 
-    private onAvatarChange(): void {
+    private onUserInfoModify(): void {
         const gender = DataStore.getString(KeyConstants.GENDER, "");
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "");
+        const nickName = DataStore.getString(KeyConstants.NICK_NAME, "");
+
+        this.nameText.text = nickName;
 
         if (avatarURL !== "" || avatarIndex === "" || avatarIndex === "0") {
             CommonFunction.setHead(this.headLoader, avatarURL, +gender);

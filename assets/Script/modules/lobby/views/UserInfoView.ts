@@ -274,7 +274,7 @@ export class UserInfoView extends cc.Component {
         // 游客使用的头像
         DataStore.setItem(KeyConstants.AVATAR_INDEX, reply.avatar);
 
-        this.lm.eventTarget.emit("onAvatarChange");
+        this.lm.eventTarget.emit("onUserInfoModify");
 
         Dialog.prompt(LocalStrings.findString("modifySuccess"));
 
