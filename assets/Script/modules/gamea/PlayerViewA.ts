@@ -918,7 +918,7 @@ export class PlayerViewA {
             }
 
             this.qipaoText.text = PHRASE_MAP[chatData.chat_id];
-            this.qipaoEmotion.url = `ui://lobby_chat/zm_lt_bq${emotionIndex}`;
+            this.qipaoEmotion.url = `ui://lobby_bg_package/zm_lt_bq${emotionIndex}`;
             this.qipao.visible = true;
             //定时隐藏
             this.roomHost.component.unschedule(this.msgTimerCB);
