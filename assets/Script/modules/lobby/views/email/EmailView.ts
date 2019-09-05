@@ -1,4 +1,5 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { GameError } from "../../errorCode/ErrorCodeExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
@@ -30,6 +31,8 @@ export class EmailView extends cc.Component {
     private titleText: fgui.GTextField;
 
     private playerEmails: proto.casino.Iplayer_mail[];
+
+    private selectPlayerEmails: proto.casino.Iplayer_mail;
 
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -94,9 +97,11 @@ export class EmailView extends cc.Component {
         this.beanCount = beanCount;
 
         const takeBtn = this.view.getChild("takeBtn").asButton;
+        takeBtn.onClick(this.onTakeBtnClick, this);
         this.takeBtn = takeBtn;
 
         const deleteBtn = this.view.getChild("deleteBtn").asButton;
+        deleteBtn.onClick(this.onDeleteBtnClick, this);
         this.deleteBtn = deleteBtn;
 
         const textComponent = this.view.getChild("textComponent").asCom;
@@ -126,6 +131,14 @@ export class EmailView extends cc.Component {
         this.destroy();
     }
 
+    private onDeleteBtnClick(): void {
+        // this.destroy();
+    }
+
+    private onTakeBtnClick(): void {
+        //this.destroy();
+    }
+
     private reloadEmail(): void {
         //
         const req2 = new proto.casino.packet_mail_req();
@@ -142,6 +155,13 @@ export class EmailView extends cc.Component {
         const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
         Logger.debug("onEmailAck mailData= ", mailData);
 
+        if (mailData.ret !== proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+
+            Dialog.prompt(GameError.getErrorString(mailData.ret));
+
+            return;
+        }
+
         if (mailData.mail_id.toNumber() === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
             const playerEmails = mailData.mails;
 
@@ -152,7 +172,7 @@ export class EmailView extends cc.Component {
                 this.emailList.selectedIndex = 0;
                 const obj = this.emailList.getChildAt(0);
                 const email = this.playerEmails[0];
-                this.selectEmail(email.data, obj);
+                this.selectEmail(email, obj);
                 this.noEmailText.visible = false;
             } else {
                 this.noEmailText.visible = true;
@@ -161,11 +181,34 @@ export class EmailView extends cc.Component {
 
     }
 
-    private showBeanAttachment(): void {
+    private showBeanAttachment(receive: boolean, count: number): void {
         //
+
+        this.beanCount.text = `${count}`;
+        this.beanCount.visible = true;
+        this.beanImg.visible = true;
+
+        this.beanCount.grayed = receive;
+        this.beanImg.grayed = receive;
+
+        this.beanTick.visible = receive;
+
+        this.deleteBtn.visible = receive;
+        this.takeBtn.visible = !receive;
+
     }
-    private showFKAttachment(): void {
+    private showFKAttachment(receive: boolean, count: number): void {
         //
+        this.fkCount.text = `${count}`;
+        this.fkCount.visible = true;
+        this.fkImg.visible = true;
+
+        this.fkCount.grayed = receive;
+        this.fkImg.grayed = receive;
+
+        this.fkTick.visible = receive;
+        this.deleteBtn.visible = receive;
+        this.takeBtn.visible = !receive;
     }
 
     private hideAttachments(): void {
@@ -198,20 +241,26 @@ export class EmailView extends cc.Component {
         sender.text = LocalStrings.findString("sender", email.sender);
 
         obj.onClick(() => {
-            this.selectEmail(email, obj);
+            this.selectEmail(playerEmail, obj);
             // tslint:disable-next-line:align
         }, this);
 
     }
 
-    private selectEmail(email: proto.casino.Imail, obj: fgui.GObject): void {
+    private selectEmail(playerEmail: proto.casino.Iplayer_mail, obj: fgui.GObject): void {
+
+        this.selectPlayerEmails = playerEmail;
+
+        const email = playerEmail.data;
         this.textComponent.text = email.content;
         this.titleText.text = email.title;
 
-        Logger.debug("email params = ", email.param);
-        Logger.debug("RETURN_GAIN = ", proto.casino.eRETURN_TYPE.RETURN_GAIN);
+        this.hideAttachments();
 
         const gains = email.gains;
+        const viewTime = playerEmail.view_time;
+
+        const receive = viewTime.toNumber() > 0 ? true : false;
 
         for (const gain of gains) {
 
@@ -221,33 +270,17 @@ export class EmailView extends cc.Component {
             }
 
             if (gain.id === proto.casino.eRESOURCE.RESOURCE_BEANS) {
-                this.beanCount.text = `${gain.param}`;
+                this.showBeanAttachment(receive, gain.param);
 
             }
 
             if (gain.id === proto.casino.eRESOURCE.RESOURCE_CARD) {
-
-                this.beanCount.text = `${gain.param}`;
+                this.showFKAttachment(receive, gain.param);
 
             }
 
         }
 
-        //刷新附件
-        // const selectedEmail = email;
-        // this.selectedEmail = selectedEmail;
-
-        // const hasAttachmentCtrl = this.view.getController("hasAttachment");
-        // if (selectedEmail !== null && selectedEmail.attachments !== null) {
-        //     this.updateAttachmentsView();
-        //     hasAttachmentCtrl.selectedIndex = 0;
-        // } else {
-        //     hasAttachmentCtrl.selectedIndex = 1;
-        // }
-
-        // if (email.isRead === false) {
-        //     this.setRead(email, obj);
-        // }
     }
 
 }

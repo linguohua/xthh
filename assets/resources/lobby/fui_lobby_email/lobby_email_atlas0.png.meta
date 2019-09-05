@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "51d4496b-0818-43c2-a8a9-b1be24782f27",
+  "uuid": "bf9df2ab-fdee-45d8-89d6-98e87bd77063",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "lobby_email_atlas0": {
       "ver": "1.0.4",
-      "uuid": "9ec51d91-5d3b-4f73-b58a-369a4ca354a8",
-      "rawTextureUuid": "51d4496b-0818-43c2-a8a9-b1be24782f27",
+      "uuid": "fa0e3a89-96f2-4fba-bbc1-d8620fc4b309",
+      "rawTextureUuid": "bf9df2ab-fdee-45d8-89d6-98e87bd77063",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
