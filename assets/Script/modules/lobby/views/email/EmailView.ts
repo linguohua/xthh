@@ -241,8 +241,11 @@ export class EmailView extends cc.Component {
         this.selectPlayerEmail.view_time = long.fromNumber(this.lm.msgCenter.getServerTime());
         this.playerEmails[this.selectPlayerEmailIndex] = this.selectPlayerEmail;
 
+        this.emailList.numItems = this.playerEmails.length;
+
         const obj = this.emailList.getChildAt(this.selectPlayerEmailIndex);
         this.selectEmail(this.selectPlayerEmail, obj, this.selectPlayerEmailIndex);
+
     }
 
     private renderListItem(index: number, obj: fgui.GObject): void {
@@ -256,6 +259,12 @@ export class EmailView extends cc.Component {
 
         const sender = obj.asCom.getChild("sender");
         sender.text = LocalStrings.findString("sender", email.sender);
+
+        const receiveCtrl = obj.asCom.getController("receive");
+        const viewTime = playerEmail.view_time;
+        const receive = viewTime.toNumber() > 0;
+
+        receiveCtrl.selectedIndex = receive ? 0 : 1;
 
         obj.onClick(() => {
             this.selectEmail(playerEmail, obj, index);
