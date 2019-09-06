@@ -410,6 +410,8 @@ export class NewRoomView extends cc.Component {
 
         if (this.lm !== undefined) {
             this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+            // block也要对应的unBlock
+            this.lm.msgCenter.blockNormal();
         }
 
     }
@@ -623,6 +625,8 @@ export class NewRoomView extends cc.Component {
 
             const err = GameError.getErrorString(joinRoomAck.ret);
             Dialog.prompt(err);
+
+            this.lm.msgCenter.unblockNormal();
 
             return;
         }

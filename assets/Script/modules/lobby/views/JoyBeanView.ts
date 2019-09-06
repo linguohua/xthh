@@ -156,6 +156,8 @@ export class JoyBeanView extends cc.Component {
             const buf = proto.casino.packet_table_join_req.encode(req2);
 
             this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+            // block也要对应的unBlock
+            this.lm.msgCenter.blockNormal();
         } else {
             // 提示用户没有豆了
             Dialog.prompt(LocalStrings.findString("beanIsLess"));
@@ -210,6 +212,9 @@ export class JoyBeanView extends cc.Component {
 
             const err = GameError.getErrorString(joinRoomAck.ret);
             Dialog.prompt(err);
+
+            // block也要对应的unBlock
+            this.lm.msgCenter.unblockNormal();
 
             return;
         }
