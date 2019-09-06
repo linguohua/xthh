@@ -12,7 +12,7 @@ const REWARD_IMG: { [key: number]: string } = {
  * 抽奖规则页面
  */
 @ccclass
-export class RewardView extends cc.Component {
+export class LotteryRewardView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;

@@ -1,9 +1,23 @@
 import { GameError } from "../../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+// tslint:disable-next-line:no-require-imports
+import long = require("../../protobufjs/long");
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
+import { RewardView } from "../reward/RewardViewExports";
 
 const { ccclass } = cc._decorator;
+
+const REWARD_IMG: { [key: number]: string } = {
+    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/ty_icon_hld",
+    [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/ty_icon_fk"
+};
+
+enum OPERATION {
+    NONE = 0,
+    TAKE = 1,
+    DELETE = 2
+}
 
 /**
  * EmailView
@@ -16,23 +30,22 @@ export class EmailView extends cc.Component {
 
     private noEmailText: fgui.GTextField;
 
-    private fkImg: fgui.GImage;
-    private beanImg: fgui.GImage;
-    private fkTick: fgui.GImage;
-    private beanTick: fgui.GImage;
-    private fkCount: fgui.GTextField;
-    private beanCount: fgui.GTextField;
     private takeBtn: fgui.GButton;
     private deleteBtn: fgui.GButton;
 
     private textComponent: fgui.GComponent;
     private emailList: fgui.GList;
+    private attachmentsList: fgui.GList;
 
     private titleText: fgui.GTextField;
 
     private playerEmails: proto.casino.Iplayer_mail[];
 
-    private selectPlayerEmails: proto.casino.Iplayer_mail;
+    private selectPlayerEmail: proto.casino.Iplayer_mail;
+
+    private selectPlayerEmailIndex: number = 0;
+
+    private operation: OPERATION = OPERATION.NONE;
 
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -78,24 +91,6 @@ export class EmailView extends cc.Component {
         const noEmailText = this.view.getChild("noEmailText").asTextField;
         this.noEmailText = noEmailText;
 
-        const fkImg = this.view.getChild("fkImg").asImage;
-        this.fkImg = fkImg;
-
-        const beanImg = this.view.getChild("beanImg").asImage;
-        this.beanImg = beanImg;
-
-        const fkTick = this.view.getChild("fkTick").asImage;
-        this.fkTick = fkTick;
-
-        const beanTick = this.view.getChild("beanTick").asImage;
-        this.beanTick = beanTick;
-
-        const fkCount = this.view.getChild("fkCount").asTextField;
-        this.fkCount = fkCount;
-
-        const beanCount = this.view.getChild("beanCount").asTextField;
-        this.beanCount = beanCount;
-
         const takeBtn = this.view.getChild("takeBtn").asButton;
         takeBtn.onClick(this.onTakeBtnClick, this);
         this.takeBtn = takeBtn;
@@ -109,11 +104,17 @@ export class EmailView extends cc.Component {
 
         const emailList = this.view.getChild("emailList").asList;
         this.emailList = emailList;
-
         this.emailList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderListItem(index, item);
         };
         this.emailList.setVirtual();
+
+        //附件列表
+        this.attachmentsList = this.view.getChild("attachmentList").asList;
+        this.attachmentsList.itemRenderer = (index: number, item: fgui.GObject) => {
+            this.renderAttachmentListItem(index, item);
+        };
+        //this.attachmentsList.setVirtual();
 
         const titleText = this.view.getChild("titleText").asTextField;
         this.titleText = titleText;
@@ -133,10 +134,32 @@ export class EmailView extends cc.Component {
 
     private onDeleteBtnClick(): void {
         // this.destroy();
+        const playerEmail = this.selectPlayerEmail;
+        const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
+        const req2 = new proto.casino.packet_mail_req();
+        req2.mail_id = playerEmail.id;
+        req2.player_id = +playerId;
+        req2.gain = true;
+        req2.del = true;
+        const buf = proto.casino.packet_mail_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.operation = OPERATION.DELETE;
     }
 
     private onTakeBtnClick(): void {
         //this.destroy();
+        const playerEmail = this.selectPlayerEmail;
+
+        const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
+        const req2 = new proto.casino.packet_mail_req();
+        req2.mail_id = playerEmail.id;
+        req2.player_id = +playerId;
+        req2.gain = true;
+        const buf = proto.casino.packet_mail_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.operation = OPERATION.TAKE;
     }
 
     private reloadEmail(): void {
@@ -161,71 +184,65 @@ export class EmailView extends cc.Component {
 
             return;
         }
-
-        if (mailData.mail_id.toNumber() === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+        const mailId = mailData.mail_id.toNumber();
+        if (mailId === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
             const playerEmails = mailData.mails;
 
             this.playerEmails = playerEmails;
             this.emailList.numItems = this.playerEmails.length;
             //默认选择第一个
-            if (this.playerEmails.length > 0) {
-                this.emailList.selectedIndex = 0;
-                const obj = this.emailList.getChildAt(0);
-                const email = this.playerEmails[0];
-                this.selectEmail(email, obj);
-                this.noEmailText.visible = false;
-            } else {
-                this.noEmailText.visible = true;
+            this.selectFirst();
+        } else {
+            const gain = mailData.gain;
+
+            if (gain === true) {
+                if (this.operation === OPERATION.TAKE) {
+                    //
+                    const view = this.addComponent(RewardView);
+                    view.show(mailData.gains);
+
+                    this.changeReceiveState();
+
+                } else if (this.operation === OPERATION.DELETE) {
+                    //
+                    this.deleteEmail();
+                }
             }
+
         }
 
     }
 
-    private showBeanAttachment(receive: boolean, count: number): void {
-        //
-
-        this.beanCount.text = `${count}`;
-        this.beanCount.visible = true;
-        this.beanImg.visible = true;
-
-        this.beanCount.grayed = receive;
-        this.beanImg.grayed = receive;
-
-        this.beanTick.visible = receive;
-
-        this.deleteBtn.visible = receive;
-        this.takeBtn.visible = !receive;
-
-    }
-    private showFKAttachment(receive: boolean, count: number): void {
-        //
-        this.fkCount.text = `${count}`;
-        this.fkCount.visible = true;
-        this.fkImg.visible = true;
-
-        this.fkCount.grayed = receive;
-        this.fkImg.grayed = receive;
-
-        this.fkTick.visible = receive;
-        this.deleteBtn.visible = receive;
-        this.takeBtn.visible = !receive;
+    private selectFirst(): void {
+        if (this.playerEmails.length > 0) {
+            this.emailList.selectedIndex = 0;
+            const obj = this.emailList.getChildAt(0);
+            const email = this.playerEmails[0];
+            this.selectEmail(email, obj, 0);
+            this.noEmailText.visible = false;
+        } else {
+            this.noEmailText.visible = true;
+            this.titleText.text = "";
+            this.deleteBtn.visible = false;
+            this.takeBtn.visible = false;
+            this.attachmentsList.numItems = 0;
+        }
     }
 
-    private hideAttachments(): void {
-        this.fkCount.text = "";
-        this.beanCount.text = "";
+    private deleteEmail(): void {
+        this.playerEmails[this.selectPlayerEmailIndex] = this.selectPlayerEmail;
+        this.playerEmails.splice(this.selectPlayerEmailIndex, 1);
+        this.emailList.numItems = this.playerEmails.length;
 
-        this.fkCount.visible = false;
-        this.beanCount.visible = false;
+        this.selectFirst();
+    }
 
-        this.fkImg.visible = false;
-        this.beanImg.visible = false;
+    private changeReceiveState(): void {
+        this.selectPlayerEmail.view_time = long.fromNumber(this.lm.msgCenter.getServerTime());
+        this.playerEmails[this.selectPlayerEmailIndex] = this.selectPlayerEmail;
 
-        this.fkTick.visible = false;
-        this.beanTick.visible = false;
-
-        this.takeBtn.visible = false;
-        this.deleteBtn.visible = false;
+        const obj = this.emailList.getChildAt(this.selectPlayerEmailIndex);
+        this.selectEmail(this.selectPlayerEmail, obj, this.selectPlayerEmailIndex);
     }
 
     private renderListItem(index: number, obj: fgui.GObject): void {
@@ -241,46 +258,85 @@ export class EmailView extends cc.Component {
         sender.text = LocalStrings.findString("sender", email.sender);
 
         obj.onClick(() => {
-            this.selectEmail(playerEmail, obj);
+            this.selectEmail(playerEmail, obj, index);
             // tslint:disable-next-line:align
         }, this);
 
     }
 
-    private selectEmail(playerEmail: proto.casino.Iplayer_mail, obj: fgui.GObject): void {
-
-        this.selectPlayerEmails = playerEmail;
+    private selectEmail(playerEmail: proto.casino.Iplayer_mail, obj: fgui.GObject, index: number): void {
+        this.selectPlayerEmailIndex = index;
+        this.selectPlayerEmail = playerEmail;
 
         const email = playerEmail.data;
         this.textComponent.text = email.content;
         this.titleText.text = email.title;
 
-        this.hideAttachments();
-
-        const gains = email.gains;
         const viewTime = playerEmail.view_time;
+        const receive = viewTime.toNumber() > 0;
 
-        const receive = viewTime.toNumber() > 0 ? true : false;
+        this.deleteBtn.visible = receive;
+        this.takeBtn.visible = !receive;
 
+        this.updateAttachmentsView();
+
+    }
+
+    // 附件个数，现在暂时为1
+    private updateAttachmentsView(): void {
+        const email = this.selectPlayerEmail.data;
+        const gains = email.gains;
+        const filterGains: proto.casino.Iobject[] = [];
         for (const gain of gains) {
-
             // TODO: 现在已过滤红包经验，等资源出了，在放开限制
             if (gain.type !== proto.casino.eTYPE.TYPE_RESOURCE) {
                 continue;
             }
 
-            if (gain.id === proto.casino.eRESOURCE.RESOURCE_BEANS) {
-                this.showBeanAttachment(receive, gain.param);
-
-            }
-
-            if (gain.id === proto.casino.eRESOURCE.RESOURCE_CARD) {
-                this.showFKAttachment(receive, gain.param);
-
-            }
+            filterGains.push(gain);
 
         }
 
+        this.attachmentsList.numItems = filterGains.length;
+
+    }
+
+    /**
+     * 刷新附件
+     * @param index 第几个
+     * @param obj 该UI对象
+     */
+    private renderAttachmentListItem(index: number, obj: fgui.GObject): void {
+
+        const email = this.selectPlayerEmail.data;
+        const gains = email.gains;
+        const filterGains: proto.casino.Iobject[] = [];
+
+        const receive = this.selectPlayerEmail.view_time.toNumber() > 0;
+
+        for (const gain of gains) {
+            // TODO: 现在已过滤红包经验，等资源出了，在放开限制
+            if (gain.type !== proto.casino.eTYPE.TYPE_RESOURCE) {
+                continue;
+            }
+
+            filterGains.push(gain);
+
+        }
+
+        const selectGain = filterGains[index];
+        const loader = obj.asCom.getChild("loader").asLoader;
+        const count = obj.asCom.getChild("count");
+        const tick = obj.asCom.getChild("tick");
+        loader.url = REWARD_IMG[selectGain.id];
+
+        count.text = `${selectGain.param}`;
+
+        // 设置是否领取
+        loader.grayed = receive;
+        count.grayed = receive;
+        tick.grayed = receive;
+        tick.visible = receive;
     }
 
 }

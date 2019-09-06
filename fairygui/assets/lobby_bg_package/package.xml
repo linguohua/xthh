@@ -98,6 +98,8 @@
     <image id="ohlpn5" name="zm_lt_bq2.png" path="/resource/" exported="true"/>
     <image id="ohlpn6" name="zm_lt_bq3.png" path="/resource/" exported="true"/>
     <image id="ohlpn7" name="zm_lt_bq4.png" path="/resource/" exported="true"/>
+    <image id="hvh8na" name="cz_icon_fk2.png" path="/resource/" exported="true"/>
+    <image id="hvh8nb" name="cz_icon_hld2.png" path="/resource/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

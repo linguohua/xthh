@@ -5,7 +5,7 @@
     <image id="n0_t23f" name="n0" src="b75ti" fileName="resource/ty_btn_lvd.png" pkg="snwj6cnx" xy="0,0" size="132,72">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n2_azoa" name="n2" xy="30,17" size="84,44" fontSize="30" color="#f7fec0" align="center" vAlign="middle" letterSpacing="10" autoSize="none" bold="true" singleLine="true" text="领取"/>
+    <text id="n2_azoa" name="n2" xy="8,17" size="116,44" fontSize="30" color="#f7fec0" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" text="领 取"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

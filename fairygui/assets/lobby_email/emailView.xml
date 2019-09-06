@@ -8,8 +8,6 @@
     <image id="n40_azoa" name="title" src="azoay" fileName="_resource/y_btzi_yq.png" xy="494,72"/>
     <component id="n32_t23f" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="89,54" scale="0.95,0.95"/>
     <image id="n39_azoa" name="bg2" src="hjqcx" fileName="resource/grxx_yqdi.png" pkg="snwj6cnx" xy="130,134" size="286,447"/>
-    <image id="n44_azoa" name="fkImg" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="517,497" visible="false"/>
-    <image id="n43_azoa" name="beanImg" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="639,502" visible="false"/>
     <list id="n3" name="emailList" xy="133,139" size="282,441" overflow="scroll" scrollBar="hidden" clipSoftness="0,20" lineGap="8" defaultItem="ui://03l3z1xbazoaw" align="center" autoClearItems="true">
       <item/>
       <item/>
@@ -17,12 +15,12 @@
     </list>
     <component id="n26_h59f" name="textComponent" src="azoav" fileName="textComponent.xml" xy="462,201" size="520,237"/>
     <text id="n41_azoa" name="titleText" xy="458,148" size="433,41" fontSize="28" color="#ed7c1b" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="邮件标题"/>
-    <text id="n45_azoa" name="fkCount" xy="470,549" size="138,35" visible="false" fontSize="24" color="#ed7c1b" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="10&#xA;"/>
-    <text id="n46_azoa" name="beanCount" xy="590,549" size="138,35" visible="false" fontSize="24" color="#ed7c1b" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2000&#xA;"/>
     <text id="n49_hzer" name="noEmailText" xy="153,340" size="245,31" visible="false" fontSize="20" color="#ed7c1b" align="center" vAlign="middle" singleLine="true" text="您目前没有收到任何邮件！"/>
     <component id="n47_azoa" name="deleteBtn" src="azoa16" fileName="deleteBtn.xml" xy="839,497" visible="false"/>
     <component id="n48_azoa" name="takeBtn" src="azoaq" fileName="takeBtn.xml" xy="839,497" visible="false"/>
-    <image id="n50_hzer" name="fkTick" src="azoaz" fileName="_resource/y_yjdg.png" xy="553,518" visible="false"/>
-    <image id="n51_hzer" name="beanTick" src="azoaz" fileName="_resource/y_yjdg.png" xy="682,518" visible="false"/>
+    <list id="n53_kte2" name="attachmentList" xy="470,497" size="357,90" layout="row" overflow="hidden" scroll="horizontal" colGap="-10" defaultItem="ui://03l3z1xbkte217" vAlign="middle" autoClearItems="true">
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>

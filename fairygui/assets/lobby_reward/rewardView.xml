@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://7sx8kzdnhvh8g" designImageAlpha="100">
+  <controller name="resource" pages="0,card,1,bean" selected="1"/>
+  <displayList>
+    <component id="n0_hvh8" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
+    <image id="n1_hvh8" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="302,190" size="534,256"/>
+    <image id="n3_hvh8" name="title" src="hvh8i" fileName="resource/hlddt_zi_gxnhd.png" xy="411,154"/>
+    <text id="n4_hvh8" name="count" xy="433,363" size="259,50" fontSize="36" color="#ac5216" align="center" vAlign="middle" autoSize="none" singleLine="true" text="2000"/>
+    <loader id="n8_hvh8" name="loader" xy="477,238" pivot="0.5,0" size="181,157" url="ui://snwj6cnxhvh8nb">
+      <gearXY controller="resource" pages="0" values="477,213" default="477,238"/>
+    </loader>
+  </displayList>
+</component>

@@ -1,8 +1,8 @@
 import { GameError } from "../../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
+import { LotteryRewardView } from "./LotteryRewardView";
 import { LotteryRuleView } from "./LotteryRuleView";
-import { RewardView } from "./RewardView";
 const { ccclass } = cc._decorator;
 
 const JUNIOR_ROOM_ID: number = 12001;
@@ -271,7 +271,7 @@ export class LotteryView extends cc.Component {
         const action = cc.rotateTo(time, armRotate).easing(cc.easeInOut(3));
 
         const showResultAction = cc.callFunc(() => {
-            const view = this.addComponent(RewardView);
+            const view = this.addComponent(LotteryRewardView);
             view.show(drawItem);
             this.hideDrawingBlock();
         });

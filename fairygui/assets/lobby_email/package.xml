@@ -15,6 +15,7 @@
     <image id="azoa14" name="y_邮件标注.jpg" path="/_design/"/>
     <image id="azoa15" name="ty_hd.png" path="/_resource/"/>
     <component id="azoa16" name="deleteBtn.xml" path="/"/>
+    <component id="kte217" name="attachmentItem.xml" path="/"/>
   </resources>
   <publish name="lobby_email"/>
 </packageDescription>

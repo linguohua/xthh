@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="7sx8kzdn" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="hvh8f" name="rewardView.xml" path="/" exported="true"/>
+    <image id="hvh8i" name="hlddt_zi_gxnhd.png" path="/_resource/"/>
+    <image id="hvh8g" name="h_欢乐豆大厅_获得奖励.jpg" path="/_design/"/>
+    <image id="hvh8h" name="h_欢乐豆大厅_获得奖励标注.jpg" path="/_design/"/>
+  </resources>
+  <publish name="lobby_reward"/>
+</packageDescription>
