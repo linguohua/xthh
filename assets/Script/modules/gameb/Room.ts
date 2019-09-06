@@ -291,6 +291,11 @@ export class Room {
         this.isMySelfDisCard = false;
         this.lastDisCardTile = 0;
 
+        if (this.isJoyRoom) {
+            this.handStartted = 0; //欢乐场不需要累加牌局数 handStartted 为0 的时候 才能退出房间
+            this.roomView.showOrHideTrusteeshipCom(false);
+        }
+
         Object.keys(this.players).forEach((key: string) => {
             const v = this.players[key];
             v.resetForNewHand();
@@ -311,6 +316,14 @@ export class Room {
 
     public onExitButtonClicked(): void {
         // this.sendMsg(proto.mahjong.MessageCode.OPPlayerLeaveRoom);
+    }
+
+    //处理玩家取消托管
+    public onManagedClicked(isManaged: boolean): void {
+        const req2 = new protoHH.casino.packet_table_managed({ player_id: +this.myUser.userID });
+        req2.managed = isManaged;
+        const buf = protoHH.casino.packet_table_managed.encode(req2);
+        this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_MANAGED);
     }
 
     //处理玩家申请解散请求

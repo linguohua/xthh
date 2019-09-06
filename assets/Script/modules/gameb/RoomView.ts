@@ -18,7 +18,6 @@ import { TileImageMounter } from "./TileImageMounter";
 export class RoomView {
     public playerViews: PlayerView[];
     public listensObj: fgui.GComponent;
-
     public donateMoveObj: fgui.GLoader;
     public tilesInWall: fgui.GObject;
     public statusHandlers: Function[];
@@ -27,6 +26,9 @@ export class RoomView {
     private dbg: fgui.GObject;
     private nameBg: fgui.GObject;
     private anteBg: fgui.GObject;
+    private trusteeshipCom: fgui.GComponent;
+    private trusteeshipBtn: fgui.GButton;
+    private trusteeshipComCancelBtn: fgui.GButton;
     private settingBtn: fgui.GObject;
     private gpsBtn: fgui.GButton;
     private gpsUnOpen: fgui.GObject;
@@ -278,6 +280,9 @@ export class RoomView {
         // this.arrowObj.wrapper.scale = pos.scale;
         // this.arrowObj.visible = true;
     }
+    public showOrHideTrusteeshipCom(isShow: boolean): void {
+        this.trusteeshipCom.visible = isShow;
+    }
     public showTingDataView(list: TingPai[]): void {
         // Logger.debug("显示听 列表 ", list);
         if (list.length <= 0) {
@@ -429,7 +434,7 @@ export class RoomView {
         this.chatBtn.visible = true;
         this.gpsBtn.visible = !this.room.isJoyRoom; //欢乐场不显示gps
         this.settingBtn.visible = true;
-        this.recoredBtn.visible = true;
+        this.recoredBtn.visible = !this.room.isJoyRoom; //欢乐场不显示语音按钮;
         this.dbg.visible = true;
         this.nameBg.visible = true;
         this.anteBg.visible = true;
@@ -576,12 +581,6 @@ export class RoomView {
      * 初始化
      */
     private initButton(): void {
-        // const chatBtn = view.getChild("chatBtn")
-        // chatBtn.onClick:Set(
-        //     function()
-        //         chatView.showChatView()
-        //     }
-        // )
 
         this.chatBtn = this.unityViewNode.getChild("chatBtn");
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");
@@ -603,7 +602,6 @@ export class RoomView {
         } else {
             this.enableVoiceBtn(false);
         }
-
         this.replayHideBtns();
     }
 
@@ -708,9 +706,7 @@ export class RoomView {
             this.laiziTilePos2 = this.laiziCom.getChild("laiziPos2");
             this.laigenTilePos2 = this.laiziCom.getChild("laigenPos2");
         }
-
         this.laiziCom.visible = false;
-
         //倒计时
         this.countDownText = this.roundMarkView.getChild("num");
         //道具
@@ -742,12 +738,19 @@ export class RoomView {
 
         this.gamePauseTipsCom = this.unityViewNode.getChild("tipsCom").asCom;
 
-        //提示消耗多少欢乐豆
-        // Logger.debug("this.room.isJoyRoom : ", this.room.isJoyRoom);
+        //托管
+        this.trusteeshipCom = this.unityViewNode.getChild("trusteeshipCom").asCom;
+        this.trusteeshipComCancelBtn = this.trusteeshipCom.getChild("cancelBtn").asButton;
+        this.trusteeshipComCancelBtn.onClick(() => { this.room.onManagedClicked(false); }, this);
+
+        this.trusteeshipBtn = this.unityViewNode.getChild("trusteeshipBtn").asButton;
+        this.trusteeshipBtn.onClick(() => { this.room.onManagedClicked(true); }, this);
         if (this.room.isJoyRoom) {
-            // Logger.debug("this.room.joyRoom : ", this.room.joyRoom);
+            //提示消耗多少欢乐豆
             const str = this.room.joyRoom.cost_param.toString();
             this.unityViewNode.getChild("joyText").text = LocalStrings.findString("joyText", str);
+
+            this.trusteeshipBtn.visible = true;
         }
     }
 

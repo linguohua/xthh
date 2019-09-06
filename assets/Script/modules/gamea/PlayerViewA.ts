@@ -1028,7 +1028,7 @@ export class PlayerViewA {
 
         //离线
         const onLeave = (): void => {
-            this.head.headView.grayed = true;
+            // this.head.headView.grayed = true;
         };
 
         //正在玩

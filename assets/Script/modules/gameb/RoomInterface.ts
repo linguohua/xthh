@@ -77,6 +77,7 @@ export interface RoomViewInterface {
     playLaiAni(): void;
     playPiaoEffect(pos: cc.Vec2): Promise<void>;
     showOrHideReadyView(isShow: boolean): void;
+    showOrHideTrusteeshipCom(isShow: boolean): void;
     showOrHideTipsOfMe(isShow: boolean): void;
     showCountDownIfReadViewShow(): boolean;
     showGpsView(): void;
@@ -147,7 +148,7 @@ export interface RoomInterface {
     switchBg(index: number): void;
 
     onDissolveClicked(): void;
-
+    onManagedClicked(isManaged: boolean): void;
     onExitButtonClicked(): void;
 
     coWaitSeconds(seconds: number): Promise<void>;
