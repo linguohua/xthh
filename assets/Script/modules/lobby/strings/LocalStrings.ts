@@ -65,6 +65,7 @@ export namespace LocalStrings {
                 [`game`]: "游戏",
                 [`roundCount`]: "局数",
                 [`baseScore`]: "底注",
+                [`joyXiaoHao`]: "消耗台费:{0}",
                 [`total`]: "总共",
                 [`round`]: "局",
                 [`gameResult`]: "游戏结果",

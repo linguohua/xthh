@@ -480,10 +480,13 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.DATA_GDY, dataGdy);
         DataStore.setItem(KeyConstants.ROOMS, JSON.stringify(rooms));
         DataStore.setItem(KeyConstants.AVATAR_INDEX, fastLoginAck.pdata.data.avatar);
-
         DataStore.setItem(KeyConstants.TURN_TABLE, etData);
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+        // 低保（免费领取欢乐豆）数据
+        DataStore.setItem(KeyConstants.HELPER_TIME, fastLoginAck.pdata.helper.helper_time);
+        DataStore.setItem(KeyConstants.HELPER_SIZE, fastLoginAck.helperdata.helpers.length);
+        DataStore.setItem(KeyConstants.HELPER_PARAM, fastLoginAck.pdata.helper.param);
 
         if (fastLoginAck.channel === "mac") {
             // 游客登录标志

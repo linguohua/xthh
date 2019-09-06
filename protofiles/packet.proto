@@ -1000,5 +1000,16 @@ message packet_friend_ack{
   optional uint32			  param = 5;			// 参数1
   optional string			   data = 10;			// 参数2
   optional string		   nickname = 20;			// 昵称
-  optional string			   face = 30;			// 脸谱
+	optional string			   face = 30;			// 脸谱
+}
+// 低保请求
+message packet_helper_req{
+	optional uint32			player_id = 2;		// 玩家id
+	optional uint32           refresh = 3;		//是否刷新 0:不刷新 1:刷新
+}
+
+message packet_helper_ack{
+	required uint32				  ret = 1;	// 返回值
+	optional uint32			player_id = 2;		// 玩家id
+	repeated object			    gains = 20;	// 获得信息
 }

@@ -5490,5 +5490,33 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_friend_ack;
 		}
 
+		interface Ipacket_helper_req {
+			player_id?: number;
+			refresh?: number;
+		}
+
+		class packet_helper_req implements Ipacket_helper_req {
+			public player_id: number;
+			public refresh: number;
+			constructor(properties?: casino.Ipacket_helper_req);
+			public static encode(message: packet_helper_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_helper_req;
+		}
+
+		interface Ipacket_helper_ack {
+			ret: number;
+			player_id?: number;
+			gains?: casino.Iobject[];
+		}
+
+		class packet_helper_ack implements Ipacket_helper_ack {
+			public ret: number;
+			public player_id: number;
+			public gains: casino.Iobject[];
+			constructor(properties?: casino.Ipacket_helper_ack);
+			public static encode(message: packet_helper_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_helper_ack;
+		}
+
 	}
 }

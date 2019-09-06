@@ -9,6 +9,7 @@ import { Player } from "./Player";
 import { RoomInterface } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
+import { WelfareView } from "../lobby/views/WelfareView";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 
@@ -93,6 +94,7 @@ export class HandResultView extends cc.Component {
     private laizi: fgui.GComponent;
     private lastOne: fgui.GComponent;
     private dizhu: fgui.GObject;
+    private xiaohaoText: fgui.GObject;
     private date: fgui.GObject;
     private countDown: fgui.GObject;
     // private textTime: fgui.GObject;
@@ -217,6 +219,10 @@ export class HandResultView extends cc.Component {
         this.dizhu.text = `${LocalStrings.findString("baseScore")}：${this.room.roomInfo.base}`;
         const date = new Date();
         this.date.text = CommonFunction.formatDate(date);
+        if (this.room.isJoyRoom && this.room.joyRoom !== null) {
+            const str = this.room.joyRoom.cost_param.toString();
+            this.xiaohaoText.text = LocalStrings.findString("joyXiaoHao", str);
+        }
     }
 
     //更新玩家基本信息
@@ -503,6 +509,20 @@ export class HandResultView extends cc.Component {
 
         this.dizhu = this.unityViewNode.getChild("dizhuText");
         this.date = this.unityViewNode.getChild("date");
+        this.xiaohaoText = this.unityViewNode.getChild("xiaohaoText");
+        const diBg1 = this.unityViewNode.getChild("diBg1");
+        const diBg2 = this.unityViewNode.getChild("diBg2");
+        const diBg3 = this.unityViewNode.getChild("diBg3");
+        if (this.room.isJoyRoom) {
+            const num = 120;
+            this.dizhu.setPosition(this.dizhu.x, this.dizhu.y - num);
+            this.date.setPosition(this.date.x, this.date.y - num);
+            diBg1.setPosition(diBg1.x, diBg1.y - num);
+            diBg2.setPosition(diBg2.x, diBg2.y - num);
+
+            diBg3.visible = true;
+            this.xiaohaoText.visible = true;
+        }
 
         this.laizi = this.unityViewNode.getChild("laizi").asCom;
         this.lastOne = this.unityViewNode.getChild("lastOne").asCom;
@@ -611,7 +631,8 @@ export class HandResultView extends cc.Component {
         } else {
             //欢乐场的话就再进游戏
             let joyRoom = null;
-            const myGold = this.room.getMyPlayer().totalScores;
+            const myGold = +DataStore.getString(KeyConstants.BEANS); // this.room.getMyPlayer().totalScores;
+            Logger.debug("myGold ---------------- 欢乐豆 : ", myGold);
             if (this.room.joyRoom.gold.low <= myGold) {
                 //如果欢乐豆还够的话 继续这种房间
                 joyRoom = this.room.joyRoom;
@@ -625,7 +646,7 @@ export class HandResultView extends cc.Component {
                     }
                 }
             }
-            // joyRoom = null;
+            joyRoom = null;
             if (joyRoom !== null) {
                 const req = {
                     casino_id: joyRoom.casino_id,
@@ -642,7 +663,13 @@ export class HandResultView extends cc.Component {
                 this.closeHandResultView();
             } else {
                 // 判断有没有可以免费领
+                const helperCount = this.helperNumber();
+                if (helperCount > 0) {
+                    //有得领
+                    this.room.getRoomHost().showWelfareView(helperCount);
 
+                    return;
+                }
                 // 提示用户没有豆了
                 const yesCB = () => {
                     const view = this.addComponent(ShopView);
@@ -658,6 +685,42 @@ export class HandResultView extends cc.Component {
                 // this.quit();
             }
         }
+    }
+    private helperNumber(): number {
+        let havaHelperNum = 0; //领取免费豆次数
+        const helperTimeStr = DataStore.getString(KeyConstants.HELPER_TIME, "");
+        const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
+        const helperParamStr = DataStore.getString(KeyConstants.HELPER_PARAM, "");
+        Logger.debug(`helperTimeStr : ${helperTimeStr} ; helperSizeStr : ${helperSizeStr} ; helperParamStr : ${helperParamStr}`);
+        if (helperSizeStr !== "") {
+            const helperSize = +helperSizeStr;
+            if (helperSize > 0) {
+                if (this.isToday(helperTimeStr)) {
+                    //如果领取的时间是今天
+                    if (helperParamStr !== "") {
+                        havaHelperNum = helperSize - +helperParamStr;
+                    } else {
+                        havaHelperNum = helperSize;
+                    }
+                } else {
+                    havaHelperNum = helperSize;
+                }
+            }
+        }
+        Logger.debug("havaHelperNum ： ", havaHelperNum);
+
+        return havaHelperNum;
+    }
+    private isToday(helperTimeStr: string): boolean {
+        if (helperTimeStr === "") {
+            return false;
+        }
+        const time = +helperTimeStr * 1000;
+        const time0 = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
+        const time24 = new Date(new Date().setHours(24, 0, 0, 0)).getTime();
+        // Logger.debug(`time : ${time} ; time0 : ${time0} ; time24 : ${time24}`);
+
+        return time0 < time && time < time24;
     }
     private onBackButtonClick(): void {
         if (!this.room.isReplayMode()) {

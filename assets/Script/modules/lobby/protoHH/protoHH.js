@@ -11773,6 +11773,48 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 30
                         }
                     ]
+                },
+                {
+                    "name": "packet_helper_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "refresh",
+                            "id": 3
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_helper_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "object",
+                            "name": "gains",
+                            "id": 20
+                        }
+                    ]
                 }
             ],
             "enums": [

@@ -106,8 +106,12 @@ export class RoomView {
         }
 
         if (this.room.isJoyRoom) {
-            //欢乐场显示按钮
+            //欢乐场显示
             this.settingBtn.visible = true;
+            this.nameBg.visible = true;
+            this.anteBg.visible = true;
+            this.dbg.visible = true;
+            this.laiziCom.visible = true;
         }
     }
 
@@ -427,8 +431,8 @@ export class RoomView {
         this.settingBtn.visible = true;
         this.recoredBtn.visible = true;
         this.dbg.visible = true;
-        // this.nameBg.visible = true;
-        // this.anteBg.visible = true;
+        this.nameBg.visible = true;
+        this.anteBg.visible = true;
 
         this.replayHideBtns();
     }
@@ -705,7 +709,7 @@ export class RoomView {
             this.laigenTilePos2 = this.laiziCom.getChild("laigenPos2");
         }
 
-        this.laiziCom.visible = true;
+        this.laiziCom.visible = false;
 
         //倒计时
         this.countDownText = this.roundMarkView.getChild("num");
@@ -739,9 +743,9 @@ export class RoomView {
         this.gamePauseTipsCom = this.unityViewNode.getChild("tipsCom").asCom;
 
         //提示消耗多少欢乐豆
-        Logger.debug("this.room.isJoyRoom : ", this.room.isJoyRoom);
+        // Logger.debug("this.room.isJoyRoom : ", this.room.isJoyRoom);
         if (this.room.isJoyRoom) {
-            Logger.debug("this.room.joyRoom : ", this.room.joyRoom);
+            // Logger.debug("this.room.joyRoom : ", this.room.joyRoom);
             const str = this.room.joyRoom.cost_param.toString();
             this.unityViewNode.getChild("joyText").text = LocalStrings.findString("joyText", str);
         }
