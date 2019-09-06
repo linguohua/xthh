@@ -751,6 +751,8 @@ export class RoomView {
             this.unityViewNode.getChild("joyText").text = LocalStrings.findString("joyText", str);
 
             this.trusteeshipBtn.visible = true;
+            this.unityViewNode.getChild("joyRoomHead2").visible = true;
+            this.unityViewNode.getChild("joyRoomHead4").visible = true;
         }
     }
 

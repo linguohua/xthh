@@ -58,7 +58,6 @@ export class JoyBeanView extends cc.Component {
         lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
     }
     private initView(): void {
-
         const returnBtn = this.view.getChild("returnBtn");
         returnBtn.onClick(this.onCloseBtnClick, this);
 
@@ -94,6 +93,11 @@ export class JoyBeanView extends cc.Component {
 
         const playQuicklyBtn = this.view.getChild("playQuicklyBtn");
         playQuicklyBtn.onClick(this.onQuicklyClick, this);
+
+        const beansText = this.view.getChild("douText").asTextField;
+        const fkText = this.view.getChild("fkText").asTextField;
+        beansText.text = DataStore.getString(KeyConstants.BEANS);
+        fkText.text = DataStore.getString(KeyConstants.CARD);
     }
     private onCloseBtnClick(): void {
         this.destroy();
