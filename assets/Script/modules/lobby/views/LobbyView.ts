@@ -81,7 +81,7 @@ export class LobbyView extends cc.Component {
 
     protected onDestroy(): void {
         Logger.debug("LobbyView.onDestroy");
-
+        this.lm.nimSDK.close();
         SoundMgr.stopMusic();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {

@@ -59,7 +59,7 @@ export interface MsgCenter {
 export interface NimSDKInterface {
     eventTarget: cc.EventTarget;
     initNimSDK(): void;
-    disconnect(): void;
+    close(): void;
     createTeam(imaccids: string[], roomNumber: string): void;
     sendTeamMsg(msgContent: string): void;
     sendTeamAudio(wxFilePath: string): void;

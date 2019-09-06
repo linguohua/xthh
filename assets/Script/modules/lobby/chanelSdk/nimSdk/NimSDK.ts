@@ -183,13 +183,10 @@ export class NimSDK {
 
     }
 
-    public disconnect(): void {
+    public close(): void {
         this.nimSDK.disconnect({
             done: async (res: {}): Promise<void> => {
-                Logger.debug("disconnect done:", res);
-                await this.tryReconnect();
-                // await this.waitSecond(2);
-                // this.nimSDK.connect();
+                Logger.debug("NimSDK connect close:", res);
             }
         });
     }
@@ -560,5 +557,16 @@ export class NimSDK {
         };
 
         this.component.schedule(keepAlive, 60, cc.macro.REPEAT_FOREVER);
+    }
+
+    private disconnect(): void {
+        this.nimSDK.disconnect({
+            done: async (res: {}): Promise<void> => {
+                Logger.debug("disconnect done:", res);
+                await this.tryReconnect();
+                // await this.waitSecond(2);
+                // this.nimSDK.connect();
+            }
+        });
     }
 }
