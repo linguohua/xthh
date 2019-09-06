@@ -54,6 +54,14 @@ export class WelfareView extends cc.Component {
     private onMsg(pmsg: protoHH.casino.ProxyMessage): void {
         const ack = protoHH.casino.packet_helper_ack.decode(pmsg.Data);
         Logger.debug("领取欢乐豆返回值: ", ack);
+        //保存已领次数到本地
+        const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
+        const helperSize = +helperSizeStr;
+        const p = helperSize - this.count + 1; //计算已领次数 +上刚领取的 1次
+        DataStore.setItem(KeyConstants.HELPER_PARAM, p);
+        //保存最后领取的时间截到本地
+        const d = new Date().getTime();
+        DataStore.setItem(KeyConstants.HELPER_TIME, d);
 
         this.destroy();
     }

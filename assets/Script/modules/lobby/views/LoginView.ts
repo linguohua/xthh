@@ -7,6 +7,7 @@ import { LocalStrings } from "../strings/LocalStringsExports";
 import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
 import { OpenType, PhoneAuthView } from "./PhoneAuthView";
+import Long = require("../protobufjs/long");
 
 const { ccclass } = cc._decorator;
 interface ServerCfg {
@@ -484,7 +485,11 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
         // 低保（免费领取欢乐豆）数据
-        DataStore.setItem(KeyConstants.HELPER_TIME, fastLoginAck.pdata.helper.helper_time);
+        let helper_time = 0;
+        if (fastLoginAck.pdata.helper.helper_time !== undefined && fastLoginAck.pdata.helper.helper_time !== null) {
+            helper_time = +fastLoginAck.pdata.helper.helper_time * 1000;
+        }
+        DataStore.setItem(KeyConstants.HELPER_TIME, helper_time);
         DataStore.setItem(KeyConstants.HELPER_SIZE, fastLoginAck.helperdata.helpers.length);
         DataStore.setItem(KeyConstants.HELPER_PARAM, fastLoginAck.pdata.helper.param);
 

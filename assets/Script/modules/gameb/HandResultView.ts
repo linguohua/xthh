@@ -717,7 +717,7 @@ export class HandResultView extends cc.Component {
         if (helperTimeStr === "") {
             return false;
         }
-        const time = +helperTimeStr * 1000;
+        const time = +helperTimeStr;
         const time0 = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
         const time24 = new Date(new Date().setHours(24, 0, 0, 0)).getTime();
         // Logger.debug(`time : ${time} ; time0 : ${time0} ; time24 : ${time24}`);
