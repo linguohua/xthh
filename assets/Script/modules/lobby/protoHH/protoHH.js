@@ -11815,6 +11815,23 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 20
                         }
                     ]
+                },
+                {
+                    "name": "packet_broadcast_config",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "broadcast_config",
+                            "name": "broadcast",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_broadcast_sync",
+                    "syntax": "proto2",
+                    "fields": []
                 }
             ],
             "enums": [

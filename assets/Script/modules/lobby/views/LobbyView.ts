@@ -28,9 +28,14 @@ export class LobbyView extends cc.Component {
     private beansText: fgui.GTextField;
     private fkText: fgui.GTextField;
     private headLoader: fgui.GLoader;
-    // private marqueeAction: cc.Action = null;
+    private marqueeAction: cc.Action = null;
     private roomNumberFromShare: string = "";
     private wxShowCallBackFunction: (res: showRes) => void;
+
+    private broadcasts: proto.casino.Ibroadcast_config[];
+
+    private marqueeTextOriginPos: cc.Vec2;
+    private announcementText: fgui.GObject;
 
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
@@ -38,6 +43,7 @@ export class LobbyView extends cc.Component {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
         this.registerHandler();
+        // this.syncBoradcast();
 
         const loader = lm.loader;
 
@@ -83,6 +89,7 @@ export class LobbyView extends cc.Component {
         Logger.debug("LobbyView.onDestroy");
         this.lm.nimSDK.close();
         SoundMgr.stopMusic();
+        this.unregisterHandler();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
@@ -93,9 +100,20 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.eventTarget.on("onFastLoginComplete", this.onReconnectOk, this);
         this.lm.msgCenter.eventTarget.on("logout", this.onLogout, this);
         this.lm.eventTarget.on("onUserInfoModify", this.onUserInfoModify, this);
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
+        this.lm.eventTarget.on("returnFromGame", this.onReturnFromGame, this);
 
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyUpdate, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST, this.onBroadcast, this);
+    }
+
+    private unregisterHandler(): void {
+        this.lm.msgCenter.eventTarget.off("onFastLoginComplete");
+        this.lm.msgCenter.eventTarget.off("logout");
+        this.lm.eventTarget.off("onUserInfoModify");
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST);
     }
 
     private checkAgreement(): void {
@@ -119,6 +137,9 @@ export class LobbyView extends cc.Component {
     private initView(): void {
         const personalRoomBtn = this.view.getChild("personalRoomBtn");
         personalRoomBtn.onClick(this.onCreateRoom, this);
+
+        this.announcementText = this.view.getChild('announcementText');
+        this.marqueeTextOriginPos = new cc.Vec2(this.announcementText.node.x, this.announcementText.node.y);
 
         const signBtn = this.view.getChild("signBtn");
         signBtn.onClick(this.onSignBtnClick, this);
@@ -286,7 +307,7 @@ export class LobbyView extends cc.Component {
     private onJoinGameAck(ack: proto.casino.packet_player_join_ack): void {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
-
+        this.syncBoradcast();
         // 如果是在房间内重连，则发通知让房间重连恢复
         if (this.lm.isGameModuleExist()) {
             let isFromShare: boolean = false;
@@ -388,42 +409,56 @@ export class LobbyView extends cc.Component {
         this.lm.nimSDK = nimSDK;
     }
 
-    // private showMarquee(announcement: string): void {
+    private showMarquee(announcement: string, duration: number): void {
 
-    //     if (this.marqueeAction !== null) {
-    //         Logger.debug("showMarquee already had marquee action---------------------");
+        if (this.marqueeAction !== null) {
+            Logger.debug("showMarquee already had marquee action---------------------");
 
-    //         return;
-    //     }
-    //     const announcementText = this.view.getChild('announcementText');
-    //     const pos = this.view.getChild('pos');
+            return;
+        }
+        const announcementText = this.announcementText;
+        const pos = this.view.getChild('pos');
 
-    //     announcementText.text = announcement;
+        announcementText.text = announcement;
 
-    //     const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
-    //     announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
+        const x = cc.winSize.width / 2 - (cc.winSize.height * 1136 / 640 / 2);
+        announcementText.setPosition(-x + cc.winSize.width + announcementText.width, announcementText.y);
 
-    //     const xPos = announcementText.node.x;
-    //     const yPos = announcementText.node.y;
+        const xPos = announcementText.node.x;
+        const yPos = announcementText.node.y;
 
-    //     // 方案：moveTo
-    //     let duration = announcementText.width * 0.005;
-    //     Logger.debug("duration = ", duration);
+        // 方案：moveTo
+        // let duration = announcementText.width * 0.005;
+        // Logger.debug("duration = ", duration);
 
-    //     if (duration < 10) {
-    //         duration = 15;
-    //     }
+        // if (duration < 10) {
+        //     duration = 15;
+        // }
 
-    //     const action1 = cc.moveTo(duration, pos.node.x - 100, pos.node.y);
-    //     const action3 = cc.callFunc(() => {
-    //         announcementText.node.setPosition(xPos, yPos);
-    //         this.marqueeAction = null;
-    //     });
+        const action1 = cc.moveTo(duration, pos.node.x - 100, pos.node.y);
+        const action3 = cc.callFunc(() => {
+            announcementText.node.setPosition(xPos, yPos);
+            this.marqueeAction = null;
 
-    //     const action0 = cc.sequence(action1, action3);
-    //     this.marqueeAction = announcementText.node.runAction(action0);
+            if (this.broadcasts.length > 0) {
+                const firstBroadcast = this.broadcasts.shift();
+                firstBroadcast.play_interval = firstBroadcast.play_interval - 1;
+                this.marqueeAction = null;
+                this.showMarquee(firstBroadcast.content, firstBroadcast.play_duration);
 
-    // }
+                if (firstBroadcast.play_interval !== 0) {
+                    this.broadcasts.push(firstBroadcast);
+                }
+                Logger.debug("broadcasts:", this.broadcasts);
+                Logger.debug(`broadcasts, id:${firstBroadcast.id}, play_interval:${firstBroadcast.play_interval}`);
+            }
+
+        });
+
+        const action0 = cc.sequence(action1, action3);
+        this.marqueeAction = announcementText.node.runAction(action0);
+
+    }
 
     private setLaunchCallBack(): void {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
@@ -487,6 +522,28 @@ export class LobbyView extends cc.Component {
         // }
     }
 
+    private onBroadcast(msg: proto.casino.ProxyMessage): void {
+        const broadcastCfg = proto.casino.packet_broadcast_config.decode(msg.Data);
+        Logger.debug("broadcastCfg:", broadcastCfg);
+        this.broadcasts = [];
+        for (const b of broadcastCfg.broadcast) {
+            if (!b.disable) {
+                this.broadcasts.push(b);
+            }
+        }
+
+        if (this.marqueeAction === null) {
+            const firstBroadcast = this.broadcasts.shift();
+            firstBroadcast.play_interval = firstBroadcast.play_interval - 1;
+            this.showMarquee(firstBroadcast.content, firstBroadcast.play_duration);
+
+            if (firstBroadcast.play_interval !== 0) {
+                this.broadcasts.push(firstBroadcast);
+            }
+        }
+
+    }
+
     private checkGpsSetting(): void {
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             return;
@@ -534,6 +591,33 @@ export class LobbyView extends cc.Component {
         });
     }
 
+    private syncBoradcast(): void {
+        const req = new proto.casino.packet_broadcast_sync();
+        const buf = proto.casino.packet_broadcast_sync.encode(req);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_BROADCAST_SYNC);
+        Logger.debug("syncBoradcast");
+
+    }
+
+    private onReturnFromGame(): void {
+        // this.announcementText.node.resumeAllActions();
+        if (this.broadcasts.length > 0) {
+            const firstBroadcast = this.broadcasts.shift();
+            firstBroadcast.play_interval = firstBroadcast.play_interval - 1;
+            this.marqueeAction = null;
+            this.announcementText.text = "";
+            this.announcementText.node.setPosition(this.marqueeTextOriginPos.x, this.marqueeTextOriginPos.y);
+            this.showMarquee(firstBroadcast.content, firstBroadcast.play_duration);
+
+            if (firstBroadcast.play_interval !== 0) {
+                this.broadcasts.push(firstBroadcast);
+            }
+
+        }
+        // else {
+        //     this.announcementText.node.setPosition(this.announcementOriginPos.x, this.announcementOriginPos.y);
+        // }
+    }
     private onLogout(): void {
         Logger.debug("onLogout");
         this.lm.logout();

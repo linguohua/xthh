@@ -5518,5 +5518,25 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_helper_ack;
 		}
 
+		interface Ipacket_broadcast_config {
+			broadcast?: casino.Ibroadcast_config[];
+		}
+
+		class packet_broadcast_config implements Ipacket_broadcast_config {
+			public broadcast: casino.Ibroadcast_config[];
+			constructor(properties?: casino.Ipacket_broadcast_config);
+			public static encode(message: packet_broadcast_config): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_broadcast_config;
+		}
+
+		interface Ipacket_broadcast_sync {
+		}
+
+		class packet_broadcast_sync implements Ipacket_broadcast_sync {
+			constructor(properties?: casino.Ipacket_broadcast_sync);
+			public static encode(message: packet_broadcast_sync): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_broadcast_sync;
+		}
+
 	}
 }

@@ -63,6 +63,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
         // this.eventTarget.emit(`checkRoomInfo`);
         // 从牌局内返回来，如果战绩页面还存在，则显示出来
+        this.eventTarget.emit(`returnFromGame`);
         this.eventTarget.emit(`onGameSubRecordShow`);
         // this.eventTarget.emit(`onClubViewShow`);
     }
