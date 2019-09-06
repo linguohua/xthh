@@ -176,8 +176,8 @@ export class LotteryView extends cc.Component {
         if (this.currTurnableData !== null) {
             const energyStr = DataStore.getString(KeyConstants.PLAYER_ENERGY);
             const playerEnergy = <proto.casino.player_energy>JSON.parse(energyStr);
-            Logger.debug("data= ", data);
-            Logger.debug("playerEnergy = ", playerEnergy);
+            // Logger.debug("data= ", data);
+            // Logger.debug("playerEnergy = ", playerEnergy);
 
             for (let i = 0; i < data.item.length && i < 6; i++) {
                 const item = data.item[i];

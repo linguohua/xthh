@@ -1,5 +1,4 @@
-import { GameError } from "../../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../../protobufjs/long");
 import { proto } from "../../protoHH/protoHH";
@@ -16,7 +15,8 @@ const REWARD_IMG: { [key: number]: string } = {
 enum OPERATION {
     NONE = 0,
     TAKE = 1,
-    DELETE = 2
+    DELETE = 2,
+    LOAD_EMAIL = 3
 }
 
 /**
@@ -28,22 +28,26 @@ export class EmailView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
+    // 没有邮件时的提示
     private noEmailText: fgui.GTextField;
 
     private takeBtn: fgui.GButton;
     private deleteBtn: fgui.GButton;
 
     private textComponent: fgui.GComponent;
-    private emailList: fgui.GList;
-    private attachmentsList: fgui.GList;
 
+    // 邮件列表
+    private emailList: fgui.GList;
+    // 附件列表
+    private attachmentsList: fgui.GList;
+    // 邮件标题
     private titleText: fgui.GTextField;
 
+    // 所有邮件
     private playerEmails: proto.casino.Iplayer_mail[];
 
+    // 当前选择的邮件
     private selectPlayerEmail: proto.casino.Iplayer_mail;
-
-    private selectPlayerEmailIndex: number = 0;
 
     private operation: OPERATION = OPERATION.NONE;
 
@@ -69,6 +73,10 @@ export class EmailView extends cc.Component {
     }
 
     protected onDestroy(): void {
+
+        const emailData = JSON.stringify(this.playerEmails);
+        DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+
         this.unRegisterHander();
         this.win.hide();
         this.win.dispose();
@@ -118,11 +126,6 @@ export class EmailView extends cc.Component {
 
         const titleText = this.view.getChild("titleText").asTextField;
         this.titleText = titleText;
-
-        // const emailData = DataStore.getString(KeyConstants.PLAYER_EMAIL);
-        // const emails = <proto.casino.player_mail[]>JSON.parse(emailData);
-
-        // Logger.debug("emails = ", emails);
         this.registerHandler();
         this.reloadEmail();
 
@@ -133,7 +136,7 @@ export class EmailView extends cc.Component {
     }
 
     private onDeleteBtnClick(): void {
-        // this.destroy();
+
         const playerEmail = this.selectPlayerEmail;
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
         const req2 = new proto.casino.packet_mail_req();
@@ -148,7 +151,7 @@ export class EmailView extends cc.Component {
     }
 
     private onTakeBtnClick(): void {
-        //this.destroy();
+
         const playerEmail = this.selectPlayerEmail;
 
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
@@ -170,49 +173,78 @@ export class EmailView extends cc.Component {
         const buf = proto.casino.packet_mail_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.operation = OPERATION.LOAD_EMAIL;
 
     }
 
+    /**
+     * 关于邮件的回复，加载，领取，删除
+     * @param msg 信息
+     */
     private onEmailAck(msg: proto.casino.ProxyMessage): void {
-        //
+
         const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
-        Logger.debug("onEmailAck mailData= ", mailData);
 
         if (mailData.ret !== proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
 
-            Dialog.prompt(GameError.getErrorString(mailData.ret));
-
-            return;
-        }
-        const mailId = mailData.mail_id.toNumber();
-        if (mailId === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-            const playerEmails = mailData.mails;
-
-            this.playerEmails = playerEmails;
-            this.emailList.numItems = this.playerEmails.length;
-            //默认选择第一个
-            this.selectFirst();
-        } else {
-            const gain = mailData.gain;
-
-            if (gain === true) {
-                if (this.operation === OPERATION.TAKE) {
-                    //
-                    const view = this.addComponent(RewardView);
-                    view.show(mailData.gains);
-
-                    this.changeReceiveState();
-
-                } else if (this.operation === OPERATION.DELETE) {
-                    //
-                    this.deleteEmail();
-                }
+            if (this.operation === OPERATION.LOAD_EMAIL) {
+                this.loadPlayerEmailsFromDataStore();
             }
 
+            Logger.debug("use DataStore --------------------------");
+
+        } else {
+            const mailId = +mailData.mail_id;
+
+            if (mailId === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                const playerEmails = mailData.mails;
+                this.savePlayerEmails2DataStore(playerEmails);
+                this.refreshEmailList(playerEmails);
+                Logger.debug("use net work --------------------------");
+            } else {
+                this.handerOtherAction(mailData);
+
+            }
         }
 
+        this.operation = OPERATION.NONE;
     }
 
+    private loadPlayerEmailsFromDataStore(): void {
+        const playerEmailsStr = DataStore.getString(KeyConstants.PLAYER_EMAIL);
+        const playerEmails = <proto.casino.Iplayer_mail[]>JSON.parse(playerEmailsStr);
+        this.refreshEmailList(playerEmails);
+    }
+
+    private savePlayerEmails2DataStore(playerEmails: proto.casino.Iplayer_mail[]): void {
+        const emailData = JSON.stringify(playerEmails);
+        DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+    }
+
+    private handerOtherAction(mailData: proto.casino.packet_mail_ack): void {
+        const gain = mailData.gain;
+        if (gain === true) {
+            if (this.operation === OPERATION.TAKE) {
+                const view = this.addComponent(RewardView);
+                view.show(mailData.gains);
+                this.changeReceiveState();
+
+            } else if (this.operation === OPERATION.DELETE) {
+                this.deleteEmail();
+            }
+        }
+    }
+
+    private refreshEmailList(playerEmails: proto.casino.Iplayer_mail[]): void {
+        this.playerEmails = playerEmails;
+        this.emailList.numItems = this.playerEmails.length;
+        //默认选择第一个
+        this.selectFirst();
+    }
+
+    /**
+     * 选中第一个
+     */
     private selectFirst(): void {
         if (this.playerEmails.length > 0) {
             this.emailList.selectedIndex = 0;
@@ -229,29 +261,37 @@ export class EmailView extends cc.Component {
         }
     }
 
+    /**
+     * 删除邮件
+     */
     private deleteEmail(): void {
-        this.playerEmails[this.selectPlayerEmailIndex] = this.selectPlayerEmail;
-        this.playerEmails.splice(this.selectPlayerEmailIndex, 1);
+        const index = this.playerEmails.indexOf(this.selectPlayerEmail);
+
+        this.playerEmails.splice(index, 1);
         this.emailList.numItems = this.playerEmails.length;
 
         this.selectFirst();
     }
 
+    /**
+     * 修改领取标志和更新列表
+     */
     private changeReceiveState(): void {
+        const index = this.playerEmails.indexOf(this.selectPlayerEmail);
+
         this.selectPlayerEmail.view_time = long.fromNumber(this.lm.msgCenter.getServerTime());
-        this.playerEmails[this.selectPlayerEmailIndex] = this.selectPlayerEmail;
+        this.playerEmails[index] = this.selectPlayerEmail;
 
         this.emailList.numItems = this.playerEmails.length;
 
-        const obj = this.emailList.getChildAt(this.selectPlayerEmailIndex);
-        this.selectEmail(this.selectPlayerEmail, obj, this.selectPlayerEmailIndex);
+        const obj = this.emailList.getChildAt(index);
+        this.selectEmail(this.selectPlayerEmail, obj, index);
 
     }
 
     private renderListItem(index: number, obj: fgui.GObject): void {
 
         const playerEmail = this.playerEmails[index];
-
         const email = playerEmail.data;
 
         const title = obj.asCom.getChild("title");
@@ -262,7 +302,8 @@ export class EmailView extends cc.Component {
 
         const receiveCtrl = obj.asCom.getController("receive");
         const viewTime = playerEmail.view_time;
-        const receive = viewTime.toNumber() > 0;
+
+        const receive = viewTime > long.fromNumber(0);
 
         receiveCtrl.selectedIndex = receive ? 0 : 1;
 
@@ -273,8 +314,14 @@ export class EmailView extends cc.Component {
 
     }
 
+    /**
+     * 选择Email
+     * @param playerEmail 选择的邮件
+     * @param obj UI节点
+     * @param index 列表Index
+     */
     private selectEmail(playerEmail: proto.casino.Iplayer_mail, obj: fgui.GObject, index: number): void {
-        this.selectPlayerEmailIndex = index;
+
         this.selectPlayerEmail = playerEmail;
 
         const email = playerEmail.data;
@@ -282,7 +329,7 @@ export class EmailView extends cc.Component {
         this.titleText.text = email.title;
 
         const viewTime = playerEmail.view_time;
-        const receive = viewTime.toNumber() > 0;
+        const receive = viewTime > long.fromNumber(0);
 
         this.deleteBtn.visible = receive;
         this.takeBtn.visible = !receive;
@@ -290,8 +337,9 @@ export class EmailView extends cc.Component {
         this.updateAttachmentsView();
 
     }
-
-    // 附件个数，现在暂时为1
+    /**
+     * 更新附件列表
+     */
     private updateAttachmentsView(): void {
         const email = this.selectPlayerEmail.data;
         const gains = email.gains;
@@ -321,7 +369,7 @@ export class EmailView extends cc.Component {
         const gains = email.gains;
         const filterGains: proto.casino.Iobject[] = [];
 
-        const receive = this.selectPlayerEmail.view_time.toNumber() > 0;
+        const receive = +this.selectPlayerEmail.view_time > 0;
 
         for (const gain of gains) {
             // TODO: 现在已过滤红包经验，等资源出了，在放开限制
@@ -341,7 +389,7 @@ export class EmailView extends cc.Component {
 
         count.text = `${selectGain.param}`;
 
-        // 设置是否领取
+        // 设置领取状态
         loader.grayed = receive;
         count.grayed = receive;
         tick.grayed = receive;
