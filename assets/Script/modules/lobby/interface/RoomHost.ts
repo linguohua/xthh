@@ -14,7 +14,7 @@ export interface RoomHost {
     component: cc.Component;
     loader: GResLoader;
     sendBinary(buf: ByteBuffer, code: number): void;
-    showWelfareView(helperCount: number): void;
+    showWelfareView(helperCount: number, refresh: number): void;
     getLobbyModuleLoader(): GResLoader;
     addMember2Team(imaccids: string[]): void;
     dismissAllTeam(): void;

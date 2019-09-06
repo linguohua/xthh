@@ -860,6 +860,9 @@ export class RoomA {
         this.roomView.enableVoiceBtn(isShow);
     }
 
+    public onLeaveClicked(): void {
+        Dialog.prompt(LocalStrings.findString("gameIsPlaying"));
+    }
     public showGamePauseTips(timeStamp: number): void {
         //
         this.roomView.showGamePauseTips(timeStamp);

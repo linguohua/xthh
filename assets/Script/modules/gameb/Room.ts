@@ -855,7 +855,21 @@ export class Room {
     public enableVoiceBtn(isShow: boolean): void {
         this.roomView.enableVoiceBtn(isShow);
     }
+    public onLeaveClicked(): void {
+        if (this.isJoyRoom && this.handStartted === 0) {
+            //如果是欢乐场 还没开局的话 是可以退出的
+            const myUserID = DataStore.getString(KeyConstants.PLAYER_ID);
 
+            const req = new protoHH.casino.packet_table_leave();
+            req.idx = 1;
+            req.player_id = +myUserID;
+
+            const buf = protoHH.casino.packet_table_leave.encode(req);
+            this.host.sendBinary(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_LEAVE);
+        } else {
+            Dialog.prompt(LocalStrings.findString("gameIsPlaying"));
+        }
+    }
     public showGamePauseTips(timeStamp: number): void {
         //
         this.roomView.showGamePauseTips(timeStamp);

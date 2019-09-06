@@ -3,6 +3,7 @@ import { CommonFunction, DataStore, Dialog, GResLoader, KeyConstants, Logger } f
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
 export interface RoomInterface {
+    isJoyRoom: boolean;
     switchBg(agree: number): void;
     onDissolveClicked(): void;
 
@@ -11,6 +12,8 @@ export interface RoomInterface {
     enableVoiceBtn(isShow: boolean): void;
 
     getRoomHost(): RoomHost;
+
+    onLeaveClicked(): void;
 }
 /**
  * 设置界面
@@ -67,7 +70,7 @@ export class RoomSettingView extends cc.Component {
 
     private initView(isOwner: boolean): void {
 
-        // const bg = this.view.getChild("bg");
+        const bg = this.view.getChild("bg");
         // bg.onClick(this.onCloseClick, this);
 
         const btnExit = this.view.getChild("btnExit");
@@ -115,6 +118,14 @@ export class RoomSettingView extends cc.Component {
             this.musicBtn.selected = true;
         } else {
             this.musicBtn.selected = false;
+        }
+
+        if (this.room.isJoyRoom) {
+            this.gpsBtn.visible = false;
+            this.voiceBtn.visible = false;
+            disbandBtn.visible = false;
+
+            bg.height = 220;
         }
     }
 
@@ -238,7 +249,7 @@ export class RoomSettingView extends cc.Component {
 
     private onLeaveRoomClick(): void {
         Logger.debug("onLeaveRoomClick");
-        Dialog.prompt(LocalStrings.findString("gameIsPlaying"));
+        this.room.onLeaveClicked();
     }
 
     private onDisbandBtnClick(): void {

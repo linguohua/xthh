@@ -14,7 +14,8 @@ export class WelfareView extends cc.Component {
     private eventTarget: cc.EventTarget;
     private count: number = 0;
     private lm: LobbyModuleInterface;
-    public showView(lm: LobbyModuleInterface, count: number): void {
+    private refresh: number;
+    public showView(lm: LobbyModuleInterface, count: number, refresh: number): void {
 
         this.eventTarget = new cc.EventTarget();
         lm.loader.fguiAddPackage("lobby/fui_lobby_welfare/lobby_welfare");
@@ -26,6 +27,7 @@ export class WelfareView extends cc.Component {
 
         this.view = view;
         this.count = count;
+        this.refresh = refresh;
         this.lm = lm;
 
         const win = new fgui.Window();
@@ -58,7 +60,8 @@ export class WelfareView extends cc.Component {
     private onCollectClick(): void {
         //MSG_HELPER_REQconst
         const req2 = new protoHH.casino.packet_helper_req();
-        // req2.player_id = +DataStore.getString(KeyConstants.PLAYER_ID);
+        req2.player_id = +DataStore.getString(KeyConstants.PLAYER_ID);
+        req2.refresh = this.refresh;
         const buf = protoHH.casino.packet_helper_req.encode(req2);
         this.lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_HELPER_REQ);
     }

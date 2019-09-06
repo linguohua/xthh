@@ -166,6 +166,7 @@ export interface RoomInterface {
     setLanOfDiscard(isShow: boolean, tile?: number): void;
     showRoomBtnsAndBgs(): void;
     enableVoiceBtn(isShow: boolean): void;
+    onLeaveClicked(): void;
     getReplayCardsOfChairId(cId: number): number[];
     initReplayCardsOfChairId(roundId: number): void;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640" designImage="ui://ls4obr7jo570g9" designImageAlpha="100">
+<component size="1136,640" designImageAlpha="100">
   <displayList>
     <graph id="n12_hpjt" name="spaceBg" xy="0,0" size="1136,640"/>
-    <image id="n0_o570" name="bg" src="o570ga" fileName="resource/s_设置/zm_szdi.png" xy="9,209" size="121,407"/>
+    <image id="n0_o570" name="bg" src="o570ga" fileName="resource/s_设置/zm_szdi.png" xy="9,616" pivot="0,1" anchor="true" size="121,407"/>
     <component id="n2_o570" name="btnYX" src="o570gc" fileName="resource/s_设置/btnYX.xml" xy="15,412"/>
     <component id="n3_o570" name="btnYY" src="o570gd" fileName="resource/s_设置/btnYY.xml" xy="15,474"/>
     <component id="n4_o570" name="btnExit" src="o570ge" fileName="resource/s_设置/btnExit.xml" xy="15,538"/>

@@ -158,9 +158,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     //显示领取福利界面
-    public showWelfareView(helperCount: number): void {
+    public showWelfareView(helperCount: number, refresh: number): void {
         const view = this.addComponent(WelfareView);
-        view.showView(this.lm, helperCount);
+        view.showView(this.lm, helperCount, refresh);
     }
 
     /**

@@ -21,6 +21,9 @@ export namespace HandlerMsgTableLeave {
         const player = <Player>room.getPlayerByChairID(d.idx);
         if (player.isMe()) {
             room.getRoomHost().eventTarget.emit("leave");
+            if (room.isJoyRoom) {
+                room.quit();
+            }
         } else {
             player.unbindView();
             room.removePlayer(player.userID);

@@ -646,7 +646,7 @@ export class HandResultView extends cc.Component {
                     }
                 }
             }
-            joyRoom = null;
+            // joyRoom = null;
             if (joyRoom !== null) {
                 const req = {
                     casino_id: joyRoom.casino_id,
@@ -664,9 +664,9 @@ export class HandResultView extends cc.Component {
             } else {
                 // 判断有没有可以免费领
                 const helperCount = this.helperNumber();
-                if (helperCount > 0) {
+                if (helperCount[0] > 0) {
                     //有得领
-                    this.room.getRoomHost().showWelfareView(helperCount);
+                    this.room.getRoomHost().showWelfareView(helperCount[0], helperCount[1]);
 
                     return;
                 }
@@ -686,8 +686,8 @@ export class HandResultView extends cc.Component {
             }
         }
     }
-    private helperNumber(): number {
-        let havaHelperNum = 0; //领取免费豆次数
+    private helperNumber(): number[] {
+        const havaHelperNum = [0, 1]; //领取免费豆次数
         const helperTimeStr = DataStore.getString(KeyConstants.HELPER_TIME, "");
         const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
         const helperParamStr = DataStore.getString(KeyConstants.HELPER_PARAM, "");
@@ -698,12 +698,14 @@ export class HandResultView extends cc.Component {
                 if (this.isToday(helperTimeStr)) {
                     //如果领取的时间是今天
                     if (helperParamStr !== "") {
-                        havaHelperNum = helperSize - +helperParamStr;
+                        havaHelperNum[0] = helperSize - +helperParamStr;
                     } else {
-                        havaHelperNum = helperSize;
+                        havaHelperNum[0] = helperSize;
                     }
+                    havaHelperNum[1] = 0;
                 } else {
-                    havaHelperNum = helperSize;
+                    havaHelperNum[0] = helperSize;
+                    havaHelperNum[1] = 1;
                 }
             }
         }
