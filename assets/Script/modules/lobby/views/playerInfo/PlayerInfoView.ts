@@ -18,8 +18,8 @@ export class PlayerInfoView extends cc.Component {
     private headLoader: fgui.GLoader;
     private leaveGuildCount: fgui.GObject;
 
-    private douText: fgui.GObject;
-    private fkText: fgui.GObject;
+    // private douText: fgui.GObject;
+    // private fkText: fgui.GObject;
 
     private playerID: string;
     private roomHost: RoomHost;
@@ -70,16 +70,16 @@ export class PlayerInfoView extends cc.Component {
         this.headLoader = this.view.getChild("loader").asLoader;
         this.leaveGuildCount = this.view.getChild("count");
 
-        this.douText = this.view.getChild("douText");
-        this.fkText = this.view.getChild("fkText");
+        // this.douText = this.view.getChild("douText");
+        // this.fkText = this.view.getChild("fkText");
 
         const addFriendBtn = this.view.getChild("addFriendBtn").asButton;
         addFriendBtn.onClick(this.onAddFriendBtnClick, this);
 
-        const deleteFriendBtn = this.view.getChild("deleteFriendBtn").asButton;
+        // const deleteFriendBtn = this.view.getChild("deleteFriendBtn").asButton;
 
-        const genderCtrl = this.view.getController("gender");
-        const friendCtrl = this.view.getController("friend");
+        // const genderCtrl = this.view.getController("gender");
+        // const friendCtrl = this.view.getController("friend");
 
     }
 
