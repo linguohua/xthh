@@ -156,7 +156,7 @@ export class Room {
         }
 
         this.nimMsgs.push(msg);
-        Logger.debug("this.nimMsgs.length:", this.nimMsgs.length);
+        // Logger.debug("this.nimMsgs.length:", this.nimMsgs.length);
         await this.playVoicMsg();
     }
 

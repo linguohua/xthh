@@ -108,12 +108,8 @@ export class LobbyView extends cc.Component {
     }
 
     private unregisterHandler(): void {
-        this.lm.msgCenter.eventTarget.off("onFastLoginComplete");
-        this.lm.msgCenter.eventTarget.off("logout");
         this.lm.eventTarget.off("onUserInfoModify");
-        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE);
-        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE);
-        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST);
+        this.lm.eventTarget.off("returnFromGame");
     }
 
     private checkAgreement(): void {
@@ -449,8 +445,8 @@ export class LobbyView extends cc.Component {
                 if (firstBroadcast.play_interval !== 0) {
                     this.broadcasts.push(firstBroadcast);
                 }
-                Logger.debug("broadcasts:", this.broadcasts);
-                Logger.debug(`broadcasts, id:${firstBroadcast.id}, play_interval:${firstBroadcast.play_interval}`);
+                // Logger.debug("broadcasts:", this.broadcasts);
+                // Logger.debug(`broadcasts, id:${firstBroadcast.id}, play_interval:${firstBroadcast.play_interval}`);
             }
 
         });
@@ -592,11 +588,10 @@ export class LobbyView extends cc.Component {
     }
 
     private syncBoradcast(): void {
+        Logger.debug("syncBoradcast");
         const req = new proto.casino.packet_broadcast_sync();
         const buf = proto.casino.packet_broadcast_sync.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_BROADCAST_SYNC);
-        Logger.debug("syncBoradcast");
-
     }
 
     private onReturnFromGame(): void {
