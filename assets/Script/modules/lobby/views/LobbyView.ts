@@ -90,6 +90,7 @@ export class LobbyView extends cc.Component {
         this.lm.nimSDK.close();
         SoundMgr.stopMusic();
         this.unregisterHandler();
+        this.announcementText.node.stopAllActions();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
@@ -451,6 +452,8 @@ export class LobbyView extends cc.Component {
 
         });
 
+        announcementText.node.stopAllActions();
+
         const action0 = cc.sequence(action1, action3);
         this.marqueeAction = announcementText.node.runAction(action0);
 
@@ -601,6 +604,7 @@ export class LobbyView extends cc.Component {
             firstBroadcast.play_interval = firstBroadcast.play_interval - 1;
             this.marqueeAction = null;
             this.announcementText.text = "";
+            this.announcementText.node.stopAllActions();
             this.announcementText.node.setPosition(this.marqueeTextOriginPos.x, this.marqueeTextOriginPos.y);
             this.showMarquee(firstBroadcast.content, firstBroadcast.play_duration);
 
