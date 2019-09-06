@@ -134,6 +134,7 @@ export namespace LocalStrings {
                 [`draw`]: "<color=#57712 >{0}</c>能量抽奖一次；",
                 [`sender`]: "寄件者：{0}",
 
+                [`joyRoomWaitPlayer`]: "正在为您匹配游戏玩家{0}",
                 // 12个 制表符
                 [`agreeText0`]: `                                               用户服务协议
 重要须知：

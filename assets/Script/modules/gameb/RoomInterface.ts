@@ -81,6 +81,8 @@ export interface RoomViewInterface {
     showOrHideTipsOfMe(isShow: boolean): void;
     showCountDownIfReadViewShow(): boolean;
     showGpsView(): void;
+    stopJoyRoomWaitPlayer(): void;
+    startJoyRoomWaitPlayer(): void;
 }
 
 /**

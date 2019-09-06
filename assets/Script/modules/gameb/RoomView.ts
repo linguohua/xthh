@@ -28,6 +28,7 @@ export class RoomView {
     private anteBg: fgui.GObject;
     private trusteeshipCom: fgui.GComponent;
     private trusteeshipBtn: fgui.GButton;
+    private joyWaitText: fgui.GObject;
     private trusteeshipComCancelBtn: fgui.GButton;
     private settingBtn: fgui.GObject;
     private gpsBtn: fgui.GButton;
@@ -51,7 +52,9 @@ export class RoomView {
     private listensDataList: TingPai[];
     private arrowObj: cc.Node;
     private leftTime: number;
+    private joyRoomWaitPlayerTime: number;
     private leftTimerCB: Function;
+    private joyRoomWaitPlayerCB: Function;
     private component: cc.Component;
     private zhuangAniNode: fgui.GObject;
     private zhuangPos: cc.Vec2;
@@ -94,7 +97,6 @@ export class RoomView {
         }
 
         this.playerViews = playerViews;
-
         this.initButton();
         //房间状态事件初始化
         this.initRoomStatus();
@@ -198,29 +200,6 @@ export class RoomView {
             cc.macro.REPEAT_FOREVER,
             0);
     }
-    public countDownCallBack(): void {
-        if (this.leftTime > 0) {
-            this.leftTime -= 1;
-        }
-        this.countDownText.text = `${this.leftTime}`;
-        if (this.leftTime <= 0) {
-            this.component.unschedule(this.leftTimerCB);
-            this.countDownText.text = `${0}`;
-            //关闭警告声音
-            // SoundMgr.stopEffect(this.soundTimeNum);
-            if (this.gamePauseTipsCom.visible === true) {
-                // 当已经存在了，就不更新了
-                return;
-            }
-            this.showGamePauseTips(this.room.getRoomHost().getServerTime() + this.defaultQuitTime);
-        } else {
-            if (this.leftTime <= 5) {
-                //播放警告声音
-                SoundMgr.playEffectAudio("gameb/sound_time", false);
-            }
-            this.countDownText.text = `${this.leftTime}`;
-        }
-    }
 
     public stopDiscardCountdown(): void {
         //清理定时器
@@ -228,6 +207,27 @@ export class RoomView {
         this.countDownText.text = "";
     }
 
+    //欢乐场 等待玩家加入
+    public startJoyRoomWaitPlayer(): void {
+        if (this.joyRoomWaitPlayerCB === undefined) {
+            this.joyRoomWaitPlayerCB = <Function>this.joyRoomWaitPlayerCallBack.bind(this);
+        }
+        //清理定时器
+        this.component.unschedule(this.joyRoomWaitPlayerCB);
+        this.joyWaitText.visible = true;
+        this.joyRoomWaitPlayerTime = 0;
+        //起定时器
+        this.component.schedule(
+            this.joyRoomWaitPlayerCB,
+            1,
+            cc.macro.REPEAT_FOREVER,
+            0);
+    }
+    public stopJoyRoomWaitPlayer(): void {
+        //清理定时器
+        this.component.unschedule(this.joyRoomWaitPlayerCB);
+        this.joyWaitText.visible = false;
+    }
     //设置当前房间所等待的操作玩家
     public setWaitingPlayer(playerView: PlayerView, time: number): void {
         if (time > 0) {
@@ -480,6 +480,45 @@ export class RoomView {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             this.onGPSBtnClick();
         }
+    }
+    private countDownCallBack(): void {
+        if (this.leftTime > 0) {
+            this.leftTime -= 1;
+        }
+        this.countDownText.text = `${this.leftTime}`;
+        if (this.leftTime <= 0) {
+            this.component.unschedule(this.leftTimerCB);
+            this.countDownText.text = `${0}`;
+            //关闭警告声音
+            // SoundMgr.stopEffect(this.soundTimeNum);
+            if (this.gamePauseTipsCom.visible === true) {
+                // 当已经存在了，就不更新了
+                return;
+            }
+            this.showGamePauseTips(this.room.getRoomHost().getServerTime() + this.defaultQuitTime);
+        } else {
+            if (this.leftTime <= 5) {
+                //播放警告声音
+                SoundMgr.playEffectAudio("gameb/sound_time", false);
+            }
+            this.countDownText.text = `${this.leftTime}`;
+        }
+    }
+    private joyRoomWaitPlayerCallBack(): void {
+        if (this.joyRoomWaitPlayerTime === 3) {
+            this.joyRoomWaitPlayerTime = 0;
+        } else {
+            this.joyRoomWaitPlayerTime++;
+        }
+        let str = "";
+        if (this.joyRoomWaitPlayerTime === 1) {
+            str = ".";
+        } else if (this.joyRoomWaitPlayerTime === 2) {
+            str = "..";
+        } else if (this.joyRoomWaitPlayerTime === 3) {
+            str = "...";
+        }
+        this.joyWaitText.text = LocalStrings.findString("joyRoomWaitPlayer", str);
     }
 
     private gamePauseCountDownFunc(timeStamp: number): void {
@@ -745,6 +784,7 @@ export class RoomView {
 
         this.trusteeshipBtn = this.unityViewNode.getChild("trusteeshipBtn").asButton;
         this.trusteeshipBtn.onClick(() => { this.room.onManagedClicked(true); }, this);
+        this.joyWaitText = this.unityViewNode.getChild("joyWaitText");
         if (this.room.isJoyRoom) {
             //提示消耗多少欢乐豆
             const str = this.room.joyRoom.cost_param.toString();
