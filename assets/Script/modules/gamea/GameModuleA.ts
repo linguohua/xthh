@@ -10,6 +10,7 @@ import {
 // import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
+import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
 import { ReplayA as Replay } from "./ReplayA";
 import { msgHandlers, RoomA as Room } from "./RoomA";
 // import { roomStatus } from "./RoomInterface";
