@@ -1,0 +1,5 @@
+/**
+ * ShopView
+ */
+
+export * from "./ShopView";

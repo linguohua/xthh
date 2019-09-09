@@ -1,11 +1,9 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger, GResLoader, Dialog } from "../lcore/LCoreExports";
-import { proto as protoHH } from "../protoHH/protoHH";
-import { RewardView } from "./reward/RewardView";
-import { GameError } from "../errorCode/ErrorCodeExports";
+import { GameError } from "../../errorCode/ErrorCodeExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { proto as protoHH } from "../../protoHH/protoHH";
+import { RewardView } from "../reward/RewardViewExports";
 
 const { ccclass } = cc._decorator;
-const beanChannel = "android_h5";
-const cardChannel = "weixin";
 /**
  * 领取欢乐豆界面
  */

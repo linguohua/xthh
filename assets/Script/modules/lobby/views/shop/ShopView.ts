@@ -1,5 +1,5 @@
-import { CommonFunction, DataStore, GResLoader, KeyConstants, Logger } from "../lcore/LCoreExports";
-import { proto as protoHH } from "../protoHH/protoHH";
+import { CommonFunction, DataStore, GResLoader, KeyConstants, Logger } from "../../lcore/LCoreExports";
+import { proto as protoHH } from "../../protoHH/protoHH";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";

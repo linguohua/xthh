@@ -84,8 +84,18 @@ export class PlayerInfoView extends cc.Component {
     }
 
     private updateView(searchPlayerAck: protoHH.casino.packet_search_ack): void {
-        this.playerName.text = `昵称：${searchPlayerAck.data.nickname || searchPlayerAck.data.channel_nickname
-            }`;
+
+        //名字
+        let name = "";
+
+        const channelNickname = searchPlayerAck.data.channel_nickname;
+        if (channelNickname !== undefined && channelNickname !== null && channelNickname !== "") {
+            name = channelNickname;
+        } else {
+            name = searchPlayerAck.data.nickname;
+        }
+
+        this.playerName.text = `昵称：${name}`;
         this.id.text = `ID：${searchPlayerAck.data.id} `;
 
         CommonFunction.setHead(this.headLoader, searchPlayerAck.data.channel_head, searchPlayerAck.data.avatar, searchPlayerAck.data.sex);

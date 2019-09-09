@@ -7,7 +7,7 @@ import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
 import { LocalStrings } from "../strings/LocalStringsExports";
 import { LotteryView } from "./lottery/LotteryView";
-import { ShopView, TabType } from "./ShopView";
+import { ShopView, TabType } from "./shop/ShopView";
 import { UserInfoTabType, UserInfoView } from "./userInfo/UserInfoView";
 const { ccclass } = cc._decorator;
 

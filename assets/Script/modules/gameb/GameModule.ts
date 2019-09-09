@@ -10,9 +10,9 @@ import {
 // import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
+import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
 import { Replay } from "./Replay";
 import { msgHandlers, Room } from "./Room";
-import { WelfareView } from "../lobby/views/WelfareView";
 // import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;

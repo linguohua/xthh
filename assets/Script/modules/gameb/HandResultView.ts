@@ -1,15 +1,15 @@
 import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
+// tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
 import { proto } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
-import { ShopView, TabType } from "../lobby/views/ShopView";
+import { ShopView, TabType } from "../lobby/views/shop/ShopViewExports";
 // import { GameRules } from "./GameRules";
 import { Player } from "./Player";
 // import { TypeOfOP } from "./PlayerInterface";
 import { RoomInterface } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-import { WelfareView } from "../lobby/views/WelfareView";
 
 const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
 

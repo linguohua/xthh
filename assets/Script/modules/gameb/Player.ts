@@ -829,10 +829,10 @@ export class Player {
         SoundMgr.playEffectAudio(soundName);
     }
 
-    private myDiscardAction(tileID: number): void {
-        this.discardOutTileID(tileID);
-        this.playerView.enlargeDiscarded(tileID, true);
-    }
+    // private myDiscardAction(tileID: number): void {
+    //     this.discardOutTileID(tileID);
+    //     this.playerView.enlargeDiscarded(tileID, true);
+    // }
 
     // private discardToDeskOfMe(discardTileId: number): void {
     //     //自己打出去的牌 先显示到桌面  服务器回复之后 就不再操作桌面了
