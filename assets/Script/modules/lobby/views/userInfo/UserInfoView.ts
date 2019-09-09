@@ -74,7 +74,7 @@ export class UserInfoView extends cc.Component {
     /**
      * name
      */
-    public changeIcon(url: string) {
+    public changeIcon(url: string): void {
         this.headLoader.url = url;
     }
 

@@ -484,11 +484,11 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
         // 低保（免费领取欢乐豆）数据
-        let helper_time = 0;
+        let helperTime = 0;
         if (fastLoginAck.pdata.helper.helper_time !== undefined && fastLoginAck.pdata.helper.helper_time !== null) {
-            helper_time = +fastLoginAck.pdata.helper.helper_time * 1000;
+            helperTime = +fastLoginAck.pdata.helper.helper_time * 1000;
         }
-        DataStore.setItem(KeyConstants.HELPER_TIME, helper_time);
+        DataStore.setItem(KeyConstants.HELPER_TIME, helperTime);
         DataStore.setItem(KeyConstants.HELPER_SIZE, fastLoginAck.helperdata.helpers.length);
         DataStore.setItem(KeyConstants.HELPER_PARAM, fastLoginAck.pdata.helper.param);
 
@@ -542,8 +542,8 @@ export class LoginView extends cc.Component {
                 this.button.hide();
             }
 
-            const action = cc.scaleTo(0.06, 0.9).easing(cc.easeInOut(0.02));;
-            const action1 = cc.scaleTo(0.06, 1).easing(cc.easeInOut(0.02));;
+            const action = cc.scaleTo(0.06, 0.9).easing(cc.easeInOut(0.02));
+            const action1 = cc.scaleTo(0.06, 1).easing(cc.easeInOut(0.02));
             const actionEnd = cc.sequence(action, action1);
             this.weixinButton.node.runAction(actionEnd);
             // this.weixinButton.d

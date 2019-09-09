@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "387884a3-cbb0-4559-a0f7-2c0b9e508b8b",
+  "uuid": "a1fc661c-ed35-43b6-93c6-f0b99b088b94",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "lobby_reward_atlas0": {
       "ver": "1.0.4",
-      "uuid": "0df03fae-6272-4147-b85b-82a534b969d5",
-      "rawTextureUuid": "387884a3-cbb0-4559-a0f7-2c0b9e508b8b",
+      "uuid": "75669535-c7b2-4ad0-9965-b550c5ae8a7e",
+      "rawTextureUuid": "a1fc661c-ed35-43b6-93c6-f0b99b088b94",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -424,15 +424,9 @@ export class LobbyView extends cc.Component {
         const xPos = announcementText.node.x;
         const yPos = announcementText.node.y;
 
-        // 方案：moveTo
-        // let duration = announcementText.width * 0.005;
-        // Logger.debug("duration = ", duration);
+        const endPos = cc.p(-cc.winSize.width, pos.node.y);
 
-        // if (duration < 10) {
-        //     duration = 15;
-        // }
-
-        const action1 = cc.moveTo(duration, pos.node.x - 100, pos.node.y);
+        const action1 = cc.moveTo(duration, endPos);
         const action3 = cc.callFunc(() => {
             announcementText.node.setPosition(xPos, yPos);
             this.marqueeAction = null;

@@ -145,8 +145,7 @@ export class LotteryView extends cc.Component {
 
     private refreshPowerProgress(energy: number): void {
 
-
-        let energyNum = energy === null ? 0 : energy;
+        const energyNum = energy === null ? 0 : energy;
         const data = this.currTurnableData;
         this.powerProgressText.text = `${energyNum}/${data.draw}`;
 

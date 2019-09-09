@@ -7,7 +7,6 @@ interface UserInfoViewInterface {
     changeIcon: Function;
 }
 
-
 /**
  * IconListPopupView
  */
@@ -20,11 +19,10 @@ export class IconListPopupView extends cc.Component {
     private userInfoView: UserInfoViewInterface;
     private gender: number = 0;
 
-    public show(belowBtn: fgui.GObject, gender: number, userInfoView: UserInfoViewInterface) {
+    public show(belowBtn: fgui.GObject, gender: number, userInfoView: UserInfoViewInterface): void {
         this.userInfoView = userInfoView;
         this.gender = gender;
         this.initView();
-
 
         const win = new fgui.Window();
         win.contentPane = this.view;
@@ -56,7 +54,6 @@ export class IconListPopupView extends cc.Component {
 
     private initView(): void {
 
-
         this.headList = this.view.getChild("list").asList;
         this.headList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderHeadListItem(index, item);
@@ -66,10 +63,6 @@ export class IconListPopupView extends cc.Component {
 
         this.headList.numItems = 4;
         this.registerHandler();
-
-        //this.headList.node.position = new cc.Vec2(17, 12);
-        Logger.debug(`initView this.headList.node.position = `, this.headList.node.position)
-
     }
     private onHeadListItemClick(clickItem: fgui.GObject): void {
         Logger.debug("clickItem index:", this.headList.getChildIndex(clickItem));
@@ -89,8 +82,6 @@ export class IconListPopupView extends cc.Component {
         const obj = item.asCom;
         obj.getChild("n69").asLoader.url = `ui://lobby_bg_package/grxx_xttx_${itemIndex}`;
 
-        Logger.debug(`renderHeadListItem --${index}-- this.headList.node.position = `, this.headList.node.position)
     }
-
 
 }
