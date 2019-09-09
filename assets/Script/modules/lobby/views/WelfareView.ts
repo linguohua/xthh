@@ -1,5 +1,7 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger, GResLoader } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger, GResLoader, Dialog } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
+import { RewardView } from "./reward/RewardView";
+import { GameError } from "../errorCode/ErrorCodeExports";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
@@ -55,15 +57,24 @@ export class WelfareView extends cc.Component {
         const ack = protoHH.casino.packet_helper_ack.decode(pmsg.Data);
         Logger.debug("领取欢乐豆返回值: ", ack);
         //保存已领次数到本地
-        const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
-        const helperSize = +helperSizeStr;
-        const p = helperSize - this.count + 1; //计算已领次数 +上刚领取的 1次
-        DataStore.setItem(KeyConstants.HELPER_PARAM, p);
-        //保存最后领取的时间截到本地
-        const d = new Date().getTime();
-        DataStore.setItem(KeyConstants.HELPER_TIME, d);
+        if (ack.ret === 0) {
+            const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
+            const helperSize = +helperSizeStr;
+            const p = helperSize - this.count + 1; //计算已领次数 +上刚领取的 1次
+            DataStore.setItem(KeyConstants.HELPER_PARAM, p);
+            //保存最后领取的时间截到本地
+            const d = new Date().getTime();
+            DataStore.setItem(KeyConstants.HELPER_TIME, d);
+            //弹出领取成功界面
+            const view = this.addComponent(RewardView);
+            view.show(ack.gains);
 
-        this.destroy();
+            this.destroy();
+        } else {
+            //弹出领取失败界面
+            const err = GameError.getErrorString(ack.ret);
+            Dialog.prompt(err);
+        }
     }
     private onCollectClick(): void {
         //MSG_HELPER_REQconst
