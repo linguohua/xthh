@@ -63,7 +63,10 @@ export class PhoneAuthView extends cc.Component {
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK, this.onBindPhoneAck, this);
+        if (this.openType === OpenType.BIND_PHONE) {
+            this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK, this.onBindPhoneAck, this);
+        }
+
     }
     protected onDestroy(): void {
         if (this.openType === OpenType.LOGIN && this.loginView !== undefined) {
@@ -111,6 +114,10 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private onGetAuthBtnClick(): void {
+        if (this.getAuthBtn.getController("enable").selectedIndex === 0) {
+            return;
+        }
+
         const lastTimeStr = DataStore.getString(KeyConstants.getAuthCodeTime, "0");
         const lastTime = +lastTimeStr;
         if (Math.floor(Date.now() / 1000) - lastTime < 90) {
@@ -132,6 +139,10 @@ export class PhoneAuthView extends cc.Component {
 
     private onConfirmBtnClick(): void {
         Logger.debug("onConfirmBtnClick");
+        if (this.confirmBtn.getController("enable").selectedIndex === 0) {
+            return;
+        }
+
         const phone = this.inputPhone.asButton.getChild("text").text;
         const code = this.inputAuth.asButton.getChild("text").text;
 
