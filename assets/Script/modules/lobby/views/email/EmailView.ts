@@ -84,7 +84,6 @@ export class EmailView extends cc.Component {
     }
 
     private registerHandler(): void {
-        //
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MAIL_ACK, this.onEmailAck, this);
     }
     private unRegisterHander(): void {
@@ -166,7 +165,6 @@ export class EmailView extends cc.Component {
     }
 
     private reloadEmail(): void {
-        //
         const req2 = new proto.casino.packet_mail_req();
         req2.player_id = 0;
         req2.gain = false;

@@ -424,7 +424,7 @@ export class LobbyView extends cc.Component {
         const xPos = announcementText.node.x;
         const yPos = announcementText.node.y;
 
-        const endPos = cc.p(-cc.winSize.width, pos.node.y);
+        const endPos = cc.v2(-cc.winSize.width, pos.node.y);
 
         const action1 = cc.moveTo(duration, endPos);
         const action3 = cc.callFunc(() => {

@@ -4,7 +4,7 @@
     <image id="n0_82t1" name="bg" src="82t10" fileName="_resource/hlddt_bj.jpg" xy="568,320" pivot="0.5,0.5" anchor="true"/>
     <image id="n25_h7gn" name="bg1" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="326,24" size="180,40"/>
     <image id="n26_h7gn" name="bg2" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="563,24" size="165,40"/>
-    <image id="n8_82t1" name="dou" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="306,22"/>
+    <image id="n8_82t1" name="dou" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="306,24"/>
     <image id="n27_h7gn" name="fk" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="540,18"/>
     <component id="n1_82t1" name="returnBtn" src="82t116" fileName="commonBtn/returnBtn.xml" pkg="snwj6cnx" xy="22,9" scale="1.1,1.1"/>
     <component id="n9_82t1" name="addDouBtn" src="82t11e" fileName="commonBtn/addBtn.xml" pkg="snwj6cnx" xy="465,21" scale="1.2,1.2"/>
@@ -18,7 +18,7 @@
     <component id="n30_ojmm" name="middle" src="h7gnl" fileName="middle.xml" xy="429,129"/>
     <component id="n31_ojmm" name="senior" src="h7gnm" fileName="senior.xml" xy="762,129"/>
     <component id="n24_82t1" name="lotteryViewBtn" src="82t1k" fileName="_btn/lotteryViewBtn.xml" xy="1031,111"/>
-    <text id="n28_h7gn" name="douText" xy="348,26" size="115,36" fontSize="30" color="#ffffdd" align="center" vAlign="middle" autoSize="none" text="8888"/>
-    <text id="n29_h7gn" name="fkText" xy="584,26" size="115,36" fontSize="30" color="#ffffdd" align="center" vAlign="middle" autoSize="none" text="8888"/>
+    <text id="n28_h7gn" name="douText" xy="348,28" size="115,36" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" text="0"/>
+    <text id="n29_h7gn" name="fkText" xy="584,28" size="115,36" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" text="88888888&#xA;"/>
   </displayList>
 </component>

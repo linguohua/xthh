@@ -98,7 +98,6 @@ export class AgreementView extends cc.Component {
     }
 
     private onLastPageBtnClick(): void {
-        //
         if (this.pageIndex > 0) {
             this.pageIndex--;
             this.nextPageBtn.getController("enable").selectedIndex = 1;
@@ -114,8 +113,6 @@ export class AgreementView extends cc.Component {
     }
 
     private onNextPageBtnClick(): void {
-        //
-
         if (this.pageIndex < this.pageCount - 1) {
             this.pageIndex++;
             this.nextPageBtn.getController("enable").selectedIndex = this.pageIndex === this.pageCount - 1 ? 0 : 1;

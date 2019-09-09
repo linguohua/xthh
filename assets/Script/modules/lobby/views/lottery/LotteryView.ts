@@ -236,7 +236,6 @@ export class LotteryView extends cc.Component {
     }
 
     private onDrawLotteryBtnClick(): void {
-        //
         if (this.drawLotteryBtn.getController("enable").selectedIndex === 0) {
             Logger.debug("energy not enough or on drawing ----------------------------------------");
 
@@ -257,7 +256,6 @@ export class LotteryView extends cc.Component {
     }
 
     private showDrawResult(drawItem: proto.casino.Ienergy_turnable_item): void {
-        //
 
         Dialog.hideWaiting();
         const rewardIndex = this.itemBindDatas[drawItem.id];
@@ -282,7 +280,6 @@ export class LotteryView extends cc.Component {
     }
 
     private drawResult(msg: proto.casino.ProxyMessage): void {
-        //
         const drawAck = proto.casino.packet_et_draw_res.decode(msg.Data);
         Logger.debug("drawResult drawAck ", drawAck);
         if (drawAck.ret !== 0) {
