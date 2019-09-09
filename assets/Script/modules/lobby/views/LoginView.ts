@@ -7,7 +7,6 @@ import { LocalStrings } from "../strings/LocalStringsExports";
 import { md5 } from "../utility/md5";
 import { LobbyView } from "./LobbyView";
 import { OpenType, PhoneAuthView } from "./PhoneAuthView";
-import Long = require("../protobufjs/long");
 
 const { ccclass } = cc._decorator;
 interface ServerCfg {
@@ -542,6 +541,11 @@ export class LoginView extends cc.Component {
             if (this.button !== null && this.button !== undefined) {
                 this.button.hide();
             }
+
+            const action = cc.scaleTo(0.06, 0.9).easing(cc.easeInOut(0.02));;
+            const action1 = cc.scaleTo(0.06, 1).easing(cc.easeInOut(0.02));;
+            const actionEnd = cc.sequence(action, action1);
+            this.weixinButton.node.runAction(actionEnd);
             // this.weixinButton.d
             if (Dialog.isShowWaiting()) {
                 // 防止连续点击
