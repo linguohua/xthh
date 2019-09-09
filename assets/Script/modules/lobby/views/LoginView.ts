@@ -1,6 +1,7 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import { CommonFunction, DataStore, Dialog, Enum, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
+// import Long = require("../protobufjs/long");
 // tslint:disable-next-line:no-require-imports
 import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
@@ -187,7 +188,7 @@ export class LoginView extends cc.Component {
                         Logger.error("requestPhoneLogin failed:", reply);
                         if (reply.msg === "") {
                             if (callback !== undefined) {
-                                callback("无效的验证码");
+                                callback(LocalStrings.findString("invalidAuthCode"));
                             }
                         } else {
                             if (callback !== undefined) {

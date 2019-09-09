@@ -167,7 +167,7 @@ export class PhoneAuthView extends cc.Component {
     private onBindPhoneAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_bind_phone_ack.decode(msg.Data);
         if (reply.ret !== proto.casino.eRETURN_TYPE.RETURN_BIND_PHONE_SUCCESS) {
-            Logger.error("reply", reply);
+            Logger.debug("onBindPhoneAck reply error:", reply);
             Dialog.prompt(GameError.getErrorString(reply.ret));
 
             return;
