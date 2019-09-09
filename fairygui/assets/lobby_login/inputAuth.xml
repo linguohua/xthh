@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="252,43" extention="Button">
-  <controller name="codeLegal" pages="0,no,1,yes" selected="1"/>
+  <controller name="codeLegal" pages="0,no,1,yes" selected="0"/>
   <displayList>
     <image id="n0_hjqc" name="n0" src="hjqcx" fileName="resource/grxx_yqdi.png" pkg="snwj6cnx" xy="0,0" size="252,43">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <text id="n1_hjqc" name="text" xy="11,5" size="242,35" fontSize="24" color="#c4520f" leading="41" autoSize="none" singleLine="true" text="请输入验证码">
+    <text id="n1_hjqc" name="text" xy="11,5" size="242,35" fontSize="24" color="#908166" leading="41" autoSize="none" singleLine="true" text="请输入短信验证码">
       <gearColor controller="codeLegal" pages="1" values="#c4520f,#000000" default="#908166,#000000"/>
     </text>
   </displayList>
