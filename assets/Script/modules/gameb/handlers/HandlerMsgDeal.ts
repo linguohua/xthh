@@ -170,7 +170,7 @@ export namespace HandlerMsgDeal {
         //房间状态
         room.onUpdateStatus(roomStatus.onPlay);
 
-        if (room.handStartted <= 1) {
+        if (room.handStartted <= 1 && !room.isJoyRoom) {
             room.roomView.showGpsView();
         }
     };
