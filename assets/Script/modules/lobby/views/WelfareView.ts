@@ -67,7 +67,7 @@ export class WelfareView extends cc.Component {
             DataStore.setItem(KeyConstants.HELPER_TIME, d);
             //弹出领取成功界面
             const view = this.addComponent(RewardView);
-            view.show(ack.gains);
+            view.showView(this.lm, ack.gains);
 
             this.destroy();
         } else {

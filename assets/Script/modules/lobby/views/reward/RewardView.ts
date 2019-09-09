@@ -20,13 +20,9 @@ export class RewardView extends cc.Component {
     private selectedGainIndex: number = 0;
     private gains: proto.casino.Iobject[] = [];
 
-    public show(gains: proto.casino.Iobject[]): void {
-        this.gains = gains;
-        this.initView();
-        this.win.show();
-    }
-    protected onLoad(): void {
-        this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+    public showView(lm: LobbyModuleInterface, gains: proto.casino.Iobject[]): void {
+        // this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        this.lm = lm;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_reward/lobby_reward");
         const view = fgui.UIPackage.createObject("lobby_reward", "rewardView").asCom;
@@ -43,7 +39,29 @@ export class RewardView extends cc.Component {
         win.modal = true;
 
         this.win = win;
+        this.gains = gains;
+        this.initView();
+        this.win.show();
     }
+    // protected onLoad(): void {
+    //     this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+    //     const loader = this.lm.loader;
+    //     loader.fguiAddPackage("lobby/fui_lobby_reward/lobby_reward");
+    //     const view = fgui.UIPackage.createObject("lobby_reward", "rewardView").asCom;
+
+    //     CommonFunction.setViewInCenter(view);
+
+    //     const mask = view.getChild("mask");
+    //     CommonFunction.setBgFullScreenSize(mask);
+
+    //     this.view = view;
+
+    //     const win = new fgui.Window();
+    //     win.contentPane = view;
+    //     win.modal = true;
+
+    //     this.win = win;
+    // }
 
     protected onDestroy(): void {
         this.unRegisterHander();

@@ -226,7 +226,7 @@ export class EmailView extends cc.Component {
         if (gain === true) {
             if (this.operation === OPERATION.TAKE) {
                 const view = this.addComponent(RewardView);
-                view.show(mailData.gains);
+                view.showView(this.lm, mailData.gains);
                 this.changeReceiveState();
 
             } else if (this.operation === OPERATION.DELETE) {
