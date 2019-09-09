@@ -186,15 +186,16 @@ export class LoginView extends cc.Component {
                     if (reply.ret !== 0) {
                         // Dialog.showDialog(LocalStrings.findString("networkConnectError", `${reply.ret}`));
                         Logger.error("requestPhoneLogin failed:", reply);
-                        if (reply.msg === "") {
-                            if (callback !== undefined) {
-                                callback(LocalStrings.findString("invalidAuthCode"));
-                            }
+                        let errMsg = "";
+                        if (reply.ret === 4) {
+                            errMsg = LocalStrings.findString("unbindPhone");
+                        } else if (reply.ret === 6) {
+                            errMsg = LocalStrings.findString("invalidAuthCode");
                         } else {
-                            if (callback !== undefined) {
-                                callback(reply.msg);
-                            }
+                            errMsg = `未知错误码:${reply.ret}, 请让程序员补上`;
                         }
+
+                        callback(errMsg);
 
                         return;
                     }

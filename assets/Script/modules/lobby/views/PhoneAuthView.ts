@@ -135,13 +135,16 @@ export class PhoneAuthView extends cc.Component {
         const phone = this.inputPhone.asButton.getChild("text").text;
         const code = this.inputAuth.asButton.getChild("text").text;
 
-        if (phone.length < 11) {
+        // 正则表达式，判断字符串是否是数字
+        const reg = /^\d+$/;
+
+        if (phone.length < 11 || !reg.test(phone)) {
             Dialog.showDialog(LocalStrings.findString("invalidPhone"));
 
             return;
         }
 
-        if (code.length < 4) {
+        if (code.length < 4 || !reg.test(code)) {
             Dialog.showDialog(LocalStrings.findString("invalidCode"));
 
             return;

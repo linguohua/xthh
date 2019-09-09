@@ -136,6 +136,7 @@ export namespace LocalStrings {
 
                 [`joyRoomWaitPlayer`]: "正在为您匹配游戏玩家{0}",
                 [`invalidAuthCode`]: "无效的验证码",
+                [`unbindPhone`]: "您的手机号未绑定，请先使用微信登录绑定手机号再使用",
                 // 12个 制表符
                 [`agreeText0`]: `                                               用户服务协议
 重要须知：
