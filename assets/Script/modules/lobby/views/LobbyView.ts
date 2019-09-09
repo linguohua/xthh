@@ -14,7 +14,7 @@ import { EmailView } from "./email/EmailView";
 import { JoyBeanView } from './JoyBeanView';
 import { NewRoomView } from "./NewRoomView";
 import { ShopView, TabType } from "./ShopView";
-import { UserInfoTabType, UserInfoView } from "./UserInfoView";
+import { UserInfoTabType, UserInfoView } from "./userInfo/UserInfoView";
 const { ccclass } = cc._decorator;
 
 /**

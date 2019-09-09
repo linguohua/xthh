@@ -1,9 +1,10 @@
-import { GameError } from "../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
-import { proto } from "../protoHH/protoHH";
-import { LocalStrings } from "../strings/LocalStringsExports";
-import { AgreementView } from "./AgreementView";
-import { OpenType, PhoneAuthView } from "./PhoneAuthView";
+import { GameError } from "../../errorCode/ErrorCodeExports";
+import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { proto } from "../../protoHH/protoHH";
+import { LocalStrings } from "../../strings/LocalStringsExports";
+import { AgreementView } from "../AgreementView";
+import { OpenType, PhoneAuthView } from "../PhoneAuthView";
+import { IconListPopupView } from "./IconListPopupView";
 
 const { ccclass } = cc._decorator;
 
@@ -28,6 +29,9 @@ export class UserInfoView extends cc.Component {
     ////// 用户基本信息 ////////
     private headLoader: fgui.GLoader;
     private girlRadioBtn: fgui.GButton;
+
+    private mountNode: fgui.GObject;
+
     private boyRadioBtn: fgui.GButton;
     private userName: fgui.GObject;
     private modifyBtn: fgui.GButton;
@@ -43,8 +47,7 @@ export class UserInfoView extends cc.Component {
     private fkRecordTap: fgui.GButton;
     private beanRecordTap: fgui.GButton;
     private userInfo: fgui.GComponent;
-    private headList: fgui.GList;
-    private headListBg: fgui.GObject;
+
     private changeIconBtn: fgui.GButton;
     private bindPhoneBtn: fgui.GButton;
 
@@ -66,6 +69,13 @@ export class UserInfoView extends cc.Component {
 
         const tabCtrl = this.view.getController("tab");
         tabCtrl.selectedIndex = page;
+    }
+
+    /**
+     * name
+     */
+    public changeIcon(url: string) {
+        this.headLoader.url = url;
     }
 
     protected onLoad(): void {
@@ -174,6 +184,8 @@ export class UserInfoView extends cc.Component {
         this.bindPhoneBtn = userInfo.getChild("bindPhoneBtn").asButton;
         this.bindPhoneBtn.onClick(this.onBindPhoneBtnClick, this);
 
+        this.mountNode = userInfo.getChild("mountNode");
+
         this.userName = userInfo.getChild("name");
         this.userName.asTextInput.editable = false;
         this.id = userInfo.getChild("id");
@@ -186,16 +198,6 @@ export class UserInfoView extends cc.Component {
         this.phone.visible = true;
         this.changeIconBtn = userInfo.getChild("changeIconBtn").asButton;
         this.changeIconBtn.onClick(this.onChangeIconBtnClick, this);
-
-        this.headList = userInfo.getChild("list").asList;
-        this.headList.visible = false;
-        this.headList.itemRenderer = (index: number, item: fgui.GObject) => {
-            this.renderHeadListItem(index, item);
-        };
-        this.headList.on(fgui.Event.CLICK_ITEM, this.onHeadListItemClick, this);
-
-        this.headListBg = userInfo.getChild("listBg");
-        this.headListBg.visible = false;
 
         this.hupaiText = userInfo.getChild("hupaiText");
         this.piaolaiText = userInfo.getChild("piaolaiText");
@@ -280,16 +282,14 @@ export class UserInfoView extends cc.Component {
     }
 
     private onChangeIconBtnClick(): void {
-        Logger.debug("onChangeIconBtnClick");
-        if (this.headList.visible) {
-            this.headList.visible = false;
-            this.headListBg.visible = false;
-        } else {
-            this.headList.visible = true;
-            this.headListBg.visible = true;
-        }
+        // TODO: SHOW POP UP -
 
-        this.headList.numItems = 4;
+        const view = this.addComponent(IconListPopupView);
+
+        const gender = this.girlRadioBtn.selected ? 0 : 1;
+
+        view.show(this.mountNode, gender, this);
+
     }
     private onModifyBtnClick(): void {
         Logger.debug("onModifyBtnClick");
@@ -330,8 +330,6 @@ export class UserInfoView extends cc.Component {
         const buf = proto.casino.packet_modify_req.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MODIFY_REQ);
 
-        this.headList.visible = false;
-        this.headListBg.visible = false;
         this.changeIconBtn.visible = false;
         this.userName.asTextInput.editable = false;
     }
@@ -354,13 +352,6 @@ export class UserInfoView extends cc.Component {
         const view = this.addComponent(PhoneAuthView);
         view.show(OpenType.BIND_PHONE);
 
-    }
-
-    private onHeadListItemClick(clickItem: fgui.GObject): void {
-        Logger.debug("clickItem index:", this.headList.getChildIndex(clickItem));
-
-        const obj = clickItem.asCom;
-        this.headLoader.url = obj.getChild("n69").asLoader.url;
     }
 
     private getAvatarIndexFromLoaderUrl(url: string): number {
@@ -517,15 +508,4 @@ export class UserInfoView extends cc.Component {
 
         this.destroy();
     }
-
-    private renderHeadListItem(index: number, item: fgui.GObject): void {
-        Logger.debug("renderHeadListItem");
-        let itemIndex = index;
-        if (this.boyRadioBtn.selected) {
-            itemIndex = index + 4;
-        }
-        const obj = item.asCom;
-        obj.getChild("n69").asLoader.url = `ui://lobby_bg_package/grxx_xttx_${itemIndex}`;
-    }
-
 }

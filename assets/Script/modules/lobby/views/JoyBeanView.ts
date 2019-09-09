@@ -8,7 +8,7 @@ import { Share } from "../shareUtil/ShareExports";
 import { LocalStrings } from "../strings/LocalStringsExports";
 import { LotteryView } from "./lottery/LotteryView";
 import { ShopView, TabType } from "./ShopView";
-import { UserInfoTabType, UserInfoView } from "./UserInfoView";
+import { UserInfoTabType, UserInfoView } from "./userInfo/UserInfoView";
 const { ccclass } = cc._decorator;
 
 /**

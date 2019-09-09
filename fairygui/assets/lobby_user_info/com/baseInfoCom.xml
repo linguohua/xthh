@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="584,425" designImage="ui://psmq81bchjqc1x" designImageOffsetX="-364" designImageOffsetY="-133" designImageAlpha="100">
-  <controller name="role" pages="0,visitor,1,weChat" selected="1"/>
+  <controller name="role" pages="0,visitor,1,weChat" selected="0"/>
   <controller name="gender" pages="0,boy,1,girl" selected="0"/>
   <controller name="record" pages="0,房卡战绩,1,欢乐豆战绩" selected="0"/>
   <controller name="isModify" pages="0,no,1,yes" selected="0"/>
@@ -13,14 +13,14 @@
     <image id="n17_6k9y" name="dot2" src="6k9y6" fileName="_resource/grxx_dian.png" xy="318,264"/>
     <image id="n18_6k9y" name="dot3" src="6k9y6" fileName="_resource/grxx_dian.png" xy="55,323"/>
     <image id="n19_6k9y" name="dot4" src="6k9y6" fileName="_resource/grxx_dian.png" xy="318,323"/>
-    <image id="n36_6k9y" name="bg2" src="6k9yl" fileName="_resource/grxx_zydi.png" xy="186,126" size="133,31" group="n55_6k9y"/>
-    <image id="n35_6k9y" name="bean" src="6k9y1f" fileName="_resource/ty_icon_hld.png" xy="175,122" group="n55_6k9y" scale="0.8,0.8"/>
-    <group id="n55_6k9y" name="beanCombine" xy="175,122" size="144,40" advanced="true" collapsed="true">
+    <image id="n36_6k9y" name="bg2" src="6k9yl" fileName="_resource/grxx_zydi.png" xy="186,113" size="133,31" group="n55_6k9y"/>
+    <image id="n35_6k9y" name="bean" src="6k9y1f" fileName="_resource/ty_icon_hld.png" xy="175,109" group="n55_6k9y" scale="0.8,0.8"/>
+    <group id="n55_6k9y" name="beanCombine" xy="175,109" size="144,40" advanced="true" collapsed="true">
       <gearXY controller="role" pages="0,1" values="175,109|175,122"/>
     </group>
-    <image id="n37_6k9y" name="bg3" src="6k9yl" fileName="_resource/grxx_zydi.png" xy="377,124" size="133,31" group="n56_6k9y"/>
-    <image id="n34_6k9y" name="fk" src="6k9y1e" fileName="_resource/ty_icon_fk.png" xy="367,116" group="n56_6k9y" scale="0.9,0.9"/>
-    <group id="n56_6k9y" name="fkCombine" xy="367,116" size="143,41" advanced="true" collapsed="true">
+    <image id="n37_6k9y" name="bg3" src="6k9yl" fileName="_resource/grxx_zydi.png" xy="377,112" size="133,31" group="n56_6k9y"/>
+    <image id="n34_6k9y" name="fk" src="6k9y1e" fileName="_resource/ty_icon_fk.png" xy="367,104" group="n56_6k9y" scale="0.9,0.9"/>
+    <group id="n56_6k9y" name="fkCombine" xy="367,104" size="143,41" advanced="true" collapsed="true">
       <gearXY controller="role" pages="1" values="367,116" default="367,104"/>
     </group>
     <image id="n31_6k9y" name="frame" src="6k9yf" fileName="_resource/grxx_xxdi1.png" xy="33,26" size="126,126"/>
@@ -54,19 +54,19 @@
     <component id="n70_a2w9" name="bindPhoneBtn" src="a2w92b" fileName="btn/bindPhoneBtn.xml" xy="428,91"/>
     <loader id="n32_6k9y" name="loader" xy="47,39" size="100,100" url="ui://snwj6cnxjmxyj" fill="scale"/>
     <component id="n60_hjqc" name="changeIconBtn" src="hjqc1w" fileName="btn/changeIconBtn.xml" xy="33,26" visible="false"/>
-    <text id="n33_6k9y" name="id" xy="176,56" size="205,34" fontSize="22" color="#856d57" vAlign="middle" bold="true" singleLine="true" text="ID：88899988899">
+    <text id="n33_6k9y" name="id" xy="176,73" size="205,34" fontSize="22" color="#856d57" vAlign="middle" bold="true" singleLine="true" text="ID：88899988899">
       <gearXY controller="role" pages="0,1" values="176,73|176,56"/>
     </text>
-    <text id="n38_6k9y" name="beanText" xy="208,123" size="102,34" fontSize="20" color="#aa680a" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="888999">
+    <text id="n38_6k9y" name="beanText" xy="208,113" size="102,34" fontSize="20" color="#aa680a" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="888999">
       <gearXY controller="role" pages="1" values="208,123" default="208,113"/>
     </text>
-    <text id="n39_6k9y" name="fkText" xy="402,123" size="102,34" fontSize="20" color="#aa680a" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="888999">
+    <text id="n39_6k9y" name="fkText" xy="402,113" size="102,34" fontSize="20" color="#aa680a" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="888999">
       <gearXY controller="role" pages="1" values="402,123" default="402,113"/>
     </text>
-    <text id="n40_6k9y" name="name" xy="173,24" size="142,34" input="true" fontSize="22" color="#9d3d09" align="center" vAlign="middle" vars="true" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="游客123456">
+    <text id="n40_6k9y" name="name" xy="173,33" size="142,34" input="true" fontSize="22" color="#9d3d09" align="center" vAlign="middle" vars="true" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="游客123456">
       <gearXY controller="role" pages="1" values="173,24" default="173,33"/>
     </text>
-    <text id="n53_6k9y" name="phone" xy="286,88" size="155,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="13560540701">
+    <text id="n53_6k9y" name="phone" xy="176,73" size="155,34" fontSize="22" color="#856d57" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="13560540701">
       <gearDisplay controller="role" pages="1"/>
       <gearXY controller="role" pages="0,1" values="176,73|286,88"/>
     </text>
@@ -78,17 +78,10 @@
     <text id="n47_6k9y" name="piaolaiText" xy="450,255" size="71,34" fontSize="22" color="#856d57" leading="34" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="8889"/>
     <text id="n49_6k9y" name="chaoshiText" xy="187,315" size="71,34" fontSize="22" color="#856d57" leading="34" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="8889"/>
     <text id="n50_6k9y" name="fangpaoText" xy="450,315" size="71,34" fontSize="22" color="#856d57" leading="34" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="8889"/>
-    <text id="n52_6k9y" name="phoneText" xy="176,89" size="115,34" fontSize="22" color="#856d57" vAlign="middle" bold="true" singleLine="true" autoClearText="true" text="绑定手机：">
+    <text id="n52_6k9y" name="phoneText" xy="176,73" size="115,34" fontSize="22" color="#856d57" vAlign="middle" bold="true" singleLine="true" autoClearText="true" text="绑定手机：">
       <gearDisplay controller="role" pages="1"/>
       <gearXY controller="role" pages="0,1" values="176,73|176,89"/>
     </text>
-    <image id="n61_hjqc" name="listBg" src="hjqc1l" fileName="_resource/grxx_txktdi.png" xy="19,153" size="427,131" group="n69_hjqc"/>
-    <list id="n66_hjqc" name="list" xy="34,165" size="398,100" group="n69_hjqc" layout="flow_hz" overflow="hidden" scroll="horizontal" margin="0,0,6,0" colGap="6" defaultItem="ui://psmq81bchjqc1z" vAlign="middle" autoClearItems="true">
-      <item/>
-      <item/>
-      <item/>
-      <item/>
-    </list>
-    <group id="n69_hjqc" name="iconList" xy="19,153" size="427,131" advanced="true"/>
+    <graph id="n71_s6qu" name="mountNode" xy="30,140" pivot="0.5,0.5" anchor="true" size="20,20"/>
   </displayList>
 </component>

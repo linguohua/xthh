@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="427,131" anchor="true" designImage="ui://psmq81bchjqc1x" designImageOffsetX="-381" designImageOffsetY="-286" designImageAlpha="0">
+  <displayList>
+    <image id="n61_hjqc" name="listBg" src="hjqc1l" fileName="_resource/grxx_txktdi.png" xy="0,0" size="427,131"/>
+    <list id="n62_s6qu" name="list" xy="17,12" size="395,100" layout="flow_hz" overflow="hidden" colGap="5" defaultItem="ui://psmq81bchjqc1z" align="center" vAlign="middle" autoClearItems="true">
+      <relation target="n61_hjqc" sidePair="top-top,bottom-bottom"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>

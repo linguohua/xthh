@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="335,200" extention="Button">
-  <Button/>
-  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver"/>
+<component size="335,200" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
   <displayList>
-    <image id="n0_9f1e" src="9f1ej" name="n0" xy="0,0">
-      <relation target="" sidePair="width,height"/>
+    <image id="n0_9f1e" name="n0" src="9f1ej" fileName="resource/dt_rk_hlc.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
     </image>
   </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

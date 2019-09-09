@@ -63,7 +63,7 @@
     <component id="hjqc1w" name="changeIconBtn.xml" path="/btn/"/>
     <image id="hjqc1x" name="g_个人信息_基本信息_修改头像.jpg" path="/_design/"/>
     <image id="hjqc1y" name="g_个人信息_基本信息_修改头像标注.jpg" path="/_design/"/>
-    <component id="hjqc1z" name="iconItem.xml" path="/btn/"/>
+    <component id="hjqc1z" name="iconItem.xml" path="/com/"/>
     <component id="l4pw20" name="agreementViewBtn.xml" path="/btn/"/>
     <component id="l4pw21" name="agreementView.xml" path="/" exported="true"/>
     <image id="l4pw22" name="g_个人信息_用户协议.jpg" path="/_design/"/>
@@ -76,6 +76,7 @@
     <component id="l4pw29" name="agreeBtn.xml" path="/btn/"/>
     <component id="82t12a" name="spaceBtn.xml" path="/btn/"/>
     <component id="a2w92b" name="bindPhoneBtn.xml" path="/btn/"/>
+    <component id="s6qu2c" name="iconListCom.xml" path="/com/" exported="true"/>
   </resources>
   <publish name="lobby_user_info"/>
 </packageDescription>

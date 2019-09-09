@@ -10,7 +10,7 @@
     //"strictNullChecks": true,
     "noEmitOnError": true,
     "noImplicitReturns": true,
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules",
@@ -18,6 +18,6 @@
     "local",
     "temp",
     "build",
-    "settings",
+    "settings"
   ]
 }
