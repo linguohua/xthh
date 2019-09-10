@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="73s0k7b3" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="qxe00" name="hbjm_bq.png" path="/_resource/" scale="9grid" scale9grid="193,24,11,57"/>
+    <image id="qxe01" name="hbjm_di1.png" path="/_resource/" scale="9grid" scale9grid="12,8,10,12"/>
+    <image id="qxe02" name="hbjm_di2.png" path="/_resource/" scale="9grid" scale9grid="12,12,5,6"/>
+    <image id="qxe03" name="hbjm_di3.png" path="/_resource/" scale="9grid" scale9grid="44,71,14,16"/>
+    <image id="qxe04" name="hbjm_fgx.png" path="/_resource/"/>
+    <image id="qxe05" name="hbjm_icon_hb.png" path="/_resource/"/>
+    <image id="qxe06" name="hbjm_zi_hbhqfs.png" path="/_resource/"/>
+    <image id="qxe07" name="hbjm_zi_wdhb.png" path="/_resource/"/>
+    <image id="qxe08" name="hbjm_zi_y.png" path="/_resource/"/>
+    <image id="qxe09" name="h_红包.jpg" path="/_design/"/>
+    <image id="qxe0a" name="h_红包标注.jpg" path="/_design/"/>
+    <component id="qxe0b" name="redPacketView.xml" path="/" exported="true"/>
+  </resources>
+  <publish name=""/>
+</packageDescription>
