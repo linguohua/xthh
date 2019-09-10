@@ -451,6 +451,10 @@ export class RoomView {
     }
 
     public showGamePauseTips(timeStamp: number): void {
+        if (this.room.isJoyRoom) {
+            //欢乐场不需要显示这个提示
+            return;
+        }
 
         this.defaultQuitTime = timeStamp - this.room.getRoomHost().getServerTime();
 
@@ -788,7 +792,22 @@ export class RoomView {
         if (this.room.isJoyRoom) {
             //提示消耗多少欢乐豆
             const str = this.room.joyRoom.cost_param.toString();
-            this.unityViewNode.getChild("joyText").text = LocalStrings.findString("joyText", str);
+            const joyText = this.unityViewNode.getChild("joyText");
+            joyText.text = LocalStrings.findString("joyText", str);
+            joyText.visible = true;
+            //显示欢乐场级别
+            const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+            const rooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
+            let level = 1;
+            for (let i = 0; i < rooms.length; i++) {
+                if (rooms[i].id === this.room.joyRoom.id) {
+                    level = i + 1;
+                    break;
+                }
+            }
+            const joyRoomGZText = this.unityViewNode.getChild("joyRoomGZText");
+            joyRoomGZText.text = LocalStrings.findString(`joyLevel${level}`);
+            joyRoomGZText.visible = true;
 
             this.trusteeshipBtn.visible = true;
             this.unityViewNode.getChild("joyRoomHead2").visible = true;
