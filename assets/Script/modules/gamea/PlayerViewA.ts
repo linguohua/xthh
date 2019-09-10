@@ -550,7 +550,7 @@ export class PlayerViewA {
     public mountMeldImage(
         meldView: fgui.GComponent, msgMeld: protoHH.casino_gdy.packet_sc_op_ack, isHu: boolean = false): fgui.GComponent[] {
 
-        const pp = this.room.getPlayerByUserID(`${msgMeld.target_id}`);
+        const pp = this.room.getPlayerByPlayerID(msgMeld.target_id);
         let viewChairID = this.viewChairID;
         if (pp !== undefined && pp.chairID !== undefined && pp.chairID !== null) {
             viewChairID = this.room.getPlayerViewChairIDByChairID(pp.chairID);

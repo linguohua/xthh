@@ -9,6 +9,7 @@ import { LocalStrings } from "../strings/LocalStringsExports";
 import { LotteryView } from "./lottery/LotteryView";
 import { ShopView, TabType } from "./shop/ShopView";
 import { UserInfoTabType, UserInfoView } from "./userInfo/UserInfoView";
+import { WelfareView } from "./welfare/WelfareViewExports";
 const { ccclass } = cc._decorator;
 
 /**
@@ -160,12 +161,41 @@ export class JoyBeanView extends cc.Component {
             this.lm.msgCenter.blockNormal();
         } else {
             // 提示用户没有豆了
-            Dialog.prompt(LocalStrings.findString("beanIsLess"));
+            this.checkBeans();
         }
     }
+
+    private checkBeans(): void {
+        // 判断有没有可以免费领
+        const helperCount = this.helperNumber();
+        if (helperCount[0] > 0) {
+            //有得领
+            const view = this.addComponent(WelfareView);
+            view.showView(this.lm, helperCount[0], helperCount[1]);
+
+            return;
+        }
+        // 提示用户没有豆了
+        const yesCB = () => {
+            const view = this.addComponent(ShopView);
+            view.showView(this.lm.loader, TabType.Dou);
+
+            // this.onBackButtonClick();
+        };
+        const noCB = () => {
+            // this.onBackButtonClick();
+        };
+        Dialog.showDialog(LocalStrings.findString("beanIsLess"), yesCB, noCB);
+    }
     private onJoinRoomCliclk(index: number): void {
-        // Logger.debug("rooms : ", this.rooms[index]);
         const room = this.rooms[index];
+        const myGold = +DataStore.getString(KeyConstants.BEANS);
+        if (room.gold.low > myGold) {
+            this.checkBeans();
+
+            return;
+        }
+        // Logger.debug("rooms : ", this.rooms[index]);
         const req = {
             casino_id: room.casino_id,
             room_id: room.id,
@@ -244,5 +274,43 @@ export class JoyBeanView extends cc.Component {
         this.destroy();
 
         lm.switchToGame(params, "gameb");
+    }
+    private helperNumber(): number[] {
+        const havaHelperNum = [0, 1]; //领取免费豆次数
+        const helperTimeStr = DataStore.getString(KeyConstants.HELPER_TIME, "");
+        const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
+        const helperParamStr = DataStore.getString(KeyConstants.HELPER_PARAM, "");
+        Logger.debug(`helperTimeStr : ${helperTimeStr} ; helperSizeStr : ${helperSizeStr} ; helperParamStr : ${helperParamStr}`);
+        if (helperSizeStr !== "") {
+            const helperSize = +helperSizeStr;
+            if (helperSize > 0) {
+                if (this.isToday(helperTimeStr)) {
+                    //如果领取的时间是今天
+                    if (helperParamStr !== "") {
+                        havaHelperNum[0] = helperSize - +helperParamStr;
+                    } else {
+                        havaHelperNum[0] = helperSize;
+                    }
+                    havaHelperNum[1] = 0;
+                } else {
+                    havaHelperNum[0] = helperSize;
+                    havaHelperNum[1] = 1;
+                }
+            }
+        }
+        Logger.debug("havaHelperNum ： ", havaHelperNum);
+
+        return havaHelperNum;
+    }
+    private isToday(helperTimeStr: string): boolean {
+        if (helperTimeStr === "") {
+            return false;
+        }
+        const time = +helperTimeStr;
+        const time0 = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
+        const time24 = new Date(new Date().setHours(24, 0, 0, 0)).getTime();
+        // Logger.debug(`time : ${time} ; time0 : ${time0} ; time24 : ${time24}`);
+
+        return time0 < time && time < time24;
     }
 }

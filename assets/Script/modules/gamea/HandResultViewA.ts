@@ -273,7 +273,7 @@ export class HandResultViewA extends cc.Component {
     private updatePlayerTileData(playerScore: proto.casino.Iplayer_score, c: ViewGroup): void {
         Logger.debug("playerScore ----------------------- ： ", playerScore);
         //构造落地牌组
-        const player = <PlayerA>this.room.getPlayerByUserID(`${playerScore.data.id}`);
+        const player = <PlayerA>this.room.getPlayerByPlayerID(playerScore.data.id);
         const meldDatas = this.getMelds(playerScore.data.id, player); // player.tilesMelds;
         let tilesHand = playerScore.curcards.concat([]); //玩家手上的牌（暗牌）排好序的
         // this.sortHands(tilesHand, false);

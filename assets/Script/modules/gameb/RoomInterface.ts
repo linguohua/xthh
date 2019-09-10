@@ -128,7 +128,7 @@ export interface RoomInterface {
     isListensObjVisible(): boolean;
 
     getPlayerByChairID(chairID: number): PlayerInterface;
-    getPlayerByUserID(userID: string): PlayerInterface;
+    getPlayerByPlayerID(playerID: number): PlayerInterface;
     hideDiscardedTips(): void;
     cleanUI(): void;
     updateTilesInWallUI(): void;

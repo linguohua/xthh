@@ -13,7 +13,7 @@ export namespace HandlerMsgTableScoreA {
     const showHu = async (reply: proto.casino.packet_table_score, room: RoomInterfaceA): Promise<void> => {
 
         for (const score of reply.scores) {
-            const player = <PlayerA>room.getPlayerByUserID(`${score.data.id}`);
+            const player = <PlayerA>room.getPlayerByPlayerID(score.data.id);
             if (score.hupai_card > 0) {
                 let huType = eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO;
                 const opscores = score.opscores;
@@ -69,7 +69,7 @@ export namespace HandlerMsgTableScoreA {
         let huPlayer: PlayerA = null;
         for (const score of reply.scores) {
             const curcards = score.curcards;
-            const player = <PlayerA>room.getPlayerByUserID(`${score.data.id}`);
+            const player = <PlayerA>room.getPlayerByPlayerID(score.data.id);
             //胡牌的人才 摊牌
             if (score.hupai_card > 0) {
                 let haveHeiMo = false;

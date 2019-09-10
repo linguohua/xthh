@@ -12,7 +12,7 @@ export namespace HandlerActionScore {
         Logger.debug("HandlerActionScore----------------------- ", reply);
         const players: Player[] = [];
         for (const score of reply.scores) {
-            const player = <Player>room.getPlayerByUserID(`${score.player_id}`);
+            const player = <Player>room.getPlayerByPlayerID(score.player_id);
             if (player !== undefined) {
                 player.piaoScore(score.score_add);
             }

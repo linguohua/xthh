@@ -9,7 +9,7 @@ import { RoomInterface } from "../RoomInterface";
 export namespace HandlerMsgUpdateCoordinate {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const coordinate = proto.casino.packet_coordinate.decode(msgData);
-        const player = <Player>room.getPlayerByUserID(`${coordinate.player_id}`);
+        const player = <Player>room.getPlayerByPlayerID(coordinate.player_id);
         player.coordinate = <proto.casino.coordinate>coordinate;
 
         Logger.debug("HandlerMsgUpdateCoordinate:", coordinate);

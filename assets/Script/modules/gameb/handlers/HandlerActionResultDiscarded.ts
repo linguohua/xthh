@@ -11,7 +11,7 @@ export namespace HandlerActionResultDiscarded {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const reply = proto.casino_xtsj.packet_sc_outcard_ack.decode(msgData);
         Logger.debug("HandlerMsgActionOutcardAck----------------------- ", reply);
-        const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
+        const player = <Player>room.getPlayerByPlayerID(reply.player_id);
         const myPlayer = <Player>room.getMyPlayer();
 
         // const targetChairID = actionResultMsg.targetChairID;

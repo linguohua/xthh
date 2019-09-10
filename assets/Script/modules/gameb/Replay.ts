@@ -471,7 +471,7 @@ export class Replay {
 
         if (pCards.length > 0) {
             for (const pCard of pCards) {
-                const player = <Player>this.room.getPlayerByUserID(`${pCard.player_id}`);
+                const player = <Player>this.room.getPlayerByPlayerID(pCard.player_id);
                 player.addHandTile(pCard.card);
                 player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
                 player.hand2UI(false);
@@ -557,7 +557,7 @@ export class Replay {
         // const msg = proto.casino_xtsj.packet_sc_op_ack.encode(data);
         // await HandlerMsgActionOPAck.onMsg(msg, this.room);
         //TODO : 显示 弃操作
-        let str = this.room.getPlayerByUserID(`${srAction.player_id}`).mNick;
+        let str = this.room.getPlayerByPlayerID(srAction.player_id).mNick;
 
         const giveUpZimo = LocalStrings.findString("giveUpZimo");
         const giveUpZuoChong = LocalStrings.findString("giveUpZuoChong");

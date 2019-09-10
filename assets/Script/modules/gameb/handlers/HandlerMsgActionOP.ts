@@ -10,7 +10,7 @@ export namespace HandlerMsgActionOP {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterface): Promise<void> => {
         const reply = proto.casino_xtsj.packet_sc_op.decode(msgData);
         Logger.debug("HandlerMsgActionOP----------------------- ", reply);
-        const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
+        const player = <Player>room.getPlayerByPlayerID(reply.player_id);
         if (!player.isMe()) {
 
             return;

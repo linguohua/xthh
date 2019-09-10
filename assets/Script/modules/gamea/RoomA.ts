@@ -161,12 +161,19 @@ export class RoomA {
 
     public getPlayerByChairID(chairID: number): PlayerA {
         let player = null;
-        Object.keys(this.players).forEach((key: string) => {
-            const p = this.players[key];
+        const keys = Object.keys(this.players);
+        for (const playerid of keys) {
+            const p = this.players[playerid];
             if (p.chairID === chairID) {
                 player = p;
             }
-        });
+        }
+        // Object.keys(this.players).forEach((key: string) => {
+        //     const p = this.players[key];
+        //     if (p.chairID === chairID) {
+        //         player = p;
+        //     }
+        // });
 
         return player;
     }
@@ -470,15 +477,10 @@ export class RoomA {
         return this.roomView.listensObj.visible;
     }
 
-    public getPlayerByUserID(userID: string): PlayerInterfaceA {
+    public getPlayerByPlayerID(playerID: number): PlayerInterfaceA {
 
-        return this.players[userID];
+        return this.players[`${playerID}`];
     }
-    public getPlayerByCharID(charID: number): PlayerA {
-
-        return this.players[charID];
-    }
-
     public getPlayerByImID(imaccid: string): PlayerA {
         const keys = Object.keys(this.players);
         for (const key of keys) {
@@ -538,13 +540,13 @@ export class RoomA {
         this.roomView.switchBg(index);
     }
     public showMsg(chatData: protoHH.casino.packet_table_chat): void {
-        const p = <PlayerA>this.getPlayerByUserID(`${chatData.player_id}`);
+        const p = <PlayerA>this.getPlayerByPlayerID(chatData.player_id);
         p.onChatMsg(chatData);
         // this.players[chatData.player_id].onChatMsg(chatData);
     }
 
     public onSearchPlayerAck(searchAck: protoHH.casino.packet_search_ack): void {
-        const p = <PlayerA>this.getPlayerByUserID(`${searchAck.data.id}`);
+        const p = <PlayerA>this.getPlayerByPlayerID(searchAck.data.id);
         p.showPlayerInfoView(searchAck);
         // this.players[searchAck.data.id].showPlayerInfoView(searchAck);
     }
@@ -744,7 +746,7 @@ export class RoomA {
         this.myPlayer.cancelZhuochong = myPlayerInfo.cancel_zhuochong;
         //显示庄家
         this.bankerChairID = this.roomInfo.lord_id;
-        const player = <PlayerA>this.getPlayerByUserID(`${this.bankerChairID}`);
+        const player = <PlayerA>this.getPlayerByPlayerID(this.bankerChairID);
         this.roomView.playZhuangAni(player.playerView.head.bankerFlag, 0.6);
         //压入自摸不自摸的标志
         this.myPlayer.cancelZiMo = myPlayerInfo.jialaizi === 1;
@@ -948,24 +950,43 @@ export class RoomA {
     }
     private showCards(isNewDiacardId: number): void {
         //删掉出牌列表里面 已经被碰 或者 杠的牌  免得重复
-        Object.keys(this.players).forEach((key: string) => {
+        const keys = Object.keys(this.players);
+        for (const key of keys) {
             const player = this.players[key];
             const melds = player.tilesMelds;
             for (const meld of melds) {
                 const tId = meld.target_id;
                 if (tId !== undefined && tId !== null) {
-                    const tP = this.getPlayerByUserID(`${tId}`);
+                    const tP = this.getPlayerByPlayerID(tId);
                     if (tP !== undefined && tP !== null) {
                         tP.removeTileFromDiscard(meld.cards[0]);
                     }
                 }
             }
-        });
-        Object.keys(this.players).forEach(async (key: string) => {
+        }
+        for (const key of keys) {
             const player = this.players[key];
-            await player.discarded2UI(`${isNewDiacardId}` === key, false);
+            player.discarded2UI(`${isNewDiacardId}` === key, false);
             player.hand2UI(false);
-        });
+        }
+        // Object.keys(this.players).forEach((key: string) => {
+        //     const player = this.players[key];
+        //     const melds = player.tilesMelds;
+        //     for (const meld of melds) {
+        //         const tId = meld.target_id;
+        //         if (tId !== undefined && tId !== null) {
+        //             const tP = this.getPlayerByPlayerID(tId);
+        //             if (tP !== undefined && tP !== null) {
+        //                 tP.removeTileFromDiscard(meld.cards[0]);
+        //             }
+        //         }
+        //     }
+        // });
+        // Object.keys(this.players).forEach(async (key: string) => {
+        //     const player = this.players[key];
+        //     await player.discarded2UI(`${isNewDiacardId}` === key, false);
+        //     player.hand2UI(false);
+        // });
     }
     private getMahjongLaveNumber(tile: number): number {
         //普通牌最大数量是4张，翻牌最大数量就是3张

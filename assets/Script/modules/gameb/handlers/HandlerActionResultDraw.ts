@@ -48,7 +48,7 @@ export namespace HandlerActionResultDraw {
         Logger.debug("HandlerActionResultDraw----------------------- ", reply);
         // const tilesFlower = actionResultMsg.newFlowers;
         // const targetChairID = actionResultMsg.targetChairID;
-        const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
+        const player = <Player>room.getPlayerByPlayerID(reply.player_id);
 
         room.setWaitingPlayer(player.chairID, reply.time);
 

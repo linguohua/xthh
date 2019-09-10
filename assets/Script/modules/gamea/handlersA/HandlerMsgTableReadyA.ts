@@ -9,7 +9,7 @@ export namespace HandlerMsgTableReadyA {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         const reply = proto.casino.packet_table_ready.decode(msgData);
         Logger.debug("HandlerMsgTableReady----------------------- ", reply);
-        // const player = <Player>room.getPlayerByUserID(`${reply.player_id}`);
+        // const player = <Player>room.getPlayerByPlayerID(`${reply.player_id}`);
         // if (player.isMe()) {
         //     //清理
         //     room.resetForNewHand();

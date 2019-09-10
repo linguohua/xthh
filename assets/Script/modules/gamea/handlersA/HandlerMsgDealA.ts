@@ -128,7 +128,7 @@ export namespace HandlerMsgDealA {
         }
         await room.coWaitSeconds(0.5);
         const time = 0.6; //飞庄动画时间
-        const player = <PlayerA>room.getPlayerByUserID(msgDeal.lord_id.toString());
+        const player = <PlayerA>room.getPlayerByPlayerID(msgDeal.lord_id);
         room.roomView.playZhuangAni(player.playerView.head.bankerFlag, time);
         await room.coWaitSeconds(time);
 

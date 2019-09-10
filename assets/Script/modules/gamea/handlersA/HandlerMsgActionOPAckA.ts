@@ -17,7 +17,7 @@ export namespace HandlerMsgActionOPAckA {
         player.addMeld(pAck);
         // player.sortHands(true); // 新抽牌，必然有14张牌，因此最后一张牌不参与排序
         player.hand2UI(true); //手牌列表更新UI
-        const contributorPlayer = <PlayerA>room.getPlayerByUserID(`${pAck.target_id}`);
+        const contributorPlayer = <PlayerA>room.getPlayerByPlayerID(pAck.target_id);
         const a = pAck.cards[0];
         contributorPlayer.removeLatestDiscarded(a); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
         await contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
@@ -51,7 +51,7 @@ export namespace HandlerMsgActionOPAckA {
         } else {
             player.addMeld(pAck);
         }
-        const contributorPlayer = <PlayerA>room.getPlayerByUserID(`${pAck.target_id}`);
+        const contributorPlayer = <PlayerA>room.getPlayerByPlayerID(pAck.target_id);
         if (contributorPlayer !== undefined && contributorPlayer !== null) {
             contributorPlayer.removeLatestDiscarded(mahjong); //从贡献者（出牌者）的打出牌列表中移除最后一张牌
             await contributorPlayer.discarded2UI(false, false); //更新贡献者的打出牌列表到UI
@@ -112,7 +112,7 @@ export namespace HandlerMsgActionOPAckA {
     export const onMsg = async (msgData: ByteBuffer, room: RoomInterfaceA): Promise<void> => {
         const pAck = proto.casino_gdy.packet_sc_op_ack.decode(msgData);
         Logger.debug("HandlerMsgActionOPAck----------------------- ", pAck);
-        const player = <PlayerA>room.getPlayerByUserID(`${pAck.player_id}`);
+        const player = <PlayerA>room.getPlayerByPlayerID(pAck.player_id);
         if (player.isMe()) {
             player.playerView.setLanOfHands(false);
             if (pAck.op === TypeOfOP.Guo) {                //假如没有操作
