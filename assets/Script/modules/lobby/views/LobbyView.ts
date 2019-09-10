@@ -473,7 +473,6 @@ export class LobbyView extends cc.Component {
 
     private onMsgUpdate(msg: proto.casino.ProxyMessage): void {
         const updateMsg = proto.casino.packet_update.decode(msg.Data);
-        Logger.debug("onMsgUpdate,updateMsg =", updateMsg);
         if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_RESOURCE) {
             const playerResource = proto.casino.player_resource.decode(updateMsg.data);
             // Logger.debug("resource:", playerResource);
@@ -486,6 +485,8 @@ export class LobbyView extends cc.Component {
                 DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
                 this.beansText.text = playerResource.curr.toString();
             }
+
+            Logger.debug(`LobbyView.updateMsg, resource type:${playerResource.type},   playerResource.curr:${playerResource.curr}`);
 
         } else if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_ENERGY) {
             const playerEnergy = proto.casino.player_energy.decode(updateMsg.data);
