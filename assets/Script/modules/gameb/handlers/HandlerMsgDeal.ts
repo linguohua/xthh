@@ -102,8 +102,11 @@ export namespace HandlerMsgDeal {
         // room.getRoomHost().eventTarget.emit("onDeal");
         room.roomView.showOrHideReadyView(false);
 
-        const imaccids = getPlayerImaccids(room.getPlayers());
-        room.getRoomHost().createTeam(imaccids, `${room.roomInfo.tag}`);
+        if (!room.isJoyRoom) {
+            const imaccids = getPlayerImaccids(room.getPlayers());
+            room.getRoomHost().createTeam(imaccids, `${room.roomInfo.tag}`);
+        }
+
         // 显示默认隐藏的view
         room.showRoomBtnsAndBgs();
         //清理
