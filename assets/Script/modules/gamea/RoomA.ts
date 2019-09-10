@@ -106,6 +106,8 @@ export class RoomA {
     public readonly audioContext: createInnerAudioContextOpts;
 
     public isPlayAudio: boolean = false;
+
+    public isJoyRoom: boolean = false;
     public nimMsgs: NIMMessage[] = [];
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: ReplayA) {
         Logger.debug("myUser ---------------------------------------------", myUser);

@@ -106,6 +106,8 @@ export interface RoomInterfaceA {
     quit: Function;
     lastDisCardTile: number;
     isPlayAudio: boolean;
+
+    isJoyRoom: boolean;
     // 获取RoomHost
     getRoomHost(): RoomHost;
     isMe(userID: string): boolean;

@@ -202,6 +202,11 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         }
     }
 
+    public showWelfareView(helperCount: number, refresh: number): void {
+        const view = this.addComponent(WelfareView);
+        view.showView(this.lm, helperCount, refresh);
+    }
+
     public getServerTime(): number {
         if (this.lm.msgCenter !== null) {
             return this.lm.msgCenter.getServerTime();
