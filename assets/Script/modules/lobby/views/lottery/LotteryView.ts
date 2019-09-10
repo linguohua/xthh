@@ -39,8 +39,8 @@ export class LotteryView extends cc.Component {
 
     private drawingBlock: fgui.GComponent;
 
-    protected onLoad(): void {
-        this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+    public show(lm: LobbyModuleInterface): void {
+        this.lm = lm;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_lottery/lobby_lottery");
         const view = fgui.UIPackage.createObject("lobby_lottery", "lotteryView").asCom;
@@ -61,6 +61,10 @@ export class LotteryView extends cc.Component {
 
         this.win = win;
         this.win.show();
+    }
+
+    protected onLoad(): void {
+        //  this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
     }
 
     protected onDestroy(): void {
@@ -203,7 +207,7 @@ export class LotteryView extends cc.Component {
 
     private onRuleBtnClick(): void {
         const view = this.addComponent(LotteryRuleView);
-        view.show(this.currTurnableData);
+        view.show(this.lm, this.currTurnableData);
     }
 
     private onJuniorBtnClick(): void {
@@ -271,7 +275,7 @@ export class LotteryView extends cc.Component {
 
         const showResultAction = cc.callFunc(() => {
             const view = this.addComponent(LotteryRewardView);
-            view.show(drawItem);
+            view.show(this.lm, drawItem);
             this.hideDrawingBlock();
         });
 

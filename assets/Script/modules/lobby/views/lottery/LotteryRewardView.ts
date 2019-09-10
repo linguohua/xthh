@@ -17,12 +17,8 @@ export class LotteryRewardView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
-    public show(drawItem: proto.casino.Ienergy_turnable_item): void {
-        this.initView(drawItem);
-        this.win.show();
-    }
-    protected onLoad(): void {
-        this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+    public show(lm: LobbyModuleInterface, drawItem: proto.casino.Ienergy_turnable_item): void {
+        this.lm = lm;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_lottery/lobby_lottery");
         const view = fgui.UIPackage.createObject("lobby_lottery", "rewardView").asCom;
@@ -39,6 +35,11 @@ export class LotteryRewardView extends cc.Component {
         win.modal = true;
 
         this.win = win;
+        this.initView(drawItem);
+        this.win.show();
+    }
+    protected onLoad(): void {
+        //this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
     }
 
     protected onDestroy(): void {

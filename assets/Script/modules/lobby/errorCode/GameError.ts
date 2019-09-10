@@ -134,10 +134,14 @@ export namespace GameError {
         [errCode.RETURN_HELPER_RECEIVE_ALL]: "福利金已领完"
     };
 
+    /**
+     * 获取错误码对应的错误字符串
+     * @param code 错误码
+     */
     export const getErrorString = (code: number): string => {
         const errString = errMsg[code];
         if (errString === undefined || errString === "") {
-            return `Unknow error code: ${code}`;
+            return `Unknown error code: ${code}`;
         }
 
         return errString;

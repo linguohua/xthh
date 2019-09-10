@@ -39,12 +39,9 @@ export class DisbandView extends cc.Component {
 
     private room: RoomInterface;
 
-    // private myCountDown: fgui.GObject;
     private myCountDownTxt: fgui.GTextField;
 
     private isDisbandDone: boolean;
-
-    // private isForMe: boolean;
 
     private leftTime: number;
     private refuseBtn: fgui.GButton;
@@ -90,7 +87,6 @@ export class DisbandView extends cc.Component {
             win.modal = true;
 
             this.win = win;
-
             this.win.show();
 
             this.initView();
@@ -101,11 +97,6 @@ export class DisbandView extends cc.Component {
     }
 
     public updateView(): void {
-        // const disbandReq = this.disbandReq;
-        //
-        Logger.debug("disbandReq = ", this.disbandReq);
-        Logger.debug("disbandAck = ", this.disbandAck);
-
         //先更新所有文字信息，例如谁同意，谁拒绝之类
         this.updateTexts(this.disbandReq, this.disbandAck);
 
@@ -133,8 +124,6 @@ export class DisbandView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        // this.room.getRoomHost().eventTarget.off("disband");
-
         this.view.dispose();
         this.win.hide();
         this.win.dispose();
@@ -148,9 +137,7 @@ export class DisbandView extends cc.Component {
         const disbandTime = gameConfig.table_disband_time;
         this.leftTime = this.startDisbandTime + disbandTime - serverTime;
 
-        Logger.debug("DisbandView.countDownFunc this.leftTime  = ", this.leftTime);
         if (this.leftTime <= 0) {
-            Logger.debug("DisbandView.countDownFunc this.leftTime < 0");
             this.unschedule(this.countDownSchedule);
             this.destroy();
 
@@ -170,7 +157,7 @@ export class DisbandView extends cc.Component {
         if (this.isDisbandDone === true) {
             this.destroy();
         } else {
-            Logger.debug(" you choose to agree disband");
+            Logger.debug("choose to agree disband");
             this.showButtons(false);
             this.room.sendDisbandAgree(true);
 
@@ -182,7 +169,6 @@ export class DisbandView extends cc.Component {
     }
 
     private initView(): void {
-        // this.myCountDown = this.view.getChild("n9");
         this.myCountDownTxt = this.view.getChild("time").asTextField;
         this.refuseBtn = this.view.getChild("unagreeBtn").asButton;
         this.agreeBtn = this.view.getChild("agreeBtn").asButton;
@@ -261,8 +247,6 @@ export class DisbandView extends cc.Component {
     }
 
     private getPlayerByID(playerID: string): DisBandPlayerInfo {
-        //
-
         let playerInfo = null;
 
         for (const p of this.playersInfo) {
@@ -276,7 +260,6 @@ export class DisbandView extends cc.Component {
     }
 
     private onDisband(): void {
-        Logger.debug("onDisband");
         this.unschedule(this.countDownSchedule);
         this.destroy();
     }

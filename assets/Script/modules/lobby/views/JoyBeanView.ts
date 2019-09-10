@@ -131,7 +131,8 @@ export class JoyBeanView extends cc.Component {
     }
 
     private onLotteryViewBtnClick(): void {
-        this.addComponent(LotteryView);
+        const view = this.addComponent(LotteryView);
+        view.show(this.lm);
     }
 
     private onQuicklyClick(): void {

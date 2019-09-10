@@ -12,6 +12,9 @@ const REWARD_IMG: { [key: number]: string } = {
     [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/ty_icon_fk"
 };
 
+/**
+ * 邮件操作记录
+ */
 enum OPERATION {
     NONE = 0,
     TAKE = 1,
@@ -74,8 +77,8 @@ export class EmailView extends cc.Component {
 
     protected onDestroy(): void {
 
-        const emailData = JSON.stringify(this.playerEmails);
-        DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+        // 保存起来，因为邮件不能频繁拉取，如果拉取不到，则用本地的数据
+        this.savePlayerEmails2DataStore(this.playerEmails);
 
         this.unRegisterHander();
         this.win.hide();
@@ -121,7 +124,6 @@ export class EmailView extends cc.Component {
         this.attachmentsList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderAttachmentListItem(index, item);
         };
-        //this.attachmentsList.setVirtual();
 
         const titleText = this.view.getChild("titleText").asTextField;
         this.titleText = titleText;

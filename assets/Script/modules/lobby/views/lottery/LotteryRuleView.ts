@@ -2,6 +2,7 @@ import { CommonFunction, LobbyModuleInterface } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
+
 /**
  * 抽奖规则页面
  */
@@ -11,13 +12,8 @@ export class LotteryRuleView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
-    public show(turnTable: proto.casino.energy_turnable): void {
-        this.initView(turnTable);
-        this.win.show();
-    }
-
-    protected onLoad(): void {
-        this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+    public show(lm: LobbyModuleInterface, turnTable: proto.casino.energy_turnable): void {
+        this.lm = lm;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_lottery/lobby_lottery");
         const view = fgui.UIPackage.createObject("lobby_lottery", "lotteryRuleView").asCom;
@@ -33,6 +29,13 @@ export class LotteryRuleView extends cc.Component {
         win.modal = true;
 
         this.win = win;
+
+        this.initView(turnTable);
+        this.win.show();
+    }
+
+    protected onLoad(): void {
+        //
     }
 
     protected onDestroy(): void {

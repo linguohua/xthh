@@ -30,19 +30,9 @@ export class ShopView extends cc.Component {
 
     private cardPayCfgs: protoHH.casino.Ipay[];
 
-    // public showView(page: TabType): void {
-    //     this.win.show();
-
-    //     const tabCtrl = this.view.getController("tab");
-    //     tabCtrl.selectedIndex = page;
-    // }
-
     public showView(loader: GResLoader, page: TabType): void {
 
         this.eventTarget = new cc.EventTarget();
-
-        // const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        // const loader = lm.loader;
 
         loader.fguiAddPackage("lobby/fui_lobby_shop/lobby_shop");
         const view = fgui.UIPackage.createObject("lobby_shop", "shopView").asCom;

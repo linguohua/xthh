@@ -349,6 +349,11 @@ export namespace LocalStrings {
         `
         };
 
+        /**
+         * 获取字符串
+         * @param strTag key
+         * @param params 参数
+         */
         export const findString = (strTag: string, ...params: string[]): string => {
                 const localString = localStrings[strTag];
 
