@@ -30,10 +30,10 @@ export class BoxRecordView {
     }
 
     private registerHandler(): void {
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_UPDATE, this.onFkRecordLoad, this);
+        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_GIFT_REQ, this.onBoxRecordLoad, this);
     }
 
-    private onFkRecordLoad(): void {
+    private onBoxRecordLoad(): void {
         //
     }
 
