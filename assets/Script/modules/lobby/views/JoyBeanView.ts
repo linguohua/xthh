@@ -81,15 +81,15 @@ export class JoyBeanView extends cc.Component {
         lotteryViewBtn.onClick(this.onLotteryViewBtnClick, this);
 
         const juniorBtn = this.view.getChild("junior").asCom;
-        juniorBtn.onClick(() => { this.onJoinRoomCliclk(0); }, this); //初级场
+        juniorBtn.onClick(() => { this.onJoinRoomClick(0); }, this); //初级场
         this.setJoyBtnInfo(juniorBtn, this.rooms[0]);
 
         const middleBtn = this.view.getChild("middle").asCom;
-        middleBtn.onClick(() => { this.onJoinRoomCliclk(1); }, this); //中级场
+        middleBtn.onClick(() => { this.onJoinRoomClick(1); }, this); //中级场
         this.setJoyBtnInfo(middleBtn, this.rooms[1]);
 
         const seniorBtn = this.view.getChild("senior").asCom;
-        seniorBtn.onClick(() => { this.onJoinRoomCliclk(2); }, this); //高级场
+        seniorBtn.onClick(() => { this.onJoinRoomClick(2); }, this); //高级场
         this.setJoyBtnInfo(seniorBtn, this.rooms[2]);
 
         const playQuicklyBtn = this.view.getChild("playQuicklyBtn");
@@ -188,7 +188,7 @@ export class JoyBeanView extends cc.Component {
         };
         Dialog.showDialog(LocalStrings.findString("beanIsLess"), yesCB, noCB);
     }
-    private onJoinRoomCliclk(index: number): void {
+    private onJoinRoomClick(index: number): void {
         const room = this.rooms[index];
         const myGold = +DataStore.getString(KeyConstants.BEANS);
         if (room.gold.low > myGold) {

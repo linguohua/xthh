@@ -4,7 +4,7 @@ import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
 
 /**
- * 输入数字界面
+ * 用户协议界面
  */
 @ccclass
 export class AgreementView extends cc.Component {

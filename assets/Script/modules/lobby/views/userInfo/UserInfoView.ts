@@ -314,12 +314,12 @@ export class UserInfoView extends cc.Component {
         const controller = this.userInfo.getController("isModify");
         controller.selectedIndex = 0;
 
-        const playerid = DataStore.getString(KeyConstants.PLAYER_ID);
+        const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
 
         const req = new proto.casino.packet_modify_req();
         req.nickname = this.userName.text;
         req.sex = this.boyRadioBtn.selected ? 0 : 1;
-        req.player_id = +playerid;
+        req.player_id = +playerId;
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel === Enum.CHANNEL_TYPE.VISITOR) {
