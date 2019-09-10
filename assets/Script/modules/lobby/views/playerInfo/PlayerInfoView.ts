@@ -18,6 +18,7 @@ export class PlayerInfoView extends cc.Component {
     private headLoader: fgui.GLoader;
     private leaveGuildCount: fgui.GObject;
 
+    private genderCtrl: fgui.Controller;
     // private douText: fgui.GObject;
     // private fkText: fgui.GObject;
 
@@ -78,7 +79,7 @@ export class PlayerInfoView extends cc.Component {
 
         // const deleteFriendBtn = this.view.getChild("deleteFriendBtn").asButton;
 
-        // const genderCtrl = this.view.getController("gender");
+        this.genderCtrl = this.view.getController("gender");
         // const friendCtrl = this.view.getController("friend");
 
     }
@@ -97,6 +98,12 @@ export class PlayerInfoView extends cc.Component {
 
         this.playerName.text = `昵称：${name}`;
         this.id.text = `ID：${searchPlayerAck.data.id} `;
+
+        if (searchPlayerAck.data.sex === 0) {
+            this.genderCtrl.selectedIndex = 1;
+        } else {
+            this.genderCtrl.selectedIndex = 0;
+        }
 
         CommonFunction.setHead(this.headLoader, searchPlayerAck.data.channel_head, searchPlayerAck.data.avatar, searchPlayerAck.data.sex);
 

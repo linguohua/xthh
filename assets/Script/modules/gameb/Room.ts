@@ -672,7 +672,7 @@ export class Room {
 
             if (this.isMe(player.id.toString())) {
                 const p = this.getPlayerByChairID(i);
-                if (p === null || p === undefined) {
+                if (p === null || p.userID !== player.id.toString()) {
                     this.createMyPlayer(player, i);
                 } else {
                     p.updateByPlayerInfo(player, i);
@@ -691,7 +691,7 @@ export class Room {
             }
 
             const p = this.getPlayerByChairID(i);
-            if (p === null || p === undefined) {
+            if (p === null || p.userID !== player.id.toString()) {
                 this.createPlayerByInfo(player, i);
                 //有人进来或者更新，更新GPS
                 // if (updatePlayer === 0) {
