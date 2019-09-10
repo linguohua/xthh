@@ -189,6 +189,7 @@ export class JoyBeanView extends cc.Component {
         Dialog.showDialog(LocalStrings.findString("beanIsLess"), yesCB, noCB);
     }
     private onJoinRoomClick(index: number): void {
+
         const room = this.rooms[index];
         const myGold = +DataStore.getString(KeyConstants.BEANS);
         if (room.gold.low > myGold) {

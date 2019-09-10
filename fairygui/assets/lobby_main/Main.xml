@@ -33,7 +33,7 @@
     <text id="n30_u4cz" name="nameText" xy="69,26" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学"/>
     <text id="n31_u4cz" name="douText" xy="285,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
     <text id="n32_u4cz" name="fkText" xy="480,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
-    <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="62,30" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
+    <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="66,32" fontSize="21" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
     <text id="n37_octp" name="pos" xy="0,98" pivot="0,0.5" anchor="true" size="10,30" visible="false" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" text=""/>
   </displayList>
   <transition name="t0">

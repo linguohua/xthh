@@ -304,7 +304,6 @@ export class UserInfoView extends cc.Component {
             this.userName.asTextInput.editable = false;
             this.changeIconBtn.visible = false;
         }
-
         // Logger.debug("this.changeIconBtn.enabled:", this.changeIconBtn.enabled);
 
     }
