@@ -550,11 +550,15 @@ export class Room {
         this.roomView.switchBg(index);
     }
     public showMsg(chatData: protoHH.casino.packet_table_chat): void {
-        this.players[chatData.player_id].onChatMsg(chatData);
+        const p = <Player>this.getPlayerByUserID(`${chatData.player_id}`);
+        p.onChatMsg(chatData);
+        // this.players[chatData.player_id].onChatMsg(chatData);
     }
 
     public onSearchPlayerAck(searchAck: protoHH.casino.packet_search_ack): void {
-        this.players[searchAck.data.id].showPlayerInfoView(searchAck);
+        const p = <Player>this.getPlayerByUserID(`${searchAck.data.id}`);
+        p.showPlayerInfoView(searchAck);
+        // this.players[searchAck.data.id].showPlayerInfoView(searchAck);
     }
     /**
      * 挂起若干秒
