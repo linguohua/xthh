@@ -208,6 +208,7 @@ export class JoyBeanView extends cc.Component {
 
         if (this.lm !== undefined) {
             this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+            this.lm.msgCenter.blockNormal();
         }
     }
     private setJoyBtnInfo(btn: fgui.GComponent, room: proto.casino.Iroom): void {
