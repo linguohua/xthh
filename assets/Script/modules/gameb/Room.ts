@@ -407,6 +407,9 @@ export class Room {
     }
 
     public loadHandResultView(msgHandOver: protoHH.casino.packet_table_score): void {
+        if (this.isJoyRoom) {
+            this.isGameOver = true;
+        }
         const view = this.host.component.addComponent(HandResultView);
         view.showView(this, msgHandOver);
     }
