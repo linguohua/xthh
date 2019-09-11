@@ -69,7 +69,8 @@ export class FkRecordView {
         const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
         const hour = date.getHours() < 10 ? `0${date.getHours()}` : `${date.getHours()}`;
         const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
-        const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}`;
+        const seconds = date.getSeconds() < 10 ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
+        const timeText = `${date.getFullYear()}-${month}-${day} ${hour}:${minute}:${seconds}`;
 
         obj.getChild("date").text = timeText;
         obj.getChild("reason").text = `${msg.reason}`;
