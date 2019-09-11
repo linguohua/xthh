@@ -86,6 +86,7 @@ export class WelfareView extends cc.Component {
     private initView(): void {
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
+        closeBtn.visible = false;
 
         const collectBtn = this.view.getChild("collectBtn");
         collectBtn.onClick(this.onCollectClick, this);
