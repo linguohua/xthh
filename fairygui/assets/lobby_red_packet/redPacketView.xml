@@ -22,7 +22,7 @@
       <item/>
       <item/>
     </list>
-    <text id="n15_qxe0" name="count" xy="255,253" size="154,44" font="ui://snwj6cnxtfg8me" fontSize="30" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="18.1"/>
+    <text id="n15_qxe0" name="count" xy="255,256" size="154,44" font="ui://snwj6cnxtfg8me" fontSize="30" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="30"/>
     <text id="n16_qxe0" name="text1" xy="233,376" size="238,35" fontSize="24" color="#856d57" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="今天还可以提取3次"/>
     <text id="n17_qxe0" name="text2" xy="194,505" size="319,35" fontSize="18" color="#a84a0b" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="您今天的最高提取额度还剩余: 100元"/>
   </displayList>

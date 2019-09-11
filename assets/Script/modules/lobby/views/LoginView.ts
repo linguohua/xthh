@@ -433,6 +433,7 @@ export class LoginView extends cc.Component {
         // 获取房卡资源
         let card: number = 0;
         let beans: number = 0;
+        let red: number = 0;
         for (const resource of fastLoginAck.pdata.resources) {
             if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_CARD) {
                 card = resource.curr.toNumber();
@@ -440,6 +441,10 @@ export class LoginView extends cc.Component {
 
             if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_BEANS) {
                 beans = resource.curr.toNumber();
+            }
+
+            if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_RED) {
+                red = resource.curr.toNumber();
             }
         }
 
@@ -468,7 +473,6 @@ export class LoginView extends cc.Component {
         const playerEnergy = JSON.stringify(fastLoginAck.pdata.energy);
         const emailData = JSON.stringify(fastLoginAck.pdata.mails);
         const playerRedData = JSON.stringify(fastLoginAck.pdata.red);
-
         const redData = JSON.stringify(fastLoginAck.reddata);
 
         DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
@@ -480,6 +484,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.TABLE_ID, tableID);
         DataStore.setItem(KeyConstants.CARD, card);
         DataStore.setItem(KeyConstants.BEANS, beans);
+        DataStore.setItem(KeyConstants.RED, red);
         DataStore.setItem(KeyConstants.GAME_CONFIG, gameConfigStr);
         DataStore.setItem(KeyConstants.PAY_DATA, payDataStr);
         DataStore.setItem(KeyConstants.DATA_GDY, dataGdy);

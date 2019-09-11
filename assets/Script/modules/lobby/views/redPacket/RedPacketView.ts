@@ -68,8 +68,29 @@ export class RedPacketView extends cc.Component {
         const playerRedDataStr = DataStore.getString(KeyConstants.PLAYER_RED);
         const playerRedData = <proto.casino.Iplayer_red>JSON.parse(playerRedDataStr);
 
+        const red = +DataStore.getString(KeyConstants.RED);
+
+        const redText = `${red / 100}`;
+
+        this.view.getChild("count").text = redText;
+
         Logger.debug("redData = ", redData);
         Logger.debug("playerRedData = ", playerRedData);
+
+        // 玩家红包提现信息
+        // message player_red {
+        //     optional uint64			  id = 1; 			    // 唯一id
+
+        //     optional uint32	   cash_total = 10;				// 累计提现金额(单位:分)
+        //     optional uint32	   cash_today = 11;				// 今日提现金额(单位:分)
+
+        //     optional uint32	    num_total = 20;				// 累计提现次数
+        //     optional uint32	    num_today = 21;				// 今日提现次数
+
+        //     optional uint64	 create_time = 100[(dbextend.datetime) = true];// 获得时间
+        //     optional uint64	   cash_time = 105[(dbextend.datetime) = true];// 最后提现时间
+        // }
+
 
         this.stores = redData.stores;
 

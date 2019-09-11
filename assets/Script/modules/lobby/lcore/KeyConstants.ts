@@ -22,6 +22,7 @@ export namespace KeyConstants {
     export const CREATE_ROOM_PARAMS = "createRoomParams";
     export const CARD = "card";
     export const BEANS = "beans";
+    export const RED = "red";
     export const GAME_CONFIG = "gameConfig";
     export const PAY_DATA = "payData";
     export const TABLE_ID = "tableID";
