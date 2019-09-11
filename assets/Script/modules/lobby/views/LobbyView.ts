@@ -75,9 +75,12 @@ export class LobbyView extends cc.Component {
         this.testJoinGame();
 
         const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
-        if (musicVolume > 0) {
-            SoundMgr.playMusicAudio("gameb/music_hall", true);
+        if (+musicVolume > 0) {
+            cc.audioEngine.setMusicVolume(1);
+        } else {
+            cc.audioEngine.setMusicVolume(0);
         }
+        SoundMgr.playMusicAudio("gameb/music_hall", true);
 
         this.initNimSDK();
         this.setLaunchCallBack();
