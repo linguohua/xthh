@@ -15,6 +15,7 @@ export class SignView extends cc.Component {
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
+        this.registerHandler();
         loader.fguiAddPackage("lobby/fui_lobby_sign/lobby_sign");
         const view = fgui.UIPackage.createObject("lobby_sign", "signView").asCom;
 
@@ -23,7 +24,6 @@ export class SignView extends cc.Component {
         const mask = view.getChild("mask");
         CommonFunction.setBgFullScreenSize(mask);
 
-        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK, this.onActAck, this);
 
         this.view = view;
 
@@ -35,7 +35,7 @@ export class SignView extends cc.Component {
         this.initView();
         this.win.show();
 
-        this.actReq();
+        // this.sinReq();
     }
 
     protected onDestroy(): void {
@@ -46,10 +46,10 @@ export class SignView extends cc.Component {
     }
 
     private registerHandler(): void {
-        //
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK, this.onSignAck, this);
     }
     private unRegisterHander(): void {
-        //
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK);
     }
 
     private initView(): void {
@@ -64,7 +64,7 @@ export class SignView extends cc.Component {
         this.destroy();
     }
 
-    private onActAck(msg: proto.casino.ProxyMessage): void {
+    private onSignAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_act_ack.decode(msg.Data);
         if (reply.ret !== 0) {
             Logger.error("reply.ret:", reply.ret);
@@ -76,7 +76,7 @@ export class SignView extends cc.Component {
         Logger.debug("reply:", reply);
     }
 
-    private actReq(): void {
+    private sinReq(): void {
         const req = new proto.casino.packet_act_req();
         req.type = proto.casino.eACT.ACT_SIGN;
 

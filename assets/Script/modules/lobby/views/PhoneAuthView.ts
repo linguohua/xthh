@@ -63,10 +63,9 @@ export class PhoneAuthView extends cc.Component {
     protected onLoad(): void {
         this.eventTarget = new cc.EventTarget();
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        if (this.openType === OpenType.BIND_PHONE) {
-            this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK, this.onBindPhoneAck, this);
+        if (this.lm.msgCenter !== null) {
+            this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK, this.onBindPhoneAck, this);
         }
-
     }
     protected onDestroy(): void {
         if (this.openType === OpenType.LOGIN && this.loginView !== undefined) {
