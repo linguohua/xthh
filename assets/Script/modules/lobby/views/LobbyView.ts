@@ -13,7 +13,9 @@ import { AgreementView } from "./AgreementView";
 import { EmailView } from "./email/EmailView";
 import { JoyBeanView } from './JoyBeanView';
 import { NewRoomView } from "./NewRoomView";
+import { RedPacketView } from "./redPacket/RedPacketView";
 import { ShopView, TabType } from "./shop/ShopView";
+import { SignView } from "./sign/SignView";
 import { UserInfoTabType, UserInfoView } from "./userInfo/UserInfoView";
 const { ccclass } = cc._decorator;
 
@@ -171,6 +173,9 @@ export class LobbyView extends cc.Component {
         const addFK = this.view.getChild("addBtn2");
         addFK.onClick(this.onAddFKBtnClick, this);
 
+        const redPacketBtn = this.view.getChild("redPacketBtn");
+        redPacketBtn.onClick(this.onRedPacketBtnClick, this);
+
         const joyBeanHallBtn = this.view.getChild("huanlechangBtn");
         joyBeanHallBtn.onClick(this.onJoyBeanHallBtnClick, this);
 
@@ -248,6 +253,11 @@ export class LobbyView extends cc.Component {
         view.showView(this.lm.loader, TabType.FK);
     }
 
+    private onRedPacketBtnClick(): void {
+        //
+        this.addComponent(RedPacketView);
+    }
+
     private onJoyBeanHallBtnClick(): void {
         const view = this.addComponent(JoyBeanView);
         view.show();
@@ -282,6 +292,7 @@ export class LobbyView extends cc.Component {
 
     private onSignBtnClick(): void {
         // TODO: 需要显示签到界面
+        this.addComponent(SignView);
     }
 
     private onShopBtnClick(): void {

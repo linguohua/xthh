@@ -40,7 +40,7 @@
     <image id="82t110" name="ty_btn_hsx1.png" path="/resource/" exported="true"/>
     <image id="82t111" name="ty_icon_kk.png" path="/resource/" exported="true"/>
     <image id="82t112" name="ty_loading.png" path="/resource/" exported="true"/>
-    <image id="82t113" name="ty_tc3.png" path="/resource/" exported="true"/>
+    <image id="82t113" name="ty_tc3.png" path="/resource/" exported="true" scale="9grid" scale9grid="49,98,29,13"/>
     <image id="82t114" name="ty_yq5_1.png" path="/resource/" exported="true"/>
     <image id="82t115" name="ty_yq5_2.png" path="/resource/" exported="true"/>
     <component id="82t116" name="returnBtn.xml" path="/commonBtn/" exported="true"/>

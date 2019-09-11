@@ -13,6 +13,11 @@
     <image id="qxe09" name="h_红包.jpg" path="/_design/"/>
     <image id="qxe0a" name="h_红包标注.jpg" path="/_design/"/>
     <component id="qxe0b" name="redPacketView.xml" path="/" exported="true"/>
+    <component id="qxe0c" name="cashOutBtn.xml" path="/_btn/"/>
+    <component id="qxe0d" name="exchangeBtn.xml" path="/_btn/"/>
+    <image id="qxe0e" name="hbjm_zi_hb.png" path="/_resource/"/>
+    <image id="qxe0f" name="hbjm_zi_tx.png" path="/_resource/"/>
+    <component id="qxe0g" name="exchangeItem.xml" path="/"/>
   </resources>
-  <publish name=""/>
+  <publish name="lobby_red_packet"/>
 </packageDescription>

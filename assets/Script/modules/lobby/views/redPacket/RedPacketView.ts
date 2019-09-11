@@ -2,10 +2,10 @@ import { CommonFunction, LobbyModuleInterface } from "../../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 
 /**
- * SignView
+ * RedPacketView
  */
 @ccclass
-export class SignView extends cc.Component {
+export class RedPacketView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
@@ -13,8 +13,8 @@ export class SignView extends cc.Component {
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
-        loader.fguiAddPackage("lobby/fui_lobby_sign/lobby_sign");
-        const view = fgui.UIPackage.createObject("lobby_sign", "signView").asCom;
+        loader.fguiAddPackage("lobby/fui_lobby_red_packet/lobby_red_packet");
+        const view = fgui.UIPackage.createObject("lobby_red_packet", "redPacketView").asCom;
 
         CommonFunction.setViewInCenter(view);
 
@@ -28,6 +28,7 @@ export class SignView extends cc.Component {
         win.modal = true;
 
         this.win = win;
+
         this.initView();
         this.win.show();
     }

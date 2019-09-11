@@ -14,7 +14,7 @@
     <component id="n1_9f1e" name="shareBtn" src="9f1ep" fileName="btn/shareBtn.xml" xy="783,9"/>
     <component id="n3_9f1e" name="announcementBtn" src="9f1eq" fileName="btn/announcementBtn.xml" xy="990,408"/>
     <component id="n5_9f1e" name="guildBtn" src="9f1er" fileName="btn/guildBtn.xml" xy="980,537"/>
-    <component id="n6_9f1e" name="redEnvelopeBtn" src="9f1es" fileName="btn/redEnvelopeBtn.xml" xy="55,349"/>
+    <component id="n6_9f1e" name="redPacketBtn" src="9f1es" fileName="btn/redEnvelopeBtn.xml" xy="55,349"/>
     <component id="n7_9f1e" name="friendBtn" src="9f1et" fileName="btn/friendBtn.xml" xy="521,580"/>
     <component id="n8_9f1e" name="committeeBtn" src="9f1eu" fileName="btn/committeeBtn.xml" xy="820,580"/>
     <component id="n9_9f1e" name="signBtn" src="9f1ev" fileName="btn/signBtn.xml" xy="217,581"/>
@@ -33,7 +33,7 @@
     <text id="n30_u4cz" name="nameText" xy="69,26" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学"/>
     <text id="n31_u4cz" name="douText" xy="285,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
     <text id="n32_u4cz" name="fkText" xy="480,25" size="97,29" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="888888"/>
-    <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="66,32" fontSize="21" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
+    <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="68,32" fontSize="21" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
     <text id="n37_octp" name="pos" xy="0,98" pivot="0,0.5" anchor="true" size="10,30" visible="false" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" text=""/>
   </displayList>
   <transition name="t0">

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="77yg0eym" jpegQuality="80" compressPNG="true">
   <resources>
-    <image id="qxe00" name="mrqd_db.png" path="/_resource/"/>
-    <image id="qxe01" name="mrqd_icon_fk.png" path="/_resource/"/>
+    <image id="qxe00" name="mrqd_db.png" path="/_resource/" scale="9grid" scale9grid="36,55,31,7"/>
     <image id="qxe02" name="mrqd_mrqdzi.png" path="/_resource/"/>
-    <image id="qxe03" name="mrqd_xzdi.png" path="/_resource/"/>
-    <image id="qxe04" name="mrqd_zz.png" path="/_resource/"/>
+    <image id="qxe03" name="mrqd_xzdi.png" path="/_resource/" scale="9grid" scale9grid="31,26,11,15"/>
+    <image id="qxe04" name="mrqd_zz.png" path="/_resource/" scale="9grid" scale9grid="19,16,5,7"/>
     <image id="qxe05" name="q_每日签到.jpg" path="/_design/"/>
     <image id="qxe06" name="q_每日签到标注.jpg" path="/_design/"/>
+    <component id="qxe07" name="signView.xml" path="/" exported="true"/>
+    <image id="qxe08" name="ty_yzq.png" path="/_resource/"/>
+    <image id="qxe09" name="q_每日签到标注1.jpg" path="/_design/"/>
+    <component id="qxe0a" name="signItem.xml" path="/"/>
+    <component id="qxe0b" name="lastSignItem.xml" path="/"/>
   </resources>
-  <publish name=""/>
+  <publish name="lobby_sign"/>
 </packageDescription>

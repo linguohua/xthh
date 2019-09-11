@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="142,54" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_qxe0" name="n0" src="ik114" fileName="resource/ty_btn_lv.png" pkg="snwj6cnx" xy="0,0" size="142,54">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n1_qxe0" name="n1" xy="20,11" size="97,35" fontSize="22" color="#fffac8" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="1元兑换"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="0.80"/>
+</component>

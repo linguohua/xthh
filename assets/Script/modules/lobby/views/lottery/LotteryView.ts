@@ -10,9 +10,9 @@ const MIDDLE_ROOM_ID: number = 12002;
 const SENIOR_ROOM_ID: number = 12003;
 
 const REWARD_IMG: { [key: number]: string } = {
-    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_lottery/nlzp_icon_hb",
-    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_lottery/nlzp_icon_hld",
-    [proto.casino.eRESOURCE.RESOURCE_NONE]: "ui://lobby_lottery/nlzp_icon_hld"
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/ty_hb",
+    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/ty_hld",
+    [proto.casino.eRESOURCE.RESOURCE_NONE]: "ui://lobby_bg_package/ty_hld"
 };
 
 /**

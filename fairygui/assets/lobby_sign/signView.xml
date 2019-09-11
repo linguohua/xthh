@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" designImage="ui://77yg0eymqxe05" designImageAlpha="100">
+  <displayList>
+    <component id="n13_qxe0" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
+    <image id="n11_qxe0" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="51,62" size="1029,513"/>
+    <component id="n8_qxe0" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="31,58"/>
+    <image id="n14_qxe0" name="title" src="qxe02" fileName="_resource/mrqd_mrqdzi.png" xy="478,74"/>
+    <component id="n0_qxe0" name="item0" src="qxe0a" fileName="signItem.xml" xy="68,133"/>
+    <component id="n35_qxe0" name="item1" src="qxe0a" fileName="signItem.xml" xy="314,133"/>
+    <component id="n36_qxe0" name="item2" src="qxe0a" fileName="signItem.xml" xy="561,133"/>
+    <component id="n37_qxe0" name="item3" src="qxe0a" fileName="signItem.xml" xy="808,133"/>
+    <component id="n38_qxe0" name="item4" src="qxe0a" fileName="signItem.xml" xy="68,336"/>
+    <component id="n39_qxe0" name="item5" src="qxe0a" fileName="signItem.xml" xy="314,336"/>
+    <component id="n41_qxe0" name="item6" src="qxe0b" fileName="lastSignItem.xml" xy="560,336"/>
+  </displayList>
+</component>

@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://73s0k7b3qxe09" designImageAlpha="100">
   <displayList>
-    <image id="n5_qxe0" name="n5" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,59" size="815,518" hideByEditor="true"/>
-    <component id="n2_qxe0" name="n2" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="144,54" hideByEditor="true"/>
-    <image id="n0_qxe0" name="n0" src="qxe00" fileName="_resource/hbjm_bq.png" xy="275,37" size="294,93"/>
-    <image id="n1_qxe0" name="n1" src="qxe00" fileName="_resource/hbjm_bq.png" xy="569,37" size="294,93" flip="hz"/>
-    <image id="n6_qxe0" name="n6" src="qxe03" fileName="_resource/hbjm_di3.png" xy="181,139" size="339,412" hideByEditor="true"/>
-    <image id="n7_qxe0" name="n7" src="qxe03" fileName="_resource/hbjm_di3.png" xy="521,139" size="405,412" hideByEditor="true"/>
-    <image id="n13_qxe0" name="n13" src="qxe01" fileName="_resource/hbjm_di1.png" xy="196,371" size="304,119"/>
-    <image id="n12_qxe0" name="n12" src="qxe02" fileName="_resource/hbjm_di2.png" xy="220,247" size="280,56"/>
-    <image id="n8_qxe0" name="n8" src="qxe05" fileName="_resource/hbjm_icon_hb.png" xy="191,243"/>
+    <component id="n27_qxe0" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
+    <image id="n5_qxe0" name="bg" src="ik11a" fileName="resource/ty_tc2.png" pkg="snwj6cnx" xy="159,59" size="815,518"/>
+    <component id="n2_qxe0" name="closeBtn" src="ik11f" fileName="commonBtn/closeBtn.xml" pkg="snwj6cnx" xy="144,54"/>
+    <image id="n0_qxe0" name="bg1" src="qxe00" fileName="_resource/hbjm_bq.png" xy="274,37" size="294,93"/>
+    <image id="n1_qxe0" name="bg2" src="qxe00" fileName="_resource/hbjm_bq.png" xy="568,37" size="294,93" flip="hz"/>
+    <image id="n26_qxe0" name="title" src="qxe0e" fileName="_resource/hbjm_zi_hb.png" xy="511,67"/>
+    <image id="n6_qxe0" name="bg3" src="qxe03" fileName="_resource/hbjm_di3.png" xy="181,139" size="339,412"/>
+    <image id="n7_qxe0" name="bg4" src="qxe03" fileName="_resource/hbjm_di3.png" xy="521,139" size="433,412"/>
+    <image id="n13_qxe0" name="bg5" src="qxe01" fileName="_resource/hbjm_di1.png" xy="196,371" size="304,119"/>
+    <image id="n12_qxe0" name="bg6" src="qxe02" fileName="_resource/hbjm_di2.png" xy="220,247" size="280,56"/>
+    <image id="n8_qxe0" name="bg7" src="qxe05" fileName="_resource/hbjm_icon_hb.png" xy="191,243"/>
     <image id="n9_qxe0" name="n9" src="qxe07" fileName="_resource/hbjm_zi_wdhb.png" xy="255,152"/>
-    <image id="n10_qxe0" name="n10" src="qxe06" fileName="_resource/hbjm_zi_hbhqfs.png" xy="625,148"/>
-    <image id="n11_qxe0" name="n11" src="qxe08" fileName="_resource/hbjm_zi_y.png" xy="424,254"/>
+    <image id="n10_qxe0" name="bg10" src="qxe06" fileName="_resource/hbjm_zi_hbhqfs.png" xy="625,148" visible="false"/>
+    <image id="n11_qxe0" name="yuan" src="qxe08" fileName="_resource/hbjm_zi_y.png" xy="424,254"/>
+    <component id="n19_qxe0" name="cashOutBtn" src="qxe0c" fileName="_btn/cashOutBtn.xml" xy="267,422" size="160,60"/>
+    <list id="n14_qxe0" name="list" xy="533,211" size="405,292" overflow="scroll" lineGap="12" defaultItem="ui://73s0k7b3qxe0g" align="center" autoClearItems="true">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+    <text id="n15_qxe0" name="count" xy="255,253" size="154,44" font="ui://snwj6cnxtfg8me" fontSize="30" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="18.1"/>
+    <text id="n16_qxe0" name="text1" xy="233,376" size="238,35" fontSize="24" color="#856d57" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="今天还可以提取3次"/>
+    <text id="n17_qxe0" name="text2" xy="194,505" size="319,35" fontSize="18" color="#a84a0b" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="您今天的最高提取额度还剩余: 100元"/>
   </displayList>
 </component>

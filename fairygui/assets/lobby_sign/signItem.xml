@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="260,208" designImage="ui://77yg0eymqxe05" designImageOffsetX="-807" designImageOffsetY="-133" designImageAlpha="0">
+  <displayList>
+    <image id="n0_qxe0" name="bg" src="qxe00" fileName="_resource/mrqd_db.png" xy="6,11" size="241,191">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n29_qxe0" name="loader" xy="81,58" size="95,93" url="ui://77yg0eymqxe01" align="center" vAlign="middle" fill="scale" autoSize="true"/>
+    <text id="n27_qxe0" name="day" xy="79,19" size="95,34" fontSize="26" color="#c4551f" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="第1天"/>
+    <text id="n28_qxe0" name="count" xy="16,157" size="222,39" fontSize="26" color="#c4551f" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="欢乐豆*1000"/>
+    <image id="n15_qxe0" name="light" src="qxe03" fileName="_resource/mrqd_xzdi.png" xy="-1,0" size="258,208">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n25_qxe0" name="gray" src="qxe04" fileName="_resource/mrqd_zz.png" xy="9,11" size="236,186">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n26_qxe0" name="sjgnMask" src="qxe08" fileName="_resource/ty_yzq.png" xy="37,61"/>
+  </displayList>
+</component>
