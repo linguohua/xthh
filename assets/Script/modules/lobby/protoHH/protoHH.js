@@ -11832,6 +11832,150 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                     "name": "packet_broadcast_sync",
                     "syntax": "proto2",
                     "fields": []
+                },
+                {
+                    "name": "packet_act_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "type",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 11
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "param",
+                            "id": 13
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "string",
+                            "name": "data",
+                            "id": 14
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_act_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "player_id",
+                            "id": 2
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "type",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 11
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "param",
+                            "id": 13
+                        },
+                        {
+                            "rule": "repeated",
+                            "type": "object",
+                            "name": "awards",
+                            "id": 20
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_red_cash_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "cash",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_red_cash_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "cash",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_red_store_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_red_store_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "uint32",
+                            "name": "ret",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "id",
+                            "id": 10
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "red_data",
+                            "name": "reddata",
+                            "id": 51
+                        }
+                    ]
                 }
             ],
             "enums": [

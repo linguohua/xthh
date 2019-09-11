@@ -5538,5 +5538,95 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_broadcast_sync;
 		}
 
+		interface Ipacket_act_req {
+			player_id?: number;
+			type: number;
+			id?: number;
+			param?: number;
+			data?: string;
+		}
+
+		class packet_act_req implements Ipacket_act_req {
+			public player_id: number;
+			public type: number;
+			public id: number;
+			public param: number;
+			public data: string;
+			constructor(properties?: casino.Ipacket_act_req);
+			public static encode(message: packet_act_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_act_req;
+		}
+
+		interface Ipacket_act_ack {
+			ret: number;
+			player_id?: number;
+			type: number;
+			id?: number;
+			param?: number;
+			awards?: casino.Iobject[];
+		}
+
+		class packet_act_ack implements Ipacket_act_ack {
+			public ret: number;
+			public player_id: number;
+			public type: number;
+			public id: number;
+			public param: number;
+			public awards: casino.Iobject[];
+			constructor(properties?: casino.Ipacket_act_ack);
+			public static encode(message: packet_act_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_act_ack;
+		}
+
+		interface Ipacket_red_cash_req {
+			cash: number;
+		}
+
+		class packet_red_cash_req implements Ipacket_red_cash_req {
+			public cash: number;
+			constructor(properties?: casino.Ipacket_red_cash_req);
+			public static encode(message: packet_red_cash_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_red_cash_req;
+		}
+
+		interface Ipacket_red_cash_ack {
+			ret: number;
+			cash: number;
+		}
+
+		class packet_red_cash_ack implements Ipacket_red_cash_ack {
+			public ret: number;
+			public cash: number;
+			constructor(properties?: casino.Ipacket_red_cash_ack);
+			public static encode(message: packet_red_cash_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_red_cash_ack;
+		}
+
+		interface Ipacket_red_store_req {
+			id?: number;
+		}
+
+		class packet_red_store_req implements Ipacket_red_store_req {
+			public id: number;
+			constructor(properties?: casino.Ipacket_red_store_req);
+			public static encode(message: packet_red_store_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_red_store_req;
+		}
+
+		interface Ipacket_red_store_ack {
+			ret: number;
+			id?: number;
+			reddata?: casino.Ired_data;
+		}
+
+		class packet_red_store_ack implements Ipacket_red_store_ack {
+			public ret: number;
+			public id: number;
+			public reddata: casino.Ired_data;
+			constructor(properties?: casino.Ipacket_red_store_ack);
+			public static encode(message: packet_red_store_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_red_store_ack;
+		}
+
 	}
 }
