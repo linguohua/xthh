@@ -20,6 +20,5 @@
     <component id="n25_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="432,265" visible="false"/>
     <component id="n26_hz17" name="hand2" src="hz17p0" fileName="desk/mine/desk_hand2.xml" xy="-1,473" hideByEditor="true" visible="false"/>
     <component id="n28_jnmk" name="voice" src="jnmkp6" fileName="qipao.xml" xy="527,462" visible="false" rotation="270"/>
-    <component id="n30_82t1" name="chatMsgCom" src="82t1pr" fileName="desk/mine/chatMsgCom.xml" xy="427,385" visible="false"/>
   </displayList>
 </component>

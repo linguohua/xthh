@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="407,99">
   <displayList>
-    <image id="n30_82t1" name="bg" src="82t1pj" fileName="_resource/z_桌面聊天/zm_lt_qp.png" xy="196,49" pivot="0.5,0.5" anchor="true" size="657,50">
+    <image id="n30_82t1" name="bg" src="82t1pj" fileName="_resource/z_桌面聊天/zm_lt_qp.png" xy="196,49" pivot="0.5,0.5" anchor="true" size="112,50">
       <relation target="n32_82t1" sidePair="width-width,height-height"/>
     </image>
     <image id="n31_82t1" name="arrow" src="82t1pk" fileName="_resource/z_桌面聊天/zm_lt_qpjt.png" xy="185,70"/>
-    <loader id="n29_82t1" name="biaoqing" xy="-223,0" size="100,89" url="ui://397phoch82t1pg" align="center" vAlign="middle" fill="scale">
+    <loader id="n29_82t1" name="biaoqing" xy="49,0" size="100,89" url="ui://397phoch82t1pg" align="center" vAlign="middle" fill="scale">
       <relation target="n30_82t1" sidePair="left-left"/>
     </loader>
-    <text id="n32_82t1" name="text" xy="-124,31" pivot="0.5,0.5" size="643,39" fontSize="26" color="#0d2590" align="center" vAlign="middle" singleLine="true" autoClearText="true" text="哎呀，速度滴卡。哎呀，速度滴卡。哎呀，速度滴卡。"/>
+    <text id="n32_82t1" name="text" xy="155,31" pivot="0.5,0.5" size="84,39" fontSize="26" color="#0d2590" align="center" vAlign="middle" singleLine="true" autoClearText="true" text="哎呀，"/>
   </displayList>
 </component>

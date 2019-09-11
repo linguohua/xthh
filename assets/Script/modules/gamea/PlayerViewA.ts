@@ -149,7 +149,7 @@ export class PlayerViewA {
         //头像相关
         this.initHeadView();
         //其他UI
-        this.initOtherView();
+        this.initOtherView(viewUnityNode);
         //玩家状态
         this.initPlayerStatus();
 
@@ -964,7 +964,7 @@ export class PlayerViewA {
         this.qipao.visible = false;
     }
 
-    private initOtherView(): void {
+    private initOtherView(viewUnityNode: fgui.GComponent): void {
         // this.aniPos = view.getChild("aniPos")
         this.userInfoPos = this.myView.getChild("userInfoPos");
         //打出的牌放大显示
@@ -980,7 +980,7 @@ export class PlayerViewA {
         this.piaoScoreLose = scoreCom.getChild("lose");
         this.piaoScoreStartPos = scoreCom.getChild("startPos").node.position;
         this.piaoScoreEndPos = scoreCom.getChild("endPos").node.position;
-        this.qipao = this.myView.getChild("chatMsgCom");
+        this.qipao = viewUnityNode.getChild("playerChatMsgCom").asCom.getChild(`player${this.viewChairID}ChatMsgCom`);
         this.qipaoText = this.qipao.asCom.getChild("text");
         this.qipaoEmotion = this.qipao.asCom.getChild("biaoqing").asLoader;
 
