@@ -126,6 +126,7 @@ export class ChatView extends cc.Component {
         list.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderListItem(index, item);
         };
+        list.setVirtual();
 
         list.numItems = Object.keys(PHRASE_MAP).length;
 

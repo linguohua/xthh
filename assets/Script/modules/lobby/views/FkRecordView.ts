@@ -34,6 +34,7 @@ export class FkRecordView {
         this.list.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderRecordListItem(index, item);
         };
+        this.list.setVirtual();
     }
 
     private registerHandler(): void {

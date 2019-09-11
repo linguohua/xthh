@@ -54,4 +54,8 @@ export namespace KeyConstants {
     export const HELPER_TIME = "HELPER_TIME"; //低保最后领取时间
     export const HELPER_SIZE = "HELPER_SIZE"; //低保可领次数
     export const HELPER_MIN = "HELPER_MIN"; //低保可领条件(欢乐豆低于此值可领)
+
+    export const PLAYER_RED = "playerRed"; //玩家红包提现信息
+
+    export const RED_DATA = "redData"; //红包数据
 }

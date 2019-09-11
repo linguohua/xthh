@@ -615,7 +615,6 @@ export class RoomView {
         Logger.debug("onChatBtnClick");
         const chatView = this.component.addComponent(ChatView);
         const loader = this.room.getRoomHost().getLobbyModuleLoader();
-
         const roomHost = this.room.getRoomHost();
 
         chatView.show(loader, roomHost, this.room.roomInfo.id);

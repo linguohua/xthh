@@ -51,6 +51,7 @@ export class GameRecordView {
         this.recordList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderRecordListItem(index, item);
         };
+        this.recordList.setVirtual();
 
         //n天前的日期
         for (let i = 0; i < 7; i++) {

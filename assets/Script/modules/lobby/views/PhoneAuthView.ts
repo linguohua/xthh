@@ -238,11 +238,7 @@ export class PhoneAuthView extends cc.Component {
             this.inputPhone.asButton.getChild("text").text = phone;
             this.inputPhone.asButton.getController("phoneLegal").selectedIndex = 1;
         }
-        // this.list = this.view.getChild("list").asList;
 
-        // this.list.itemRenderer = (index: number, item: fgui.GObject) => {
-        //     this.renderRecordListItem(index, item);
-        // };
     }
 
     private requireCode(phone: string): void {

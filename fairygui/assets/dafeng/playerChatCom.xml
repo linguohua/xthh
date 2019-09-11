@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1136,640">
+<component size="1136,640" opaque="false">
   <displayList>
     <component id="n0_qxe0" name="player1ChatMsgCom" src="82t1pr" fileName="desk/mine/chatMsgCom.xml" xy="427,385" visible="false"/>
     <component id="n1_qxe0" name="player2ChatMsgCom" src="82t1ps" fileName="desk/right/chatMsgCom.xml" xy="706,219" visible="false"/>

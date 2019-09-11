@@ -467,6 +467,9 @@ export class LoginView extends cc.Component {
         const etData = JSON.stringify(fastLoginAck.et_data);
         const playerEnergy = JSON.stringify(fastLoginAck.pdata.energy);
         const emailData = JSON.stringify(fastLoginAck.pdata.mails);
+        const playerRedData = JSON.stringify(fastLoginAck.pdata.red);
+
+        const redData = JSON.stringify(fastLoginAck.reddata);
 
         DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
         DataStore.setItem(KeyConstants.NICK_NAME, nickName);
@@ -485,11 +488,16 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.TURN_TABLE, etData);
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+        // 红包提现信息
+        DataStore.setItem(KeyConstants.PLAYER_RED, playerRedData);
+        // 红包数据
+        DataStore.setItem(KeyConstants.RED_DATA, redData);
         // 低保（免费领取欢乐豆）数据
         let helperTime = 0;
         if (fastLoginAck.pdata.helper.helper_time !== undefined && fastLoginAck.pdata.helper.helper_time !== null) {
             helperTime = +fastLoginAck.pdata.helper.helper_time * 1000;
         }
+
         DataStore.setItem(KeyConstants.HELPER_TIME, helperTime);
         DataStore.setItem(KeyConstants.HELPER_SIZE, fastLoginAck.helperdata.helpers.length);
         DataStore.setItem(KeyConstants.HELPER_MIN, fastLoginAck.helperdata.gold_min);
