@@ -688,10 +688,13 @@ export class PlayerA {
         }
     }
     public onChatMsg(chatData: protoHH.casino.packet_table_chat): void {
-        // if (chatData.buildinId !== undefined && chatData.buildinId !== "") {
-        //     //播放快捷语音效
-        //     this.playSound("gameb", `chat${chatData.buildinId} `);
-        // }
+        let chatSound = `chat${chatData.chat_id}_m`;
+        if (this.playerInfo.gender > 0) {
+            chatSound = `chat${chatData.chat_id}_w`;
+        }
+
+        //播放快捷语音效
+        SoundMgr.playEffectAudio(`gameb/${chatSound}`, false);
         this.playerView.showChatMsg(chatData);
     }
     public onPlayerInfoClick(): void {
