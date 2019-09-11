@@ -164,19 +164,22 @@ export class JoyBeanView extends cc.Component {
             this.lm.msgCenter.blockNormal();
         } else {
             // 提示用户没有豆了
-            this.checkBeans();
+            this.checkBeans(myGold);
         }
     }
 
-    private checkBeans(): void {
-        // 判断有没有可以免费领
-        const helperCount = this.helperNumber();
-        if (helperCount[0] > 0) {
-            //有得领
-            const view = this.addComponent(WelfareView);
-            view.showView(this.lm, helperCount[0], helperCount[1]);
+    private checkBeans(myGold: number): void {
+        const goldmin = +DataStore.getString(KeyConstants.HELPER_MIN);
+        if (goldmin > myGold) {
+            //低于最小值才可以领取
+            const helperCount = this.helperNumber();
+            if (helperCount[0] > 0) {
+                // 判断有没有可以免费领
+                const view = this.addComponent(WelfareView);
+                view.showView(this.lm, helperCount[0], helperCount[1]);
 
-            return;
+                return;
+            }
         }
         // 提示用户没有豆了
         const yesCB = () => {
@@ -191,11 +194,10 @@ export class JoyBeanView extends cc.Component {
         Dialog.showDialog(LocalStrings.findString("beanIsLess"), yesCB, noCB);
     }
     private onJoinRoomClick(index: number): void {
-
         const room = this.rooms[index];
         const myGold = +DataStore.getString(KeyConstants.BEANS);
         if (room.gold.low > myGold) {
-            this.checkBeans();
+            this.checkBeans(myGold);
 
             return;
         }
@@ -281,11 +283,11 @@ export class JoyBeanView extends cc.Component {
         lm.switchToGame(params, "gameb");
     }
     private helperNumber(): number[] {
-        const havaHelperNum = [0, 1]; //领取免费豆次数
+        const havaHelperNum = [0, 1]; //领取免费豆次数 是否刷新
         const helperTimeStr = DataStore.getString(KeyConstants.HELPER_TIME, "");
         const helperSizeStr = DataStore.getString(KeyConstants.HELPER_SIZE, "");
         const helperParamStr = DataStore.getString(KeyConstants.HELPER_PARAM, "");
-        Logger.debug(`helperTimeStr : ${helperTimeStr} ; helperSizeStr : ${helperSizeStr} ; helperParamStr : ${helperParamStr}`);
+        // Logger.debug(`helperTimeStr : ${helperTimeStr} ; helperSizeStr : ${helperSizeStr} ; helperParamStr : ${helperParamStr}`);
         if (helperSizeStr !== "") {
             const helperSize = +helperSizeStr;
             if (helperSize > 0) {
@@ -303,7 +305,7 @@ export class JoyBeanView extends cc.Component {
                 }
             }
         }
-        Logger.debug("havaHelperNum ： ", havaHelperNum);
+        // Logger.debug("havaHelperNum ： ", havaHelperNum);
 
         return havaHelperNum;
     }

@@ -492,6 +492,7 @@ export class LoginView extends cc.Component {
         }
         DataStore.setItem(KeyConstants.HELPER_TIME, helperTime);
         DataStore.setItem(KeyConstants.HELPER_SIZE, fastLoginAck.helperdata.helpers.length);
+        DataStore.setItem(KeyConstants.HELPER_MIN, fastLoginAck.helperdata.gold_min);
         DataStore.setItem(KeyConstants.HELPER_PARAM, fastLoginAck.pdata.helper.param);
 
         if (fastLoginAck.channel === "mac") {

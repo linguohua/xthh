@@ -632,7 +632,7 @@ export class HandResultView extends cc.Component {
             //欢乐场的话就再进游戏
             let joyRoom = null;
             const myGold = +DataStore.getString(KeyConstants.BEANS); // this.room.getMyPlayer().totalScores;
-            Logger.debug("myGold ---------------- 欢乐豆 : ", myGold);
+            // Logger.debug("myGold ---------------- 欢乐豆 : ", myGold);
             if (this.room.joyRoom.gold.low <= myGold) {
                 //如果欢乐豆还够的话 继续这种房间
                 joyRoom = this.room.joyRoom;
@@ -662,13 +662,17 @@ export class HandResultView extends cc.Component {
 
                 this.closeHandResultView();
             } else {
-                // 判断有没有可以免费领
-                const helperCount = this.helperNumber();
-                if (helperCount[0] > 0) {
-                    //有得领
-                    this.room.getRoomHost().showWelfareView(helperCount[0], helperCount[1]);
+                const goldmin = +DataStore.getString(KeyConstants.HELPER_MIN);
+                if (goldmin > myGold) {
+                    //低于最小值才可以领取
+                    // 判断有没有可以免费领
+                    const helperCount = this.helperNumber();
+                    if (helperCount[0] > 0) {
+                        //有得领
+                        this.room.getRoomHost().showWelfareView(helperCount[0], helperCount[1]);
 
-                    return;
+                        return;
+                    }
                 }
                 // 提示用户没有豆了
                 const yesCB = () => {
@@ -681,8 +685,6 @@ export class HandResultView extends cc.Component {
                     // this.onBackButtonClick();
                 };
                 Dialog.showDialog(LocalStrings.findString("beanIsLess"), yesCB, noCB);
-                // Dialog.prompt(LocalStrings.findString("beanIsLess"));
-                // this.quit();
             }
         }
     }

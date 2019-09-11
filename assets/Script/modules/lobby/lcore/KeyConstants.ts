@@ -53,4 +53,5 @@ export namespace KeyConstants {
     export const HELPER_PARAM = "HELPER_PARAM"; //低保领取次数（当最后领取时间为当天时有效）
     export const HELPER_TIME = "HELPER_TIME"; //低保最后领取时间
     export const HELPER_SIZE = "HELPER_SIZE"; //低保可领次数
+    export const HELPER_MIN = "HELPER_SIZE"; //低保可领条件(欢乐豆低于此值可领)
 }
