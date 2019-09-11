@@ -21,6 +21,7 @@ export class JoyBeanView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
     private rooms: proto.casino.Iroom[];
+    private beansText: fgui.GObject;
     public show(): void {
         this.registerHandler();
         this.initView();
@@ -41,6 +42,7 @@ export class JoyBeanView extends cc.Component {
         win.contentPane = view;
         win.modal = true;
 
+        this.lm.eventTarget.on("onBeanChange", this.onBeanChange, this);
         const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
         this.rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
 
@@ -95,9 +97,9 @@ export class JoyBeanView extends cc.Component {
         const playQuicklyBtn = this.view.getChild("playQuicklyBtn");
         playQuicklyBtn.onClick(this.onQuicklyClick, this);
 
-        const beansText = this.view.getChild("douText").asTextField;
+        this.beansText = this.view.getChild("douText").asTextField;
         const fkText = this.view.getChild("fkText").asTextField;
-        beansText.text = DataStore.getString(KeyConstants.BEANS);
+        this.beansText.text = DataStore.getString(KeyConstants.BEANS);
         fkText.text = DataStore.getString(KeyConstants.CARD);
     }
     private onCloseBtnClick(): void {
@@ -315,5 +317,9 @@ export class JoyBeanView extends cc.Component {
         // Logger.debug(`time : ${time} ; time0 : ${time0} ; time24 : ${time24}`);
 
         return time0 < time && time < time24;
+    }
+
+    private onBeanChange(): void {
+        this.beansText.text = DataStore.getString(KeyConstants.BEANS);
     }
 }

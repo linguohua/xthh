@@ -486,6 +486,7 @@ export class LobbyView extends cc.Component {
                 this.beansText.text = playerResource.curr.toString();
             }
 
+            this.lm.eventTarget.emit("onBeanChange");
             Logger.debug(`LobbyView.updateMsg, resource type:${playerResource.type},   playerResource.curr:${playerResource.curr}`);
 
         } else if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_ENERGY) {
