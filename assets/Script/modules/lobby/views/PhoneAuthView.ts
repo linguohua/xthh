@@ -2,7 +2,7 @@ import { GameError } from "../errorCode/ErrorCodeExports";
 import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
-import { InputNumberOpenType, InputNumberView } from "./InputNumberView";
+import { InputNumberView } from "./InputNumberView";
 
 const { ccclass } = cc._decorator;
 
@@ -96,7 +96,8 @@ export class PhoneAuthView extends cc.Component {
             DataStore.setItem(KeyConstants.INPUT_PHONE, str);
             this.showCountDown();
         };
-        inputNumberView.show(cb, InputNumberOpenType.INPUT_PHONE, 11);
+        const titleStr = LocalStrings.findString("inputPhoneText");
+        inputNumberView.show(cb, titleStr, 11);
     }
 
     private onInputAuthBtnClick(): void {
@@ -110,7 +111,8 @@ export class PhoneAuthView extends cc.Component {
             this.confirmBtn.getController("enable").selectedIndex = 1;
 
         };
-        inputNumberView.show(cb, InputNumberOpenType.INPUT_AUTH, 4);
+        const titleStr = LocalStrings.findString("inputAuthText");
+        inputNumberView.show(cb, titleStr, 4);
     }
 
     private onGetAuthBtnClick(): void {

@@ -1,18 +1,7 @@
 
 import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
-import { LocalStrings } from "../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
 
-export enum InputNumberOpenType {
-
-    JOIN_ROOM = "joinRoomText",
-    INPUT_RECORD = "inputRecordText",
-
-    INPUT_PHONE = "inputPhoneText",
-
-    INPUT_AUTH = "inputAuthText"
-
-}
 /**
  * 输入数字界面
  */
@@ -30,12 +19,18 @@ export class InputNumberView extends cc.Component {
 
     private inputLimit: number;
 
-    private openType: InputNumberOpenType;
+    private titleStr: string;
 
-    public show(callback: Function, openType: InputNumberOpenType, inputLimit: number): void {
+    private maxLimit: number;
+
+    public show(callback: Function, titleStr: string, inputLimit: number, maxLimit: number = 0): void {
         this.callback = callback;
         this.inputLimit = inputLimit;
-        this.openType = openType;
+        this.maxLimit = maxLimit;
+        if (maxLimit === 0) {
+            this.maxLimit = inputLimit;
+        }
+        this.titleStr = titleStr;
 
         this.initView();
         this.win.show();
@@ -69,7 +64,7 @@ export class InputNumberView extends cc.Component {
     private initView(): void {
 
         const hint = this.view.getChild("hintText").asTextField;
-        hint.text = LocalStrings.findString(this.openType);
+        hint.text = this.titleStr;
 
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseBtnClick, this);
@@ -120,18 +115,19 @@ export class InputNumberView extends cc.Component {
     private onInputButton(input: number): void {
 
         const numberLength = this.numbers.text.length;
-        if (numberLength < this.inputLimit) {
+        if (numberLength < this.maxLimit) {
             this.numbers.text = `${this.numbers.text}${input}`;
 
         }
 
-        if (this.numbers.text.length < this.inputLimit) {
-            this.okBtn.grayed = true;
-            this.okBtn._touchDisabled = true;
-        } else {
+        if (this.numbers.text.length >= this.inputLimit) {
             this.okBtn.grayed = false;
             this.okBtn._touchDisabled = false;
+        } else {
+            this.okBtn.grayed = true;
+            this.okBtn._touchDisabled = true;
         }
+
     }
 
     private onOkBtnClick(): void {

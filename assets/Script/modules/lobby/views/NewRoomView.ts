@@ -10,7 +10,7 @@ import { LocalStrings } from "../strings/LocalStringsExports";
 import { BoxRecordView } from "./BoxRecordView";
 import { FkRecordView } from "./FkRecordView";
 import { GameRecordView } from "./GameRecordView";
-import { InputNumberOpenType, InputNumberView } from "./InputNumberView";
+import { InputNumberView } from "./InputNumberView";
 
 const { ccclass } = cc._decorator;
 
@@ -90,7 +90,8 @@ export class NewRoomView extends cc.Component {
             const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
             lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
         };
-        inputNumberView.show(cb, InputNumberOpenType.INPUT_RECORD, 8);
+        const titleStr = LocalStrings.findString("inputMoneyText");
+        inputNumberView.show(cb, titleStr, 8);
 
     }
 
@@ -424,7 +425,8 @@ export class NewRoomView extends cc.Component {
         const cb = (str: string) => {
             this.joinRoom(str);
         };
-        inputNumberView.show(cb, InputNumberOpenType.JOIN_ROOM, 6);
+        const joinRoomText = LocalStrings.findString("joinRoomText");
+        inputNumberView.show(cb, joinRoomText, 6);
 
     }
     private onSpaceBtnClick(): void {

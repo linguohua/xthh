@@ -115,6 +115,7 @@ export namespace LocalStrings {
                 [`inputRecordText`]: "请输入视频ID",
                 [`inputPhoneText`]: "请输入手机号码",
                 [`inputAuthText`]: "请输入验证码",
+                [`inputMoneyText`]: "每次提现最少:{0}元,最多:{1}元,每天最多提现{2}次",
 
                 [`discardTipsOfMe`]: "到您出牌咯！",
                 [`readyViewDisbandRoomTip`]: "房主解散房间",
@@ -138,6 +139,16 @@ export namespace LocalStrings {
                 [`sender`]: "寄件者：{0}",
 
                 [`exchangeText`]: "{0}元兑换",
+                [`pleaseUseWeChatLogin`]: "请使用微信登录！",
+
+                [`cashOutTimes`]: "今天还可以提取{0}次",
+                [`cashOutLess`]: "您今天的最高提取额度还剩余: {0}元",
+
+                [`lessThenMin`]: "红包金额低于最少提现额度{0}元！",
+                [`moreThenMax`]: "红包金额高于最多提现额度{0}元！",
+
+                [`cashOutLimit`]: "今日提现额度已用完！",
+                [`cashTimesLimit`]: "今日提现次数已用完！",
 
                 [`joyRoomWaitPlayer`]: "正在为您匹配游戏玩家{0}",
                 [`invalidAuthCode`]: "无效的验证码",

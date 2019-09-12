@@ -1,7 +1,7 @@
-import { CommonFunction, LobbyModuleInterface, Logger, Dialog } from "../../lcore/LCoreExports";
+import { CommonFunction, Dialog, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
-import { proto } from "../../protoHH/protoHH";
 import { GameError } from "../../errorCode/ErrorCodeExports";
+import { proto } from "../../protoHH/protoHH";
 
 /**
  * SignView
