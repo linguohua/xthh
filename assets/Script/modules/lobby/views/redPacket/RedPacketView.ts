@@ -59,7 +59,7 @@ export class RedPacketView extends cc.Component {
 
     private registerHandler(): void {
         //
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_CASH_ACK, this.oRedCashAck, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_CASH_ACK, this.onRedCashAck, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_STORE_ACK, this.onRedStoreAck, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK, this.onActAck, this);
     }
@@ -67,15 +67,24 @@ export class RedPacketView extends cc.Component {
         //
     }
 
-    private oRedCashAck(msg: proto.casino.ProxyMessage): void {
+    private onRedCashAck(msg: proto.casino.ProxyMessage): void {
         //
         const redCashAck = proto.casino.packet_red_cash_ack.decode(msg.Data);
         Logger.debug("redCashAck = ", redCashAck);
+        if (redCashAck.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+
+            // this.playerRedData.
+        }
     }
     private onRedStoreAck(msg: proto.casino.ProxyMessage): void {
         //
         const redStoreAck = proto.casino.packet_red_store_ack.decode(msg.Data);
         Logger.debug("redStoreAck = ", redStoreAck);
+
+        if (redStoreAck.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+
+            // this.playerRedData.
+        }
     }
     private onActAck(msg: proto.casino.ProxyMessage): void {
         //
@@ -125,9 +134,7 @@ export class RedPacketView extends cc.Component {
         } else {
             //
             const cashTimesLess = this.getCashTimesLess();
-
             cashTimesTF.text = LocalStrings.findString("cashOutTimes", `${cashTimesLess}`);
-
             if (cashTimesLess === 0) {
                 cashOutBtn.grayed = true;
             }
@@ -168,7 +175,7 @@ export class RedPacketView extends cc.Component {
         const cashTime = playerRedData.cash_time;
         const red = +DataStore.getString(KeyConstants.RED);
 
-        let errMsg = null;
+        let errMsg;
 
         if (this.isToday(cashTime)) {
             // 次数限制
@@ -187,8 +194,8 @@ export class RedPacketView extends cc.Component {
             errMsg = LocalStrings.findString("lessThenMin", `${this.redData.red_min / 100}`);
         }
 
-        if (errMsg !== null) {
-            this.ready2CashOut();
+        if (errMsg !== undefined) {
+            this.sendCashOutRequest();
         } else {
 
             Dialog.showDialog(errMsg);
@@ -196,7 +203,7 @@ export class RedPacketView extends cc.Component {
         }
     }
 
-    private ready2CashOut(): void {
+    private sendCashOutRequest(): void {
         const inputNumberView = this.addComponent(InputNumberView);
         const cb = (str: string) => {
             const req2 = new proto.casino.packet_red_cash_req();
@@ -226,6 +233,28 @@ export class RedPacketView extends cc.Component {
 
             return;
         }
+
+        const neededRed = redStore.price / 100;
+        const red = +DataStore.getString(KeyConstants.RED);
+
+        if (red < neededRed) {
+            Dialog.prompt(LocalStrings.findString("pleaseUseWeChatLogin"));
+
+            return;
+        }
+
+        this.sendExchangeRequest(redStore);
+    }
+
+    private sendExchangeRequest(redStore: proto.casino.Ired_store): void {
+
+        const req2 = new proto.casino.packet_red_store_req();
+        req2.id = redStore.id;
+
+        const buf = proto.casino.packet_red_store_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+
     }
 
     private renderListItem(index: number, obj: fgui.GObject): void {
