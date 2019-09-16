@@ -16,6 +16,7 @@
     <image id="azoa15" name="ty_hd.png" path="/_resource/"/>
     <component id="azoa16" name="deleteBtn.xml" path="/"/>
     <component id="kte217" name="attachmentItem.xml" path="/"/>
+    <component id="vpnk18" name="spaceBtn.xml" path="/"/>
   </resources>
   <publish name="lobby_email"/>
 </packageDescription>

@@ -19,9 +19,9 @@
       <gearXY controller="role" pages="0,1" values="175,109|175,122"/>
     </group>
     <image id="n37_6k9y" name="bg3" src="6k9yl" fileName="_resource/grxx_zydi.png" xy="377,112" size="133,31" group="n56_6k9y"/>
-    <image id="n34_6k9y" name="fk" src="6k9y1e" fileName="_resource/ty_icon_fk.png" xy="367,104" group="n56_6k9y" scale="0.9,0.9"/>
-    <group id="n56_6k9y" name="fkCombine" xy="367,104" size="143,41" advanced="true" collapsed="true">
-      <gearXY controller="role" pages="1" values="367,116" default="367,104"/>
+    <image id="n34_6k9y" name="fk" src="6k9y1e" fileName="_resource/ty_icon_fk.png" xy="366,103" group="n56_6k9y" scale="0.9,0.9"/>
+    <group id="n56_6k9y" name="fkCombine" xy="366,103" size="144,50" advanced="true" collapsed="true">
+      <gearXY controller="role" pages="0,1" values="366,103|367,116"/>
     </group>
     <image id="n31_6k9y" name="frame" src="6k9yf" fileName="_resource/grxx_xxdi1.png" xy="33,26" size="126,126"/>
     <image id="n20_6k9y" name="boy" src="6k9yc" fileName="_resource/grxx_xb_1.png" xy="138,15">

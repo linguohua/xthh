@@ -42,7 +42,7 @@ export class JoyBeanView extends cc.Component {
         win.contentPane = view;
         win.modal = true;
 
-        this.lm.eventTarget.on("onBeanChange", this.onBeanChange, this);
+        this.lm.eventTarget.on("onResourceChange", this.onResourceChange, this);
         const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
         this.rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
 
@@ -321,7 +321,7 @@ export class JoyBeanView extends cc.Component {
         return time0 < time && time < time24;
     }
 
-    private onBeanChange(): void {
+    private onResourceChange(): void {
         this.beansText.text = DataStore.getString(KeyConstants.BEANS);
     }
 }

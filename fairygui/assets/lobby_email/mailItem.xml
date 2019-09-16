@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="282,88" extention="Button" designImage="ui://03l3z1xbazoa13" designImageOffsetX="-133" designImageOffsetY="-139" designImageAlpha="100">
   <controller name="button" pages="0,up,1,down" selected="0"/>
-  <controller name="receive" pages="0,已领取,1,未领取" selected="1"/>
+  <controller name="receive" pages="0,已领取,1,未领取" selected="0"/>
   <displayList>
     <image id="n10" name="bg" src="azoa10" fileName="_resource/y_yqdi1.png" xy="0,0" size="278,88">
       <gearDisplay controller="button" pages="1"/>
@@ -14,6 +14,7 @@
     </image>
     <text id="n22_h59f" name="title" xy="12,6" size="252,35" fontSize="24" color="#994234" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="你好！"/>
     <text id="n28_azoa" name="sender" xy="12,48" size="241,35" fontSize="24" color="#f8f6d7" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="寄件者：91258634"/>
+    <component id="n30_vpnk" name="spaceBtn" src="vpnk18" fileName="spaceBtn.xml" xy="0,0"/>
   </displayList>
   <Button mode="Radio"/>
   <transition name="t0">

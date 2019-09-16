@@ -147,8 +147,22 @@ export namespace LocalStrings {
                 [`lessThenMin`]: "红包金额低于最少提现额度{0}元！",
                 [`moreThenMax`]: "红包金额高于最多提现额度{0}元！",
 
+                [`cashOutError`]: "提现错误！",
+                [`cashOutSuccess`]: "提现成功！请到微信中查看！",
+                [`canNotCashOut`]: "提现维护中,暂时不可提现！",
+                [`cashOutLessThenMin`]: "低于最小提现额度{0}元！",
+                [`cashOutMoreThenMax`]: "超出最大提现额度{0}元！",
+                [`cashOutMaxLimit`]: "已超出今日最大提现额度！",
+                [`cashOutCountMaxLimit`]: "已超出今日最大提现次数！",
+
                 [`cashOutLimit`]: "今日提现额度已用完！",
                 [`cashTimesLimit`]: "今日提现次数已用完！",
+
+                [`exchangeSuccess`]: "兑换成功",
+
+                [`exchangeNoEnough`]: "您的红包金额不足！",
+                [`exchangeErr`]: "抱歉！您要兑换的商品已售空！",
+                [`exchangeConfirm`]: "您确定要用红包 [{0}] 元兑换 [{1}]吗？",
 
                 [`joyRoomWaitPlayer`]: "正在为您匹配游戏玩家{0}",
                 [`invalidAuthCode`]: "无效的验证码",

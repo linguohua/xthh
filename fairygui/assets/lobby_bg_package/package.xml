@@ -100,6 +100,10 @@
     <image id="ohlpn7" name="zm_lt_bq4.png" path="/resource/" exported="true"/>
     <image id="hvh8na" name="cz_icon_fk2.png" path="/resource/" exported="true"/>
     <image id="hvh8nb" name="cz_icon_hld2.png" path="/resource/" exported="true"/>
+    <image id="vpnknc" name="ty_fk.png" path="/resource/" exported="true"/>
+    <image id="vpnknd" name="ty_hb.png" path="/resource/" exported="true"/>
+    <image id="vpnkne" name="ty_hld.png" path="/resource/" exported="true"/>
+    <image id="vpnknf" name="cz_icon_hb2.png" path="/resource/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>

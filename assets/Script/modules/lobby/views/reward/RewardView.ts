@@ -3,7 +3,7 @@ import { proto } from "../../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 
 const REWARD_IMG: { [key: number]: string } = {
-    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/cz_icon_hld2",
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/cz_icon_hb2",
     [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/cz_icon_hld2",
     [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/cz_icon_fk2"
 };
@@ -94,12 +94,17 @@ export class RewardView extends cc.Component {
 
         const resourceType = this.view.getController("resource");
 
+        let count = gain.param;
+
         if (gain.id === proto.casino.eRESOURCE.RESOURCE_BEANS) {
             resourceType.selectedIndex = 1;
         }
 
-        const count: string = gain.param.toString();
-        this.view.getChild("count").text = count;
+        if (gain.id === proto.casino.eRESOURCE.RESOURCE_RED) {
+            resourceType.selectedIndex = 2;
+            count = count / 100;
+        }
+        this.view.getChild("count").text = `${count}`;
 
     }
 

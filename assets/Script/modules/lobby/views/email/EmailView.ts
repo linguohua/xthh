@@ -9,7 +9,8 @@ const { ccclass } = cc._decorator;
 
 const REWARD_IMG: { [key: number]: string } = {
     [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/ty_icon_hld",
-    [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/ty_icon_fk"
+    [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/ty_icon_fk",
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/ty_hb"
 };
 
 /**
@@ -19,7 +20,8 @@ enum OPERATION {
     NONE = 0,
     TAKE = 1,
     DELETE = 2,
-    LOAD_EMAIL = 3
+    LOAD_EMAIL = 3,
+    READ = 4
 }
 
 /**
@@ -177,6 +179,21 @@ export class EmailView extends cc.Component {
 
     }
 
+    private readEmail(id: long): void {
+        Logger.debug("set read id = ", id);
+        const req2 = new proto.casino.packet_mail_req();
+        req2.mail_id = id;
+        req2.gain = false;
+        const buf = proto.casino.packet_mail_req.encode(req2);
+        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.operation = OPERATION.READ;
+    }
+
+    private saveEmail(): void {
+        //
+    }
+
     /**
      * 关于邮件的回复，加载，领取，删除
      * @param msg 信息
@@ -185,26 +202,53 @@ export class EmailView extends cc.Component {
 
         const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
 
-        if (mailData.ret !== proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+        Logger.debug("onEmailAck --------------------------", mailData);
 
-            if (this.operation === OPERATION.LOAD_EMAIL) {
-                this.loadPlayerEmailsFromDataStore();
-            }
+        switch (this.operation) {
+            case OPERATION.NONE:
 
-            Logger.debug("use DataStore --------------------------");
+                break;
+            case OPERATION.READ:
+                if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                    this.saveEmail();
+                    Logger.error("onEmailAck set read success  --------------------------", mailData);
 
-        } else {
-            const mailId = +mailData.mail_id;
+                }
+                break;
+            case OPERATION.LOAD_EMAIL:
+                if (mailData.ret !== proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                    this.loadPlayerEmailsFromDataStore();
+                    Logger.debug("use DataStore --------------------------");
 
-            if (mailId === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                const playerEmails = mailData.mails;
-                this.savePlayerEmails2DataStore(playerEmails);
-                this.refreshEmailList(playerEmails);
-                Logger.debug("use net work --------------------------");
-            } else {
-                this.handerOtherAction(mailData);
+                } else {
+                    const mailId = +mailData.mail_id;
+                    if (mailId === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                        const playerEmails = mailData.mails;
+                        this.savePlayerEmails2DataStore(playerEmails);
+                        this.refreshEmailList(playerEmails);
+                        Logger.debug("use net work --------------------------");
+                    }
+                }
 
-            }
+                break;
+            case OPERATION.DELETE:
+                if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                    this.deleteEmail();
+                }
+                break;
+
+            case OPERATION.TAKE:
+
+                if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+                    const view = this.addComponent(RewardView);
+                    view.showView(this.lm, mailData.gains);
+                    this.changeReceiveState();
+
+                }
+                break;
+
+            default:
+
         }
 
         this.operation = OPERATION.NONE;
@@ -220,21 +264,6 @@ export class EmailView extends cc.Component {
         const emailData = JSON.stringify(playerEmails);
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
     }
-
-    private handerOtherAction(mailData: proto.casino.packet_mail_ack): void {
-        const gain = mailData.gain;
-        if (gain === true) {
-            if (this.operation === OPERATION.TAKE) {
-                const view = this.addComponent(RewardView);
-                view.showView(this.lm, mailData.gains);
-                this.changeReceiveState();
-
-            } else if (this.operation === OPERATION.DELETE) {
-                this.deleteEmail();
-            }
-        }
-    }
-
     private refreshEmailList(playerEmails: proto.casino.Iplayer_mail[]): void {
         this.playerEmails = playerEmails;
         this.emailList.numItems = this.playerEmails.length;
@@ -289,31 +318,6 @@ export class EmailView extends cc.Component {
 
     }
 
-    private renderListItem(index: number, obj: fgui.GObject): void {
-
-        const playerEmail = this.playerEmails[index];
-        const email = playerEmail.data;
-
-        const title = obj.asCom.getChild("title");
-        title.text = email.title;
-
-        const sender = obj.asCom.getChild("sender");
-        sender.text = LocalStrings.findString("sender", email.sender);
-
-        const receiveCtrl = obj.asCom.getController("receive");
-        const viewTime = playerEmail.view_time;
-
-        const receive = viewTime > long.fromNumber(0);
-
-        receiveCtrl.selectedIndex = receive ? 0 : 1;
-
-        obj.onClick(() => {
-            this.selectEmail(playerEmail, obj, index);
-            // tslint:disable-next-line:align
-        }, this);
-
-    }
-
     /**
      * 选择Email
      * @param playerEmail 选择的邮件
@@ -325,18 +329,67 @@ export class EmailView extends cc.Component {
         this.selectPlayerEmail = playerEmail;
 
         const email = playerEmail.data;
-        this.textComponent.text = email.content;
+        this.textComponent.getChild("text").text = email.content;
         this.titleText.text = email.title;
 
-        const viewTime = playerEmail.view_time;
-        const receive = viewTime > long.fromNumber(0);
+        const viewTime = CommonFunction.toNumber(playerEmail.view_time);
+        const receive = viewTime > 0;
 
         this.deleteBtn.visible = receive;
         this.takeBtn.visible = !receive;
 
+        const length = this.selectPlayerEmail.data.gains.length;
+
+        if (length === 0) {
+            this.takeBtn.visible = false;
+        }
+
+        if (length === 0 && viewTime === 0) {
+            this.readEmail(playerEmail.id);
+            obj.asCom.getChild("redPoint").visible = false;
+            this.deleteBtn.visible = true;
+        }
+
         this.updateAttachmentsView();
 
     }
+
+    private renderListItem(index: number, obj: fgui.GObject): void {
+
+        const playerEmail = this.playerEmails[index];
+        const email = playerEmail.data;
+
+        const title = obj.asCom.getChild("title");
+        title.text = email.title;
+
+        const redPoint = obj.asCom.getChild("redPoint");
+
+        const viewTime = CommonFunction.toNumber(playerEmail.view_time);
+
+        if (viewTime === 0) {
+            redPoint.visible = true;
+        } else {
+            redPoint.visible = false;
+        }
+
+        const sender = obj.asCom.getChild("sender");
+        sender.text = LocalStrings.findString("sender", email.sender);
+
+        const receiveCtrl = obj.asCom.getController("receive");
+
+        const receive = viewTime > 0;
+        receiveCtrl.selectedIndex = receive ? 0 : 1;
+
+        //空白按钮，为了点击列表，并且保留item被选择的效果
+        const btn = obj.asCom.getChild("spaceBtn");
+        btn.offClick(undefined, undefined);
+        btn.onClick(() => {
+            this.selectEmail(playerEmail, obj, index);
+            // tslint:disable-next-line:align
+        }, this);
+
+    }
+
     /**
      * 更新附件列表
      */
@@ -345,7 +398,7 @@ export class EmailView extends cc.Component {
         const gains = email.gains;
         const filterGains: proto.casino.Iobject[] = [];
         for (const gain of gains) {
-            // TODO: 现在已过滤红包经验，等资源出了，在放开限制
+            // TODO: 现在已过滤经验，等资源出了，在放开限制
             if (gain.type !== proto.casino.eTYPE.TYPE_RESOURCE) {
                 continue;
             }
@@ -369,14 +422,13 @@ export class EmailView extends cc.Component {
         const gains = email.gains;
         const filterGains: proto.casino.Iobject[] = [];
 
-        const receive = +this.selectPlayerEmail.view_time > 0;
+        const receive = CommonFunction.toNumber(this.selectPlayerEmail.view_time) > 0;
 
         for (const gain of gains) {
-            // TODO: 现在已过滤红包经验，等资源出了，在放开限制
+            // TODO: 现在已过滤经验，等资源出了，在放开限制
             if (gain.type !== proto.casino.eTYPE.TYPE_RESOURCE) {
                 continue;
             }
-
             filterGains.push(gain);
 
         }
@@ -387,7 +439,11 @@ export class EmailView extends cc.Component {
         const tick = obj.asCom.getChild("tick");
         loader.url = REWARD_IMG[selectGain.id];
 
-        count.text = `${selectGain.param}`;
+        let countText = selectGain.param;
+        if (selectGain.id === proto.casino.eRESOURCE.RESOURCE_RED) {
+            countText = selectGain.param / 100;
+        }
+        count.text = `${countText}`;
 
         // 设置领取状态
         loader.grayed = receive;

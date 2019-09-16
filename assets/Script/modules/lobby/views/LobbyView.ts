@@ -487,29 +487,63 @@ export class LobbyView extends cc.Component {
 
     private onMsgUpdate(msg: proto.casino.ProxyMessage): void {
         const updateMsg = proto.casino.packet_update.decode(msg.Data);
-        if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_RESOURCE) {
-            const playerResource = proto.casino.player_resource.decode(updateMsg.data);
-            // Logger.debug("resource:", playerResource);
-            if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
-                DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
-                this.fkText.text = playerResource.curr.toString();
-            }
 
-            if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
-                DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
-                this.beansText.text = playerResource.curr.toString();
-            }
+        switch (updateMsg.type) {
+            case proto.casino.eTYPE.TYPE_PLAYER_RESOURCE:
 
-            this.lm.eventTarget.emit("onBeanChange");
-            Logger.debug(`LobbyView.updateMsg, resource type:${playerResource.type},   playerResource.curr:${playerResource.curr}`);
+                this.updateMoney(updateMsg);
+                break;
+            case proto.casino.eTYPE.TYPE_PLAYER_ENERGY:
 
-        } else if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_ENERGY) {
-            const playerEnergy = proto.casino.player_energy.decode(updateMsg.data);
-            Logger.debug("TYPE_PLAYER_ENERGY,----------------------------------------- playerEnergy = ", playerEnergy);
-            const playerEnergyStr = JSON.stringify(playerEnergy);
-            DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergyStr);
-            this.lm.eventTarget.emit(KeyConstants.PLAYER_ENERGY, playerEnergy.curr_energy);
+                this.updatePlayerEnergy(updateMsg);
+                break;
+
+            case proto.casino.eTYPE.TYPE_PLAYER_RED:
+
+                this.updatePlayerRedData(updateMsg);
+                break;
+
+            default:
+                Logger.debug("LobbyView.updateMsg unHander msg , type = ", updateMsg.type);
+
         }
+
+    }
+
+    private updatePlayerRedData(updateMsg: proto.casino.packet_update): void {
+        const playerRed = proto.casino.player_red.decode(updateMsg.data);
+        const playerRedData = JSON.stringify(playerRed);
+        DataStore.setItem(KeyConstants.PLAYER_RED, playerRedData);
+        this.lm.eventTarget.emit(KeyConstants.PLAYER_RED);
+    }
+
+    private updatePlayerEnergy(updateMsg: proto.casino.packet_update): void {
+        const playerEnergy = proto.casino.player_energy.decode(updateMsg.data);
+        Logger.debug("TYPE_PLAYER_ENERGY,----------------------------------------- playerEnergy = ", playerEnergy);
+        const playerEnergyStr = JSON.stringify(playerEnergy);
+        DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergyStr);
+        this.lm.eventTarget.emit(KeyConstants.PLAYER_ENERGY, playerEnergy.curr_energy);
+    }
+
+    private updateMoney(updateMsg: proto.casino.packet_update): void {
+        const playerResource = proto.casino.player_resource.decode(updateMsg.data);
+        // Logger.debug("resource:", playerResource);
+        if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
+            DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
+            this.fkText.text = playerResource.curr.toString();
+        }
+
+        if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
+            DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
+            this.beansText.text = playerResource.curr.toString();
+        }
+
+        if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_RED) {
+            DataStore.setItem(KeyConstants.RED, playerResource.curr.toNumber());
+        }
+
+        this.lm.eventTarget.emit("onResourceChange");
+        Logger.debug(`LobbyView.updateMsg, resource type:${playerResource.type},   playerResource.curr:${playerResource.curr}`);
     }
 
     private onEnergyUpdate(msg: proto.casino.ProxyMessage): void {

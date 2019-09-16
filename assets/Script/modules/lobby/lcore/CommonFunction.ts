@@ -1,3 +1,6 @@
+// tslint:disable-next-line:no-require-imports
+import long = require("../protobufjs/long");
+
 /**
  * 公共函数类
  */
@@ -106,6 +109,13 @@ export namespace CommonFunction {
         view.setPosition(-x, 0);
         setBgFullScreen(view);
 
+    };
+
+    export const toNumber = (longValue: long): number => {
+        //从 data storage  里取出来的long类型， 无法toNumber(),先new 个 long 对象，再toNumber();
+        const cashTime = new long(longValue.low, longValue.high, longValue.unsigned);
+
+        return cashTime.toNumber();
     };
 
 }

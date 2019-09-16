@@ -90,7 +90,7 @@ export class NewRoomView extends cc.Component {
             const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
             lm.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_REPLAY_REQ);
         };
-        const titleStr = LocalStrings.findString("inputMoneyText");
+        const titleStr = LocalStrings.findString("inputRecordText");
         inputNumberView.show(cb, titleStr, 8);
 
     }

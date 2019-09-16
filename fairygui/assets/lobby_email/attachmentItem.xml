@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="139,87">
   <displayList>
-    <loader id="n53_kte2" name="loader" xy="70,0" pivot="0.5,0" anchor="true" size="46,50" url="ui://snwj6cnxik118" autoSize="true"/>
+    <loader id="n53_kte2" name="loader" xy="70,0" pivot="0.5,0" anchor="true" size="46,50" url="ui://snwj6cnxvpnknd" align="center" vAlign="middle" fill="scale"/>
     <text id="n45_azoa" name="count" xy="0,52" size="138,35" fontSize="24" color="#ed7c1b" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="2000&#xA;"/>
     <image id="n50_hzer" name="tick" src="azoaz" fileName="_resource/y_yjdg.png" xy="83,21"/>
   </displayList>

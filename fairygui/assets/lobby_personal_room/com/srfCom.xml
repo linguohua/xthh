@@ -16,7 +16,7 @@
     <image id="n51_b75t" name="bg6" src="ik114" fileName="resource/srf_cjfj_di1.png" xy="450,391" size="240,35"/>
     <image id="n15_ik11" name="title2" src="ik118" fileName="resource/srf_cjfj_zi_wyjf.png" xy="458,2"/>
     <image id="n58_c07l" name="bgOther" src="ik114" fileName="resource/srf_cjfj_di1.png" xy="230,332" size="622,36"/>
-    <image id="n52_b75t" name="fk" src="b75tr" fileName="resource/ty_icon_fk.png" xy="454,388"/>
+    <image id="n52_b75t" name="fk" src="b75tr" fileName="resource/ty_icon_fk.png" xy="454,383"/>
     <text id="n13_ik11" name="text1" xy="30,163" size="131,58" font="Microsoft YaHei" fontSize="22" color="#856d57" align="center" vAlign="middle" leading="1" autoSize="none" text="加入到朋友&#xA; 组织的牌局!"/>
     <text id="n17_b75t" name="type" xy="235,61" size="121,37" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="牌局类型 :"/>
     <text id="n18_b75t" name="baseScore" xy="234,117" size="121,37" font="Microsoft YaHei" fontSize="25" color="#856d57" vAlign="middle" letterSpacing="-1" autoSize="height" bold="true" singleLine="true" text="游戏底注 :"/>
