@@ -78,10 +78,10 @@ export class LotteryView extends cc.Component {
         this.lm.eventTarget.off(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
     }
     private registerHandler(): void {
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        this.lm = lm;
-        lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
-        lm.eventTarget.on(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
+        // const this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        // this.lm = lm;
+        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
+        this.lm.eventTarget.on(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
     }
 
     private initView(): void {

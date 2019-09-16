@@ -15,6 +15,7 @@ export interface RoomHost {
     loader: GResLoader;
     sendBinary(buf: ByteBuffer, code: number): void;
     showWelfareView(helperCount: number, refresh: number): void;
+    showLotteryView(): void;
     getLobbyModuleLoader(): GResLoader;
     addMember2Team(imaccids: string[]): void;
     dismissAllTeam(): void;

@@ -11,6 +11,7 @@ import { ReadyView } from "./ReadyView";
 import { RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
+import { LotteryView } from "../lobby/views/lottery/LotteryView";
 
 /**
  * 房间
@@ -35,7 +36,7 @@ export class RoomView {
     private gpsUnOpen: fgui.GObject;
     private recoredBtn: fgui.GObject;
     private chatBtn: fgui.GObject;
-
+    private energyBtn: fgui.GButton;
     private roomInfoText: fgui.GObject;
     private roundMarkView: fgui.GComponent;
     private roundMarks: fgui.GObject[];
@@ -116,6 +117,7 @@ export class RoomView {
             this.anteBg.visible = true;
             this.dbg.visible = true;
             this.laiziCom.visible = true;
+            this.energyBtn.visible = true;
         }
     }
 
@@ -439,6 +441,10 @@ export class RoomView {
         this.nameBg.visible = true;
         this.anteBg.visible = true;
 
+        if (this.room.isJoyRoom) {
+            this.trusteeshipBtn.visible = true;
+        }
+
         this.replayHideBtns();
     }
 
@@ -608,6 +614,10 @@ export class RoomView {
         settingView.showView(this.room, isOwner, this.room.getRoomHost().getLobbyModuleLoader());
     }
 
+    private onEnergyBtnClick(): void {
+        this.room.getRoomHost().showLotteryView();
+    }
+
     /**
      * 聊天按钮点击事件
      */
@@ -653,9 +663,44 @@ export class RoomView {
             this.gpsUnOpen.visible = true;
         }
 
+        this.energyBtn = this.unityViewNode.getChild("energyBtn").asButton;
+        this.energyBtn.onClick(this.onEnergyBtnClick, this);
+        //初始化转盘数据
+        this.refreshPowerProgress();
+
         this.replayHideBtns();
     }
 
+    private refreshPowerProgress(): void {
+        const luckyDataStr = DataStore.getString(KeyConstants.TURN_TABLE);
+        const energyTurnableData = <protoHH.casino.energy_turnable[]>JSON.parse(luckyDataStr);
+        let data;
+        for (const element of energyTurnableData) {
+            if (element.room_id === this.room.roomInfo.room_id) {
+                data = element;
+
+                break;
+            }
+        }
+        if (data === undefined) {
+            return;
+        }
+        const energyStr = DataStore.getString(KeyConstants.PLAYER_ENERGY);
+        const playerEnergy = <protoHH.casino.player_energy>JSON.parse(energyStr);
+        const energy = playerEnergy.curr_energy;
+
+        const energyNum = energy === null ? 0 : energy;
+        const num = Math.floor((energyNum / data.draw) * 100);
+        this.energyBtn.getChild("percent").text = `${num}%`;
+        // const progressValue = energy / data.draw * 100;
+        // this.powerProgress.value = progressValue;
+        // if (energy === null || energy < data.draw) {
+        //     this.energyBtn.getController("enable").selectedIndex = 0;
+        // } else {
+        //     this.energyBtn.getController("enable").selectedIndex = 1;
+        // }
+
+    }
     private onVoiceBtnPress(event: fgui.Event): void {
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
@@ -817,7 +862,6 @@ export class RoomView {
             joyRoomGZText.text = LocalStrings.findString(`joyLevel${level}`);
             joyRoomGZText.visible = true;
 
-            this.trusteeshipBtn.visible = true;
             this.unityViewNode.getChild("joyRoomHead2").visible = true;
             this.unityViewNode.getChild("joyRoomHead4").visible = true;
         }

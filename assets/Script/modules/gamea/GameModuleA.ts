@@ -13,6 +13,7 @@ import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
 import { ReplayA as Replay } from "./ReplayA";
 import { msgHandlers, RoomA as Room } from "./RoomA";
+import { LotteryView } from "../lobby/views/lottery/LotteryView";
 // import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;
@@ -202,9 +203,16 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         }
     }
 
+    //显示领取福利界面
     public showWelfareView(helperCount: number, refresh: number): void {
         const view = this.addComponent(WelfareView);
         view.showView(this.lm, helperCount, refresh);
+    }
+
+    //显示转盘界面
+    public showLotteryView(): void {
+        const view = this.addComponent(LotteryView);
+        view.show(this.lm);
     }
 
     public getServerTime(): number {
