@@ -2,7 +2,7 @@
  * lobby 配置
  */
 export namespace LEnv {
-    export const VER_STR: string = "v1.0.091201";
+    export const VER_STR: string = "v1.0.091601";
 
     // updateQuery = "/lobby/upgrade/query",
     export const updateQuery: string = "/lobby/uuid/upgradeQuery";
