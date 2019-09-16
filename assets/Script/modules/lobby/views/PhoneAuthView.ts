@@ -243,7 +243,9 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private requireCode(phone: string): void {
-        const url = LEnv.cfmt(LEnv.phoneAuthCode, LEnv.rootURL, phone);
+        const app = LEnv.app === "h5casino" ? LEnv.app : "2222";
+        const url = LEnv.cfmt(LEnv.phoneAuthCode, LEnv.rootURL, app, phone);
+
         Logger.debug("requireCode:", url);
         HTTP.hGet(
             this.eventTarget,
