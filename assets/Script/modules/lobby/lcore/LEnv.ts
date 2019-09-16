@@ -2,7 +2,7 @@
  * lobby 配置
  */
 export namespace LEnv {
-    export const VER_STR: string = "v1.0.091101";
+    export const VER_STR: string = "v1.0.091201";
 
     // updateQuery = "/lobby/upgrade/query",
     export const updateQuery: string = "/lobby/uuid/upgradeQuery";
@@ -71,6 +71,7 @@ export namespace LEnv {
 
     // tslint:disable-next-line:no-http-string
     export const wxLogin = "/zyqp/user/h5login/withcode?app={0}&code={1}";
+    export const phoneAuthCode = "{0}/zyqp/common/authcode?app=2&phone={1}";
 
     export const shareUrl = "";
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
