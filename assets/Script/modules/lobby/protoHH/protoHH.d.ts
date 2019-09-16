@@ -5628,5 +5628,134 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): packet_red_store_ack;
 		}
 
+		interface Idata_req {
+			name: string;
+			crc?: number;
+		}
+
+		class data_req implements Idata_req {
+			public name: string;
+			public crc: number;
+			constructor(properties?: casino.Idata_req);
+			public static encode(message: data_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): data_req;
+		}
+
+		interface Ipacket_data_req {
+			reqs?: casino.Idata_req[];
+		}
+
+		class packet_data_req implements Ipacket_data_req {
+			public reqs: casino.Idata_req[];
+			constructor(properties?: casino.Ipacket_data_req);
+			public static encode(message: packet_data_req): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_data_req;
+		}
+
+		interface Idata_ack {
+			name: string;
+			crc?: number;
+			parse?: boolean;
+			data?: ByteBuffer;
+		}
+
+		class data_ack implements Idata_ack {
+			public name: string;
+			public crc: number;
+			public parse: boolean;
+			public data: ByteBuffer;
+			constructor(properties?: casino.Idata_ack);
+			public static encode(message: data_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): data_ack;
+		}
+
+		interface Ipacket_data_ack {
+			acks?: casino.Idata_ack[];
+		}
+
+		class packet_data_ack implements Ipacket_data_ack {
+			public acks: casino.Idata_ack[];
+			constructor(properties?: casino.Ipacket_data_ack);
+			public static encode(message: packet_data_ack): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_data_ack;
+		}
+
+		interface Itask_data {
+			datas?: casino.Itask[];
+		}
+
+		class task_data implements Itask_data {
+			public datas: casino.Itask[];
+			constructor(properties?: casino.Itask_data);
+			public static encode(message: task_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): task_data;
+		}
+
+		interface Icasino_data {
+			datas?: casino.Icasino[];
+		}
+
+		class casino_data implements Icasino_data {
+			public datas: casino.Icasino[];
+			constructor(properties?: casino.Icasino_data);
+			public static encode(message: casino_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): casino_data;
+		}
+
+		interface Iact_data {
+			datas?: casino.Iact[];
+		}
+
+		class act_data implements Iact_data {
+			public datas: casino.Iact[];
+			constructor(properties?: casino.Iact_data);
+			public static encode(message: act_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): act_data;
+		}
+
+		interface Iact_checkin_day_data {
+			datas?: casino.Iact_checkin_day[];
+		}
+
+		class act_checkin_day_data implements Iact_checkin_day_data {
+			public datas: casino.Iact_checkin_day[];
+			constructor(properties?: casino.Iact_checkin_day_data);
+			public static encode(message: act_checkin_day_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): act_checkin_day_data;
+		}
+
+		interface Iact_checkin_counter_data {
+			datas?: casino.Iact_checkin_counter[];
+		}
+
+		class act_checkin_counter_data implements Iact_checkin_counter_data {
+			public datas: casino.Iact_checkin_counter[];
+			constructor(properties?: casino.Iact_checkin_counter_data);
+			public static encode(message: act_checkin_counter_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): act_checkin_counter_data;
+		}
+
+		interface Iact_card_free_data {
+			datas?: casino.Iact_card_free[];
+		}
+
+		class act_card_free_data implements Iact_card_free_data {
+			public datas: casino.Iact_card_free[];
+			constructor(properties?: casino.Iact_card_free_data);
+			public static encode(message: act_card_free_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): act_card_free_data;
+		}
+
+		interface Iact_red_rain_data {
+			datas?: casino.Iact_red_rain[];
+		}
+
+		class act_red_rain_data implements Iact_red_rain_data {
+			public datas: casino.Iact_red_rain[];
+			constructor(properties?: casino.Iact_red_rain_data);
+			public static encode(message: act_red_rain_data): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): act_red_rain_data;
+		}
+
 	}
 }

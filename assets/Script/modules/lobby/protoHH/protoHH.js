@@ -11976,6 +11976,165 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 51
                         }
                     ]
+                },
+                {
+                    "name": "data_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "string",
+                            "name": "name",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "crc",
+                            "id": 2
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_data_req",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "data_req",
+                            "name": "reqs",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "data_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "required",
+                            "type": "string",
+                            "name": "name",
+                            "id": 1
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "uint32",
+                            "name": "crc",
+                            "id": 2
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bool",
+                            "name": "parse",
+                            "id": 5,
+                            "options": {
+                                "default": false
+                            }
+                        },
+                        {
+                            "rule": "optional",
+                            "type": "bytes",
+                            "name": "data",
+                            "id": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "packet_data_ack",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "data_ack",
+                            "name": "acks",
+                            "id": 2
+                        }
+                    ]
+                },
+                {
+                    "name": "task_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "task",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "casino_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "casino",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "act_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "act",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "act_checkin_day_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "act_checkin_day",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "act_checkin_counter_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "act_checkin_counter",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "act_card_free_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "act_card_free",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "act_red_rain_data",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "act_red_rain",
+                            "name": "datas",
+                            "id": 1
+                        }
+                    ]
                 }
             ],
             "enums": [

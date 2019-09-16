@@ -1062,3 +1062,59 @@ message packet_red_store_ack{
 	optional uint32			 id = 10;				// id
 	optional red_data	reddata = 51;				// 红包数据更新
 }
+
+message data_req{
+	required string			name  = 1;
+	optional uint32			crc  = 2;
+}
+
+// 游戏数据请求
+message packet_data_req{
+	repeated data_req		reqs = 1;
+}
+
+message data_ack{
+	required string			name = 1;
+	optional uint32			crc = 2;
+	optional bool			parse = 5[default = false];
+	optional bytes			data = 10;
+
+}
+
+// 游戏数据请求
+message packet_data_ack{
+	repeated data_ack	  acks = 2;
+}
+
+// 任务数据
+message task_data{
+	repeated task				datas = 1;
+}
+
+
+// 游戏数据
+message casino_data{
+	repeated casino			   datas = 1;
+}
+
+// 活动数据
+message act_data{
+	repeated act			   datas = 1;
+}
+
+// 登陆活动数据
+message act_checkin_day_data{
+	repeated act_checkin_day		datas = 1;
+}
+
+message act_checkin_counter_data{
+	repeated act_checkin_counter	datas = 1;
+}
+
+message act_card_free_data{
+	repeated act_card_free	datas = 1;
+}
+
+message act_red_rain_data{
+	repeated act_red_rain	datas = 1;
+}
