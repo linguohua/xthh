@@ -284,6 +284,7 @@ export class EmailView extends cc.Component {
         } else {
             this.noEmailText.visible = true;
             this.titleText.text = "";
+            this.textComponent.getChild("text").text = "";
             this.deleteBtn.visible = false;
             this.takeBtn.visible = false;
             this.attachmentsList.numItems = 0;
@@ -313,8 +314,16 @@ export class EmailView extends cc.Component {
 
         this.emailList.numItems = this.playerEmails.length;
 
-        const obj = this.emailList.getChildAt(index);
-        this.selectEmail(this.selectPlayerEmail, obj, index);
+        // Logger.debug("index = ", index);
+        // Logger.debug("this.emailList.len  = ", this.emailList._children.length);
+        // Logger.debug("this.emailList  = ", this.emailList._children);
+
+        // Logger.debug(" this.emailList.getChildAt(index-2)  = ", this.emailList.getChildAt(index - 2));
+        // Logger.debug(" this.emailList.getChildAt(index-1)  = ", this.emailList.getChildAt(index - 1));
+        // Logger.debug(" this.emailList.getChildAt(index)  = ", this.emailList.getChildAt(index));
+
+        // const obj = this.emailList.getChildById(index);
+        // this.selectEmail(this.selectPlayerEmail, obj, index);
 
     }
 
