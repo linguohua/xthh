@@ -3,7 +3,7 @@
   <displayList>
     <component id="n61_tebr" name="blueBg" src="tebrpd" fileName="bg_btn.xml" xy="0,0" size="1136,640"/>
     <image id="n39_jel2" name="diBg" src="lqn3h5" fileName="_resource/z_桌面打牌/zm_xxditiao.png" xy="0,597" size="1136,44" visible="false"/>
-    <component id="n68_8oqo" name="joyRoomHead2" src="zx6kqi" fileName="joyRoomHeadCom.xml" xy="1038,207"/>
+    <component id="n68_8oqo" name="joyRoomHead2" src="zx6kqi" fileName="joyRoomHeadCom.xml" xy="1038,207" visible="false"/>
     <component id="n69_8oqo" name="joyRoomHead4" src="zx6kqi" fileName="joyRoomHeadCom.xml" xy="14,207" size="83,112" visible="false"/>
     <text id="n72_8oqo" name="joyRoomGZText" xy="470,196" size="204,35" visible="false" fontSize="24" color="#20683c" align="center" vAlign="middle" autoSize="none" bold="true" text=""/>
     <text id="n71_8oqo" name="joyWaitText" xy="400,281" size="337,44" visible="false" fontSize="30" color="#4aff03" vAlign="middle" autoSize="none" bold="true" text="正在为您匹配游戏玩家..."/>
