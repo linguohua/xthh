@@ -746,7 +746,9 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             this.isGpsOpen = false;
         }
 
-        this.mRoom.showOrHideGpsTag(!this.isGpsOpen);
+        if (this.mRoom !== null) {
+            this.mRoom.showOrHideGpsTag(!this.isGpsOpen);
+        }
         Logger.debug("gps status:", gps);
     }
 

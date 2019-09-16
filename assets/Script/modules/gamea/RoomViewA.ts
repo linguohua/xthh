@@ -584,6 +584,14 @@ export class RoomViewA {
         } else {
             this.enableVoiceBtn(false);
         }
+
+        const gps = DataStore.getString(KeyConstants.GPS, "0");
+        if (+gps > 0) {
+            this.gpsUnOpen.visible = false;
+        } else {
+            this.gpsUnOpen.visible = true;
+        }
+
         this.replayHideBtns();
     }
 
