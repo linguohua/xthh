@@ -20,5 +20,6 @@
     <component id="n25_hz17" name="scoreCom" src="hz17oz" fileName="scoreCom.xml" xy="432,265" visible="false"/>
     <component id="n26_hz17" name="hand2" src="hz17p0" fileName="desk/mine/desk_hand2.xml" xy="-1,473" hideByEditor="true" visible="false"/>
     <component id="n28_jnmk" name="voice" src="jnmkp6" fileName="qipao.xml" xy="527,462" visible="false" rotation="270"/>
+    <image id="n29_zx6k" name="ready" src="zx6kqj" fileName="_resource/z_桌面打牌/zm_btn_zi_zb.png" xy="531,407" visible="false"/>
   </displayList>
 </component>

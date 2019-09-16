@@ -300,6 +300,8 @@
     <component id="iex4qf" name="blockBg.xml" path="/btn/"/>
     <component id="iex4qg" name="cancelBtn.xml" path="/btn/"/>
     <component id="qxe0qh" name="playerChatCom.xml" path="/"/>
+    <component id="zx6kqi" name="joyRoomHeadCom.xml" path="/"/>
+    <image id="zx6kqj" name="zm_btn_zi_zb.png" path="/_resource/z_桌面打牌/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

@@ -131,6 +131,7 @@ export class PlayerView {
     private piaoScoreStartPos: cc.Vec2;
     private piaoScoreEndPos: cc.Vec2;
     private voice: fgui.GObject;
+    private ready: fgui.GObject;
     private huoArray: fgui.GObject[];
     // private isCanRestoreHands: boolean = true;
     public constructor(viewUnityNode: fgui.GComponent, viewChairID: number, room: RoomInterface) {
@@ -252,6 +253,7 @@ export class PlayerView {
         this.hideMelds();
         this.hideLights();
         this.hideDiscarded();
+        this.showOrHideReady(false);
     }
 
     //新的一手牌开始，做一些清理后再开始
@@ -262,12 +264,15 @@ export class PlayerView {
         this.hideLights();
         this.clearDiscardable();
         this.hideDiscarded();
+        this.showOrHideReady(false);
 
         if (this.viewChairID === 1) {
             this.hideOperationButtons();
         }
     }
-
+    public showOrHideReady(isShow: boolean): void {
+        this.ready.visible = isShow;
+    }
     //隐藏打出去的牌列表
     public hideDiscarded(): void {
         if (this.discards != null) {
@@ -989,7 +994,8 @@ export class PlayerView {
         this.qipao = viewUnityNode.getChild("playerChatMsgCom").asCom.getChild(`player${this.viewChairID}ChatMsgCom`);
         this.qipaoText = this.qipao.asCom.getChild("text");
         this.qipaoEmotion = this.qipao.asCom.getChild("biaoqing").asLoader;
-
+        //准备
+        this.ready = this.myView.getChild("ready");
     }
 
     //头像周边内容节点

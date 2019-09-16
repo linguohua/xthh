@@ -11,8 +11,11 @@ export namespace HandlerMsgTableReady {
         const reply = proto.casino.packet_table_ready.decode(msgData);
         Logger.debug("HandlerMsgTableReady----------------------- ", reply);
         const player = <Player>room.getPlayerByChairID(reply.idx);
-        if (room.isJoyRoom && player.isMe()) {
-            room.roomView.startJoyRoomWaitPlayer();
+        if (room.isJoyRoom) {
+            if (player.isMe()) {
+                room.roomView.startJoyRoomWaitPlayer();
+            }
+            player.playerView.showOrHideReady(true);
         }
     };
 }

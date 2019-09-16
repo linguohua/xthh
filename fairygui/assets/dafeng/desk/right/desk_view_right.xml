@@ -18,5 +18,6 @@
     <component id="n20_hz17" name="hand2" src="hz17p3" fileName="desk/right/desk_hand2.xml" xy="955,0" hideByEditor="true" visible="false"/>
     <graph id="n21_itd2" name="piaoAni" xy="553,318" size="17,16"/>
     <component id="n22_jnmk" name="voice" src="jnmkp6" fileName="qipao.xml" xy="1032,295" visible="false" rotation="180"/>
+    <image id="n23_zx6k" name="ready" src="zx6kqj" fileName="_resource/z_桌面打牌/zm_btn_zi_zb.png" xy="1042,330" visible="false"/>
   </displayList>
 </component>
