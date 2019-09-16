@@ -474,6 +474,7 @@ export class LoginView extends cc.Component {
         const emailData = JSON.stringify(fastLoginAck.pdata.mails);
         const playerRedData = JSON.stringify(fastLoginAck.pdata.red);
         const redData = JSON.stringify(fastLoginAck.reddata);
+        const acts = JSON.stringify(fastLoginAck.pdata.acts);
 
         DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
         DataStore.setItem(KeyConstants.NICK_NAME, nickName);
@@ -493,6 +494,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.TURN_TABLE, etData);
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+        DataStore.setItem(KeyConstants.PLAYER_ACTS, acts);
         // 红包提现信息
         DataStore.setItem(KeyConstants.PLAYER_RED, playerRedData);
         // 红包数据

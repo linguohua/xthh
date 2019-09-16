@@ -111,6 +111,7 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST, this.onBroadcast, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_DATA_ACK, this.onDataAck, this);
     }
 
     private unregisterHandler(): void {
@@ -354,8 +355,22 @@ export class LobbyView extends cc.Component {
                 return;
             }
         }
+
+        this.sendDataReq();
     }
 
+    private onDataAck(msg: proto.casino.ProxyMessage): void {
+        const reply = proto.casino.packet_data_ack.decode(msg.Data);
+        for (const ack of reply.acks) {
+            if (ack.name === "act_checkin_day") {
+                const checkinDay = proto.casino.act_checkin_day_data.decode(ack.data);
+                const json = JSON.stringify(checkinDay);
+                DataStore.setItem(KeyConstants.ACT_CHECK_IN_DAY, json);
+                Logger.debug("checkinDay:", checkinDay);
+            }
+        }
+        Logger.debug("reply:", reply);
+    }
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
         Logger.debug("onJoinTableAck");
 
@@ -660,6 +675,13 @@ export class LobbyView extends cc.Component {
         // else {
         //     this.announcementText.node.setPosition(this.announcementOriginPos.x, this.announcementOriginPos.y);
         // }
+    }
+
+    private sendDataReq(): void {
+        const req = new proto.casino.packet_data_req();
+
+        const buf = proto.casino.packet_data_req.encode(req);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_DATA_REQ);
     }
     private onLogout(): void {
         Logger.debug("onLogout");

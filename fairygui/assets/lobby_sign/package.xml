@@ -12,6 +12,8 @@
     <image id="qxe09" name="q_每日签到标注1.jpg" path="/_design/"/>
     <component id="qxe0a" name="signItem.xml" path="/"/>
     <component id="qxe0b" name="lastSignItem.xml" path="/"/>
+    <image id="q3pyc" name="cz_icon_fk1.png" path="/_resource/" exported="true"/>
+    <image id="q3pyd" name="cz_icon_hld1.png" path="/_resource/" exported="true"/>
   </resources>
   <publish name="lobby_sign"/>
 </packageDescription>

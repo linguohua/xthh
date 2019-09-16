@@ -59,4 +59,6 @@ export namespace KeyConstants {
     export const PLAYER_RED = "playerRed"; //玩家红包提现信息
 
     export const RED_DATA = "redData"; //红包数据
+    export const ACT_CHECK_IN_DAY = "checkInDay";
+    export const PLAYER_ACTS = "playerActs";
 }

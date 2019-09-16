@@ -1,4 +1,4 @@
-import { CommonFunction, Dialog, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 import { GameError } from "../../errorCode/ErrorCodeExports";
 import { proto } from "../../protoHH/protoHH";
@@ -12,6 +12,7 @@ export class SignView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
+    private playerAct: proto.casino.player_act;
 
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -35,9 +36,10 @@ export class SignView extends cc.Component {
         this.initView();
         this.win.show();
 
+        this.showTip();
         // this.sinReq();
         // this.checkingDayReq();
-        this.dataReq();
+        // this.dataReq();
     }
 
     protected onDestroy(): void {
@@ -49,25 +51,80 @@ export class SignView extends cc.Component {
 
     private registerHandler(): void {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK, this.onSignAck, this);
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_DATA_ACK, this.onDataAck, this);
     }
     private unRegisterHander(): void {
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK);
     }
 
     private initView(): void {
-
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseBtnClick, this);
+
+        const checkinDayData = this.getCheckinDayData();
+
+        const act = this.getSignAct();
+        this.playerAct = act;
+        // Logger.debug("act:", act);
+        let isOldUser: boolean = false;
+        if (act !== null && act.total > 7) {
+            isOldUser = true;
+        }
 
         for (let i = 0; i < 7; i++) {
             const item = this.view.getChild(`item${i}`).asCom;
             item.getChild("day").text = LocalStrings.findString("signDay", `${i + 1}`);
-        }
 
+            let award = checkinDayData.datas[i].vip_awards[0];
+            if (isOldUser) {
+                award = checkinDayData.datas[i].awards[0];
+            }
+
+            const loader = item.getChild("loader").asLoader;
+
+            let text = "";
+            if (award.type === 9) {
+                // 房卡
+                text = `房卡*${award.param}`;
+                loader.url = `ui://lobby_sign/cz_icon_fk1`;
+            } else if (award.type === 10) {
+                // 欢乐豆
+                text = `欢乐豆*${award.param}`;
+                loader.url = `ui://lobby_sign/cz_icon_hld1`;
+            }
+
+            item.getChild("count").text = text;
+
+            if (act.today > i) {
+                item.getChild("sjgnMask").visible = true;
+            } else {
+                item.getChild("sjgnMask").visible = false;
+            }
+
+            const onItemClick = () => {
+                this.onItemClick(i);
+            };
+            item.onClick(onItemClick, this);
+
+        }
     }
     private onCloseBtnClick(): void {
         this.destroy();
+    }
+
+    private onItemClick(i: number): void {
+        // const i = <number>ev.initiator.data;
+        Logger.debug("onItemClick:", i);
+        const act = this.playerAct;
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayInSeconds = Date.parse(today.toString());
+        if (act.act_time.low >= Math.floor(todayInSeconds / 1000)) {
+            return;
+        }
+
+        if (i === act.today) {
+            this.sinReq();
+        }
     }
 
     private onSignAck(msg: proto.casino.ProxyMessage): void {
@@ -86,35 +143,6 @@ export class SignView extends cc.Component {
         Logger.debug("reply:", reply);
     }
 
-    private onDataAck(msg: proto.casino.ProxyMessage): void {
-        const reply = proto.casino.packet_data_ack.decode(msg.Data);
-        for (const ack of reply.acks) {
-            if (ack.name === "act_checkin_day") {
-                const checkinDay = proto.casino.act_checkin_day_data.decode(ack.data);
-                Logger.debug("checkinDay:", checkinDay);
-            }
-            //             0: Message {name: "chat", crc: 37381744, parse: false, data: h}
-            // 1: Message {name: "act", crc: 163179104, parse: false, data: h}
-            // 2: Message {name: "act_checkin_day", crc: 6644855, parse: false, data: h}
-            // 3: Message {name: "act_checkin_counter", crc: 90718638, parse: false, data: h}
-            // 4: Message {name: "act_card_free", crc: 72746089, parse: false, data: h}
-            // 5: Message {name: "act_red_rain", crc: 16704371, parse: false, data: h}
-            // 6: Message {name: "casino", crc: 54572400, parse: false, data: h}
-            // 7: Message {name: "task", crc: 145877712, parse: false, data: h}
-
-            if (ack.name === "act") {
-                const act = proto.casino.act_data.decode(ack.data);
-                Logger.debug("act:", act);
-            }
-
-            if (ack.name === "act_checkin_counter") {
-                const checkinCounter = proto.casino.act_checkin_counter_data.decode(ack.data);
-                Logger.debug("checkinCounter:", checkinCounter);
-            }
-        }
-        Logger.debug("reply:", reply);
-    }
-
     private sinReq(): void {
         const req = new proto.casino.packet_act_req();
         req.type = proto.casino.eACT.ACT_SIGN;
@@ -124,21 +152,34 @@ export class SignView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ACT_REQ);
     }
 
-    private checkingDayReq(): void {
-        const req = new proto.casino.packet_act_req();
-        req.type = proto.casino.eACT.ACT_CHECKIN_DAY;
+    private getSignAct(): proto.casino.player_act {
+        const actStr = DataStore.getString(KeyConstants.PLAYER_ACTS);
+        const acts = <proto.casino.player_act[]>JSON.parse(actStr);
 
-        const buf = proto.casino.packet_act_req.encode(req);
+        for (const act of acts) {
+            if (act.type === proto.casino.eACT.ACT_SIGN) {
+                return act;
+            }
+        }
 
-        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ACT_REQ);
+        return null;
     }
 
-    private dataReq(): void {
-        const req = new proto.casino.packet_data_req();
-        // req.type = proto.casino.eACT.ACT_CHECKIN_DAY;
+    private getCheckinDayData(): proto.casino.act_checkin_day_data {
+        const jsonString = DataStore.getString(KeyConstants.ACT_CHECK_IN_DAY);
 
-        const buf = proto.casino.packet_data_req.encode(req);
+        return <proto.casino.act_checkin_day_data>JSON.parse(jsonString);
+    }
 
-        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_DATA_REQ);
+    private showTip(): void {
+        const act = this.playerAct;
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayInSeconds = Date.parse(today.toString());
+        if (act.act_time.low >= Math.floor(todayInSeconds / 1000)) {
+            Dialog.prompt(LocalStrings.findString("haveBeenSign"));
+        } else {
+            Logger.debug(`act_time:${act.act_time.low}, today:${Math.floor(todayInSeconds / 1000)}`);
+        }
     }
 }
