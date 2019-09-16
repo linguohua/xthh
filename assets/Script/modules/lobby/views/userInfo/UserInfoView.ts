@@ -225,6 +225,7 @@ export class UserInfoView extends cc.Component {
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.VISITOR) {
+            this.userName.enabled = false;
             role.selectedIndex = 1;
 
             if (channel === Enum.CHANNEL_TYPE.WECHAT) {
