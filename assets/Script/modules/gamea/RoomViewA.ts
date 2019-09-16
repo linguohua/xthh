@@ -409,7 +409,7 @@ export class RoomViewA {
 
     // 默认隐藏这些按钮，发牌后再显示
     public showBtnsAndBgs(): void {
-        this.chatBtn.visible = true;
+        // this.chatBtn.visible = true;
         this.gpsBtn.visible = true;
         this.settingBtn.visible = true;
         this.recoredBtn.visible = true;
@@ -573,6 +573,7 @@ export class RoomViewA {
         this.gpsUnOpen = this.gpsBtn.getChild("n3");
         this.gpsBtn.onClick(this.onGPSBtnClick, this);
         this.chatBtn.onClick(this.onChatBtnClick, this);
+        this.chatBtn.visible = true;
 
         this.settingBtn = this.unityViewNode.getChild("settingBtn");
         this.settingBtn.onClick(this.onSettingBtnClick, this);
