@@ -243,7 +243,7 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private requireCode(phone: string): void {
-        const url = `${LEnv.rootURL}/zyqp/common/authcode?app=2&phone=${phone}`;
+        const url = LEnv.cfmt(LEnv.phoneAuthCode, LEnv.rootURL, phone);
         Logger.debug("requireCode:", url);
         HTTP.hGet(
             this.eventTarget,
