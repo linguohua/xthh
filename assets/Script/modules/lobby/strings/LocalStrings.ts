@@ -170,6 +170,7 @@ export namespace LocalStrings {
                 [`unbindPhone`]: "您的手机号未绑定，请先使用微信登录绑定手机号再使用",
                 [`haveBeenSign`]: "今天已经签到过了！",
                 [`signDay`]: "第{0}天",
+                [`errorAuthCode`]: "验证码错误",
                 // 12个 制表符
                 [`agreeText0`]: `                                               用户服务协议
 重要须知：

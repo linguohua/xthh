@@ -41,6 +41,7 @@ export class PhoneAuthView extends cc.Component {
     private lm: LobbyModuleInterface;
 
     private loginView: PhoneLoginInterface;
+    private phone: string;
 
     public show(openType: OpenType, login?: PhoneLoginInterface): void {
         this.openType = openType;
@@ -182,14 +183,19 @@ export class PhoneAuthView extends cc.Component {
     private onBindPhoneAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_bind_phone_ack.decode(msg.Data);
         if (reply.ret !== proto.casino.eRETURN_TYPE.RETURN_BIND_PHONE_SUCCESS) {
+            if (reply.ret === proto.casino.eRETURN_TYPE.RETURN_CODE_EXPIRE) {
+                Dialog.prompt(LocalStrings.findString("errorAuthCode"));
+            } else {
+                Dialog.prompt(GameError.getErrorString(reply.ret));
+            }
+
             Logger.debug("onBindPhoneAck reply error:", reply);
-            Dialog.prompt(GameError.getErrorString(reply.ret));
 
             return;
         }
 
         Logger.debug("reply:", reply);
-        DataStore.setItem(KeyConstants.PHONE, reply.phone);
+        DataStore.setItem(KeyConstants.PHONE, this.phone);
 
         if (this.lm !== null) {
             this.lm.eventTarget.emit("onBindPhone");
@@ -290,6 +296,8 @@ export class PhoneAuthView extends cc.Component {
         const bingPhoneReq = new proto.casino.packet_bind_phone_req();
         bingPhoneReq.code = code;
         bingPhoneReq.phone = phone;
+
+        this.phone = phone;
 
         Logger.debug("requireBindPhone:", bingPhoneReq);
         const buf = proto.casino.packet_bind_phone_req.encode(bingPhoneReq);
