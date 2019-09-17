@@ -13,7 +13,7 @@ export class AgreementView extends cc.Component {
 
     private pageIndex: number = 0;
 
-    private readonly pageCount: number = 19;
+    private readonly pageCount: number = 20;
 
     private contentText: fgui.GTextField;
 
