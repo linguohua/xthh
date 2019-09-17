@@ -1,6 +1,8 @@
 import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 import { GameError } from "../../errorCode/ErrorCodeExports";
+// tslint:disable-next-line:no-require-imports
+import long = require("../../protobufjs/long");
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
@@ -64,7 +66,7 @@ export class SignView extends cc.Component {
 
         const act = this.getSignAct();
         this.playerAct = act;
-        // Logger.debug("act:", act);
+        Logger.debug("act:", act);
         let isOldUser: boolean = false;
         if (act !== null && act.total > 7) {
             isOldUser = true;
@@ -94,7 +96,7 @@ export class SignView extends cc.Component {
 
             item.getChild("count").text = text;
 
-            if (act.today > i) {
+            if (act.param !== null && act.param > i) {
                 item.getChild("sjgnMask").visible = true;
             } else {
                 item.getChild("sjgnMask").visible = false;
@@ -107,6 +109,52 @@ export class SignView extends cc.Component {
 
         }
     }
+
+    private setTodaySign(): void {
+        const act = this.playerAct;
+
+        let param: number = 0;
+        if (act.param !== null) {
+            param = act.param;
+        }
+
+        const item = this.view.getChild(`item${param}`).asCom;
+        item.getChild("sjgnMask").visible = true;
+
+        if (act.param !== null) {
+            act.param = act.param + 1;
+        } else {
+            act.param = 1;
+        }
+
+        if (act.today !== null) {
+            act.today = act.today + 1;
+        } else {
+            act.today = 1;
+        }
+
+        if (act.total !== null) {
+            act.total = act.total + 1;
+        } else {
+            act.total = 1;
+        }
+
+        if (act.week !== null) {
+            act.week = act.week + 1;
+        } else {
+            act.week = 1;
+        }
+
+        if (act.month !== null) {
+            act.month = act.month + 1;
+        } else {
+            act.month = 1;
+        }
+
+        act.act_time = new long(this.lm.msgCenter.getServerTime());
+
+        this.updateSignAct(act);
+    }
     private onCloseBtnClick(): void {
         this.destroy();
     }
@@ -118,11 +166,16 @@ export class SignView extends cc.Component {
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const todayInSeconds = Date.parse(today.toString());
-        if (act.act_time.low >= Math.floor(todayInSeconds / 1000)) {
+        if (act.act_time !== null && act.act_time.low >= Math.floor(todayInSeconds / 1000)) {
             return;
         }
 
-        if (i === act.today) {
+        let param: number = 0;
+        if (act.param !== null) {
+            param = act.param;
+        }
+
+        if (param === i) {
             this.sinReq();
         }
     }
@@ -140,6 +193,9 @@ export class SignView extends cc.Component {
             return;
         }
 
+        this.setTodaySign();
+
+        Dialog.prompt("签到成功");
         Logger.debug("reply:", reply);
     }
 
@@ -165,6 +221,22 @@ export class SignView extends cc.Component {
         return null;
     }
 
+    private updateSignAct(signAct: proto.casino.player_act): void {
+        const actStr = DataStore.getString(KeyConstants.PLAYER_ACTS);
+        const acts = <proto.casino.player_act[]>JSON.parse(actStr);
+
+        const length = acts.length;
+        for (let i = 0; i < length; i++) {
+            if (acts[i].type === proto.casino.eACT.ACT_SIGN) {
+                acts[i] = signAct;
+                break;
+            }
+        }
+
+        const jsonString = JSON.stringify(acts);
+        DataStore.setItem(KeyConstants.PLAYER_ACTS, jsonString);
+    }
+
     private getCheckinDayData(): proto.casino.act_checkin_day_data {
         const jsonString = DataStore.getString(KeyConstants.ACT_CHECK_IN_DAY);
 
@@ -173,6 +245,10 @@ export class SignView extends cc.Component {
 
     private showTip(): void {
         const act = this.playerAct;
+        if (act.total === 0) {
+            return;
+        }
+
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const todayInSeconds = Date.parse(today.toString());
