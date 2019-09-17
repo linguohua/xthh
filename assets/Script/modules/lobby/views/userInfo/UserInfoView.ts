@@ -328,6 +328,7 @@ export class UserInfoView extends cc.Component {
             req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
         }
 
+
         Logger.debug("req:", req);
         const buf = proto.casino.packet_modify_req.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MODIFY_REQ);
@@ -511,6 +512,55 @@ export class UserInfoView extends cc.Component {
         } else {
             DataStore.setItem(KeyConstants.GPS, 0);
         }
+
+        if (this.gpsBtn.selected) {
+            if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+                Dialog.prompt(LocalStrings.findString("gpsEffectOnWeChat"));
+                this.gpsBtn.selected = false;
+
+                return;
+            }
+
+            wx.getSetting({
+                success: (res: getSettingRes) => {
+                    console.log(res);
+                    const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
+                    if (!authSetting['scope.userLocation']) {
+                        this.authorizeLocation();
+                    } else {
+                        DataStore.setItem(KeyConstants.GPS, 1);
+                    }
+                },
+
+                // tslint:disable-next-line:no-any
+                fail: (err: any) => {
+                    Logger.error("getSetting error:", err);
+                }
+            });
+        } else {
+            DataStore.setItem(KeyConstants.GPS, 0);
+        }
+    }
+
+    private authorizeLocation(): void {
+        Logger.debug("authorizeLocation");
+        wx.authorize({
+            scope: 'scope.userLocation',
+            success: () => {
+                // 用户已经同意小程序使用定位功能
+                DataStore.setItem(KeyConstants.GPS, 1);
+            },
+
+            // tslint:disable-next-line:no-any
+            fail: (err: any) => {
+                Logger.debug("authorizeLocation fail:", err);
+                DataStore.setItem(KeyConstants.GPS, 0);
+                this.gpsBtn.selected = false;
+
+                // [右上角]-[关于]-[右上角]-[设置]
+                Dialog.showDialog(LocalStrings.findString('openSettingToAuth'));
+            }
+        });
     }
 
     private onLogout(): void {
