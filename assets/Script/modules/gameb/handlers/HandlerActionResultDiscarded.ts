@@ -46,7 +46,7 @@ export namespace HandlerActionResultDiscarded {
             if (player.mPiaoCount === 3) {
                 //第一次提示
                 const backPlayer = <Player>room.getBackPlayer(player.chairID);
-                if (!room.isReplayMode() && backPlayer.isMe() && room.roomInfo.room_id !== 2112) {
+                if (!room.isReplayMode() && backPlayer.isMe() && room.roomInfo.room_id !== 2112 && !room.isJoyRoom) {
                     Dialog.prompt(LocalStrings.findString("plLimit"));
                 }
             }
