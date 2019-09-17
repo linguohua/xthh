@@ -7910,7 +7910,7 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 2
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "type": "mail",
                             "name": "data",
                             "id": 10

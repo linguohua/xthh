@@ -3693,7 +3693,7 @@ export namespace proto {
 		interface Iplayer_mail {
 			id: Long;
 			mail_id: number;
-			data: casino.Imail;
+			data?: casino.Imail;
 			params?: string[];
 			create_time?: Long;
 			view_time?: Long;
