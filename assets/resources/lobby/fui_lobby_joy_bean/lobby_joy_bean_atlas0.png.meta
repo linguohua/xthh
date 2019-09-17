@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "736f2697-255a-4e05-8ddf-7f7514f60f22",
+  "uuid": "e3675ff0-3a9b-4a69-8196-decef2b29861",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "lobby_joy_bean_atlas0": {
       "ver": "1.0.4",
-      "uuid": "d3f466db-eef4-4807-bd88-9a91f9cff56e",
-      "rawTextureUuid": "736f2697-255a-4e05-8ddf-7f7514f60f22",
+      "uuid": "a9f16e38-d40f-4ac9-bec4-185bbcfe5d10",
+      "rawTextureUuid": "e3675ff0-3a9b-4a69-8196-decef2b29861",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

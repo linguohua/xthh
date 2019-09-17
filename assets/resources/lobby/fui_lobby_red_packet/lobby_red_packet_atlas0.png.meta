@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "c21bcfdb-e1e4-4b36-8ee7-5bd0f4ef29b3",
+  "uuid": "ad07db8f-5310-4583-ad54-24736feddebf",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "lobby_red_packet_atlas0": {
       "ver": "1.0.4",
-      "uuid": "699b9152-b42b-4bf7-9a24-f610c422022f",
-      "rawTextureUuid": "c21bcfdb-e1e4-4b36-8ee7-5bd0f4ef29b3",
+      "uuid": "75542204-08ce-4250-b99e-f7723d189059",
+      "rawTextureUuid": "ad07db8f-5310-4583-ad54-24736feddebf",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

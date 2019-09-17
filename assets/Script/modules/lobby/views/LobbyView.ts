@@ -88,6 +88,8 @@ export class LobbyView extends cc.Component {
         this.setLaunchCallBack();
         this.checkGpsSetting();
         this.checkAgreement();
+
+        this.checkLocalRedDot();
     }
 
     protected onDestroy(): void {
@@ -107,6 +109,8 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.eventTarget.on("logout", this.onLogout, this);
         this.lm.eventTarget.on("onUserInfoModify", this.onUserInfoModify, this);
         this.lm.eventTarget.on("returnFromGame", this.onReturnFromGame, this);
+
+        this.lm.eventTarget.on("emailAllRead", this.checkEmailRedDot, this);
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyUpdate, this);
@@ -195,6 +199,21 @@ export class LobbyView extends cc.Component {
         this.headLoader.onClick(this.onUserInfoClick, this);
 
         CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
+    }
+
+    private checkLocalRedDot(): void {
+
+        this.checkEmailRedDot();
+    }
+    private checkEmailRedDot(): void {
+        const unReadEmail = DataStore.getString(KeyConstants.UNREAD_EMAIL);
+
+        const btn = this.view.getChild("emailBtn");
+        if (unReadEmail === "1") {
+            btn.asButton.getChild("redDot").visible = true;
+        } else {
+            btn.asButton.getChild("redDot").visible = false;
+        }
     }
 
     private testJoinGame(): void {

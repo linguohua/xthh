@@ -84,6 +84,7 @@ export class EmailView extends cc.Component {
 
         // 保存起来，因为邮件不能频繁拉取，如果拉取不到，则用本地的数据
         this.savePlayerEmails2DataStore(this.playerEmails);
+        this.checkEmailAllRead();
 
         this.unRegisterHander();
         this.win.hide();
@@ -273,6 +274,7 @@ export class EmailView extends cc.Component {
         for (const email of playerEmails) {
             if (CommonFunction.toNumber(email.view_time) === 0) {
                 DataStore.setItem(KeyConstants.UNREAD_EMAIL, 1);
+                this.lm.eventTarget.emit("emailAllRead");
                 break;
             }
         }
@@ -324,7 +326,6 @@ export class EmailView extends cc.Component {
 
         this.selectPlayerEmail.view_time = long.fromNumber(this.lm.msgCenter.getServerTime());
         this.playerEmails[index] = this.selectPlayerEmail;
-        this.emailList.numItems = 0;
         this.emailList.numItems = this.playerEmails.length;
 
         // Logger.debug("index = ", index);
@@ -337,7 +338,28 @@ export class EmailView extends cc.Component {
 
         // const obj = this.emailList.getChildById(index);
         this.selectEmail(this.selectPlayerEmail, this.selectEmailNode, index);
+    }
 
+    private checkEmailAllRead(): void {
+
+        if (this.playerEmails === undefined || this.playerEmails.length === 0) {
+            DataStore.setItem(KeyConstants.UNREAD_EMAIL, 0);
+            this.lm.eventTarget.emit("emailAllRead");
+
+            return;
+        }
+
+        for (const email of this.playerEmails) {
+
+            const viewTime = CommonFunction.toNumber(email.view_time);
+            Logger.debug("viewTime = ", viewTime);
+            if (viewTime === 0) {
+                return;
+            }
+        }
+
+        DataStore.setItem(KeyConstants.UNREAD_EMAIL, 0);
+        this.lm.eventTarget.emit("emailAllRead");
     }
 
     /**
