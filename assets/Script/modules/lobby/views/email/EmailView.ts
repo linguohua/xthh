@@ -240,7 +240,14 @@ export class EmailView extends cc.Component {
                 break;
             }
         }
-        this.playerEmails = playerEmails;
+
+        for (const email of playerEmails) {
+            if (email.data !== null) {
+                this.playerEmails.push(email);
+            }
+        }
+
+        //this.playerEmails = playerEmails;
         this.emailList.numItems = this.playerEmails.length;
         //默认选择第一个
         this.selectFirst();

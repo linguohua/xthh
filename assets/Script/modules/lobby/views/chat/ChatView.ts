@@ -76,16 +76,16 @@ export class ChatView extends cc.Component {
 
         this.win = win;
 
-        const viewPos = this.view.node.position;
-        this.view.node.setPosition(viewPos.x + 500, viewPos.y);
+        //const viewPos = this.view.node.position;
+        //this.view.node.setPosition(viewPos.x + 500, viewPos.y);
         this.win.show();
 
-        const pos1 = new cc.Vec2(viewPos.x - 50, viewPos.y);
-        const action = cc.moveTo(0.1, pos1);
-        const action1 = cc.moveTo(0.1, viewPos);
+        // const pos1 = new cc.Vec2(viewPos.x - 50, viewPos.y);
+        // const action = cc.moveTo(0.1, pos1);
+        // const action1 = cc.moveTo(0.1, viewPos);
 
-        const actionQueue = cc.sequence(action, action1);
-        this.view.node.runAction(actionQueue);
+        // const actionQueue = cc.sequence(action, action1);
+        // this.view.node.runAction(actionQueue);
 
     }
 
