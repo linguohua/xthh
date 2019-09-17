@@ -188,13 +188,14 @@ export class PhoneAuthView extends cc.Component {
             return;
         }
 
+        Logger.debug("reply:", reply);
         DataStore.setItem(KeyConstants.PHONE, reply.phone);
 
         if (this.lm !== null) {
             this.lm.eventTarget.emit("onBindPhone");
         }
 
-        Dialog.prompt("bindPhoneSuccess");
+        Dialog.prompt(LocalStrings.findString("bindPhoneSuccess"));
 
     }
 
@@ -243,7 +244,7 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private requireCode(phone: string): void {
-        const app = LEnv.app === "h5casino" ? LEnv.app : "2222";
+        const app = LEnv.app === "h5casino" ? LEnv.app : "2";
         const url = LEnv.cfmt(LEnv.phoneAuthCode, LEnv.rootURL, app, phone);
 
         Logger.debug("requireCode:", url);
