@@ -317,14 +317,13 @@ export class UserInfoView extends cc.Component {
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
 
         const req = new proto.casino.packet_modify_req();
-        req.nickname = this.userName.text;
+        req.nickname = req.nickname = CommonFunction.nameFormatWithCount(this.userName.text, 8, "");
         req.sex = this.boyRadioBtn.selected ? 0 : 1;
         req.player_id = +playerId;
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel === Enum.CHANNEL_TYPE.VISITOR) {
             // 限制8个字符
-            req.nickname = CommonFunction.nameFormatWithCount(req.nickname, 8);
             req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
         }
 
