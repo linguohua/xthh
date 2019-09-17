@@ -323,6 +323,8 @@ export class UserInfoView extends cc.Component {
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel === Enum.CHANNEL_TYPE.VISITOR) {
+            // 限制8个字符
+            req.nickname = CommonFunction.nameFormatWithCount(req.nickname, 8);
             req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
         }
 

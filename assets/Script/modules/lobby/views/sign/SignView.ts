@@ -72,6 +72,15 @@ export class SignView extends cc.Component {
             isOldUser = true;
         }
 
+        let param: number = 0;
+        if (act.param !== null) {
+            param = act.param;
+        }
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayInSeconds = Date.parse(today.toString());
+
         for (let i = 0; i < 7; i++) {
             const item = this.view.getChild(`item${i}`).asCom;
             item.getChild("day").text = LocalStrings.findString("signDay", `${i + 1}`);
@@ -95,11 +104,20 @@ export class SignView extends cc.Component {
             }
 
             item.getChild("count").text = text;
+            const light = item.getChild("light");
+            const mask = item.getChild("sjgnMask");
 
-            if (act.param !== null && act.param > i) {
-                item.getChild("sjgnMask").visible = true;
+            if (param > i) {
+                mask.visible = true;
+                light.visible = false;
             } else {
-                item.getChild("sjgnMask").visible = false;
+                mask.visible = false;
+
+                if (param === i && (act.act_time === null || act.act_time.low < Math.floor(todayInSeconds / 1000))) {
+                    light.visible = true;
+                } else {
+                    light.visible = false;
+                }
             }
 
             const onItemClick = () => {
@@ -120,6 +138,7 @@ export class SignView extends cc.Component {
 
         const item = this.view.getChild(`item${param}`).asCom;
         item.getChild("sjgnMask").visible = true;
+        item.getChild("light").visible = false;
 
         if (act.param !== null) {
             act.param = act.param + 1;
