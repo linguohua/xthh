@@ -132,7 +132,6 @@ export class EmailView extends cc.Component {
     }
 
     private onDeleteBtnClick(): void {
-        Logger.error("onDeleteBtnClick  --------------------------");
         const playerEmail = this.selectPlayerEmail;
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
         const req2 = new proto.casino.packet_mail_req();
@@ -147,7 +146,6 @@ export class EmailView extends cc.Component {
     }
 
     private onTakeBtnClick(): void {
-        Logger.error("onTakeBtnClick  --------------------------");
         const playerEmail = this.selectPlayerEmail;
 
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
@@ -161,7 +159,6 @@ export class EmailView extends cc.Component {
     }
 
     private reloadEmail(): void {
-        Logger.error("reloadEmail  --------------------------");
         const req2 = new proto.casino.packet_mail_req();
         req2.player_id = 0;
         req2.gain = false;
@@ -172,7 +169,6 @@ export class EmailView extends cc.Component {
     }
 
     private readEmail(id: long): void {
-        Logger.error("readEmail  --------------------------");
         const req2 = new proto.casino.packet_mail_req();
         req2.mail_id = id;
         req2.gain = false;
@@ -281,6 +277,7 @@ export class EmailView extends cc.Component {
         this.playerEmails.splice(index, 1);
         this.emailList.numItems = this.playerEmails.length;
 
+        this.emailList.scrollToView(0);
         this.selectFirst();
     }
 
@@ -293,16 +290,6 @@ export class EmailView extends cc.Component {
         this.selectPlayerEmail.view_time = long.fromNumber(this.lm.msgCenter.getServerTime());
         this.playerEmails[index] = this.selectPlayerEmail;
         this.emailList.numItems = this.playerEmails.length;
-
-        // Logger.debug("index = ", index);
-        // Logger.debug("this.emailList.len  = ", this.emailList._children.length);
-        // Logger.debug("this.emailList  = ", this.emailList._children);
-
-        // Logger.debug(" this.emailList.getChildAt(index-2)  = ", this.emailList.getChildAt(index - 2));
-        // Logger.debug(" this.emailList.getChildAt(index-1)  = ", this.emailList.getChildAt(index - 1));
-        // Logger.debug(" this.emailList.getChildAt(index)  = ", this.emailList.getChildAt(index));
-
-        // const obj = this.emailList.getChildById(index);
         this.selectEmail(this.selectPlayerEmail, this.selectEmailNode, index);
     }
 
@@ -318,7 +305,6 @@ export class EmailView extends cc.Component {
         for (const email of this.playerEmails) {
 
             const viewTime = CommonFunction.toNumber(email.view_time);
-            Logger.debug("viewTime = ", viewTime);
             if (viewTime === 0) {
                 return;
             }
