@@ -241,6 +241,7 @@ export class EmailView extends cc.Component {
             }
         }
 
+        this.playerEmails = [];
         for (const email of playerEmails) {
             if (email.data !== null) {
                 this.playerEmails.push(email);
