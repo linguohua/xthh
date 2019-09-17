@@ -1,4 +1,4 @@
-import { CommonFunction, LobbyModuleInterface } from "../../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 
@@ -42,6 +42,8 @@ export class RewardView extends cc.Component {
         this.gains = gains;
         this.initView();
         this.win.show();
+
+        SoundMgr.playEffectAudio(`gameb/sound_I_light`);
     }
     // protected onLoad(): void {
     //     this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");

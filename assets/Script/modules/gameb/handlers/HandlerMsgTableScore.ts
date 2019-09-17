@@ -29,6 +29,11 @@ export namespace HandlerMsgTableScore {
                         huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO;
                     }
                 }
+                if (huType === eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG) {
+                    room.playSound("mj_flash");
+                } else {
+                    room.playSound("sound_fire");
+                }
                 //播放动画
                 await player.exposedResultAnimation(huType, true);
             }
@@ -74,6 +79,7 @@ export namespace HandlerMsgTableScore {
         const reply = proto.casino.packet_table_score.decode(msgData);
         Logger.debug("HandlerMsgTableScore----------------------- ", reply);
         //摊牌
+        room.playSound("mj_score");
         let huPlayer: Player = null;
         for (const score of reply.scores) {
             const curcards = score.curcards;

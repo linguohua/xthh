@@ -138,8 +138,10 @@ export interface RoomInterface {
     setRoundMask(): void;
     updateDisbandVoteView(
         disbandReq: protoHH.casino.packet_table_disband_req,
-        disbandAck: protoHH.casino.packet_table_disband_ack): void; showRoomNumber(): void;
+        disbandAck: protoHH.casino.packet_table_disband_ack): void;
+    showRoomNumber(): void;
     removePlayer(chairID: string): void;
+    playSound(effectName: string): void;
     createMyPlayer(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     createPlayerByInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void;
     onUpdateStatus(state: number): void;

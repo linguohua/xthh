@@ -1,5 +1,5 @@
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { CommonFunction } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { PHRASE_MAP } from "../lobby/views/chat/ChatExports";
 import { ClickCtrl, PlayerInterface, playerStatus, TypeOfOP } from "./PlayerInterface";
@@ -638,6 +638,7 @@ export class PlayerView {
     }
 
     public showDeal(): void {
+        SoundMgr.playEffectAudio(`gameb/mj_mo`);
         if (this.player.isMe()) {
             const tileshand = this.player.tilesHand;
             for (let i = 0; i < tileshand.length; i++) {
@@ -1096,6 +1097,7 @@ export class PlayerView {
         }
 
         this.lastClickIndex = index;
+        SoundMgr.playEffectAudio(`gameb/mj_mo`);
 
         if (isDoubleClick) {
             //双击 直接出牌
@@ -1189,6 +1191,7 @@ export class PlayerView {
             if (!enable) {
                 return;
             }
+            SoundMgr.playEffectAudio(`gameb/mj_mo`);
             this.restoreHandsPositionAndClickCount(index);
             this.dragHand.visible = true;
             TileImageMounter.mountTileImage(this.dragHand, this.handsClickCtrls[index].tileID);

@@ -48,6 +48,7 @@ export namespace HandlerActionResultDraw {
         Logger.debug("HandlerActionResultDraw----------------------- ", reply);
         // const tilesFlower = actionResultMsg.newFlowers;
         // const targetChairID = actionResultMsg.targetChairID;
+        room.playSound("mj_mo");
         const player = <Player>room.getPlayerByPlayerID(reply.player_id);
 
         room.setWaitingPlayer(player.chairID, reply.time);

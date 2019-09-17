@@ -121,12 +121,14 @@ export namespace HandlerMsgDeal {
         //播放开局动画 并等待
         if (!room.isJoyRoom) {
             //欢乐场不需要
+            room.playSound("mj_kj");
             await room.roomView.playAnimation("Effect_ico_kaiju", true);
         } else {
             //关闭等待玩家提示
             room.roomView.stopJoyRoomWaitPlayer();
         }
         //播放庄动画 并等待
+        room.playSound("sound_dingzhuang");
         if (room.bankerChairID === msgDeal.lord_id) {
             //连庄
             await room.roomView.playAnimation("Effect_ico_lianzhuang", true);

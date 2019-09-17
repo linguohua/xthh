@@ -467,7 +467,7 @@ export class PlayerA {
         this.hand2UI(false);
 
         //出牌音效
-        // dfCompatibleAPI.soundPlay("effect/effect_chupai")
+        SoundMgr.playEffectAudio(`gameb/mj_out`);
         //播放读牌音效
         // if dfCompatibleAPI. soundGetToggle("readPaiIsOn") {
         this.playReadTileSound(tileID);

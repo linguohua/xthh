@@ -12,6 +12,7 @@ export namespace HandlerActionResultEndCard {
         Logger.debug("海底----------------------- ", reply);
 
         //播放动画
+        room.playSound("mj_zhsz");
         const le = room.roomInfo.players.length;
         let effectName = "Effect_ico_zuihousizhang";
         if (le === 2) {

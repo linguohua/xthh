@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Dialog, KeyConstants, Logger, UserInfo } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, KeyConstants, Logger, UserInfo, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
@@ -316,6 +316,15 @@ export class RoomA {
         //     soundMgr:SetBackMusicVolume(soundModule.backMusicVolume)
         // }
         //}
+    }
+
+    //播放音效
+    public playSound(effectName: string): void {
+        if (effectName === undefined || effectName === null) {
+            return;
+        }
+        const soundName = `gameb/${effectName}`;
+        SoundMgr.playEffectAudio(soundName);
     }
 
     public onExitButtonClicked(): void {
