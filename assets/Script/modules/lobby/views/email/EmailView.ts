@@ -54,6 +54,9 @@ export class EmailView extends cc.Component {
     // 当前选择的邮件
     private selectPlayerEmail: proto.casino.Iplayer_mail;
 
+    // 节点
+    private selectEmailNode: fgui.GObject;
+
     private operation: OPERATION = OPERATION.NONE;
 
     protected onLoad(): void {
@@ -257,6 +260,7 @@ export class EmailView extends cc.Component {
     private loadPlayerEmailsFromDataStore(): void {
         const playerEmailsStr = DataStore.getString(KeyConstants.PLAYER_EMAIL);
         const playerEmails = <proto.casino.Iplayer_mail[]>JSON.parse(playerEmailsStr);
+
         this.refreshEmailList(playerEmails);
     }
 
@@ -265,6 +269,13 @@ export class EmailView extends cc.Component {
         DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
     }
     private refreshEmailList(playerEmails: proto.casino.Iplayer_mail[]): void {
+
+        for (const email of playerEmails) {
+            if (CommonFunction.toNumber(email.view_time) === 0) {
+                DataStore.setItem(KeyConstants.UNREAD_EMAIL, 1);
+                break;
+            }
+        }
         this.playerEmails = playerEmails;
         this.emailList.numItems = this.playerEmails.length;
         //默认选择第一个
@@ -285,6 +296,8 @@ export class EmailView extends cc.Component {
             this.noEmailText.visible = true;
             this.titleText.text = "";
             this.textComponent.getChild("text").text = "";
+            this.selectEmailNode = null;
+            this.selectPlayerEmail = null;
             this.deleteBtn.visible = false;
             this.takeBtn.visible = false;
             this.attachmentsList.numItems = 0;
@@ -311,7 +324,7 @@ export class EmailView extends cc.Component {
 
         this.selectPlayerEmail.view_time = long.fromNumber(this.lm.msgCenter.getServerTime());
         this.playerEmails[index] = this.selectPlayerEmail;
-
+        this.emailList.numItems = 0;
         this.emailList.numItems = this.playerEmails.length;
 
         // Logger.debug("index = ", index);
@@ -323,7 +336,7 @@ export class EmailView extends cc.Component {
         // Logger.debug(" this.emailList.getChildAt(index)  = ", this.emailList.getChildAt(index));
 
         // const obj = this.emailList.getChildById(index);
-        // this.selectEmail(this.selectPlayerEmail, obj, index);
+        this.selectEmail(this.selectPlayerEmail, this.selectEmailNode, index);
 
     }
 
@@ -336,6 +349,7 @@ export class EmailView extends cc.Component {
     private selectEmail(playerEmail: proto.casino.Iplayer_mail, obj: fgui.GObject, index: number): void {
 
         this.selectPlayerEmail = playerEmail;
+        this.selectEmailNode = obj;
 
         const email = playerEmail.data;
         this.textComponent.getChild("text").text = email.content;

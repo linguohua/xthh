@@ -130,7 +130,8 @@ export namespace LocalStrings {
                 [`joyLevel3`]: "三人两门·高级场",
                 [`beanIsLess`]: "您的欢乐豆不足，是否需要前往充值界面",
                 [`bindPhoneSuccess`]: "绑定手机成功",
-                [`noDataClearn`]: "没有数据清除",
+                [`noDataClear`]: "没有数据清除",
+                [`voiceDataClear`]: "语音数据已清除",
                 [`leaveGuild`]: "退工会数：{0}",
 
                 [`winnerGain`]: "胜利获得<color=#57712 >{0}</c>能量；",

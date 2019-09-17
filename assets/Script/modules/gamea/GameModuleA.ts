@@ -10,10 +10,10 @@ import {
 // import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
+import { LotteryView } from "../lobby/views/lottery/LotteryViewExports";
 import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
 import { ReplayA as Replay } from "./ReplayA";
 import { msgHandlers, RoomA as Room } from "./RoomA";
-import { LotteryView } from "../lobby/views/lottery/LotteryView";
 // import { roomStatus } from "./RoomInterface";
 
 // const mc = proto.mahjong.MessageCode;
@@ -102,6 +102,9 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         const bg = view.getChild("blueBg");
         CommonFunction.setBgFullScreenSize(bg);
+
+        // 进入游戏，置为1
+        DataStore.setItem(KeyConstants.VOICE_TAG, "1");
 
         // bg = view.getChild("classBg");
         // CommonFunction.setBgFullScreenSize(bg);

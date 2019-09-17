@@ -1,5 +1,5 @@
 /**
- * 导出
+ * å¯¼å‡º
  */
 
 export * from "./PlayerInfoView";
