@@ -453,8 +453,9 @@ export class LoginView extends cc.Component {
             nickName = fastLoginAck.pdata.channel_nickname;
         }
 
+        let avatarUrl = "";
         if (fastLoginAck.pdata.channel_head !== null) {
-            DataStore.setItem(KeyConstants.AVATAR_URL, fastLoginAck.pdata.channel_head);
+            avatarUrl = fastLoginAck.pdata.channel_head;
         }
 
         const gameConfigStr = JSON.stringify(fastLoginAck.config);
@@ -476,6 +477,7 @@ export class LoginView extends cc.Component {
         const redData = JSON.stringify(fastLoginAck.reddata);
         const acts = JSON.stringify(fastLoginAck.pdata.acts);
 
+        DataStore.setItem(KeyConstants.AVATAR_URL, avatarUrl);
         DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
         DataStore.setItem(KeyConstants.NICK_NAME, nickName);
         DataStore.setItem(KeyConstants.GENDER, fastLoginAck.pdata.data.sex);
