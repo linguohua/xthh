@@ -119,7 +119,7 @@ export namespace GameError {
         [errCode.RETURN_MATCH_GIVE_UP]: " 放弃比赛",
 
         [errCode.RETURN_BIND_PHONE_SUCCESS]: " 绑定手机成功",
-        [errCode.RETURN_HAS_BINDED]: " 账号已绑定过手机",
+        [errCode.RETURN_HAS_BINDED]: " 该号码已绑定，请更换号码！",
         [errCode.RETURN_CODE_EXPIRE]: " 验证码过期",
 
         [errCode.RETURN_ENERGY_NOT_ENOUGH]: " 能力值不足",
