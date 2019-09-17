@@ -14,17 +14,6 @@ const REWARD_IMG: { [key: number]: string } = {
 };
 
 /**
- * 邮件操作记录
- */
-enum OPERATION {
-    NONE = 0,
-    TAKE = 1,
-    DELETE = 2,
-    LOAD_EMAIL = 3,
-    READ = 4
-}
-
-/**
  * EmailView
  */
 @ccclass
@@ -57,7 +46,7 @@ export class EmailView extends cc.Component {
     // 节点
     private selectEmailNode: fgui.GObject;
 
-    private operation: OPERATION = OPERATION.NONE;
+    private delEmail: boolean = false;
 
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
@@ -143,7 +132,7 @@ export class EmailView extends cc.Component {
     }
 
     private onDeleteBtnClick(): void {
-
+        Logger.error("onDeleteBtnClick  --------------------------");
         const playerEmail = this.selectPlayerEmail;
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
         const req2 = new proto.casino.packet_mail_req();
@@ -154,11 +143,11 @@ export class EmailView extends cc.Component {
         const buf = proto.casino.packet_mail_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
-        this.operation = OPERATION.DELETE;
+        this.delEmail = true;
     }
 
     private onTakeBtnClick(): void {
-
+        Logger.error("onTakeBtnClick  --------------------------");
         const playerEmail = this.selectPlayerEmail;
 
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
@@ -169,93 +158,70 @@ export class EmailView extends cc.Component {
         const buf = proto.casino.packet_mail_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
-        this.operation = OPERATION.TAKE;
     }
 
     private reloadEmail(): void {
+        Logger.error("reloadEmail  --------------------------");
         const req2 = new proto.casino.packet_mail_req();
         req2.player_id = 0;
         req2.gain = false;
         const buf = proto.casino.packet_mail_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
-        this.operation = OPERATION.LOAD_EMAIL;
 
     }
 
     private readEmail(id: long): void {
-        Logger.debug("set read id = ", id);
+        Logger.error("readEmail  --------------------------");
         const req2 = new proto.casino.packet_mail_req();
         req2.mail_id = id;
         req2.gain = false;
         const buf = proto.casino.packet_mail_req.encode(req2);
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
-        this.operation = OPERATION.READ;
-    }
-
-    private saveEmail(): void {
-        //
     }
 
     /**
-     * 关于邮件的回复，加载，领取，删除
+     * 关于邮件的回复，加载，领取，删除,读取
      * @param msg 信息
      */
     private onEmailAck(msg: proto.casino.ProxyMessage): void {
 
         const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
-
         Logger.debug("onEmailAck --------------------------", mailData);
 
-        switch (this.operation) {
-            case OPERATION.NONE:
+        if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+            // 拉取邮件列表，id === 0
+            if (CommonFunction.toNumber(mailData.mail_id) === 0) {
+                const playerEmails = mailData.mails;
+                this.savePlayerEmails2DataStore(playerEmails);
+                this.refreshEmailList(playerEmails);
+            } else {
+                //const count = self.m_sDatas;
+                // 如果有附件，这判断是删除还是领取
+                if (mailData.gain) {
 
-                break;
-            case OPERATION.READ:
-                if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                    this.saveEmail();
-                    Logger.error("onEmailAck set read success  --------------------------", mailData);
-
-                }
-                break;
-            case OPERATION.LOAD_EMAIL:
-                if (mailData.ret !== proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                    this.loadPlayerEmailsFromDataStore();
-                    Logger.debug("use DataStore --------------------------");
-
-                } else {
-                    const mailId = +mailData.mail_id;
-                    if (mailId === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                        const playerEmails = mailData.mails;
-                        this.savePlayerEmails2DataStore(playerEmails);
-                        this.refreshEmailList(playerEmails);
-                        Logger.debug("use net work --------------------------");
+                    if (this.delEmail === true) {
+                        this.deleteEmail();
+                        this.delEmail = false;
+                    } else {
+                        const view = this.addComponent(RewardView);
+                        view.showView(this.lm, mailData.gains);
+                        this.changeReceiveState();
                     }
-                }
-
-                break;
-            case OPERATION.DELETE:
-                if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                    this.deleteEmail();
-                }
-                break;
-
-            case OPERATION.TAKE:
-
-                if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-                    const view = this.addComponent(RewardView);
-                    view.showView(this.lm, mailData.gains);
+                } else {
+                    // 没附件，直接修改读取时间
                     this.changeReceiveState();
-
                 }
-                break;
+            }
 
-            default:
+        } else if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_WAIT) {
+            // 频繁拉取回复，从本地拉取
+            if (CommonFunction.toNumber(mailData.mail_id) === 0) {
 
+                this.loadPlayerEmailsFromDataStore();
+            }
         }
-
-        this.operation = OPERATION.NONE;
     }
 
     private loadPlayerEmailsFromDataStore(): void {
@@ -391,8 +357,8 @@ export class EmailView extends cc.Component {
 
         if (length === 0 && viewTime === 0) {
             this.readEmail(playerEmail.id);
-            obj.asCom.getChild("redPoint").visible = false;
-            this.deleteBtn.visible = true;
+            // obj.asCom.getChild("redPoint").visible = false;
+            // this.deleteBtn.visible = true;
         }
 
         this.updateAttachmentsView();
