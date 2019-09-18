@@ -633,7 +633,7 @@ export class Room {
     }
 
     public updateRoom(table: protoHH.casino.Itable): void {
-        // Logger.debug("updateRoom : ", table);
+        // Logger.debug("updateRoom+++++++++++++++++ : ", table);
 
         if (table === undefined || table == null) {
             Logger.error("table == undefined || table == null");
@@ -721,6 +721,9 @@ export class Room {
             this.initCards(p, player);
         }
         this.showCards(curid);
+
+        //刷新房间信息
+        this.roomView.showJoyRoomGuiZe();
     }
 
     /**

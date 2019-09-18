@@ -82,6 +82,8 @@ export class RoomView {
     private gamePauseTime: number;
 
     private defaultQuitTime: number = 10 * 60;
+    private joyRoomGZText: fgui.GObject;
+    private joyText: fgui.GObject;
     // private soundTimeNum: number = 0;
 
     public constructor(room: RoomInterface, view: fgui.GComponent) {
@@ -490,6 +492,28 @@ export class RoomView {
             this.onGPSBtnClick();
         }
     }
+
+    public showJoyRoomGuiZe(): void {
+        if (this.room.isJoyRoom) {
+            //显示欢乐场级别
+            const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
+            const rooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
+            let level = 1;
+            for (let i = 0; i < rooms.length; i++) {
+                if (rooms[i].id === this.room.joyRoom.id) {
+                    level = i + 1;
+                    break;
+                }
+            }
+            this.joyRoomGZText.text = LocalStrings.findString(`joyLevel${level}`);
+
+            //提示消耗多少欢乐豆
+            const str = this.room.joyRoom.cost_param.toString();
+            this.joyText.text = LocalStrings.findString("joyText", str);
+            //底注也要更新
+            this.showRoomNumber();
+        }
+    }
     private countDownCallBack(): void {
         if (this.leftTime > 0) {
             this.leftTime -= 1;
@@ -842,27 +866,15 @@ export class RoomView {
         this.trusteeshipBtn.onClick(() => { this.room.onManagedClicked(true); }, this);
         this.joyWaitText = this.unityViewNode.getChild("joyWaitText");
         if (this.room.isJoyRoom) {
-            //提示消耗多少欢乐豆
-            const str = this.room.joyRoom.cost_param.toString();
-            const joyText = this.unityViewNode.getChild("joyText");
-            joyText.text = LocalStrings.findString("joyText", str);
-            joyText.visible = true;
-            //显示欢乐场级别
-            const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
-            const rooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
-            let level = 1;
-            for (let i = 0; i < rooms.length; i++) {
-                if (rooms[i].id === this.room.joyRoom.id) {
-                    level = i + 1;
-                    break;
-                }
-            }
-            const joyRoomGZText = this.unityViewNode.getChild("joyRoomGZText");
-            joyRoomGZText.text = LocalStrings.findString(`joyLevel${level}`);
-            joyRoomGZText.visible = true;
+            this.joyText = this.unityViewNode.getChild("joyText");
+            this.joyRoomGZText = this.unityViewNode.getChild("joyRoomGZText");
+            this.joyRoomGZText.visible = true;
+            this.joyText.visible = true;
 
             this.unityViewNode.getChild("joyRoomHead2").visible = true;
             this.unityViewNode.getChild("joyRoomHead4").visible = true;
+
+            this.showJoyRoomGuiZe();
         }
     }
 

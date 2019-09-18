@@ -52,6 +52,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
     private isGpsOpen: boolean = false;
     private joyRoom: protoHH.casino.Iroom;
+    private joyRooms: protoHH.casino.Iroom[];
 
     public getLobbyModuleLoader(): GResLoader {
         return this.lm.loader;
@@ -82,17 +83,17 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     }
 
     public async launch(args: GameModuleLaunchArgs): Promise<void> {
-        //判断此房间是否是欢乐场
+        //保存欢乐场信息
         const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
-        const rooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
+        this.joyRooms = <protoHH.casino.Iroom[]>JSON.parse(pdataStr);
+        //判断此房间是否是欢乐场
         this.joyRoom = null;
-        for (const r of rooms) {
+        for (const r of this.joyRooms) {
             if (r.id === args.roomId) {
                 this.joyRoom = r;
                 break;
             }
         }
-
         // 尝试进入房间
         this.lm = args.lm;
         this.loader = args.loader;
@@ -385,6 +386,15 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         if (this.mRoom === null || this.mRoom === undefined) {
             this.createRoom(myUser, table);
         } else {
+            //判断此房间是否是欢乐场
+            this.joyRoom = null;
+            for (const r of this.joyRooms) {
+                if (r.id === table.room_id) {
+                    this.joyRoom = r;
+                    break;
+                }
+            }
+
             this.mRoom.joyRoom = this.joyRoom;
             this.mRoom.isJoyRoom = this.joyRoom !== null;
 
