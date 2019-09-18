@@ -46,7 +46,7 @@ export class LotteryView extends cc.Component {
 
     private drawingBlock: fgui.GComponent;
 
-    public show(lm: LobbyModuleInterface, joyBeanView: JoyBeanViewInterface): void {
+    public show(lm: LobbyModuleInterface, joyBeanView: JoyBeanViewInterface = null): void {
         this.lm = lm;
         this.joyBeanView = joyBeanView;
         const loader = this.lm.loader;
@@ -253,12 +253,17 @@ export class LotteryView extends cc.Component {
     }
 
     private showDrawingBlock(): void {
-        this.joyBeanView.unregisterCoinChange();
+        if (this.joyBeanView !== null) {
+            this.joyBeanView.unregisterCoinChange();
+        }
+
         this.drawingBlock.visible = true;
     }
 
     private hideDrawingBlock(): void {
-        this.joyBeanView.registerCoinChange();
+        if (this.joyBeanView !== null) {
+            this.joyBeanView.registerCoinChange();
+        }
         this.drawingBlock.visible = false;
     }
 
