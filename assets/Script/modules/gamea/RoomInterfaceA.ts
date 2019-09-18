@@ -40,7 +40,7 @@ export class PlayerInfo {
     public readonly userID: string;
     public readonly nick: string;
     public readonly chairID: number;
-    public readonly scoreTotal: number;
+    public readonly scoreTotal: number = 0;
     public readonly score: number;
     public readonly imaccid: string;
 
@@ -61,7 +61,9 @@ export class PlayerInfo {
         } else {
             this.nick = playerIfo.nickname;
         }
-        this.scoreTotal = playerIfo.score_total;
+        if (playerIfo.score_total !== undefined && playerIfo.score_total !== null) {
+            this.scoreTotal = playerIfo.score_total;
+        }
         this.score = playerIfo.score;
         this.imaccid = playerIfo.im_accid;
     }

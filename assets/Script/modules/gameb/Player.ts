@@ -429,15 +429,13 @@ export class Player {
         this.state = playerInfo.status;
         Logger.debug("playerInfo------------- ", playerInfo);
         this.playerInfo = new PlayerInfo(playerInfo, chairID);
-        if (this.playerInfo.scoreTotal !== null) {
-            this.totalScores = this.playerInfo.scoreTotal;
-        }
+        this.totalScores = this.playerInfo.scoreTotal;
         if (this.host.isJoyRoom && playerInfo.gold !== undefined && playerInfo.gold !== null) {
             // if (this.isMe()) {
             //     this.totalScores = +DataStore.getString(KeyConstants.BEANS);
             //     Logger.debug("我的豆豆是 : ", this.totalScores);
             // } else {
-            this.totalScores = playerInfo.score_total + playerInfo.gold.low - this.host.joyRoom.cost_param;
+            this.totalScores += playerInfo.gold.low - this.host.joyRoom.cost_param;
             // }
             //这里要扣除台费
             // this.totalScores -= this.host.joyRoom.cost_param;
