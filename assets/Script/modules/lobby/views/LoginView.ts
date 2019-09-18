@@ -598,6 +598,8 @@ export class LoginView extends cc.Component {
 
             const jsonString = JSON.stringify(requestData);
 
+            Logger.debug("wxLogin, jsonString:", jsonString);
+
             HTTP.hPost(
                 this.eventTarget,
                 wxLoginUrl,
