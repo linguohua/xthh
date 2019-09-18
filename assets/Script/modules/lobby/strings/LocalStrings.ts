@@ -122,7 +122,7 @@ export namespace LocalStrings {
 
                 [`discardTipsOfMe`]: "到您出牌咯！",
                 [`readyViewDisbandRoomTip`]: "房主解散房间",
-                [`modifySuccess`]: "修改成功",
+                [`modifySuccess`]: "信息修改提交成功",
                 [`bindPhone`]: "绑定手机：",
                 [`sendAuthCode`]: "发送验证码",
                 [`invalidPhone`]: "请输入有效的手机号",
