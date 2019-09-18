@@ -438,11 +438,9 @@ export class LoginView extends cc.Component {
             if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_CARD) {
                 card = resource.curr.toNumber();
             }
-
             if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_BEANS) {
                 beans = resource.curr.toNumber();
             }
-
             if (resource.type === protoHH.casino.eRESOURCE.RESOURCE_RED) {
                 red = resource.curr.toNumber();
             }

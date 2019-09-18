@@ -327,7 +327,6 @@ export class UserInfoView extends cc.Component {
             req.avatar = this.getAvatarIndexFromLoaderUrl(this.headLoader.url);
         }
 
-
         Logger.debug("req:", req);
         const buf = proto.casino.packet_modify_req.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MODIFY_REQ);

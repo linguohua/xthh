@@ -24,9 +24,9 @@ export class LotteryView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
-    private energyTurnableData: proto.casino.energy_turnable[];
+    private energyTurnableData: proto.casino.Ienergy_turnable[];
 
-    private currTurnableData: proto.casino.energy_turnable;
+    private currTurnableData: proto.casino.Ienergy_turnable;
 
     private drawLotteryBtn: fgui.GButton;
     private revolvePage: fgui.GComponent;
@@ -286,8 +286,13 @@ export class LotteryView extends cc.Component {
 
     private onEnergyTurnableUpdate(msg: proto.casino.ProxyMessage): void {
         Logger.debug("onEnergyUpdate");
-        // const updateMsg = proto.casino.packet_table_entry.decode(msg.Data);
-        // Logger.debug("onEnergyUpdate updateMsg = ", updateMsg);
+        const energyTurnable = proto.casino.packet_energy_turnable.decode(msg.Data);
+        Logger.debug("onEnergyUpdate energyTurnable = ", energyTurnable);
+
+        this.energyTurnableData = energyTurnable.et;
+        const etData = JSON.stringify(energyTurnable.et);
+        DataStore.setItem(KeyConstants.TURN_TABLE, etData);
+        this.refreshTurnTable(this.tabId);
 
     }
 

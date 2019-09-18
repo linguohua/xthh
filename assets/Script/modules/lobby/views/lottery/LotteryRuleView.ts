@@ -12,7 +12,7 @@ export class LotteryRuleView extends cc.Component {
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
 
-    public show(lm: LobbyModuleInterface, turnTable: proto.casino.energy_turnable): void {
+    public show(lm: LobbyModuleInterface, turnTable: proto.casino.Ienergy_turnable): void {
         this.lm = lm;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_lottery/lobby_lottery");
@@ -44,7 +44,7 @@ export class LotteryRuleView extends cc.Component {
 
     }
 
-    private initView(turnTable: proto.casino.energy_turnable): void {
+    private initView(turnTable: proto.casino.Ienergy_turnable): void {
 
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseBtnClick, this);
