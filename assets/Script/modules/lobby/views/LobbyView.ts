@@ -113,7 +113,6 @@ export class LobbyView extends cc.Component {
         this.lm.eventTarget.on("emailAllRead", this.checkEmailRedDot, this);
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST, this.onBroadcast, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_DATA_ACK, this.onDataAck, this);
     }
@@ -578,25 +577,6 @@ export class LobbyView extends cc.Component {
 
         this.lm.eventTarget.emit("onResourceChange");
         Logger.debug(`LobbyView.updateMsg, resource type:${playerResource.type},   playerResource.curr:${playerResource.curr}`);
-    }
-
-    private onEnergyUpdate(msg: proto.casino.ProxyMessage): void {
-        Logger.debug("onEnergyUpdate");
-        const updateMsg = proto.casino.energy_turnable.decode(msg.Data);
-        Logger.debug("onEnergyUpdate updateMsg = ", updateMsg);
-        // if (updateMsg.type === proto.casino.eTYPE.TYPE_PLAYER_RESOURCE) {
-        //     const playerResource = proto.casino.player_resource.decode(updateMsg.data);
-        //     // Logger.debug("resource:", playerResource);
-        //     if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
-        //         DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
-        //         this.fkText.text = playerResource.curr.toString();
-        //     }
-
-        //     if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
-        //         DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
-        //         this.beansText.text = playerResource.curr.toString();
-        //     }
-        // }
     }
 
     private onBroadcast(msg: proto.casino.ProxyMessage): void {

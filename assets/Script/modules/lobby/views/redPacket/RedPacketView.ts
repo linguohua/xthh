@@ -1,6 +1,4 @@
 import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
-// tslint:disable-next-line:no-require-imports
-import long = require("../../protobufjs/long");
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { InputNumberView } from "../InputNumberView";

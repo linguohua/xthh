@@ -11,7 +11,6 @@ import { ReadyView } from "./ReadyView";
 import { RoomInterface, roomStatus, TingPai } from "./RoomInterface";
 // import { RoomRuleView } from "./RoomRuleView";
 import { TileImageMounter } from "./TileImageMounter";
-import { LotteryView } from "../lobby/views/lottery/LotteryView";
 
 /**
  * 房间

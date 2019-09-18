@@ -82,6 +82,7 @@ export class LotteryView extends cc.Component {
         // this.lm = lm;
         this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
         this.lm.eventTarget.on(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
+        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyTurnableUpdate, this);
     }
 
     private initView(): void {
@@ -281,6 +282,13 @@ export class LotteryView extends cc.Component {
 
         const finalAction = cc.sequence(action, showResultAction);
         this.revolvePage.node.runAction(finalAction);
+    }
+
+    private onEnergyTurnableUpdate(msg: proto.casino.ProxyMessage): void {
+        Logger.debug("onEnergyUpdate");
+        // const updateMsg = proto.casino.packet_table_entry.decode(msg.Data);
+        // Logger.debug("onEnergyUpdate updateMsg = ", updateMsg);
+
     }
 
     private drawResult(msg: proto.casino.ProxyMessage): void {

@@ -69,7 +69,7 @@ export class ChatView extends cc.Component {
         this.myID = DataStore.getString(KeyConstants.PLAYER_ID, "");
 
         this.view = view;
-        this.initView();
+        //this.initView();
         const win = new fgui.Window();
         win.contentPane = view;
         win.modal = true;
@@ -87,6 +87,10 @@ export class ChatView extends cc.Component {
         // const actionQueue = cc.sequence(action, action1);
         // this.view.node.runAction(actionQueue);
 
+    }
+
+    protected onLoad(): void {
+        //this.initView();
     }
 
     protected onDestroy(): void {
