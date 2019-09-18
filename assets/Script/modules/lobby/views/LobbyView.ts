@@ -338,6 +338,7 @@ export class LobbyView extends cc.Component {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
         this.syncBoradcast();
+        this.sendDataReq();
         // 如果是在房间内重连，则发通知让房间重连恢复
         if (this.lm.isGameModuleExist()) {
             let isFromShare: boolean = false;
@@ -373,8 +374,6 @@ export class LobbyView extends cc.Component {
                 return;
             }
         }
-
-        this.sendDataReq();
     }
 
     private onDataAck(msg: proto.casino.ProxyMessage): void {
