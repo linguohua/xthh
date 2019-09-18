@@ -115,6 +115,7 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST, this.onBroadcast, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_DATA_ACK, this.onDataAck, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MAIL_ACK, this.onEmailAck, this);
     }
 
     private unregisterHandler(): void {
@@ -201,8 +202,19 @@ export class LobbyView extends cc.Component {
     }
 
     private checkLocalRedDot(): void {
+        //
+    }
+    private calcUnReadEmailState(): void {
+        const playerEmailsStr = DataStore.getString(KeyConstants.PLAYER_EMAIL);
+        const playerEmails = <proto.casino.Iplayer_mail[]>JSON.parse(playerEmailsStr);
 
-        this.checkEmailRedDot();
+        for (const email of playerEmails) {
+            if (email.data !== null && CommonFunction.toNumber(email.view_time) === 0) {
+                DataStore.setItem(KeyConstants.UNREAD_EMAIL, 1);
+                this.checkEmailRedDot();
+                break;
+            }
+        }
     }
     private checkEmailRedDot(): void {
         const unReadEmail = DataStore.getString(KeyConstants.UNREAD_EMAIL);
@@ -337,8 +349,9 @@ export class LobbyView extends cc.Component {
     private onJoinGameAck(ack: proto.casino.packet_player_join_ack): void {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
-        this.syncBoradcast();
-        this.sendDataReq();
+
+        this.syncMsg();
+
         // 如果是在房间内重连，则发通知让房间重连恢复
         if (this.lm.isGameModuleExist()) {
             let isFromShare: boolean = false;
@@ -373,6 +386,26 @@ export class LobbyView extends cc.Component {
 
                 return;
             }
+        }
+    }
+
+    private onEmailAck(msg: proto.casino.ProxyMessage): void {
+
+        const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
+        Logger.debug("onEmailAck --------------------------", mailData);
+
+        if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
+            // 拉取邮件列表，id === 0
+            if (CommonFunction.toNumber(mailData.mail_id) === 0) {
+
+                const playerEmails = mailData.mails;
+                const emailData = JSON.stringify(playerEmails);
+                DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+
+                this.calcUnReadEmailState();
+
+            }
+
         }
     }
 
@@ -647,11 +680,31 @@ export class LobbyView extends cc.Component {
         });
     }
 
-    private syncBoradcast(): void {
-        Logger.debug("syncBoradcast");
+    private syncMsg(): void {
+        this.syncBroadcast();
+        this.syncEmail();
+        this.sendDataReq();
+    }
+    private sendDataReq(): void {
+        const req = new proto.casino.packet_data_req();
+        const buf = proto.casino.packet_data_req.encode(req);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_DATA_REQ);
+    }
+
+    private syncBroadcast(): void {
+        Logger.debug("syncBroadcast");
         const req = new proto.casino.packet_broadcast_sync();
         const buf = proto.casino.packet_broadcast_sync.encode(req);
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_BROADCAST_SYNC);
+    }
+
+    private syncEmail(): void {
+        Logger.debug("syncEmail");
+        const req2 = new proto.casino.packet_mail_req();
+        req2.player_id = 0;
+        req2.gain = false;
+        const buf = proto.casino.packet_mail_req.encode(req2);
+        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
     }
 
     private onReturnFromGame(): void {
@@ -670,17 +723,9 @@ export class LobbyView extends cc.Component {
             }
 
         }
-        // else {
-        //     this.announcementText.node.setPosition(this.announcementOriginPos.x, this.announcementOriginPos.y);
-        // }
+
     }
 
-    private sendDataReq(): void {
-        const req = new proto.casino.packet_data_req();
-
-        const buf = proto.casino.packet_data_req.encode(req);
-        this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_DATA_REQ);
-    }
     private onLogout(): void {
         Logger.debug("onLogout");
         this.lm.logout();
