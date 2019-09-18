@@ -1,4 +1,4 @@
-import { Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { Logger, SoundMgr, DataStore, KeyConstants } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { PlayerInfoView } from "../lobby/views/playerInfo/PlayerInfoExports";
@@ -427,13 +427,20 @@ export class Player {
 
     public updateByPlayerInfo(playerInfo: protoHH.casino.Itable_player, chairID: number): void {
         this.state = playerInfo.status;
-        Logger.debug("updateByPlayerInfo = playerInfo ", playerInfo);
+        Logger.debug("playerInfo------------- ", playerInfo);
         this.playerInfo = new PlayerInfo(playerInfo, chairID);
         if (this.playerInfo.scoreTotal !== null) {
             this.totalScores = this.playerInfo.scoreTotal;
         }
         if (this.host.isJoyRoom && playerInfo.gold !== undefined && playerInfo.gold !== null) {
-            this.totalScores += playerInfo.gold.low;
+            // if (this.isMe()) {
+            //     this.totalScores = +DataStore.getString(KeyConstants.BEANS);
+            //     Logger.debug("我的豆豆是 : ", this.totalScores);
+            // } else {
+            this.totalScores = playerInfo.score_total + playerInfo.gold.low - this.host.joyRoom.cost_param;
+            // }
+            //这里要扣除台费
+            // this.totalScores -= this.host.joyRoom.cost_param;
         }
 
         let nick = "";

@@ -10,9 +10,9 @@ const eXTSJ_OP_TYPE = proto.casino_xtsj.eXTSJ_OP_TYPE;
  */
 export namespace HandlerMsgTableScore {
 
-    const showHu = async (reply: proto.casino.packet_table_score, room: RoomInterface): Promise<void> => {
+    const showHu = async (tableScore: proto.casino.packet_table_score, room: RoomInterface): Promise<void> => {
 
-        for (const score of reply.scores) {
+        for (const score of tableScore.scores) {
             const player = <Player>room.getPlayerByPlayerID(score.data.id);
             if (score.hupai_card > 0) {
                 let huType = eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO;
@@ -43,14 +43,14 @@ export namespace HandlerMsgTableScore {
             }
         }
         //屌爆了。。。如果是欢乐场。。。分数是欢乐豆 要从table.players 里面找
-        if (room.isJoyRoom) {
-            for (const p of reply.tdata.players) {
-                if (p.gold !== undefined && p.gold !== null) {
-                    const player = <Player>room.getPlayerByPlayerID(p.id);
-                    player.totalScores = p.gold.low;
-                }
-            }
-        }
+        // if (room.isJoyRoom) {
+        //     for (const p of tableScore.tdata.players) {
+        //         if (p.gold !== undefined && p.gold !== null) {
+        //             const player = <Player>room.getPlayerByPlayerID(p.id);
+        //             player.totalScores = p.gold.low;
+        //         }
+        //     }
+        // }
     };
 
     const emitTime = (room: RoomInterface) => {
