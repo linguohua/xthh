@@ -114,7 +114,7 @@ export namespace HandlerMsgActionOPAck {
         Logger.debug("HandlerMsgActionOPAck----------------------- ", pAck);
         const player = <Player>room.getPlayerByPlayerID(pAck.player_id);
         if (player.isMe()) {
-            player.playerView.clearAllowedActionsView(false); //欢乐场自动弃碰杠的时候 要隐藏按钮
+            player.playerView.clearAllowedActionsView(true); //欢乐场自动弃碰杠的时候 要隐藏按钮
             player.playerView.setLanOfHands(false);
             if (pAck.op === TypeOfOP.Guo) {                //假如没有操作
                 if (player.canKongs !== undefined && player.canKongs.length > 0) {
