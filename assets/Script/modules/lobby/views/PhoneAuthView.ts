@@ -185,6 +185,7 @@ export class PhoneAuthView extends cc.Component {
         if (reply.ret !== proto.casino.eRETURN_TYPE.RETURN_BIND_PHONE_SUCCESS) {
             if (reply.ret === proto.casino.eRETURN_TYPE.RETURN_CODE_EXPIRE) {
                 Dialog.prompt(LocalStrings.findString("errorAuthCode"));
+                this.inputAuth.asButton.getChild("text").text = "";
             } else {
                 Dialog.prompt(GameError.getErrorString(reply.ret));
             }
@@ -194,7 +195,6 @@ export class PhoneAuthView extends cc.Component {
             return;
         }
 
-        Logger.debug("reply:", reply);
         DataStore.setItem(KeyConstants.PHONE, this.phone);
 
         if (this.lm !== null) {
@@ -202,6 +202,9 @@ export class PhoneAuthView extends cc.Component {
         }
 
         Dialog.prompt(LocalStrings.findString("bindPhoneSuccess"));
+
+        // 关闭界面
+        this.destroy();
 
     }
 
