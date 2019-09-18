@@ -69,7 +69,7 @@ export class ChatView extends cc.Component {
         this.myID = DataStore.getString(KeyConstants.PLAYER_ID, "");
 
         this.view = view;
-        //this.initView();
+        this.initView();
         const win = new fgui.Window();
         win.contentPane = view;
         win.modal = true;
@@ -126,7 +126,7 @@ export class ChatView extends cc.Component {
         Logger.debug("this.time1:", this.time1);
 
         const list = this.view.getChild("list").asList;
-        list.on(fgui.Event.CLICK_ITEM, this.onListItemClick, this);
+        //list.on(fgui.Event.CLICK_ITEM, this.onListItemClick, this);
         list.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderListItem(index, item);
         };
