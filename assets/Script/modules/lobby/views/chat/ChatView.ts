@@ -123,7 +123,6 @@ export class ChatView extends cc.Component {
         this.time2 = this.view.getChild("time2");
         this.time3 = this.view.getChild("time3");
         this.time4 = this.view.getChild("time4");
-        Logger.debug("this.time1:", this.time1);
 
         // const list = this.view.getChild("list").asList;
         // list.on(fgui.Event.CLICK_ITEM, this.onListItemClick, this);
@@ -134,7 +133,7 @@ export class ChatView extends cc.Component {
 
         // list.numItems = Object.keys(PHRASE_MAP).length;
 
-        // this.showCountDonw();
+        // this.showCountDown();
     }
 
     private onMaskBtnClick(): void {
@@ -237,7 +236,7 @@ export class ChatView extends cc.Component {
         }
     }
 
-    private showCountDonw(): void {
+    private showCountDown(): void {
         const lastTimeStr = DataStore.getString(KeyConstants.LAST_CHAT_TIME, "0");
         const lastTime = +lastTimeStr;
         const nowTime = Math.floor(Date.now() / 1000);
@@ -265,11 +264,11 @@ export class ChatView extends cc.Component {
         const nowTime = Math.floor(Date.now() / 1000);
         const diff = nowTime - lastTime;
         if (diff < 15) {
-            const countDonw = 15 - diff;
-            this.time1.text = `${countDonw}`;
-            this.time2.text = `${countDonw}`;
-            this.time3.text = `${countDonw}`;
-            this.time4.text = `${countDonw}`;
+            const countDown = 15 - diff;
+            this.time1.text = `${countDown}`;
+            this.time2.text = `${countDown}`;
+            this.time3.text = `${countDown}`;
+            this.time4.text = `${countDown}`;
             this.time1.visible = true;
             this.time2.visible = true;
             this.time3.visible = true;
