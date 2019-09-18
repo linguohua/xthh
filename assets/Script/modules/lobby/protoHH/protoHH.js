@@ -12135,6 +12135,18 @@ exports.proto = require("protobuf").newBuilder({})['import']({
                             "id": 1
                         }
                     ]
+                },
+                {
+                    "name": "packet_energy_turnable",
+                    "syntax": "proto2",
+                    "fields": [
+                        {
+                            "rule": "repeated",
+                            "type": "energy_turnable",
+                            "name": "et",
+                            "id": 1
+                        }
+                    ]
                 }
             ],
             "enums": [

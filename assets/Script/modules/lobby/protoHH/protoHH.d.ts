@@ -5757,5 +5757,16 @@ export namespace proto {
 			public static decode(reader: Uint8Array|ByteBuffer): act_red_rain_data;
 		}
 
+		interface Ipacket_energy_turnable {
+			et?: casino.Ienergy_turnable[];
+		}
+
+		class packet_energy_turnable implements Ipacket_energy_turnable {
+			public et: casino.Ienergy_turnable[];
+			constructor(properties?: casino.Ipacket_energy_turnable);
+			public static encode(message: packet_energy_turnable): ByteBuffer;
+			public static decode(reader: Uint8Array|ByteBuffer): packet_energy_turnable;
+		}
+
 	}
 }

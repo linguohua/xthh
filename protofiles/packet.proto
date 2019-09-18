@@ -1118,3 +1118,7 @@ message act_card_free_data{
 message act_red_rain_data{
 	repeated act_red_rain	datas = 1;
 }
+
+message packet_energy_turnable {
+	repeated energy_turnable et = 1;
+}
