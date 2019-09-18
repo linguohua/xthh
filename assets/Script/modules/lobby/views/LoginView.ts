@@ -419,8 +419,16 @@ export class LoginView extends cc.Component {
         }
 
         Logger.debug("fastLoginReply:", fastLoginAck);
+        this.cleanData();
         this.saveFastLoginReply(fastLoginAck);
         this.showLobbyView();
+    }
+
+    /**
+     * 清除一些登录后失效的数据
+     */
+    private cleanData(): void {
+        DataStore.setItem(KeyConstants.LOTTERY_DRAW_INDEX, 0);
     }
 
     private saveFastLoginReply(fastLoginAck: protoHH.casino.packet_fast_login_ack): void {

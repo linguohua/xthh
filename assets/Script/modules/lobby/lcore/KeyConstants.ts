@@ -65,4 +65,6 @@ export namespace KeyConstants {
     export const VOICE_TAG = "voiceTag"; //语音数据缓存标志，因为是目前是微信平台，应策划要求，如果为1，点击则弹出清除成功，进入房间之后，置为0
 
     export const UNREAD_EMAIL = "unReadEmail"; //当有邮件未读或附件未领取时
+
+    export const LOTTERY_DRAW_INDEX = "lotteryDrawIndex"; //抽奖Index
 }

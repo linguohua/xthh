@@ -22,10 +22,23 @@ export class JoyBeanView extends cc.Component {
     private lm: LobbyModuleInterface;
     private rooms: proto.casino.Iroom[];
     private beansText: fgui.GObject;
+
+    private fkText: fgui.GObject;
+
     public show(): void {
         this.registerHandler();
         this.initView();
         this.win.show();
+    }
+
+    public unregisterCoinChange(): void {
+        this.lm.eventTarget.off("onResourceChange", this.onResourceChange, this);
+
+    }
+    public registerCoinChange(): void {
+        this.lm.eventTarget.on("onResourceChange", this.onResourceChange, this);
+        this.onResourceChange();
+
     }
 
     protected onLoad(): void {
@@ -98,9 +111,10 @@ export class JoyBeanView extends cc.Component {
         playQuicklyBtn.onClick(this.onQuicklyClick, this);
 
         this.beansText = this.view.getChild("douText").asTextField;
-        const fkText = this.view.getChild("fkText").asTextField;
+        this.fkText = this.view.getChild("fkText").asTextField;
+
         this.beansText.text = DataStore.getString(KeyConstants.BEANS);
-        fkText.text = DataStore.getString(KeyConstants.CARD);
+        this.fkText.text = DataStore.getString(KeyConstants.CARD);
     }
     private onCloseBtnClick(): void {
         this.destroy();
@@ -134,7 +148,7 @@ export class JoyBeanView extends cc.Component {
 
     private onLotteryViewBtnClick(): void {
         const view = this.addComponent(LotteryView);
-        view.show(this.lm);
+        view.show(this.lm, this);
     }
 
     private onQuicklyClick(): void {
@@ -323,5 +337,6 @@ export class JoyBeanView extends cc.Component {
 
     private onResourceChange(): void {
         this.beansText.text = DataStore.getString(KeyConstants.BEANS);
+        this.fkText.text = DataStore.getString(KeyConstants.CARD);
     }
 }

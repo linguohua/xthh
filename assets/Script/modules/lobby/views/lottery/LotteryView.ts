@@ -15,6 +15,11 @@ const REWARD_IMG: { [key: number]: string } = {
     [proto.casino.eRESOURCE.RESOURCE_NONE]: "ui://lobby_bg_package/ty_hld"
 };
 
+export interface JoyBeanViewInterface {
+    unregisterCoinChange: Function;
+    registerCoinChange: Function;
+}
+
 /**
  * 抽奖页面
  */
@@ -23,6 +28,8 @@ export class LotteryView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
+
+    private joyBeanView: JoyBeanViewInterface;
 
     private energyTurnableData: proto.casino.Ienergy_turnable[];
 
@@ -39,8 +46,9 @@ export class LotteryView extends cc.Component {
 
     private drawingBlock: fgui.GComponent;
 
-    public show(lm: LobbyModuleInterface): void {
+    public show(lm: LobbyModuleInterface, joyBeanView: JoyBeanViewInterface): void {
         this.lm = lm;
+        this.joyBeanView = joyBeanView;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_lottery/lobby_lottery");
         const view = fgui.UIPackage.createObject("lobby_lottery", "lotteryView").asCom;
@@ -114,6 +122,11 @@ export class LotteryView extends cc.Component {
         const revolvePage = this.view.getChild("revolvePage").asCom;
         this.revolvePage = revolvePage;
 
+        const lastDrawIndex = +DataStore.getString(KeyConstants.LOTTERY_DRAW_INDEX);
+
+        const rotate = this.getRotate(lastDrawIndex);
+        this.revolvePage.rotation = rotate;
+
         const powerProgress = this.view.getChild("powerProgress").asProgress;
         this.powerProgress = powerProgress;
 
@@ -145,6 +158,13 @@ export class LotteryView extends cc.Component {
 
         this.refreshTurnTable(selectedTap);
         this.registerHandler();
+
+    }
+
+    private getRotate(index: number): number {
+        const rotate = index * -60;
+
+        return -360 * 6 + rotate;
 
     }
 
@@ -233,10 +253,12 @@ export class LotteryView extends cc.Component {
     }
 
     private showDrawingBlock(): void {
+        this.joyBeanView.unregisterCoinChange();
         this.drawingBlock.visible = true;
     }
 
     private hideDrawingBlock(): void {
+        this.joyBeanView.registerCoinChange();
         this.drawingBlock.visible = false;
     }
 
@@ -266,9 +288,11 @@ export class LotteryView extends cc.Component {
         const rewardIndex = this.itemBindDatas[drawItem.id];
         Logger.debug("drawItem = ", drawItem);
 
-        const rotate = rewardIndex * -60;
-        const armRotate = -360 * 6 + rotate;
+        const armRotate = this.getRotate(rewardIndex);
         const time = (armRotate / -60) * 0.1;
+
+        //  记录下抽中的Index
+        DataStore.setItem(KeyConstants.LOTTERY_DRAW_INDEX, rewardIndex);
 
         //进入选中闪烁阶段
         this.revolvePage.node.stopAllActions();
@@ -304,7 +328,6 @@ export class LotteryView extends cc.Component {
 
             const err = GameError.getErrorString(drawAck.ret);
             Dialog.prompt(err);
-
             this.hideDrawingBlock();
 
             return;

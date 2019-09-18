@@ -125,16 +125,16 @@ export class ChatView extends cc.Component {
         this.time4 = this.view.getChild("time4");
         Logger.debug("this.time1:", this.time1);
 
-        const list = this.view.getChild("list").asList;
-        //list.on(fgui.Event.CLICK_ITEM, this.onListItemClick, this);
-        list.itemRenderer = (index: number, item: fgui.GObject) => {
-            this.renderListItem(index, item);
-        };
-        list.setVirtual();
+        // const list = this.view.getChild("list").asList;
+        // list.on(fgui.Event.CLICK_ITEM, this.onListItemClick, this);
+        // list.itemRenderer = (index: number, item: fgui.GObject) => {
+        //     this.renderListItem(index, item);
+        // };
+        // list.setVirtual();
 
-        list.numItems = Object.keys(PHRASE_MAP).length;
+        // list.numItems = Object.keys(PHRASE_MAP).length;
 
-        this.showCountDonw();
+        // this.showCountDonw();
     }
 
     private onMaskBtnClick(): void {
