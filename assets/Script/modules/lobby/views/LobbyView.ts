@@ -365,9 +365,7 @@ export class LobbyView extends cc.Component {
     private onJoinGameAck(ack: proto.casino.packet_player_join_ack): void {
         console.log("onJoinGameAck");
         // const reply = proto.casino.packet_player_join_ack.decode(msg.Data);
-
         this.syncMsg();
-
         // 如果是在房间内重连，则发通知让房间重连恢复
         if (this.lm.isGameModuleExist()) {
             let isFromShare: boolean = false;
@@ -405,6 +403,7 @@ export class LobbyView extends cc.Component {
         }
 
         if (this.isShowSignView) {
+            this.isShowSignView = false;
             const agreementView = this.getComponent(AgreementView);
             if (agreementView === null) {
                 this.addComponent(SignView);
@@ -429,7 +428,6 @@ export class LobbyView extends cc.Component {
                 this.calcUnReadEmailState();
 
             }
-
         }
     }
 
