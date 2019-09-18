@@ -5,6 +5,7 @@ import { GameError } from "../../errorCode/ErrorCodeExports";
 import long = require("../../protobufjs/long");
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
+import { RewardView } from "../reward/RewardViewExports";
 
 /**
  * SignView
@@ -106,12 +107,15 @@ export class SignView extends cc.Component {
             item.getChild("count").text = text;
             const light = item.getChild("light");
             const mask = item.getChild("sjgnMask");
+            const gray = item.getChild("gray");
 
             if (param > i) {
                 mask.visible = true;
+                gray.visible = true;
                 light.visible = false;
             } else {
                 mask.visible = false;
+                gray.visible = false;
 
                 if (param === i && (act.act_time === null || act.act_time.low < Math.floor(todayInSeconds / 1000))) {
                     light.visible = true;
@@ -139,6 +143,7 @@ export class SignView extends cc.Component {
         const item = this.view.getChild(`item${param}`).asCom;
         item.getChild("sjgnMask").visible = true;
         item.getChild("light").visible = false;
+        item.getChild("gray").visible = true;
 
         if (act.param !== null) {
             act.param = act.param + 1;
@@ -214,7 +219,11 @@ export class SignView extends cc.Component {
 
         this.setTodaySign();
 
-        Dialog.prompt("签到成功");
+        this.lm.eventTarget.emit("signSuccess");
+
+        //弹出领取成功界面
+        const view = this.addComponent(RewardView);
+        view.showView(this.lm, reply.awards);
         Logger.debug("reply:", reply);
     }
 

@@ -39,6 +39,8 @@ export class LobbyView extends cc.Component {
     private marqueeTextOriginPos: cc.Vec2;
     private announcementText: fgui.GObject;
 
+    private isShowSignView: boolean = false;
+
     protected async onLoad(): Promise<void> {
         // 加载大厅界面
 
@@ -74,7 +76,7 @@ export class LobbyView extends cc.Component {
 
         this.view = view;
         this.initView();
-        this.testJoinGame();
+        this.sendDataReq();
 
         const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
         if (+musicVolume > 0) {
@@ -111,6 +113,7 @@ export class LobbyView extends cc.Component {
         this.lm.eventTarget.on("returnFromGame", this.onReturnFromGame, this);
 
         this.lm.eventTarget.on("emailAllRead", this.checkEmailRedDot, this);
+        this.lm.eventTarget.on("signSuccess", this.checkSignRedDot, this);
 
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_UPDATE, this.onMsgUpdate, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST, this.onBroadcast, this);
@@ -202,8 +205,9 @@ export class LobbyView extends cc.Component {
     }
 
     private checkLocalRedDot(): void {
-        //
+        this.checkSignRedDot();
     }
+
     private calcUnReadEmailState(): void {
         const playerEmailsStr = DataStore.getString(KeyConstants.PLAYER_EMAIL);
         const playerEmails = <proto.casino.Iplayer_mail[]>JSON.parse(playerEmailsStr);
@@ -227,7 +231,19 @@ export class LobbyView extends cc.Component {
         }
     }
 
+    private checkSignRedDot(): void {
+        const signBtn = this.view.getChild("signBtn").asButton;
+        if (this.isDaySignExist()) {
+            signBtn.asButton.getChild("redDot").visible = true;
+            this.isShowSignView = true;
+        } else {
+            signBtn.asButton.getChild("redDot").visible = false;
+            this.isShowSignView = false;
+        }
+    }
+
     private testJoinGame(): void {
+        Logger.debug("testJoinGame");
         // this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_PLAYER_JOIN_ACK, this.onJoinGameAck, this); // 加入游戏
         this.lm.msgCenter.eventTarget.on("onJoinGameAck", this.onJoinGameAck, this);
 
@@ -387,6 +403,14 @@ export class LobbyView extends cc.Component {
                 return;
             }
         }
+
+        if (this.isShowSignView) {
+            const agreementView = this.getComponent(AgreementView);
+            if (agreementView === null) {
+                this.addComponent(SignView);
+            }
+        }
+
     }
 
     private onEmailAck(msg: proto.casino.ProxyMessage): void {
@@ -410,6 +434,7 @@ export class LobbyView extends cc.Component {
     }
 
     private onDataAck(msg: proto.casino.ProxyMessage): void {
+        Logger.debug("onDataAck");
         const reply = proto.casino.packet_data_ack.decode(msg.Data);
         for (const ack of reply.acks) {
             if (ack.name === "act_checkin_day") {
@@ -420,6 +445,8 @@ export class LobbyView extends cc.Component {
             }
         }
         Logger.debug("reply:", reply);
+
+        this.testJoinGame();
     }
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
         Logger.debug("onJoinTableAck");
@@ -683,7 +710,6 @@ export class LobbyView extends cc.Component {
     private syncMsg(): void {
         this.syncBroadcast();
         this.syncEmail();
-        this.sendDataReq();
     }
     private sendDataReq(): void {
         const req = new proto.casino.packet_data_req();
@@ -726,6 +752,30 @@ export class LobbyView extends cc.Component {
 
     }
 
+    private isDaySignExist(): boolean {
+        const actStr = DataStore.getString(KeyConstants.PLAYER_ACTS);
+        const acts = <proto.casino.player_act[]>JSON.parse(actStr);
+
+        let myAct: proto.casino.player_act = null;
+        for (const act of acts) {
+            if (act.type === proto.casino.eACT.ACT_SIGN) {
+                myAct = act;
+            }
+        }
+
+        if (myAct.total === 0) {
+            return true;
+        }
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayInSeconds = Date.parse(today.toString());
+        if (myAct.act_time.low >= Math.floor(todayInSeconds / 1000)) {
+            return false;
+        }
+
+        return true;
+    }
     private onLogout(): void {
         Logger.debug("onLogout");
         this.lm.logout();
