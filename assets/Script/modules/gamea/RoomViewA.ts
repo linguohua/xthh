@@ -192,7 +192,7 @@ export class RoomViewA {
         this.countDownText.text = `${this.leftTime}`;
         if (this.leftTime <= 0) {
             this.component.unschedule(this.leftTimerCB);
-            this.countDownText.text = `${0}`;
+            this.countDownText.text = `0`;
             //关闭警告声音
             // SoundMgr.stopEffect(this.soundTimeNum);
             if (this.gamePauseTipsCom.visible === true) {
@@ -205,7 +205,7 @@ export class RoomViewA {
                 //播放警告声音
                 SoundMgr.playEffectAudio("gameb/sound_time", false);
             }
-            this.countDownText.text = `${this.leftTime}`;
+            // this.countDownText.text = `${this.leftTime}`;
         }
     }
 

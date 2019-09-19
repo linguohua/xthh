@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../lobby/protobufjs/long");
 import { proto } from "../lobby/protoHH/protoHH";
@@ -746,6 +746,10 @@ export class HandResultView extends cc.Component {
             this.onAgainButtonClick();
 
             return;
+        }
+        if (countDownTime <= 5) {
+            //播放警告声音
+            SoundMgr.playEffectAudio("gameb/sound_time", false);
         }
 
         let btnText = LocalStrings.findString("continue");

@@ -1,4 +1,4 @@
-import { CommonFunction, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 // import { GameRules } from "./GameRules";
@@ -604,6 +604,10 @@ export class HandResultViewA extends cc.Component {
             this.onAgainButtonClick();
 
             return;
+        }
+        if (countDownTime <= 5) {
+            //播放警告声音
+            SoundMgr.playEffectAudio("gameb/sound_time", false);
         }
 
         let btnText = LocalStrings.findString("continue");
