@@ -132,14 +132,16 @@ export namespace HandlerMsgDeal {
         }
         //播放庄动画 并等待
         room.playSound("sound_dingzhuang");
-        if (room.bankerChairID === msgDeal.lord_id) {
-            //连庄
-            await room.roomView.playAnimation("Effect_ico_lianzhuang", true);
-        } else if (room.bankerChairID !== -1) {
-            //换庄
-            await room.roomView.playAnimation("Effect_ico_huanzhuang", true);
+        if (!room.isJoyRoom) {
+            if (room.bankerChairID === msgDeal.lord_id) {
+                //连庄
+                await room.roomView.playAnimation("Effect_ico_lianzhuang", true);
+            } else if (room.bankerChairID !== -1) {
+                //换庄
+                await room.roomView.playAnimation("Effect_ico_huanzhuang", true);
+            }
+            await room.coWaitSeconds(0.5);
         }
-        await room.coWaitSeconds(0.5);
         const time = 0.6; //飞庄动画时间
         const player = <Player>room.getPlayerByPlayerID(msgDeal.lord_id);
         room.roomView.playZhuangAni(player.playerView.head.bankerFlag, time);
