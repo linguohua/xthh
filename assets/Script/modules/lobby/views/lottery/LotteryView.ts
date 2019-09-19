@@ -84,13 +84,15 @@ export class LotteryView extends cc.Component {
     private unRegisterHander(): void {
 
         this.lm.eventTarget.off(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES);
     }
     private registerHandler(): void {
         // const this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         // this.lm = lm;
-        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
         this.lm.eventTarget.on(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
-        this.lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyTurnableUpdate, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyTurnableUpdate, this);
     }
 
     private initView(): void {

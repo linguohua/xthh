@@ -66,6 +66,9 @@ export class RedPacketView extends cc.Component {
     }
     private unRegisterHander(): void {
         //
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_CASH_ACK);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_STORE_ACK);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK);
     }
 
     private onCashOutAck(msg: proto.casino.ProxyMessage): void {
@@ -274,11 +277,27 @@ export class RedPacketView extends cc.Component {
 
         }
     }
+    private isOverLimit(cashOut: number): boolean {
+
+        return cashOut < this.redData.red_min || cashOut > this.redData.red_max;
+
+    }
 
     private sendCashOutRequest(): void {
         const inputNumberView = this.addComponent(InputNumberView);
+        const minCash = `${this.redData.red_min / 100}`;
+        const maxCash = `${this.redData.red_max / 100}`;
+        const maxCashTimes = `${this.redData.red_num}`;
         const cb = (str: string) => {
             const req2 = new proto.casino.packet_red_cash_req();
+
+            if (this.isOverLimit(+str * 100)) {
+                const errMsg = LocalStrings.findString("cashOutLimit1", minCash, maxCash);
+                Dialog.prompt(errMsg);
+
+                return;
+            }
+
             req2.cash = +str * 100;
 
             Logger.debug("sendCashOutRequest req2 = ", req2);
@@ -287,10 +306,6 @@ export class RedPacketView extends cc.Component {
             const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
             lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_RED_CASH_REQ);
         };
-
-        const minCash = `${this.redData.red_min / 100}`;
-        const maxCash = `${this.redData.red_max / 100}`;
-        const maxCashTimes = `${this.redData.red_num}`;
         const titleStr = LocalStrings.findString("inputMoneyText", minCash, maxCash, maxCashTimes);
         inputNumberView.show(cb, titleStr, 1, 3);
     }

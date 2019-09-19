@@ -119,6 +119,8 @@ export namespace LocalStrings {
                 [`inputPhoneText`]: "请输入手机号码",
                 [`inputAuthText`]: "请输入验证码",
                 [`inputMoneyText`]: "每次提现最少:{0}元,最多:{1}元,每天最多提现{2}次",
+                [`cashOutLimit1`]: "最少提现{0}元，最多提现{1}元！",
+
 
                 [`discardTipsOfMe`]: "到您出牌咯！",
                 [`readyViewDisbandRoomTip`]: "房主解散房间",
