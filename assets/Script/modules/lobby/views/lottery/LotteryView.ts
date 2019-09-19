@@ -122,9 +122,8 @@ export class LotteryView extends cc.Component {
         const revolvePage = this.view.getChild("revolvePage").asCom;
         this.revolvePage = revolvePage;
 
-        const lastDrawIndex = +DataStore.getString(KeyConstants.LOTTERY_DRAW_INDEX);
-
-        const rotate = this.getRotate(lastDrawIndex);
+        const index = +DataStore.getString(KeyConstants.LOTTERY_DRAW_INDEX);
+        const rotate = +index * 60;
         this.revolvePage.rotation = rotate;
 
         const powerProgress = this.view.getChild("powerProgress").asProgress;
@@ -292,7 +291,6 @@ export class LotteryView extends cc.Component {
         Dialog.hideWaiting();
         const rewardIndex = this.itemBindDatas[drawItem.id];
         Logger.debug("drawItem = ", drawItem);
-
         const armRotate = this.getRotate(rewardIndex);
         const time = (armRotate / -60) * 0.1;
 
