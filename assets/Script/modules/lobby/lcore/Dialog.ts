@@ -69,7 +69,7 @@ export class Dialog {
         }
     }
 
-    public static showDialog = (msg: string, yesCb: Function = null, noCB: Function = null): void => {
+    public static showDialog = (msg: string, yesCb: Function = null, noCB: Function = null, close: boolean = false): void => {
         if (Dialog.inst.dlgView === undefined || Dialog.inst.dlgView.node === null) {
             Logger.debug("showDialog view is null, create new");
             if (!Dialog.inst.packageLoaded) {
@@ -95,6 +95,19 @@ export class Dialog {
 
         const yesBtn = Dialog.inst.dlgView.getChild("ok_btn");
         yesBtn.offClick(undefined, undefined);
+
+        const closeBtn = Dialog.inst.dlgView.getChild("closeBtn");
+        closeBtn.offClick(undefined, undefined);
+        if (close) {
+            closeBtn.visible = true;
+            closeBtn.onClick(
+                () => {
+                    Dialog.inst.dlgWin.hide();
+                },
+                undefined);
+        } else {
+            closeBtn.visible = false;
+        }
 
         let yesCb2 = yesCb;
         if (yesCb === null && noCB === null) {

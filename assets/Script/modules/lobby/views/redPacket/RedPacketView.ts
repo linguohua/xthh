@@ -348,7 +348,7 @@ export class RedPacketView extends cc.Component {
         const price = redStore.price / 100;
         const shopName = redStore.name;
         const str = LocalStrings.findString("exchangeConfirm", `${price}`, shopName);
-        Dialog.showDialog(str, cb);
+        Dialog.showDialog(str, cb, null, true);
 
     }
 
