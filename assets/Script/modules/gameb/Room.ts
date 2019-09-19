@@ -646,81 +646,14 @@ export class Room {
         this.resetForNewHand();
         this.cleanUI();
 
-        // 首先看是否有player需要被删除
-        const userID2Player: { [key: string]: protoHH.casino.Itable_player } = {};
-        const player2Remove: Player[] = [];
-        for (const player of table.players) {
-            if (player.id === null || player.id === undefined) {
-                continue;
-            }
-
-            userID2Player[player.id.toString()] = player;
-        }
-
-        //记录需要被删除的玩家
-        const players = this.getPlayers();
-        Object.keys(players).forEach((key: string) => {
-            const player = <Player>players[key];
-            if (userID2Player[player.userID] === undefined) {
-                player2Remove.push(player);
-            }
-        });
-
-        //删除已经离开的玩家，并隐藏其视图
-        for (const player of player2Remove) {
-            this.removePlayer(player.userID);
+        // 清理所有用户
+        Object.keys(this.players).forEach((key: string) => {
+            const player = this.players[key];
             player.unbindView();
-        }
+        });
+        this.players = {};
 
-        //如果自己还没有创建，创建自己
-        for (let i = 0; i < table.players.length; i++) {
-            const player = table.players[i];
-            if (player.id === null || player.id === undefined) {
-                continue;
-            }
-
-            if (this.isMe(player.id.toString())) {
-                const p = this.getPlayerByChairID(i);
-                if (p === null || p.userID !== player.id.toString()) {
-                    this.createMyPlayer(player, i);
-                } else {
-                    p.updateByPlayerInfo(player, i);
-                }
-
-                break;
-            }
-        }
-        // const me = <Player>room.getMyPlayer();
-        // const myOldState = me.state;
-        //更新，或者创建其他player
-        for (let i = 0; i < table.players.length; i++) {
-            const player = table.players[i];
-            if (player.id === null || player.id === undefined) {
-                continue;
-            }
-
-            const p = this.getPlayerByChairID(i);
-            if (p === null || p.userID !== player.id.toString()) {
-                this.createPlayerByInfo(player, i);
-                //有人进来或者更新，更新GPS
-                // if (updatePlayer === 0) {
-                //     updatePlayer = 1;
-                // }
-            } else {
-                p.updateByPlayerInfo(player, i);
-            }
-        }
-
-        let curid: number = 0;
-        for (let i = 0; i < table.players.length; i++) {
-            const p = table.players[i];
-            if (table.cur_idx === i) {
-                curid = p.id;
-            }
-            const player = this.getPlayerByChairID(i);
-            this.initCards(p, player);
-        }
-        this.showCards(curid);
+        this.createPlayers();
 
         //刷新房间信息
         this.roomView.showJoyRoomGuiZe();
