@@ -223,11 +223,11 @@ export class LobbyView extends cc.Component {
         }
     }
     private checkEmailRedDot(): void {
-        const unReadEmail = DataStore.getString(KeyConstants.UNREAD_EMAIL);
+        const unReadEmail = +DataStore.getString(KeyConstants.UNREAD_EMAIL);
 
         const btn = this.view.getChild("emailBtn");
         Logger.debug("checkEmailRedDot -------------------------- unReadEmail ", unReadEmail);
-        if (unReadEmail === "1") {
+        if (unReadEmail === 1) {
             btn.asButton.getChild("redDot").visible = true;
         } else {
             btn.asButton.getChild("redDot").visible = false;

@@ -431,8 +431,8 @@ export class UserInfoView extends cc.Component {
         this.gpsBtn.onClick(this.onGpsBtnClick, this);
         this.logoutBtn.onClick(this.onLogout, this);
 
-        const tag = DataStore.getString(KeyConstants.VOICE_TAG);
-        if (tag === "" || tag === "0") {
+        const tag = +DataStore.getString(KeyConstants.VOICE_TAG);
+        if (tag === 0) {
             this.clearCacheBtn.grayed = true;
         }
 
@@ -492,13 +492,13 @@ export class UserInfoView extends cc.Component {
 
     private onClearCacheBtn(): void {
         Logger.debug("onClearCacheBtn");
-        const tag = DataStore.getString(KeyConstants.VOICE_TAG);
+        const tag = +DataStore.getString(KeyConstants.VOICE_TAG);
 
-        if (tag === "" || tag === "0") {
+        if (tag === 0) {
             Dialog.prompt(LocalStrings.findString("noDataClear"));
         } else {
             Dialog.prompt(LocalStrings.findString("voiceDataClear"));
-            DataStore.setItem(KeyConstants.VOICE_TAG, "0");
+            DataStore.setItem(KeyConstants.VOICE_TAG, 0);
             this.clearCacheBtn.grayed = true;
         }
 

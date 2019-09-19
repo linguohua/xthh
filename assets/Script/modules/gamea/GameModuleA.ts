@@ -104,7 +104,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         CommonFunction.setBgFullScreenSize(bg);
 
         // 进入游戏，置为1
-        DataStore.setItem(KeyConstants.VOICE_TAG, "1");
+        DataStore.setItem(KeyConstants.VOICE_TAG, 1);
 
         // bg = view.getChild("classBg");
         // CommonFunction.setBgFullScreenSize(bg);
