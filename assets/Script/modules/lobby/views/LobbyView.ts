@@ -212,9 +212,11 @@ export class LobbyView extends cc.Component {
         const playerEmailsStr = DataStore.getString(KeyConstants.PLAYER_EMAIL);
         const playerEmails = <proto.casino.Iplayer_mail[]>JSON.parse(playerEmailsStr);
 
+        Logger.debug("calcUnReadEmailState -------------------------- playerEmails = ", playerEmails);
         for (const email of playerEmails) {
             if (email.data !== null && CommonFunction.toNumber(email.view_time) === 0) {
                 DataStore.setItem(KeyConstants.UNREAD_EMAIL, 1);
+                Logger.debug("calcUnReadEmailState -------------------------- checkEmailRedDot");
                 this.checkEmailRedDot();
                 break;
             }
@@ -224,6 +226,7 @@ export class LobbyView extends cc.Component {
         const unReadEmail = DataStore.getString(KeyConstants.UNREAD_EMAIL);
 
         const btn = this.view.getChild("emailBtn");
+        Logger.debug("checkEmailRedDot -------------------------- unReadEmail ", unReadEmail);
         if (unReadEmail === "1") {
             btn.asButton.getChild("redDot").visible = true;
         } else {
@@ -424,7 +427,7 @@ export class LobbyView extends cc.Component {
                 const playerEmails = mailData.mails;
                 const emailData = JSON.stringify(playerEmails);
                 DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
-
+                Logger.debug("onEmailAck -------------------------- start to calcUnReadEmailState");
                 this.calcUnReadEmailState();
 
             }
