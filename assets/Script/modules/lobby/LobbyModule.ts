@@ -137,6 +137,11 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
                 const childrenCount = fgui.GRoot.inst.numChildren;
                 if (childrenCount > 0) {
                     Logger.fatal("switch to game failed, GRoot numChildren not zero:", childrenCount);
+                    // 将未销毁的view打印出来
+                    for (let i = 0; i < childrenCount; i++) {
+                        const view = fgui.GRoot.inst.getChildAt(0);
+                        Logger.error(view);
+                    }
 
                     return;
                 }

@@ -43,7 +43,7 @@ export class RewardView extends cc.Component {
         this.initView();
         this.win.show();
 
-        SoundMgr.playEffectAudio(`gameb/sound_I_light`);
+        SoundMgr.playEffectAudio(`gameb/sound_l_light`);
     }
     // protected onLoad(): void {
     //     this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
