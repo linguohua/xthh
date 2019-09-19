@@ -104,6 +104,8 @@ export class LobbyView extends cc.Component {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.offShow(this.wxShowCallBack);
         }
+
+        this.view.dispose();
     }
 
     private registerHandler(): void {
