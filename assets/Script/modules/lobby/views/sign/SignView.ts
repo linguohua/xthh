@@ -75,7 +75,7 @@ export class SignView extends cc.Component {
 
         let param: number = 0;
         if (act.param !== null) {
-            param = act.param;
+            param = act.param % 7;
         }
 
         const now = new Date();
@@ -137,7 +137,7 @@ export class SignView extends cc.Component {
 
         let param: number = 0;
         if (act.param !== null) {
-            param = act.param;
+            param = act.param % 7;
         }
 
         const item = this.view.getChild(`item${param}`).asCom;
@@ -196,7 +196,7 @@ export class SignView extends cc.Component {
 
         let param: number = 0;
         if (act.param !== null) {
-            param = act.param;
+            param = act.param % 7;
         }
 
         if (param === i) {
