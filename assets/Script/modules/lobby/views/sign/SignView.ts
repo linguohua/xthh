@@ -7,6 +7,18 @@ import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { RewardView } from "../reward/RewardViewExports";
 
+const REWARD_IMG: { [key: number]: string } = {
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_sign/ty_hb",
+    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_sign/cz_icon_hld1",
+    [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_sign/cz_icon_fk1"
+};
+
+const REWARD_NAME: { [key: number]: string } = {
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "红包",
+    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "欢乐豆",
+    [proto.casino.eRESOURCE.RESOURCE_CARD]: "房卡"
+};
+
 /**
  * SignView
  */
@@ -40,9 +52,6 @@ export class SignView extends cc.Component {
         this.win.show();
 
         this.showTip();
-        // this.sinReq();
-        // this.checkingDayReq();
-        // this.dataReq();
     }
 
     protected onDestroy(): void {
@@ -92,19 +101,13 @@ export class SignView extends cc.Component {
             }
 
             const loader = item.getChild("loader").asLoader;
+            loader.url = REWARD_IMG[award.id];
 
-            let text = "";
-            if (award.type === 9) {
-                // 房卡
-                text = `房卡*${award.param}`;
-                loader.url = `ui://lobby_sign/cz_icon_fk1`;
-            } else if (award.type === 10) {
-                // 欢乐豆
-                text = `欢乐豆*${award.param}`;
-                loader.url = `ui://lobby_sign/cz_icon_hld1`;
+            if (award.id === proto.casino.eRESOURCE.RESOURCE_RED) {
+                loader.y = loader.y + 20;
             }
 
-            item.getChild("count").text = text;
+            item.getChild("count").text = `${REWARD_NAME[award.id]}*${award.param}`;
             const light = item.getChild("light");
             const mask = item.getChild("sjgnMask");
             const gray = item.getChild("gray");

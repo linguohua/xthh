@@ -340,9 +340,8 @@ export class RedPacketView extends cc.Component {
             return;
         }
 
-        const phone = DataStore.getString(KeyConstants.PHONE);
-        if (phone !== "") {
-
+        const phone = DataStore.getString(KeyConstants.PHONE, "");
+        if (phone === "") {
             const view = this.addComponent(PhoneAuthView);
             view.show(OpenType.BIND_PHONE);
 
