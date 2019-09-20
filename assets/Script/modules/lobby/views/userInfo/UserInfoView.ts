@@ -167,6 +167,14 @@ export class UserInfoView extends cc.Component {
 
         return editBoxNode;
     }
+
+    private async loadIdCardEditBox(): Promise<cc.Node> {
+        const editboxPrefab = await CommonFunction.loadPrefab("idCardInput");
+        const editBoxNode = cc.instantiate(editboxPrefab);
+        editBoxNode.setPosition(0, 0);
+
+        return editBoxNode;
+    }
     private async initUserBaseInfo(): Promise<void> {
         const userInfo = this.view.getChild("baseInfoCom").asCom;
         this.userInfo = userInfo;
@@ -400,11 +408,9 @@ export class UserInfoView extends cc.Component {
         this.realName.maxLength = 8;
 
         const idCard = authInfo.getChild("n36");
-        const idCardEditBox = await this.loadEditBox();
-        idCardEditBox.width = 260;
+        const idCardEditBox = await this.loadIdCardEditBox();
         idCard.node.addChild(idCardEditBox);
         this.idCard = idCardEditBox.getComponent(cc.EditBox);
-        this.idCard.maxLength = 18;
 
         this.agreementViewBtn = authInfo.getChild("agreementViewBtn").asButton;
         this.agreementViewBtn.onClick(this.onAgreementViewBtnClick, this);
@@ -416,6 +422,8 @@ export class UserInfoView extends cc.Component {
         this.idCard.string = DataStore.getString(KeyConstants.ID_CARD, "");
         if (this.realName.string !== "" && this.idCard.string !== "") {
             this.authSaveBtn.visible = false;
+            this.realName.enabled = false;
+            this.idCard.enabled = false;
         } else {
             this.authSaveBtn.visible = true;
             this.realName.enabled = true;
