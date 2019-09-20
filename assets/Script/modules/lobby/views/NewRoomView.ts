@@ -189,7 +189,7 @@ export class NewRoomView extends cc.Component {
     private registerHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
-        lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
+        lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
     }
     private initBoxRecord(): void {
         // TODO:

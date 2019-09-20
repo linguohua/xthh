@@ -38,7 +38,7 @@ export class FkRecordView {
     }
 
     private registerHandler(): void {
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK, this.onFkRecordLoad, this);
+        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK, this.onFkRecordLoad, this);
     }
 
     private sendCardRecordReq(): void {

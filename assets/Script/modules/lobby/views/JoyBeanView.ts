@@ -71,7 +71,7 @@ export class JoyBeanView extends cc.Component {
     private registerHandler(): void {
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
-        lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
+        lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
     }
     private initView(): void {
         const returnBtn = this.view.getChild("returnBtn");

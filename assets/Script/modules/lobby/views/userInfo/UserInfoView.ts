@@ -102,7 +102,7 @@ export class UserInfoView extends cc.Component {
         this.win = win;
         this.initView();
 
-        lm.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK, this.onModifyAck, this);
+        lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK, this.onModifyAck, this);
         lm.eventTarget.on("onBindPhone", this.onBindPhone, this);
     }
 

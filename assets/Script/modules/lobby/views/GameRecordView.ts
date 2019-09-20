@@ -86,8 +86,8 @@ export class GameRecordView {
     }
 
     private registerHandler(): void {
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onGameRecord, this);
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK, this.onReplayAck, this);
+        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK, this.onGameRecord, this);
+        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK, this.onReplayAck, this);
     }
 
     private onGameRecord(msg: protoHH.casino.ProxyMessage): void {

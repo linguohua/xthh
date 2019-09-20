@@ -31,7 +31,7 @@ export class BoxRecordView {
     }
 
     private registerHandler(): void {
-        this.lm.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_GIFT_REQ, this.onBoxRecordLoad, this);
+        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_GIFT_REQ, this.onBoxRecordLoad, this);
     }
 
     private onBoxRecordLoad(): void {
