@@ -118,4 +118,23 @@ export namespace CommonFunction {
         return cashTime.toNumber();
     };
 
+    /**
+     * 从resources/prefabs/目录下加载一个prefab
+     * @param prefabName prefab名字
+     */
+    export const loadPrefab = async (prefabName: string): Promise<cc.Prefab> => {
+        const prefabUrl = `prefabs/${prefabName}`;
+
+        return new Promise<cc.Prefab>((resolve) => {
+            cc.loader.loadRes(prefabUrl, cc.Prefab, (error: Error, resource: cc.Prefab): void => {
+                if (error !== null) {
+                    console.error("loadPrefab fail:", error.message);
+                    resolve(null);
+                } else {
+                    resolve(resource);
+                }
+            });
+        });
+    };
+
 }

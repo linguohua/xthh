@@ -33,7 +33,7 @@ export class UserInfoView extends cc.Component {
     private mountNode: fgui.GObject;
 
     private boyRadioBtn: fgui.GButton;
-    private userName: fgui.GObject;
+    private userName: cc.EditBox;
     private modifyBtn: fgui.GButton;
     private saveModifyBtn: fgui.GButton;
     private id: fgui.GObject;
@@ -78,7 +78,7 @@ export class UserInfoView extends cc.Component {
         this.headLoader.url = url;
     }
 
-    protected onLoad(): void {
+    protected async onLoad(): Promise<void> {
 
         this.eventTarget = new cc.EventTarget();
 
@@ -129,6 +129,12 @@ export class UserInfoView extends cc.Component {
 
     }
 
+    // private instanceEditBox(): void {
+    //     const editbox = await CommonFunction.loadPrefab("editbox");
+    //     const editBoxNode = cc.instantiate(editbox);
+    //     editBoxNode.setPosition(0, 0);
+    //     this.userName.node.addChild(editBoxNode);
+    // }
     private initGameRecord(): void {
         let hupai: number = 0;
         let piaolai: number = 0;
@@ -159,7 +165,7 @@ export class UserInfoView extends cc.Component {
         this.chaoshiText.text = `${timeout}`;
         this.fangpaoText.text = `${fangchong}`;
     }
-    private initUserBaseInfo(): void {
+    private async initUserBaseInfo(): Promise<void> {
         const userInfo = this.view.getChild("baseInfoCom").asCom;
         this.userInfo = userInfo;
 
@@ -186,8 +192,17 @@ export class UserInfoView extends cc.Component {
 
         this.mountNode = userInfo.getChild("mountNode");
 
-        this.userName = userInfo.getChild("name");
-        this.userName.asTextInput.editable = false;
+        // 由于fgui输入框有问题，挂载一个cocos creator的editBox
+        const nameObj = userInfo.getChild("name");
+        const editboxPrefab = await CommonFunction.loadPrefab("editbox");
+        const editBoxNode = cc.instantiate(editboxPrefab);
+        editBoxNode.setPosition(0, 0);
+        nameObj.node.addChild(editBoxNode);
+        this.userName = editBoxNode.getComponent(cc.EditBox);
+        this.userName.enabled = false;
+        // editBoxNode.parent = this.userName.node;
+
+        // this.userName.asTextInput.editable = false;
         this.id = userInfo.getChild("id");
         this.beanText = userInfo.getChild("beanText");
         this.fkText = userInfo.getChild("fkText");
@@ -204,7 +219,7 @@ export class UserInfoView extends cc.Component {
         this.chaoshiText = userInfo.getChild("chaoshiText");
         this.fangpaoText = userInfo.getChild("fangpaoText");
 
-        this.userName.text = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
+        this.userName.string = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
         this.beanText.text = DataStore.getString(KeyConstants.BEANS);
         this.fkText.text = DataStore.getString(KeyConstants.CARD);
         this.id.text = DataStore.getString(KeyConstants.PLAYER_ID);
@@ -225,7 +240,7 @@ export class UserInfoView extends cc.Component {
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.VISITOR) {
-            this.userName.enabled = false;
+            // this.userName.enabled = false;
             role.selectedIndex = 1;
 
             if (channel === Enum.CHANNEL_TYPE.WECHAT) {
@@ -299,10 +314,12 @@ export class UserInfoView extends cc.Component {
 
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel === Enum.CHANNEL_TYPE.VISITOR) {
-            this.userName.asTextInput.editable = true;
+            this.userName.enabled = true;
+            // this.userName.asTextInput.editable = true;
             this.changeIconBtn.visible = true;
         } else {
-            this.userName.asTextInput.editable = false;
+            // this.userName.asTextInput.editable = false;
+            this.userName.enabled = false;
             this.changeIconBtn.visible = false;
         }
         // Logger.debug("this.changeIconBtn.enabled:", this.changeIconBtn.enabled);
@@ -317,7 +334,7 @@ export class UserInfoView extends cc.Component {
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
 
         const req = new proto.casino.packet_modify_req();
-        req.nickname = req.nickname = CommonFunction.nameFormatWithCount(this.userName.text, 8, "");
+        req.nickname = req.nickname = CommonFunction.nameFormatWithCount(this.userName.string, 8, "");
         req.sex = this.boyRadioBtn.selected ? 0 : 1;
         req.player_id = +playerId;
 
@@ -332,7 +349,8 @@ export class UserInfoView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MODIFY_REQ);
 
         this.changeIconBtn.visible = false;
-        this.userName.asTextInput.editable = false;
+        // this.userName.asTextInput.editable = false;
+        this.userName.enabled = false;
     }
 
     private onFkRecordTapClick(): void {
