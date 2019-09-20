@@ -685,7 +685,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         }
     }
     private async onReconnect(isFromShare: boolean): Promise<void> {
-        Logger.debug("onReconnect");
+        Logger.debug("onReconnect : ", this.mRoom.isGameOver);
         if (this.mRoom.isReplayMode()) {
             return;
         }

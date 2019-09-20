@@ -95,6 +95,7 @@ export interface RoomInterface {
     readonly roomInfo: protoHH.casino.Itable;
     readonly roomView: RoomViewInterface;
     readonly handNum: number;
+    isGameOver: boolean;
     mAlgorithm: Algorithm;
     isDisband: boolean;
     state: number;

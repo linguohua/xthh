@@ -106,7 +106,7 @@ export namespace HandlerMsgDeal {
             const imaccids = getPlayerImaccids(room.getPlayers());
             room.getRoomHost().createTeam(imaccids, `${room.roomInfo.tag}`);
         }
-
+        room.isGameOver = false;
         // 显示默认隐藏的view
         room.showRoomBtnsAndBgs();
         //清理
