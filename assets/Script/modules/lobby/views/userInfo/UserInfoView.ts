@@ -52,8 +52,8 @@ export class UserInfoView extends cc.Component {
     private bindPhoneBtn: fgui.GButton;
 
     //// 认证信息 //////
-    private realName: fgui.GTextInput;
-    private idCard: fgui.GTextInput;
+    private realName: cc.EditBox;
+    private idCard: cc.EditBox;
     private agreementViewBtn: fgui.GButton;
     private authSaveBtn: fgui.GButton;
 
@@ -129,12 +129,6 @@ export class UserInfoView extends cc.Component {
 
     }
 
-    // private instanceEditBox(): void {
-    //     const editbox = await CommonFunction.loadPrefab("editbox");
-    //     const editBoxNode = cc.instantiate(editbox);
-    //     editBoxNode.setPosition(0, 0);
-    //     this.userName.node.addChild(editBoxNode);
-    // }
     private initGameRecord(): void {
         let hupai: number = 0;
         let piaolai: number = 0;
@@ -165,6 +159,14 @@ export class UserInfoView extends cc.Component {
         this.chaoshiText.text = `${timeout}`;
         this.fangpaoText.text = `${fangchong}`;
     }
+
+    private async loadEditBox(): Promise<cc.Node> {
+        const editboxPrefab = await CommonFunction.loadPrefab("editbox");
+        const editBoxNode = cc.instantiate(editboxPrefab);
+        editBoxNode.setPosition(0, 0);
+
+        return editBoxNode;
+    }
     private async initUserBaseInfo(): Promise<void> {
         const userInfo = this.view.getChild("baseInfoCom").asCom;
         this.userInfo = userInfo;
@@ -194,9 +196,7 @@ export class UserInfoView extends cc.Component {
 
         // 由于fgui输入框有问题，挂载一个cocos creator的editBox
         const nameObj = userInfo.getChild("name");
-        const editboxPrefab = await CommonFunction.loadPrefab("editbox");
-        const editBoxNode = cc.instantiate(editboxPrefab);
-        editBoxNode.setPosition(0, 0);
+        const editBoxNode = await this.loadEditBox();
         nameObj.node.addChild(editBoxNode);
         this.userName = editBoxNode.getComponent(cc.EditBox);
         this.userName.enabled = false;
@@ -228,7 +228,7 @@ export class UserInfoView extends cc.Component {
         const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
         const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "0");
         const gender = DataStore.getString(KeyConstants.GENDER, "");
-        if (+gender > 0) {
+        if (+ gender > 0) {
             this.girlRadioBtn.selected = true;
         } else {
             this.boyRadioBtn.selected = true;
@@ -390,26 +390,36 @@ export class UserInfoView extends cc.Component {
         return 0;
     }
 
-    private initAuthInfo(): void {
+    private async initAuthInfo(): Promise<void> {
         const authInfo = this.view.getChild("autoInfoCom").asCom;
-        this.realName = authInfo.getChild("n35").asTextInput;
-        this.realName.requestFocus();
-        this.idCard = authInfo.getChild("n36").asTextInput;
-        this.idCard.requestFocus();
+
+        const realName = authInfo.getChild("n35");
+        const editBoxNode = await this.loadEditBox();
+        realName.node.addChild(editBoxNode);
+        this.realName = editBoxNode.getComponent(cc.EditBox);
+        this.realName.maxLength = 8;
+
+        const idCard = authInfo.getChild("n36");
+        const idCardEditBox = await this.loadEditBox();
+        idCardEditBox.width = 260;
+        idCard.node.addChild(idCardEditBox);
+        this.idCard = idCardEditBox.getComponent(cc.EditBox);
+        this.idCard.maxLength = 18;
+
         this.agreementViewBtn = authInfo.getChild("agreementViewBtn").asButton;
         this.agreementViewBtn.onClick(this.onAgreementViewBtnClick, this);
 
         this.authSaveBtn = authInfo.getChild("n20").asButton;
         this.authSaveBtn.onClick(this.onAuthSaveBtnClick, this);
 
-        this.realName.text = DataStore.getString(KeyConstants.REAL_NAME, "");
-        this.idCard.text = DataStore.getString(KeyConstants.ID_CARD, "");
-        if (this.realName.text !== "" && this.idCard.text !== "") {
+        this.realName.string = DataStore.getString(KeyConstants.REAL_NAME, "");
+        this.idCard.string = DataStore.getString(KeyConstants.ID_CARD, "");
+        if (this.realName.string !== "" && this.idCard.string !== "") {
             this.authSaveBtn.visible = false;
         } else {
             this.authSaveBtn.visible = true;
-            this.realName.editable = true;
-            this.idCard.editable = true;
+            this.realName.enabled = true;
+            this.idCard.enabled = true;
         }
 
     }
@@ -422,18 +432,18 @@ export class UserInfoView extends cc.Component {
 
     private onAuthSaveBtnClick(): void {
         Logger.debug("onAuthSaveBtnClick");
-        if (this.idCard.text.length !== 18) {
+        if (this.idCard.string.length !== 18) {
             Dialog.prompt("请输入正确的身份证号码");
 
             return;
         }
 
-        DataStore.setItem(KeyConstants.REAL_NAME, this.realName.text);
-        DataStore.setItem(KeyConstants.ID_CARD, this.idCard.text);
+        DataStore.setItem(KeyConstants.REAL_NAME, this.realName.string);
+        DataStore.setItem(KeyConstants.ID_CARD, this.idCard.string);
 
         this.authSaveBtn.visible = false;
-        this.realName.editable = false;
-        this.idCard.editable = false;
+        this.realName.enabled = false;
+        this.idCard.enabled = false;
     }
 
     private initGameSetting(): void {

@@ -13,7 +13,7 @@
     <image id="n22_6k9y" name="n22" src="6k9y6" fileName="_resource/grxx_dian.png" xy="79,247"/>
     <image id="n25_6k9y" name="n25" src="6k9y8" fileName="_resource/grxx_fgx2.png" xy="37,305" size="515,2"/>
     <component id="n37_l4pw" name="agreementViewBtn" src="l4pw20" fileName="btn/agreementViewBtn.xml" xy="213,244"/>
-    <text id="n35_6k9y" name="n35" xy="211,141" size="144,34" input="true" maxLength="6" fontSize="22" color="#9d3d09" vAlign="middle" leading="24" autoSize="none" singleLine="true" autoClearText="true" text="万家乐"/>
-    <text id="n36_6k9y" name="n36" xy="211,190" size="257,34" input="true" keyboardType="4" fontSize="22" color="#9d3d09" vAlign="middle" leading="24" autoSize="none" singleLine="true" autoClearText="true" text="440823111111111111"/>
+    <text id="n35_6k9y" name="n35" xy="276,138" pivot="0.5,0.5" size="10,34" fontSize="22" color="#9d3d09" vAlign="middle" leading="24" autoSize="none" singleLine="true" autoClearText="true" text=""/>
+    <text id="n36_6k9y" name="n36" xy="331,188" pivot="0.5,0.5" size="10,34" fontSize="22" color="#9d3d09" vAlign="middle" leading="24" autoSize="none" singleLine="true" autoClearText="true" text=""/>
   </displayList>
 </component>
