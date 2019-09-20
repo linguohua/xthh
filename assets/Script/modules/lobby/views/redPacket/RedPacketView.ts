@@ -2,6 +2,7 @@ import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInter
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { InputNumberView } from "../InputNumberView";
+import { OpenType, PhoneAuthView } from "../PhoneAuthView";
 
 const { ccclass } = cc._decorator;
 
@@ -242,6 +243,15 @@ export class RedPacketView extends cc.Component {
             return;
         }
 
+        const phone = DataStore.getString(KeyConstants.PHONE);
+        if (phone !== "") {
+
+            const view = this.addComponent(PhoneAuthView);
+            view.show(OpenType.BIND_PHONE);
+
+            return;
+        }
+
         const playerRedData = this.playerRedData;
 
         const cashTimes = playerRedData.num_today;
@@ -297,6 +307,13 @@ export class RedPacketView extends cc.Component {
 
                 return;
             }
+            const red = +DataStore.getString(KeyConstants.RED);
+            if (+str * 100 > red) {
+                const errMsg = LocalStrings.findString("exchangeNoEnough");
+                Dialog.prompt(errMsg);
+
+                return;
+            }
 
             req2.cash = +str * 100;
 
@@ -319,6 +336,15 @@ export class RedPacketView extends cc.Component {
 
         if (this.loginChannel === Enum.CHANNEL_TYPE.VISITOR) {
             Dialog.prompt(LocalStrings.findString("pleaseUseWeChatLogin"));
+
+            return;
+        }
+
+        const phone = DataStore.getString(KeyConstants.PHONE);
+        if (phone !== "") {
+
+            const view = this.addComponent(PhoneAuthView);
+            view.show(OpenType.BIND_PHONE);
 
             return;
         }
