@@ -89,14 +89,21 @@ export class SignView extends cc.Component {
             isOldUser = true;
         }
 
+        const todayInSeconds = this.getTodayInSeconds();
+
+        let isCanSign: boolean = false;
+        if (act.act_time === null || (act.act_time.low < Math.floor(todayInSeconds / 1000))) {
+            isCanSign = true;
+        }
+
         let param: number = 0;
         if (act.param !== null) {
             param = act.param % 7;
+            // 已经连续7天签到
+            if (act.param > 7 && param === 0 && !isCanSign) {
+                param = 7
+            }
         }
-
-        const now = new Date();
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const todayInSeconds = Date.parse(today.toString());
 
         for (let i = 0; i < 7; i++) {
             const item = this.view.getChild(`item${i}`).asCom;
@@ -297,13 +304,18 @@ export class SignView extends cc.Component {
             return;
         }
 
-        const now = new Date();
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const todayInSeconds = Date.parse(today.toString());
+        const todayInSeconds = this.getTodayInSeconds();
         if (act.act_time.low >= Math.floor(todayInSeconds / 1000)) {
             Dialog.prompt(LocalStrings.findString("haveBeenSign"));
         } else {
             Logger.debug(`act_time:${act.act_time.low}, today:${Math.floor(todayInSeconds / 1000)}`);
         }
+    }
+
+    private getTodayInSeconds(): number {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayInSeconds = Date.parse(today.toString());
+        return todayInSeconds;
     }
 }
