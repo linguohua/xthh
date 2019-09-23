@@ -72,7 +72,7 @@ export class LotteryView extends cc.Component {
     }
 
     protected onLoad(): void {
-        //  this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        //
     }
 
     protected onDestroy(): void {
@@ -280,8 +280,7 @@ export class LotteryView extends cc.Component {
         const req2 = new proto.casino.packet_et_draw_req();
         req2.et_id = turnableId;
         const buf = proto.casino.packet_et_draw_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ET_DRAW_REQ);
+        this.lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_ET_DRAW_REQ);
 
     }
 
@@ -296,7 +295,7 @@ export class LotteryView extends cc.Component {
         //  记录下抽中的Index
         DataStore.setItem(KeyConstants.LOTTERY_DRAW_INDEX, rewardIndex);
 
-        //进入选中闪烁阶段
+        //进入旋转选中阶段
         this.revolvePage.node.stopAllActions();
         const action = cc.rotateTo(time, armRotate).easing(cc.easeInOut(3));
 
