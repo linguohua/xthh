@@ -41,7 +41,6 @@ export class UserInfoView extends cc.Component {
     private fkText: fgui.GObject;
     private hupaiText: fgui.GObject;
     private piaolaiText: fgui.GObject;
-    private chaoshiText: fgui.GObject;
     private fangpaoText: fgui.GObject;
     private phone: fgui.GObject;
     private userInfo: fgui.GComponent;
@@ -154,7 +153,6 @@ export class UserInfoView extends cc.Component {
 
         this.hupaiText.text = `${hupai}`;
         this.piaolaiText.text = `${piaolai}`;
-        this.chaoshiText.text = `${timeout}`;
         this.fangpaoText.text = `${fangchong}`;
     }
 
@@ -216,7 +214,6 @@ export class UserInfoView extends cc.Component {
 
         this.hupaiText = userInfo.getChild("hupaiText");
         this.piaolaiText = userInfo.getChild("piaolaiText");
-        this.chaoshiText = userInfo.getChild("chaoshiText");
         this.fangpaoText = userInfo.getChild("fangpaoText");
 
         this.userName.string = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
