@@ -493,7 +493,7 @@ export class RoomView {
         }
     }
 
-    public showJoyRoomGuiZe(): void {
+    public updateJoyRoomInfo(): void {
         if (this.room.isJoyRoom) {
             //显示欢乐场级别
             const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
@@ -512,6 +512,8 @@ export class RoomView {
             this.joyText.text = LocalStrings.findString("joyText", str);
             //底注也要更新
             this.showRoomNumber();
+            //刷新转盘数据
+            this.refreshPowerProgress();
         }
     }
     private countDownCallBack(): void {
@@ -715,13 +717,6 @@ export class RoomView {
         const energyNum = energy === null ? 0 : energy;
         const num = Math.floor((energyNum / data.draw) * 100);
         this.energyBtn.getChild("percent").text = `${num}%`;
-        // const progressValue = energy / data.draw * 100;
-        // this.powerProgress.value = progressValue;
-        // if (energy === null || energy < data.draw) {
-        //     this.energyBtn.getController("enable").selectedIndex = 0;
-        // } else {
-        //     this.energyBtn.getController("enable").selectedIndex = 1;
-        // }
 
     }
     private onVoiceBtnPress(event: fgui.Event): void {
@@ -874,7 +869,7 @@ export class RoomView {
             this.unityViewNode.getChild("joyRoomHead2").visible = true;
             this.unityViewNode.getChild("joyRoomHead4").visible = true;
 
-            this.showJoyRoomGuiZe();
+            this.updateJoyRoomInfo();
         }
     }
 

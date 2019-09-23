@@ -656,7 +656,7 @@ export class Room {
         this.createPlayers();
 
         //刷新房间信息
-        this.roomView.showJoyRoomGuiZe();
+        this.roomView.updateJoyRoomInfo();
     }
 
     /**
