@@ -10,7 +10,8 @@ const { ccclass } = cc._decorator;
 const REWARD_IMG: { [key: number]: string } = {
     [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/ty_icon_hld",
     [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/ty_icon_fk",
-    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/ty_hb"
+    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/ty_hb",
+    [proto.casino.eRESOURCE.RESOURCE_GOLD]: "ui://lobby_bg_package/ty_icon_jb"
 };
 
 /**

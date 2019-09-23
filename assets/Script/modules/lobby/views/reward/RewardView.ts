@@ -1,12 +1,20 @@
-import { CommonFunction, LobbyModuleInterface, SoundMgr } from "../../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, SoundMgr, Logger } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 
-const REWARD_IMG: { [key: number]: string } = {
-    [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/cz_icon_hb2",
-    [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/cz_icon_hld2",
-    [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/cz_icon_fk2"
-};
+// const REWARD_IMG: { [key: number]: string } = {
+//     [proto.casino.eRESOURCE.RESOURCE_RED]: "ui://lobby_bg_package/cz_icon_hb2",
+//     [proto.casino.eRESOURCE.RESOURCE_BEANS]: "ui://lobby_bg_package/cz_icon_hld2",
+//     [proto.casino.eRESOURCE.RESOURCE_CARD]: "ui://lobby_bg_package/cz_icon_fk2",
+//     [proto.casino.eRESOURCE.RESOURCE_GOLD]: "ui://lobby_bg_package/cz_icon_jb2"
+// };
+
+// const REWARD_LOADER_NAME: { [key: number]: string } = {
+//     [proto.casino.eRESOURCE.RESOURCE_RED]: "red",
+//     [proto.casino.eRESOURCE.RESOURCE_BEANS]: "bean",
+//     [proto.casino.eRESOURCE.RESOURCE_CARD]: "card",
+//     [proto.casino.eRESOURCE.RESOURCE_GOLD]: "gold"
+// };
 
 /**
  * RewardView
@@ -92,11 +100,15 @@ export class RewardView extends cc.Component {
     }
 
     private refreshReward(gain: proto.casino.Iobject): void {
-        this.view.getChild("loader").asLoader.url = REWARD_IMG[gain.id];
+
 
         const resourceType = this.view.getController("resource");
 
         let count = gain.param;
+
+        if (gain.id === proto.casino.eRESOURCE.RESOURCE_CARD) {
+            resourceType.selectedIndex = 0;
+        }
 
         if (gain.id === proto.casino.eRESOURCE.RESOURCE_BEANS) {
             resourceType.selectedIndex = 1;
@@ -106,6 +118,12 @@ export class RewardView extends cc.Component {
             resourceType.selectedIndex = 2;
             count = count / 100;
         }
+
+        if (gain.id === proto.casino.eRESOURCE.RESOURCE_GOLD) {
+            resourceType.selectedIndex = 3;
+        }
+
+        // this.view.getChild("loader").asLoader.url = REWARD_IMG[gain.id];
         this.view.getChild("count").text = `${count}`;
 
     }

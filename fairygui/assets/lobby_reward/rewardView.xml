@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://7sx8kzdnhvh8g" designImageAlpha="100">
-  <controller name="resource" pages="0,card,1,bean,2,red" selected="1"/>
+  <controller name="resource" pages="0,card,1,bean,2,red,3,gold" selected="0"/>
   <displayList>
     <component id="n0_hvh8" name="mask" src="a2w91g" fileName="commonBtn/maskBtn.xml" pkg="snwj6cnx" xy="0,0"/>
     <image id="n1_hvh8" name="bg" src="ik11c" fileName="resource/ty_tips3.png" pkg="snwj6cnx" xy="302,190" size="534,256"/>
     <image id="n3_hvh8" name="title" src="hvh8i" fileName="_resource/hlddt_zi_gxnhd.png" xy="411,154"/>
     <text id="n4_hvh8" name="count" xy="433,363" size="259,50" fontSize="36" color="#ac5216" align="center" vAlign="middle" autoSize="none" singleLine="true" text="2000"/>
-    <loader id="n8_hvh8" name="loader" xy="567,238" pivot="0.5,0" anchor="true" size="181,157" url="ui://snwj6cnxhvh8nb" align="center" vAlign="middle" fill="scale" autoSize="true">
-      <gearXY controller="resource" pages="0,1,2" values="567,213|567,238|567,252"/>
+    <loader id="n8_hvh8" name="card" xy="567,219" pivot="0.5,0" anchor="true" size="181,157" url="ui://snwj6cnxhvh8na" align="center" autoSize="true">
+      <gearDisplay controller="resource" pages="0"/>
+    </loader>
+    <loader id="n12_kp7l" name="bean" xy="567,243" pivot="0.5,0" anchor="true" size="181,157" url="ui://snwj6cnxhvh8nb" align="center" autoSize="true">
+      <gearDisplay controller="resource" pages="1"/>
+    </loader>
+    <loader id="n13_kp7l" name="red" xy="567,248" pivot="0.5,0" anchor="true" size="129,95" url="ui://snwj6cnxvpnknf" align="center" autoSize="true">
+      <gearDisplay controller="resource" pages="2"/>
+    </loader>
+    <loader id="n14_kp7l" name="gold" xy="567,249" pivot="0.5,0" anchor="true" size="144,98" url="ui://snwj6cnxkp7lng" align="center" autoSize="true">
+      <gearDisplay controller="resource" pages="3"/>
     </loader>
   </displayList>
 </component>
