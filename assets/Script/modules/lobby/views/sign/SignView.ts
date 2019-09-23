@@ -103,11 +103,13 @@ export class SignView extends cc.Component {
             const loader = item.getChild("loader").asLoader;
             loader.url = REWARD_IMG[award.id];
 
+            let awardParam = award.param;
             if (award.id === proto.casino.eRESOURCE.RESOURCE_RED) {
                 loader.y = loader.y + 20;
+                awardParam = award.param / 100;
             }
 
-            item.getChild("count").text = `${REWARD_NAME[award.id]}*${award.param}`;
+            item.getChild("count").text = `${REWARD_NAME[award.id]}*${awardParam}`;
             const light = item.getChild("light");
             const mask = item.getChild("sjgnMask");
             const gray = item.getChild("gray");
