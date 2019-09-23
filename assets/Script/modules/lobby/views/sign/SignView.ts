@@ -19,6 +19,13 @@ const REWARD_NAME: { [key: number]: string } = {
     [proto.casino.eRESOURCE.RESOURCE_CARD]: "房卡"
 };
 
+const REWARD_Y: { [key: number]: number } = {
+    [proto.casino.eRESOURCE.RESOURCE_RED]: 54,
+    [proto.casino.eRESOURCE.RESOURCE_BEANS]: 34,
+    [proto.casino.eRESOURCE.RESOURCE_CARD]: 16
+};
+
+
 /**
  * SignView
  */
@@ -100,7 +107,14 @@ export class SignView extends cc.Component {
                 award = checkinDayData.datas[i].awards[0];
             }
 
+            let y = REWARD_Y[award.id];
+            if (y === undefined) {
+                Logger.error("unknown award, id = ", award.id);
+                y = REWARD_Y[proto.casino.eRESOURCE.RESOURCE_BEANS];
+            }
             const loader = item.getChild("loader").asLoader;
+
+            loader.setPosition(loader.x, y);
             loader.url = REWARD_IMG[award.id];
 
             let awardParam = award.param;
@@ -113,6 +127,7 @@ export class SignView extends cc.Component {
             const light = item.getChild("light");
             const mask = item.getChild("sjgnMask");
             const gray = item.getChild("gray");
+            const guang = item.getChild("guang");
 
             if (param > i) {
                 mask.visible = true;
