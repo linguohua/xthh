@@ -299,7 +299,6 @@ export class Room {
         this.lastDisCardTile = 0;
 
         if (this.isJoyRoom) {
-            this.handStartted = 0; //欢乐场不需要累加牌局数 handStartted 为0 的时候 才能退出房间
             this.roomView.showOrHideTrusteeshipCom(false);
         }
 

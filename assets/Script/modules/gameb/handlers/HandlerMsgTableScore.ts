@@ -42,15 +42,6 @@ export namespace HandlerMsgTableScore {
                 player.totalScores = score.score_total;
             }
         }
-        //屌爆了。。。如果是欢乐场。。。分数是欢乐豆 要从table.players 里面找
-        // if (room.isJoyRoom) {
-        //     for (const p of tableScore.tdata.players) {
-        //         if (p.gold !== undefined && p.gold !== null) {
-        //             const player = <Player>room.getPlayerByPlayerID(p.id);
-        //             player.totalScores = p.gold.low;
-        //         }
-        //     }
-        // }
     };
 
     const emitTime = (room: RoomInterface) => {
@@ -80,6 +71,9 @@ export namespace HandlerMsgTableScore {
         Logger.debug("HandlerMsgTableScore----------------------- ", reply);
         //摊牌
         room.playSound("mj_score");
+        if (room.isJoyRoom) {
+            room.handStartted = 0; //欢乐场不需要累加牌局数 handStartted 为0 的时候 才能退出房间
+        }
         let huPlayer: Player = null;
         for (const score of reply.scores) {
             const curcards = score.curcards;
