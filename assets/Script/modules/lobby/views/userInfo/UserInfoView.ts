@@ -421,8 +421,22 @@ export class UserInfoView extends cc.Component {
 
     private onAuthSaveBtnClick(): void {
         Logger.debug("onAuthSaveBtnClick");
-        if (this.idCard.string.length !== 18) {
-            Dialog.prompt("请输入正确的身份证号码");
+        const nameReg = /^[\u4e00-\u9fa5]*$/;
+        if (!nameReg.test(this.realName.string)) {
+             Dialog.prompt(LocalStrings.findString("pleaseInputRealName"));
+
+            return;
+        }
+
+        const idCardReg = /^[a-z0-9]+$/;
+        if (this.idCard.string.length > 18 || this.idCard.string.length < 17 ) {
+            Dialog.prompt(LocalStrings.findString("pleaseInputRealIDCard"));
+
+            return;
+        }
+
+        if (!idCardReg.test(this.idCard.string)) {
+            Dialog.prompt(LocalStrings.findString("pleaseInputRealIDCard"));
 
             return;
         }
