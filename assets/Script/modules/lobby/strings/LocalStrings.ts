@@ -176,6 +176,8 @@ export namespace LocalStrings {
                 [`haveBeenSign`]: "今天已经签到过了！",
                 [`signDay`]: "第{0}天",
                 [`errorAuthCode`]: "验证码错误",
+                [`pleaseInputRealName`]:"请输入正确的名字",
+                [`pleaseInputRealIDCard`]:"请输入正确的身份证号";
                 // 12个 制表符
                 [`agreeText0`]: `                                                                用户服务协议
 重要须知：
