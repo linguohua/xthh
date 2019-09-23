@@ -442,7 +442,11 @@ export class EmailView extends cc.Component {
         const loader = obj.asCom.getChild("loader").asLoader;
         const count = obj.asCom.getChild("count");
         const tick = obj.asCom.getChild("tick");
-        loader.url = REWARD_IMG[selectGain.id];
+        let url = REWARD_IMG[selectGain.id];
+        if (url === undefined || url === null || url === "") {
+            Logger.error(`renderAttachmentListItem ,unknown resource id ,id =${selectGain.id} index =${index}`)
+        }
+        loader.url = url;
 
         let countText = selectGain.param;
         if (selectGain.id === proto.casino.eRESOURCE.RESOURCE_RED) {

@@ -214,11 +214,9 @@ export class LobbyView extends cc.Component {
         const playerEmailsStr = DataStore.getString(KeyConstants.PLAYER_EMAIL);
         const playerEmails = <proto.casino.Iplayer_mail[]>JSON.parse(playerEmailsStr);
 
-        Logger.debug("calcUnReadEmailState -------------------------- playerEmails = ", playerEmails);
         for (const email of playerEmails) {
             if (email.data !== null && CommonFunction.toNumber(email.view_time) === 0) {
                 DataStore.setItem(KeyConstants.UNREAD_EMAIL, 1);
-                Logger.debug("calcUnReadEmailState -------------------------- checkEmailRedDot");
                 this.checkEmailRedDot();
                 break;
             }
@@ -228,7 +226,6 @@ export class LobbyView extends cc.Component {
         const unReadEmail = +DataStore.getString(KeyConstants.UNREAD_EMAIL);
 
         const btn = this.view.getChild("emailBtn");
-        Logger.debug("checkEmailRedDot -------------------------- unReadEmail ", unReadEmail);
         if (unReadEmail === 1) {
             btn.asButton.getChild("redDot").visible = true;
         } else {
@@ -420,8 +417,6 @@ export class LobbyView extends cc.Component {
     private onEmailAck(msg: proto.casino.ProxyMessage): void {
 
         const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
-        Logger.debug("onEmailAck --------------------------", mailData);
-
         if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
             // 拉取邮件列表，id === 0
             if (CommonFunction.toNumber(mailData.mail_id) === 0) {
@@ -429,7 +424,6 @@ export class LobbyView extends cc.Component {
                 const playerEmails = mailData.mails;
                 const emailData = JSON.stringify(playerEmails);
                 DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
-                Logger.debug("onEmailAck -------------------------- start to calcUnReadEmailState");
                 this.calcUnReadEmailState();
 
             }
@@ -614,7 +608,7 @@ export class LobbyView extends cc.Component {
 
     private updatePlayerEnergy(updateMsg: proto.casino.packet_update): void {
         const playerEnergy = proto.casino.player_energy.decode(updateMsg.data);
-        Logger.debug("TYPE_PLAYER_ENERGY,----------------------------------------- playerEnergy = ", playerEnergy);
+        Logger.debug("updatePlayerEnergy,----------------------------------------- playerEnergy = ", playerEnergy);
         const playerEnergyStr = JSON.stringify(playerEnergy);
         DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergyStr);
         this.lm.eventTarget.emit(KeyConstants.PLAYER_ENERGY, playerEnergy.curr_energy);
@@ -622,7 +616,6 @@ export class LobbyView extends cc.Component {
 
     private updateMoney(updateMsg: proto.casino.packet_update): void {
         const playerResource = proto.casino.player_resource.decode(updateMsg.data);
-        // Logger.debug("resource:", playerResource);
         if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
             DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
             this.fkText.text = playerResource.curr.toString();

@@ -88,8 +88,6 @@ export class LotteryView extends cc.Component {
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES);
     }
     private registerHandler(): void {
-        // const this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        // this.lm = lm;
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ET_DRAW_RES, this.drawResult, this);
         this.lm.eventTarget.on(KeyConstants.PLAYER_ENERGY, this.refreshPowerProgress, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ENERGY_TURNABLE, this.onEnergyTurnableUpdate, this);
@@ -166,7 +164,6 @@ export class LotteryView extends cc.Component {
         const rotate = index * -60;
 
         return -360 * 6 + rotate;
-
     }
 
     private refreshPowerProgress(energy: number): void {
