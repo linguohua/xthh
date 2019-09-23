@@ -42,6 +42,9 @@ export class UserInfoView extends cc.Component {
     private hupaiText: fgui.GObject;
     private piaolaiText: fgui.GObject;
     private fangpaoText: fgui.GObject;
+    private tuihuiText: fgui.GObject;
+    private roundText: fgui.GObject;
+
     private phone: fgui.GObject;
     private userInfo: fgui.GComponent;
 
@@ -129,8 +132,9 @@ export class UserInfoView extends cc.Component {
     private initGameRecord(): void {
         let hupai: number = 0;
         let piaolai: number = 0;
-        let timeout: number = 0;
+        let quitTime: number = 0;
         let fangchong: number = 0;
+        let roundTotle: number = 0;
 
         const pdataStr = DataStore.getString(KeyConstants.DATA_GDY, "");
         const playerData = <proto.casino.player_gdy>JSON.parse(pdataStr);
@@ -143,17 +147,23 @@ export class UserInfoView extends cc.Component {
             hupai = playerData.hupai_total;
         }
 
-        if (playerData.timeout_total !== null) {
-            timeout = playerData.timeout_total;
+        if (playerData.quit_time !== null) {
+            quitTime = playerData.timeout_total;
         }
 
         if (playerData.fangchong_total !== null) {
             fangchong = playerData.fangchong_total;
         }
 
+        if (playerData.play_total !== null) {
+            roundTotle = playerData.play_today;
+        }
+
         this.hupaiText.text = `${hupai}`;
         this.piaolaiText.text = `${piaolai}`;
         this.fangpaoText.text = `${fangchong}`;
+        this.tuihuiText.text = `${quitTime}`;
+        this.roundText.text = `${roundTotle}`;
     }
 
     private async loadEditBox(): Promise<cc.Node> {
@@ -215,6 +225,8 @@ export class UserInfoView extends cc.Component {
         this.hupaiText = userInfo.getChild("hupaiText");
         this.piaolaiText = userInfo.getChild("piaolaiText");
         this.fangpaoText = userInfo.getChild("fangpaoText");
+        this.tuihuiText = userInfo.getChild("tuihuiText");
+        this.roundText = userInfo.getChild("jushuText");
 
         this.userName.string = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
         this.beanText.text = DataStore.getString(KeyConstants.BEANS);
@@ -423,13 +435,13 @@ export class UserInfoView extends cc.Component {
         Logger.debug("onAuthSaveBtnClick");
         const nameReg = /^[\u4e00-\u9fa5]*$/;
         if (!nameReg.test(this.realName.string)) {
-             Dialog.prompt(LocalStrings.findString("pleaseInputRealName"));
+            Dialog.prompt(LocalStrings.findString("pleaseInputRealName"));
 
             return;
         }
 
         const idCardReg = /^[a-z0-9]+$/;
-        if (this.idCard.string.length > 18 || this.idCard.string.length < 17 ) {
+        if (this.idCard.string.length > 18 || this.idCard.string.length < 17) {
             Dialog.prompt(LocalStrings.findString("pleaseInputRealIDCard"));
 
             return;
