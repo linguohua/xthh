@@ -25,7 +25,6 @@ const REWARD_Y: { [key: number]: number } = {
     [proto.casino.eRESOURCE.RESOURCE_CARD]: 16
 };
 
-
 /**
  * SignView
  */
@@ -85,7 +84,7 @@ export class SignView extends cc.Component {
         this.playerAct = act;
         Logger.debug("act:", act);
         let isOldUser: boolean = false;
-        if (act !== null && act.total > 7) {
+        if (act !== null && act.total >= 7) {
             isOldUser = true;
         }
 
@@ -101,7 +100,7 @@ export class SignView extends cc.Component {
             param = act.param % 7;
             // 已经连续7天签到
             if (act.param > 7 && param === 0 && !isCanSign) {
-                param = 7
+                param = 7;
             }
         }
 
@@ -140,17 +139,17 @@ export class SignView extends cc.Component {
                 mask.visible = true;
                 gray.visible = true;
                 light.visible = false;
-                 guang.visible = false
+                guang.visible = false;
             } else {
                 mask.visible = false;
                 gray.visible = false;
 
                 if (param === i && (act.act_time === null || act.act_time.low < Math.floor(todayInSeconds / 1000))) {
                     light.visible = true;
-                    guang.visible = true
+                    guang.visible = true;
                 } else {
                     light.visible = false;
-                    guang.visible = false
+                    guang.visible = false;
                 }
             }
 
@@ -319,7 +318,7 @@ export class SignView extends cc.Component {
     private getTodayInSeconds(): number {
         const now = new Date();
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const todayInSeconds = Date.parse(today.toString());
-        return todayInSeconds;
+
+        return Date.parse(today.toString());
     }
 }
