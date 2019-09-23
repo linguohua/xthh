@@ -1,4 +1,4 @@
-import { CommonFunction, LobbyModuleInterface, SoundMgr, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 const { ccclass } = cc._decorator;
 

@@ -44,8 +44,6 @@ export class UserInfoView extends cc.Component {
     private chaoshiText: fgui.GObject;
     private fangpaoText: fgui.GObject;
     private phone: fgui.GObject;
-    private fkRecordTap: fgui.GButton;
-    private beanRecordTap: fgui.GButton;
     private userInfo: fgui.GComponent;
 
     private changeIconBtn: fgui.GButton;
@@ -190,12 +188,6 @@ export class UserInfoView extends cc.Component {
 
         this.saveModifyBtn = userInfo.getChild("saveModifyBtn").asButton;
         this.saveModifyBtn.onClick(this.onSaveModifyBtnClick, this);
-
-        this.fkRecordTap = userInfo.getChild("fkRecordTap").asButton;
-        this.fkRecordTap.onClick(this.onFkRecordTapClick, this);
-
-        this.beanRecordTap = userInfo.getChild("beanRecordTap").asButton;
-        this.beanRecordTap.onClick(this.onBeanRecordTapClick, this);
 
         this.bindPhoneBtn = userInfo.getChild("bindPhoneBtn").asButton;
         this.bindPhoneBtn.onClick(this.onBindPhoneBtnClick, this);
@@ -359,14 +351,6 @@ export class UserInfoView extends cc.Component {
         this.changeIconBtn.visible = false;
         // this.userName.asTextInput.editable = false;
         this.userName.enabled = false;
-    }
-
-    private onFkRecordTapClick(): void {
-        Logger.debug("onFkRecordTapClick");
-    }
-
-    private onBeanRecordTapClick(): void {
-        Logger.debug("onBeanRecordTapClick");
     }
 
     private onBindPhoneBtnClick(): void {
