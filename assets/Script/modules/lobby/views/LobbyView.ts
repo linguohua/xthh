@@ -732,15 +732,16 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
     }
 
-    private onReturnFromGame(isFromJoyRoom: boolean): void {
-        // this.announcementText.node.resumeAllActions();
+    private resetMarquee(): void {
+        this.announcementText.text = "";
+        this.announcementText.node.stopAllActions();
+        this.announcementText.node.setPosition(this.marqueeTextOriginPos.x, this.marqueeTextOriginPos.y);
+        this.marqueeAction = null;
+
         if (this.broadcasts.length > 0) {
             const firstBroadcast = this.broadcasts.shift();
             firstBroadcast.play_interval = firstBroadcast.play_interval - 1;
-            this.marqueeAction = null;
-            this.announcementText.text = "";
-            this.announcementText.node.stopAllActions();
-            this.announcementText.node.setPosition(this.marqueeTextOriginPos.x, this.marqueeTextOriginPos.y);
+
             this.showMarquee(firstBroadcast.content, firstBroadcast.play_duration);
 
             if (firstBroadcast.play_interval !== 0) {
@@ -748,6 +749,10 @@ export class LobbyView extends cc.Component {
             }
 
         }
+    }
+    private onReturnFromGame(isFromJoyRoom: boolean): void {
+        // this.announcementText.node.resumeAllActions();
+        this.resetMarquee();
 
         if (!isFromJoyRoom && this.isDaySignExist()) {
             this.addComponent(SignView);
