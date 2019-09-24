@@ -149,7 +149,7 @@ export class UserInfoView extends cc.Component {
         }
 
         if (playerData.quit_time !== null) {
-            quitTime = playerData.timeout_total;
+            quitTime = CommonFunction.toNumber(playerData.quit_time);
         }
 
         if (playerData.fangchong_total !== null) {
