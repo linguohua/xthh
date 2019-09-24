@@ -268,6 +268,8 @@ export class PlayerView {
 
         if (this.viewChairID === 1) {
             this.hideOperationButtons();
+            //清理界面
+            this.clearAllowedActionsView(false);
         }
     }
     public showOrHideReady(isShow: boolean): void {
@@ -1124,11 +1126,11 @@ export class PlayerView {
                     //如果此牌可以听
                     this.room.showTingDataView(clickCtrl.readyHandList);
                 } else {
-                    if (clickCtrl.t.visible) {
-                        this.room.showTingDataView(clickCtrl.readyHandList);
-                    } else {
-                        this.room.hideTingDataView();
-                    }
+                    // if (clickCtrl.t.visible) {
+                    //     this.room.showTingDataView(clickCtrl.readyHandList);
+                    // } else {
+                    this.room.hideTingDataView();
+                    // }
                 }
                 //把桌面上一样的牌 标注一下
                 this.room.setLanOfDiscard(true, clickCtrl.tileID);
@@ -1257,6 +1259,7 @@ export class PlayerView {
             const clickCtrl = this.handsClickCtrls[i];
             if (clickCtrl != null && clickCtrl.t != null) {
                 clickCtrl.t.visible = false;
+                clickCtrl.readyHandList = [];
             }
         }
     }
