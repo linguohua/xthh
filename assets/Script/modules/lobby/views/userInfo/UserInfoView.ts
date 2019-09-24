@@ -287,7 +287,11 @@ export class UserInfoView extends cc.Component {
         const reply = proto.casino.packet_modify_ack.decode(msg.Data);
         if (reply.ret !== 0) {
             Logger.error("reply.ret:", reply.ret);
-            Dialog.prompt(GameError.getErrorString(reply.ret));
+            if (reply.ret === 1) {
+                Dialog.prompt(LocalStrings.findString("modifySuccess"));
+            } else {
+                Dialog.prompt(GameError.getErrorString(reply.ret));
+            }
 
             return;
         }
