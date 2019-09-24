@@ -748,7 +748,7 @@ export class LobbyView extends cc.Component {
 
         }
 
-        if (!isFromJoyRoom) {
+        if (!isFromJoyRoom && this.isDaySignExist()) {
             this.addComponent(SignView);
         }
 
