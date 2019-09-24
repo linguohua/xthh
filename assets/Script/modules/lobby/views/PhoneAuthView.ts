@@ -73,8 +73,9 @@ export class PhoneAuthView extends cc.Component {
             this.loginView.enableAllBtn();
         }
 
-        this.unschedule(this.countDownTick);
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BIND_PHONE_ACK);
 
+        this.unschedule(this.countDownTick);
         this.eventTarget.emit("destroy");
 
         this.win.hide();
