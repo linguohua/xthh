@@ -50,6 +50,7 @@ export class UserInfoView extends cc.Component {
 
     private changeIconBtn: fgui.GButton;
     private bindPhoneBtn: fgui.GButton;
+    private nameBg: fgui.GObject;
 
     //// 认证信息 //////
     private realName: cc.EditBox;
@@ -208,9 +209,11 @@ export class UserInfoView extends cc.Component {
         nameObj.node.addChild(editBoxNode);
         this.userName = editBoxNode.getComponent(cc.EditBox);
         this.userName.enabled = false;
-        // editBoxNode.parent = this.userName.node;
+        this.userName.background.enabled = false;
 
-        // this.userName.asTextInput.editable = false;
+        this.nameBg = userInfo.getChild("bg1");
+        this.nameBg.visible = false;
+
         this.id = userInfo.getChild("id");
         this.beanText = userInfo.getChild("beanText");
         this.fkText = userInfo.getChild("fkText");
@@ -324,11 +327,13 @@ export class UserInfoView extends cc.Component {
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel === Enum.CHANNEL_TYPE.VISITOR) {
             this.userName.enabled = true;
+            this.userName.background.enabled = true;
             // this.userName.asTextInput.editable = true;
             this.changeIconBtn.visible = true;
         } else {
             // this.userName.asTextInput.editable = false;
             this.userName.enabled = false;
+            this.userName.background.enabled = false;
             this.changeIconBtn.visible = false;
         }
         // Logger.debug("this.changeIconBtn.enabled:", this.changeIconBtn.enabled);
@@ -360,6 +365,7 @@ export class UserInfoView extends cc.Component {
         this.changeIconBtn.visible = false;
         // this.userName.asTextInput.editable = false;
         this.userName.enabled = false;
+        this.userName.background.enabled = false;
     }
 
     private onBindPhoneBtnClick(): void {
