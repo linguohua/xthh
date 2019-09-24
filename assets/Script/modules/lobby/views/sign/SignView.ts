@@ -83,16 +83,16 @@ export class SignView extends cc.Component {
         const act = this.getSignAct();
         this.playerAct = act;
         Logger.debug("act:", act);
-        let isOldUser: boolean = false;
-        if (act !== null && act.total >= 7) {
-            isOldUser = true;
-        }
 
         const todayInSeconds = this.getTodayInSeconds();
-
         let isCanSign: boolean = false;
         if (act.act_time === null || (act.act_time.low < Math.floor(todayInSeconds / 1000))) {
             isCanSign = true;
+        }
+
+        let isOldUser: boolean = false;
+        if (act !== null && act.total > 7 || (act.total === 7 && isCanSign)) {
+            isOldUser = true;
         }
 
         let param: number = 0;
