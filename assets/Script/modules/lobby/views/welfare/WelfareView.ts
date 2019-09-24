@@ -42,6 +42,7 @@ export class WelfareView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_HELPER_ACK);
         this.eventTarget.emit("destroy");
         this.win.hide();
         this.win.dispose();

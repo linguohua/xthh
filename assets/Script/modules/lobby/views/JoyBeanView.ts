@@ -63,6 +63,7 @@ export class JoyBeanView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK);
         this.win.hide();
         this.win.dispose();
 

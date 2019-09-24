@@ -129,6 +129,7 @@ export class NewRoomView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK);
         this.saveConfig();
         this.win.hide();
         this.win.dispose();
