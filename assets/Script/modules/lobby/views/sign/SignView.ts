@@ -133,23 +133,21 @@ export class SignView extends cc.Component {
             const light = item.getChild("light");
             const mask = item.getChild("sjgnMask");
             const gray = item.getChild("gray");
-            const guang = item.getChild("guang");
 
             if (param > i) {
                 mask.visible = true;
                 gray.visible = true;
                 light.visible = false;
-                guang.visible = false;
+
             } else {
                 mask.visible = false;
                 gray.visible = false;
 
                 if (param === i && (act.act_time === null || act.act_time.low < Math.floor(todayInSeconds / 1000))) {
                     light.visible = true;
-                    guang.visible = true;
                 } else {
                     light.visible = false;
-                    guang.visible = false;
+
                 }
             }
 
@@ -173,7 +171,6 @@ export class SignView extends cc.Component {
         item.getChild("sjgnMask").visible = true;
         item.getChild("light").visible = false;
         item.getChild("gray").visible = true;
-        item.getChild("guang").visible = false;
 
         if (act.param !== null) {
             act.param = act.param + 1;

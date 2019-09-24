@@ -4,7 +4,6 @@
     <image id="n0_qxe0" name="bg" src="qxe00" fileName="_resource/mrqd_db.png" xy="6,11" size="487,191">
       <relation target="" sidePair="width-width,height-height"/>
     </image>
-    <image id="n30_kp7l" name="guang" src="kp7lf" fileName="_resource/zm_nlzp4.png" xy="200,40" visible="false"/>
     <loader id="n29_qxe0" name="loader" xy="255,16" pivot="0.5,0" anchor="true" size="181,157" url="ui://77yg0eymq3pyc" align="center" vAlign="middle" fill="scale" autoSize="true"/>
     <text id="n27_qxe0" name="day" xy="205,19" size="95,34" fontSize="26" color="#c4551f" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="第1天"/>
     <text id="n28_qxe0" name="count" xy="143,156" size="222,39" fontSize="26" color="#c4551f" align="center" vAlign="middle" letterSpacing="1" autoSize="none" singleLine="true" text="欢乐豆*1000"/>
