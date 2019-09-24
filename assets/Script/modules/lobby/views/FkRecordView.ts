@@ -28,6 +28,10 @@ export class FkRecordView {
 
     }
 
+    protected onDestroy(): void {
+        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK);
+    }
+
     private initView(): void {
         this.list = this.view.getChild("list").asList;
 
