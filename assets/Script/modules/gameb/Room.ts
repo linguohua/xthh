@@ -109,6 +109,8 @@ export class Room {
     public isPlayAudio: boolean = false;
     public isJoyRoom: boolean = false;
     public joyRoom: protoHH.casino.Iroom;
+    private chatMsgs: protoHH.casino.packet_table_chat[] = [];
+    private scheduleChatMsg: Function = null;
     public constructor(myUser: UserInfo, roomInfo: protoHH.casino.Itable, host: RoomHost, rePlay?: Replay) {
         Logger.debug("myUser ---------------------------------------------", myUser);
         this.myUser = myUser;
@@ -564,9 +566,31 @@ export class Room {
         this.roomView.switchBg(index);
     }
     public showMsg(chatData: protoHH.casino.packet_table_chat): void {
-        const p = <Player>this.getPlayerByPlayerID(chatData.player_id);
-        p.onChatMsg(chatData);
-        // this.players[chatData.player_id].onChatMsg(chatData);
+        this.chatMsgs.push(chatData);
+
+        if (this.scheduleChatMsg !== null) {
+            return;
+        }
+
+        // const p = <Player>this.getPlayerByPlayerID(chatData.player_id);
+        // p.onChatMsg(chatData);
+        this.scheduleChatMsg = () => {
+            Logger.debug("scheduleChatMsg");
+            if (this.chatMsgs.length === 0) {
+                this.getRoomHost().component.unschedule(this.scheduleChatMsg);
+                this.scheduleChatMsg = null;
+
+                return;
+            }
+
+            const msg = this.chatMsgs.shift();
+            const p = <Player>this.getPlayerByPlayerID(msg.player_id);
+            p.onChatMsg(msg);
+        };
+
+        this.scheduleChatMsg();
+
+        this.getRoomHost().component.schedule(this.scheduleChatMsg, 3, cc.macro.REPEAT_FOREVER);
     }
 
     public onSearchPlayerAck(searchAck: protoHH.casino.packet_search_ack): void {
