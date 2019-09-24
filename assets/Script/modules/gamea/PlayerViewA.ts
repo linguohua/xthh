@@ -860,6 +860,7 @@ export class PlayerViewA {
     //显示玩家头像
     public showPlayerInfo(playerInfo: PlayerInfo): void {
         this.head.headView.visible = true;
+        this.head.headView.offClick(undefined, undefined);
         this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
 
         this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 6);
