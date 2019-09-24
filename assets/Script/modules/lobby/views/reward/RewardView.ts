@@ -24,12 +24,10 @@ export class RewardView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
-
     private selectedGainIndex: number = 0;
     private gains: proto.casino.Iobject[] = [];
 
     public showView(lm: LobbyModuleInterface, gains: proto.casino.Iobject[]): void {
-        // this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
         const loader = this.lm.loader;
         loader.fguiAddPackage("lobby/fui_lobby_reward/lobby_reward");
@@ -53,25 +51,6 @@ export class RewardView extends cc.Component {
 
         SoundMgr.playEffectAudio(`gameb/sound_l_light`);
     }
-    // protected onLoad(): void {
-    //     this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-    //     const loader = this.lm.loader;
-    //     loader.fguiAddPackage("lobby/fui_lobby_reward/lobby_reward");
-    //     const view = fgui.UIPackage.createObject("lobby_reward", "rewardView").asCom;
-
-    //     CommonFunction.setViewInCenter(view);
-
-    //     const mask = view.getChild("mask");
-    //     CommonFunction.setBgFullScreenSize(mask);
-
-    //     this.view = view;
-
-    //     const win = new fgui.Window();
-    //     win.contentPane = view;
-    //     win.modal = true;
-
-    //     this.win = win;
-    // }
 
     protected onDestroy(): void {
         this.unRegisterHander();

@@ -70,6 +70,9 @@ export class RedPacketView extends cc.Component {
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_CASH_ACK);
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_STORE_ACK);
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK);
+
+        this.lm.eventTarget.off("onResourceChange", this.onResourceChange, this);
+        this.lm.eventTarget.off(KeyConstants.PLAYER_RED, this.refreshCashOutView, this);
     }
 
     private onCashOutAck(msg: proto.casino.ProxyMessage): void {
