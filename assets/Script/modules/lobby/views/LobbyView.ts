@@ -647,7 +647,7 @@ export class LobbyView extends cc.Component {
             }
         }
 
-        if (this.marqueeAction === null) {
+        if (this.marqueeAction === null && this.broadcasts.length > 0) {
             const firstBroadcast = this.broadcasts.shift();
             firstBroadcast.play_interval = firstBroadcast.play_interval - 1;
             this.showMarquee(firstBroadcast.content, firstBroadcast.play_duration);
