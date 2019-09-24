@@ -250,7 +250,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         fgui.GRoot.inst.removeChild(this.view);
         this.view.dispose();
 
-        this.lm.returnFromGame();
+        this.lm.returnFromGame(false);
     }
 
     protected update(dt: number): void {

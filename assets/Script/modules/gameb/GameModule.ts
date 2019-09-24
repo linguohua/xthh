@@ -269,7 +269,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         fgui.GRoot.inst.removeChild(this.view);
         this.view.dispose();
 
-        this.lm.returnFromGame();
+        this.lm.returnFromGame(this.joyRoom !== null);
     }
 
     protected update(dt: number): void {

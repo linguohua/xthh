@@ -75,7 +75,7 @@ export interface LobbyModuleInterface {
     eventTarget: cc.EventTarget;
     msgCenter: MsgCenter;
     nimSDK: NimSDKInterface;
-    returnFromGame(): void;
+    returnFromGame(isFromJoyRoom: boolean): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;
     requestJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void;

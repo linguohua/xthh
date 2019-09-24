@@ -729,7 +729,7 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
     }
 
-    private onReturnFromGame(): void {
+    private onReturnFromGame(isFromJoyRoom: boolean): void {
         // this.announcementText.node.resumeAllActions();
         if (this.broadcasts.length > 0) {
             const firstBroadcast = this.broadcasts.shift();
@@ -744,6 +744,10 @@ export class LobbyView extends cc.Component {
                 this.broadcasts.push(firstBroadcast);
             }
 
+        }
+
+        if (!isFromJoyRoom) {
+            this.addComponent(SignView);
         }
 
     }

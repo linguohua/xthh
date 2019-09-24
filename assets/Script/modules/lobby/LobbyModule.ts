@@ -48,7 +48,11 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         fgui.GRoot.inst.removeChildren(0, -1, true);
     }
 
-    public returnFromGame(): void {
+    /**
+     *
+     * @param isFromPrivateRoom 是否是从私人房返回
+     */
+    public returnFromGame(isFromJoyRoom: boolean): void {
         this.cleanupGRoot();
 
         this.gameNode.destroyAllChildren();
@@ -63,7 +67,7 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
         // this.eventTarget.emit(`checkRoomInfo`);
         // 从牌局内返回来，如果战绩页面还存在，则显示出来
-        this.eventTarget.emit(`returnFromGame`);
+        this.eventTarget.emit(`returnFromGame`, isFromJoyRoom);
         this.eventTarget.emit(`onGameSubRecordShow`);
         // this.eventTarget.emit(`onClubViewShow`);
     }
