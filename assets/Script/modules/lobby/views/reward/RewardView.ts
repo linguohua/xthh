@@ -101,7 +101,6 @@ export class RewardView extends cc.Component {
 
     private refreshReward(gain: proto.casino.Iobject): void {
 
-
         const resourceType = this.view.getController("resource");
 
         let count = gain.param;

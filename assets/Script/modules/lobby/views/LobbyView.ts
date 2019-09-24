@@ -2,8 +2,8 @@ import { NimSDK } from "../chanelSdk/nimSdk/NimSDKExports";
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
 import { GameError } from "../errorCode/ErrorCodeExports";
 import {
-    CommonFunction, DataStore, Dialog, GameModuleLaunchArgs,
-    KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr
+    CommonFunction, DataStore, Dialog, Enum,
+    GameModuleLaunchArgs, KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
@@ -488,6 +488,7 @@ export class LobbyView extends cc.Component {
     }
 
     private onReconnectOk(fastLoginReply: proto.casino.packet_fast_login_ack): void {
+        this.saveFastLoginReply(fastLoginReply);
         this.testJoinGame();
     }
 
@@ -777,6 +778,104 @@ export class LobbyView extends cc.Component {
         }
 
         return true;
+    }
+
+    private saveFastLoginReply(fastLoginAck: proto.casino.packet_fast_login_ack): void {
+        // 桌子ID
+        let tableID: string = `${fastLoginAck.pdata.table_id}`;
+        if (tableID === "null" || tableID === "0") {
+            tableID = "";
+        }
+        // 获取房卡资源
+        let card: number = 0;
+        let beans: number = 0;
+        let red: number = 0;
+        for (const resource of fastLoginAck.pdata.resources) {
+            if (resource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
+                card = resource.curr.toNumber();
+            }
+            if (resource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
+                beans = resource.curr.toNumber();
+            }
+            if (resource.type === proto.casino.eRESOURCE.RESOURCE_RED) {
+                red = resource.curr.toNumber();
+            }
+        }
+
+        let nickName = fastLoginAck.pdata.data.nickname;
+        if (fastLoginAck.pdata.channel_nickname !== null && fastLoginAck.pdata.channel_nickname !== "") {
+            nickName = fastLoginAck.pdata.channel_nickname;
+        }
+
+        let avatarUrl = "";
+        if (fastLoginAck.pdata.channel_head !== null) {
+            avatarUrl = fastLoginAck.pdata.channel_head;
+        }
+
+        const gameConfigStr = JSON.stringify(fastLoginAck.config);
+        const payDataStr = JSON.stringify(fastLoginAck.paydata);
+        const dataGdy = JSON.stringify(fastLoginAck.pdata.data_gdy);
+
+        const rooms: proto.casino.Iroom[] = [];
+        //把欢乐场的房间信息提出来
+        for (const r of fastLoginAck.rooms) {
+            if (r.cost_type === 9) {
+                rooms.push(r);
+            }
+        }
+        const etData = JSON.stringify(fastLoginAck.et_data);
+        const playerEnergy = JSON.stringify(fastLoginAck.pdata.energy);
+        const emailData = JSON.stringify(fastLoginAck.pdata.mails);
+        const playerRedData = JSON.stringify(fastLoginAck.pdata.red);
+        const redData = JSON.stringify(fastLoginAck.reddata);
+        const acts = JSON.stringify(fastLoginAck.pdata.acts);
+
+        DataStore.setItem(KeyConstants.AVATAR_URL, avatarUrl);
+        DataStore.setItem(KeyConstants.USER_ID, fastLoginAck.user_id);
+        DataStore.setItem(KeyConstants.NICK_NAME, nickName);
+        DataStore.setItem(KeyConstants.GENDER, fastLoginAck.pdata.data.sex);
+        DataStore.setItem(KeyConstants.PLAYER_ID, fastLoginAck.player_id);
+        DataStore.setItem(KeyConstants.PHONE, fastLoginAck.pdata.data.phone);
+        DataStore.setItem(KeyConstants.OPEN_UD_ID, fastLoginAck.pdata.data.create_openudid);
+        DataStore.setItem(KeyConstants.TABLE_ID, tableID);
+        DataStore.setItem(KeyConstants.CARD, card);
+        DataStore.setItem(KeyConstants.BEANS, beans);
+        DataStore.setItem(KeyConstants.RED, red);
+        DataStore.setItem(KeyConstants.GAME_CONFIG, gameConfigStr);
+        DataStore.setItem(KeyConstants.PAY_DATA, payDataStr);
+        DataStore.setItem(KeyConstants.DATA_GDY, dataGdy);
+        DataStore.setItem(KeyConstants.ROOMS, JSON.stringify(rooms));
+        DataStore.setItem(KeyConstants.AVATAR_INDEX, fastLoginAck.pdata.data.avatar);
+        DataStore.setItem(KeyConstants.TURN_TABLE, etData);
+        DataStore.setItem(KeyConstants.PLAYER_ENERGY, playerEnergy);
+        DataStore.setItem(KeyConstants.PLAYER_EMAIL, emailData);
+        DataStore.setItem(KeyConstants.PLAYER_ACTS, acts);
+        // 红包提现信息
+        DataStore.setItem(KeyConstants.PLAYER_RED, playerRedData);
+        // 红包数据
+        DataStore.setItem(KeyConstants.RED_DATA, redData);
+        // 低保（免费领取欢乐豆）数据
+        let helperTime = 0;
+        if (fastLoginAck.pdata.helper.helper_time !== undefined && fastLoginAck.pdata.helper.helper_time !== null) {
+            helperTime = +fastLoginAck.pdata.helper.helper_time * 1000;
+        }
+
+        DataStore.setItem(KeyConstants.HELPER_TIME, helperTime);
+        DataStore.setItem(KeyConstants.HELPER_SIZE, fastLoginAck.helperdata.helpers.length);
+        DataStore.setItem(KeyConstants.HELPER_MIN, fastLoginAck.helperdata.gold_min);
+        DataStore.setItem(KeyConstants.HELPER_PARAM, fastLoginAck.pdata.helper.param);
+
+        if (fastLoginAck.channel === "mac") {
+            // 游客登录标志
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.VISITOR);
+        } else if (fastLoginAck.channel === "weixin") {
+            // 微信登录标志
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.WECHAT);
+        } else if (fastLoginAck.channel === "phone") {
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.PHONE);
+        } else {
+            DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.UNKNOWN);
+        }
     }
     private onLogout(): void {
         Logger.debug("onLogout");
