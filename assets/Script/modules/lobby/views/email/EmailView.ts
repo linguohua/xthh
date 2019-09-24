@@ -83,10 +83,12 @@ export class EmailView extends cc.Component {
     }
 
     private registerHandler(): void {
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MAIL_ACK, this.onEmailAck, this);
+        // 网络消息在LobbyView中定义，然后派发到此页面
+        this.lm.eventTarget.on("onMailAck", this.onEmailAck, this);
     }
     private unRegisterHander(): void {
-        //
+        // 取消消息订阅
+        this.lm.eventTarget.off("onMailAck");
     }
 
     private initView(): void {
@@ -182,9 +184,9 @@ export class EmailView extends cc.Component {
      * 关于邮件的回复，加载，领取，删除,读取
      * @param msg 信息
      */
-    private onEmailAck(msg: proto.casino.ProxyMessage): void {
+    private onEmailAck(mailData: proto.casino.packet_mail_ack): void {
 
-        const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
+        // const mailData = proto.casino.packet_mail_ack.decode(msg.Data);
         Logger.debug("onEmailAck --------------------------", mailData);
 
         if (mailData.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
@@ -443,9 +445,9 @@ export class EmailView extends cc.Component {
         const loader = obj.asCom.getChild("loader").asLoader;
         const count = obj.asCom.getChild("count");
         const tick = obj.asCom.getChild("tick");
-        let url = REWARD_IMG[selectGain.id];
+        const url = REWARD_IMG[selectGain.id];
         if (url === undefined || url === null || url === "") {
-            Logger.error(`renderAttachmentListItem ,unknown resource id ,id =${selectGain.id} index =${index}`)
+            Logger.error(`renderAttachmentListItem ,unknown resource id ,id =${selectGain.id} index =${index}`);
         }
         loader.url = url;
 

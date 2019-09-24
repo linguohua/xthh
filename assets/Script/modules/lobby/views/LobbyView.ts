@@ -428,6 +428,8 @@ export class LobbyView extends cc.Component {
 
             }
         }
+
+        this.lm.eventTarget.emit("onMailAck", mailData);
     }
 
     private onDataAck(msg: proto.casino.ProxyMessage): void {
