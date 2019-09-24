@@ -99,7 +99,7 @@ export class SignView extends cc.Component {
         if (act.param !== null) {
             param = act.param % 7;
             // 已经连续7天签到
-            if (act.param > 7 && param === 0 && !isCanSign) {
+            if (act.param >= 7 && param === 0 && !isCanSign) {
                 param = 7;
             }
         }
