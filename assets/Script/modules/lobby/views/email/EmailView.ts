@@ -236,13 +236,10 @@ export class EmailView extends cc.Component {
     }
     private refreshEmailList(playerEmails: proto.casino.Iplayer_mail[]): void {
 
-        for (const email of playerEmails) {
-            if (CommonFunction.toNumber(email.view_time) === 0) {
-                DataStore.setItem(KeyConstants.UNREAD_EMAIL, 1);
-                this.lm.eventTarget.emit("emailAllRead");
-                break;
-            }
-        }
+        playerEmails.sort((a: proto.casino.Iplayer_mail, b: proto.casino.Iplayer_mail) => {
+
+            return CommonFunction.toNumber(a.view_time) - CommonFunction.toNumber(b.view_time);
+        });
 
         this.playerEmails = [];
         for (const email of playerEmails) {
