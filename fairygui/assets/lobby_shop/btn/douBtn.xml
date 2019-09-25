@@ -12,5 +12,5 @@
     </image>
     <text id="n2_b75t" name="n2" xy="17,10" size="131,39" scale="1,0.98" font="Microsoft YaHei" fontSize="30" color="#8a3021" align="center" vAlign="middle" autoSize="none" bold="true" text="欢乐豆"/>
   </displayList>
-  <Button mode="Radio"/>
+  <Button mode="Radio" sound="ui://snwj6cnxg6p0nj"/>
 </component>

@@ -238,6 +238,8 @@ export class LoginView extends cc.Component {
     protected onLoad(): void {
         // 构建一个event target用于发出destroy事件
         this.eventTarget = new cc.EventTarget();
+
+        fgui.UIConfig.buttonSound = "ui://lobby_bg_package/sound_touch";
     }
     protected testHTTPLogin(): void {
         let openudid = DataStore.getString(KeyConstants.OPEN_UD_ID, "");

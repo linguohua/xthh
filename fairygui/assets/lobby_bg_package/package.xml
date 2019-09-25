@@ -106,6 +106,8 @@
     <image id="vpnknf" name="cz_icon_hb2.png" path="/resource/" exported="true"/>
     <image id="kp7lng" name="cz_icon_jb2.png" path="/resource/" exported="true"/>
     <image id="kp7lnh" name="ty_icon_jb.png" path="/resource/" exported="true"/>
+    <sound id="g6p0ni" name="sound_touch.mp3" path="/sound/" exported="true"/>
+    <sound id="g6p0nj" name="sound_move.mp3" path="/sound/" exported="true"/>
   </resources>
   <publish name="lobby_bg_package"/>
 </packageDescription>
