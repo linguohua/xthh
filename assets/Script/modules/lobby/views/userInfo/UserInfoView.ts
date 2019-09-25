@@ -42,7 +42,7 @@ export class UserInfoView extends cc.Component {
     private hupaiText: fgui.GObject;
     private piaolaiText: fgui.GObject;
     private fangpaoText: fgui.GObject;
-    private tuihuiText: fgui.GObject;
+    private leaveGuildText: fgui.GObject;
     private roundText: fgui.GObject;
 
     private phone: fgui.GObject;
@@ -85,6 +85,9 @@ export class UserInfoView extends cc.Component {
 
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         this.lm = lm;
+
+        this.registerHandler();
+
         const loader = lm.loader;
         loader.fguiAddPackage("lobby/fui_user_info/lobby_user_info");
 
@@ -102,13 +105,10 @@ export class UserInfoView extends cc.Component {
 
         this.win = win;
         this.initView();
-
-        lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK, this.onModifyAck, this);
-        lm.eventTarget.on("onBindPhone", this.onBindPhone, this);
     }
 
     protected onDestroy(): void {
-        this.lm.eventTarget.off("onBindPhone");
+        this.unregisterHandler();
         this.eventTarget.emit("destroy");
         this.win.hide();
         this.win.dispose();
@@ -116,6 +116,16 @@ export class UserInfoView extends cc.Component {
 
     private onCloseClick(): void {
         this.destroy();
+    }
+
+    private registerHandler(): void {
+        this.lm.eventTarget.on("onBindPhone", this.onBindPhone, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK, this.onModifyAck, this);
+    }
+
+    private unregisterHandler(): void {
+        this.lm.eventTarget.off("onBindPhone");
+        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK);
     }
 
     private initView(): void {
@@ -133,10 +143,10 @@ export class UserInfoView extends cc.Component {
     private initGameRecord(): void {
         let hupai: number = 0;
         let piaolai: number = 0;
-        let quitTime: number = 0;
         let fangchong: number = 0;
         let roundTotle: number = 0;
 
+        const leaveGuild = DataStore.getString(KeyConstants.LEAVE_GUILD, "0");
         const pdataStr = DataStore.getString(KeyConstants.DATA_GDY, "");
         const playerData = <proto.casino.player_gdy>JSON.parse(pdataStr);
 
@@ -146,10 +156,6 @@ export class UserInfoView extends cc.Component {
 
         if (playerData.hupai_total !== null) {
             hupai = playerData.hupai_total;
-        }
-
-        if (playerData.quit_time !== null) {
-            quitTime = CommonFunction.toNumber(playerData.quit_time);
         }
 
         if (playerData.fangchong_total !== null) {
@@ -163,8 +169,8 @@ export class UserInfoView extends cc.Component {
         this.hupaiText.text = `${hupai}`;
         this.piaolaiText.text = `${piaolai}`;
         this.fangpaoText.text = `${fangchong}`;
-        this.tuihuiText.text = `${quitTime}`;
         this.roundText.text = `${roundTotle}`;
+        this.leaveGuildText.text = `${+leaveGuild}`;
     }
 
     private async loadEditBox(): Promise<cc.Node> {
@@ -228,7 +234,7 @@ export class UserInfoView extends cc.Component {
         this.hupaiText = userInfo.getChild("hupaiText");
         this.piaolaiText = userInfo.getChild("piaolaiText");
         this.fangpaoText = userInfo.getChild("fangpaoText");
-        this.tuihuiText = userInfo.getChild("tuihuiText");
+        this.leaveGuildText = userInfo.getChild("tuihuiText");
         this.roundText = userInfo.getChild("jushuText");
 
         this.userName.string = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
@@ -283,6 +289,7 @@ export class UserInfoView extends cc.Component {
             controller.selectedIndex = 0;
         }
     }
+
     private onModifyAck(msg: proto.casino.ProxyMessage): void {
         const reply = proto.casino.packet_modify_ack.decode(msg.Data);
         if (reply.ret !== 0) {

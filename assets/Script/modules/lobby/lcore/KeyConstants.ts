@@ -67,4 +67,5 @@ export namespace KeyConstants {
     export const UNREAD_EMAIL = "unReadEmail"; //当有邮件未读或附件未领取时
 
     export const LOTTERY_DRAW_INDEX = "lotteryDrawIndex"; //抽奖Index
+    export const LEAVE_GUILD = "leaveGuild"
 }

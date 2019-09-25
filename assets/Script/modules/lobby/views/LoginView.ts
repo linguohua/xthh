@@ -489,6 +489,7 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.GENDER, fastLoginAck.pdata.data.sex);
         DataStore.setItem(KeyConstants.PLAYER_ID, fastLoginAck.player_id);
         DataStore.setItem(KeyConstants.PHONE, fastLoginAck.pdata.data.phone);
+        DataStore.setItem(KeyConstants.LEAVE_GUILD, fastLoginAck.pdata.leave_guild);
         DataStore.setItem(KeyConstants.TABLE_ID, tableID);
         DataStore.setItem(KeyConstants.CARD, card);
         DataStore.setItem(KeyConstants.BEANS, beans);
