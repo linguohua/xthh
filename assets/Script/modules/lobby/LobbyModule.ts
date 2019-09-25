@@ -71,7 +71,22 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
         this.eventTarget.emit(`onGameSubRecordShow`);
         // this.eventTarget.emit(`onClubViewShow`);
     }
+    /**
+     * 統一在这里加入房间，可以阻塞其它消息，等加入房间完成再放行其它消息
+     * @param reqBuf ByteBuffer
+     */
+    public joinRoom(reqBuf: ByteBuffer): void {
+        if (reqBuf === null) {
+            Logger.fatal("joinRoom failed, reqBuf === null");
+        }
 
+        if (this.msgCenter !== undefined && this.msgCenter !== null) {
+            this.msgCenter.sendGameMsg(reqBuf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+            // block也要对应的unBlock
+            this.msgCenter.blockNormal();
+        }
+
+    }
     public requestJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void {
         Logger.debug("requestJoinRoom");
 

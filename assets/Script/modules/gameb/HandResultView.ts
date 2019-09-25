@@ -657,7 +657,7 @@ export class HandResultView extends cc.Component {
 
                 const req2 = new proto.casino.packet_table_join_req(req);
                 const buf = proto.casino.packet_table_join_req.encode(req2);
-
+                // 这里不用阻塞消息
                 this.room.getRoomHost().sendBinary(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
 
                 this.closeHandResultView();

@@ -1,4 +1,3 @@
-import { GameError } from "../errorCode/ErrorCodeExports";
 import {
     CommonFunction, DataStore,
     Dialog, Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
@@ -65,7 +64,6 @@ export class NewRoomView extends cc.Component {
     private lm: LobbyModuleInterface;
 
     public showView(): void {
-        this.registerHandler();
         this.initView();
         this.win.show();
     }
@@ -98,6 +96,7 @@ export class NewRoomView extends cc.Component {
     protected onLoad(): void {
         // 加载大厅界面
         const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+        this.lm = lm;
         const loader = lm.loader;
         loader.fguiAddPackage("lobby/fui_create_room/lobby_personal_room");
         const view = fgui.UIPackage.createObject("lobby_personal_room", "personalRoomView").asCom;
@@ -129,7 +128,6 @@ export class NewRoomView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK);
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK);
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK);
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK);
@@ -192,11 +190,6 @@ export class NewRoomView extends cc.Component {
         this.initPersonalRoom();
     }
 
-    private registerHandler(): void {
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        this.lm = lm;
-        lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
-    }
     private initBoxRecord(): void {
         // TODO:
     }
@@ -414,12 +407,10 @@ export class NewRoomView extends cc.Component {
 
         const req2 = new protoHH.casino.packet_table_join_req(req);
         const buf = protoHH.casino.packet_table_join_req.encode(req2);
+        this.lm.joinRoom(buf);
 
-        if (this.lm !== undefined) {
-            this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-            // block也要对应的unBlock
-            this.lm.msgCenter.blockNormal();
-        }
+        this.win.hide();
+        this.destroy();
 
     }
 
@@ -624,46 +615,6 @@ export class NewRoomView extends cc.Component {
 
     private onCloseClick(): void {
         this.destroy();
-    }
-
-    private onJoinTableAck(msg: protoHH.casino.ProxyMessage): void {
-        const joinRoomAck = protoHH.casino.packet_table_join_ack.decode(msg.Data);
-        if (joinRoomAck.ret !== 0) {
-            Logger.debug("onJoinTableAck, join room failed:", joinRoomAck.ret);
-
-            const err = GameError.getErrorString(joinRoomAck.ret);
-            Dialog.prompt(err);
-
-            this.lm.msgCenter.unblockNormal();
-
-            return;
-        }
-
-        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
-        const myUser = { userID: playerID };
-
-        const joinRoomParams = {
-            table: joinRoomAck.tdata,
-            reconnect: joinRoomAck.reconnect
-        };
-
-        const params: GameModuleLaunchArgs = {
-            jsonString: "",
-            userInfo: myUser,
-            joinRoomParams: joinRoomParams,
-            createRoomParams: null,
-            record: null,
-            roomId: joinRoomAck.tdata.room_id
-        };
-
-        Logger.debug("GameModuleLaunchArgs:", params);
-
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-
-        this.win.hide();
-        this.destroy();
-
-        lm.switchToGame(params, "gameb");
     }
 
 }

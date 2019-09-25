@@ -86,6 +86,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         this.loader = args.loader;
 
         this.lm.eventTarget.on("reconnect", this.onReconnect, this);
+        this.lm.eventTarget.on("onJoinRoomAck", this.onJoinTableAck, this);
 
         if (this.lm.nimSDK !== undefined) {
             this.lm.nimSDK.eventTarget.on("onNimMsg", this.onNimMsg, this);
@@ -435,7 +436,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
     // 请求加入房间
     private joinRoomReq(table: protoHH.casino.Itable): void {
-        this.lm.msgCenter.setGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTable, this); // 加入房间
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new protoHH.casino.packet_table_join_req();
         req.player_id = +playerID;
@@ -447,9 +447,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         Logger.debug("req:", req);
         const buf = protoHH.casino.packet_table_join_req.encode(req);
-        this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-
-        this.lm.msgCenter.blockNormal();
+        this.lm.joinRoom(buf);
     }
 
     private createRoom(
@@ -485,7 +483,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     private unsubMsg(): void {
         // 只有gameModule用到
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_CREATE_ACK); // 创建房间
-        this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK); // 加入房间
 
         // room 用到的
         const keys = Object.keys(msgHandlers);
@@ -608,9 +605,9 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         this.backToLobby();
     }
 
-    private onJoinTable(pmsg: protoHH.casino.ProxyMessage): void {
-        Logger.debug("GameModuleA.onJoinTable");
-        const joinTableAck = protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
+    private onJoinTableAck(joinTableAck: protoHH.casino.packet_table_join_ack): void {
+        Logger.debug("GameModuleA.onJoinTableAck");
+        // const joinTableAck = protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
             Logger.error("onReconnect, join table faild:", joinTableAck.ret);
             this.quit();
@@ -628,7 +625,8 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
             req.table_id = this.mRoom.roomInfo.id;
 
             const buf = protoHH.casino.packet_table_join_req.encode(req);
-            this.lm.msgCenter.sendGameMsg(buf, protoHH.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+
+            this.lm.joinRoom(buf);
 
             return;
         }

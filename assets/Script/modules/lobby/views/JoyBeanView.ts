@@ -1,6 +1,5 @@
 
-import { GameError } from "../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
@@ -26,7 +25,6 @@ export class JoyBeanView extends cc.Component {
     private fkText: fgui.GObject;
 
     public show(): void {
-        this.registerHandler();
         this.initView();
         this.win.show();
     }
@@ -63,17 +61,11 @@ export class JoyBeanView extends cc.Component {
     }
 
     protected onDestroy(): void {
-        this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK);
         this.win.hide();
         this.win.dispose();
 
     }
 
-    private registerHandler(): void {
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        this.lm = lm;
-        lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this);
-    }
     private initView(): void {
         const returnBtn = this.view.getChild("returnBtn");
         returnBtn.onClick(this.onCloseBtnClick, this);
@@ -174,9 +166,9 @@ export class JoyBeanView extends cc.Component {
             const req2 = new proto.casino.packet_table_join_req(req);
             const buf = proto.casino.packet_table_join_req.encode(req2);
 
-            this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-            // block也要对应的unBlock
-            this.lm.msgCenter.blockNormal();
+            this.lm.joinRoom(buf);
+            this.win.hide();
+            this.destroy();
         } else {
             // 提示用户没有豆了
             this.checkBeans(myGold);
@@ -228,8 +220,12 @@ export class JoyBeanView extends cc.Component {
         const buf = proto.casino.packet_table_join_req.encode(req2);
 
         if (this.lm !== undefined) {
-            this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
-            this.lm.msgCenter.blockNormal();
+            this.lm.joinRoom(buf);
+
+            this.win.hide();
+            this.destroy();
+        } else {
+            Logger.error("this.lm == undefined")
         }
     }
     private setJoyBtnInfo(btn: fgui.GComponent, room: proto.casino.Iroom): void {
@@ -257,46 +253,7 @@ export class JoyBeanView extends cc.Component {
 
         return str;
     }
-    private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
-        const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
-        if (joinRoomAck.ret !== 0) {
-            Logger.debug("onJoinTableAck, join room failed:", joinRoomAck.ret);
 
-            const err = GameError.getErrorString(joinRoomAck.ret);
-            Dialog.prompt(err);
-
-            // block也要对应的unBlock
-            this.lm.msgCenter.unblockNormal();
-
-            return;
-        }
-
-        const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
-        const myUser = { userID: playerID };
-
-        const joinRoomParams = {
-            table: joinRoomAck.tdata,
-            reconnect: joinRoomAck.reconnect
-        };
-
-        const params: GameModuleLaunchArgs = {
-            jsonString: "",
-            userInfo: myUser,
-            joinRoomParams: joinRoomParams,
-            createRoomParams: null,
-            record: null,
-            roomId: joinRoomAck.tdata.room_id
-        };
-
-        Logger.debug("GameModuleLaunchArgs:", params);
-
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-
-        this.win.hide();
-        this.destroy();
-
-        lm.switchToGame(params, "gameb");
-    }
     private helperNumber(): number[] {
         const havaHelperNum = [0, 1]; //领取免费豆次数 是否刷新
         const helperTimeStr = DataStore.getString(KeyConstants.HELPER_TIME, "");

@@ -78,6 +78,7 @@ export interface LobbyModuleInterface {
     returnFromGame(isFromJoyRoom: boolean): void;
     switchToGame(args: GameModuleLaunchArgs, moduleName: string): void;
     enterGame(joinRoomParams: JoinRoomParams, creatRoomParams: CreateRoomParams): void;
+    joinRoom(reqBuf: ByteBuffer): void;
     requestJoinRoom(table: protoHH.casino.Itable, reconnect: boolean): void;
     sendGameMsg(buf: ByteBuffer, code: number): void;
     setGameMsgHandler(code: number, h: (msg: protoHH.casino.ProxyMessage) => void, target: object): void;

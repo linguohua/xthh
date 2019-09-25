@@ -122,6 +122,7 @@ export class LobbyView extends cc.Component {
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_BROADCAST, this.onBroadcast, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_DATA_ACK, this.onDataAck, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MAIL_ACK, this.onEmailAck, this);
+        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this); // 加入桌子
     }
 
     private unregisterHandler(): void {
@@ -273,8 +274,6 @@ export class LobbyView extends cc.Component {
     }
 
     private joinTableReq(tableID: long, roomNumber?: number): void {
-        this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_ACK, this.onJoinTableAck, this); // 加入桌子
-
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new proto.casino.packet_table_join_req();
         req.player_id = +playerID;
@@ -291,7 +290,7 @@ export class LobbyView extends cc.Component {
         const req2 = new proto.casino.packet_table_join_req(req);
         const buf = proto.casino.packet_table_join_req.encode(req2);
         if (this.lm !== undefined) {
-            this.lm.msgCenter.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_TABLE_JOIN_REQ);
+            this.lm.joinRoom(buf);
         } else {
             Logger.error("this.lm === undefined");
         }
@@ -482,6 +481,8 @@ export class LobbyView extends cc.Component {
             if (!this.lm.isGameModuleExist()) {
                 const errMsg = GameError.getErrorString(joinRoomAck.ret);
                 Dialog.showDialog(errMsg);
+            } else {
+                this.lm.eventTarget.emit("onJoinTableAck", joinRoomAck);
             }
 
             this.lm.msgCenter.unblockNormal();
