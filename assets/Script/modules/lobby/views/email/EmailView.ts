@@ -245,7 +245,14 @@ export class EmailView extends cc.Component {
         for (const email of playerEmails) {
             if (email.data !== null) {
                 this.playerEmails.push(email);
+            } else {
+                Logger.error("filter email ", email);
             }
+        }
+
+        for (let i = 0; i < this.playerEmails.length; i++) {
+            const element = this.playerEmails[i];
+            Logger.debug(`第 ${i} 个 的 创建时间 = ${CommonFunction.toNumber(element.view_time)} `);
         }
 
         //this.playerEmails = playerEmails;

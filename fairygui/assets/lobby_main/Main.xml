@@ -22,7 +22,7 @@
     <component id="n11_9f1e" name="shopBtn" src="9f1ex" fileName="btn/shopBtn.xml" xy="61,537"/>
     <component id="n12_9f1e" name="settingBtn" src="9f1ey" fileName="btn/settingBtn.xml" xy="860,10"/>
     <component id="n14_9f1e" name="emailBtn" src="9f1ez" fileName="btn/emailBtn.xml" xy="367,580"/>
-    <component id="n15_9f1e" name="applyAgentBtn" src="9f1e10" fileName="btn/applyAgentBtn.xml" xy="55,214"/>
+    <component id="n15_9f1e" name="applyAgentBtn" src="9f1e10" fileName="btn/applyAgentBtn.xml" xy="97,261" pivot="0.5,0.5" anchor="true"/>
     <component id="n16_9f1e" name="huanlechangBtn" src="9f1e11" fileName="btn/huanlechangBtn.xml" xy="587,326"/>
     <component id="n17_9f1e" name="chsBtn" src="9f1e12" fileName="btn/chsBtn.xml" xy="587,143"/>
     <component id="n18_9f1e" name="personalRoomBtn" src="9f1e13" fileName="btn/personalRoomBtn.xml" xy="196,115"/>
@@ -36,7 +36,5 @@
     <text id="n33_u4cz" name="announcementText" xy="1136,98" pivot="1,0.5" anchor="true" size="68,32" fontSize="21" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" autoClearText="true" text="阿斯达"/>
     <text id="n37_octp" name="pos" xy="0,98" pivot="0,0.5" anchor="true" size="10,30" visible="false" fontSize="19" color="#ffffdd" align="center" vAlign="middle" leading="0" bold="true" singleLine="true" text=""/>
   </displayList>
-  <transition name="t0">
-    <item time="0" type="XY" target="n33_u4cz" value="0,78"/>
-  </transition>
+  <transition name="t0" autoPlay="true" autoPlayRepeat="-1"/>
 </component>

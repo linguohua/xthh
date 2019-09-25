@@ -9,6 +9,7 @@ import {
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
 import { Share } from "../shareUtil/ShareExports";
+import { LocalStrings } from "../strings/LocalStringsExports";
 import { AgreementView } from "./AgreementView";
 import { EmailView } from "./email/EmailView";
 import { JoyBeanView } from './JoyBeanView';
@@ -185,9 +186,19 @@ export class LobbyView extends cc.Component {
 
         const redPacketBtn = this.view.getChild("redPacketBtn");
         redPacketBtn.onClick(this.onRedPacketBtnClick, this);
+        const applyAgentBtn = this.view.getChild("applyAgentBtn");
+
+        this.showButtonAction(applyAgentBtn);
+        this.showButtonAction(redPacketBtn);
 
         const joyBeanHallBtn = this.view.getChild("huanlechangBtn");
         joyBeanHallBtn.onClick(this.onJoyBeanHallBtnClick, this);
+
+        const chsBtn = this.view.getChild("chsBtn");
+        chsBtn.onClick(this.onChsBtnClick, this);
+
+        const guildBtn = this.view.getChild("guildBtn");
+        guildBtn.onClick(this.onGuildBtnClick, this);
 
         this.nameText = this.view.getChild("nameText").asTextField;
         this.beansText = this.view.getChild("douText").asTextField;
@@ -204,6 +215,13 @@ export class LobbyView extends cc.Component {
         this.headLoader.onClick(this.onUserInfoClick, this);
 
         CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
+    }
+    private showButtonAction(btn: fgui.GObject): void {
+        btn.node.runAction(cc.sequence(
+            cc.scaleTo(0.1, 0, 1), cc.scaleTo(0.1, 1, 1), cc.scaleTo(0.1, 0, 1),
+            cc.scaleTo(0.1, 1, 1), cc.delayTime(1), cc.scaleTo(0.1, 0, 1),
+            cc.scaleTo(0.1, 1, 1), cc.scaleTo(0.1, 0, 1), cc.scaleTo(0.1, 1, 1),
+            cc.delayTime(0.3), cc.scaleTo(0.05, 1.1, 1.1), cc.scaleTo(0.05, 1, 1), cc.delayTime(0.5)).repeatForever());
     }
 
     private checkLocalRedDot(): void {
@@ -310,6 +328,13 @@ export class LobbyView extends cc.Component {
     private onJoyBeanHallBtnClick(): void {
         const view = this.addComponent(JoyBeanView);
         view.show();
+    }
+
+    private onChsBtnClick(): void {
+        Dialog.prompt(LocalStrings.findString("stayTuned"));
+    }
+    private onGuildBtnClick(): void {
+        Dialog.prompt(LocalStrings.findString("stayTuned"));
     }
 
     private onFriendClick(): void {

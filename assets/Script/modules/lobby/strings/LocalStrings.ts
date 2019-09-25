@@ -178,6 +178,9 @@ export namespace LocalStrings {
                 [`errorAuthCode`]: "验证码错误",
                 [`pleaseInputRealName`]: "请输入正确的名字",
                 [`pleaseInputRealIDCard`]: "请输入正确的身份证号",
+
+                [`stayTuned`]: "功能开发中,敬请期待",
+
                 // 12个 制表符
                 [`agreeText0`]: `                                                                用户服务协议
 重要须知：
