@@ -236,26 +236,35 @@ export class EmailView extends cc.Component {
     }
     private refreshEmailList(playerEmails: proto.casino.Iplayer_mail[]): void {
 
-        playerEmails.sort((a: proto.casino.Iplayer_mail, b: proto.casino.Iplayer_mail) => {
-
-            return CommonFunction.toNumber(a.view_time) - CommonFunction.toNumber(b.view_time);
-        });
-
         this.playerEmails = [];
+        const playerReadEmails: proto.casino.Iplayer_mail[] = [];
+        const playerUnreadEmails: proto.casino.Iplayer_mail[] = [];
         for (const email of playerEmails) {
             if (email.data !== null) {
-                this.playerEmails.push(email);
+                if (CommonFunction.toNumber(email.view_time) > 0) {
+                    playerReadEmails.push(email);
+                } else {
+                    playerUnreadEmails.push(email);
+                }
             } else {
-                Logger.error("filter email ", email);
+                Logger.error("filter error email ", email);
             }
         }
 
+        playerReadEmails.sort((a: proto.casino.Iplayer_mail, b: proto.casino.Iplayer_mail) => {
+            return CommonFunction.toNumber(a.view_time) - CommonFunction.toNumber(b.view_time);
+        });
+        playerUnreadEmails.sort((a: proto.casino.Iplayer_mail, b: proto.casino.Iplayer_mail) => {
+            return CommonFunction.toNumber(a.create_time) - CommonFunction.toNumber(b.create_time);
+        });
+
+        this.playerEmails = playerUnreadEmails.concat(playerReadEmails);
+
         for (let i = 0; i < this.playerEmails.length; i++) {
             const element = this.playerEmails[i];
-            Logger.debug(`第 ${i} 个 的 创建时间 = ${CommonFunction.toNumber(element.view_time)} `);
+            Logger.debug(
+                `第 ${i} 个 的 阅读时间 = ${CommonFunction.toNumber(element.view_time)} 创建时间为 ${CommonFunction.toNumber(element.create_time)}`);
         }
-
-        //this.playerEmails = playerEmails;
         this.emailList.numItems = this.playerEmails.length;
         //默认选择第一个
         this.selectFirst();
