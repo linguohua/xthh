@@ -489,7 +489,6 @@ export class LoginView extends cc.Component {
         DataStore.setItem(KeyConstants.GENDER, fastLoginAck.pdata.data.sex);
         DataStore.setItem(KeyConstants.PLAYER_ID, fastLoginAck.player_id);
         DataStore.setItem(KeyConstants.PHONE, fastLoginAck.pdata.data.phone);
-        DataStore.setItem(KeyConstants.OPEN_UD_ID, fastLoginAck.pdata.data.create_openudid);
         DataStore.setItem(KeyConstants.TABLE_ID, tableID);
         DataStore.setItem(KeyConstants.CARD, card);
         DataStore.setItem(KeyConstants.BEANS, beans);
@@ -521,6 +520,7 @@ export class LoginView extends cc.Component {
         if (fastLoginAck.channel === "mac") {
             // 游客登录标志
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.VISITOR);
+            DataStore.setItem(KeyConstants.OPEN_UD_ID, fastLoginAck.pdata.data.create_openudid);
         } else if (fastLoginAck.channel === "weixin") {
             // 微信登录标志
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.WECHAT);
