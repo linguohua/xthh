@@ -1,4 +1,5 @@
 import { Logger } from "./Logger";
+import { DisbandView } from "../views/disbandRoom/DisbandView";
 
 /**
  * 音效管理
@@ -92,6 +93,7 @@ export namespace SoundMgr {
         fgui.GRoot.inst.volumeScale = 0;
         cc.audioEngine.setEffectsVolume(0);
         cc.audioEngine.stopAllEffects();
+        Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
     };
 
     /**
@@ -101,6 +103,8 @@ export namespace SoundMgr {
         Logger.debug("enableEffects--------------- ");
         fgui.GRoot.inst.volumeScale = 1;
         cc.audioEngine.setEffectsVolume(1);
+
+        Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
     };
 
     /**
@@ -128,6 +132,12 @@ export namespace SoundMgr {
 
         cc.audioEngine.setMusicVolume(musicVolume);
         cc.audioEngine.setEffectsVolume(effectsVolume);
+
+        if (effectsVolume > 0) {
+            enableEffects();
+        } else {
+            disableEffects();
+        }
         playMusicAudio("gameb/music_hall", true);
 
     };
