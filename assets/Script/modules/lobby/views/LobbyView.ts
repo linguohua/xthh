@@ -510,8 +510,24 @@ export class LobbyView extends cc.Component {
             roomId: joinRoomAck.tdata.room_id
         };
 
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.switchToGame(params, "gameb");
+        const newRoomView = this.getComponent(NewRoomView);
+        if (newRoomView !== null) {
+            newRoomView.destroy();
+        }
+
+        const joyBeanView = this.getComponent(JoyBeanView);
+        if (joyBeanView !== null) {
+            joyBeanView.destroy();
+        }
+
+        const callback = () => {
+            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
+            lm.switchToGame(params, "gameb");
+        };
+
+        // 等销毁NewRoomView、JoyBeanView下一帧的时候再加入房间
+        this.scheduleOnce(callback, 0);
+
     }
 
     private onReconnectOk(fastLoginReply: proto.casino.packet_fast_login_ack): void {
@@ -914,4 +930,5 @@ export class LobbyView extends cc.Component {
         this.lm.logout();
         this.destroy();
     }
+
 }

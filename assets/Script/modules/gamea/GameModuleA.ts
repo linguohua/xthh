@@ -610,9 +610,13 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         // const joinTableAck = protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
             Logger.error("onReconnect, join table faild:", joinTableAck.ret);
-            this.quit();
+
+            Dialog.hideWaiting();
+            Dialog.hideReconnectDialog();
 
             this.lm.msgCenter.unblockNormal();
+
+            this.quit();
 
             return;
         }
@@ -647,14 +651,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     private async onReconnect(isFromShare: boolean): Promise<void> {
         Logger.debug("onReconnect");
         if (this.mRoom.isReplayMode()) {
-            return;
-        }
-
-        if (this.mRoom.isGameOver) {
-            if (isFromShare) {
-                Dialog.showDialog(LocalStrings.findString('roomHasClose'));
-            }
-
             return;
         }
 

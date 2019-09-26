@@ -409,8 +409,8 @@ export class NewRoomView extends cc.Component {
         const buf = protoHH.casino.packet_table_join_req.encode(req2);
         this.lm.joinRoom(buf);
 
-        this.win.hide();
-        this.destroy();
+        // this.win.hide();
+        // this.destroy();
 
     }
 

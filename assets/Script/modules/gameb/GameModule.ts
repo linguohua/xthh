@@ -9,7 +9,6 @@ import {
 // tslint:disable-next-line:no-require-imports
 // import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { LotteryView } from "../lobby/views/lottery/LotteryViewExports";
 import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
 import { Replay } from "./Replay";
@@ -476,10 +475,16 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new protoHH.casino.packet_table_join_req();
         req.player_id = +playerID;
+        // 私有房在准备阶段，用房间号加入房间，在开局后用table_id
         if (this.mRoom.handStartted > 0) {
             req.table_id = table.id;
         } else {
             req.tag = table.tag;
+        }
+
+        // 欢乐场只有table_id
+        if (this.joyRoom !== null) {
+            req.table_id = table.id;
         }
 
         Logger.debug("req:", req);
@@ -650,9 +655,14 @@ export class GameModule extends cc.Component implements GameModuleInterface {
         // const joinTableAck = protoHH.casino.packet_table_join_ack.decode(pmsg.Data);
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_INVALID) {
             Logger.error("onReconnect, join table faild:", joinTableAck.ret);
-            this.quit();
+
+            Dialog.hideWaiting();
+            Dialog.hideReconnectDialog();
 
             this.lm.msgCenter.unblockNormal();
+
+            // 不在大结算界面和小结算界面，可以直接退出大厅
+            this.quit();
 
             return;
         }
@@ -686,14 +696,6 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private async onReconnect(isFromShare: boolean): Promise<void> {
         Logger.debug("onReconnect : ", this.mRoom.isGameOver);
         if (this.mRoom.isReplayMode()) {
-            return;
-        }
-
-        if (this.mRoom.isGameOver) {
-            if (isFromShare) {
-                Dialog.showDialog(LocalStrings.findString('roomHasClose'));
-            }
-
             return;
         }
 

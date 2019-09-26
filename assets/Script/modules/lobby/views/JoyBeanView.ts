@@ -167,8 +167,6 @@ export class JoyBeanView extends cc.Component {
             const buf = proto.casino.packet_table_join_req.encode(req2);
 
             this.lm.joinRoom(buf);
-            this.win.hide();
-            this.destroy();
         } else {
             // 提示用户没有豆了
             this.checkBeans(myGold);
@@ -221,11 +219,8 @@ export class JoyBeanView extends cc.Component {
 
         if (this.lm !== undefined) {
             this.lm.joinRoom(buf);
-
-            this.win.hide();
-            this.destroy();
         } else {
-            Logger.error("this.lm == undefined")
+            Logger.error("this.lm == undefined");
         }
     }
     private setJoyBtnInfo(btn: fgui.GComponent, room: proto.casino.Iroom): void {
