@@ -69,17 +69,17 @@ export namespace SoundMgr {
     export const stopMusic = (): void => {
         Logger.debug("stopMusic--------------- ");
         cc.audioEngine.stopMusic();
-        cc.audioEngine.setMusicVolume(0);
+        //cc.audioEngine.setMusicVolume(0);
 
     };
 
     /**
      * 恢复音乐
      */
-    export const replayMusic = (): void => {
+    export const playMusic = (): void => {
         // 如果不是程序主动暂停的音乐，如后台切换到任务菜单，需要先暂停音乐，再恢复，否则有些手机从任务菜单回来，不会播放音乐
         Logger.debug("replayMusic--------------- ");
-        cc.audioEngine.setMusicVolume(1);
+        //cc.audioEngine.setMusicVolume(1);
         playMusicAudio("gameb/music_hall", true);
 
     };
@@ -131,15 +131,18 @@ export namespace SoundMgr {
      */
     export const initSound = (musicVolume: number, effectsVolume: number): void => {
 
-        cc.audioEngine.setMusicVolume(musicVolume);
+        cc.audioEngine.setMusicVolume(1);
         cc.audioEngine.setEffectsVolume(effectsVolume);
+
+        if (musicVolume > 0) {
+            playMusic();
+        }
 
         if (effectsVolume > 0) {
             enableEffects();
         } else {
             disableEffects();
         }
-        playMusicAudio("gameb/music_hall", true);
 
     };
 }

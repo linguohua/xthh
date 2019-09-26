@@ -222,7 +222,7 @@ export class RoomSettingView extends cc.Component {
     private onMusicSoundBtnClick(): void {
         if (this.musicBtn.selected) {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
-            SoundMgr.replayMusic();
+            SoundMgr.playMusic();
         } else {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
             SoundMgr.stopMusic();

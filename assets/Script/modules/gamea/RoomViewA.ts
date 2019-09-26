@@ -681,7 +681,7 @@ export class RoomViewA {
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
         this.recordManager.stop();
-        SoundMgr.replayMusic();
+        SoundMgr.playMusic();
     }
 
     private initOtherView(): void {

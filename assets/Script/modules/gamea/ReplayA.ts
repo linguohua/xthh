@@ -242,7 +242,7 @@ export class ReplayA {
     private onMusicSoundBtnClick(): void {
         if (this.btnYY.selected) {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
-            SoundMgr.replayMusic();
+            SoundMgr.playMusic();
         } else {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
             SoundMgr.stopMusic();
