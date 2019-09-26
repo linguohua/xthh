@@ -255,16 +255,16 @@ export class EmailView extends cc.Component {
             return CommonFunction.toNumber(a.view_time) - CommonFunction.toNumber(b.view_time);
         });
         playerUnreadEmails.sort((a: proto.casino.Iplayer_mail, b: proto.casino.Iplayer_mail) => {
-            return CommonFunction.toNumber(a.create_time) - CommonFunction.toNumber(b.create_time);
+            return CommonFunction.toNumber(b.create_time) - CommonFunction.toNumber(a.create_time);
         });
 
         this.playerEmails = playerUnreadEmails.concat(playerReadEmails);
 
-        // for (let i = 0; i < this.playerEmails.length; i++) {
-        //     const element = this.playerEmails[i];
-        //     Logger.debug(
-        //         `第 ${i} 个 的 阅读时间 = ${CommonFunction.toNumber(element.view_time)} 创建时间为 ${CommonFunction.toNumber(element.create_time)}`);
-        // }
+        for (let i = 0; i < this.playerEmails.length; i++) {
+            const element = this.playerEmails[i];
+            Logger.debug(
+                `第 ${i} 个 的 阅读时间 = ${CommonFunction.toNumber(element.view_time)} 创建时间为 ${CommonFunction.toNumber(element.create_time)}`);
+        }
         this.emailList.numItems = this.playerEmails.length;
         //默认选择第一个
         this.selectFirst();
