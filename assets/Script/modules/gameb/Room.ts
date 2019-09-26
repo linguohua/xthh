@@ -207,7 +207,7 @@ export class Room {
         this.roomView = roomView;
 
         // 恢复上次设置的声音
-        this.setSound();
+        // this.setSound();
         // this.playBgSound();
 
         if (this.roomInfo.play_total !== null && !this.isReplayMode()) {
@@ -888,23 +888,7 @@ export class Room {
 
         return false;
     }
-    //播放背景音乐
-    // private playBgSound(): void {
-    //     SoundMgr.playMusicAudio("gameb/music_hall", true);
-    // }
 
-    // private stopBgSound(): void {
-    //     SoundMgr.stopMusic();
-    // }
-
-    // 恢复上次设置的音量
-    // 如果没设置过，则默认为0
-    private setSound(): void {
-        const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
-        cc.audioEngine.setMusicVolume(+musicVolume);
-        const effectsVolume = DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
-        cc.audioEngine.setEffectsVolume(+effectsVolume);
-    }
     //重连 初始化 牌组
     private initCards(playerInfo: protoHH.casino.Itable_player, player: Player, isNewDiacard: boolean = false): void {
         //先保存癞子 才能排序

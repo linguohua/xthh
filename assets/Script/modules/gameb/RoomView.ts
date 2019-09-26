@@ -18,7 +18,7 @@ import { TileImageMounter } from "./TileImageMounter";
 export class RoomView {
     public playerViews: PlayerView[];
     public listensObj: fgui.GComponent;
-    public donateMoveObj: fgui.GLoader;
+    // public donateMoveObj: fgui.GLoader;
     public tilesInWall: fgui.GObject;
     public statusHandlers: Function[];
     public unityViewNode: fgui.GComponent;
@@ -751,7 +751,7 @@ export class RoomView {
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
-        SoundMgr.pauseMusic();
+        SoundMgr.stopMusic();
         const options = {
             duration: 120 * 1000,
             format: 'mp3'
@@ -784,7 +784,7 @@ export class RoomView {
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
         this.recordManager.stop();
-        SoundMgr.resumeMusic();
+        SoundMgr.replayMusic();
     }
 
     private initOtherView(): void {
@@ -823,8 +823,8 @@ export class RoomView {
         this.laiziCom.visible = false;
         //倒计时
         this.countDownText = this.roundMarkView.getChild("num");
-        //道具
-        this.donateMoveObj = this.unityViewNode.getChild("donate").asLoader;
+        // //道具
+        // this.donateMoveObj = this.unityViewNode.getChild("donate").asLoader;
         //庄家动画挂载节点
         this.zhuangAniNode = this.unityViewNode.getChild("zhuangPos");
         this.zhuangPos = this.zhuangAniNode.node.position;

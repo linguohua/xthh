@@ -107,9 +107,6 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         // 进入游戏，置为1
         DataStore.setItem(KeyConstants.VOICE_TAG, 1);
 
-        // bg = view.getChild("classBg");
-        // CommonFunction.setBgFullScreenSize(bg);
-
         bg.onClick(
             () => {
                 if (this.room !== null && this.room !== undefined) {

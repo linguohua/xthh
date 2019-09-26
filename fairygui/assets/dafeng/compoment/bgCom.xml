@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640">
+  <displayList>
+    <image id="n74_g6p0" name="blueBg" src="lqn3g8" fileName="_resource/z_桌面打牌/zm_bj.jpg" xy="0,0">
+      <relation target="" sidePair="rightext-right,bottomext-bottom"/>
+    </image>
+  </displayList>
+</component>

@@ -80,12 +80,9 @@ export class LobbyView extends cc.Component {
         this.sendDataReq();
 
         const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
-        if (+musicVolume > 0) {
-            cc.audioEngine.setMusicVolume(1);
-        } else {
-            cc.audioEngine.setMusicVolume(0);
-        }
-        SoundMgr.playMusicAudio("gameb/music_hall", true);
+        const effectVolume = +DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
+
+        SoundMgr.initSound(musicVolume, effectVolume);
 
         this.initNimSDK();
         this.setLaunchCallBack();
@@ -146,6 +143,7 @@ export class LobbyView extends cc.Component {
             this.roomNumberFromShare = roomNumber;
             this.lm.msgCenter.closeWebsocket();
         }
+        SoundMgr.pauseMusic();
         SoundMgr.resumeMusic();
     }
     private initView(): void {

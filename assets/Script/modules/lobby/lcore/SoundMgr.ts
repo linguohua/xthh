@@ -1,8 +1,11 @@
+import { Logger } from "./Logger";
 
 /**
  * 音效管理
  */
 export namespace SoundMgr {
+
+    const audioClips: { [key: string]: cc.AudioClip } = {};
     /**
      * 播放音效判断是否
      * @param path 音频地址
@@ -23,19 +26,8 @@ export namespace SoundMgr {
                     callBack(num);
                 }
             }
-            // const num = cc.audioEngine.playEffect(<cc.AudioClip>result, loop);
-            // if (callBack !== undefined) {
-            //     callBack(num);
-            // }
-        });
-    };
 
-    /**
-     * 停止特效 音效
-     * @param num 音效id
-     */
-    export const stopEffect = (num: number): void => {
-        cc.audioEngine.stopEffect(num);
+        });
     };
 
     /**
@@ -44,38 +36,99 @@ export namespace SoundMgr {
      * @param loop 是否循环播放
      */
     export const playMusicAudio = (path: string, loop = false, callBack?: (num: number) => void): void => {
-        cc.loader.loadRes(`sound/${path}`, cc.AudioClip, null, (err: Error, result: Object) => {
-            if (err !== undefined && err !== null) {
-                console.error(`loadRes Music -------------: ${err}`);
+        const pathName = `sound/${path}`;
+        let audioClip = audioClips[pathName];
 
-                return;
-            }
-            const num = cc.audioEngine.playMusic(<cc.AudioClip>result, loop);
+        if (audioClip !== undefined && audioClip !== null) {
+            const num = cc.audioEngine.playMusic(audioClip, loop);
             if (callBack !== undefined) {
                 callBack(num);
             }
-        });
-    };
+        } else {
+            cc.loader.loadRes(`sound/${path}`, cc.AudioClip, null, (err: Error, result: Object) => {
+                if (err !== undefined && err !== null) {
+                    console.error(`loadRes Music -------------: ${err}`);
 
-    /**
-     * 停止特效 音效
-     * @param num 音效id
-     */
-    export const stopMusic = (): void => {
-        cc.audioEngine.stopMusic();
+                    return;
+                }
+                audioClip = <cc.AudioClip>result;
+                audioClips[pathName] = audioClip;
+
+                const num = cc.audioEngine.playMusic(audioClip, loop);
+                if (callBack !== undefined) {
+                    callBack(num);
+                }
+            });
+        }
+
     };
 
     /**
      * 暂停音乐
      */
-    export const pauseMusic = (): void => {
-        cc.audioEngine.pauseMusic();
+    export const stopMusic = (): void => {
+        Logger.debug("stopMusic--------------- ");
+        cc.audioEngine.stopMusic();
+        cc.audioEngine.setMusicVolume(0);
+
     };
 
     /**
      * 恢复音乐
      */
+    export const replayMusic = (): void => {
+        // 如果不是程序主动暂停的音乐，如后台切换到任务菜单，需要先暂停音乐，再恢复，否则有些手机从任务菜单回来，不会播放音乐
+        Logger.debug("replayMusic--------------- ");
+        cc.audioEngine.setMusicVolume(1);
+        playMusicAudio("gameb/music_hall", true);
+
+    };
+
+    /**
+     * 禁用声效
+     */
+    export const disableEffects = (): void => {
+        Logger.debug("disableEffects--------------- ");
+        fgui.GRoot.inst.volumeScale = 0;
+        cc.audioEngine.setEffectsVolume(0);
+        cc.audioEngine.stopAllEffects();
+    };
+
+    /**
+     * 启用声效
+     */
+    export const enableEffects = (): void => {
+        Logger.debug("enableEffects--------------- ");
+        fgui.GRoot.inst.volumeScale = 1;
+        cc.audioEngine.setEffectsVolume(1);
+    };
+
+    /**
+     * 暂停音频
+     */
+    export const pauseMusic = (): void => {
+        //cc.audioEngine.setMusicVolume(0);
+        Logger.debug("pauseMusic--------------- ");
+        cc.audioEngine.pauseMusic();
+    };
+
+    /**
+     * 恢复音频
+     */
     export const resumeMusic = (): void => {
+        // cc.audioEngine.setMusicVolume(1);
+        Logger.debug("resumeMusic--------------- ");
         cc.audioEngine.resumeMusic();
+    };
+
+    /**
+     * 初始化音量
+     */
+    export const initSound = (musicVolume: number, effectsVolume: number): void => {
+
+        cc.audioEngine.setMusicVolume(musicVolume);
+        cc.audioEngine.setEffectsVolume(effectsVolume);
+        playMusicAudio("gameb/music_hall", true);
+
     };
 }

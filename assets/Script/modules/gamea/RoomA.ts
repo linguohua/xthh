@@ -1,7 +1,7 @@
 
 import { NIMMessage } from "../lobby/chanelSdk/nimSdk/NimSDKExports";
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
-import { DataStore, Dialog, KeyConstants, Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
+import { Dialog, Logger, SoundMgr, UserInfo } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
@@ -204,10 +204,6 @@ export class RoomA {
     public loadRoomView(view: fgui.GComponent): void {
         const roomView = new RoomViewA(this, view);
         this.roomView = roomView;
-
-        // 恢复上次设置的声音
-        this.setSound();
-        // this.playBgSound();
 
         if (this.roomInfo.play_total !== null && !this.isReplayMode()) {
             this.handStartted = this.roomInfo.play_total;
@@ -810,23 +806,12 @@ export class RoomA {
         Dialog.prompt(LocalStrings.findString("gameIsPlaying"));
     }
     public showGamePauseTips(timeStamp: number): void {
-        //
         this.roomView.showGamePauseTips(timeStamp);
     }
 
     public hideGamePauseTips(): void {
-        //
         this.roomView.hideGamePauseTips();
     }
-
-    //播放背景音乐
-    // private playBgSound(): void {
-    //     SoundMgr.playMusicAudio("gameb/music_hall", true);
-    // }
-
-    // private stopBgSound(): void {
-    //     SoundMgr.stopMusic();
-    // }
 
     public onBgClick(): void {
         this.hideTingDataView();
@@ -835,15 +820,6 @@ export class RoomA {
 
     public showOrHideGpsTag(isShow: boolean): void {
         this.roomView.showOrHideGpsTag(isShow);
-    }
-
-    // 恢复上次设置的音量
-    // 如果没设置过，则默认为0
-    private setSound(): void {
-        const musicVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
-        cc.audioEngine.setMusicVolume(+musicVolume);
-        const effectsVolume = DataStore.getString(KeyConstants.EFFECT_VOLUME, "0");
-        cc.audioEngine.setEffectsVolume(+effectsVolume);
     }
     //重连 初始化 牌组
     private initCards(playerInfo: protoHH.casino.Itable_player, player: PlayerA, isNewDiacard: boolean = false): void {
@@ -909,24 +885,7 @@ export class RoomA {
             player.discarded2UI(`${isNewDiacardId}` === key, false);
             player.hand2UI(false);
         }
-        // Object.keys(this.players).forEach((key: string) => {
-        //     const player = this.players[key];
-        //     const melds = player.tilesMelds;
-        //     for (const meld of melds) {
-        //         const tId = meld.target_id;
-        //         if (tId !== undefined && tId !== null) {
-        //             const tP = this.getPlayerByPlayerID(tId);
-        //             if (tP !== undefined && tP !== null) {
-        //                 tP.removeTileFromDiscard(meld.cards[0]);
-        //             }
-        //         }
-        //     }
-        // });
-        // Object.keys(this.players).forEach(async (key: string) => {
-        //     const player = this.players[key];
-        //     await player.discarded2UI(`${isNewDiacardId}` === key, false);
-        //     player.hand2UI(false);
-        // });
+
     }
     private getMahjongLaveNumber(tile: number): number {
         //普通牌最大数量是4张，翻牌最大数量就是3张

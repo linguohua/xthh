@@ -266,7 +266,6 @@
     <component id="octpp9" name="desk_meld_hand_result_1.xml" path="/desk/mine/"/>
     <component id="j2i5pa" name="tipsCom.xml" path="/"/>
     <image id="j2i5pc" name="zm_wkq.png" path="/_resource/z_桌面打牌/"/>
-    <component id="tebrpd" name="bg_btn.xml" path="/"/>
     <component id="uptdpe" name="disbandCountDown.xml" path="/readyView/"/>
     <component id="r1q9pe" name="tipsOfMeCom.xml" path="/"/>
     <image id="82t1pf" name="zm_lt_bq1.png" path="/_resource/z_桌面聊天/" exported="true"/>
@@ -302,6 +301,7 @@
     <component id="qxe0qh" name="playerChatCom.xml" path="/"/>
     <component id="zx6kqi" name="joyRoomHeadCom.xml" path="/"/>
     <image id="zx6kqj" name="zm_btn_zi_zb.png" path="/_resource/z_桌面打牌/"/>
+    <component id="g6p0qk" name="bgCom.xml" path="/compoment/"/>
   </resources>
   <publish name="dafeng"/>
 </packageDescription>

@@ -1,5 +1,5 @@
 import { GameError } from "../../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { AgreementView } from "../AgreementView";
@@ -485,7 +485,7 @@ export class UserInfoView extends cc.Component {
         this.clearCacheBtn = gameSetting.getChild("clearCache").asButton;
         this.gpsBtn = gameSetting.getChild("gpsBtn").asButton;
         this.logoutBtn = gameSetting.getChild("exitBtn").asButton;
-        this.musicBtn.onClick(this.onMusiceBtnClick, this);
+        this.musicBtn.onClick(this.onMusicBtnClick, this);
         this.effectBtn.onClick(this.onEffectBtnVolumeClick, this);
         this.clearCacheBtn.onClick(this.onClearCacheBtn, this);
         this.gpsBtn.onClick(this.onGpsBtnClick, this);
@@ -530,22 +530,22 @@ export class UserInfoView extends cc.Component {
         }
     }
 
-    private onMusiceBtnClick(): void {
+    private onMusicBtnClick(): void {
         if (this.musicBtn.selected) {
-            cc.audioEngine.setMusicVolume(1);
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
+            SoundMgr.replayMusic();
         } else {
-            cc.audioEngine.setMusicVolume(0);
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
+            SoundMgr.stopMusic();
         }
     }
 
     private onEffectBtnVolumeClick(): void {
         if (this.effectBtn.selected) {
-            cc.audioEngine.setEffectsVolume(1);
+            SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
         } else {
-            cc.audioEngine.setEffectsVolume(0);
+            SoundMgr.disableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 0);
         }
     }

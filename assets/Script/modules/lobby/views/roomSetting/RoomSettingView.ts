@@ -1,5 +1,5 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, Dialog, GResLoader, KeyConstants, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, GResLoader, KeyConstants, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
 export interface RoomInterface {
@@ -132,20 +132,6 @@ export class RoomSettingView extends cc.Component {
     private onSpaceBgClick(): void {
         this.destroy();
     }
-    // private saveData(): void {
-    //     DataStore.setItem("soundVolume", this.soundSlider.value.toString());
-    //     DataStore.setItem("musicVolume", this.musicSlider.value.toString());
-    // }
-    // private onMusicSliderChanged(slider: fgui.GSlider): void {
-    //     // Logger.debug("onMusicSliderChanged slider = ", slider.value
-    //     cc.audioEngine.setMusicVolume(slider.value / 100);
-    // }
-
-    // private onSoundSliderChanged(slider: fgui.GSlider): void {
-    //     // Logger.debug("onSoundSliderChanged slider = ", slider.value);
-    //     cc.audioEngine.setEffectsVolume(slider.value / 100);
-    // }
-
     // 0 关闭，1打开
     private changeGps(gpsState: number): void {
         DataStore.setItem(KeyConstants.GPS, gpsState);
@@ -223,27 +209,23 @@ export class RoomSettingView extends cc.Component {
 
     // 音效开关
     private onEffectSoundBtnClick(): void {
-        const effectVolume = cc.audioEngine.getEffectsVolume();
-        Logger.debug("onEffectSoundBtnClick,effectVolume:", effectVolume);
         if (this.effectSoundBtn.selected) {
-            cc.audioEngine.setEffectsVolume(1);
+            SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
         } else {
-            cc.audioEngine.setEffectsVolume(0);
+            SoundMgr.disableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 0);
         }
     }
 
     // 音乐开关
     private onMusicSoundBtnClick(): void {
-        const musicVolume = cc.audioEngine.getMusicVolume();
-        Logger.debug("onMusicSoundBtnClick,musicVolume:", musicVolume);
         if (this.musicBtn.selected) {
-            cc.audioEngine.setMusicVolume(1);
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
+            SoundMgr.replayMusic();
         } else {
-            cc.audioEngine.setMusicVolume(0);
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
+            SoundMgr.stopMusic();
         }
     }
 

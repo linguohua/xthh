@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, KeyConstants, Logger, Message, MsgQueue, MsgType } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, Logger, Message, MsgQueue, MsgType, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { HandlerActionResultDiscarded } from "./handlers/HandlerActionResultDiscarded";
@@ -229,10 +229,10 @@ export class Replay {
     // 音效开关
     private onEffectSoundBtnClick(): void {
         if (this.btnYX.selected) {
-            cc.audioEngine.setEffectsVolume(1);
+            SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
         } else {
-            cc.audioEngine.setEffectsVolume(0);
+            SoundMgr.disableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 0);
         }
     }
@@ -240,11 +240,11 @@ export class Replay {
     // 音乐开关
     private onMusicSoundBtnClick(): void {
         if (this.btnYY.selected) {
-            cc.audioEngine.setMusicVolume(1);
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
+            SoundMgr.replayMusic();
         } else {
-            cc.audioEngine.setMusicVolume(0);
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 0);
+            SoundMgr.stopMusic();
         }
     }
     private onSettingClick(): void {
