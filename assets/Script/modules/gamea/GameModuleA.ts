@@ -9,7 +9,6 @@ import {
 // tslint:disable-next-line:no-require-imports
 // import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
-import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { LotteryView } from "../lobby/views/lottery/LotteryViewExports";
 import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
 import { ReplayA as Replay } from "./ReplayA";

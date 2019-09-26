@@ -1,5 +1,4 @@
 import { Logger } from "./Logger";
-import { DisbandView } from "../views/disbandRoom/DisbandView";
 
 /**
  * 音效管理
@@ -91,6 +90,7 @@ export namespace SoundMgr {
     export const disableEffects = (): void => {
         Logger.debug("disableEffects--------------- ");
         fgui.GRoot.inst.volumeScale = 0;
+        fgui.UIConfig.buttonSoundVolumeScale = 0;
         cc.audioEngine.setEffectsVolume(0);
         cc.audioEngine.stopAllEffects();
         Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
@@ -102,6 +102,7 @@ export namespace SoundMgr {
     export const enableEffects = (): void => {
         Logger.debug("enableEffects--------------- ");
         fgui.GRoot.inst.volumeScale = 1;
+        fgui.UIConfig.buttonSoundVolumeScale = 1;
         cc.audioEngine.setEffectsVolume(1);
 
         Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
