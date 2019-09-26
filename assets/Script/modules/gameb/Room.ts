@@ -687,6 +687,10 @@ export class Room {
      */
     public async restorePlayerOperation(): Promise<void> {
         Logger.debug("restorePlayerOperation");
+        if (this.isJoyRoom) {
+            // 欢乐场重连 关闭等待玩家提示
+            this.roomView.stopJoyRoomWaitPlayer();
+        }
         this.onUpdateStatus(roomStatus.onPlay);
         //剩牌
         this.tilesInWall = this.roomInfo.cardcount;
