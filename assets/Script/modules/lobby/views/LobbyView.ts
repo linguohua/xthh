@@ -143,7 +143,6 @@ export class LobbyView extends cc.Component {
             this.roomNumberFromShare = roomNumber;
             this.lm.msgCenter.closeWebsocket();
         }
-        SoundMgr.pauseMusic();
         SoundMgr.resumeMusic();
     }
     private initView(): void {
