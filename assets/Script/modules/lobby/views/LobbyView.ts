@@ -143,7 +143,14 @@ export class LobbyView extends cc.Component {
             this.roomNumberFromShare = roomNumber;
             this.lm.msgCenter.closeWebsocket();
         }
-        SoundMgr.resumeMusic();
+
+        const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
+        if (musicVolume > 0) {
+            SoundMgr.replayMusic();
+        } else {
+            SoundMgr.stopMusic();
+        }
+
     }
     private initView(): void {
         const personalRoomBtn = this.view.getChild("personalRoomBtn");
@@ -609,8 +616,12 @@ export class LobbyView extends cc.Component {
             this.roomNumberFromShare = query[rKey];
             Logger.debug(`share from wx, room number:${this.roomNumberFromShare}`);
             const handler = () => {
-                SoundMgr.pauseMusic();
-                SoundMgr.resumeMusic();
+                const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
+                if (musicVolume > 0) {
+                    SoundMgr.replayMusic();
+                } else {
+                    SoundMgr.stopMusic();
+                }
             };
 
             wx.onAudioInterruptionEnd(handler);
