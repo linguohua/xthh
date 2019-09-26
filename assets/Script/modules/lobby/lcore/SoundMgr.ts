@@ -108,24 +108,6 @@ export namespace SoundMgr {
         Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
     };
 
-    // /**
-    //  * 暂停音频
-    //  */
-    // export const pauseMusic = (): void => {
-    //     //cc.audioEngine.setMusicVolume(0);
-    //     Logger.debug("pauseMusic--------------- ");
-    //     cc.audioEngine.pauseMusic();
-    // };
-
-    // /**
-    //  * 恢复音频
-    //  */
-    // export const resumeMusic = (): void => {
-    //     // cc.audioEngine.setMusicVolume(1);
-    //     Logger.debug("resumeMusic--------------- ");
-    //     cc.audioEngine.resumeMusic();
-    // };
-
     /**
      * 初始化音量
      */
