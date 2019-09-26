@@ -475,15 +475,16 @@ export class LobbyView extends cc.Component {
         Logger.debug("onJoinTableAck");
 
         const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
+        if (this.lm.isGameModuleExist()) {
+            this.lm.eventTarget.emit("onJoinTableAck", joinRoomAck);
+
+            return;
+        }
+
         if (joinRoomAck.ret !== 0) {
             Logger.debug("onJoinTableAck, failed:", joinRoomAck.ret);
-
-            if (!this.lm.isGameModuleExist()) {
-                const errMsg = GameError.getErrorString(joinRoomAck.ret);
-                Dialog.showDialog(errMsg);
-            } else {
-                this.lm.eventTarget.emit("onJoinTableAck", joinRoomAck);
-            }
+            const errMsg = GameError.getErrorString(joinRoomAck.ret);
+            Dialog.showDialog(errMsg);
 
             this.lm.msgCenter.unblockNormal();
 
