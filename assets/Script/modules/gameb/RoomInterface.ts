@@ -43,6 +43,7 @@ export class PlayerInfo {
     public readonly scoreTotal: number = 0;
     public readonly score: number;
     public readonly imaccid: string;
+    public readonly isRobot: boolean;
 
     public constructor(playerIfo: protoHH.casino.Itable_player, chairID: number) {
         this.gender = playerIfo.sex;
@@ -56,6 +57,7 @@ export class PlayerInfo {
         this.state = playerIfo.status;
         this.userID = playerIfo.id.toString();
         this.chairID = chairID;
+        this.isRobot = playerIfo.bot;
 
         if (playerIfo.channel_nickname !== undefined && playerIfo.channel_nickname !== null && playerIfo.channel_nickname !== "") {
             this.nick = playerIfo.channel_nickname;

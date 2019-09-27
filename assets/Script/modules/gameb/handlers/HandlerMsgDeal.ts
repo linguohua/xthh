@@ -88,7 +88,7 @@ export namespace HandlerMsgDeal {
         // Logger.debug("getPlayerImaccids, keys:", keys);
         for (const key of keys) {
             const player = <Player>players[key];
-            if (player.playerInfo.imaccid !== myImaccid) {
+            if (player.playerInfo.imaccid !== myImaccid && !player.playerInfo.isRobot) {
                 imaccids.push(player.playerInfo.imaccid);
             }
         }
