@@ -137,7 +137,7 @@ export class ChatView extends cc.Component {
     }
 
     private onMaskBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        // SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         const viewPos = this.view.node.position;
         const pos1 = new cc.Vec2(viewPos.x - 50, viewPos.y);

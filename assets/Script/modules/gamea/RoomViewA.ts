@@ -615,6 +615,7 @@ export class RoomViewA {
     // }
 
     private onVoiceBtnPress(event: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
 
