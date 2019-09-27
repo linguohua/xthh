@@ -40,6 +40,7 @@ export class Dialog {
     }
 
     public static prompt = (msg: string): void => {
+        SoundMgr.playEffectAudio(`gameb/sound_error`);
         if (!Dialog.inst.packageLoaded) {
             Dialog.inst.loader.fguiAddPackage("lobby/fui_dialog/lobby_dialog");
             Dialog.inst.packageLoaded = true;

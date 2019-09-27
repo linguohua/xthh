@@ -204,7 +204,6 @@ export class NewRoomView extends cc.Component {
 
     private initPersonalRoom(): void {
         const personalRoomView = this.view.getChild("srfCom").asCom;
-
         this.createRoomBtn = personalRoomView.getChild("createRoomBtn").asButton;
         this.createRoomBtn.onClick(this.onCreateRoomBtnClick, this);
 
@@ -214,6 +213,9 @@ export class NewRoomView extends cc.Component {
         const space = personalRoomView.getChild("space");
         space.onClick(this.onSpaceBtnClick, this);
 
+        const otherBtn = personalRoomView.getChild("otherBtn");
+        otherBtn.onClick(this.onOtherRadioBtnClick, this);
+
         for (let i = 0; i < 3; i++) {
             this.gameTypeRadioBtns[i] = personalRoomView.getChild(`type${i}`).asButton;
             this.gameTypeRadioBtns[i].onClick(this.onGameTypeRadioBtnClick, this);
@@ -222,6 +224,7 @@ export class NewRoomView extends cc.Component {
 
             this.anteRadioBtns[i] = personalRoomView.getChild(`baseScore${i}`).asButton;
             this.anteRadioBtns[i].data = i;
+            this.anteRadioBtns[i].onClick(this.onBaseScoreRadioBtnClick, this);
 
             this.roundRadioBtns[i] = personalRoomView.getChild(`round${i}`).asButton;
             this.roundRadioBtns[i].onClick(this.onRoundRadioBtnClick, this);
@@ -229,6 +232,7 @@ export class NewRoomView extends cc.Component {
 
             this.joinRadioBtns[i] = personalRoomView.getChild(`permission${i}`).asButton;
             this.joinRadioBtns[i].data = i;
+            this.joinRadioBtns[i].onClick(this.onJoinRadioBtnClick, this);
             this.joinRadioBtns[i].getChild("text").text = joinTypes[i];
 
             this.playerRequireRadioBtns[i] = personalRoomView.getChild(`playerNumber${i}`).asButton;
@@ -273,15 +277,6 @@ export class NewRoomView extends cc.Component {
         this.roundRadioBtns[roundRadioBtnIndex].selected = true;
         this.joinRadioBtns[joinRadioBtnIndex].selected = true;
         this.playerRequireRadioBtns[playerRequireRadioBtnIndex].selected = true;
-
-        // 注意：这里特殊处理仙桃晃晃, 仙桃晃晃可以是2人、4人
-        // if (myGame.casinoID === 2) {
-        //     if (playerRequireRadioBtnIndex === 0 || playerRequireRadioBtnIndex === 2) {
-        //         this.playerRequireRadioBtns[playerRequireRadioBtnIndex].selected = true;
-        //     } else {
-        //         this.playerRequireRadioBtns[1].selected = true;
-        //     }
-        // }
 
         // 计算房卡消耗
         const needCard = roundCost.rcosts[roundRadioBtnIndex].card;
@@ -482,6 +477,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onGameTypeRadioBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onGameTypeRadioBtnClick:", <string>ev.initiator.data);
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         this.onGameTypeSelect(gameTypeRadioBtnSelectIndex);
@@ -495,6 +491,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onRoundRadioBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
 
@@ -522,8 +519,20 @@ export class NewRoomView extends cc.Component {
             this.createRoomBtn._touchDisabled = true;
         }
     }
+    private onBaseScoreRadioBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+    }
+
+    private onJoinRadioBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+    }
+
+    private onOtherRadioBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+    }
 
     private onPlayerRequireBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerRequireRadioBtnSelectIndex = <number>ev.initiator.data;
         const gameTypeRadioBtnIndex = this.getGameTypeRadioBtnSelectIndex();
 
