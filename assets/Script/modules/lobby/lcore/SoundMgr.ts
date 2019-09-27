@@ -12,22 +12,38 @@ export namespace SoundMgr {
      * @param loop 是否循环播放
      */
     export const playEffectAudio = (path: string, loop = false, callBack?: (num: number) => void): void => {
-        cc.loader.loadRes(`sound/${path}`, cc.AudioClip, null, (err: Error, result: Object) => {
-            if (err !== undefined && err !== null) {
-                console.error(`loadRes Audio -------------: ${err}`);
+        const pathName = `sound/${path}`;
+        let audioClip = audioClips[pathName];
 
-                return;
-            }
-            // setEffectsVolume在微信上有问题，待以后cocos版本更新看下在改
+        if (audioClip !== undefined && audioClip !== null) {
             if (cc.audioEngine.getEffectsVolume() > 0) {
 
-                const num = cc.audioEngine.playEffect(<cc.AudioClip>result, loop);
+                const num = cc.audioEngine.playEffect(audioClip, loop);
                 if (callBack !== undefined) {
                     callBack(num);
                 }
             }
+        } else {
+            cc.loader.loadRes(`sound/${path}`, cc.AudioClip, null, (err: Error, result: Object) => {
+                if (err !== undefined && err !== null) {
+                    console.error(`loadRes Audio -------------: ${err}`);
 
-        });
+                    return;
+                }
+                audioClip = <cc.AudioClip>result;
+                audioClips[pathName] = audioClip;
+                // setEffectsVolume在微信上有问题，待以后cocos版本更新看下在改
+                if (cc.audioEngine.getEffectsVolume() > 0) {
+
+                    const num = cc.audioEngine.playEffect(audioClip, loop);
+                    if (callBack !== undefined) {
+                        callBack(num);
+                    }
+                }
+
+            });
+        }
+
     };
 
     /**
@@ -69,8 +85,6 @@ export namespace SoundMgr {
     export const stopMusic = (): void => {
         Logger.debug("stopMusic--------------- ");
         cc.audioEngine.stopMusic();
-        //cc.audioEngine.setMusicVolume(0);
-
     };
 
     export const isMusicePlaying = (): boolean => {
@@ -83,7 +97,6 @@ export namespace SoundMgr {
     export const playMusic = (): void => {
         // 如果不是程序主动暂停的音乐，如后台切换到任务菜单，需要先暂停音乐，再恢复，否则有些手机从任务菜单回来，不会播放音乐
         Logger.debug("replayMusic--------------- ");
-        //cc.audioEngine.setMusicVolume(1);
         playMusicAudio("gameb/music_hall", true);
 
     };
@@ -93,11 +106,9 @@ export namespace SoundMgr {
      */
     export const disableEffects = (): void => {
         Logger.debug("disableEffects--------------- ");
-        // fgui.GRoot.inst.volumeScale = 0;
-        // fgui.UIConfig.buttonSoundVolumeScale = 0;
         cc.audioEngine.setEffectsVolume(0);
         cc.audioEngine.stopAllEffects();
-        //Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
+
     };
 
     /**
@@ -105,11 +116,7 @@ export namespace SoundMgr {
      */
     export const enableEffects = (): void => {
         Logger.debug("enableEffects--------------- ");
-        // fgui.GRoot.inst.volumeScale = 1;
-        // fgui.UIConfig.buttonSoundVolumeScale = 1;
         cc.audioEngine.setEffectsVolume(1);
-
-        //Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
     };
 
     /**
