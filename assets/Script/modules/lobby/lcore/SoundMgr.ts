@@ -97,7 +97,7 @@ export namespace SoundMgr {
         // fgui.UIConfig.buttonSoundVolumeScale = 0;
         cc.audioEngine.setEffectsVolume(0);
         cc.audioEngine.stopAllEffects();
-        Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
+        //Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
     };
 
     /**
@@ -109,7 +109,7 @@ export namespace SoundMgr {
         // fgui.UIConfig.buttonSoundVolumeScale = 1;
         cc.audioEngine.setEffectsVolume(1);
 
-        Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
+        //Logger.debug("fgui.GRoot.inst.volumeScale---------------  = ", fgui.GRoot.inst.volumeScale);
     };
 
     /**
