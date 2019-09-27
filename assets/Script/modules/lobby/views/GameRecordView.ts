@@ -1,4 +1,4 @@
-import { DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { DataStore, Dialog, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 
@@ -69,15 +69,22 @@ export class GameRecordView {
             }
             btn.getChild("n1").text = timeText;
             btn.getChild("n2").text = timeText;
-            btn.onClick(() => { this.onScoreTimeBtnClick(i); }, this);
+            btn.onClick(
+                () => {
+                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                    this.onScoreTimeBtnClick(i);
+                },
+                this);
         }
     }
 
     private onInputRecordIdBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.newRoomView.onInputRecordIdBtnClick();
     }
 
     private onScoreTimeBtnClick(day: number): void {
+
         const req2 = new protoHH.casino.packet_score_time_req();
         req2.casino_id = 0; //固定
         req2.day = day; // 0~6 0当天 1昨天 2前天
@@ -193,7 +200,7 @@ export class GameRecordView {
     }
 
     private onReplayBtnClick(rId: number): void {
-
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const table = this.replayTable[rId];
 
         if (table === undefined || table === null) {

@@ -189,9 +189,14 @@ export class LobbyView extends cc.Component {
         const addFK = this.view.getChild("addBtn2");
         addFK.onClick(this.onAddFKBtnClick, this);
 
+        const announcementBtn = this.view.getChild("announcementBtn");
+        announcementBtn.onClick(this.onAnnouncementBtnClick, this);
+
+        const applyAgentBtn = this.view.getChild("applyAgentBtn");
+        applyAgentBtn.onClick(this.onApplyAgentBtnClick, this);
+
         const redPacketBtn = this.view.getChild("redPacketBtn");
         redPacketBtn.onClick(this.onRedPacketBtnClick, this);
-        const applyAgentBtn = this.view.getChild("applyAgentBtn");
 
         this.showButtonAction(applyAgentBtn);
         this.showButtonAction(redPacketBtn);
@@ -304,43 +309,57 @@ export class LobbyView extends cc.Component {
     }
 
     private onUserInfoClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(UserInfoView);
         view.showView(UserInfoTabType.BASE_INFO);
     }
 
     private onSettingBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(UserInfoView);
         view.showView(UserInfoTabType.GAME_SETTING);
     }
 
     private onAddDouBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.FK);
     }
 
+    private onAnnouncementBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+    }
+    private onApplyAgentBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+    }
     private onRedPacketBtnClick(): void {
-        //
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.addComponent(RedPacketView);
     }
 
     private onJoyBeanHallBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(JoyBeanView);
         view.show();
     }
 
     private onChsBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Dialog.prompt(LocalStrings.findString("stayTuned"));
     }
     private onGuildBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Dialog.prompt(LocalStrings.findString("stayTuned"));
     }
 
     private onFriendClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         // TODO: 显示好友界面
         // this.showMarquee("");
         //this.lm.nimSDK.disconnect();
@@ -359,33 +378,40 @@ export class LobbyView extends cc.Component {
     }
 
     private openEmailClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.addComponent(EmailView);
     }
 
     private onCreateRoom(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const newRoomView = this.addComponent(NewRoomView);
         newRoomView.showView();
     }
 
     private onSignBtnClick(): void {
         // TODO: 需要显示签到界面
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.addComponent(SignView);
     }
 
     private onShopBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onQuestBtnClick(): void {
         // TODO: 显示任务界面
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
     }
 
     private onCommitteeBtnClick(): void {
         // TODO: 显示居委会界面
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
     }
 
     private onShareBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             Share.shareScreenshot("");
         }
@@ -804,6 +830,11 @@ export class LobbyView extends cc.Component {
     private onReturnFromGame(isFromJoyRoom: boolean): void {
         // this.announcementText.node.resumeAllActions();
         this.resetMarquee();
+
+        const redPacketBtn = this.view.getChild("redPacketBtn");
+        const applyAgentBtn = this.view.getChild("applyAgentBtn");
+        this.showButtonAction(applyAgentBtn);
+        this.showButtonAction(redPacketBtn);
 
         if (!isFromJoyRoom && this.isDaySignExist()) {
             this.addComponent(SignView);

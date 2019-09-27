@@ -1,4 +1,4 @@
-import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, SoundMgr } from "../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 
 /**
@@ -57,6 +57,7 @@ export class ViewSample extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 

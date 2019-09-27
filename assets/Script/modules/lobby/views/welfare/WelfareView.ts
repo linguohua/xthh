@@ -1,5 +1,5 @@
 import { GameError } from "../../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { RewardView } from "../reward/RewardViewExports";
 
@@ -49,6 +49,7 @@ export class WelfareView extends cc.Component {
     }
 
     private onCloseClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
@@ -76,7 +77,7 @@ export class WelfareView extends cc.Component {
         }
     }
     private onCollectClick(): void {
-        //MSG_HELPER_REQconst
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const req2 = new protoHH.casino.packet_helper_req();
         req2.player_id = +DataStore.getString(KeyConstants.PLAYER_ID);
         req2.refresh = this.refresh;

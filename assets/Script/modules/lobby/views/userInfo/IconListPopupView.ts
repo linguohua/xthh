@@ -1,4 +1,4 @@
-import { LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 
 const { ccclass } = cc._decorator;
 
@@ -65,6 +65,7 @@ export class IconListPopupView extends cc.Component {
         this.registerHandler();
     }
     private onHeadListItemClick(clickItem: fgui.GObject): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("clickItem index:", this.headList.getChildIndex(clickItem));
 
         const obj = clickItem.asCom;

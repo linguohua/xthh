@@ -1,5 +1,5 @@
 import { GameError } from "../../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LotteryRewardView } from "./LotteryRewardView";
 import { LotteryRuleView } from "./LotteryRuleView";
@@ -221,15 +221,18 @@ export class LotteryView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onRuleBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(LotteryRuleView);
         view.show(this.lm, this.currTurnableData);
     }
 
     private onJuniorBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.tabId === JUNIOR_ROOM_ID) {
             return;
         }
@@ -237,6 +240,7 @@ export class LotteryView extends cc.Component {
     }
 
     private onMiddleBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.tabId === MIDDLE_ROOM_ID) {
             return;
         }
@@ -244,6 +248,7 @@ export class LotteryView extends cc.Component {
     }
 
     private onSeniorBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.tabId === SENIOR_ROOM_ID) {
             return;
         }
@@ -266,6 +271,7 @@ export class LotteryView extends cc.Component {
     }
 
     private onDrawLotteryBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.drawLotteryBtn.getController("enable").selectedIndex === 0) {
             Logger.debug("energy not enough or on drawing ----------------------------------------");
 

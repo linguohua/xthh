@@ -1,4 +1,4 @@
-import { CommonFunction, Dialog, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, Dialog, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { proto } from "../lobby/protoHH/protoHH";
 import { Share } from "../lobby/shareUtil/ShareExports";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
@@ -75,14 +75,14 @@ export class GameOverResultViewA extends cc.Component {
         const copyRecordBtn = this.unityViewNode.getChild("copyRecordBtn");
         copyRecordBtn.onClick(this.onCopyClick, this);
 
-        const shanreBtn = this.unityViewNode.getChild("shanreBtn");
-        shanreBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
-        shanreBtn.onClick(this.onShareButtonClick, this);
+        const shareBtn = this.unityViewNode.getChild("shanreBtn");
+        shareBtn.visible = cc.sys.platform === cc.sys.WECHAT_GAME;
+        shareBtn.onClick(this.onShareButtonClick, this);
 
         if (room.isReplayMode()) {
             backHallBtn.visible = false;
             copyRecordBtn.visible = false;
-            shanreBtn.visible = false;
+            shareBtn.visible = false;
             this.room.getRoomHost().eventTarget.once("closeGameOverResult", this.closeGameOverResultView, this);
         }
         //更新数据
@@ -304,6 +304,7 @@ export class GameOverResultViewA extends cc.Component {
     }
     //玩家点击返回按钮
     private onCloseButtonClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         // -- 降低消息队列的优先级为0
         if (!this.room.isReplayMode()) {
             this.room.getRoomHost().unblockNormal();
@@ -318,11 +319,13 @@ export class GameOverResultViewA extends cc.Component {
     }
 
     private onShareButtonClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Share.shareScreenshot("");
         // Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
     }
 
     private onCopyClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const table = this.msgGameOver.tdata;
         let gameName = "";
         if (table.room_id === 2100 || table.room_id === 2102) {

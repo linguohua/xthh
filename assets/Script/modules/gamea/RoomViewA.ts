@@ -517,6 +517,7 @@ export class RoomViewA {
     // }
 
     private onGPSBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onGPSBtnClick");
 
         let gpsView = this.component.getComponent(GpsView);
@@ -535,7 +536,7 @@ export class RoomViewA {
     }
 
     private onSettingBtnClick(): void {
-        // Logger.debug("onSettingBtnClick---------------");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const settingView = this.component.addComponent(RoomSettingView);
         const isOwner = this.room.ownerID === this.room.getMyPlayerInfo().userID;
         settingView.showView(this.room, isOwner, this.room.getRoomHost().getLobbyModuleLoader());
@@ -545,6 +546,7 @@ export class RoomViewA {
      * 聊天按钮点击事件
      */
     private onChatBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onChatBtnClick");
         const chatView = this.component.addComponent(ChatView);
         const loader = this.room.getRoomHost().getLobbyModuleLoader();
@@ -556,12 +558,6 @@ export class RoomViewA {
      * 初始化
      */
     private initButton(): void {
-        // const chatBtn = view.getChild("chatBtn")
-        // chatBtn.onClick:Set(
-        //     function()
-        //         chatView.showChatView()
-        //     }
-        // )
 
         this.chatBtn = this.unityViewNode.getChild("chatBtn");
         this.recoredBtn = this.unityViewNode.getChild("recorderBtn");

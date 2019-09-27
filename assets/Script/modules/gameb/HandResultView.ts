@@ -604,7 +604,7 @@ export class HandResultView extends cc.Component {
 
     // 玩家点击“继续”按钮，注意如果牌局结束，此按钮是“大结算”
     private onAgainButtonClick(): void {
-        // Logger.debug("onAgainButtonClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         this.room.getRoomHost().eventTarget.off("disband");
         this.room.getRoomHost().eventTarget.off("closeHandResult");
@@ -727,6 +727,7 @@ export class HandResultView extends cc.Component {
         return time0 < time && time < time24;
     }
     private onBackButtonClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (!this.room.isReplayMode()) {
             this.room.getRoomHost().unblockNormal();
         }

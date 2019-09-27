@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { InputNumberView } from "../InputNumberView";
@@ -239,7 +239,7 @@ export class RedPacketView extends cc.Component {
     }
 
     private onCashOutBtnClick(): void {
-        //
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.loginChannel === Enum.CHANNEL_TYPE.VISITOR) {
             Dialog.prompt(LocalStrings.findString("pleaseUseWeChatLogin"));
 
@@ -330,12 +330,13 @@ export class RedPacketView extends cc.Component {
     }
 
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onExchangeBtnClick(redStore: proto.casino.Ired_store): void {
         //
-
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.loginChannel === Enum.CHANNEL_TYPE.VISITOR) {
             Dialog.prompt(LocalStrings.findString("pleaseUseWeChatLogin"));
 
@@ -398,6 +399,7 @@ export class RedPacketView extends cc.Component {
         btn.asCom.getChild("n1").text = text;
         btn.offClick(undefined, undefined);
         btn.onClick(() => {
+
             this.onExchangeBtnClick(redStoreItem);
             // tslint:disable-next-line:align
         }, this);

@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, Enum, GResLoader, HTTP, KeyConstants, LEnv, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
@@ -70,12 +70,27 @@ export class ShopView extends cc.Component {
     }
 
     private onCloseClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
+    }
+
+    private onFkBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
+    }
+    private onDouBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
+
     }
 
     private initView(): void {
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
+
+        const fkBtn = this.view.getChild("fkBtn").asButton;
+        fkBtn.onClick(this.onFkBtnClick, this);
+
+        const douBtn = this.view.getChild("douBtn").asButton;
+        douBtn.onClick(this.onDouBtnClick, this);
 
         this.initShopCardView();
         this.initShopBeansView();
@@ -172,6 +187,7 @@ export class ShopView extends cc.Component {
     }
 
     private onBeanBuyBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         // TODO: 检查如何是ios, 则提示暂不支持ios
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
@@ -179,7 +195,6 @@ export class ShopView extends cc.Component {
 
             return;
         }
-
         const index = <number>ev.initiator.data;
         const beanPayCfg = this.beanPayCfgs[index];
 
@@ -189,6 +204,7 @@ export class ShopView extends cc.Component {
     }
 
     private onCardBuyBtnClick(ev: fgui.Event): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         // TODO: 检查如何是ios, 则提示暂不支持ios
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
@@ -204,10 +220,12 @@ export class ShopView extends cc.Component {
 
     }
     private onVipBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.showVipView();
     }
 
     private onVipViewCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.win.hide();
         this.win.contentPane = this.view;
         this.win.show();

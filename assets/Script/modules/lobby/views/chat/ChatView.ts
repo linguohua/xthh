@@ -1,6 +1,6 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
 import {
-    CommonFunction, DataStore, GResLoader, KeyConstants, Logger
+    CommonFunction, DataStore, GResLoader, KeyConstants, Logger, SoundMgr
 } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 
@@ -137,6 +137,7 @@ export class ChatView extends cc.Component {
     }
 
     private onMaskBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         const viewPos = this.view.node.position;
         const pos1 = new cc.Vec2(viewPos.x - 50, viewPos.y);
@@ -154,18 +155,22 @@ export class ChatView extends cc.Component {
     }
 
     private onEmotion1Click(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.clickEmotion(1);
     }
 
     private onEmotion2Click(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.clickEmotion(2);
     }
 
     private onEmotion3Click(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.clickEmotion(3);
     }
 
     private onEmotion4Click(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.clickEmotion(4);
     }
 

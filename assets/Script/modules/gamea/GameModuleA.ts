@@ -219,7 +219,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         if (this.lm.msgCenter !== null) {
             return this.lm.msgCenter.getServerTime();
         } else {
-            Logger.error("getServerTime faild, this.lm.msgCenter === null");
+            Logger.error("getServerTime failed, this.lm.msgCenter === null");
 
             return Date.now() / 1000;
         }

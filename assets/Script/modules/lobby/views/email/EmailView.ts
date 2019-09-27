@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../../protobufjs/long");
 import { proto } from "../../protoHH/protoHH";
@@ -131,10 +131,12 @@ export class EmailView extends cc.Component {
     }
 
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onDeleteBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerEmail = this.selectPlayerEmail;
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
         const req2 = new proto.casino.packet_mail_req();
@@ -149,6 +151,7 @@ export class EmailView extends cc.Component {
     }
 
     private onTakeBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerEmail = this.selectPlayerEmail;
 
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
@@ -405,6 +408,7 @@ export class EmailView extends cc.Component {
         const btn = obj.asCom.getChild("spaceBtn");
         btn.offClick(undefined, undefined);
         btn.onClick(() => {
+            SoundMgr.playEffectAudio(`gameb/sound_touch`);
             this.selectEmail(playerEmail, obj, index);
             // tslint:disable-next-line:align
         }, this);

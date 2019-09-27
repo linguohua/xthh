@@ -1,6 +1,7 @@
 import { CommonFunction } from "./CommonFunction";
 import { GResLoader } from "./LDataType";
 import { Logger } from "./Logger";
+import { SoundMgr } from "./SoundMgr";
 
 /**
  * 一些通用的对话框
@@ -102,6 +103,7 @@ export class Dialog {
             closeBtn.visible = true;
             closeBtn.onClick(
                 () => {
+                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
                     Dialog.inst.dlgWin.hide();
                 },
                 undefined);
@@ -122,6 +124,7 @@ export class Dialog {
             yesBtn.x = 423;
             yesBtn.onClick(
                 () => {
+                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
                     Dialog.inst.dlgWin.hide();
                     yesCb2();
                 },
@@ -138,6 +141,7 @@ export class Dialog {
             noBtn.visible = true;
             noBtn.onClick(
                 () => {
+                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
                     Dialog.inst.dlgWin.hide();
                     noCB();
                 },

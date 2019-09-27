@@ -1,5 +1,5 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { GpsDistance } from "./GpsDistance";
@@ -214,6 +214,7 @@ export class GpsView extends cc.Component {
     }
 
     private onDisbandBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const room = this.room;
         Dialog.showDialog(LocalStrings.findString("confirmDisbandRoom"), () => {
             room.onDissolveClicked();
@@ -226,6 +227,7 @@ export class GpsView extends cc.Component {
     }
 
     private onContinueBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 

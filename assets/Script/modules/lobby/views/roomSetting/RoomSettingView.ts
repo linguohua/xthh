@@ -130,6 +130,7 @@ export class RoomSettingView extends cc.Component {
     }
 
     private onSpaceBgClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
     // 0 关闭，1打开
@@ -167,6 +168,7 @@ export class RoomSettingView extends cc.Component {
     }
 
     private onGpsBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.gpsBtn.selected) {
             if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
                 Dialog.prompt(LocalStrings.findString("gpsEffectOnWeChat"));
@@ -198,6 +200,7 @@ export class RoomSettingView extends cc.Component {
     }
 
     private onVoiceBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.room.enableVoiceBtn(this.voiceBtn.selected);
 
         if (this.voiceBtn.selected) {
@@ -209,6 +212,7 @@ export class RoomSettingView extends cc.Component {
 
     // 音效开关
     private onEffectSoundBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.effectSoundBtn.selected) {
             SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
@@ -220,6 +224,7 @@ export class RoomSettingView extends cc.Component {
 
     // 音乐开关
     private onMusicSoundBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.musicBtn.selected) {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
             SoundMgr.playMusic();
@@ -230,12 +235,12 @@ export class RoomSettingView extends cc.Component {
     }
 
     private onLeaveRoomClick(): void {
-        Logger.debug("onLeaveRoomClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.room.onLeaveClicked();
     }
 
     private onDisbandBtnClick(): void {
-        //
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Dialog.showDialog(LocalStrings.findString('disbandTips'), () => {
 
             this.sendDisbandMsg();

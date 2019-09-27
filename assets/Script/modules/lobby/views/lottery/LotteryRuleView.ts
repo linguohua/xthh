@@ -1,4 +1,4 @@
-import { CommonFunction, LobbyModuleInterface } from "../../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, SoundMgr } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 const { ccclass } = cc._decorator;
@@ -63,6 +63,7 @@ export class LotteryRuleView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 

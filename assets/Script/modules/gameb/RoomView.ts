@@ -615,7 +615,7 @@ export class RoomView {
     // }
 
     private onGPSBtnClick(): void {
-        Logger.debug("onGPSBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         let gpsView = this.component.getComponent(GpsView);
         if (gpsView === null) {
@@ -633,13 +633,14 @@ export class RoomView {
     }
 
     private onSettingBtnClick(): void {
-        // Logger.debug("onSettingBtnClick---------------");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const settingView = this.component.addComponent(RoomSettingView);
         const isOwner = this.room.ownerID === this.room.getMyPlayerInfo().userID;
         settingView.showView(this.room, isOwner, this.room.getRoomHost().getLobbyModuleLoader());
     }
 
     private onEnergyBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.room.getRoomHost().showLotteryView();
     }
 
@@ -647,7 +648,7 @@ export class RoomView {
      * 聊天按钮点击事件
      */
     private onChatBtnClick(): void {
-        Logger.debug("onChatBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const chatView = this.component.addComponent(ChatView);
         const loader = this.room.getRoomHost().getLobbyModuleLoader();
         const roomHost = this.room.getRoomHost();
@@ -855,10 +856,20 @@ export class RoomView {
         //托管
         this.trusteeshipCom = this.unityViewNode.getChild("trusteeshipCom").asCom;
         this.trusteeshipComCancelBtn = this.trusteeshipCom.getChild("cancelBtn").asButton;
-        this.trusteeshipComCancelBtn.onClick(() => { this.room.onManagedClicked(false); }, this);
+        this.trusteeshipComCancelBtn.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.room.onManagedClicked(false);
+            },
+            this);
 
         this.trusteeshipBtn = this.unityViewNode.getChild("trusteeshipBtn").asButton;
-        this.trusteeshipBtn.onClick(() => { this.room.onManagedClicked(true); }, this);
+        this.trusteeshipBtn.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.room.onManagedClicked(true);
+            },
+            this);
         this.joyWaitText = this.unityViewNode.getChild("joyWaitText");
         if (this.room.isJoyRoom) {
             this.joyText = this.unityViewNode.getChild("joyText");

@@ -1,6 +1,6 @@
 import {
     CommonFunction, DataStore,
-    Dialog, Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger
+    Dialog, Enum, GameModuleLaunchArgs, KeyConstants, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
@@ -383,17 +383,21 @@ export class NewRoomView extends cc.Component {
     }
 
     private onBoxRecordBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
         this.initBoxRecord();
     }
 
     private onFKRecordBtn(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
         this.initFKRecord();
     }
     private onGameRecordBtn(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
         this.initGameRecord();
     }
 
     private onPersonalRoomBtn(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
         this.initPersonalRoom();
     }
 
@@ -415,6 +419,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onEnterBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onEnterBtnClick");
 
         const inputNumberView = this.addComponent(InputNumberView);
@@ -428,6 +433,7 @@ export class NewRoomView extends cc.Component {
     }
     private onSpaceBtnClick(): void {
         //
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Dialog.prompt(LocalStrings.findString("2playerLimitTips"));
     }
 
@@ -551,6 +557,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCreateRoomBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const myUser = { userID: playerID };
 
@@ -614,6 +621,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCloseClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 

@@ -1,5 +1,5 @@
 
-import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../lcore/LCoreExports";
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
 import { proto } from "../protoHH/protoHH";
@@ -89,15 +89,30 @@ export class JoyBeanView extends cc.Component {
         lotteryViewBtn.onClick(this.onLotteryViewBtnClick, this);
 
         const juniorBtn = this.view.getChild("junior").asCom;
-        juniorBtn.onClick(() => { this.onJoinRoomClick(0); }, this); //初级场
+        juniorBtn.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.onJoinRoomClick(0);
+            },
+            this); //初级场
         this.setJoyBtnInfo(juniorBtn, this.rooms[0]);
 
         const middleBtn = this.view.getChild("middle").asCom;
-        middleBtn.onClick(() => { this.onJoinRoomClick(1); }, this); //中级场
+        middleBtn.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.onJoinRoomClick(1);
+            },
+            this); //中级场
         this.setJoyBtnInfo(middleBtn, this.rooms[1]);
 
         const seniorBtn = this.view.getChild("senior").asCom;
-        seniorBtn.onClick(() => { this.onJoinRoomClick(2); }, this); //高级场
+        seniorBtn.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.onJoinRoomClick(2);
+            },
+            this); //高级场
         this.setJoyBtnInfo(seniorBtn, this.rooms[2]);
 
         const playQuicklyBtn = this.view.getChild("playQuicklyBtn");
@@ -110,41 +125,49 @@ export class JoyBeanView extends cc.Component {
         this.fkText.text = DataStore.getString(KeyConstants.CARD);
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onSettingBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(UserInfoView);
         view.showView(UserInfoTabType.GAME_SETTING);
     }
 
     private onAddDouBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.FK);
     }
 
     private onShareBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             Share.shareScreenshot("");
         }
     }
 
     private onShopBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onLotteryViewBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const view = this.addComponent(LotteryView);
         view.show(this.lm, this);
     }
 
     private onQuicklyClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         let joyRoom = null;
         const myGold = +DataStore.getString(KeyConstants.BEANS);
         //否则就找可以进的房间

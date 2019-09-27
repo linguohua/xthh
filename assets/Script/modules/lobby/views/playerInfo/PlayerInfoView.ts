@@ -1,6 +1,6 @@
 
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
@@ -70,10 +70,6 @@ export class PlayerInfoView extends cc.Component {
         this.id = this.view.getChild("id");
         this.headLoader = this.view.getChild("loader").asLoader;
         this.leaveGuildCount = this.view.getChild("count");
-
-        // this.douText = this.view.getChild("douText");
-        // this.fkText = this.view.getChild("fkText");
-
         const addFriendBtn = this.view.getChild("addFriendBtn").asButton;
         addFriendBtn.onClick(this.onAddFriendBtnClick, this);
 
@@ -111,11 +107,12 @@ export class PlayerInfoView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onAddFriendBtnClick(): void {
-        Logger.debug("onAddFriendBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         const req = new protoHH.casino.packet_friend_req();
         req.friend_id = +this.playerID;

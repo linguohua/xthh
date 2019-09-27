@@ -111,7 +111,7 @@ export class RewardView extends cc.Component {
     }
 
     private onMaskClick(): void {
-
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const len = this.gains.length;
 
         if (this.selectedGainIndex + 1 < len) {

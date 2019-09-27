@@ -1,5 +1,5 @@
 import { GameError } from "../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr } from "../lcore/LCoreExports";
 import { proto } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 import { InputNumberView } from "./InputNumberView";
@@ -86,10 +86,12 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onInputPhoneBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onInputPhoneBtnClick");
         const inputNumberView = this.addComponent(InputNumberView);
 
@@ -104,6 +106,7 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private onInputAuthBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onInputAuthBtnClick");
         const inputNumberView = this.addComponent(InputNumberView);
 
@@ -119,6 +122,7 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private onGetAuthBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.getAuthBtn.getController("enable").selectedIndex === 0) {
             return;
         }
@@ -143,6 +147,7 @@ export class PhoneAuthView extends cc.Component {
     }
 
     private onConfirmBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onConfirmBtnClick");
         if (this.confirmBtn.getController("enable").selectedIndex === 0) {
             return;

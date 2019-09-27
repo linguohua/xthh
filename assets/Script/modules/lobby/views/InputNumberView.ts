@@ -1,5 +1,5 @@
 
-import { CommonFunction, LobbyModuleInterface } from "../lcore/LCoreExports";
+import { CommonFunction, LobbyModuleInterface, SoundMgr } from "../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 
 /**
@@ -88,18 +88,19 @@ export class InputNumberView extends cc.Component {
         this.numbers = this.view.getChild("number").asTextField;
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onResetBtnClick(): void {
-        // Logger.debug("onResetBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.numbers.text = "";
         this.okBtn.grayed = true;
         this.okBtn._touchDisabled = true;
     }
 
     private onBackBtnClick(): void {
-        // Logger.debug("onBackBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         let len = this.numbers.text.length;
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
@@ -113,7 +114,7 @@ export class InputNumberView extends cc.Component {
     }
 
     private onInputButton(input: number): void {
-
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const numberLength = this.numbers.text.length;
         if (numberLength < this.maxLimit) {
             this.numbers.text = `${this.numbers.text}${input}`;
@@ -131,7 +132,7 @@ export class InputNumberView extends cc.Component {
     }
 
     private onOkBtnClick(): void {
-
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const num = this.numbers.text;
         if (num !== undefined && num !== null && num !== "") {
 

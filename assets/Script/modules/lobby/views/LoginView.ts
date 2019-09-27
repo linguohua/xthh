@@ -1,5 +1,8 @@
 import { WeiXinSDK } from "../chanelSdk/wxSdk/WeiXinSDkExports";
-import { CommonFunction, DataStore, Dialog, Enum, HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
+import {
+    CommonFunction, DataStore, Dialog, Enum,
+    HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr
+} from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
 // import Long = require("../protobufjs/long");
 // tslint:disable-next-line:no-require-imports
@@ -140,6 +143,7 @@ export class LoginView extends cc.Component {
     }
 
     public onLoginClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.button !== null) {
             this.button.hide();
         }
@@ -147,12 +151,14 @@ export class LoginView extends cc.Component {
     }
 
     public onWeixinBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Logger.debug('not wx env');
         }
     }
 
     public onPhoneLoginBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onPhoneLoginBtnClick");
         const view = this.addComponent(PhoneAuthView);
         view.show(OpenType.LOGIN, this);
@@ -239,7 +245,7 @@ export class LoginView extends cc.Component {
         // 构建一个event target用于发出destroy事件
         this.eventTarget = new cc.EventTarget();
 
-        fgui.UIConfig.buttonSound = "ui://lobby_bg_package/sound_touch";
+        //fgui.UIConfig.buttonSound = "ui://lobby_bg_package/sound_touch";
     }
     protected testHTTPLogin(): void {
         let openudid = DataStore.getString(KeyConstants.OPEN_UD_ID, "");
@@ -581,6 +587,7 @@ export class LoginView extends cc.Component {
                 // 防止连续点击
                 return;
             }
+            SoundMgr.playEffectAudio(`gameb/sound_touch`);
             Dialog.showWaiting();
             WeiXinSDK.login(<Function>this.wxLogin.bind(this));
         });

@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, KeyConstants, Logger } from "../lobby/lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
 import { Share } from "../lobby/shareUtil/ShareExports";
 
 import { RoomHost } from "../lobby/interface/LInterfaceExports";
@@ -244,7 +244,7 @@ export class ReadyView {
     }
 
     private onLeaveRoomBtnClick(): void {
-        Logger.debug("onLeaveRoomBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         Dialog.showDialog(LocalStrings.findString('quitRoom'), () => {
 
@@ -256,7 +256,7 @@ export class ReadyView {
     }
 
     private onDisbandBtnClick(): void {
-        Logger.debug("onDisbandBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Dialog.showDialog(LocalStrings.findString('disbandRoom'), () => {
 
             this.disbandRoom();
@@ -266,11 +266,11 @@ export class ReadyView {
         });
     }
     private onForOtherCreateRoomBtnClick(): void {
-        Logger.debug("onForOtherCreateRoomBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
     }
 
     private onShareBtnClick(): void {
-        Logger.debug("onLeaveRoomBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
 
             let text = "";

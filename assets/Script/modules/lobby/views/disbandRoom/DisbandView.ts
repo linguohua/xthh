@@ -1,5 +1,5 @@
 import { RoomHost } from "../../interface/LInterfaceExports";
-import { CommonFunction, DataStore, GResLoader, KeyConstants, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, GResLoader, KeyConstants, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 
 export interface RoomInterface {
@@ -148,12 +148,13 @@ export class DisbandView extends cc.Component {
     }
 
     private onRefuseBtnClicked(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.showButtons(false);
         this.room.sendDisbandAgree(false);
     }
 
     private onAgreeBtnClicked(): void {
-
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.isDisbandDone === true) {
             this.destroy();
         } else {

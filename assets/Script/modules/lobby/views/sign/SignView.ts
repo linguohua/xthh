@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
 const { ccclass } = cc._decorator;
 import { GameError } from "../../errorCode/ErrorCodeExports";
 // tslint:disable-next-line:no-require-imports
@@ -207,11 +207,12 @@ export class SignView extends cc.Component {
         this.updateSignAct(act);
     }
     private onCloseBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
     private onItemClick(i: number): void {
-        // const i = <number>ev.initiator.data;
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onItemClick:", i);
         const act = this.playerAct;
         const now = new Date();

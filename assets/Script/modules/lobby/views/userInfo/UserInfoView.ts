@@ -115,9 +115,14 @@ export class UserInfoView extends cc.Component {
     }
 
     private onCloseClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.destroy();
     }
 
+    private onTouchSound(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_move`);
+
+    }
     private registerHandler(): void {
         this.lm.eventTarget.on("onBindPhone", this.onBindPhone, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK, this.onModifyAck, this);
@@ -131,6 +136,15 @@ export class UserInfoView extends cc.Component {
     private initView(): void {
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
+
+        const baseInfoBtn = this.view.getChild("baseInfoBtn");
+        baseInfoBtn.onClick(this.onTouchSound, this);
+
+        const authInfoBtn = this.view.getChild("authInfoBtn");
+        authInfoBtn.onClick(this.onTouchSound, this);
+
+        const gameSettingBtn = this.view.getChild("gameSettingBtn");
+        gameSettingBtn.onClick(this.onTouchSound, this);
 
         this.initUserBaseInfo();
 
@@ -206,6 +220,12 @@ export class UserInfoView extends cc.Component {
 
         this.bindPhoneBtn = userInfo.getChild("bindPhoneBtn").asButton;
         this.bindPhoneBtn.onClick(this.onBindPhoneBtnClick, this);
+
+        const boyRadioBtn = userInfo.getChild("boyRadioBtn").asButton;
+        const girlRadioBtn = userInfo.getChild("girlRadioBtn").asButton;
+
+        girlRadioBtn.onClick(this.onGirlRadioBtnClick, this);
+        boyRadioBtn.onClick(this.onBoyRadioBtnClick, this);
 
         this.mountNode = userInfo.getChild("mountNode");
 
@@ -321,7 +341,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onChangeIconBtnClick(): void {
-        // TODO: SHOW POP UP -
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         const view = this.addComponent(IconListPopupView);
 
@@ -331,6 +351,7 @@ export class UserInfoView extends cc.Component {
 
     }
     private onModifyBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         Logger.debug("onModifyBtnClick");
         const controller = this.userInfo.getController("isModify");
         controller.selectedIndex = 1;
@@ -352,7 +373,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onSaveModifyBtnClick(): void {
-        Logger.debug("onSaveModifyBtn");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const controller = this.userInfo.getController("isModify");
         controller.selectedIndex = 0;
 
@@ -380,7 +401,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onBindPhoneBtnClick(): void {
-        Logger.debug("onBindPhoneBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         // 已经绑定，无需再绑定
         if (this.bindPhoneBtn.asButton.getController("bind").selectedIndex === 1) {
             return;
@@ -389,6 +410,14 @@ export class UserInfoView extends cc.Component {
         const view = this.addComponent(PhoneAuthView);
         view.show(OpenType.BIND_PHONE);
 
+    }
+
+    private onGirlRadioBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+    }
+
+    private onBoyRadioBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
     }
 
     private getAvatarIndexFromLoaderUrl(url: string): number {
@@ -443,13 +472,13 @@ export class UserInfoView extends cc.Component {
     }
 
     private onAgreementViewBtnClick(): void {
-        Logger.debug("onAgreementViewBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         this.addComponent(AgreementView);
 
     }
 
     private onAuthSaveBtnClick(): void {
-        Logger.debug("onAuthSaveBtnClick");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const nameReg = /^[\u4e00-\u9fa5]*$/;
         if (!nameReg.test(this.realName.string)) {
             Dialog.prompt(LocalStrings.findString("pleaseInputRealName"));
@@ -485,6 +514,7 @@ export class UserInfoView extends cc.Component {
         this.clearCacheBtn = gameSetting.getChild("clearCache").asButton;
         this.gpsBtn = gameSetting.getChild("gpsBtn").asButton;
         this.logoutBtn = gameSetting.getChild("exitBtn").asButton;
+
         this.musicBtn.onClick(this.onMusicBtnClick, this);
         this.effectBtn.onClick(this.onEffectBtnVolumeClick, this);
         this.clearCacheBtn.onClick(this.onClearCacheBtn, this);
@@ -531,6 +561,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onMusicBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.musicBtn.selected) {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
             SoundMgr.playMusic();
@@ -541,6 +572,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onEffectBtnVolumeClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.effectBtn.selected) {
             SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
@@ -551,7 +583,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onClearCacheBtn(): void {
-        Logger.debug("onClearCacheBtn");
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const tag = +DataStore.getString(KeyConstants.VOICE_TAG);
 
         if (tag === 0) {
@@ -565,6 +597,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onGpsBtnClick(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         if (this.gpsBtn.selected) {
             DataStore.setItem(KeyConstants.GPS, 1);
         } else {
@@ -622,6 +655,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onLogout(): void {
+        SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new proto.casino.packet_user_logout();
         req.player_id = +playerID;
