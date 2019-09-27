@@ -73,6 +73,10 @@ export namespace SoundMgr {
 
     };
 
+    export const isMusicePlaying = (): boolean => {
+        return cc.audioEngine.isMusicPlaying();
+    };
+
     /**
      * 恢复音乐
      */

@@ -752,7 +752,9 @@ export class RoomView {
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
-        SoundMgr.stopMusic();
+        if (SoundMgr.isMusicePlaying()) {
+            SoundMgr.stopMusic();
+        }
         const options = {
             duration: 120 * 1000,
             format: 'mp3'
@@ -785,7 +787,11 @@ export class RoomView {
         // Logger.debug(`startPosition:${this.startPosition}, endPosition:${endPosition}`);
 
         this.recordManager.stop();
-        SoundMgr.playMusic();
+
+        const musiceVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
+        if (+musiceVolume > 0) {
+            SoundMgr.playMusic();
+        }
     }
 
     private initOtherView(): void {
