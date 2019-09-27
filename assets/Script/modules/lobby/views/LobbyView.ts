@@ -146,6 +146,7 @@ export class LobbyView extends cc.Component {
 
         const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
         if (musicVolume > 0) {
+            SoundMgr.stopMusic();
             SoundMgr.playMusic();
         } else {
             SoundMgr.stopMusic();
@@ -644,7 +645,9 @@ export class LobbyView extends cc.Component {
             const handler = () => {
                 const musicVolume = +DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
                 if (musicVolume > 0) {
+                    SoundMgr.stopMusic();
                     SoundMgr.playMusic();
+
                 } else {
                     SoundMgr.stopMusic();
                 }
