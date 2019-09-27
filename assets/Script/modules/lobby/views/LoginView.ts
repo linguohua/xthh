@@ -286,6 +286,7 @@ export class LoginView extends cc.Component {
 
                     DataStore.setItem(KeyConstants.IM_ACCID, reply.im_accid);
                     DataStore.setItem(KeyConstants.IM_TOKEN, reply.im_token);
+                    DataStore.setItem(KeyConstants.TICKET, reply.ticket);
 
                     Logger.debug(reply);
                     this.fastLogin(reply, null).catch((reason) => {
@@ -647,6 +648,7 @@ export class LoginView extends cc.Component {
 
                     DataStore.setItem(KeyConstants.IM_ACCID, reply.data.im_accid);
                     DataStore.setItem(KeyConstants.IM_TOKEN, reply.data.im_token);
+                    DataStore.setItem(KeyConstants.TICKET, reply.data.ticket);
 
                     Logger.debug("reply =", reply);
                     this.fastLogin(null, reply).catch((reason) => {

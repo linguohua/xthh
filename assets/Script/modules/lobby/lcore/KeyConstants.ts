@@ -68,4 +68,6 @@ export namespace KeyConstants {
 
     export const LOTTERY_DRAW_INDEX = "lotteryDrawIndex"; //抽奖Index
     export const LEAVE_GUILD = "leaveGuild";
+
+    export const TICKET = "ticket";
 }

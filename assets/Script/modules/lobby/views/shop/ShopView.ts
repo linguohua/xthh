@@ -1,5 +1,6 @@
-import { CommonFunction, DataStore, GResLoader, KeyConstants, Logger } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, GResLoader, HTTP, KeyConstants, LEnv, Logger } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
+import { LocalStrings } from "../../strings/LocalStringsExports";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
@@ -171,14 +172,31 @@ export class ShopView extends cc.Component {
     }
 
     private onBeanBuyBtnClick(ev: fgui.Event): void {
+        // TODO: 检查如何是ios, 则提示暂不支持ios
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+
+            return;
+        }
+
         const index = <number>ev.initiator.data;
         const beanPayCfg = this.beanPayCfgs[index];
 
         Logger.debug("beanPayCfg:", beanPayCfg);
+        this.onBuyToWX(beanPayCfg.price, beanPayCfg.id);
 
     }
 
     private onCardBuyBtnClick(ev: fgui.Event): void {
+        // TODO: 检查如何是ios, 则提示暂不支持ios
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+
+            return;
+        }
+
         const index = <number>ev.initiator.data;
         const cardPayCfg = this.cardPayCfgs[index];
 
@@ -207,6 +225,91 @@ export class ShopView extends cc.Component {
         }
 
         return payCfgs;
+    }
+
+    /**
+     * 米大师支付
+     * @param bufQuantity 支付金额
+     */
+    private onBuyToWX(cost: number, payID: number): void {
+        console.log(`onBuyToWX, cost:${cost}, payID:${payID}`);
+
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+
+            return;
+        }
+
+        let buyQuantity = cost / 0.1;
+        let evn = 0;
+        if (LEnv.isDebug) {
+            evn = 1;
+            buyQuantity = 1 / 0.1;
+        }
+
+        const params = {
+            mode: "game",
+            env: evn,
+            currencyType: "CNY",
+            offerId: LEnv.offerID,
+            platform: "android",
+            buyQuantity: buyQuantity,
+            zoneId: "1",
+            success: async () => {
+                console.log(`onBuyToWX success, cost:${cost}, buyQuantity:${buyQuantity},payID:${payID}`);
+                // 请求服务器发货
+                this.requestServerShipments(payID);
+            },
+
+            fail: async (res: { errMsg: string; errCode: number }) => {
+                console.log("onBuyToWX fail", res);
+                Dialog.showDialog(res.errMsg);
+            }
+        };
+
+        Logger.debug("params;", params);
+        wx.requestMidasPayment(params);
+    }
+
+    private requestServerShipments(payID: number): void {
+        const req = {
+            channel: "weixin",
+            pay_id: payID
+        };
+
+        const reqString = JSON.stringify(req);
+
+        const userID = DataStore.getString(KeyConstants.USER_ID, "");
+        const ticket = DataStore.getString(KeyConstants.TICKET, "");
+        const url = LEnv.cfmt(`${LEnv.rootURL}${LEnv.shipmentsUrl}`, 2, userID, ticket);
+        Logger.debug("url:", url);
+        Logger.debug("req:", req);
+        HTTP.hPost(
+            this.eventTarget,
+            url,
+            (xhr: XMLHttpRequest, err: string) => {
+                let errMsg = null;
+                if (err !== null) {
+                    Logger.debug(err);
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+
+                    return;
+                }
+
+                errMsg = HTTP.hError(xhr);
+                if (errMsg !== null) {
+                    Logger.debug(errMsg);
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+
+                    return;
+                }
+
+                Logger.debug("responseText:", xhr.responseText);
+
+            },
+            "text",
+            reqString);
+
     }
 
 }
