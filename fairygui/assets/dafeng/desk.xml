@@ -7,7 +7,7 @@
     <component id="n69_8oqo" name="joyRoomHead4" src="zx6kqi" fileName="joyRoomHeadCom.xml" xy="14,207" size="83,112" visible="false"/>
     <text id="n72_8oqo" name="joyRoomGZText" xy="470,196" size="204,35" visible="false" fontSize="24" color="#20683c" align="center" vAlign="middle" autoSize="none" bold="true" text=""/>
     <text id="n71_8oqo" name="joyWaitText" xy="400,281" size="337,44" visible="false" fontSize="30" color="#4aff03" vAlign="middle" autoSize="none" bold="true" text="正在为您匹配游戏玩家..."/>
-    <text id="n64_t6oz" name="joyText" xy="18,15" size="410,39" visible="false" fontSize="20" color="#529e70" autoSize="none" bold="true" text=""/>
+    <text id="n64_t6oz" name="joyText" xy="18,15" size="410,39" visible="false" fontSize="24" color="#529e70" autoSize="none" bold="true" text=""/>
     <component id="n17_fxwe" name="player4" src="jmxy16" fileName="desk/left/desk_view_left.xml" xy="0,0"/>
     <component id="n16_fxwe" name="player3" src="jmxyk" fileName="desk/dui/desk_view_dui.xml" xy="0,0"/>
     <component id="n15_fxwe" name="player2" src="jmxy1u" fileName="desk/right/desk_view_right.xml" xy="0,0"/>

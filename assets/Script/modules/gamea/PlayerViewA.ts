@@ -1323,9 +1323,9 @@ export class PlayerViewA {
         for (let i = 0; i < 14; i++) {
             const card = this.myHandTilesNode.getChild(`n${i + 1}`).asCom;
 
-            if (isMe) {
-                card.name = i.toString(); //把手牌按钮对应的序号记忆，以便点击时可以识别
-            }
+            // if (isMe) {
+            //     card.name = i.toString(); //把手牌按钮对应的序号记忆，以便点击时可以识别
+            // }
 
             card.visible = false;
             hands[i] = card;
