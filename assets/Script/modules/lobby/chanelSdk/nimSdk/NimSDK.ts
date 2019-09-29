@@ -226,11 +226,13 @@ export class NimSDK {
         // const accids: string[] = [];
 
         const options = {
-            type: 'normal',
+            type: 'advanced',
             name: roomNumber,
             avatar: 'avatar',
             accounts: imaccids,
             ps: '我建了一个普通群',
+            joinMode: 'noVerify',
+            beInviteMode: 'noVerify',
             done: createTeamDone
         };
 
