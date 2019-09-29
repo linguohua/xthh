@@ -19,7 +19,6 @@ import { TileImageMounterA } from "./TileImageMounterA";
 export class RoomViewA {
     public playerViews: PlayerViewA[];
     public listensObj: fgui.GComponent;
-    // public donateMoveObj: fgui.GLoader;
     public tilesInWall: fgui.GObject;
     public statusHandlers: Function[];
     public unityViewNode: fgui.GComponent;
@@ -647,7 +646,7 @@ export class RoomViewA {
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
-        if (SoundMgr.isMusicePlaying()) {
+        if (SoundMgr.isMusicPlaying()) {
             SoundMgr.stopMusic();
         }
 

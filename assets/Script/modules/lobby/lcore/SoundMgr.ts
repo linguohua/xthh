@@ -6,6 +6,24 @@ import { Logger } from "./Logger";
 export namespace SoundMgr {
 
     const audioClips: { [key: string]: cc.AudioClip } = {};
+
+    const playCCEffect = (audioClip: cc.AudioClip, loop = false, callBack?: (num: number) => void): void => {
+        // setEffectsVolume在微信上有问题，待以后cocos版本更新看下在改
+        if (cc.audioEngine.getEffectsVolume() > 0) {
+            const num = cc.audioEngine.playEffect(audioClip, loop);
+            if (callBack !== undefined) {
+                callBack(num);
+            }
+        }
+    };
+
+    const playCCMusic = (audioClip: cc.AudioClip, loop = false, callBack?: (num: number) => void): void => {
+        const num = cc.audioEngine.playMusic(audioClip, loop);
+        if (callBack !== undefined) {
+            callBack(num);
+        }
+    };
+
     /**
      * 播放音效判断是否
      * @param path 音频地址
@@ -16,13 +34,7 @@ export namespace SoundMgr {
         let audioClip = audioClips[pathName];
 
         if (audioClip !== undefined && audioClip !== null) {
-            if (cc.audioEngine.getEffectsVolume() > 0) {
-
-                const num = cc.audioEngine.playEffect(audioClip, loop);
-                if (callBack !== undefined) {
-                    callBack(num);
-                }
-            }
+            playCCEffect(audioClip, loop, callBack);
         } else {
             cc.loader.loadRes(`sound/${path}`, cc.AudioClip, null, (err: Error, result: Object) => {
                 if (err !== undefined && err !== null) {
@@ -32,14 +44,8 @@ export namespace SoundMgr {
                 }
                 audioClip = <cc.AudioClip>result;
                 audioClips[pathName] = audioClip;
-                // setEffectsVolume在微信上有问题，待以后cocos版本更新看下在改
-                if (cc.audioEngine.getEffectsVolume() > 0) {
 
-                    const num = cc.audioEngine.playEffect(audioClip, loop);
-                    if (callBack !== undefined) {
-                        callBack(num);
-                    }
-                }
+                playCCEffect(audioClip, loop, callBack);
 
             });
         }
@@ -56,10 +62,7 @@ export namespace SoundMgr {
         let audioClip = audioClips[pathName];
 
         if (audioClip !== undefined && audioClip !== null) {
-            const num = cc.audioEngine.playMusic(audioClip, loop);
-            if (callBack !== undefined) {
-                callBack(num);
-            }
+            playCCMusic(audioClip, loop, callBack);
         } else {
             cc.loader.loadRes(`sound/${path}`, cc.AudioClip, null, (err: Error, result: Object) => {
                 if (err !== undefined && err !== null) {
@@ -70,10 +73,7 @@ export namespace SoundMgr {
                 audioClip = <cc.AudioClip>result;
                 audioClips[pathName] = audioClip;
 
-                const num = cc.audioEngine.playMusic(audioClip, loop);
-                if (callBack !== undefined) {
-                    callBack(num);
-                }
+                playCCMusic(audioClip, loop, callBack);
             });
         }
 
@@ -87,7 +87,7 @@ export namespace SoundMgr {
         cc.audioEngine.stopMusic();
     };
 
-    export const isMusicePlaying = (): boolean => {
+    export const isMusicPlaying = (): boolean => {
         return cc.audioEngine.isMusicPlaying();
     };
 

@@ -100,6 +100,7 @@ export class LobbyView extends cc.Component {
         this.announcementText.node.stopAllActions();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            Logger.debug("LobbyView wx.offShow(this.wxShowCallBackFunction);");
             wx.offShow(this.wxShowCallBackFunction);
             this.wxShowCallBackFunction = null;
         }

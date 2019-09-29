@@ -752,7 +752,7 @@ export class RoomView {
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
 
-        if (SoundMgr.isMusicePlaying()) {
+        if (SoundMgr.isMusicPlaying()) {
             SoundMgr.stopMusic();
         }
         const options = {
