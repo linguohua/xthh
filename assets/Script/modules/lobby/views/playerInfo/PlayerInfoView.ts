@@ -10,7 +10,6 @@ import { LocalStrings } from "../../strings/LocalStringsExports";
 export class PlayerInfoView extends cc.Component {
     private view: fgui.GComponent = null;
     // private playerInfo: PlayerInfo;
-
     private win: fgui.Window;
 
     private playerName: fgui.GObject;
@@ -19,8 +18,6 @@ export class PlayerInfoView extends cc.Component {
     private leaveGuildCount: fgui.GObject;
 
     private genderCtrl: fgui.Controller;
-    // private douText: fgui.GObject;
-    // private fkText: fgui.GObject;
 
     private playerID: string;
     private roomHost: RoomHost;

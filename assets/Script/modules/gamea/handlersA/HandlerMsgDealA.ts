@@ -52,14 +52,6 @@ export namespace HandlerMsgDealA {
                 for (const p of playersArr) {
                     if (p !== undefined && p !== null) {
                         p.addHandTiles(cs);
-                        // if (p.isMe()) {
-                        //     p.addHandTiles(cards.splice(0, num));
-                        // } else {
-                        //     if (p.tileCountInHand === undefined || p.tileCountInHand === null) {
-                        //         p.tileCountInHand = 0;
-                        //     }
-                        //     p.tileCountInHand += num;
-                        // }
                         p.playerView.showDeal();
                         await room.coWaitSeconds(0.15);
                     }

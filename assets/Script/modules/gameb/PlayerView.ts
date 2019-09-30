@@ -7,7 +7,7 @@ import { PlayerInfo, RoomInterface } from "./RoomInterface";
 import { TileImageMounter } from "./TileImageMounter";
 
 /**
- * playerview对应玩家的视图，牌桌上有4个playerview
+ * PlayerView对应玩家的视图，牌桌上有4个playerview
  */
 class PosCtrl {
     public x: number;

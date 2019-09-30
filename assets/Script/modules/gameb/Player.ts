@@ -707,25 +707,19 @@ export class Player {
     }
 
     public onPlayerInfoClick(): void {
-        const roomHost = this.host.getRoomHost();
-
-        let playerInfoView = roomHost.component.getComponent(PlayerInfoView);
-        if (playerInfoView === null) {
-            playerInfoView = roomHost.component.addComponent(PlayerInfoView);
-        }
-
-        playerInfoView.show(roomHost, this.playerInfo.userID, null);
+        this.showPlayerInfoView();
     }
 
-    public showPlayerInfoView(searchReq: protoHH.casino.packet_search_ack): void {
+    public showPlayerInfoView(searchReq: protoHH.casino.packet_search_ack = null): void {
         const roomHost = this.host.getRoomHost();
-        let playerInfoView = roomHost.component.getComponent(PlayerInfoView);
-        if (playerInfoView === null) {
-            playerInfoView = roomHost.component.addComponent(PlayerInfoView);
-        }
 
+        const roomHostComponent = roomHost.component;
+        let playerInfoView = roomHostComponent.getComponent(PlayerInfoView);
+
+        playerInfoView = playerInfoView !== null ? playerInfoView : roomHostComponent.addComponent(PlayerInfoView);
         playerInfoView.show(roomHost, this.playerInfo.userID, searchReq);
     }
+
 
     /**
      * 新增函数 end
