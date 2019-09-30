@@ -132,13 +132,14 @@ export class RoomView {
             return;
         }
 
-        Dialog.showDialog(LocalStrings.findString("confirmQuitRoom"), () => {
-
-            this.room.onExitButtonClicked();
-            // tslint:disable-next-line:align
-        }, () => {
-            //
-        });
+        Dialog.showDialog(
+            LocalStrings.findString("confirmQuitRoom"),
+            () => {
+                this.room.onExitButtonClicked();
+            },
+            () => {
+                //
+            });
     }
 
     public async playPiaoEffect(xy: cc.Vec2): Promise<void> {

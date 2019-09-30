@@ -86,9 +86,8 @@ export class ReadyView {
 
     }
 
-    public updateReadyView(roomHost: RoomHost, table: protoHH.casino.Itable
-        // tslint:disable-next-line:align
-        , view: fgui.GComponent, ps?: protoHH.casino.Itable_player[]): void {
+    public updateReadyView(
+        roomHost: RoomHost, table: protoHH.casino.Itable, view: fgui.GComponent, ps?: protoHH.casino.Itable_player[]): void {
         // 注意：table中的playrs不是最新的，新的player通过参数传进来
         // 后面可以分开或者抽取出来
         this.table = table;
@@ -246,24 +245,26 @@ export class ReadyView {
     private onLeaveRoomBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
-        Dialog.showDialog(LocalStrings.findString('quitRoom'), () => {
-
-            this.leaveRoom();
-            // tslint:disable-next-line:align
-        }, () => {
-            //
-        });
+        Dialog.showDialog(
+            LocalStrings.findString('quitRoom'),
+            () => {
+                this.leaveRoom();
+            },
+            () => {
+                //
+            });
     }
 
     private onDisbandBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
-        Dialog.showDialog(LocalStrings.findString('disbandRoom'), () => {
-
-            this.disbandRoom();
-            // tslint:disable-next-line:align
-        }, () => {
-            //
-        });
+        Dialog.showDialog(
+            LocalStrings.findString('disbandRoom'),
+            () => {
+                this.disbandRoom();
+            },
+            () => {
+                //
+            });
     }
     private onForOtherCreateRoomBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);

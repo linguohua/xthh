@@ -241,13 +241,14 @@ export class RoomSettingView extends cc.Component {
 
     private onDisbandBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
-        Dialog.showDialog(LocalStrings.findString('disbandTips'), () => {
-
-            this.sendDisbandMsg();
-            // tslint:disable-next-line:align
-        }, () => {
-            //
-        });
+        Dialog.showDialog(
+            LocalStrings.findString('disbandTips'),
+            () => {
+                this.sendDisbandMsg();
+            },
+            () => {
+                //
+            });
     }
 
     private sendDisbandMsg(): void {

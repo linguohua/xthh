@@ -216,12 +216,14 @@ export class GpsView extends cc.Component {
     private onDisbandBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const room = this.room;
-        Dialog.showDialog(LocalStrings.findString("confirmDisbandRoom"), () => {
-            room.onDissolveClicked();
-            // tslint:disable-next-line:align
-        }, () => {
-            //
-        });
+        Dialog.showDialog(
+            LocalStrings.findString("confirmDisbandRoom"),
+            () => {
+                room.onDissolveClicked();
+            },
+            () => {
+                //
+            });
 
         this.destroy();
     }

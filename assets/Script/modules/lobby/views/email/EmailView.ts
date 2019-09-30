@@ -420,11 +420,13 @@ export class EmailView extends cc.Component {
         //空白按钮，为了点击列表，并且保留item被选择的效果
         const btn = obj.asCom.getChild("spaceBtn");
         btn.offClick(undefined, undefined);
-        btn.onClick(() => {
-            SoundMgr.playEffectAudio(`gameb/sound_touch`);
-            this.selectEmail(playerEmail, obj, index);
-            // tslint:disable-next-line:align
-        }, this);
+        btn.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.selectEmail(playerEmail, obj, index);
+
+            },
+            this);
 
     }
 
@@ -445,6 +447,7 @@ export class EmailView extends cc.Component {
 
         }
 
+        // 可滑动列表之间切换
         if (filterGains.length > 3) {
             this.attachmentScrollList.visible = true;
             this.attachmentsList.visible = false;
@@ -489,17 +492,14 @@ export class EmailView extends cc.Component {
         }
         loader.url = url;
 
-        let countText = selectGain.param;
-        if (selectGain.id === proto.casino.eRESOURCE.RESOURCE_RED) {
-            countText = selectGain.param / 100;
-        }
-        count.text = `${countText}`;
+        // 红包 （分）为单位
+        count.text = selectGain.id === proto.casino.eRESOURCE.RESOURCE_RED ? `${selectGain.param / 100}` : `${selectGain.param}`;
 
         // 设置领取状态
-        loader.grayed = receive;
-        count.grayed = receive;
         tick.grayed = receive;
         tick.visible = receive;
+        loader.grayed = receive;
+        count.grayed = receive;
     }
 
 }

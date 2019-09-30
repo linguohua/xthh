@@ -57,10 +57,8 @@ export class DisbandView extends cc.Component {
 
     private startDisbandTime: number = 0;
 
-    public showDisbandView(room: RoomInterface, loader: GResLoader
-        // tslint:disable-next-line:align
-        , myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[],
-        // tslint:disable-next-line:align
+    public showDisbandView(
+        room: RoomInterface, loader: GResLoader, myInfo: DisBandPlayerInfo, playersInfo: DisBandPlayerInfo[],
         disbandReq: protoHH.casino.packet_table_disband_req, disbandAck: protoHH.casino.packet_table_disband_ack): void {
         this.myInfo = myInfo;
         this.room = room;

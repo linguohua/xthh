@@ -262,12 +262,6 @@ export class Dialog {
             const view = fgui.UIPackage.createObject("lobby_dialog", "reconnectDialog").asCom;
             CommonFunction.setViewInCenter(view);
 
-            // const btn = view.getChild("reConnectBtn");
-            // btn.onClick(() => {
-            //     Dialog.hideReconnectDialog();
-            //     // tslint:disable-next-line:align
-            // }, this);
-
             const mask = view.getChild("mask");
             CommonFunction.setBgFullScreenSize(mask);
 

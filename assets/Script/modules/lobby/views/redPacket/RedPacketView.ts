@@ -398,11 +398,12 @@ export class RedPacketView extends cc.Component {
         const btn = com.getChild("exchangeBtn");
         btn.asCom.getChild("n1").text = text;
         btn.offClick(undefined, undefined);
-        btn.onClick(() => {
+        btn.onClick(
+            () => {
 
-            this.onExchangeBtnClick(redStoreItem);
-            // tslint:disable-next-line:align
-        }, this);
+                this.onExchangeBtnClick(redStoreItem);
+            },
+            this);
 
     }
 
