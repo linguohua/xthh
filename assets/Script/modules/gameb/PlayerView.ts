@@ -868,7 +868,12 @@ export class PlayerView {
     public showPlayerInfo(playerInfo: PlayerInfo): void {
         this.head.headView.visible = true;
         this.head.headView.offClick(undefined, undefined);
-        this.head.headView.onClick(this.player.onPlayerInfoClick, this.player);
+        this.head.headView.onClick(
+            () => {
+                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                this.player.onPlayerInfoClick();
+            },
+            this.player);
 
         this.head.nameText.text = CommonFunction.nameFormatWithCount(this.player.mNick, 6);
         this.head.nameText.visible = true;
