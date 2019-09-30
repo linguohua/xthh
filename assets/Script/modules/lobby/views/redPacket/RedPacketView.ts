@@ -322,8 +322,8 @@ export class RedPacketView extends cc.Component {
             Logger.debug("sendCashOutRequest req2 = ", req2);
 
             const buf = proto.casino.packet_red_cash_req.encode(req2);
-            const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-            lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_RED_CASH_REQ);
+
+            this.lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_RED_CASH_REQ);
         };
         const titleStr = LocalStrings.findString("inputMoneyText", minCash, maxCash, maxCashTimes);
         inputNumberView.show(cb, titleStr, 1, 3);

@@ -394,11 +394,6 @@ export class RoomView {
     }
 
     public updateReadyView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
-        // let readyView = this.component.getComponent(ReadyView);
-        // if (readyView === undefined || readyView == null) {
-        //     readyView = this.component.addComponent(ReadyView);
-        // }
-
         const view = this.unityViewNode.getChild("readyView").asCom;
 
         if (this.readyView === undefined || this.readyView === null) {
@@ -619,9 +614,7 @@ export class RoomView {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
 
         let gpsView = this.component.getComponent(GpsView);
-        if (gpsView === null) {
-            gpsView = this.component.addComponent(GpsView);
-        }
+        gpsView = (gpsView !== null && gpsView !== undefined) ? gpsView : this.component.addComponent(GpsView);
 
         const ps = this.room.getPlayers();
         const players: Player[] = [];

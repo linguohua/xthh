@@ -154,8 +154,7 @@ export class EmailView extends cc.Component {
         req2.gain = true;
         req2.del = true;
         const buf = proto.casino.packet_mail_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
         this.delEmail = true;
     }
 
@@ -172,8 +171,7 @@ export class EmailView extends cc.Component {
         req2.player_id = +playerId;
         req2.gain = true;
         const buf = proto.casino.packet_mail_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
     }
 
     private reloadEmail(): void {
@@ -181,8 +179,7 @@ export class EmailView extends cc.Component {
         req2.player_id = 0;
         req2.gain = false;
         const buf = proto.casino.packet_mail_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
 
     }
 
@@ -191,8 +188,7 @@ export class EmailView extends cc.Component {
         req2.mail_id = id;
         req2.gain = false;
         const buf = proto.casino.packet_mail_req.encode(req2);
-        const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
-        lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
+        this.lm.sendGameMsg(buf, proto.casino.eMSG_TYPE.MSG_MAIL_REQ);
     }
 
     /**

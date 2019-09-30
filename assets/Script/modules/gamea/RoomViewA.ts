@@ -368,18 +368,12 @@ export class RoomViewA {
     }
 
     public updateReadyView(table: protoHH.casino.Itable, players?: protoHH.casino.Itable_player[]): void {
-        // let readyView = this.component.getComponent(ReadyView);
-        // if (readyView === undefined || readyView == null) {
-        //     readyView = this.component.addComponent(ReadyView);
-        // }
 
         const view = this.unityViewNode.getChild("readyView").asCom;
 
         if (this.readyView === undefined || this.readyView === null) {
             this.readyView = new ReadyViewA();
         }
-
-        // const load = this.room.getRoomHost().getLobbyModuleLoader();
         const roomHost = this.room.getRoomHost();
         this.readyView.updateReadyView(roomHost, table, view, players);
     }
@@ -521,9 +515,8 @@ export class RoomViewA {
         Logger.debug("onGPSBtnClick");
 
         let gpsView = this.component.getComponent(GpsView);
-        if (gpsView === null) {
-            gpsView = this.component.addComponent(GpsView);
-        }
+
+        gpsView = (gpsView !== null && gpsView !== undefined) ? gpsView : this.component.addComponent(GpsView);
 
         const ps = this.room.getPlayers();
         const players: PlayerA[] = [];

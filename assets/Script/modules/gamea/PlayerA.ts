@@ -707,7 +707,10 @@ export class PlayerA {
         const roomHostComponent = roomHost.component;
         let playerInfoView = roomHostComponent.getComponent(PlayerInfoView);
 
-        playerInfoView = playerInfoView !== null ? playerInfoView : roomHostComponent.addComponent(PlayerInfoView);
+        playerInfoView = (playerInfoView !== null && playerInfoView !== undefined) ?
+            playerInfoView :
+            roomHostComponent.addComponent(PlayerInfoView);
+
         playerInfoView.show(roomHost, this.playerInfo.userID, searchReq);
     }
 
