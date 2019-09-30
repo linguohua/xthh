@@ -4,7 +4,6 @@ import {
     HTTP, KeyConstants, LEnv, LobbyModuleInterface, Logger, SoundMgr
 } from "../lcore/LCoreExports";
 import { LMsgCenter } from "../LMsgCenter";
-// import Long = require("../protobufjs/long");
 // tslint:disable-next-line:no-require-imports
 import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";

@@ -6,8 +6,6 @@ import {
     Dialog, GameModuleInterface, GameModuleLaunchArgs, GResLoader, JoinRoomParams,
     KeyConstants, LobbyModuleInterface, Logger, Message, MsgQueue, MsgType, NimSDKInterface, UserInfo
 } from "../lobby/lcore/LCoreExports";
-// tslint:disable-next-line:no-require-imports
-// import long = require("../lobby/protobufjs/long");
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LotteryView } from "../lobby/views/lottery/LotteryViewExports";
 import { WelfareView } from "../lobby/views/welfare/WelfareViewExports";
