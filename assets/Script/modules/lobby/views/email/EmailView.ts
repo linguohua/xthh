@@ -22,28 +22,26 @@ export class EmailView extends cc.Component {
     private view: fgui.GComponent;
     private win: fgui.Window;
     private lm: LobbyModuleInterface;
-
     // 没有邮件时的提示
     private noEmailText: fgui.GTextField;
-
+    // 领取按钮
     private takeBtn: fgui.GButton;
+    // 删除按钮
     private deleteBtn: fgui.GButton;
-
+    // 邮件内容
     private textComponent: fgui.GComponent;
-
     // 邮件列表
     private emailList: fgui.GList;
     // 附件列表
     private attachmentsList: fgui.GList;
+    // 附件列表（可滑动）
+    private attachmentScrollList: fgui.GList;
     // 邮件标题
     private titleText: fgui.GTextField;
-
     // 所有邮件
     private playerEmails: proto.casino.Iplayer_mail[];
-
     // 当前选择的邮件
     private selectPlayerEmail: proto.casino.Iplayer_mail;
-
     // 节点
     private selectEmailNode: fgui.GObject;
 
@@ -122,6 +120,14 @@ export class EmailView extends cc.Component {
         this.attachmentsList.itemRenderer = (index: number, item: fgui.GObject) => {
             this.renderAttachmentListItem(index, item);
         };
+        this.attachmentsList.visible = false;
+
+        this.attachmentScrollList = this.view.getChild("attachmentScrollList").asList;
+        this.attachmentScrollList.itemRenderer = (index: number, item: fgui.GObject) => {
+            this.renderAttachmentListItem(index, item);
+        };
+        this.attachmentScrollList.visible = false;
+        this.attachmentScrollList.setVirtual();
 
         const titleText = this.view.getChild("titleText").asTextField;
         this.titleText = titleText;
@@ -135,6 +141,9 @@ export class EmailView extends cc.Component {
         this.destroy();
     }
 
+    /**
+     * 删除邮件
+     */
     private onDeleteBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerEmail = this.selectPlayerEmail;
@@ -150,6 +159,9 @@ export class EmailView extends cc.Component {
         this.delEmail = true;
     }
 
+    /**
+     * 领取附件
+     */
     private onTakeBtnClick(): void {
         SoundMgr.playEffectAudio(`gameb/sound_touch`);
         const playerEmail = this.selectPlayerEmail;
@@ -292,6 +304,7 @@ export class EmailView extends cc.Component {
             this.deleteBtn.visible = false;
             this.takeBtn.visible = false;
             this.attachmentsList.numItems = 0;
+            this.attachmentScrollList.numItems = 0;
         }
     }
 
@@ -432,7 +445,15 @@ export class EmailView extends cc.Component {
 
         }
 
-        this.attachmentsList.numItems = filterGains.length;
+        if (filterGains.length > 3) {
+            this.attachmentScrollList.visible = true;
+            this.attachmentsList.visible = false;
+            this.attachmentScrollList.numItems = filterGains.length;
+        } else {
+            this.attachmentsList.visible = true;
+            this.attachmentScrollList.visible = false;
+            this.attachmentsList.numItems = filterGains.length;
+        }
 
     }
 

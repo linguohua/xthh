@@ -155,35 +155,19 @@ export class UserInfoView extends cc.Component {
     }
 
     private initGameRecord(): void {
-        let hupai: number = 0;
-        let piaolai: number = 0;
-        let fangchong: number = 0;
-        let roundTotle: number = 0;
-
         const leaveGuild = DataStore.getString(KeyConstants.LEAVE_GUILD, "0");
         const pdataStr = DataStore.getString(KeyConstants.DATA_GDY, "");
         const playerData = <proto.casino.player_gdy>JSON.parse(pdataStr);
 
-        if (playerData.pailaizi_today !== null) {
-            piaolai = playerData.pailaizi_total;
-        }
-
-        if (playerData.hupai_total !== null) {
-            hupai = playerData.hupai_total;
-        }
-
-        if (playerData.fangchong_total !== null) {
-            fangchong = playerData.fangchong_total;
-        }
-
-        if (playerData.play_total !== null) {
-            roundTotle = playerData.play_today;
-        }
+        const hupai = playerData.hupai_total === null ? 0 : playerData.hupai_total;
+        const piaolai = playerData.pailaizi_total === null ? 0 : playerData.pailaizi_total;
+        const fangchong = playerData.fangchong_total === null ? 0 : playerData.fangchong_total;
+        const roundTotal = playerData.play_total === null ? 0 : playerData.play_total;
 
         this.hupaiText.text = `${hupai}`;
         this.piaolaiText.text = `${piaolai}`;
         this.fangpaoText.text = `${fangchong}`;
-        this.roundText.text = `${roundTotle}`;
+        this.roundText.text = `${roundTotal}`;
         this.leaveGuildText.text = `${+leaveGuild}`;
     }
 
