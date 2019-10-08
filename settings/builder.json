@@ -41,7 +41,7 @@
   "title": "hello_world",
   "webOrientation": "landscape",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "https://dfh5-develop.qianz.com/webax/xthhWechat",
+    "REMOTE_SERVER_ROOT": "https://h5.5206767.net/fileserver",
     "appid": "wxb0038f16f41e5dd9",
     "orientation": "landscape",
     "subContext": ""

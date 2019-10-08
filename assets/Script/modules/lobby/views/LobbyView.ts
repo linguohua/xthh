@@ -228,6 +228,25 @@ export class LobbyView extends cc.Component {
         this.headLoader.onClick(this.onUserInfoClick, this);
 
         CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
+
+        // ios 屏蔽掉
+        if (cc.sys.os === cc.sys.OS_IOS) {
+            shopBtn.visible = false;
+            this.view.getChild("tipTextCom").visible = false;
+
+            signBtn.x = 61;
+            emailBtn.x = 216;
+
+        }
+
+        // 没开发的内容暂时屏蔽
+        friendBtn.visible = false;
+        questBtn.visible = false;
+        committeeBtn.visible = false;
+        guildBtn.visible = false;
+        announcementBtn.visible = false;
+        applyAgentBtn.visible = false;
+        redPacketBtn.visible = false;
     }
     private showButtonAction(btn: fgui.GObject): void {
         btn.node.runAction(cc.sequence(
@@ -505,7 +524,7 @@ export class LobbyView extends cc.Component {
         this.testJoinGame();
     }
     private onJoinTableAck(msg: proto.casino.ProxyMessage): void {
-        Logger.debug("onJoinTableAck");
+        Logger.debug("LobbyView.onJoinTableAck");
 
         const joinRoomAck = proto.casino.packet_table_join_ack.decode(msg.Data);
         if (this.lm.isGameModuleExist()) {

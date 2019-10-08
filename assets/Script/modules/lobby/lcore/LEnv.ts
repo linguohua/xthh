@@ -2,14 +2,14 @@
  * lobby 配置
  */
 export namespace LEnv {
-    export const VER_STR: string = "v1.0.092901";
+    export const VER_STR: string = "v1.0.093003";
 
     // updateQuery = "/lobby/upgrade/query",
     export const updateQuery: string = "/lobby/uuid/upgradeQuery";
     export const updateDownload = "http://localhost:8080"; // tslint:disable-line:no-http-string
     export const gameWebsocketMonkey = "/game/{0}/ws/monkey";
     export const gameWebsocketPlay = "/game/{0}/ws/play";
-    export const rootURL = "https://dfh5-develop.qianz.com"; // tslint:disable-line:no-http-string
+    export const rootURL = "https://h5.5206767.net"; // tslint:disable-line:no-http-string
     export const gameHost = "wss://dfh5-develop.qianz.com"; // tslint:disable-line:no-http-string
     export const quicklyLogin = "/lobby/uuid/quicklyLogin";
     export const accountLogin = "/lobby/uuid/accountLogin";
@@ -18,7 +18,7 @@ export namespace LEnv {
     export const wxShareInfo = '/lobby/uuid/getShareInfo';
     export const register = "/lobby/uuid/register";
     export const chat = "/lobby/uuid/chat";
-    export const lobbyWebsocket = "wss://dfh5-develop.qianz.com";
+    export const lobbyWebsocket = "wss://h5.5206767.net";
 
     // -- 创建房间
     export const createRoom = "/lobby/uuid/createRoom";
@@ -72,7 +72,7 @@ export namespace LEnv {
     // 米大师支付模式，0是沙箱，1是正式环境
     export const isDebug = true;
 
-    export const shipmentsUrl = "/zyqp/pay/payOrder/{0}/{1}/{2}";
+    export const shipmentsUrl = "/zyqp/pay/appletPayOrder/{0}/{1}/{2}";
 
     // tslint:disable-next-line:no-http-string
     export const wxLogin = "/zyqp/user/h5login/withcode?app={0}&code={1}";
