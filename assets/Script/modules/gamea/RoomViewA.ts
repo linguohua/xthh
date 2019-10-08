@@ -511,7 +511,7 @@ export class RoomViewA {
     // }
 
     private onGPSBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onGPSBtnClick");
 
         let gpsView = this.component.getComponent(GpsView);
@@ -529,7 +529,7 @@ export class RoomViewA {
     }
 
     private onSettingBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const settingView = this.component.addComponent(RoomSettingView);
         const isOwner = this.room.ownerID === this.room.getMyPlayerInfo().userID;
         settingView.showView(this.room, isOwner, this.room.getRoomHost().getLobbyModuleLoader());
@@ -539,7 +539,7 @@ export class RoomViewA {
      * 聊天按钮点击事件
      */
     private onChatBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onChatBtnClick");
         const chatView = this.component.addComponent(ChatView);
         const loader = this.room.getRoomHost().getLobbyModuleLoader();
@@ -608,7 +608,7 @@ export class RoomViewA {
     // }
 
     private onVoiceBtnPress(event: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onVoiceBtnPress");
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
 

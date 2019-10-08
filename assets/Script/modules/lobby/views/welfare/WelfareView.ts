@@ -49,7 +49,7 @@ export class WelfareView extends cc.Component {
     }
 
     private onCloseClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
@@ -77,7 +77,7 @@ export class WelfareView extends cc.Component {
         }
     }
     private onCollectClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const req2 = new protoHH.casino.packet_helper_req();
         req2.player_id = +DataStore.getString(KeyConstants.PLAYER_ID);
         req2.refresh = this.refresh;

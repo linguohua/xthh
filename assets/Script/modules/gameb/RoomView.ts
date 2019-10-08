@@ -611,7 +611,7 @@ export class RoomView {
     // }
 
     private onGPSBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
 
         let gpsView = this.component.getComponent(GpsView);
         gpsView = (gpsView !== null && gpsView !== undefined) ? gpsView : this.component.addComponent(GpsView);
@@ -627,14 +627,14 @@ export class RoomView {
     }
 
     private onSettingBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const settingView = this.component.addComponent(RoomSettingView);
         const isOwner = this.room.ownerID === this.room.getMyPlayerInfo().userID;
         settingView.showView(this.room, isOwner, this.room.getRoomHost().getLobbyModuleLoader());
     }
 
     private onEnergyBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.room.getRoomHost().showLotteryView();
     }
 
@@ -642,7 +642,7 @@ export class RoomView {
      * 聊天按钮点击事件
      */
     private onChatBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const chatView = this.component.addComponent(ChatView);
         const loader = this.room.getRoomHost().getLobbyModuleLoader();
         const roomHost = this.room.getRoomHost();
@@ -858,7 +858,7 @@ export class RoomView {
         this.trusteeshipComCancelBtn = this.trusteeshipCom.getChild("cancelBtn").asButton;
         this.trusteeshipComCancelBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.room.onManagedClicked(false);
             },
             this);
@@ -866,7 +866,7 @@ export class RoomView {
         this.trusteeshipBtn = this.unityViewNode.getChild("trusteeshipBtn").asButton;
         this.trusteeshipBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.room.onManagedClicked(true);
             },
             this);

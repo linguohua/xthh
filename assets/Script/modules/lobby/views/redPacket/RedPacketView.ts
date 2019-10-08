@@ -57,7 +57,6 @@ export class RedPacketView extends cc.Component {
     }
 
     private registerHandler(): void {
-        //
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_CASH_ACK, this.onCashOutAck, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_STORE_ACK, this.onRedStoreAck, this);
         this.lm.msgCenter.setGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK, this.onActAck, this);
@@ -66,7 +65,6 @@ export class RedPacketView extends cc.Component {
         this.lm.eventTarget.on(KeyConstants.PLAYER_RED, this.refreshCashOutView, this);
     }
     private unRegisterHander(): void {
-        //
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_CASH_ACK);
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_RED_STORE_ACK);
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_ACT_ACK);
@@ -76,16 +74,13 @@ export class RedPacketView extends cc.Component {
     }
 
     private onCashOutAck(msg: proto.casino.ProxyMessage): void {
-        //
         const redCashAck = proto.casino.packet_red_cash_ack.decode(msg.Data);
-        Logger.debug("redCashAck = ", redCashAck);
+        Logger.debug("onCashOutAck redCashAck = ", redCashAck);
 
         if (redCashAck.ret === proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED) {
-            //
             const successMsg = LocalStrings.findString("cashOutSuccess");
             Dialog.prompt(successMsg);
         } else {
-
             this.showCashOutError(redCashAck.ret);
         }
 
@@ -123,9 +118,9 @@ export class RedPacketView extends cc.Component {
     }
 
     private onRedStoreAck(msg: proto.casino.ProxyMessage): void {
-        //
         const redStoreAck = proto.casino.packet_red_store_ack.decode(msg.Data);
-        Logger.debug("redStoreAck = ", redStoreAck);
+        Logger.debug("onRedStoreAck redStoreAck = ", redStoreAck);
+
         let errStr;
         switch (redStoreAck.ret) {
             case proto.casino.eRETURN_TYPE.RETURN_SUCCEEDED:
@@ -148,7 +143,6 @@ export class RedPacketView extends cc.Component {
         Dialog.prompt(errStr);
     }
     private onActAck(msg: proto.casino.ProxyMessage): void {
-        //
         const actAck = proto.casino.packet_mail_ack.decode(msg.Data);
         Logger.debug("actAck = ", actAck);
     }
@@ -212,13 +206,10 @@ export class RedPacketView extends cc.Component {
         if (cashTime === null || !today) {
             cashTimesTF.text = LocalStrings.findString("cashOutTimes", `${this.redData.red_num}`);
             cashOutLessTF.text = LocalStrings.findString("cashOutLess", `${this.redData.red_cash / 100}`);
-
         } else {
-            //
             const cashTimesLess = this.getCashTimesLess();
             cashTimesTF.text = LocalStrings.findString("cashOutTimes", `${cashTimesLess}`);
             if (cashTimesLess === 0) {
-
                 cashOutBtn.grayed = true;
             }
 
@@ -239,7 +230,7 @@ export class RedPacketView extends cc.Component {
     }
 
     private onCashOutBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.loginChannel === Enum.CHANNEL_TYPE.VISITOR) {
             Dialog.prompt(LocalStrings.findString("pleaseUseWeChatLogin"));
 
@@ -330,13 +321,13 @@ export class RedPacketView extends cc.Component {
     }
 
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onExchangeBtnClick(redStore: proto.casino.Ired_store): void {
         //
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.loginChannel === Enum.CHANNEL_TYPE.VISITOR) {
             Dialog.prompt(LocalStrings.findString("pleaseUseWeChatLogin"));
 
@@ -383,8 +374,6 @@ export class RedPacketView extends cc.Component {
     private renderListItem(index: number, obj: fgui.GObject): void {
 
         const redStoreItem = this.redData.stores[index];
-        // Logger.debug("renderListItem redStoreItem = ", redStoreItem);
-
         const com = obj.asCom;
         com.getChild("name").text = redStoreItem.name;
 

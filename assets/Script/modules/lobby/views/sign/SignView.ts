@@ -207,12 +207,12 @@ export class SignView extends cc.Component {
         this.updateSignAct(act);
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onItemClick(i: number): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onItemClick:", i);
         const act = this.playerAct;
         const now = new Date();

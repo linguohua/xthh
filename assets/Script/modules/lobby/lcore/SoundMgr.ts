@@ -119,11 +119,18 @@ export namespace SoundMgr {
         cc.audioEngine.setEffectsVolume(1);
     };
 
+    export const buttonTouch = (): void => {
+        playEffectAudio("gameb/sound_touch");
+    };
+
+    export const tabSwitch = (): void => {
+        playEffectAudio("gameb/sound_move");
+    };
+
     /**
      * 初始化音量
      */
     export const initSound = (musicVolume: number, effectsVolume: number): void => {
-
         cc.audioEngine.setMusicVolume(1);
         cc.audioEngine.setEffectsVolume(effectsVolume);
 
@@ -138,4 +145,5 @@ export namespace SoundMgr {
         }
 
     };
+
 }

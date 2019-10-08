@@ -65,7 +65,7 @@ export class IconListPopupView extends cc.Component {
         this.registerHandler();
     }
     private onHeadListItemClick(clickItem: fgui.GObject): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("clickItem index:", this.headList.getChildIndex(clickItem));
 
         const obj = clickItem.asCom;

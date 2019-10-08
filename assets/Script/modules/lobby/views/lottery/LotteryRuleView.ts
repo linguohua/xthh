@@ -63,7 +63,7 @@ export class LotteryRuleView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 

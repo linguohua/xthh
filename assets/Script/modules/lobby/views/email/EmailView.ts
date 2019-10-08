@@ -137,7 +137,7 @@ export class EmailView extends cc.Component {
     }
 
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
@@ -145,7 +145,7 @@ export class EmailView extends cc.Component {
      * 删除邮件
      */
     private onDeleteBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const playerEmail = this.selectPlayerEmail;
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
         const req2 = new proto.casino.packet_mail_req();
@@ -162,7 +162,7 @@ export class EmailView extends cc.Component {
      * 领取附件
      */
     private onTakeBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const playerEmail = this.selectPlayerEmail;
 
         const playerId = DataStore.getString(KeyConstants.PLAYER_ID);
@@ -418,7 +418,7 @@ export class EmailView extends cc.Component {
         btn.offClick(undefined, undefined);
         btn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.selectEmail(playerEmail, obj, index);
 
             },

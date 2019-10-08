@@ -221,18 +221,18 @@ export class LotteryView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onRuleBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(LotteryRuleView);
         view.show(this.lm, this.currTurnableData);
     }
 
     private onJuniorBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.tabId === JUNIOR_ROOM_ID) {
             return;
         }
@@ -240,7 +240,7 @@ export class LotteryView extends cc.Component {
     }
 
     private onMiddleBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.tabId === MIDDLE_ROOM_ID) {
             return;
         }
@@ -248,7 +248,7 @@ export class LotteryView extends cc.Component {
     }
 
     private onSeniorBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.tabId === SENIOR_ROOM_ID) {
             return;
         }
@@ -271,7 +271,7 @@ export class LotteryView extends cc.Component {
     }
 
     private onDrawLotteryBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.drawLotteryBtn.getController("enable").selectedIndex === 0) {
             Logger.debug("energy not enough or on drawing ----------------------------------------");
 

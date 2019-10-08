@@ -863,7 +863,7 @@ export class PlayerViewA {
         this.head.headView.offClick(undefined, undefined);
         this.head.headView.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.player.onPlayerInfoClick();
             },
             this.player);
@@ -1369,13 +1369,13 @@ export class PlayerViewA {
 
         this.skipBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.player.onSkipBtnClick();
             },
             this);
         this.pengBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 if (!this.pengBtn.grayed) {
                     this.player.onPongBtnClick();
                 }
@@ -1383,7 +1383,7 @@ export class PlayerViewA {
             this);
         this.huBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 if (!this.huBtn.grayed) {
                     this.player.onWinBtnClick();
                 }
@@ -1391,7 +1391,7 @@ export class PlayerViewA {
             this);
         this.gangBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 if (!this.gangBtn.grayed) {
                     this.player.onKongBtnClick();
                 }

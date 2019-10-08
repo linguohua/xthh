@@ -214,7 +214,7 @@ export class GpsView extends cc.Component {
     }
 
     private onDisbandBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const room = this.room;
         Dialog.showDialog(
             LocalStrings.findString("confirmDisbandRoom"),
@@ -229,7 +229,7 @@ export class GpsView extends cc.Component {
     }
 
     private onContinueBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 

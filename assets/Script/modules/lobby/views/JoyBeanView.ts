@@ -91,7 +91,7 @@ export class JoyBeanView extends cc.Component {
         const juniorBtn = this.view.getChild("junior").asCom;
         juniorBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.onJoinRoomClick(0);
             },
             this); //初级场
@@ -100,7 +100,7 @@ export class JoyBeanView extends cc.Component {
         const middleBtn = this.view.getChild("middle").asCom;
         middleBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.onJoinRoomClick(1);
             },
             this); //中级场
@@ -109,7 +109,7 @@ export class JoyBeanView extends cc.Component {
         const seniorBtn = this.view.getChild("senior").asCom;
         seniorBtn.onClick(
             () => {
-                SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                SoundMgr.buttonTouch();
                 this.onJoinRoomClick(2);
             },
             this); //高级场
@@ -125,49 +125,49 @@ export class JoyBeanView extends cc.Component {
         this.fkText.text = DataStore.getString(KeyConstants.CARD);
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onSettingBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(UserInfoView);
         view.showView(UserInfoTabType.GAME_SETTING);
     }
 
     private onAddDouBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.FK);
     }
 
     private onShareBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             Share.shareScreenshot("");
         }
     }
 
     private onShopBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onLotteryViewBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(LotteryView);
         view.show(this.lm, this);
     }
 
     private onQuicklyClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         let joyRoom = null;
         const myGold = +DataStore.getString(KeyConstants.BEANS);
         //否则就找可以进的房间

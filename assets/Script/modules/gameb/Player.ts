@@ -720,7 +720,6 @@ export class Player {
         playerInfoView.show(roomHost, this.playerInfo.userID, searchReq);
     }
 
-
     /**
      * 新增函数 end
      */

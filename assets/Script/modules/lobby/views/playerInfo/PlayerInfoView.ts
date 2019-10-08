@@ -104,12 +104,12 @@ export class PlayerInfoView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onAddFriendBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
 
         const req = new protoHH.casino.packet_friend_req();
         req.friend_id = +this.playerID;

@@ -378,21 +378,21 @@ export class NewRoomView extends cc.Component {
     }
 
     private onBoxRecordBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
         this.initBoxRecord();
     }
 
     private onFKRecordBtn(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
         this.initFKRecord();
     }
     private onGameRecordBtn(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
         this.initGameRecord();
     }
 
     private onPersonalRoomBtn(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
         this.initPersonalRoom();
     }
 
@@ -414,7 +414,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onEnterBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onEnterBtnClick");
 
         const inputNumberView = this.addComponent(InputNumberView);
@@ -428,7 +428,7 @@ export class NewRoomView extends cc.Component {
     }
     private onSpaceBtnClick(): void {
         //
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Dialog.prompt(LocalStrings.findString("2playerLimitTips"));
     }
 
@@ -477,7 +477,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onGameTypeRadioBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onGameTypeRadioBtnClick:", <string>ev.initiator.data);
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         this.onGameTypeSelect(gameTypeRadioBtnSelectIndex);
@@ -491,7 +491,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onRoundRadioBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const gameTypeRadioBtnSelectIndex = <number>ev.initiator.data;
         const myGame = myGames[gameTypeRadioBtnSelectIndex];
 
@@ -520,19 +520,19 @@ export class NewRoomView extends cc.Component {
         }
     }
     private onBaseScoreRadioBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onJoinRadioBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onOtherRadioBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onPlayerRequireBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const playerRequireRadioBtnSelectIndex = <number>ev.initiator.data;
         const gameTypeRadioBtnIndex = this.getGameTypeRadioBtnSelectIndex();
 
@@ -566,7 +566,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCreateRoomBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const myUser = { userID: playerID };
 
@@ -630,7 +630,7 @@ export class NewRoomView extends cc.Component {
     }
 
     private onCloseClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 

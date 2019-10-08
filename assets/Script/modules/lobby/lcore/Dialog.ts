@@ -104,7 +104,7 @@ export class Dialog {
             closeBtn.visible = true;
             closeBtn.onClick(
                 () => {
-                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                    SoundMgr.buttonTouch();
                     Dialog.inst.dlgWin.hide();
                 },
                 undefined);
@@ -125,7 +125,7 @@ export class Dialog {
             yesBtn.x = 423;
             yesBtn.onClick(
                 () => {
-                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                    SoundMgr.buttonTouch();
                     Dialog.inst.dlgWin.hide();
                     yesCb2();
                 },
@@ -142,7 +142,7 @@ export class Dialog {
             noBtn.visible = true;
             noBtn.onClick(
                 () => {
-                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                    SoundMgr.buttonTouch();
                     Dialog.inst.dlgWin.hide();
                     noCB();
                 },

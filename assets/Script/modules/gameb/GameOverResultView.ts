@@ -303,7 +303,7 @@ export class GameOverResultView extends cc.Component {
     }
     //玩家点击返回按钮
     private onCloseButtonClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         // -- 降低消息队列的优先级为0
         if (!this.room.isReplayMode()) {
             this.room.getRoomHost().unblockNormal();
@@ -318,13 +318,13 @@ export class GameOverResultView extends cc.Component {
     }
 
     private onShareButtonClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Share.shareScreenshot("");
         // Share.shareGame(this.eventTarget, Share.ShareSrcType.GameShare, Share.ShareMediaType.Image, Share.ShareDestType.Friend);
     }
 
     private onCopyClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const table = this.msgGameOver.tdata;
         let gameName = "";
         if (table.room_id === 2100 || table.room_id === 2102) {

@@ -243,7 +243,7 @@ export class ReadyView {
     }
 
     private onLeaveRoomBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
 
         Dialog.showDialog(
             LocalStrings.findString('quitRoom'),
@@ -256,7 +256,7 @@ export class ReadyView {
     }
 
     private onDisbandBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Dialog.showDialog(
             LocalStrings.findString('disbandRoom'),
             () => {
@@ -267,11 +267,11 @@ export class ReadyView {
             });
     }
     private onForOtherCreateRoomBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onShareBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
 
             let text = "";

@@ -70,15 +70,15 @@ export class ShopView extends cc.Component {
     }
 
     private onCloseClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onFkBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
     }
     private onDouBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
 
     }
 
@@ -187,7 +187,7 @@ export class ShopView extends cc.Component {
     }
 
     private onBeanBuyBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         // TODO: 检查如何是ios, 则提示暂不支持ios
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
@@ -204,7 +204,7 @@ export class ShopView extends cc.Component {
     }
 
     private onCardBuyBtnClick(ev: fgui.Event): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         // TODO: 检查如何是ios, 则提示暂不支持ios
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
@@ -220,12 +220,12 @@ export class ShopView extends cc.Component {
 
     }
     private onVipBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.showVipView();
     }
 
     private onVipViewCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.win.hide();
         this.win.contentPane = this.view;
         this.win.show();

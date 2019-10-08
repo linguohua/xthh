@@ -146,13 +146,13 @@ export class DisbandView extends cc.Component {
     }
 
     private onRefuseBtnClicked(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.showButtons(false);
         this.room.sendDisbandAgree(false);
     }
 
     private onAgreeBtnClicked(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.isDisbandDone === true) {
             this.destroy();
         } else {

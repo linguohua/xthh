@@ -115,12 +115,12 @@ export class UserInfoView extends cc.Component {
     }
 
     private onCloseClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onTouchSound(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_move`);
+        SoundMgr.tabSwitch();
 
     }
     private registerHandler(): void {
@@ -325,7 +325,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onChangeIconBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
 
         const view = this.addComponent(IconListPopupView);
 
@@ -335,7 +335,7 @@ export class UserInfoView extends cc.Component {
 
     }
     private onModifyBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onModifyBtnClick");
         const controller = this.userInfo.getController("isModify");
         controller.selectedIndex = 1;
@@ -357,7 +357,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onSaveModifyBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const controller = this.userInfo.getController("isModify");
         controller.selectedIndex = 0;
 
@@ -385,7 +385,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onBindPhoneBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         // 已经绑定，无需再绑定
         if (this.bindPhoneBtn.asButton.getController("bind").selectedIndex === 1) {
             return;
@@ -397,11 +397,11 @@ export class UserInfoView extends cc.Component {
     }
 
     private onGirlRadioBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onBoyRadioBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private getAvatarIndexFromLoaderUrl(url: string): number {
@@ -456,13 +456,13 @@ export class UserInfoView extends cc.Component {
     }
 
     private onAgreementViewBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.addComponent(AgreementView);
 
     }
 
     private onAuthSaveBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const nameReg = /^[\u4e00-\u9fa5]*$/;
         if (!nameReg.test(this.realName.string)) {
             Dialog.prompt(LocalStrings.findString("pleaseInputRealName"));
@@ -545,7 +545,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onMusicBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.musicBtn.selected) {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
             SoundMgr.playMusic();
@@ -556,7 +556,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onEffectBtnVolumeClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.effectBtn.selected) {
             SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
@@ -567,7 +567,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onClearCacheBtn(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const tag = +DataStore.getString(KeyConstants.VOICE_TAG);
 
         if (tag === 0) {
@@ -581,7 +581,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onGpsBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.gpsBtn.selected) {
             DataStore.setItem(KeyConstants.GPS, 1);
         } else {
@@ -639,7 +639,7 @@ export class UserInfoView extends cc.Component {
     }
 
     private onLogout(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
         const req = new proto.casino.packet_user_logout();
         req.player_id = +playerID;

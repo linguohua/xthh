@@ -88,19 +88,19 @@ export class InputNumberView extends cc.Component {
         this.numbers = this.view.getChild("number").asTextField;
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onResetBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.numbers.text = "";
         this.okBtn.grayed = true;
         this.okBtn._touchDisabled = true;
     }
 
     private onBackBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         let len = this.numbers.text.length;
         if (len !== 0) {
             this.numbers.text = this.numbers.text.substring(0, len - 1);
@@ -114,7 +114,7 @@ export class InputNumberView extends cc.Component {
     }
 
     private onInputButton(input: number): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const numberLength = this.numbers.text.length;
         if (numberLength < this.maxLimit) {
             this.numbers.text = `${this.numbers.text}${input}`;
@@ -132,7 +132,7 @@ export class InputNumberView extends cc.Component {
     }
 
     private onOkBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const num = this.numbers.text;
         if (num !== undefined && num !== null && num !== "") {
 

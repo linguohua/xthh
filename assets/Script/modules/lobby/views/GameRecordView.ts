@@ -71,7 +71,7 @@ export class GameRecordView {
             btn.getChild("n2").text = timeText;
             btn.onClick(
                 () => {
-                    SoundMgr.playEffectAudio(`gameb/sound_touch`);
+                    SoundMgr.buttonTouch();
                     this.onScoreTimeBtnClick(i);
                 },
                 this);
@@ -79,7 +79,7 @@ export class GameRecordView {
     }
 
     private onInputRecordIdBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.newRoomView.onInputRecordIdBtnClick();
     }
 
@@ -200,7 +200,7 @@ export class GameRecordView {
     }
 
     private onReplayBtnClick(rId: number): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const table = this.replayTable[rId];
 
         if (table === undefined || table === null) {

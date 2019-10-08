@@ -142,7 +142,7 @@ export class LoginView extends cc.Component {
     }
 
     public onLoginClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.button !== null) {
             this.button.hide();
         }
@@ -150,14 +150,14 @@ export class LoginView extends cc.Component {
     }
 
     public onWeixinBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Logger.debug('not wx env');
         }
     }
 
     public onPhoneLoginBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Logger.debug("onPhoneLoginBtnClick");
         const view = this.addComponent(PhoneAuthView);
         view.show(OpenType.LOGIN, this);
@@ -586,7 +586,7 @@ export class LoginView extends cc.Component {
                 // 防止连续点击
                 return;
             }
-            SoundMgr.playEffectAudio(`gameb/sound_touch`);
+            SoundMgr.buttonTouch();
             Dialog.showWaiting();
             WeiXinSDK.login(<Function>this.wxLogin.bind(this));
         });

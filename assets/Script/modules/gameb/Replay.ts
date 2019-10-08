@@ -228,7 +228,7 @@ export class Replay {
     }
     // 音效开关
     private onEffectSoundBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnYX.selected) {
             SoundMgr.enableEffects();
             DataStore.setItem(KeyConstants.EFFECT_VOLUME, 1);
@@ -240,7 +240,7 @@ export class Replay {
 
     // 音乐开关
     private onMusicSoundBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnYY.selected) {
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
             SoundMgr.playMusic();
@@ -250,12 +250,12 @@ export class Replay {
         }
     }
     private onSettingClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.settingView.visible = !this.settingView.visible;
     }
 
     private onExitClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnExit.grayed) {
             return;
         }
@@ -264,7 +264,7 @@ export class Replay {
     }
 
     private onPauseClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnPause.grayed) {
             return;
         }
@@ -274,7 +274,7 @@ export class Replay {
         this.stopStepTimer();
     }
     private onBackClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (!this.btnBack.grayed && this.roundStep > 0) {
             this.stopStepTimer();
             this.roundStep--;
@@ -283,7 +283,7 @@ export class Replay {
         }
     }
     private onNextClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (!this.btnNext.grayed && this.roundStep < this.msgHandRecord.rounds.length - 1) {
             this.stopStepTimer();
             this.roundStep++;
@@ -292,7 +292,7 @@ export class Replay {
         }
     }
     private onResetClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnReset.grayed) {
             return;
         }
@@ -303,7 +303,7 @@ export class Replay {
         this.startStepTimer();
     }
     private onResumeClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnResume.grayed) {
             return;
         }
@@ -317,7 +317,7 @@ export class Replay {
     }
 
     private onFastClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.btnFast.grayed) {
             return;
         }

@@ -312,57 +312,57 @@ export class LobbyView extends cc.Component {
     }
 
     private onUserInfoClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(UserInfoView);
         view.showView(UserInfoTabType.BASE_INFO);
     }
 
     private onSettingBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(UserInfoView);
         view.showView(UserInfoTabType.GAME_SETTING);
     }
 
     private onAddDouBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.FK);
     }
 
     private onAnnouncementBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
     private onApplyAgentBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
     private onRedPacketBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.addComponent(RedPacketView);
     }
 
     private onJoyBeanHallBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(JoyBeanView);
         view.show();
     }
 
     private onChsBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Dialog.prompt(LocalStrings.findString("stayTuned"));
     }
     private onGuildBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         Dialog.prompt(LocalStrings.findString("stayTuned"));
     }
 
     private onFriendClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         // TODO: 显示好友界面
         // this.showMarquee("");
         //this.lm.nimSDK.disconnect();
@@ -381,40 +381,40 @@ export class LobbyView extends cc.Component {
     }
 
     private openEmailClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.addComponent(EmailView);
     }
 
     private onCreateRoom(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const newRoomView = this.addComponent(NewRoomView);
         newRoomView.showView();
     }
 
     private onSignBtnClick(): void {
         // TODO: 需要显示签到界面
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.addComponent(SignView);
     }
 
     private onShopBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         const view = this.addComponent(ShopView);
         view.showView(this.lm.loader, TabType.Dou);
     }
 
     private onQuestBtnClick(): void {
         // TODO: 显示任务界面
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onCommitteeBtnClick(): void {
         // TODO: 显示居委会界面
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
     }
 
     private onShareBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             Share.shareScreenshot("");
         }

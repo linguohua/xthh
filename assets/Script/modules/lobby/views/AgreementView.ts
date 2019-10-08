@@ -89,18 +89,18 @@ export class AgreementView extends cc.Component {
 
     }
     private onCloseBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         this.destroy();
     }
 
     private onAgreeBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         DataStore.setItem(KeyConstants.AGREEMENT, KeyConstants.RESULT_YES);
         this.destroy();
     }
 
     private onLastPageBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.pageIndex > 0) {
             this.pageIndex--;
             this.nextPageBtn.getController("enable").selectedIndex = 1;
@@ -116,7 +116,7 @@ export class AgreementView extends cc.Component {
     }
 
     private onNextPageBtnClick(): void {
-        SoundMgr.playEffectAudio(`gameb/sound_touch`);
+        SoundMgr.buttonTouch();
         if (this.pageIndex < this.pageCount - 1) {
             this.pageIndex++;
             this.nextPageBtn.getController("enable").selectedIndex = this.pageIndex === this.pageCount - 1 ? 0 : 1;
