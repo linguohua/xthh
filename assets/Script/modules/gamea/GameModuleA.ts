@@ -83,7 +83,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         this.loader = args.loader;
 
         this.lm.eventTarget.on("reconnect", this.onReconnect, this);
-        this.lm.eventTarget.on("onJoinRoomAck", this.onJoinTableAck, this);
+        this.lm.eventTarget.on("onJoinTableAck", this.onJoinTableAck, this);
 
         if (this.lm.nimSDK !== undefined) {
             this.lm.nimSDK.eventTarget.on("onNimMsg", this.onNimMsg, this);
@@ -239,6 +239,7 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
         this.eventTarget.emit("destroy");
         this.eventTarget.off("gpsChange");
         this.lm.eventTarget.off("reconnect");
+        this.lm.eventTarget.off("onJoinTableAck");
 
         this.component.unschedule(this.getLocation);
 
