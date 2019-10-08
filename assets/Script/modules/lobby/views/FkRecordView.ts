@@ -1,6 +1,7 @@
 import { GameError } from "../errorCode/ErrorCodeExports";
 import { Dialog, LobbyModuleInterface, Logger } from "../lcore/LCoreExports";
 import { proto as protoHH } from "../protoHH/protoHH";
+import { LocalStrings } from "../strings/LocalStringsExports";
 
 const { ccclass } = cc._decorator;
 /**
@@ -59,6 +60,12 @@ export class FkRecordView {
         Logger.debug("onFkRecordLoad, reply.cards:", reply.cards);
         this.recordMsgs = reply.cards;
         this.list.numItems = this.recordMsgs.length;
+
+        if (this.recordMsgs.length === 0) {
+            Dialog.prompt(LocalStrings.findString("noCardRecord"));
+
+            return;
+        }
     }
 
     private renderRecordListItem(index: number, item: fgui.GObject): void {

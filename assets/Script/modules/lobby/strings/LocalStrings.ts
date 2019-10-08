@@ -180,6 +180,7 @@ export namespace LocalStrings {
                 [`pleaseInputRealIDCard`]: "请输入正确的身份证号",
 
                 [`stayTuned`]: "功能开发中,敬请期待",
+                [`noCardRecord`]: "没有你最近的房卡记录",
 
                 // 12个 制表符
                 [`agreeText0`]: `                                                                用户服务协议
