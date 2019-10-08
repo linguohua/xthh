@@ -12,6 +12,27 @@ export enum TabType {
     Dou = 1
 
 }
+
+const payError: { [key: number]: string } = {
+    [-1]: "系统失败",
+    [-2]: "支付取消",
+    [-15001]: "虚拟支付接口错误码，缺少参数",
+    [-15002]: "虚拟支付接口错误码，参数不合法",
+    [-15003]: "订单重复",
+    [-15004]: "虚拟支付接口错误码，后台错误",
+    [-15005]: "虚拟支付接口错误码，appId权限被封禁",
+    [-15006]: "虚拟支付接口错误码，货币类型不支持",
+    [-15007]: "订单已支付",
+    [1]: "用户取消支付",
+    [2]: "重复支付",
+    [3]: "虚拟支付接口错误码，Android独有错误：用户使用GooglePlay支付，而手机未安装GooglePlay",
+    [4]: "虚拟支付接口错误码，用户操作系统支付状态异常",
+    [5]: "虚拟支付接口错误码，操作系统错误",
+    [6]: "虚拟支付接口错误码，其他错误",
+    [7]: "用户取消购买",
+    [1000]: "参数错误",
+    [1003]: "米大师Portal错误"
+};
 /**
  * 用户信息页面
  */
@@ -31,7 +52,13 @@ export class ShopView extends cc.Component {
 
     private cardPayCfgs: protoHH.casino.Ipay[];
 
+    private errCount: number = 0;
+
     public showView(loader: GResLoader, page: TabType): void {
+        // ios 屏蔽掉
+        if (cc.sys.os === cc.sys.OS_IOS) {
+            return;
+        }
 
         this.eventTarget = new cc.EventTarget();
 
@@ -217,6 +244,7 @@ export class ShopView extends cc.Component {
         const cardPayCfg = this.cardPayCfgs[index];
 
         Logger.debug("cardPayCfg:", cardPayCfg);
+        this.onBuyToWX(cardPayCfg.price, cardPayCfg.id);
 
     }
     private onVipBtnClick(): void {
@@ -281,7 +309,7 @@ export class ShopView extends cc.Component {
 
             fail: async (res: { errMsg: string; errCode: number }) => {
                 console.log("onBuyToWX fail", res);
-                Dialog.showDialog(res.errMsg);
+                Dialog.showDialog(payError[res.errCode]);
             }
         };
 
@@ -305,11 +333,21 @@ export class ShopView extends cc.Component {
         HTTP.hPost(
             this.eventTarget,
             url,
-            (xhr: XMLHttpRequest, err: string) => {
+            async (xhr: XMLHttpRequest, err: string) => {
                 let errMsg = null;
                 if (err !== null) {
                     Logger.debug(err);
-                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+                    // Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+                    if (this.errCount < 3) {
+                        this.errCount = this.errCount + 1;
+                        Logger.error("this.errCount1:", this.errCount);
+                        // 如果是网络原因，等待2秒再重试
+                        await this.waitSecond(2);
+                        this.requestServerShipments(payID);
+                    } else {
+                        this.errCount = 0;
+                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+                    }
 
                     return;
                 }
@@ -317,17 +355,43 @@ export class ShopView extends cc.Component {
                 errMsg = HTTP.hError(xhr);
                 if (errMsg !== null) {
                     Logger.debug(errMsg);
-                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+                    if (this.errCount < 3) {
+                        this.errCount = this.errCount + 1;
+                        Logger.error("this.errCount2:", this.errCount);
+                        // 如果是网络原因，等待2秒再重试
+                        await this.waitSecond(2);
+                        this.requestServerShipments(payID);
+                    } else {
+                        this.errCount = 0;
+                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+                    }
 
                     return;
                 }
 
+                this.errCount = 0;
                 Logger.debug("responseText:", xhr.responseText);
-
+                const result = <{ ret: number; msg: string; data: {} }>JSON.parse(xhr.responseText);
+                if (result.ret !== 0) {
+                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
+                    Dialog.showDialog("发货失败，请连续运营人员");
+                } else {
+                    Dialog.showDialog("支付成功");
+                }
             },
             "text",
             reqString);
 
+    }
+
+    private async waitSecond(seconds: number): Promise<void> {
+        return new Promise<void>((resolve, _) => {
+            this.scheduleOnce(
+                () => {
+                    resolve();
+                },
+                seconds);
+        });
     }
 
 }
