@@ -182,4 +182,5 @@ export interface RoomInterfaceA {
 
     onReadyButtonClick(): void;
     onSearchPlayerAck(searchAck: protoHH.casino.packet_search_ack): void;
+    isStartRecord(): boolean;
 }

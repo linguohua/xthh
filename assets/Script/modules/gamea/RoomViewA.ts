@@ -452,6 +452,10 @@ export class RoomViewA {
             this.onGPSBtnClick();
         }
     }
+
+    public isStartRecord(): boolean {
+        return this.isRecordStart;
+    }
     private gamePauseCountDownFunc(timeStamp: number): void {
         const roomHost = this.room.getRoomHost();
         const serverTime = roomHost.getServerTime();

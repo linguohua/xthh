@@ -893,6 +893,10 @@ export class Room {
         return false;
     }
 
+    public isStartRecord(): boolean {
+        return this.roomView.isStartRecord();
+    }
+
     //重连 初始化 牌组
     private initCards(playerInfo: protoHH.casino.Itable_player, player: Player, isNewDiacard: boolean = false): void {
         //先保存癞子 才能排序

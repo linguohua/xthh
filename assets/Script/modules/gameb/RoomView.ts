@@ -73,7 +73,7 @@ export class RoomView {
 
     private lastRecordTime: number = 0;
     private lastVoiceBtnClickTime: number = 0;
-    private isRecordStart: boolean = true;
+    private isRecordStart: boolean = false;
     private readyView: ReadyView;
 
     private gamePauseTipsCom: fgui.GComponent;
@@ -511,6 +511,10 @@ export class RoomView {
             //刷新转盘数据
             this.refreshPowerProgress();
         }
+    }
+
+    public isStartRecord(): boolean {
+        return this.isRecordStart;
     }
     private countDownCallBack(): void {
         if (this.leftTime > 0) {

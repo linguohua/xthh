@@ -14,6 +14,7 @@ export interface RoomInterface {
     getRoomHost(): RoomHost;
 
     onLeaveClicked(): void;
+    isStartRecord(): boolean;
 }
 /**
  * 设置界面
@@ -226,6 +227,13 @@ export class RoomSettingView extends cc.Component {
     private onMusicSoundBtnClick(): void {
         SoundMgr.buttonTouch();
         if (this.musicBtn.selected) {
+            // 如果正在录音，不能打开背景音乐
+            if (this.room.isStartRecord()) {
+                this.musicBtn.selected = false;
+                Dialog.prompt("正在录音不能打开背景音乐");
+
+                return;
+            }
             DataStore.setItem(KeyConstants.MUSIC_VOLUME, 1);
             SoundMgr.playMusic();
         } else {
