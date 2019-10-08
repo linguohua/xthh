@@ -114,6 +114,9 @@ export class LoginView extends cc.Component {
         this.progressBar = this.viewNode.getChild("progress").asProgress;
         this.progressText = this.viewNode.getChild("progressText").asTextField;
 
+        const approvalInformationText = this.viewNode.getChild("information");
+        approvalInformationText.text = LocalStrings.findString("approvalInformation");
+
         const version = this.viewNode.getChild("versionLab");
         version.text = LEnv.VER_STR;
 
