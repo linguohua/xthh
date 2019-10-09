@@ -52,8 +52,6 @@ export class ShopView extends cc.Component {
 
     private cardPayCfgs: protoHH.casino.Ipay[];
 
-    private errCount: number = 0;
-
     public showView(loader: GResLoader, page: TabType): void {
         // ios 屏蔽掉
         if (cc.sys.os === cc.sys.OS_IOS) {
@@ -323,6 +321,7 @@ export class ShopView extends cc.Component {
             pay_id: payID
         };
 
+        // TODO: 保存订单到本地
         const reqString = JSON.stringify(req);
 
         const userID = DataStore.getString(KeyConstants.USER_ID, "");
@@ -337,17 +336,11 @@ export class ShopView extends cc.Component {
                 let errMsg = null;
                 if (err !== null) {
                     Logger.debug(err);
-                    // Dialog.showDialog(LocalStrings.findString("networkConnectError"));
-                    if (this.errCount < 3) {
-                        this.errCount = this.errCount + 1;
-                        Logger.error("this.errCount1:", this.errCount);
-                        // 如果是网络原因，等待2秒再重试
-                        await this.waitSecond(2);
+                    const okCallback = () => {
                         this.requestServerShipments(payID);
-                    } else {
-                        this.errCount = 0;
-                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
-                    }
+                    };
+
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"), okCallback);
 
                     return;
                 }
@@ -355,26 +348,21 @@ export class ShopView extends cc.Component {
                 errMsg = HTTP.hError(xhr);
                 if (errMsg !== null) {
                     Logger.debug(errMsg);
-                    if (this.errCount < 3) {
-                        this.errCount = this.errCount + 1;
-                        Logger.error("this.errCount2:", this.errCount);
-                        // 如果是网络原因，等待2秒再重试
-                        await this.waitSecond(2);
+
+                    const okCallback = () => {
                         this.requestServerShipments(payID);
-                    } else {
-                        this.errCount = 0;
-                        Dialog.showDialog(LocalStrings.findString("networkConnectError"));
-                    }
+                    };
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"), okCallback);
 
                     return;
                 }
 
-                this.errCount = 0;
+                // TODO: 删除本地订单
                 Logger.debug("responseText:", xhr.responseText);
                 const result = <{ ret: number; msg: string; data: {} }>JSON.parse(xhr.responseText);
                 if (result.ret !== 0) {
                     Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
-                    Dialog.showDialog("发货失败，请连续运营人员");
+                    Dialog.showDialog(`发货失败:${result.msg}`);
                 } else {
                     Dialog.showDialog("支付成功");
                 }
@@ -383,15 +371,4 @@ export class ShopView extends cc.Component {
             reqString);
 
     }
-
-    private async waitSecond(seconds: number): Promise<void> {
-        return new Promise<void>((resolve, _) => {
-            this.scheduleOnce(
-                () => {
-                    resolve();
-                },
-                seconds);
-        });
-    }
-
 }
