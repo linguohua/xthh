@@ -425,7 +425,7 @@ export class UserInfoView extends cc.Component {
         const authInfo = this.view.getChild("autoInfoCom").asCom;
 
         const realName = authInfo.getChild("n35");
-        const editBoxNode = await await this.loadIdCardEditBox();
+        const editBoxNode = await this.loadIdCardEditBox();
         realName.node.addChild(editBoxNode);
         realName.x = 333;
         this.realName = editBoxNode.getComponent(cc.EditBox);
