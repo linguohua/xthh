@@ -644,7 +644,7 @@ export class PlayerA {
         //     }
         // }
         // this.discardToDeskOfMe(tileID);
-        this.myDiscardAction(tileID);
+        // this.myDiscardAction(tileID);
         const req2 = new protoHH.casino_gdy.packet_cs_outcard_req({ player_id: +this.userID, card: tileID });
         const buf = protoHH.casino_gdy.packet_cs_outcard_req.encode(req2);
         this.host.sendActionMsg(buf, protoHH.casino_gdy.eGDY_MSG_TYPE.GDY_MSG_CS_OUTCARD_REQ);
@@ -825,10 +825,10 @@ export class PlayerA {
         SoundMgr.playEffectAudio(soundName);
     }
 
-    private myDiscardAction(tileID: number): void {
-        this.discardOutTileID(tileID);
-        this.playerView.enlargeDiscarded(tileID, true);
-    }
+    // private myDiscardAction(tileID: number): void {
+    //     this.discardOutTileID(tileID);
+    //     this.playerView.enlargeDiscarded(tileID, true);
+    // }
     // private discardToDeskOfMe(discardTileId: number): void {
     //     //自己打出去的牌 先显示到桌面  服务器回复之后 就不再操作桌面了
     //     //清理吃牌界面

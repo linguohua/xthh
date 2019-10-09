@@ -1345,6 +1345,7 @@ export class PlayerViewA {
 
             if (isMe) {
                 this.dragHand = this.myHandTilesNode.getChild("dragHand").asCom;
+                card.offClick(undefined, undefined);
                 card.onClick(
                     () => {
                         this.onHandTileBtnClick(i);

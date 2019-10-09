@@ -12,6 +12,7 @@ export namespace HandlerActionResultDiscardedA {
         const reply = proto.casino_gdy.packet_sc_outcard_ack.decode(msgData);
         Logger.debug("HandlerMsgActionOutCardAck----------------------- ", reply);
         const player = <PlayerA>room.getPlayerByPlayerID(reply.player_id);
+        const myPlayer = <PlayerA>room.getMyPlayer();
 
         // const targetChairID = actionResultMsg.targetChairID;
         // const player = <Player>room.getPlayerByChairID(targetChairID);
@@ -19,17 +20,17 @@ export namespace HandlerActionResultDiscardedA {
 
         // const me = room.getMyPlayer();
         const isMe = player.isMe();
-        const isReplayMode = room.isReplayMode();
-        if (!isMe || isReplayMode) {
-            player.discardOutTileID(discardTileId);
-        }
+        // const isReplayMode = room.isReplayMode();
+        // if (!isMe || isReplayMode) {
+        player.discardOutTileID(discardTileId);
+        // }
         if (isMe) {
             player.cancelZiMo = false;
             room.showOrHideCancelCom(false);
-            //清理界面
-            player.playerView.clearAllowedActionsView(false);
-            room.roomView.showOrHideTipsOfMe(false);
         }
+        //清理界面
+        myPlayer.playerView.clearAllowedActionsView(false);
+        room.roomView.showOrHideTipsOfMe(false);
         //清理吃牌界面
         room.cleanUI();
         //加到打出牌列表
@@ -53,7 +54,6 @@ export namespace HandlerActionResultDiscardedA {
             return;
         }
         if (room.roomInfo.flag === 1 && room.roomInfo.players.length > 2) {
-            const myPlayer = <PlayerA>room.getMyPlayer();
             const nextPlayer = <PlayerA>room.getNextPlayer(myPlayer.chairID);
             const isSuoPiao = nextPlayer.mPiaoCount > 2;
             if (isSuoPiao) {
