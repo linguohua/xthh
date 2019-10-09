@@ -7,7 +7,7 @@ export namespace GameError {
 
     const errMsg: { [key: number]: string } = {
         [errCode.RETURN_SUCCEEDED]: "成功",
-        [errCode.RETURN_FAILED]: "失败",
+        [errCode.RETURN_FAILED]: "请求失败",
         [errCode.RETURN_DISABLE]: "服务器即将维护，停止开房！",
         [errCode.RETURN_ONLINE]: "已在线",
         [errCode.RETURN_OFFLINE]: "已离线",
