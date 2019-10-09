@@ -663,6 +663,10 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
 
         if (!this.isGpsOpen) {
             Logger.debug("gps is close");
+            // 如果gps不同步，则同步gps到服务器
+            if (this.mRoom !== null && !this.mRoom.isGpsSync()) {
+                this.sendLocation2Server(null, null);
+            }
 
             return;
         }
