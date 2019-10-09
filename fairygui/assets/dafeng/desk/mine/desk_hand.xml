@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,122" opaque="false" designImage="ui://397phochlqn3fs" designImageOffsetY="-471" designImageAlpha="100">
   <displayList>
+    <graph id="n43_qvjg" name="a1" xy="949,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n44_qvjg" name="a2" xy="871,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n45_qvjg" name="a3" xy="793,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n46_qvjg" name="a4" xy="715,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n47_qvjg" name="a5" xy="637,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n48_qvjg" name="a6" xy="560,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n49_qvjg" name="a7" xy="482,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n50_qvjg" name="a8" xy="404,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n51_qvjg" name="a9" xy="326,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n52_qvjg" name="a10" xy="249,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n53_qvjg" name="a11" xy="171,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n54_qvjg" name="a12" xy="93,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n55_qvjg" name="a13" xy="16,0" size="89,135" scale="0.9,0.9" visible="false"/>
+    <graph id="n56_qvjg" name="a14" xy="1039,0" size="89,135" scale="0.9,0.9" visible="false"/>
     <component id="n28_fxwe" name="n1" src="tsg11s" fileName="mahjong_mine/mahjong_mine_shu.xml" pkg="l6hoa9ng" xy="949,0" scale="0.9,0.9" visible="false"/>
     <component id="n29_fxwe" name="n2" src="tsg11s" fileName="mahjong_mine/mahjong_mine_shu.xml" pkg="l6hoa9ng" xy="871,0" scale="0.9,0.9" visible="false"/>
     <component id="n30_fxwe" name="n3" src="tsg11s" fileName="mahjong_mine/mahjong_mine_shu.xml" pkg="l6hoa9ng" xy="793,0" scale="0.9,0.9" visible="false"/>

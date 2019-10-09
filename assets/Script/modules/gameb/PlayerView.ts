@@ -1348,7 +1348,6 @@ export class PlayerView {
             card.visible = false;
             hands[i] = card;
 
-            handsOriginPos[i] = new PosCtrl(card.x, card.y);
             const cc = new ClickCtrl();
             // cc.clickCount = 0;
             cc.isNormalState = true;
@@ -1357,6 +1356,9 @@ export class PlayerView {
             handsClickCtrls[i] = cc;
 
             if (isMe) {
+                const pos = this.myHandTilesNode.getChild(`a${i + 1}`);
+                handsOriginPos[i] = new PosCtrl(pos.x, pos.y);
+
                 this.dragHand = this.myHandTilesNode.getChild("dragHand").asCom;
                 card.offClick(undefined, undefined);
                 card.onClick(
