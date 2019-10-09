@@ -197,7 +197,11 @@ export namespace CommonFunction {
 
     export const saveOrder = (orderID: string, payID: number): void => {
         const orderIDStrings = DataStore.getString(KeyConstants.ORDERS);
-        const orderMap = <{ [key: string]: number }>JSON.parse(orderIDStrings);
+        let orderMap: { [key: string]: number } = {};
+        if (orderIDStrings !== "") {
+            orderMap = <{ [key: string]: number }>JSON.parse(orderIDStrings);
+        }
+
         const keys = Object.keys(orderMap);
         for (const key of keys) {
             if (key === orderID) {
@@ -215,6 +219,10 @@ export namespace CommonFunction {
 
     export const removeOrder = (orderID: string): void => {
         const orderIDStrings = DataStore.getString(KeyConstants.ORDERS);
+        if (orderIDStrings === "") {
+            return;
+        }
+
         const orderMap = <{ [key: string]: number }>JSON.parse(orderIDStrings);
 
         delete orderMap[orderID];

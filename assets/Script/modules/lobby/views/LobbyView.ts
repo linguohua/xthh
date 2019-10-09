@@ -1000,7 +1000,11 @@ export class LobbyView extends cc.Component {
     }
 
     private checkBuyOrder(): void {
-        const orderIDStrings = DataStore.getString(KeyConstants.ORDERS);
+        const orderIDStrings = DataStore.getString(KeyConstants.ORDERS, "");
+        if (orderIDStrings === "") {
+            return;
+        }
+
         const orderMap = <{ [key: string]: number }>JSON.parse(orderIDStrings);
         const keys = Object.keys(orderMap);
         for (const key of keys) {

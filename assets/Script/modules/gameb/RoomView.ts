@@ -749,12 +749,13 @@ export class RoomView {
 
         this.mike.visible = true;
         this.recordStartPosition = event.touch.getLocation();
+        this.recordEndPosition = this.recordStartPosition;
 
         if (SoundMgr.isMusicPlaying()) {
             SoundMgr.stopMusic();
         }
         const options = {
-            duration: 120 * 1000,
+            duration: 10 * 1000,
             format: 'mp3'
         };
 
@@ -981,6 +982,17 @@ export class RoomView {
 
         const onStop = (res: { tempFilePath: string; duration: number; fileSize: number }) => {
             Logger.debug("recordManager.onStop:", res);
+            // 10秒自动停止，也会停止录音
+            if (this.isRecordStart) {
+                this.isRecordStart = false;
+                this.mike.visible = false;
+
+                const musiceVolume = DataStore.getString(KeyConstants.MUSIC_VOLUME, "0");
+                if (+musiceVolume > 0) {
+                    SoundMgr.playMusic();
+                }
+            }
+
             if (this.recordEndPosition.y - this.recordStartPosition.y > this.moveDistance) {
                 Dialog.prompt(LocalStrings.findString("cancelSend"));
 
