@@ -1,6 +1,7 @@
-import { CommonFunction, DataStore, Dialog, Enum, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, GResLoader, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
+import { md5 } from "../../utility/md5";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
@@ -301,8 +302,13 @@ export class ShopView extends cc.Component {
             zoneId: "1",
             success: async () => {
                 console.log(`onBuyToWX success, cost:${cost}, buyQuantity:${buyQuantity},payID:${payID}`);
+                // 保存订单
+                const now = Date.now();
+                const random = Math.random() * 100000;
+                const orderID = md5(`${now}${random}`);
+                CommonFunction.saveOrder(orderID, payID);
                 // 请求服务器发货
-                this.requestServerShipments(payID);
+                CommonFunction.requestServerShipments(payID, orderID, this.eventTarget);
             },
 
             fail: async (res: { errMsg: string; errCode: number }) => {
@@ -313,62 +319,5 @@ export class ShopView extends cc.Component {
 
         Logger.debug("params;", params);
         wx.requestMidasPayment(params);
-    }
-
-    private requestServerShipments(payID: number): void {
-        const req = {
-            channel: "weixin",
-            pay_id: payID
-        };
-
-        // TODO: 保存订单到本地
-        const reqString = JSON.stringify(req);
-
-        const userID = DataStore.getString(KeyConstants.USER_ID, "");
-        const ticket = DataStore.getString(KeyConstants.TICKET, "");
-        const url = LEnv.cfmt(`${LEnv.rootURL}${LEnv.shipmentsUrl}`, 2, userID, ticket);
-        Logger.debug("url:", url);
-        Logger.debug("req:", req);
-        HTTP.hPost(
-            this.eventTarget,
-            url,
-            async (xhr: XMLHttpRequest, err: string) => {
-                let errMsg = null;
-                if (err !== null) {
-                    Logger.debug(err);
-                    const okCallback = () => {
-                        this.requestServerShipments(payID);
-                    };
-
-                    Dialog.showDialog(LocalStrings.findString("networkConnectError"), okCallback);
-
-                    return;
-                }
-
-                errMsg = HTTP.hError(xhr);
-                if (errMsg !== null) {
-                    Logger.debug(errMsg);
-
-                    const okCallback = () => {
-                        this.requestServerShipments(payID);
-                    };
-                    Dialog.showDialog(LocalStrings.findString("networkConnectError"), okCallback);
-
-                    return;
-                }
-
-                // TODO: 删除本地订单
-                Logger.debug("responseText:", xhr.responseText);
-                const result = <{ ret: number; msg: string; data: {} }>JSON.parse(xhr.responseText);
-                if (result.ret !== 0) {
-                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
-                    Dialog.showDialog(`发货失败:${result.msg}`);
-                } else {
-                    Dialog.showDialog("支付成功");
-                }
-            },
-            "text",
-            reqString);
-
     }
 }

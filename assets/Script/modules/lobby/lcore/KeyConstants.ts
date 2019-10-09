@@ -70,4 +70,5 @@ export namespace KeyConstants {
     export const LEAVE_GUILD = "leaveGuild";
 
     export const TICKET = "ticket";
+    export const ORDERS = "orders"; // 本地保存订单id, 如果兑换商品失败，可以再次发起兑换
 }

@@ -1,5 +1,7 @@
 // tslint:disable-next-line:no-require-imports
 import long = require("../protobufjs/long");
+import { LocalStrings } from "../strings/LocalStringsExports";
+import { DataStore, Dialog, HTTP, KeyConstants, LEnv, Logger } from "./LCoreExports";
 
 /**
  * 公共函数类
@@ -135,6 +137,88 @@ export namespace CommonFunction {
                 }
             });
         });
+    };
+
+    export const requestServerShipments = (payID: number, orderID: string, eventTarget: cc.EventTarget): void => {
+        const req = {
+            channel: "weixin",
+            pay_id: payID
+        };
+
+        const reqString = JSON.stringify(req);
+
+        const userID = DataStore.getString(KeyConstants.USER_ID, "");
+        const ticket = DataStore.getString(KeyConstants.TICKET, "");
+        const url = LEnv.cfmt(`${LEnv.rootURL}${LEnv.shipmentsUrl}`, 2, userID, ticket);
+        Logger.debug("url:", url);
+        Logger.debug("req:", req);
+        HTTP.hPost(
+            eventTarget,
+            url,
+            async (xhr: XMLHttpRequest, err: string) => {
+                let errMsg = null;
+                if (err !== null) {
+                    Logger.debug(err);
+                    const okCallback = () => {
+                        requestServerShipments(payID, orderID, eventTarget);
+                    };
+
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"), okCallback);
+
+                    return;
+                }
+
+                errMsg = HTTP.hError(xhr);
+                if (errMsg !== null) {
+                    Logger.debug(errMsg);
+
+                    const okCallback = () => {
+                        requestServerShipments(payID, orderID, eventTarget);
+                    };
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"), okCallback);
+
+                    return;
+                }
+
+                removeOrder(orderID);
+                Logger.debug("responseText:", xhr.responseText);
+                const result = <{ ret: number; msg: string; data: {} }>JSON.parse(xhr.responseText);
+                if (result.ret !== 0) {
+                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
+                    Dialog.showDialog(`发货失败:${result.msg}`);
+                } else {
+                    Dialog.showDialog("支付成功");
+                }
+            },
+            "text",
+            reqString);
+
+    };
+
+    export const saveOrder = (orderID: string, payID: number): void => {
+        const orderIDStrings = DataStore.getString(KeyConstants.ORDERS);
+        const orderMap = <{ [key: string]: number }>JSON.parse(orderIDStrings);
+        const keys = Object.keys(orderMap);
+        for (const key of keys) {
+            if (key === orderID) {
+                Logger.debug("saveOrderID failed, order id have been exist");
+
+                return;
+            }
+        }
+
+        orderMap[orderID] = payID;
+
+        DataStore.setItem(KeyConstants.ORDERS, JSON.stringify(orderMap));
+
+    };
+
+    export const removeOrder = (orderID: string): void => {
+        const orderIDStrings = DataStore.getString(KeyConstants.ORDERS);
+        const orderMap = <{ [key: string]: number }>JSON.parse(orderIDStrings);
+
+        delete orderMap[orderID];
+        DataStore.setItem(KeyConstants.ORDERS, JSON.stringify(orderMap));
     };
 
 }
