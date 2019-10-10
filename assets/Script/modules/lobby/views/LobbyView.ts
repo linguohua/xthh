@@ -578,6 +578,11 @@ export class LobbyView extends cc.Component {
             joyBeanView.destroy();
         }
 
+        const agreementView = this.getComponent(AgreementView);
+        if (agreementView !== null) {
+            agreementView.destroy();
+        }
+
         const callback = () => {
             const lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
             lm.switchToGame(params, "gameb");

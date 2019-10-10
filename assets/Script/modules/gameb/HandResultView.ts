@@ -680,7 +680,6 @@ export class HandResultView extends cc.Component {
                         return;
                     }
 
-
                     const view = this.addComponent(ShopView);
                     view.showView(this.room.getRoomHost().loader, TabType.Dou);
 
