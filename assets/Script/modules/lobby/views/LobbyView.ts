@@ -996,6 +996,9 @@ export class LobbyView extends cc.Component {
         } else {
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.UNKNOWN);
         }
+
+        this.fkText.text = `${card}`;
+        this.beansText.text = `${beans}`;
     }
     private onLogout(): void {
         Logger.debug("onLogout");
