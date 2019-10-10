@@ -676,6 +676,11 @@ export class HandResultView extends cc.Component {
                 }
                 // 提示用户没有豆了
                 const yesCB = () => {
+                    if (cc.sys.os === cc.sys.OS_IOS) {
+                        return;
+                    }
+
+
                     const view = this.addComponent(ShopView);
                     view.showView(this.room.getRoomHost().loader, TabType.Dou);
 

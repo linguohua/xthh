@@ -54,13 +54,6 @@ export class ShopView extends cc.Component {
     private cardPayCfgs: protoHH.casino.Ipay[];
 
     public showView(loader: GResLoader, page: TabType): void {
-        // ios 屏蔽掉
-        if (cc.sys.os === cc.sys.OS_IOS) {
-            return;
-        }
-
-        this.eventTarget = new cc.EventTarget();
-
         loader.fguiAddPackage("lobby/fui_lobby_shop/lobby_shop");
         const view = fgui.UIPackage.createObject("lobby_shop", "shopView").asCom;
         CommonFunction.setViewInCenter(view);
@@ -88,8 +81,11 @@ export class ShopView extends cc.Component {
         tabCtrl.selectedIndex = page;
     }
 
-    protected onDestroy(): void {
+    protected onLoad(): void {
+        this.eventTarget = new cc.EventTarget();
+    }
 
+    protected onDestroy(): void {
         this.eventTarget.emit("destroy");
         this.win.hide();
         this.win.dispose();

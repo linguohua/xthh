@@ -137,14 +137,12 @@ export class JoyBeanView extends cc.Component {
 
     private onAddDouBtnClick(): void {
         SoundMgr.buttonTouch();
-        const view = this.addComponent(ShopView);
-        view.showView(this.lm.loader, TabType.Dou);
+        this.showShopView(TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
         SoundMgr.buttonTouch();
-        const view = this.addComponent(ShopView);
-        view.showView(this.lm.loader, TabType.FK);
+        this.showShopView(TabType.FK);
     }
 
     private onShareBtnClick(): void {
@@ -156,8 +154,7 @@ export class JoyBeanView extends cc.Component {
 
     private onShopBtnClick(): void {
         SoundMgr.buttonTouch();
-        const view = this.addComponent(ShopView);
-        view.showView(this.lm.loader, TabType.Dou);
+        this.showShopView(TabType.Dou);
     }
 
     private onLotteryViewBtnClick(): void {
@@ -196,6 +193,15 @@ export class JoyBeanView extends cc.Component {
         }
     }
 
+    private showShopView(page: TabType): void {
+        // ios 屏蔽掉
+        if (cc.sys.os === cc.sys.OS_IOS) {
+            return;
+        }
+
+        const view = this.addComponent(ShopView);
+        view.showView(this.lm.loader, page);
+    }
     private checkBeans(myGold: number): void {
         const goldmin = +DataStore.getString(KeyConstants.HELPER_MIN);
         if (goldmin > myGold) {
@@ -211,8 +217,7 @@ export class JoyBeanView extends cc.Component {
         }
         // 提示用户没有豆了
         const yesCB = () => {
-            const view = this.addComponent(ShopView);
-            view.showView(this.lm.loader, TabType.Dou);
+            this.showShopView(TabType.Dou);
 
             // this.onBackButtonClick();
         };

@@ -349,14 +349,12 @@ export class LobbyView extends cc.Component {
 
     private onAddDouBtnClick(): void {
         SoundMgr.buttonTouch();
-        const view = this.addComponent(ShopView);
-        view.showView(this.lm.loader, TabType.Dou);
+        this.showShopView(TabType.Dou);
     }
 
     private onAddFKBtnClick(): void {
         SoundMgr.buttonTouch();
-        const view = this.addComponent(ShopView);
-        view.showView(this.lm.loader, TabType.FK);
+        this.showShopView(TabType.FK);
     }
 
     private onAnnouncementBtnClick(): void {
@@ -423,8 +421,7 @@ export class LobbyView extends cc.Component {
 
     private onShopBtnClick(): void {
         SoundMgr.buttonTouch();
-        const view = this.addComponent(ShopView);
-        view.showView(this.lm.loader, TabType.Dou);
+        this.showShopView(TabType.Dou);
     }
 
     private onQuestBtnClick(): void {
@@ -614,6 +611,16 @@ export class LobbyView extends cc.Component {
         nimSDK.initNimSDK();
 
         this.lm.nimSDK = nimSDK;
+    }
+
+    private showShopView(page: TabType): void {
+        // ios 屏蔽掉
+        if (cc.sys.os === cc.sys.OS_IOS) {
+            return;
+        }
+
+        const view = this.addComponent(ShopView);
+        view.showView(this.lm.loader, page);
     }
 
     private showMarquee(announcement: string, duration: number): void {
