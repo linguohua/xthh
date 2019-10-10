@@ -331,6 +331,8 @@ export class GameModule extends cc.Component implements GameModuleInterface {
             this.mRoom = null;
         }
 
+        this.dismissAllTeam();
+
         // 退出到大厅
         this.backToLobby();
 

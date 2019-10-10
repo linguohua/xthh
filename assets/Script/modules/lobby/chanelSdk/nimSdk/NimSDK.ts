@@ -129,8 +129,8 @@ export class NimSDK {
             this.onDisconnect(res);
         };
 
-        const onError = () => {
-            this.onError();
+        const onError = (res: {}) => {
+            this.onError(res);
         };
 
         const onCreateTeam = (team: { team: Team }) => {
@@ -199,6 +199,16 @@ export class NimSDK {
     public createTeam(imaccids: string[], roomNumber: string, callback?: Function): void {
         if (this.nimSDK === undefined || this.nimSDK === null) {
             Logger.error("createTeam failed, this.nimSDK === undefined || this.nimSDK === null");
+
+            return;
+        }
+
+        // 判断这个房间的team是否已经存在，若存在，则直接用，否则创建一个新的
+        if (this.myTeam !== null && this.myTeam.name === roomNumber) {
+            Logger.debug("reuse team:", this.myTeam.teamId);
+            if (callback !== undefined) {
+                callback();
+            }
 
             return;
         }
@@ -414,11 +424,15 @@ export class NimSDK {
 
         const imaccid = DataStore.getString(KeyConstants.IM_ACCID, "");
 
-        const dismissTeamDone = (error: {}, obj: {}) => {
+        const dismissTeamDone = (error: {}, obj: { teamId: string }) => {
             if (error !== null) {
                 Logger.debug("dismissTeamDone failed:", error);
 
                 return;
+            }
+
+            if (this.myTeam.teamId === obj.teamId) {
+                this.myTeam = null;
             }
 
             Logger.debug("dismissTeamDone, team:", obj);
@@ -472,8 +486,8 @@ export class NimSDK {
         }
     }
 
-    protected onError(): void {
-        Logger.debug("NimSDK onError");
+    protected onError(res: {}): void {
+        Logger.debug("NimSDK.onError:", res);
     }
 
     protected onTeams(res: Team[]): void {
