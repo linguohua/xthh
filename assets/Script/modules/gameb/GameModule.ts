@@ -666,6 +666,7 @@ export class GameModule extends cc.Component implements GameModuleInterface {
 
         // 已经在房间里面，需要指定桌子id,重新进入
         if (joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_FAILED) {
+            Logger.debug("joinTableAck.ret === protoHH.casino.eRETURN_TYPE.RETURN_FAILED");
             const playerID = DataStore.getString(KeyConstants.PLAYER_ID);
             const req = new protoHH.casino.packet_table_join_req();
             req.player_id = +playerID;
@@ -693,10 +694,12 @@ export class GameModule extends cc.Component implements GameModuleInterface {
     private async onReconnect(isFromShare: boolean): Promise<void> {
         Logger.debug("onReconnect : ", this.mRoom.isGameOver);
         if (this.mRoom.isReplayMode()) {
+            Dialog.hideReconnectDialog();
+
             return;
         }
 
-        Dialog.showReconnectDialog();
+        // Dialog.showReconnectDialog();
 
         Logger.debug("this.mRoom.roomInfo:", this.mRoom.roomInfo);
         this.joinRoomReq(this.mRoom.roomInfo);

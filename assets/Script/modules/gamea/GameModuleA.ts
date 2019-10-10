@@ -646,10 +646,10 @@ export class GameModuleA extends cc.Component implements GameModuleInterface {
     private async onReconnect(isFromShare: boolean): Promise<void> {
         Logger.debug("onReconnect");
         if (this.mRoom.isReplayMode()) {
+            Dialog.hideReconnectDialog();
+
             return;
         }
-
-        Dialog.showReconnectDialog();
 
         this.joinRoomReq(this.mRoom.roomInfo);
     }

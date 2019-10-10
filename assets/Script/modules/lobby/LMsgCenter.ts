@@ -280,7 +280,6 @@ export class LMsgCenter {
         this.eventTarget.emit("onFastLoginComplete", fastLoginReply);
 
         Dialog.hideWaiting();
-        Dialog.hideReconnectDialog();
     }
 
     private onJoinGameAck(msg: proto.casino.ProxyMessage): void {
