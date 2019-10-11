@@ -217,6 +217,8 @@ export class JoyBeanView extends cc.Component {
     private showShopView(page: TabType): void {
         // ios 屏蔽掉
         if (cc.sys.os === cc.sys.OS_IOS) {
+            Dialog.prompt(LocalStrings.findString("noSupportForIOS"));
+
             return;
         }
 
@@ -238,12 +240,6 @@ export class JoyBeanView extends cc.Component {
         }
         // 提示用户没有豆了
         const yesCB = () => {
-            if (cc.sys.os === cc.sys.OS_IOS) {
-                Dialog.prompt(LocalStrings.findString("noSupportForIOS"));
-
-                return;
-            }
-
             this.showShopView(TabType.Dou);
 
             // this.onBackButtonClick();

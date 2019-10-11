@@ -677,6 +677,8 @@ export class HandResultView extends cc.Component {
                 // 提示用户没有豆了
                 const yesCB = () => {
                     if (cc.sys.os === cc.sys.OS_IOS) {
+                        Dialog.prompt(LocalStrings.findString("noSupportForIOS"));
+
                         return;
                     }
 

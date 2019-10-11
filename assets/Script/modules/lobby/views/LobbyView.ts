@@ -621,6 +621,8 @@ export class LobbyView extends cc.Component {
     private showShopView(page: TabType): void {
         // ios 屏蔽掉
         if (cc.sys.os === cc.sys.OS_IOS) {
+            Dialog.prompt(LocalStrings.findString("noSupportForIOS"));
+
             return;
         }
 
