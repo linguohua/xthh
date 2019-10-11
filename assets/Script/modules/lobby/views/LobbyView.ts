@@ -745,20 +745,24 @@ export class LobbyView extends cc.Component {
         const playerResource = proto.casino.player_resource.decode(updateMsg.data);
         if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_CARD) {
             DataStore.setItem(KeyConstants.CARD, playerResource.curr.toNumber());
-            this.fkText.text = playerResource.curr.toString();
         }
 
         if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_BEANS) {
             DataStore.setItem(KeyConstants.BEANS, playerResource.curr.toNumber());
-            this.beansText.text = playerResource.curr.toString();
         }
 
         if (playerResource.type === proto.casino.eRESOURCE.RESOURCE_RED) {
             DataStore.setItem(KeyConstants.RED, playerResource.curr.toNumber());
         }
 
-        this.lm.eventTarget.emit("onResourceChange");
+        this.refreshMoney();
         Logger.debug(`LobbyView.updateMsg, resource type:${playerResource.type},   playerResource.curr:${playerResource.curr}`);
+    }
+
+    private refreshMoney(): void {
+        this.fkText.text = DataStore.getString(KeyConstants.CARD, "0");
+        this.beansText.text = DataStore.getString(KeyConstants.BEANS, "0");
+        this.lm.eventTarget.emit("onResourceChange");
     }
 
     private onBroadcast(msg: proto.casino.ProxyMessage): void {
@@ -1011,8 +1015,7 @@ export class LobbyView extends cc.Component {
             DataStore.setItem(KeyConstants.CHANNEL, Enum.CHANNEL_TYPE.UNKNOWN);
         }
 
-        this.fkText.text = `${card}`;
-        this.beansText.text = `${beans}`;
+        this.refreshMoney();
     }
     private onLogout(): void {
         Logger.debug("onLogout");
