@@ -25,19 +25,19 @@ const soundDef: { [key: number]: string } = {
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DIANXIAO]: "dianxiao",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HUITOUXIAO]: "huitouxiao",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_MENGXIAO]: "mengxiao",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "fangxiao",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "piaolaizi",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGXIAO]: "fangxiao", // 目前没音效
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_PIAOLAIZI]: "piaolaizi", // 目前没音效
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_ZHUOCHONG]: "zhuochong",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_QIANGXIAO]: "qiangxiao",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOHOUCHONG]: "xiaohouchong",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_BEIQIANGXIAO]: "beiqiangxiao",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHONG]: "fangchong",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOHOUCHONG]: "xiaohouchong", // 目前没音效
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_BEIQIANGXIAO]: "beiqiangxiao", // 目前没音效
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHONG]: "fangchong", // 目前没音效
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RECHONG]: "rechong",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMO]: "heimo",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMO]: "ruanmo",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_HEIMOX2]: "heimo",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_RUANMOX2]: "ruanmo",
-    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHAOTIAN]: "fangchaotian",
+    [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_FANGCHAOTIAN]: "fangchaotian", // 目前没音效
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_XIAOCHAOTIAN]: "xiaochaotian",
     [eXTSJ_OP_TYPE.XTSJ_OP_TYPE_DACHAOTIAN]: "dachaotian"
 };

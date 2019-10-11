@@ -25,19 +25,19 @@ const soundDef: { [key: number]: string } = {
     [eGDY_OP_TYPE.GDY_OP_TYPE_DIANXIAO]: "dianxiao",
     [eGDY_OP_TYPE.GDY_OP_TYPE_HUITOUXIAO]: "huitouxiao",
     [eGDY_OP_TYPE.GDY_OP_TYPE_MENGXIAO]: "mengxiao",
-    [eGDY_OP_TYPE.GDY_OP_TYPE_FANGXIAO]: "fangxiao",
-    [eGDY_OP_TYPE.GDY_OP_TYPE_PIAOLAIZI]: "piaolaizi",
+    [eGDY_OP_TYPE.GDY_OP_TYPE_FANGXIAO]: "fangxiao", // 目前没音效
+    [eGDY_OP_TYPE.GDY_OP_TYPE_PIAOLAIZI]: "piaolaizi", // 目前没音效
     [eGDY_OP_TYPE.GDY_OP_TYPE_ZHUOCHONG]: "zhuochong",
     [eGDY_OP_TYPE.GDY_OP_TYPE_QIANGXIAO]: "qiangxiao",
-    [eGDY_OP_TYPE.GDY_OP_TYPE_XIAOHOUCHONG]: "xiaohouchong",
-    [eGDY_OP_TYPE.GDY_OP_TYPE_BEIQIANGXIAO]: "beiqiangxiao",
-    [eGDY_OP_TYPE.GDY_OP_TYPE_FANGCHONG]: "fangchong",
+    [eGDY_OP_TYPE.GDY_OP_TYPE_XIAOHOUCHONG]: "xiaohouchong", // 目前没音效
+    [eGDY_OP_TYPE.GDY_OP_TYPE_BEIQIANGXIAO]: "beiqiangxiao", // 目前没音效
+    [eGDY_OP_TYPE.GDY_OP_TYPE_FANGCHONG]: "fangchong", // 目前没音效
     [eGDY_OP_TYPE.GDY_OP_TYPE_RECHONG]: "rechong",
     [eGDY_OP_TYPE.GDY_OP_TYPE_HEIMO]: "heimo",
     [eGDY_OP_TYPE.GDY_OP_TYPE_RUANMO]: "ruanmo",
     [eGDY_OP_TYPE.GDY_OP_TYPE_HEIMOX2]: "heimo",
     [eGDY_OP_TYPE.GDY_OP_TYPE_RUANMOX2]: "ruanmo",
-    [eGDY_OP_TYPE.GDY_OP_TYPE_FANGCHAOTIAN]: "fangchaotian",
+    [eGDY_OP_TYPE.GDY_OP_TYPE_FANGCHAOTIAN]: "fangchaotian", // 目前没音效
     [eGDY_OP_TYPE.GDY_OP_TYPE_XIAOCHAOTIAN]: "xiaochaotian",
     [eGDY_OP_TYPE.GDY_OP_TYPE_DACHAOTIAN]: "dachaotian"
 };
