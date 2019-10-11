@@ -128,10 +128,15 @@ export class NewRoomView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        // 这两个事件在GameRecordView那边订阅
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_SCORE_ACK);
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_REPLAY_ACK);
+
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_CARD_ACK);
         this.lm.msgCenter.removeGameMsgHandler(protoHH.casino.eMSG_TYPE.MSG_GIFT_REQ);
+
+        // 这个事件在GameRecordView那边订阅
+        this.lm.eventTarget.off(`returnFromGame`);
 
         this.saveConfig();
         this.win.hide();

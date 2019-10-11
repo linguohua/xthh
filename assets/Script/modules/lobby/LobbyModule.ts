@@ -67,9 +67,8 @@ export class LobbyModule extends cc.Component implements LobbyModuleInterface {
 
         // this.eventTarget.emit(`checkRoomInfo`);
         // 从牌局内返回来，如果战绩页面还存在，则显示出来
+        // 如果从金币场返回，则显示金币场大厅
         this.eventTarget.emit(`returnFromGame`, isFromJoyRoom);
-        this.eventTarget.emit(`onGameSubRecordShow`);
-        // this.eventTarget.emit(`onClubViewShow`);
     }
     /**
      * 統一在这里加入房间，可以阻塞其它消息，等加入房间完成再放行其它消息

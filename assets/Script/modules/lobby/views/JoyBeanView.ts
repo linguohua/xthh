@@ -39,6 +39,10 @@ export class JoyBeanView extends cc.Component {
 
     }
 
+    public hideView(): void {
+        this.win.hide();
+    }
+
     protected onLoad(): void {
         this.lm = <LobbyModuleInterface>this.getComponent("LobbyModule");
         const loader = this.lm.loader;
@@ -53,7 +57,8 @@ export class JoyBeanView extends cc.Component {
         win.contentPane = view;
         win.modal = true;
 
-        this.lm.eventTarget.on("onResourceChange", this.onResourceChange, this);
+        this.registerEvent();
+
         const pdataStr = DataStore.getString(KeyConstants.ROOMS, "");
         this.rooms = <proto.casino.Iroom[]>JSON.parse(pdataStr);
 
@@ -61,9 +66,21 @@ export class JoyBeanView extends cc.Component {
     }
 
     protected onDestroy(): void {
+        this.unregisterEvent();
+
         this.win.hide();
         this.win.dispose();
 
+    }
+
+    private registerEvent(): void {
+        this.lm.eventTarget.on("onResourceChange", this.onResourceChange, this);
+        this.lm.eventTarget.on(`returnFromGame`, this.onReturnFromGame, this);
+    }
+
+    private unregisterEvent(): void {
+        this.lm.eventTarget.off("onResourceChange");
+        this.lm.eventTarget.off(`returnFromGame`);
     }
 
     private initView(): void {
@@ -191,6 +208,10 @@ export class JoyBeanView extends cc.Component {
             // 提示用户没有豆了
             this.checkBeans(myGold);
         }
+    }
+
+    private onReturnFromGame(): void {
+        this.win.show();
     }
 
     private showShopView(page: TabType): void {

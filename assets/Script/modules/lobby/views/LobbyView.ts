@@ -575,7 +575,7 @@ export class LobbyView extends cc.Component {
 
         const joyBeanView = this.getComponent(JoyBeanView);
         if (joyBeanView !== null) {
-            joyBeanView.destroy();
+            joyBeanView.hideView();
         }
 
         const agreementView = this.getComponent(AgreementView);

@@ -161,7 +161,7 @@ export class GameRecordView {
                 roomId: table.room_id
             };
 
-            this.lm.eventTarget.on(`onGameSubRecordShow`, this.onGameReturn, this);
+            this.lm.eventTarget.on(`returnFromGame`, this.onGameReturn, this);
 
             this.newRoomView.setViewVisible(false);
 
