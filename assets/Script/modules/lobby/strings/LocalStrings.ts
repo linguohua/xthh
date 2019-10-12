@@ -62,6 +62,7 @@ export namespace LocalStrings {
                 [`recordInWeChat`]: "微信上才可以录音",
                 [`confirmDisbandRoom`]: "你确定要发起解散当前的牌局吗？",
                 [`openSettingToAuth`]: "请前往小程序设置打开定位权限",
+                [`openMikeForRecord`]: "请前往小程序设置打开麦克风",
                 [`disbandTips`]: "是否解散房间？",
 
                 [`roomNumber`]: "房号",

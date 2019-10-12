@@ -104,7 +104,7 @@ export class UserInfoView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-        this.initView();
+        await this.initView();
     }
 
     protected onDestroy(): void {
@@ -133,7 +133,7 @@ export class UserInfoView extends cc.Component {
         this.lm.msgCenter.removeGameMsgHandler(proto.casino.eMSG_TYPE.MSG_MODIFY_ACK);
     }
 
-    private initView(): void {
+    private async initView(): Promise<void> {
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
 
@@ -146,9 +146,9 @@ export class UserInfoView extends cc.Component {
         const gameSettingBtn = this.view.getChild("gameSettingBtn");
         gameSettingBtn.onClick(this.onTouchSound, this);
 
-        this.initUserBaseInfo();
+        await this.initUserBaseInfo();
 
-        this.initAuthInfo();
+        await this.initAuthInfo();
 
         this.initGameSetting();
 
