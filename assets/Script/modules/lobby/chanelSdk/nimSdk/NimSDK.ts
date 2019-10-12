@@ -213,6 +213,11 @@ export class NimSDK {
             return;
         }
 
+        // 因为是普通群，相当于讨论组，必须有个用户
+        if (imaccids.length === 0) {
+            imaccids.push('1');
+        }
+
         Logger.debug("imaccids:", imaccids);
         Logger.debug("my account:", this.account);
 
@@ -236,13 +241,14 @@ export class NimSDK {
         // const accids: string[] = [];
 
         const options = {
-            type: 'advanced',
+            type: 'normal',
             name: roomNumber,
             avatar: 'avatar',
             accounts: imaccids,
             ps: '我建了一个普通群',
-            joinMode: 'noVerify',
-            beInviteMode: 'noVerify',
+            // joinMode: 'noVerify',
+            // beInviteMode: 'noVerify',
+            level: 4,
             done: createTeamDone
         };
 

@@ -157,6 +157,12 @@ export class Room {
             return;
         }
 
+        if (this.myPlayer.tilesHand.length < 1) {
+            Logger.debug("this.myPlayer.tilesHand.length < 1");
+
+            return;
+        }
+
         this.nimMsgs.push(msg);
         // Logger.debug("this.nimMsgs.length:", this.nimMsgs.length);
         await this.playVoicMsg();
