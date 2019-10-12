@@ -135,9 +135,13 @@ export class RoomSettingView extends cc.Component {
         this.destroy();
     }
     // 0 关闭，1打开
-    private changeGps(gpsState: number): void {
+    private changeGps(gpsState: number, room: RoomInterface): void {
         DataStore.setItem(KeyConstants.GPS, gpsState);
-        this.room.getRoomHost().eventTarget.emit("gpsChange");
+        room.getRoomHost().eventTarget.emit("gpsChange");
+
+        if (this.gpsBtn === null) {
+            return;
+        }
 
         // 重新设置一遍按钮状态，避免状态不同步
         if (gpsState > 0) {
@@ -147,23 +151,22 @@ export class RoomSettingView extends cc.Component {
         }
     }
 
-    private authorizeLocation(): void {
+    private authorizeLocation(room: RoomInterface): void {
         Logger.debug("authorizeLocation");
         wx.authorize({
             scope: 'scope.userLocation',
             success: () => {
                 // 用户已经同意小程序使用定位功能
-                this.changeGps(1);
+                this.changeGps(1, room);
             },
 
-            // tslint:disable-next-line:no-any
-            fail: (err: any) => {
+            fail: (err: {}) => {
                 Logger.debug("authorizeLocation fail:", err);
                 // [右上角]-[关于]-[右上角]-[设置]
 
                 Dialog.showDialog(LocalStrings.findString('openSettingToAuth'));
 
-                this.changeGps(0);
+                this.changeGps(0, room);
             }
         });
     }
@@ -178,36 +181,92 @@ export class RoomSettingView extends cc.Component {
                 return;
             }
 
+            const room = this.room;
             wx.getSetting({
                 success: (res: getSettingRes) => {
                     console.log(res);
                     const authSetting = <{ 'scope.userInfo': boolean; 'scope.userLocation': boolean }>res.authSetting;
                     if (!authSetting['scope.userLocation']) {
-                        this.authorizeLocation();
+                        this.authorizeLocation(room);
                     } else {
-                        this.changeGps(1);
+                        this.changeGps(1, room);
                     }
                 },
 
-                // tslint:disable-next-line:no-any
-                fail: (err: any) => {
+                fail: (err: {}) => {
                     Logger.error("getSetting error:", err);
                 }
             });
         } else {
-            this.changeGps(0);
+            this.changeGps(0, this.room);
         }
 
     }
 
+    private changeRecord(state: number, room: RoomInterface): void {
+        DataStore.setItem(KeyConstants.VOICE_SWITCH, state);
+        room.enableVoiceBtn(state > 0 ? true : false);
+        // 重新设置一遍按钮状态，避免状态不同步
+        if (this.voiceBtn === null) {
+            return;
+        }
+
+        if (state > 0) {
+            this.voiceBtn.selected = true;
+        } else {
+            this.voiceBtn.selected = false;
+        }
+
+
+    }
+    private authorizeRecord(room: RoomInterface): void {
+        Logger.debug("authorizeRecord");
+        wx.authorize({
+            scope: 'scope.record',
+            success: () => {
+                // 用户已经同意小程序打开麦克风
+                this.changeRecord(1, room);
+            },
+
+            fail: (err: {}) => {
+                Logger.debug("authorizeRecord fail:", err);
+                // [右上角]-[关于]-[右上角]-[设置]
+
+                Dialog.showDialog(LocalStrings.findString('openMikeForRecord'));
+
+                this.changeRecord(0, room);
+            }
+        });
+    }
+    // scope.record
     private onVoiceBtnClick(): void {
         SoundMgr.buttonTouch();
-        this.room.enableVoiceBtn(this.voiceBtn.selected);
-
         if (this.voiceBtn.selected) {
-            DataStore.setItem(KeyConstants.VOICE_SWITCH, 1);
+            if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+                Dialog.prompt(LocalStrings.findString("recordInWeChat"));
+                this.voiceBtn.selected = false;
+
+                return;
+            }
+
+            const room = this.room;
+            wx.getSetting({
+                success: (res: getSettingRes) => {
+                    console.log(res);
+                    const authSetting = <{ 'scope.userInfo': boolean; 'scope.record': boolean }>res.authSetting;
+                    if (!authSetting['scope.record']) {
+                        this.authorizeRecord(room);
+                    } else {
+                        this.changeRecord(1, room);
+                    }
+                },
+
+                fail: (err: {}) => {
+                    Logger.error("getSetting error:", err);
+                }
+            });
         } else {
-            DataStore.setItem(KeyConstants.VOICE_SWITCH, 0);
+            this.changeRecord(0, this.room);
         }
     }
 
