@@ -1,7 +1,6 @@
-import { CommonFunction, DataStore, Dialog, Enum, GResLoader, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
-import { md5 } from "../../utility/md5";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
@@ -211,35 +210,45 @@ export class ShopView extends cc.Component {
     private onBeanBuyBtnClick(ev: fgui.Event): void {
         SoundMgr.buttonTouch();
         // TODO: 检查如何是ios, 则提示暂不支持ios
-        const channel = DataStore.getString(KeyConstants.CHANNEL);
-        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
-            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+        // const channel = DataStore.getString(KeyConstants.CHANNEL);
+        // if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+        //     Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
 
-            return;
-        }
+        //     return;
+        // }
         const index = <number>ev.initiator.data;
         const beanPayCfg = this.beanPayCfgs[index];
 
         Logger.debug("beanPayCfg:", beanPayCfg);
-        this.onBuyToWX(beanPayCfg.price, beanPayCfg.id);
+        // this.onBuyToWX(beanPayCfg.price, beanPayCfg.id);
+        const okCallback = () => {
+            this.requestPay(beanPayCfg, this.eventTarget, true);
+        };
+
+        Dialog.showDialog("确定要购买吗？", okCallback);
 
     }
 
     private onCardBuyBtnClick(ev: fgui.Event): void {
         SoundMgr.buttonTouch();
         // TODO: 检查如何是ios, 则提示暂不支持ios
-        const channel = DataStore.getString(KeyConstants.CHANNEL);
-        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
-            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+        // const channel = DataStore.getString(KeyConstants.CHANNEL);
+        // if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+        //     Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
 
-            return;
-        }
+        //     return;
+        // }
 
         const index = <number>ev.initiator.data;
         const cardPayCfg = this.cardPayCfgs[index];
 
-        Logger.debug("cardPayCfg:", cardPayCfg);
-        this.onBuyToWX(cardPayCfg.price, cardPayCfg.id);
+        const okCallback = () => {
+            this.requestPay(cardPayCfg, this.eventTarget, true);
+        };
+
+        Dialog.showDialog("确定要购买吗？", okCallback);
+        // Logger.debug("cardPayCfg:", cardPayCfg);
+        // this.onBuyToWX(cardPayCfg.price, cardPayCfg.id);
 
     }
     private onVipBtnClick(): void {
@@ -272,8 +281,8 @@ export class ShopView extends cc.Component {
      * 米大师支付
      * @param bufQuantity 支付金额
      */
-    private onBuyToWX(cost: number, payID: number): void {
-        console.log(`onBuyToWX, cost:${cost}, payID:${payID}`);
+    private onBuyToWX(payCfg: protoHH.casino.Ipay): void {
+        console.log(`onBuyToWX, cost:${payCfg.price}, payID:${payCfg.id}`);
 
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
@@ -281,7 +290,7 @@ export class ShopView extends cc.Component {
             return;
         }
 
-        let buyQuantity = cost / 0.1;
+        let buyQuantity = payCfg.price / 0.1;
         let evn = 0;
         if (LEnv.isDebug) {
             evn = 1;
@@ -297,14 +306,16 @@ export class ShopView extends cc.Component {
             buyQuantity: buyQuantity,
             zoneId: "1",
             success: async () => {
-                console.log(`onBuyToWX success, cost:${cost}, buyQuantity:${buyQuantity},payID:${payID}`);
+                console.log(`onBuyToWX success, cost:${payCfg.price}, buyQuantity:${buyQuantity},payID:${payCfg.id}`);
                 // 保存订单
-                const now = Date.now();
-                const random = Math.random() * 100000;
-                const orderID = md5(`${now}${random}`);
-                CommonFunction.saveOrder(orderID, payID);
+                // const now = Date.now();
+                // const random = Math.random() * 100000;
+                // const orderID = md5(`${now}${random}`);
+                // CommonFunction.saveOrder(orderID, payID);
                 // 请求服务器发货
-                CommonFunction.requestServerShipments(payID, orderID, this.eventTarget);
+                // CommonFunction.requestServerShipments(payID, orderID, this.eventTarget);
+                // Dialog.prompt("支付成功");
+                this.requestPay(payCfg, this.eventTarget, false);
             },
 
             fail: async (res: { errMsg: string; errCode: number }) => {
@@ -315,5 +326,69 @@ export class ShopView extends cc.Component {
 
         Logger.debug("params;", params);
         wx.requestMidasPayment(params);
+    }
+
+    private requestPay(payCfg: protoHH.casino.Ipay, eventTarget: cc.EventTarget, isContinue: boolean): void {
+        const req = {
+            channel: "weixin",
+            pay_id: payCfg.id
+        };
+
+        const reqString = JSON.stringify(req);
+
+        const userID = DataStore.getString(KeyConstants.USER_ID, "");
+        // const ticket = DataStore.getString(KeyConstants.TICKET, "");
+        // const userID = encodeURIComponent(DataStore.getString(KeyConstants.USER_ID, ""));
+        const ticket = encodeURIComponent(DataStore.getString(KeyConstants.TICKET, ""));
+        const url = LEnv.cfmt(`${LEnv.rootURL}${LEnv.payUrl}?ticket=${ticket}`, 2, userID);
+        Logger.debug("url:", url);
+        Logger.debug("req:", req);
+        HTTP.hPost(
+            eventTarget,
+            url,
+            async (xhr: XMLHttpRequest, err: string) => {
+                let errMsg = null;
+                if (err !== null) {
+                    Logger.debug(err);
+                    // const okCallback = () => {
+                    //     requestServerShipments(payID, orderID, eventTarget);
+                    // };
+
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+
+                    return;
+                }
+
+                errMsg = HTTP.hError(xhr);
+                if (errMsg !== null) {
+                    Logger.debug(errMsg);
+
+                    // const okCallback = () => {
+                    //     requestServerShipments(payID, orderID, eventTarget);
+                    // };
+                    Dialog.showDialog(LocalStrings.findString("networkConnectError"));
+
+                    return;
+                }
+
+                // removeOrder(orderID);
+                Logger.debug("responseText:", xhr.responseText);
+                const result = <{ ret: number; msg: string; data: {} }>JSON.parse(xhr.responseText);
+                if (result.ret !== 0) {
+                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
+                    // -22 是余额不足
+                    if (result.ret === -22 && isContinue) {
+                        this.onBuyToWX(payCfg);
+                    } else {
+                        Dialog.showDialog(`发货失败:${result.msg}`);
+                    }
+                } else {
+                    // Dialog.showDialog("支付成功");
+                    Dialog.showDialog(`购买成功`);
+                }
+            },
+            "text",
+            reqString);
+
     }
 }
