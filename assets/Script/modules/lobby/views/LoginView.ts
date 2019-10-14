@@ -610,11 +610,14 @@ export class LoginView extends cc.Component {
 
             const wxLoginUrl = LEnv.cfmt(`${LEnv.rootURL}${LEnv.wxLogin}`, LEnv.app, wxCode);
             Logger.debug('wxloginUrl', wxLoginUrl);
+            Logger.debug('wxUserData', wxUserData);
 
             const requestData = {
                 avatar: wxUserData.userInfo.avatarUrl,
                 nickname: wxUserData.userInfo.nickName,
-                gender: wxUserData.userInfo.gender
+                gender: wxUserData.userInfo.gender,
+                iv: wxUserData.iv,
+                encrypt_data: wxUserData.encryptedData
             };
 
             const jsonString = JSON.stringify(requestData);
