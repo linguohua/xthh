@@ -1,6 +1,7 @@
 import { CommonFunction, DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
+import { roomStatus } from "../../../gameb/RoomInterface";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
@@ -329,7 +330,11 @@ export class ShopView extends cc.Component {
 
             fail: async (res: { errMsg: string; errCode: number }) => {
                 console.log("onBuyToWX fail", res);
-                Dialog.showDialog(payError[res.errCode]);
+                if (res.errCode !== undefined) {
+                    Dialog.showDialog(payError[res.errCode]);
+                } else {
+                    Dialog.showDialog(LocalStrings.findString("payFialed"));
+                }
             }
         };
 

@@ -183,6 +183,7 @@ export namespace LocalStrings {
                 [`stayTuned`]: "功能开发中,敬请期待",
                 [`noCardRecord`]: "没有您最近的房卡记录",
                 [`noSupportForIOS`]: "该版本不支持充值",
+                [`payFialed`]: "支付失败",
 
                 // 12个 制表符
                 [`agreeText0`]: `                                                                用户服务协议
