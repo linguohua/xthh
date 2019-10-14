@@ -241,8 +241,10 @@ export class LobbyView extends cc.Component {
             emailBtn.x = 216;
 
         }
+        const vipTips = this.view.getChild("tipTextCom");
 
         // 没开发的内容暂时屏蔽
+        vipTips.visible = false;
         friendBtn.visible = false;
         questBtn.visible = false;
         committeeBtn.visible = false;
