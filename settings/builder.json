@@ -20,10 +20,10 @@
   ],
   "fb-instant-games": {},
   "includeSDKBox": false,
-  "inlineSpriteFrames": true,
+  "inlineSpriteFrames": false,
   "inlineSpriteFrames_native": true,
   "md5Cache": true,
-  "mergeStartScene": false,
+  "mergeStartScene": true,
   "optimizeHotUpdate": false,
   "orientation": {
     "landscapeLeft": true,
