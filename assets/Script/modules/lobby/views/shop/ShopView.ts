@@ -4,7 +4,7 @@ import { LocalStrings } from "../../strings/LocalStringsExports";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
-const cardChannel = "weixin";
+const cardChannel = "android_h5";
 
 export enum TabType {
 
@@ -225,7 +225,11 @@ export class ShopView extends cc.Component {
             this.requestPay(beanPayCfg, this.eventTarget, true);
         };
 
-        Dialog.showDialog("确定要购买吗？", okCallback);
+        const noCallBack = () => {
+            Logger.debug("user cancel buy");
+        };
+
+        Dialog.showDialog("确定要购买吗？", okCallback, noCallBack);
 
     }
 
@@ -242,11 +246,17 @@ export class ShopView extends cc.Component {
         const index = <number>ev.initiator.data;
         const cardPayCfg = this.cardPayCfgs[index];
 
+        Logger.debug("onCardBuyBtnClick:", cardPayCfg);
+
         const okCallback = () => {
             this.requestPay(cardPayCfg, this.eventTarget, true);
         };
 
-        Dialog.showDialog("确定要购买吗？", okCallback);
+        const noCallBack = () => {
+            Logger.debug("user cancel buy");
+        };
+
+        Dialog.showDialog("确定要购买吗？", okCallback, noCallBack);
         // Logger.debug("cardPayCfg:", cardPayCfg);
         // this.onBuyToWX(cardPayCfg.price, cardPayCfg.id);
 
@@ -281,8 +291,8 @@ export class ShopView extends cc.Component {
      * 米大师支付
      * @param bufQuantity 支付金额
      */
-    private onBuyToWX(payCfg: protoHH.casino.Ipay): void {
-        console.log(`onBuyToWX, cost:${payCfg.price}, payID:${payCfg.id}`);
+    private onBuyToWX(payCfg: protoHH.casino.Ipay, isSandBox: boolean): void {
+        console.log(`onBuyToWX, cost:${payCfg.price}, payID:${payCfg.id}, isSandBox:${isSandBox}`);
 
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
@@ -290,11 +300,10 @@ export class ShopView extends cc.Component {
             return;
         }
 
-        let buyQuantity = payCfg.price / 0.1;
+        const buyQuantity = payCfg.price / 0.1;
         let evn = 0;
-        if (LEnv.isDebug) {
+        if (isSandBox) {
             evn = 1;
-            buyQuantity = 1 / 0.1;
         }
 
         const params = {
@@ -373,12 +382,12 @@ export class ShopView extends cc.Component {
 
                 // removeOrder(orderID);
                 Logger.debug("responseText:", xhr.responseText);
-                const result = <{ ret: number; msg: string; data: {} }>JSON.parse(xhr.responseText);
+                const result = <{ ret: number; msg: string; data: { sandbox: boolean } }>JSON.parse(xhr.responseText);
                 if (result.ret !== 0) {
-                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
+                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}, data:${result.data.sandbox}`);
                     // -22 是余额不足
                     if (result.ret === -22 && isContinue) {
-                        this.onBuyToWX(payCfg);
+                        this.onBuyToWX(payCfg, result.data.sandbox);
                     } else {
                         Dialog.showDialog(`发货失败:${result.msg}`);
                     }
