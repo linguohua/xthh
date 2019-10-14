@@ -2,7 +2,7 @@
  * lobby 配置
  */
 export namespace LEnv {
-    export const VER_STR: string = "v1.0.101001";
+    export const VER_STR: string = "v1.0.101404";
 
     // updateQuery = "/lobby/upgrade/query",
     export const updateQuery: string = "/lobby/uuid/upgradeQuery";
@@ -70,9 +70,9 @@ export namespace LEnv {
     export const app = "casino";
     export const offerID = "1450022179";
     // 米大师支付模式，0是沙箱，1是正式环境
-    export const isDebug = true;
+    // export const isDebug = false;
 
-    export const shipmentsUrl = "/zyqp/pay/appletPayOrder/{0}/{1}/{2}";
+    export const payUrl = "/zyqp/payext/payOrder/{0}/{1}";
 
     // tslint:disable-next-line:no-http-string
     export const wxLogin = "/zyqp/user/h5login/withcode?app={0}&code={1}";
