@@ -1,7 +1,6 @@
 import { CommonFunction, DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
-import { roomStatus } from "../../../gameb/RoomInterface";
 
 const { ccclass } = cc._decorator;
 const beanChannel = "android_h5";
@@ -126,6 +125,8 @@ export class ShopView extends cc.Component {
         const vipBtn = cardView.getChild("vipBtn");
         vipBtn.onClick(this.onVipBtnClick, this);
 
+        vipBtn.visible = false;
+
         this.cardItemList = cardView.getChild("list").asList;
         this.cardItemList.on(fgui.Event.CLICK_ITEM, this.onCardItemClick, this);
         this.cardItemList.setVirtual();
@@ -142,6 +143,8 @@ export class ShopView extends cc.Component {
         const beansView = this.view.getChild("douCom").asCom;
         const vipBtn = beansView.getChild("vipBtn");
         vipBtn.onClick(this.onVipBtnClick, this);
+
+        vipBtn.visible = false;
 
         this.beanItemList = beansView.getChild("list").asList;
         this.beanItemList.on(fgui.Event.CLICK_ITEM, this.onBeanItemClick, this);

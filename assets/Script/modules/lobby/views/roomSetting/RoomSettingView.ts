@@ -217,7 +217,6 @@ export class RoomSettingView extends cc.Component {
             this.voiceBtn.selected = false;
         }
 
-
     }
     private authorizeRecord(room: RoomInterface): void {
         Logger.debug("authorizeRecord");
