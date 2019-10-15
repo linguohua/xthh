@@ -2,7 +2,7 @@
  * lobby 配置
  */
 export namespace LEnv {
-    export const VER_STR: string = "v1.0.101406";
+    export const VER_STR: string = "v1.0.101409";
 
     // updateQuery = "/lobby/upgrade/query",
     export const updateQuery: string = "/lobby/uuid/upgradeQuery";
@@ -67,7 +67,7 @@ export namespace LEnv {
 
     export const baiduMapApi = "https://api.map.baidu.com/reverse_geocoding/v3/?&location=";
     export const yunxinAppKey = "f31690906e1428b3a6a1c9147580b3b7";
-    export const app = "casino";
+    export const app = "h5casino";
     export const offerID = "1450022179";
     // 米大师支付模式，0是沙箱，1是正式环境
     // export const isDebug = false;

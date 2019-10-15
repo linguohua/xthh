@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr, Enum } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
@@ -215,12 +215,12 @@ export class ShopView extends cc.Component {
     private onBeanBuyBtnClick(ev: fgui.Event): void {
         SoundMgr.buttonTouch();
         // TODO: 检查如何是ios, 则提示暂不支持ios
-        // const channel = DataStore.getString(KeyConstants.CHANNEL);
-        // if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
-        //     Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
 
-        //     return;
-        // }
+            return;
+        }
         const index = <number>ev.initiator.data;
         const beanPayCfg = this.beanPayCfgs[index];
 
@@ -241,12 +241,12 @@ export class ShopView extends cc.Component {
     private onCardBuyBtnClick(ev: fgui.Event): void {
         SoundMgr.buttonTouch();
         // TODO: 检查如何是ios, 则提示暂不支持ios
-        // const channel = DataStore.getString(KeyConstants.CHANNEL);
-        // if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
-        //     Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
+        const channel = DataStore.getString(KeyConstants.CHANNEL);
+        if (channel !== Enum.CHANNEL_TYPE.WECHAT) {
+            Dialog.showDialog(LocalStrings.findString("pleaseUseWeChatLogin"));
 
-        //     return;
-        // }
+            return;
+        }
 
         const index = <number>ev.initiator.data;
         const cardPayCfg = this.cardPayCfgs[index];
