@@ -108,7 +108,7 @@ export class BeanView extends cc.Component {
 
         SoundMgr.initSound(musicVolume, effectVolume);
 
-        this.initNimSDK();
+        // this.initNimSDK();
         this.setLaunchCallBack();
         this.checkGpsSetting();
         this.checkAgreement();
@@ -123,10 +123,9 @@ export class BeanView extends cc.Component {
     protected onDestroy(): void {
         Logger.debug("LobbyView.onDestroy");
         this.eventTarget.emit("destroy");
-        this.lm.nimSDK.close();
+        // this.lm.nimSDK.close();
         SoundMgr.stopMusic();
         this.unregisterHandler();
-        this.announcementText.node.stopAllActions();
 
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             Logger.debug("LobbyView wx.offShow(this.wxShowCallBackFunction);");
