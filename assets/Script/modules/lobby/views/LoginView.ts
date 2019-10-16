@@ -8,7 +8,8 @@ import { LMsgCenter } from "../LMsgCenter";
 import { proto as protoHH } from "../protoHH/protoHH";
 import { LocalStrings } from "../strings/LocalStringsExports";
 import { md5 } from "../utility/md5";
-import { LobbyView } from "./LobbyView";
+import { BeanView } from "./BeanView";
+// import { LobbyView } from "./LobbyView";
 import { OpenType, PhoneAuthView } from "./PhoneAuthView";
 
 const { ccclass } = cc._decorator;
@@ -172,7 +173,7 @@ export class LoginView extends cc.Component {
         this.win.dispose();
         Dialog.hideDialog();
 
-        this.addComponent(LobbyView);
+        this.addComponent(BeanView);
     }
 
     public requestPhoneLogin(phone: string, code: string, callback: Function): void {
