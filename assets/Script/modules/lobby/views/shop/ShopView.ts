@@ -75,10 +75,8 @@ export class ShopView extends cc.Component {
         win.modal = true;
 
         this.win = win;
-        this.initView();
+        this.initView(page);
         this.win.show();
-        const tabCtrl = this.view.getController("tab");
-        tabCtrl.selectedIndex = page;
     }
 
     protected onLoad(): void {
@@ -104,7 +102,7 @@ export class ShopView extends cc.Component {
 
     }
 
-    private initView(): void {
+    private initView(page: TabType): void {
         const closeBtn = this.view.getChild("closeBtn");
         closeBtn.onClick(this.onCloseClick, this);
 
@@ -114,9 +112,18 @@ export class ShopView extends cc.Component {
         const douBtn = this.view.getChild("douBtn").asButton;
         douBtn.onClick(this.onDouBtnClick, this);
 
-        this.initShopCardView();
         this.initShopBeansView();
-        this.initVipView();
+
+        const tabCtrl = this.view.getController("tab");
+        if (LEnv.underReview) {
+            tabCtrl.selectedIndex = 1;
+            douBtn.visible = false;
+            fkBtn.visible = false;
+        } else {
+            tabCtrl.selectedIndex = page;
+            this.initShopCardView();
+            this.initVipView();
+        }
     }
 
     private initShopCardView(): void {

@@ -79,6 +79,8 @@ export namespace LEnv {
     export const phoneAuthCode = "{0}/zyqp/common/authcode?app={1}&phone={2}";
 
     export const shareUrl = "";
+
+    export const underReview = true;
     export const cfmt = (str: string, ...args: any[]): string => { // tslint:disable-line:no-any
         return str.replace(/{(\d+)}/g, (match, n) => {
             return (typeof args[n]) !== "undefined"
