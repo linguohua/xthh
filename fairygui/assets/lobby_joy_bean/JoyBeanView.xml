@@ -11,7 +11,7 @@
       <gearDisplay controller="tishen" pages="0"/>
     </image>
     <image id="n8_82t1" name="dou" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="306,24"/>
-    <image id="n33_n7xe" name="wxImg" src="n7xe1t" fileName="resource/dt_btn_wx.png" xy="195,24">
+    <image id="n33_n7xe" name="wxImg" src="n7xe1t" fileName="resource/dt_btn_wx.png" xy="195,24" visible="false">
       <gearDisplay controller="tishen" pages="0"/>
     </image>
     <image id="n27_h7gn" name="fk" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="540,18">

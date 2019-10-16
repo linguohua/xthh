@@ -1,5 +1,5 @@
 import { GameError } from "../../errorCode/ErrorCodeExports";
-import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger, SoundMgr } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, KeyConstants, LobbyModuleInterface, Logger, SoundMgr, LEnv } from "../../lcore/LCoreExports";
 import { proto } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 import { AgreementView } from "../AgreementView";
@@ -191,14 +191,12 @@ export class UserInfoView extends cc.Component {
         this.userInfo = userInfo;
 
         const role = userInfo.getController("role");
-
         this.headLoader = userInfo.getChild("loader").asLoader;
         this.girlRadioBtn = userInfo.getChild("girlRadioBtn").asButton;
         this.boyRadioBtn = userInfo.getChild("boyRadioBtn").asButton;
 
         this.modifyBtn = userInfo.getChild("modifyBtn").asButton;
         this.modifyBtn.onClick(this.onModifyBtnClick, this);
-
         this.saveModifyBtn = userInfo.getChild("saveModifyBtn").asButton;
         this.saveModifyBtn.onClick(this.onSaveModifyBtnClick, this);
 
@@ -212,7 +210,6 @@ export class UserInfoView extends cc.Component {
         boyRadioBtn.onClick(this.onBoyRadioBtnClick, this);
 
         this.mountNode = userInfo.getChild("mountNode");
-
         // 由于fgui输入框有问题，挂载一个cocos creator的editBox
         const nameObj = userInfo.getChild("name");
         const editBoxNode = await this.loadEditBox();
@@ -230,6 +227,11 @@ export class UserInfoView extends cc.Component {
         this.phone = userInfo.getChild("phone");
         const phoneText = userInfo.getChild("phoneText");
         phoneText.text = LocalStrings.findString("bindPhone");
+
+        if (LEnv.underReview) {
+            userInfo.getChild("fkCombine").visible = false;
+            this.fkText.visible = false;
+        }
 
         this.phone.visible = true;
         this.changeIconBtn = userInfo.getChild("changeIconBtn").asButton;
@@ -257,9 +259,7 @@ export class UserInfoView extends cc.Component {
         }
 
         CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
-
         this.initGameRecord();
-
         const channel = DataStore.getString(KeyConstants.CHANNEL);
         if (channel !== Enum.CHANNEL_TYPE.VISITOR) {
             // this.userName.enabled = false;

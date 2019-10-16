@@ -834,10 +834,26 @@ export class BeanView extends cc.Component {
 
         this.beansText = this.view.getChild("douText").asTextField;
         this.fkText = this.view.getChild("fkText").asTextField;
+        this.nameText = this.view.getChild("nameText").asTextField;
 
         this.beansText.text = DataStore.getString(KeyConstants.BEANS);
         this.fkText.text = DataStore.getString(KeyConstants.CARD);
+        this.nameText.text = CommonFunction.nameFormatWithCount(DataStore.getString(KeyConstants.NICK_NAME), 6);
+
+        const gender = DataStore.getString(KeyConstants.GENDER, "");
+        const avatarURL = DataStore.getString(KeyConstants.AVATAR_URL, "");
+        const avatarIndex = DataStore.getString(KeyConstants.AVATAR_INDEX, "0");
+        this.headLoader = this.view.getChild("iconLoader").asLoader;
+        this.headLoader.onClick(this.onUserInfoClick, this);
+        CommonFunction.setHead(this.headLoader, avatarURL, +avatarIndex, +gender);
     }
+
+    private onUserInfoClick(): void {
+        SoundMgr.buttonTouch();
+        const view = this.addComponent(UserInfoView);
+        view.showView(UserInfoTabType.BASE_INFO);
+    }
+
     private onCloseBtnClick(): void {
         SoundMgr.buttonTouch();
         this.destroy();
