@@ -1,4 +1,4 @@
-import { CommonFunction, DataStore, Dialog, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr, Enum } from "../../lcore/LCoreExports";
+import { CommonFunction, DataStore, Dialog, Enum, GResLoader, HTTP, KeyConstants, LEnv, Logger, SoundMgr } from "../../lcore/LCoreExports";
 import { proto as protoHH } from "../../protoHH/protoHH";
 import { LocalStrings } from "../../strings/LocalStringsExports";
 
@@ -357,8 +357,9 @@ export class ShopView extends cc.Component {
         const userID = DataStore.getString(KeyConstants.USER_ID, "");
         // const ticket = DataStore.getString(KeyConstants.TICKET, "");
         // const userID = encodeURIComponent(DataStore.getString(KeyConstants.USER_ID, ""));
+        const gameid = LEnv.app === "h5casino" ? 2222 : 2;
         const ticket = encodeURIComponent(DataStore.getString(KeyConstants.TICKET, ""));
-        const url = LEnv.cfmt(`${LEnv.rootURL}${LEnv.payUrl}?ticket=${ticket}`, 2, userID);
+        const url = LEnv.cfmt(`${LEnv.rootURL}${LEnv.payUrl}?ticket=${ticket}`, gameid, userID);
         Logger.debug("url:", url);
         Logger.debug("req:", req);
         HTTP.hPost(
@@ -393,7 +394,7 @@ export class ShopView extends cc.Component {
                 Logger.debug("responseText:", xhr.responseText);
                 const result = <{ ret: number; msg: string; data: { sandbox: boolean } }>JSON.parse(xhr.responseText);
                 if (result.ret !== 0) {
-                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}, data:${result.data.sandbox}`);
+                    Logger.error(`requestServerShipments failed, code:${result.ret}, msg:${result.msg}`);
                     // -22 是余额不足
                     if (result.ret === -22 && isContinue) {
                         this.onBuyToWX(payCfg, result.data.sandbox);
