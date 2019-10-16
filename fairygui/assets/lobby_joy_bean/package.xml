@@ -21,6 +21,8 @@
     <component id="h7gnm" name="senior.xml" path="/"/>
     <image id="a2w9o" name="hlddt_zi_gxnhd.png" path="/_resource/"/>
     <image id="a2w91r" name="cz_icon_hld2.png" path="/_resource/"/>
+    <image id="n7xe1s" name="dt_zydi.png" path="/resource/" scale="9grid" scale9grid="16,9,4,18"/>
+    <image id="n7xe1t" name="dt_btn_wx.png" path="/resource/"/>
   </resources>
   <publish name="lobby_joy_bean"/>
 </packageDescription>

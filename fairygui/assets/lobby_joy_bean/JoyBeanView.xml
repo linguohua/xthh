@@ -1,24 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="1136,640" designImage="ui://sgra0tjv82t18" designImageAlpha="100">
+  <controller name="tishen" pages="0,yes,1,no" selected="0"/>
   <displayList>
     <image id="n0_82t1" name="bg" src="82t10" fileName="_resource/hlddt_bj.jpg" xy="568,320" pivot="0.5,0.5" anchor="true"/>
     <image id="n25_h7gn" name="bg1" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="326,24" size="180,40"/>
-    <image id="n26_h7gn" name="bg2" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="563,24" size="165,40"/>
+    <image id="n26_h7gn" name="bg2" src="h7gn1f" fileName="resource/dt_zydi.png" pkg="snwj6cnx" xy="563,24" size="165,40">
+      <gearDisplay controller="tishen" pages="1"/>
+    </image>
+    <image id="n32_n7xe" name="bg6" src="n7xe1s" fileName="resource/dt_zydi.png" xy="49,23" size="188,34">
+      <gearDisplay controller="tishen" pages="0"/>
+    </image>
     <image id="n8_82t1" name="dou" src="ik119" fileName="resource/ty_icon_hld.png" pkg="snwj6cnx" xy="306,24"/>
-    <image id="n27_h7gn" name="fk" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="540,18"/>
-    <component id="n1_82t1" name="returnBtn" src="82t116" fileName="commonBtn/returnBtn.xml" pkg="snwj6cnx" xy="22,9" scale="1.1,1.1"/>
+    <image id="n33_n7xe" name="wxImg" src="n7xe1t" fileName="resource/dt_btn_wx.png" xy="195,24">
+      <gearDisplay controller="tishen" pages="0"/>
+    </image>
+    <image id="n27_h7gn" name="fk" src="ik118" fileName="resource/ty_icon_fk.png" pkg="snwj6cnx" xy="540,18">
+      <gearDisplay controller="tishen" pages="1"/>
+    </image>
+    <component id="n1_82t1" name="returnBtn" src="82t116" fileName="commonBtn/returnBtn.xml" pkg="snwj6cnx" xy="22,9" scale="1.1,1.1">
+      <gearDisplay controller="tishen" pages="1"/>
+    </component>
     <component id="n9_82t1" name="addDouBtn" src="82t11e" fileName="commonBtn/addBtn.xml" pkg="snwj6cnx" xy="465,21" scale="1.2,1.2"/>
-    <component id="n10_82t1" name="addFKBtn" src="82t11e" fileName="commonBtn/addBtn.xml" pkg="snwj6cnx" xy="694,21" scale="1.2,1.2"/>
+    <component id="n10_82t1" name="addFKBtn" src="82t11e" fileName="commonBtn/addBtn.xml" pkg="snwj6cnx" xy="694,21" scale="1.2,1.2">
+      <gearDisplay controller="tishen" pages="1"/>
+    </component>
     <component id="n11_82t1" name="shareBtn" src="82t11c" fileName="commonBtn/shareBtn.xml" pkg="snwj6cnx" xy="769,10"/>
     <component id="n12_82t1" name="settingBtn" src="82t11b" fileName="commonBtn/settingBtn.xml" pkg="snwj6cnx" xy="850,11"/>
     <component id="n13_82t1" name="shopBtn" src="82t11d" fileName="commonBtn/shopBtn.xml" pkg="snwj6cnx" xy="26,520"/>
     <component id="n16_82t1" name="playQuicklyBtn" src="82t1f" fileName="_btn/playQuicklyBtn.xml" xy="435,521"/>
-    <component id="n18_82t1" name="freeBtn" src="82t1g" fileName="_btn/freeBtn.xml" xy="886,478"/>
+    <component id="n18_82t1" name="freeBtn" src="82t1g" fileName="_btn/freeBtn.xml" xy="886,478">
+      <gearDisplay controller="tishen" pages="1"/>
+    </component>
     <component id="n20_82t1" name="junior" src="82t1h" fileName="junior.xml" xy="96,129"/>
     <component id="n30_ojmm" name="middle" src="h7gnl" fileName="middle.xml" xy="429,129"/>
     <component id="n31_ojmm" name="senior" src="h7gnm" fileName="senior.xml" xy="762,129"/>
-    <component id="n24_82t1" name="lotteryViewBtn" src="82t1k" fileName="_btn/lotteryViewBtn.xml" xy="1031,111"/>
+    <component id="n24_82t1" name="lotteryViewBtn" src="82t1k" fileName="_btn/lotteryViewBtn.xml" xy="1031,111">
+      <gearDisplay controller="tishen" pages="1"/>
+    </component>
     <text id="n28_h7gn" name="douText" xy="348,28" size="115,36" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" text="0"/>
-    <text id="n29_h7gn" name="fkText" xy="584,28" size="115,36" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" text="88888888&#xA;"/>
+    <text id="n29_h7gn" name="fkText" xy="584,28" size="115,36" fontSize="22" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" text="88888888&#xA;">
+      <gearDisplay controller="tishen" pages="1"/>
+    </text>
+    <text id="n35_n7xe" name="nameText" xy="69,26" size="122,29" fontSize="20" color="#ffffdd" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="同学同学同学">
+      <gearDisplay controller="tishen" pages="0"/>
+    </text>
+    <loader id="n34_n7xe" name="iconLoader" xy="8,8" size="60,60" url="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83er5prllVA37yiac4Vv8ZAXwbg0Zicibn6ZjsgJ4ha0hmFBY8MUTRMnRTmSlvzPd8XJZzd0icuyGoiakj4A/132" align="center" vAlign="middle" fill="scale">
+      <gearDisplay controller="tishen" pages="0"/>
+    </loader>
   </displayList>
 </component>
