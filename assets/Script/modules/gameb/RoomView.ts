@@ -1,4 +1,4 @@
-import { DataStore, Dialog, KeyConstants, Logger, SoundMgr } from "../lobby/lcore/LCoreExports";
+import { DataStore, Dialog, KeyConstants, Logger, SoundMgr, LEnv } from "../lobby/lcore/LCoreExports";
 import { proto as protoHH } from "../lobby/protoHH/protoHH";
 import { LocalStrings } from "../lobby/strings/LocalStringsExports";
 import { ChatView } from "../lobby/views/chat/ChatExports";
@@ -118,7 +118,7 @@ export class RoomView {
             this.anteBg.visible = true;
             this.dbg.visible = true;
             this.laiziCom.visible = true;
-            this.energyBtn.visible = true;
+            this.energyBtn.visible = !LEnv.underReview;
         }
     }
 
@@ -696,6 +696,9 @@ export class RoomView {
     }
 
     private refreshPowerProgress(): void {
+        if (LEnv.underReview) {
+            return;
+        }
         const luckyDataStr = DataStore.getString(KeyConstants.TURN_TABLE);
         const energyTurnableData = <protoHH.casino.energy_turnable[]>JSON.parse(luckyDataStr);
         let data;
