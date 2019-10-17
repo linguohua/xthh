@@ -30,6 +30,8 @@
     <image id="hjqcl" name="dl_btzi_bdsjh.png" path="/resource/"/>
     <component id="hjqcm" name="inputPhone.xml" path="/"/>
     <component id="hjqcn" name="inputAuth.xml" path="/"/>
+    <image id="n7xeo" name="dl_zi_zyxthh.png" path="/resource/"/>
+    <image id="n7xep" name="d_登录0.jpg" path="/design/"/>
   </resources>
   <publish name="lobby_login"/>
 </packageDescription>
