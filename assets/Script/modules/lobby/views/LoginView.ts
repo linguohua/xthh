@@ -95,7 +95,10 @@ export class LoginView extends cc.Component {
     }
 
     public updateProgressBar(progress: number): void {
-        this.progressBar.value = progress * 100;
+        if (this.progressBar !== undefined && this.progressBar !== null) {
+            this.progressBar.value = progress * 100;
+        }
+
         if (this.progressText !== undefined && this.progressText !== null) {
 
             const text = progress * 100;
