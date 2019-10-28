@@ -1275,14 +1275,18 @@ export class PlayerViewA {
     private initLights(): void {
         const lights: fgui.GComponent[] = [];
         this.myLightilesNode = this.myView.getChild("lights").asCom;
-        for (let i = 0; i < 14; i++) {
-            const h = this.myLightilesNode.getChild(`n${i + 1}`).asCom;
-            const huoPos = h.getChild("huo").asCom;
-            this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, huoPos.getChild("n0").node);
-            huoPos.visible = false;
-            lights[i] = h;
-        }
-        this.lights = lights;
+
+        const cb = (): void => {
+            for (let i = 0; i < 14; i++) {
+                const h = this.myLightilesNode.getChild(`n${i + 1}`).asCom;
+                const huoPos = h.getChild("huo").asCom;
+                this.roomHost.animationMgr.play(`lobby/prefabs/huanghuang/Effect_ico_majiang`, huoPos.getChild("n0").node);
+                huoPos.visible = false;
+                lights[i] = h;
+            }
+            this.lights = lights;
+        };
+        this.roomHost.animationMgr.getAnimationHolder(`lobby/prefabs/huanghuang/Effect_ico_majiang`, cb);
     }
 
     //打出的牌列表
